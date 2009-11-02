@@ -1,7 +1,16 @@
+<%= javascript_include_tag "jquery/jquery-1.3.2.js" %>
+<%= javascript_include_tag "jquery/jquery.selectchain.js" %>
+<%= javascript_include_tag :all, :cache => true %>
+
 <h1>Editing article</h1>
 
 <% form_for(@article) do |f| %>
   <%= f.error_messages %>
+
+  <p>
+    Sample autocomplete field<br />
+    <%= text_field_with_auto_complete :record, :value, {}, :method => :get %>
+  </p>
 
   <p>
     <%= f.label :record_code %><br />

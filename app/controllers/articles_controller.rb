@@ -94,6 +94,12 @@ class ArticlesController < ApplicationController
   def approve_emails
 	@emails = Article.fetch_and_approve(:emails)
   end
-	
+
+  # GET /articles/auto_complete_for_record_value
+  def auto_complete_for_record_value
+    @items = Gpc.find_complete_values(params[:record][:value])
+
+    render :inline => "<%= auto_complete_result(@items, 'name') %>"
+  end
 	
 end
