@@ -1,0 +1,18 @@
+<p>
+  <b>Record code:</b>
+  <%=h @article.record_code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @article.name %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= show_status(@article.status) %>
+</p>
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

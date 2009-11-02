@@ -1,0 +1,9 @@
+processed articles with subjects:
+<% unless @emails.empty? %>
+	<% @emails.each do |email| %>
+		<p><%= email.subject %></p>
+	<% end %>
+<% else %>
+	There are no new emails.
+<% end %>
+<p><%= link_to 'Articles list', articles_path %></p>
