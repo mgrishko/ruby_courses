@@ -24,7 +24,11 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   # GET /articles/new.xml
   def new
-    @article = Article.new
+    if params[:base].nil?
+      @article = Article.new
+    else
+      @article = Article.find(params[:base].to_i)
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +45,7 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
+    @article.update_status Article.DRAFT
 
     respond_to do |format|
       if @article.save
