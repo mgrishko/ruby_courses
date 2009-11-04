@@ -45,7 +45,7 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
-    @article.update_status Article.DRAFT
+    @article.set_default_status
 
     respond_to do |format|
       if @article.save
