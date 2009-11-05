@@ -9,3 +9,13 @@ two:
   record_code: 1
   name: MyString
   status: 1
+parent:
+  id: 123
+  article_id: 123
+  name: Simple parent row for packaging_items
+  status: 1
+not_a_parent:
+  id: 666
+  article_id: 123
+  name: There is no child rows in this article
+  status: 1

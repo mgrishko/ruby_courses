@@ -1,6 +1,7 @@
 class PackagingItemsController < ApplicationController
   before_filter :require_article
   before_filter :check_for_parent
+  before_filter :require_packaging_item, :only => [:show, :edit, :destroy, :update]
 
   def check_for_parent
     if params[:parent_id]
@@ -10,6 +11,14 @@ class PackagingItemsController < ApplicationController
 
   def require_article
     @article = Article.find(params[:article_id])
+  end
+
+  def require_packaging_item
+    @packaging_item = PackagingItem.find_by_id_and_article_id(params[:id], @article.id)
+    
+    if @packaging_item.nil?
+      raise ActiveRecord::RecordNotFound
+    end
   end
   # GET /packaging_items
   # GET /packaging_items.xml
@@ -29,7 +38,6 @@ class PackagingItemsController < ApplicationController
   # GET /packaging_items/1
   # GET /packaging_items/1.xml
   def show
-    @packaging_item = PackagingItem.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -79,8 +87,6 @@ class PackagingItemsController < ApplicationController
   # PUT /packaging_items/1
   # PUT /packaging_items/1.xml
   def update
-    @packaging_item = PackagingItem.find(params[:id])
-
     respond_to do |format|
       if @packaging_item.update_attributes(params[:packaging_item])
         flash[:notice] = 'PackagingItem was successfully updated.'
@@ -96,7 +102,6 @@ class PackagingItemsController < ApplicationController
   # DELETE /packaging_items/1
   # DELETE /packaging_items/1.xml
   def destroy
-    @packaging_item = PackagingItem.find(params[:id])
     @packaging_item.destroy
 
     respond_to do |format|

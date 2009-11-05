@@ -1,7 +1,21 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+one:
+  item_name_long_ru: asdfasdf
+  record_code: 123123
+
+two:
+  id: 2
+  item_name_long_ru: asdfasdf
+  record_code: 123123
+  article_id: 1
+
+nested_1_deep:
+  item_name_long_ru: asdfsdfasdf
+  record_code: 11111111111
+  packaging_item_id: 2
+
+child_of_an_article:
+  article_id: 123
+  item_name_long_ru: Child of parent article
+  record_code: 123123123123
