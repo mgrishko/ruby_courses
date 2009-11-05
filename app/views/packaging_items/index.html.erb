@@ -7,6 +7,7 @@
   <tr>
     <td><%=h packaging_item.name %>
     <td><%= link_to 'Show', article_packaging_item_path(@article, packaging_item) %></td>
+    <td><%= link_to_item_with_count 'List children', article_packaging_items_path(@article, packaging_item, :parent_id => packaging_item.id), packaging_item.children.count %></td>
     <td><%= link_to 'Edit', edit_article_packaging_item_path(@article, packaging_item) %></td>
     <td><%= link_to 'Destroy', [@article, packaging_item], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
@@ -15,4 +16,7 @@
 
 <br />
 
-<%=render :partial => "url_bar", :locals => {:article => @article} %>
+<%=render :partial => "url_bar", :locals => {:article => @article, :disable_new => true} %>
+<% if defined? @parent %>
+  | <%= link_to 'Up', article_packaging_items_path(@article, :parent_id => @parent.parent ? @parent.parent.id : nil) %>
+<% end %>

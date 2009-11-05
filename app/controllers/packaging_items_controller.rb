@@ -1,5 +1,12 @@
 class PackagingItemsController < ApplicationController
   before_filter :require_article
+  before_filter :check_for_parent
+
+  def check_for_parent
+    if params[:parent_id]
+      @parent = PackagingItem.find(params[:parent_id].to_i)
+    end
+  end
 
   def require_article
     @article = Article.find(params[:article_id])
@@ -7,7 +14,11 @@ class PackagingItemsController < ApplicationController
   # GET /packaging_items
   # GET /packaging_items.xml
   def index
-    @packaging_items = @article.packaging_items
+    if @parent
+      @packaging_items = @parent.children
+    else
+      @packaging_items = @article.packaging_items
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,7 +57,12 @@ class PackagingItemsController < ApplicationController
   # POST /packaging_items.xml
   def create
     @packaging_item = PackagingItem.new(params[:packaging_item])
-    @packaging_item.article_id = @article.id
+
+    if params[:parent_id]
+      @packaging_item.packaging_item_id = @parent.id
+    else
+      @packaging_item.article_id = @article.id
+    end
 
     respond_to do |format|
       if @packaging_item.save
@@ -84,7 +100,7 @@ class PackagingItemsController < ApplicationController
     @packaging_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(packaging_items_url) }
+      format.html { redirect_to(article_packaging_items_url) }
       format.xml  { head :ok }
     end
   end

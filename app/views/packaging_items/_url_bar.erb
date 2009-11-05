@@ -1,5 +1,6 @@
 <% if !defined?(disable_new) %>
-<%= link_to 'New packaging_item', new_article_packaging_item_path %> | 
+  <%url = (defined?(packaging_item) ? hash_for_new_article_packaging_item_path.merge(:parent_id => packaging_item) : new_article_packaging_item_path) %>
+  <%= link_to 'New packaging_item', url %> | 
 <% end %>
 <% if defined?(packaging_item) %>
   <%= link_to 'Edit', edit_article_packaging_item_path(article, packaging_item) %> |
