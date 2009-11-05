@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+  has_many :packaging_items
 	before_create :set_default_status
 	
 	DRAFT = 1

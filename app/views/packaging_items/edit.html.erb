@@ -1,0 +1,22 @@
+<h1>Editing packaging_item</h1>
+
+<% form_for([@article, @packaging_item]) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :record_code %><br />
+    <%= f.text_field :record_code %>
+  </p>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name%>
+  </p>
+
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%=render :partial => "url_bar", :locals => {:article => @article} %> |
+<%= link_to 'Back', article_packaging_item_path(@article, @packaging_item) %>

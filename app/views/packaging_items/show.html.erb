@@ -1,0 +1,7 @@
+Name: <%=h @packaging_item.name %><br />
+Code: <%=h @packaging_item.record_code %><br />
+
+<%=debug @packaging_item%>
+
+<%=render :partial => "url_bar", :locals => {:article => @article, :packaging_item => @packaging_item} %>
+

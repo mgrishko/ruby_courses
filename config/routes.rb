@@ -1,9 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.connect 'articles/send_for_change_shatus/:id', :controller => 'articles', :action => 'send_for_change_shatus'
   map.connect 'approve_emails', :controller => 'articles', :action => 'approve_emails'
   map.connect 'articles/auto_complete_for_record_value', :controller=> 'articles', :action => 'auto_complete_for_record_value'
-  map.resources :articles
+
+  map.resources :articles do |articles|
+    articles.resources :packaging_items
+  end
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -36,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
+  map.root :controller => "articles"
 
   # See how all your routes lay out with "rake routes"
 

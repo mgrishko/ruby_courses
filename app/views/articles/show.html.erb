@@ -13,6 +13,7 @@
   <%= show_status(@article.status) %>
 </p>
 
-
 <%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Создать PackagingItem', new_article_packaging_item_path(@article) %> |
+<%= link_to_item_with_count 'Посмотреть все PackagingItems', article_packaging_items_path(@article), @article.packaging_items.count %>
 <%= link_to 'Back', articles_path %>
