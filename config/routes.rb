@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+
   map.connect 'articles/send_for_change_shatus/:id', :controller => 'articles', :action => 'send_for_change_shatus'
   map.connect 'approve_emails', :controller => 'articles', :action => 'approve_emails'
   map.connect 'articles/auto_complete_for_record_value', :controller=> 'articles', :action => 'auto_complete_for_record_value'
