@@ -1,5 +1,4 @@
 <h1>New packaging_item</h1>
-<%=debug @parent %>
 
 <% form_for(@packaging_item, :url => {:controller => :packaging_items, :action => :create, :parent_id => defined?(@parent) ? @parent.id : nil}) do |f| %>
   <%= f.error_messages %>

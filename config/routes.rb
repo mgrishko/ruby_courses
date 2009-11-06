@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users
+  map.connect 'login', :controller => :user_sessions, :action => :login
+  map.connect 'logout', :controller => :user_sessions, :action => :logout
 
   map.connect 'articles/send_for_change_shatus/:id', :controller => 'articles', :action => 'send_for_change_shatus'
   map.connect 'approve_emails', :controller => 'articles', :action => 'approve_emails'
@@ -8,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :articles do |articles|
     articles.resources :packaging_items
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
