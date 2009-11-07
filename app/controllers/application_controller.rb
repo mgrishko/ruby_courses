@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       unless current_user.id
         store_location
         flash[:notice] = "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-        redirect_to new_user_sessions_url
+        redirect_to root_url
         return false
       end
     end
