@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  validates_uniqueness_of :gln
   acts_as_authentic do |a|
     a.validate_login_field = false
     a.validate_password_field = true
