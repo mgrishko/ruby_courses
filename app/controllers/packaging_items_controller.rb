@@ -68,9 +68,9 @@ class PackagingItemsController < ApplicationController
 
     if params[:parent_id]
       @packaging_item.packaging_item_id = @parent.id
-    else
-      @packaging_item.article_id = @article.id
     end
+
+    @packaging_item.article_id = @article.id
 
     respond_to do |format|
       if @packaging_item.save

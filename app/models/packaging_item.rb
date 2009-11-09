@@ -1,7 +1,7 @@
 class PackagingItem < ActiveRecord::Base
   set_table_name :packaging_items
   acts_as_tree :foreign_key => :packaging_item_id
-  belongs_to :articles
+  belongs_to :articles, :conditions => {:packaging_item_id => nil}
 
   def name
     item_name_long_ru
