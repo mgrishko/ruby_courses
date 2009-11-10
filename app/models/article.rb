@@ -48,24 +48,8 @@ class Article < ActiveRecord::Base
   end
   
   def self.fetch_and_approve
-    mails = MailOperations.fetch_new_emails
-    processed = []
-    mails.each do |mail|
-      article_code, new_status = MailOperations.get_articlecode_and_status(mail)
-      
-      unless article_code.nil?
-      
-        art = Article.find_by_gtin(article_code, :select => 'id, status' )
-        unless art.nil?
-          art.update_status new_status
-          art.save
-          
-          # save emails for reports
-          processed.push(mail)
-        end
-      end
-    end
-    processed
+    MailOperations.fetch_emails_via_imap
+    ArticleMailer.processed_data
   end
 
   def deliver_approve_email

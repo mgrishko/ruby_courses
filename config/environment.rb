@@ -90,6 +90,8 @@ APP_CONFIG[:mail] = {
 		:smtp_authentication => :plain,
 	},
 	:client => {
+        :imap_port => 993,
+        :imap_address => 'imap.gmail.com',
 		:email => "client.ror.account@gmail.com",
 		:password  => '12381238',
 		:smtp_address => "smtp.gmail.com",
