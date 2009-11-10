@@ -2,20 +2,20 @@
 
 one:
   item_name_long_ru: asdfasdf
-  gtin: 123123
+  gtin: 11111115
 
 two:
   id: 2
   item_name_long_ru: asdfasdf
-  gtin: 123123
+  gtin: 11111122
   article_id: 1
 
 nested_1_deep:
   item_name_long_ru: asdfsdfasdf
-  gtin: 11111111111
+  gtin: 11111139
   packaging_item_id: 2
 
 child_of_an_article:
   article_id: 123
   item_name_long_ru: Child of parent article
-  gtin: 123123123123
+  gtin: 11111146

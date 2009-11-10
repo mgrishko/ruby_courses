@@ -1,21 +1,24 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  gtin: 12345
+#Valid gtin
+  gtin: 11111115
   name: MyString
   status: 1
 
 two:
-  gtin: 23456
+  gtin: 11111122
   name: MyString
   status: 1
 parent:
   id: 123
+  gtin: 11111139
   article_id: 123
   name: Simple parent row for packaging_items
   status: 1
 not_a_parent:
   id: 666
+  gtin: 11111146
   article_id: 123
   name: There is no child rows in this article
   status: 1
