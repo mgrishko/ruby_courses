@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :articles
+  has_many :packaging_items
   validates_uniqueness_of :gln
   acts_as_authentic do |a|
     a.validate_login_field = false

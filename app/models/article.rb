@@ -3,6 +3,7 @@ class Article < ActiveRecord::Base
   validates_gtin
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   before_create :set_default_status
+  belongs_to :user
 	
 	DRAFT = 1
 	PUBLISHED = 2
