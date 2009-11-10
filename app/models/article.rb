@@ -1,4 +1,6 @@
 class Article < ActiveRecord::Base
+  include GtinFieldValidations
+  validates_gtin
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   before_create :set_default_status
 	
