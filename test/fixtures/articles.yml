@@ -1,12 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  record_code: 1
+  gtin: 1
   name: MyString
   status: 1
 
 two:
-  record_code: 1
+  gtin: 1
   name: MyString
   status: 1
 parent:

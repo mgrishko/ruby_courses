@@ -2,8 +2,9 @@
 
 one:
   gln: 1
-  password: MyString
+  #md5('test')
+  pw_hash: 098f6bcd4621d373cade4e832627b4f6
 
 two:
   gln: 1
-  password: MyString
+  pw_hash: MyString

@@ -9,7 +9,7 @@
 
 <% for article in @articles %>
   <tr>
-    <td><%=h article.record_code %></td>
+    <td><%=h article.gtin %></td>
     <td><%=h article.name %></td>
     <td><%= show_status(article.status) %></td>
     <td><%= link_to 'Show', article %></td>
