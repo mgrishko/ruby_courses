@@ -21,7 +21,11 @@
   </p>
   <p>
     <%= f.label :status %><br />
-    <%= show_status(@article.status) %>
+    <%= @article.print_status %>
+  </p>
+  <p>
+    <%=check_box_tag :publish%>
+    <%=label_tag :publish, "Publish record ?"%>
   </p>
   <p>
     <%= f.submit "Create" %>

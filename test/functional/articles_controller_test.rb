@@ -42,4 +42,8 @@ class ArticlesControllerTest < ActionController::TestCase
 
     assert_redirected_to articles_path
   end
+
+  test "should send email on creating " do 
+      post :create, :article => { :gtin => 31 }
+  end
 end

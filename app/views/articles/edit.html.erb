@@ -22,7 +22,7 @@
   </p>
   <p>
     <%= f.label :status %><br />
-    <%= show_status(@article.status) %>
+    <%= @article.print_status %>
   </p>
   <p>
     <%= f.submit "Update" %>

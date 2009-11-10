@@ -47,9 +47,17 @@ class ArticlesController < ApplicationController
     @article = Article.new(params[:article])
     @article.set_default_status
 
+    if params[:publish]
+      @article.deliver_approve_email
+    end
+
     respond_to do |format|
       if @article.save
-        flash[:notice] = 'Article was successfully created.'
+        if params[:publish]
+          flash[:notice] = 'Article was successfully created and sent'
+        else
+          flash[:notice] = 'Article was successfully created.'
+        end
         format.html { redirect_to(@article) }
         format.xml  { render :xml => @article, :status => :created, :location => @article }
       else
@@ -89,15 +97,22 @@ class ArticlesController < ApplicationController
   end
 
   def send_for_change_shatus
-	article = Article.find_by_id params[:id]
-	ArticleMailer.deliver_approve_email(article)
-	flash[:notice] = 'The email was send'
-	redirect_to :action => 'index'
+    article = Article.find_by_id params[:id]
+    if article.get_status == :draft
+      article.deliver_approve_email
+      article.save
+      flash[:notice] = 'The email was sent'
+    elsif article.get_status == :disabled
+      flash[:notice] = 'The email was sent earlier, waiting for approving'
+    else
+      flash[:notice] = 'You already recieved answer for this record'
+    end
+    redirect_to :action => 'index'
   end
 
   # GET /approve_emails
   def approve_emails
-	@emails = Article.fetch_and_approve(:emails)
+    @emails = Article.fetch_and_approve
   end
 
   # GET /articles/auto_complete_for_record_value
@@ -106,5 +121,5 @@ class ArticlesController < ApplicationController
 
     render :inline => "<%= auto_complete_result(@items, 'name') %>"
   end
-	
+    
 end

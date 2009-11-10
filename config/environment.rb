@@ -86,7 +86,7 @@ APP_CONFIG[:mail] = {
 		:smtp_port => '587',
 		:pop_address => 'pop.gmail.com',
 		:pop_port => 995,
-		:domain => "yurrasmb.local",
+		:domain => "localhost",
 		:smtp_authentication => :plain,
 	},
 	:client => {
@@ -95,7 +95,7 @@ APP_CONFIG[:mail] = {
 		:smtp_address => "smtp.gmail.com",
 		:pop_address => 'pop.gmail.com',
 		:pop_port => 995,
-		:domain => "yurrasmb.local",
+		:domain => "localhost",
 		:smtp_port => '587',
 		:smtp_authentication => :plain,
 	}
@@ -103,6 +103,7 @@ APP_CONFIG[:mail] = {
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
+    :enable_starttls_auto => true,
 	:address => APP_CONFIG[:mail][:client][:smtp_address],
 	:port => APP_CONFIG[:mail][:client][:smtp_port],
 	:domain => APP_CONFIG[:mail][:client][:domain],

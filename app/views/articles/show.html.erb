@@ -10,7 +10,7 @@
 
 <p>
   <b>Status:</b>
-  <%= show_status(@article.status) %>
+  <%=@article.print_status %>
 </p>
 <div style="border:1px solid black">
   <%=tree_to_list(@article.packaging_items) {|packaging_item|
