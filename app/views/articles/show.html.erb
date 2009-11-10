@@ -12,6 +12,15 @@
   <b>Status:</b>
   <%= show_status(@article.status) %>
 </p>
+<div style="border:1px solid black">
+  <%=tree_to_list(@article.packaging_items) {|packaging_item|
+    sprintf("%s (%s)",
+            link_to(packaging_item.name, article_packaging_item_path(@article, packaging_item)),
+            [ link_to('New', hash_for_new_article_packaging_item_path.merge(:article_id => @article, :parent_id => packaging_item)),
+                link_to('Edit', edit_article_packaging_item_path(@article, packaging_item)),
+                link_to('Destroy', [@article, packaging_item], :confirm => 'Are you sure?', :method => :delete) ].join(' | '))
+  }%>
+</div>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Создать PackagingItem', new_article_packaging_item_path(@article) %> |

@@ -1,12 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  gtin: 1
+  gtin: 12345
   name: MyString
   status: 1
 
 two:
-  gtin: 1
+  gtin: 23456
   name: MyString
   status: 1
 parent:

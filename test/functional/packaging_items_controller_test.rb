@@ -21,7 +21,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
 
   should "success on packaging item creating" do
     assert_difference('PackagingItem.count', +1) do
-      post :create, :packaging_item => { }, :article_id => article_parent
+      post :create, :packaging_item => { :gtin => 123 }, :article_id => article_parent
     end
   end
 
@@ -48,7 +48,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
       get :destroy, :id => packaging_items(:child_of_an_article), :article_id => article_parent
     end
 
-    assert_redirected_to article_packaging_items_path article_parent
+    assert_redirected_to article_parent
   end
 
   should "throw error when article_id not given" do
@@ -108,7 +108,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
     get :index, :article_id => article_not_a_parent
     assert_response :success
 
-    post :create, :packaging_item => { }, :article_id => article_not_a_parent
-    assert_redirected_to [article_not_a_parent, assigns(:packaging_item)]
+    post :create, :packaging_item => { :gtin => 123 }, :article_id => article_not_a_parent
+    assert_redirected_to article_not_a_parent
   end
 end

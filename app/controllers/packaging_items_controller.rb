@@ -75,7 +75,7 @@ class PackagingItemsController < ApplicationController
     respond_to do |format|
       if @packaging_item.save
         flash[:notice] = 'PackagingItem was successfully created.'
-        format.html { redirect_to([@article, @packaging_item]) }
+        format.html { redirect_to(@article) }
         format.xml  { render :xml => @packaging_item, :status => :created, :location => @packaging_item }
       else
         format.html { render :action => "new" }
@@ -90,7 +90,7 @@ class PackagingItemsController < ApplicationController
     respond_to do |format|
       if @packaging_item.update_attributes(params[:packaging_item])
         flash[:notice] = 'PackagingItem was successfully updated.'
-        format.html { redirect_to([@article, @packaging_item]) }
+        format.html { redirect_to(@article) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -105,7 +105,7 @@ class PackagingItemsController < ApplicationController
     @packaging_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(article_packaging_items_url) }
+      format.html { redirect_to(@article) }
       format.xml  { head :ok }
     end
   end

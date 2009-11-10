@@ -9,4 +9,18 @@ module ApplicationHelper
   def dm
     debug methods
   end
+
+  def tree_to_list(tree, &block)
+    if tree.is_a?(Array)
+      content_tag('ul',
+        tree.map do |item|
+          content_tag('li', block.call(item) + tree_to_list(item.children, &block))
+        end,
+        {}
+      )
+    else
+      debugger
+    end
+  end
+
 end
