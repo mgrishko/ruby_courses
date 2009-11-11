@@ -40,7 +40,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def asdf
-    setup_controller_request_and_response
+    if self.class.method_defined? :setup_controller_request_and_response
+      setup_controller_request_and_response
+    end
     activate_authlogic
   end
 
