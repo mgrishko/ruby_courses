@@ -1,3 +1,4 @@
+<% pi = PackagingItem.new %>
 <p>
   <b>Record code:</b>
   <%=h @article.gtin %>
@@ -14,14 +15,54 @@
 </p>
 <div style="border:1px solid black">
   <%=tree_to_list(@article.packaging_items) {|packaging_item|
-    sprintf("%s (%s)",
+    sprintf("<span class=\"item\">%s (%s)</span>",
             link_to(packaging_item.name, article_packaging_item_path(@article, packaging_item)),
-            [ link_to('New', hash_for_new_article_packaging_item_path.merge(:article_id => @article, :parent_id => packaging_item)),
-                link_to('Edit', edit_article_packaging_item_path(@article, packaging_item)),
-                link_to('Destroy', [@article, packaging_item], :confirm => 'Are you sure?', :method => :delete) ].join(' | '))
+            [ link_to('New', hash_for_new_article_packaging_item_path.merge(:article_id => @article, :parent_id => packaging_item), :class => :pi_new),
+              link_to('Edit', edit_article_packaging_item_path(@article, packaging_item), :class => :pi_edit),
+              link_to('Destroy', [@article, packaging_item], :confirm => 'Are you sure?', :method => :delete, :class => :pi_delete) ].join(' | '))
   }%>
 </div>
+<div id="editform" style="border:3px solid blue;background:white;display:none">
+  edit element
+  <% form_for(pi, :url => [@article, pi]) do |f| %>
+    <p>
+      <%= f.label :gtin %><br />
+      <%= f.text_field :gtin %>
+    </p>
 
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name%>
+    </p>
+  <% end %>
+</div>
+<div id="newform" style="border:3px solid blue;background:white;display:none">
+  Create element
+  <% form_for(pi, :url => [@article, pi]) do |f| %>
+    <p>
+      <%= f.label :gtin %><br />
+      <%= f.text_field :gtin %>
+    </p>
+
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name%>
+    </p>
+  <% end %>
+</div>
+<% javascript_tag do %>
+  $(function(){
+    var ef = $('#editform');
+
+    $(['new', 'edit']).each(function(index, str){
+      $('.pi_' + str).click(function(){
+        $('#newform,#editform').hide();
+        $('#' + str + 'form').insertAfter($(this).parents('.item')).show();
+        return false;
+      })
+    });
+  });
+<% end %>
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Создать PackagingItem', new_article_packaging_item_path(@article) %> |
 <%= link_to_item_with_count 'Посмотреть все PackagingItems', article_packaging_items_path(@article), @article.packaging_items.count %>
