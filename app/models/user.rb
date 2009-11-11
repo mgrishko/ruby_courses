@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     a.validate_login_field = false
     a.validate_password_field = true
     a.validates_uniqueness_of_login_field_options = {
-      :case_sensitive => false
+      :case_sensitive => true
     }
     a.login_field :gln
     a.disable_perishable_token_maintenance  true

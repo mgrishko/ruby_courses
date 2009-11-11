@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   @model = nil
  
-  private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -26,7 +25,7 @@ class ApplicationController < ActionController::Base
       unless current_user.id
         store_location
         flash[:notice] = "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-        redirect_to root_url
+        redirect_to :controller => :user_sessions, :action => :login
         return false
       end
     end

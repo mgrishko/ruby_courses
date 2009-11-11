@@ -1,10 +1,27 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  gln: 1
+  gln: 00000034
   #md5('test')
   pw_hash: 098f6bcd4621d373cade4e832627b4f6
+  persistence_token: <%= Authlogic::Random.hex_token %>
 
 two:
-  gln: 1
+  gln: 00000062
   pw_hash: MyString
+  persistence_token: <%= Authlogic::Random.hex_token %>
+valid_user:
+  gln: 00000000
+  #md5('test')
+  pw_hash: 098f6bcd4621d373cade4e832627b4f6
+  persistence_token: <%= Authlogic::Random.hex_token %>
+invalid_user:
+  gln: 00000024
+  pw_hash: some_password_not_md5
+  persistence_token: <%= Authlogic::Random.hex_token %>
+admin:
+  gln: 00000013
+  #md5('test')
+  pw_hash: 098f6bcd4621d373cade4e832627b4f6
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  is_admin: 1

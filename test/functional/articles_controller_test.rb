@@ -2,18 +2,22 @@ require 'test_helper'
 
 class ArticlesControllerTest < ActionController::TestCase
   test "should get index" do
+    authorize_user
     get :index
     assert_response :success
     assert_not_nil assigns(:articles)
   end
 
   test "should get new" do
+    authorize_user
     get :new
     assert_response :success
   end
 
   test "should create article" do
-    assert_difference('Article.count') do
+    authorize_user
+
+    assert_difference('Article.count', 1) do
       post :create, :article => { :gtin => 24 }
     end
 
@@ -21,21 +25,25 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "should show article" do
+    authorize_user
     get :show, :id => articles(:one).id
     assert_response :success
   end
 
   test "should get edit" do
+    authorize_user
     get :edit, :id => articles(:one).id
     assert_response :success
   end
 
   test "should update article" do
-    put :update, :id => articles(:one).id, :article => { }
+    authorize_user
+    put :update, :id => articles(:one).to_param, :article => { }
     assert_redirected_to article_path(assigns(:article))
   end
 
   test "should destroy article" do
+    authorize_user
     assert_difference('Article.count', -1) do
       delete :destroy, :id => articles(:one).id
     end
@@ -44,6 +52,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "should send email on creating " do 
-      post :create, :article => { :gtin => 31 }
+    authorize_user
+    post :create, :article => { :gtin => 31 }
   end
 end

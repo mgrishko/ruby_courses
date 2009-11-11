@@ -1,8 +1,13 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
+require "authlogic/test_case"
+require 'shoulda'
+
 
 class ActiveSupport::TestCase
+  include Authlogic::TestCase
+  setup :asdf 
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded
@@ -34,5 +39,42 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
+  def asdf
+    setup_controller_request_and_response
+    activate_authlogic
+  end
+
+  def al_controller
+    @al_controller ||= Authlogic::TestCase::MockController.new
+  end
   # Add more helper methods to be used by all tests here...
+  def authorize_user(user = users(:valid_user))
+    bak = @controller
+    @controller = UserSessionsController.new
+    get :logout
+    post :login, :user_session => { :gln => user.gln, :password => 'test' }
+    @controller = bak
+  end
+
+  def authorize_admin
+    authorize_user users(:admin)
+  end
+
+  def self.should_error_unauthorized
+    should_redirect_to "login url" do 
+      {:controller => :user_sessions, :action => :login}
+    end
+  end
+
+  def self.should_not_error_unauthorized
+    should_respond_with :success
+  end
+
+  def self.should_error_not_admin
+    self.should_error_unauthorized
+  end
+
+  def self.should_not_error_not_admin
+    should_respond_with :success
+  end
 end

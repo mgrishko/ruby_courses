@@ -19,6 +19,6 @@ class UserSessionsController < ApplicationController
       current_user_session.destroy
       flash[:notice] = "Успешно вышли"
     end
-    redirect_to root_url
+    redirect_to :action => :login
   end
 end
