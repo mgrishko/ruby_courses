@@ -21,6 +21,7 @@ class ArticlesControllerTest < ActionController::TestCase
       post :create, :article => { :gtin => 24 }
     end
 
+    assert_equal assigns(:article).user_id, 123
     assert_redirected_to article_path(assigns(:article))
   end
 

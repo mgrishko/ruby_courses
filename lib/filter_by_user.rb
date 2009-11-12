@@ -29,4 +29,8 @@ module FilterByUser
 
     super *args
   end
+
+  def before_create
+    self.user_id = @@user.id
+  end
 end
