@@ -3,6 +3,7 @@ class PackagingItemsController < ApplicationController
   before_filter :require_article
   before_filter :check_for_parent
   before_filter :require_packaging_item, :only => [:show, :edit, :destroy, :update]
+  @@model = PackagingItem
 
   def check_for_parent
     if params[:parent_id]
