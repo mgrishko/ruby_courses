@@ -3,19 +3,31 @@
 one:
   item_name_long_ru: asdfasdf
   gtin: 11111115
+  packaging_item_id: nil
+  #Default authorized user id
+  user_id: 123
+  article_id: 1
 
 two:
   id: 2
   item_name_long_ru: asdfasdf
   gtin: 11111122
+  packaging_item_id: nil
   article_id: 1
+  #Default authorized user id
+  user_id: 123
 
 nested_1_deep:
   item_name_long_ru: asdfsdfasdf
   gtin: 11111139
   packaging_item_id: 2
+  #Default authorized user id
+  user_id: 123
 
 child_of_an_article:
   article_id: 123
   item_name_long_ru: Child of parent article
   gtin: 11111146
+  packaging_item_id: nil
+  #Default authorized user id
+  user_id: 123

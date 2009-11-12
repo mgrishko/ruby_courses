@@ -1,24 +1,53 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-#Valid gtin
+  id: 1
+  article_id: 1
+  #Valid gtin
   gtin: 11111115
   name: MyString
   status: 1
+  #Default authorized user id
+  user_id: 123
 
 two:
+  id: 2
+  article_id: 2
   gtin: 11111122
   name: MyString
   status: 1
+  user_id: 123
 parent:
   id: 123
   gtin: 11111139
   article_id: 123
   name: Simple parent row for packaging_items
   status: 1
+  #Default authorized user id
+  user_id: 123
 not_a_parent:
   id: 666
+  article_id: 666
   gtin: 11111146
-  article_id: 123
   name: There is no child rows in this article
   status: 1
+  #Default authorized user id
+  user_id: 123
+owned_by_user:
+  id: 667
+  article_id: 667
+  gtin: 11111146
+  name: There is no child rows in this article
+  status: 1
+  #Default authorized user id
+  user_id: 123
+not_owned_by_user:
+  id: 668
+  article_id: 668
+  gtin: 11111146
+  #Default authorized user id
+  name: There is no child rows in this article
+  status: 1
+  user_id: 0
+  
+  

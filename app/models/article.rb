@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
   include GtinFieldValidations
+  include FilterByUser
   validates_gtin
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user

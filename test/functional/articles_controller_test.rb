@@ -44,8 +44,9 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "should destroy article" do
     authorize_user
+
     assert_difference('Article.count', -1) do
-      delete :destroy, :id => articles(:one).id
+      delete :destroy, :id => articles(:owned_by_user).id
     end
 
     assert_redirected_to articles_path

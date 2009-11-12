@@ -2,6 +2,7 @@ require 'test_helper'
 
 class PackagingItemsControllerTest < ActionController::TestCase
   should "get index" do
+    authorize_user
     get :index, :article_id => article_parent
     assert_response :success
   end
@@ -15,22 +16,26 @@ class PackagingItemsControllerTest < ActionController::TestCase
   end
 
   should "success on getting new" do
+    authorize_user
     get :new, :article_id => article_parent
     assert_response :success
   end
 
   should "success on packaging item creating" do
+    authorize_user
     assert_difference('PackagingItem.count', +1) do
       post :create, :packaging_item => { :gtin => 17 }, :article_id => article_parent
     end
   end
 
   should "success on packaging item showing" do
+    authorize_user
     get :show, :id => packaging_items(:child_of_an_article).id, :article_id => article_parent
     assert_response :success
   end
 
   should "get edit" do
+    authorize_user
     get :edit, :id => packaging_items(:child_of_an_article).id, :article_id => article_parent
     assert_response :success
   end
@@ -40,11 +45,14 @@ class PackagingItemsControllerTest < ActionController::TestCase
   end
 
   should "update packaging item" do
+    authorize_user
     put :update, :id => packaging_items(:child_of_an_article), :article_id => article_parent
   end
 
   should "destroy packaging item" do
+
     assert_difference('PackagingItem.count', -1) do
+      authorize_user
       get :destroy, :id => packaging_items(:child_of_an_article), :article_id => article_parent
     end
 
@@ -52,6 +60,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
   end
 
   should "throw error when article_id not given" do
+    authorize_user
 
     assert_raise ActiveRecord::RecordNotFound do
       get :index
@@ -85,23 +94,28 @@ class PackagingItemsControllerTest < ActionController::TestCase
   should "throw error when article is not a parent" do
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, :id => packaging_items(:child_of_an_article).id, :article_id => article_not_a_parent
+      authorize_user
+      get :show, :id => packaging_items(:child_of_an_article), :article_id => article_not_a_parent
     end
 
     assert_raise ActiveRecord::RecordNotFound do
+      authorize_user
       get :edit, :id => packaging_items(:child_of_an_article), :article_id => article_not_a_parent
     end
 
     assert_raise ActiveRecord::RecordNotFound do
+      authorize_user
       delete :destroy, :id => packaging_items(:one).id, :article_id => article_not_a_parent
     end
 
     assert_raise ActiveRecord::RecordNotFound do
+      authorize_user
       put :update, :id => packaging_items(:one).id, :article_id => article_not_a_parent
     end
   end
 
   should "handle correct when article is not a parent" do
+    authorize_user
     get :new, :article_id => article_not_a_parent
     assert_response :success
 

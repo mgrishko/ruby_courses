@@ -11,6 +11,7 @@ two:
   pw_hash: MyString
   persistence_token: <%= Authlogic::Random.hex_token %>
 valid_user:
+  id: 123
   gln: 00000000
   #md5('test')
   pw_hash: 098f6bcd4621d373cade4e832627b4f6

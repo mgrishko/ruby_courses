@@ -2,14 +2,14 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+
+  @@model = nil
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
+  before_filter :link_model_with_auth_user
   filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user
-
-  @model = nil
  
   private
     def current_user_session
@@ -58,6 +58,12 @@ class ApplicationController < ActionController::Base
     end
 
     def find_item
-      return @model.find(params[:id])
+      return @@model.find(params[:id])
+    end
+
+    def link_model_with_auth_user
+      if @@model && @@model.respond_to?(:set_auth_user)
+        @@model.set_auth_user current_user
+      end
     end
 end

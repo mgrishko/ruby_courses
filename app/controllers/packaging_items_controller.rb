@@ -1,4 +1,5 @@
 class PackagingItemsController < ApplicationController
+  before_filter :require_user
   before_filter :require_article
   before_filter :check_for_parent
   before_filter :require_packaging_item, :only => [:show, :edit, :destroy, :update]

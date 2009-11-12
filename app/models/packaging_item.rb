@@ -1,5 +1,6 @@
 class PackagingItem < ActiveRecord::Base
   include GtinFieldValidations
+  include FilterByUser
   validates_gtin
   set_table_name :packaging_items
   acts_as_tree :foreign_key => :packaging_item_id

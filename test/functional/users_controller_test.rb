@@ -6,7 +6,7 @@ class UsersControllerTest < ActionController::TestCase
       get :index
       get :new
       get :edit, :id => users(:one).to_param
-      post :create, :user => {:gln =>  147, :password => 'asdf', :password_confirmation => 'asdf'}
+      post :create, :user => {:gln =>  '1000000000147', :password => 'asdf', :password_confirmation => 'asdf'}
       delete :destroy, :id => users(:one).to_param
     }
     should_error_unauthorized
@@ -17,7 +17,7 @@ class UsersControllerTest < ActionController::TestCase
       get :index
       get :new
       get :edit, :id => users(:one).to_param
-      post :create, :user => {:gln =>  154, :password => 'asdf', :password_confirmation => 'asdf'}
+      post :create, :user => {:gln =>  '1000000000154', :password => 'asdf', :password_confirmation => 'asdf'}
       delete :destroy, :id => users(:one).to_param
     end
     should_error_not_admin
@@ -29,7 +29,7 @@ class UsersControllerTest < ActionController::TestCase
       get :index
       get :new
       get :edit, :id => users(:one).to_param
-      #post :create, :user => {:gln =>  161, :password => 'asdf', :password_confirmation => 'asdf'}
+      #post :create, :user => {:gln =>  '1000000000161', :password => 'asdf', :password_confirmation => 'asdf'}
       #delete :destroy, :id => users(:one).to_param
     end
 
@@ -39,7 +39,7 @@ class UsersControllerTest < ActionController::TestCase
   context "creating user" do
     setup { 
       authorize_admin 
-      post :create, :user => {:gln => 123, :password => 'asdf', :password_confirmation => 'asdf' }
+      post :create, :user => {:gln => '1000000000123', :password => 'asdf', :password_confirmation => 'asdf' }
     }
 
     should_change("the users count", :by => 1) { User.count }
@@ -65,7 +65,7 @@ class UsersControllerTest < ActionController::TestCase
   test "should update user" do
     authorize_admin
 
-    put :update, :id => users(:one).to_param, :user => { :gln => 131 }
+    put :update, :id => users(:one).to_param, :user => { :gln => '0000000000131' }
 
     assert_redirected_to user_path(assigns(:user))
   end
