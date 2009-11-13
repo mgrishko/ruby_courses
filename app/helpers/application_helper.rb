@@ -14,13 +14,17 @@ module ApplicationHelper
     if tree.is_a?(Array)
       content_tag('ul',
         tree.map do |item|
-          content_tag('li', block.call(item) + tree_to_list(item.children, &block))
+          tree_to_list(item, &block)
         end,
         {}
       )
     else
-      debugger
+      item = tree
+      content_tag('li', block.call(item) + tree_to_list(item.children, &block))
     end
   end
 
+  def link_to_new_pi(article, packaging_item, parent_id = nil)
+    link_to_function('New', "PI.showForm('new', this, '" + url_for(hash_for_article_packaging_items_path.merge(:article_id => article, :id => nil, :parent_id => parent_id, :format => :json)) + "')")
+  end
 end

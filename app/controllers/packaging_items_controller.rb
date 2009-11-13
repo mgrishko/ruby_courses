@@ -61,6 +61,12 @@ class PackagingItemsController < ApplicationController
   # GET /packaging_items/1/edit
   def edit
     @packaging_item = PackagingItem.find(params[:id])
+    respond_to do |format|
+      format.json {
+        render :json => @packaging_item.to_json(:methods => :name)
+      }
+      format.html
+    end
   end
 
   # POST /packaging_items
@@ -76,12 +82,18 @@ class PackagingItemsController < ApplicationController
 
     respond_to do |format|
       if @packaging_item.save
-        flash[:notice] = 'PackagingItem was successfully created.'
-        format.html { redirect_to(@article) }
+        format.html {
+          flash[:notice] = 'PackagingItem was successfully created.'
+          redirect_to(@article) 
+        }
         format.xml  { render :xml => @packaging_item, :status => :created, :location => @packaging_item }
+        format.json {
+          render :json => {:success => :true , :out => render_to_string(:partial => '/pi_list', :locals => {:packaging_items => @packaging_item})}
+        }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @packaging_item.errors, :status => :unprocessable_entity }
+        format.json { render :json => @packaging_item.errors }
       end
     end
   end
@@ -91,12 +103,16 @@ class PackagingItemsController < ApplicationController
   def update
     respond_to do |format|
       if @packaging_item.update_attributes(params[:packaging_item])
-        flash[:notice] = 'PackagingItem was successfully updated.'
-        format.html { redirect_to(@article) }
+        format.html {
+          flash[:notice] = 'PackagingItem was successfully updated.'
+          redirect_to(@article) 
+        }
         format.xml  { head :ok }
+        format.json { render :json => {:success => :true , :out => render_to_string(:partial => '/pi_list', :locals => {:packaging_items => @packaging_item})} }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @packaging_item.errors, :status => :unprocessable_entity }
+        format.json { render :json => @packaging_item.errors }
       end
     end
   end
@@ -109,6 +125,7 @@ class PackagingItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(@article) }
       format.xml  { head :ok }
+      format.json { render :json => {:success => true}}
     end
   end
 end
