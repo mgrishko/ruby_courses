@@ -1,9 +1,12 @@
+require 'gtin_field_validations'
+
 class Article < ActiveRecord::Base
-  include GtinFieldValidations
   include FilterByUser
-  validates_gtin
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user
+  validates_is_gtin :gtin
+  validates_presence_of :gtin
+  validates_numericality_of :gtin
   
   @@statuses = {
     :draft => 1, 

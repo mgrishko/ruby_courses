@@ -40,7 +40,7 @@ class ArticleTest < ActiveSupport::TestCase
   context "Check for valid lengths " do
     context "exact" do
       should_ensure_length_is :manufacturer_gln, 13
-      should_ensure_length_is :gtin, 14
+      #should_ensure_length_is :gtin, 14
     end
 
     context "ranged" do 
