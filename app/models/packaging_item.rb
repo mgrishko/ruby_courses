@@ -9,6 +9,7 @@ class PackagingItem < ActiveRecord::Base
   validates_is_gtin :gtin
   validates_presence_of :gtin
   validates_numericality_of :gtin
+  validates_uniqueness_of :gtin, :scope => :user_id
 
   def name
     item_name_long_ru

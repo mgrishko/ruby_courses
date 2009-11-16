@@ -7,6 +7,7 @@ class Article < ActiveRecord::Base
   validates_is_gtin :gtin
   validates_presence_of :gtin
   validates_numericality_of :gtin
+  validates_uniqueness_of :gtin, :scope => :user_id
   
   @@statuses = {
     :draft => 1, 
