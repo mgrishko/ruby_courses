@@ -44,6 +44,7 @@ class PackagingItemsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @packaging_item }
+      format.json { render :json => @packaging_item }
     end
   end
 

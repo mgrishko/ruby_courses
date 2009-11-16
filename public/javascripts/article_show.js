@@ -3,11 +3,11 @@ PI = (function(options){
     methods = {
       'new' : 'POST',
       'edit' : 'PUT'
-  },
+    },
   piItemsContainer = $('#pi_container');
 
   function hideForms(){
-    $('#newform,#editform').hide();
+    $('#newform,#editform,#viewform').hide();
   }
 
   function deletePi(item, link){
@@ -83,7 +83,23 @@ PI = (function(options){
   return t = {
     'init' : initialize,
     'showForm' : showPiForm,
-    'delete' : deletePi
+    'delete' : deletePi,
+    'show' : function(url, t){
+      hideForms();
+      $.getJSON(url, {}, function(data, result){
+        var container = $('#viewform');
+        if(result == 'success'){
+          for(var i in data.packaging_item){
+            var el = $('#packaging_item_' + i, container);
+            if(el.length){
+              el.html(data.packaging_item[i]);
+            }
+          }
+
+          container.insertAfter($(t).parents('.item')).show();
+        }
+      });
+    }
   }
 })({});
 
