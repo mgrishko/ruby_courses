@@ -34,26 +34,14 @@ class ArticleTest < ActiveSupport::TestCase
 
   context "Checking decimal values" do
     should_allow_values_for :content, 0.001, 0.002, 0.01, 0.1, 1, 999999999
-    should_not_allow_values_for :content, 1999999999, 1000000000, 0.0001, 0.00001
+    should_not_allow_values_for :content, 1999999999, 1000000000, 0.0001, 0.00001, :message => /must be .* than/
   end
 
   context "Check for valid lengths " do
     context "exact" do
-      should_ensure_length_is :manufacturer_gln, 13
+      should_ensure_value_in_range :manufacturer_gln, (10 ** (13 - 1))..(10 ** 13 - 1), :low_message => /must be greater than/, :high_message => /must be less than/
       #should_ensure_length_is :gtin, 14
     end
 
-    context "ranged" do 
-      should_ensure_length_in_range :gross_weight, (1..7)
-      should_ensure_length_in_range :plu_description, (1..12)
-      should_ensure_length_in_range :depth, (1..5)
-      should_ensure_length_in_range :item_name_long_en, (1..30)
-      should_ensure_length_in_range :height, (1..5)
-      should_ensure_length_in_range :manufacturer_name, (1..35)
-      should_ensure_length_in_range :internal_item_id, (1..20)
-      should_ensure_length_in_range :item_name_long_ru, (1..30)
-      should_ensure_length_in_range :minimum_durability_from_arrival, (1..4)
-      should_ensure_length_in_range :width, (1..5)
-    end
   end
 end

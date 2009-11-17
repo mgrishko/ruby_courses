@@ -18,10 +18,111 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
-  <p>
-    <%= f.label :status %><br />
-    <%= @article.print_status %>
-  </p>
+
+<p>
+internal item id<br />
+<%=f.text_field :internal_item_id%>
+</p>
+
+<p>
+item name long ru<br />
+<%=f.text_field :item_name_long_ru%>
+</p>
+
+<p>
+item name long en<br />
+<%=f.text_field :item_name_long_en%>
+</p>
+
+<p>
+despatch unit<br />
+<%=f.text_field :despatch_unit%>
+</p>
+
+<p>
+invoice unit<br />
+<%=f.text_field :invoice_unit%>
+</p>
+
+<p>
+order unit<br />
+<%=f.text_field :order_unit%>
+</p>
+
+<p>
+consumer unit<br />
+<%=f.text_field :consumer_unit%>
+</p>
+
+<p>
+manufacturer name<br />
+<%=f.text_field :manufacturer_name%>
+</p>
+
+<p>
+manufacturer gln<br />
+<%=f.text_field :manufacturer_gln%>
+</p>
+
+<p>
+content<br />
+<%=f.text_field :content%>
+</p>
+
+<p>
+content uom<br />
+<%=f.text_field :content_uom%>
+</p>
+
+<p>
+gross weight<br />
+<%=f.text_field :gross_weight%>
+</p>
+
+<p>
+vat<br />
+<%=f.text_field :vat%>
+</p>
+
+<p>
+plu description<br />
+<%=f.text_field :plu_description%>
+</p>
+
+<p>
+gpc<br />
+<%=f.text_field :gpc%>
+</p>
+
+<p>
+country of origin<br />
+<%=f.text_field :country_of_origin%>
+</p>
+
+<p>
+minimum durability from arrival<br />
+<%=f.text_field :minimum_durability_from_arrival%>
+</p>
+
+<p>
+packaging type<br />
+<%=f.text_field :packaging_type%>
+</p>
+
+<p>
+height<br />
+<%=f.text_field :height%>
+</p>
+
+<p>
+depth<br />
+<%=f.text_field :depth%>
+</p>
+
+<p>
+width<br />
+<%=f.text_field :width%>
+</p>
   <p>
     <%=check_box_tag :publish%>
     <%=label_tag :publish, "Publish record ?"%>
