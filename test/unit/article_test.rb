@@ -40,7 +40,7 @@ class ArticleTest < ActiveSupport::TestCase
   context "Check for valid lengths " do
     context "exact" do
       should_ensure_value_in_range :manufacturer_gln, (10 ** (13 - 1))..(10 ** 13 - 1), :low_message => /must be greater than/, :high_message => /must be less than/
-      #should_ensure_length_is :gtin, 14
+      should_ensure_value_in_range :gtin, (10 ** (14 - 1))..(10 ** 14 - 1), :low_message => /must be greater than/, :high_message => /must be less than/
     end
 
   end
