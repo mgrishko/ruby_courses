@@ -10,20 +10,20 @@ class ArticleTest < ActiveSupport::TestCase
         109, 116, 123
       should_not_allow_values_for :gtin, 
         18, 25, 32,49,
-        110, 117, 124
+        110, 117, 124, :message => "checksum is not correct"
     end
 
     context "Numbers with length greater then 8 and less then 12 are not accepted" do
       #9
-      should_not_allow_values_for :gtin, 100000001, 200000002, 300000003
+      should_not_allow_values_for :gtin, 100000001, 200000002, 300000003, :message => "has invalid length"
       #10
-      should_not_allow_values_for :gtin, 1000000003, 2000000006, 3000000009
+      should_not_allow_values_for :gtin, 1000000003, 2000000006, 3000000009, :message => "has invalid length"
       #11
-      should_not_allow_values_for :gtin, 10000000003, 20000000002, 30000000003
+      should_not_allow_values_for :gtin, 10000000003, 20000000002, 30000000003, :message => "has invalid length"
     end
 
     context "Numbers with length greater then 14 are not accepted" do
-      should_not_allow_values_for :gtin, 30000000000003, 200000000006, 300000000009
+      should_not_allow_values_for :gtin, 300000000000007, 400000000000002, 900000000000009, :message => "has invalid length"
     end
   end
 

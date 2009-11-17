@@ -39,10 +39,10 @@ class UsersControllerTest < ActionController::TestCase
   context "creating user" do
     setup { 
       authorize_admin 
-      post :create, :user => {:gln => '1000000000123', :password => 'asdf', :password_confirmation => 'asdf' }
+      post :create, :user => {:gln => '1000000000123', :password => 'asdfjkl', :password_confirmation => 'asdfjkl' }
     }
 
-    should_change("the users count", :by => 1) { User.count }
+    should_change "User.count", :by => 1
     should_redirect_to "user page" do
       user_path(User.last)
     end
