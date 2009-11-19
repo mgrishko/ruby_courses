@@ -33,6 +33,62 @@
       <%= label :packaging_item, :name %><br />
       <%= text_field :packaging_item, :name, :id => 'edit_packaging_item_name' %>
     </p>
+
+<p>
+number of next lower item<br />
+<%=text_field :packaging_item, :number_of_next_lower_item, :id => 'edit_packaging_item_number_of_next_lower_item' %>
+</p>
+
+<p>
+number of bi items<br />
+<%=text_field :packaging_item, :number_of_bi_items, :id => 'edit_packaging_item_number_of_bi_items' %>
+</p>
+
+<p>
+despatch unit<br />
+<%=text_field :packaging_item, :despatch_unit, :id => 'edit_packaging_item_despatch_unit' %>
+</p>
+
+<p>
+invoice unit<br />
+<%=text_field :packaging_item, :invoice_unit, :id => 'edit_packaging_item_invoice_unit' %>
+</p>
+
+<p>
+order unit<br />
+<%=text_field :packaging_item, :order_unit, :id => 'edit_packaging_item_order_unit' %>
+</p>
+
+<p>
+consumer unit<br />
+<%=text_field :packaging_item, :consumer_unit, :id => 'edit_packaging_item_consumer_unit' %>
+</p>
+
+<p>
+gross weight<br />
+<%=text_field :packaging_item, :gross_weight, :id => 'edit_packaging_item_gross_weight' %>
+</p>
+
+<p>
+packaging type<br />
+<%=text_field :packaging_item, :packaging_type, :id => 'edit_packaging_item_packaging_type' %>
+</p>
+
+<p>
+height<br />
+<%=text_field :packaging_item, :height, :id => 'edit_packaging_item_height' %>
+</p>
+
+<p>
+depth<br />
+<%=text_field :packaging_item, :depth, :id => 'edit_packaging_item_depth' %>
+</p>
+
+<p>
+width<br />
+<%=text_field :packaging_item, :width, :id => 'edit_packaging_item_width' %>
+</p>
+
     <p>
     <%= submit_tag 'Save' %>
     <%= button_to_function "Cancel", "$('#editform').hide()" %>
@@ -58,6 +114,60 @@
       <%= label :packaging_item, :name %><br />
       <%= text_field :packaging_item, :name, :id => 'new_packaging_item_name' %>
     </p>
+<p>
+number of next lower item<br />
+<%=text_field :packaging_item, :number_of_next_lower_item, :id => 'new_packaging_item_number_of_next_lower_item' %>
+</p>
+
+<p>
+number of bi items<br />
+<%=text_field :packaging_item, :number_of_bi_items, :id => 'new_packaging_item_number_of_bi_items' %>
+</p>
+
+<p>
+despatch unit<br />
+<%=text_field :packaging_item, :despatch_unit, :id => 'new_packaging_item_despatch_unit' %>
+</p>
+
+<p>
+invoice unit<br />
+<%=text_field :packaging_item, :invoice_unit, :id => 'new_packaging_item_invoice_unit' %>
+</p>
+
+<p>
+order unit<br />
+<%=text_field :packaging_item, :order_unit, :id => 'new_packaging_item_order_unit' %>
+</p>
+
+<p>
+consumer unit<br />
+<%=text_field :packaging_item, :consumer_unit, :id => 'new_packaging_item_consumer_unit' %>
+</p>
+
+<p>
+gross weight<br />
+<%=text_field :packaging_item, :gross_weight, :id => 'new_packaging_item_gross_weight' %>
+</p>
+
+<p>
+packaging type<br />
+<%=text_field :packaging_item, :packaging_type, :id => 'new_packaging_item_packaging_type' %>
+</p>
+
+<p>
+height<br />
+<%=text_field :packaging_item, :height, :id => 'new_packaging_item_height' %>
+</p>
+
+<p>
+depth<br />
+<%=text_field :packaging_item, :depth, :id => 'new_packaging_item_depth' %>
+</p>
+
+<p>
+width<br />
+<%=text_field :packaging_item, :width, :id => 'new_packaging_item_width' %>
+</p>
     <p>
       <%= submit_tag 'Save' %>
       <%= button_to_function "Cancel", "$('#newform').hide()" %>
