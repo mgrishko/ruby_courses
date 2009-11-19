@@ -2,11 +2,11 @@
 #This is very useful but not well tested and is a source of bugs
 #
 module FilterByUser
+  @@user = nil
+
   def self.included(base)
     base.extend(FilterByUser)
   end
-
-  @@user = nil
 
   def set_auth_user(user)
     @@user = user
@@ -31,6 +31,10 @@ module FilterByUser
   end
 
   def before_create
+    self.user_id = @@user.id
+  end
+
+  def before_validation
     self.user_id = @@user.id
   end
 end
