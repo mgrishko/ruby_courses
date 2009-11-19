@@ -35,6 +35,8 @@ module FilterByUser
   end
 
   def before_validation
-    self.user_id = @@user.id
+    if @@user
+      self.user_id = @@user.id
+    end
   end
 end
