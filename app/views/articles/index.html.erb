@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'application.js' %>
 <% content_for :css do %>
 .results td, .results th {
   border-bottom:1px solid #BBBBBB;
@@ -26,10 +27,9 @@
 <% for article in @articles %>
   <tr>
     <td><img width="15" height="15" class="star" onclick="star.toggle(this, 13)" src="/images/star_off.gif"/></td>
-    <td><%=h article.gtin %></td>
-    <td><%=h article.name %></td>
-    <td><%=article.print_status %></td>
-    <td><%= link_to 'Show', article %></td>
+    <td onclick="go('<%= url_for article %>')"><%=h article.gtin %></td>
+    <td onclick="go('<%= url_for article %>')"><%=h article.name %></td>
+    <td onclick="go('<%= url_for article %>')"><%=article.print_status %></td>
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
     <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Создать на основе этой', :controller => :articles, :action => :new, :base => article.id %></td>
