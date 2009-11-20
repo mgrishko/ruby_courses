@@ -24,7 +24,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
   should "success on packaging item creating" do
     authorize_user
     assert_difference('PackagingItem.count', +1) do
-      post :create, :packaging_item => { :gtin => 17 }, :article_id => article_parent
+      post :create, :packaging_item => Factory.build(:packaging_item).attributes, :article_id => article_parent
     end
   end
 
@@ -122,7 +122,7 @@ class PackagingItemsControllerTest < ActionController::TestCase
     get :index, :article_id => article_not_a_parent
     assert_response :success
 
-    post :create, :packaging_item => { :gtin => 24 }, :article_id => article_not_a_parent
+    post :create, :packaging_item => Factory.build(:packaging_item).attributes, :article_id => article_not_a_parent
     assert_redirected_to article_not_a_parent
   end
 end

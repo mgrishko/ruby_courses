@@ -18,7 +18,7 @@ class ArticlesControllerTest < ActionController::TestCase
     authorize_user
 
     assert_difference('Article.count', 1) do
-      post :create, :article => { :gtin => 24 }
+      post :create, :article => Factory.build(:article).attributes
     end
 
     assert_equal assigns(:article).user_id, 123
@@ -39,7 +39,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "should update article" do
     authorize_user
-    put :update, :id => articles(:one).to_param, :article => { }
+    put :update, :id => articles(:one).to_param, :article => Factory.build(:article).attributes
     assert_redirected_to article_path(assigns(:article))
   end
 

@@ -3,7 +3,28 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require "authlogic/test_case"
 require 'shoulda'
+require 'factory_girl'
 
+Factory.sequence :gtin do |n|
+  gtin = (10 ** 12 + n).to_s
+  three = false
+  gtin + (10 - (gtin.split('').inject(0) { |sum, k| three = !three; sum + k.to_i * (three ? 3 : 1) } % 10)).to_s
+end
+
+Factory.define :article do |a|
+  [:internal_item_id, :packaging_type, :gross_weight, :depth, :gpc, :content_uom, :country_of_origin, :height, :content, :minimum_durability_from_arrival, :vat, :width].each {|i| a.add_attribute i, 1}
+  a.manufacturer_gln 1000000000000
+  a.plu_description 'description'
+  a.item_name_long_en 'simple name'
+  a.item_name_long_ru 'simple name'
+  a.manufacturer_name 'name'
+  a.gtin { Factory.next(:gtin) }
+end
+
+Factory.define :packaging_item do |pi|
+  [:gross_weight, :packaging_type, :number_of_next_lower_item, :depth, :number_of_bi_items, :height, :width].each {|i| pi.add_attribute i, 1}
+  pi.gtin { Factory.next(:gtin) }
+end
 
 class ActiveSupport::TestCase
   include Authlogic::TestCase

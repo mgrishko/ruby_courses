@@ -14,11 +14,11 @@ class Article < ActiveRecord::Base
   validates_length_of :plu_description, :maximum => 12
   validates_length_of :item_name_long_en, :maximum => 30
   validates_length_of :manufacturer_name, :maximum => 35
-  validates_length_of :internal_item_id, :maximum => 20
   validates_length_of :item_name_long_ru, :maximum => 30
 
   #Numericality
   #XXX greater_than_or_equal doesn't work
+  validates_numericality_of :internal_item_id
   validates_numericality_of :manufacturer_gln, :less_than => (10 ** 13), :greater_than_or_equal_to => (10 ** (13 -1))
   validates_numericality_of :content, :greater_than_or_equal_to => 0.001, :less_than => 10 ** 9
   validates_numericality_of :content_uom
