@@ -77,7 +77,9 @@ class ActiveSupport::TestCase
     # Clear temp directories
     [RECORDS_IN_DIR, RECORDS_OUT_DIR].each do |dir|
       Dir["#{dir}/*"].each do |entry|
-        File.delete(entry)
+        unless File::directory?(entry)
+          File.delete(entry)
+        end
       end
     end
   end
