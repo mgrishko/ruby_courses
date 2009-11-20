@@ -12,10 +12,24 @@ require 'factory_girl'
 end
 
 Factory.sequence :gtin do |n|
-  gtin = (10 ** 12 + n).to_s
-  three = false
-  gtin + (10 - (gtin.split('').inject(0) { |sum, k| three = !three; sum + k.to_i * (three ? 3 : 1) } % 10)).to_s
+  checknum = 10
+
+  while checknum >= 10
+    three = false
+    gtin = (10 ** 12 + n).to_s
+    checknum = (10 - (gtin.split('').inject(0) { |sum, k| three = !three; sum + k.to_i * (three ? 3 : 1) } % 10))
+    n = n + 1
+  end
+
+  gtin + checknum.to_s
 end
+
+Factory.define :user do |u|
+  u.password 'asdf'
+  u.password_confirmation 'asdf'
+  u.gln { Factory.next(:gtin) }
+end
+
 
 Factory.define :article do |a|
   [:internal_item_id, :packaging_type, :gross_weight, :depth, :gpc, :content_uom, :country_of_origin, :height, :content, :minimum_durability_from_arrival, :vat, :width].each {|i| a.add_attribute i, 1}
@@ -27,11 +41,21 @@ Factory.define :article do |a|
   a.in_dir RECORDS_IN_DIR
   a.out_dir RECORDS_OUT_DIR
   a.gtin { Factory.next(:gtin) }
+  a.user_id {|a| a.association(:user) }
+end
+
+Factory.define :draft_article, :parent => :article  do |a|
+  a.status 1
+  a.user_id 123
 end
 
 Factory.define :packaging_item do |pi|
   [:gross_weight, :packaging_type, :number_of_next_lower_item, :depth, :number_of_bi_items, :height, :width].each {|i| pi.add_attribute i, 1}
   pi.gtin { Factory.next(:gtin) }
+end
+
+Factory.define :packaging_item_child, :parent => :packaging_item do |pi|
+  pi.article_id {|a| a.association(:article) }
 end
 
 class ActiveSupport::TestCase

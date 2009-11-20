@@ -52,8 +52,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        if params[:publish]
-          @article.publish_xml
+        if params[:publish] && @article.publish_xml
           flash[:notice] = 'Article was successfully created and sent'
         else
           flash[:notice] = 'Article was successfully created.'
@@ -97,17 +96,18 @@ class ArticlesController < ApplicationController
   end
 
   def send_for_change_shatus
-    article = Article.find_by_id params[:id]
-    if article.get_status == :draft
-      article.deliver_approve_email
-      article.save
-      flash[:notice] = 'The email was sent'
-    elsif article.get_status == :disabled
-      flash[:notice] = 'The email was sent earlier, waiting for approving'
-    else
-      flash[:notice] = 'You already recieved answer for this record'
+    article = Article.find params[:id]
+    if article
+      if article.get_status == :draft
+        article.publish_xml
+        flash[:notice] = 'Query was sent'
+      elsif article.get_status == :disabled
+        flash[:notice] = 'The record is waiting for approving'
+      else
+        flash[:notice] = 'You already recieved answer for this record'
+      end
+      redirect_to :action => 'index'
     end
-    redirect_to :action => 'index'
   end
 
   # GET /approve_emails

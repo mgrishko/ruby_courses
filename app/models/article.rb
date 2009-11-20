@@ -92,6 +92,8 @@ class Article < ActiveRecord::Base
   def publish_xml
     f = File.new("#{out_dir}/#{id}.xml", 'w')
     f.syswrite("test")
+    update_status :disabled
+    save
   end
 
   def check_for_xml_response
@@ -102,16 +104,13 @@ class Article < ActiveRecord::Base
   end
 
   def after_initalize
-    in_dir = RECORDS_IN_DIR
-    out_dr = RECORDS_OUT_DIR
-
     unless self.new_record?
       check_for_xml_response
     end
   end
 
   def out_dir
-    @@out_dir
+    @@out_dir || RECORDS_OUT_DIR
   end
 
   def out_dir=(val)
@@ -119,7 +118,7 @@ class Article < ActiveRecord::Base
   end
 
   def in_dir
-    @@in_dir
+    @@in_dir || RECORDS_IN_DIR
   end
   
   def in_dir=(val)

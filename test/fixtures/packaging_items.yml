@@ -27,7 +27,7 @@ nested_1_deep:
 child_of_an_article:
   article_id: 123
   item_name_long_ru: Child of parent article
-  gtin: 11111146
+  gtin: 10000000000007
   packaging_item_id: nil
   #Default authorized user id
   user_id: 123

@@ -94,13 +94,15 @@ class PackagingItemsControllerTest < ActionController::TestCase
   should "throw error when article is not a parent" do
 
     assert_raise ActiveRecord::RecordNotFound do
-      authorize_user
-      get :show, :id => packaging_items(:child_of_an_article), :article_id => article_not_a_parent
+      u = Factory(:user)
+      authorize_user u
+      get :show, :id => Factory(:packaging_item_child, :user_id => u), :article_id => article_not_a_parent
     end
 
     assert_raise ActiveRecord::RecordNotFound do
-      authorize_user
-      get :edit, :id => packaging_items(:child_of_an_article), :article_id => article_not_a_parent
+      u = Factory(:user)
+      authorize_user u
+      get :edit, :id => Factory(:packaging_item_child, :user_id => u), :article_id => article_not_a_parent
     end
 
     assert_raise ActiveRecord::RecordNotFound do

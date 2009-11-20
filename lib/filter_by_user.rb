@@ -31,11 +31,13 @@ module FilterByUser
   end
 
   def before_create
-    self.user_id = @@user.id
+    unless @@user.nil?
+      self.user_id = @@user.id
+    end
   end
 
   def before_validation
-    if @@user
+    unless @@user.nil?
       self.user_id = @@user.id
     end
   end
