@@ -80,6 +80,10 @@ Rails::Initializer.run do |config|
 
 end
 
+TMP_DIR = File.expand_path(File.dirname(__FILE__) + "/../tmp")
+RECORDS_IN_DIR = TMP_DIR + "/records_in_dir"
+RECORDS_OUT_DIR = TMP_DIR + "/records_out_dir"
+
 APP_CONFIG = { } unless defined?(APP_CONFIG)
 APP_CONFIG[:mail] = {
 	:server => {

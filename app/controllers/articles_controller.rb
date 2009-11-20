@@ -50,13 +50,10 @@ class ArticlesController < ApplicationController
     @article = Article.new(params[:article])
     @article.set_default_status
 
-    if params[:publish]
-      @article.deliver_approve_email
-    end
-
     respond_to do |format|
       if @article.save
         if params[:publish]
+          @article.publish_xml
           flash[:notice] = 'Article was successfully created and sent'
         else
           flash[:notice] = 'Article was successfully created.'

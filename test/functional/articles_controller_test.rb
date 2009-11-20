@@ -53,8 +53,9 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to articles_path
   end
 
-  test "should send email on creating " do 
-    authorize_user
-    post :create, :article => { :gtin => 31 }
+  test "publish record on creating when 'publish' is checked" do
+      authorize_user 
+      post :create, {:article => Factory.build(:article).attributes, :publish => '1'}
+      assert File::exists?(RECORDS_OUT_DIR + '/' + assigns(:article).id.to_s + '.xml')
   end
 end

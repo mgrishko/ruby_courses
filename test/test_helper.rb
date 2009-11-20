@@ -5,6 +5,12 @@ require "authlogic/test_case"
 require 'shoulda'
 require 'factory_girl'
 
+[TMP_DIR, RECORDS_IN_DIR, RECORDS_OUT_DIR].each do |dir|
+  unless File.directory?(dir)
+    Dir.mkdir dir
+  end
+end
+
 Factory.sequence :gtin do |n|
   gtin = (10 ** 12 + n).to_s
   three = false
@@ -18,6 +24,8 @@ Factory.define :article do |a|
   a.item_name_long_en 'simple name'
   a.item_name_long_ru 'simple name'
   a.manufacturer_name 'name'
+  a.in_dir RECORDS_IN_DIR
+  a.out_dir RECORDS_OUT_DIR
   a.gtin { Factory.next(:gtin) }
 end
 
@@ -65,6 +73,13 @@ class ActiveSupport::TestCase
       setup_controller_request_and_response
     end
     activate_authlogic
+
+    # Clear temp directories
+    [RECORDS_IN_DIR, RECORDS_OUT_DIR].each do |dir|
+      Dir["#{dir}/*"].each do |entry|
+        File.delete(entry)
+      end
+    end
   end
 
   def al_controller

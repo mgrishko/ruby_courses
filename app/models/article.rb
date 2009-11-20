@@ -1,6 +1,8 @@
 require 'gtin_field_validations'
 
 class Article < ActiveRecord::Base
+  @@in_dir = nil
+  @@out_dir = nil
   include FilterByUser
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user
@@ -87,4 +89,40 @@ class Article < ActiveRecord::Base
     update_status :disabled
   end
 
+  def publish_xml
+    f = File.new("#{out_dir}/#{id}.xml", 'w')
+    f.syswrite("test")
+  end
+
+  def check_for_xml_response
+    fname = "#{in_dir}/#{id}.xml"
+    if File::exists?(fname) && File::readable?(fname)
+
+    end
+  end
+
+  def after_initalize
+    in_dir = RECORDS_IN_DIR
+    out_dr = RECORDS_OUT_DIR
+
+    unless self.new_record?
+      check_for_xml_response
+    end
+  end
+
+  def out_dir
+    @@out_dir
+  end
+
+  def out_dir=(val)
+    @@out_dir = val
+  end
+
+  def in_dir
+    @@in_dir
+  end
+  
+  def in_dir=(val)
+    @@in_dir = val
+  end
 end
