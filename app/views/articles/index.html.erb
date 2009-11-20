@@ -1,14 +1,31 @@
+<% content_for :css do %>
+.results td, .results th {
+  border-bottom:1px solid #BBBBBB;
+}
+.results td {
+  border-bottom:1px solid #BBBBBB;
+  padding:4px;
+  cursor: pointer;
+}
+<% end %>
 <h1>Listing articles</h1>
 
-<table>
+<table class="results" cellspacing="0" cellpadding="2">
   <tr>
+    <th></th>
     <th>Record code</th>
     <th>Name</th>
     <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <% for article in @articles %>
   <tr>
+    <td><img width="15" height="15" class="star" onclick="star.toggle(this, 13)" src="/images/star_off.gif"/></td>
     <td><%=h article.gtin %></td>
     <td><%=h article.name %></td>
     <td><%=article.print_status %></td>
@@ -16,12 +33,36 @@
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
     <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Создать на основе этой', :controller => :articles, :action => :new, :base => article.id %></td>
-    <td><%= link_to_item_with_count 'Packaging items для этой статьи', article_packaging_items_path(article), article.packaging_items.count%>
-    <td><%= button_to 'Publish', :controller => 'articles', :action => 'send_for_change_shatus', :id => article.id %></td>
+  <% if false %><td><%= link_to_item_with_count 'Packaging items для этой статьи', article_packaging_items_path(article), article.packaging_items.count%> <% end %>
+    <td><%= link_to 'Publish', :controller => 'articles', :action => 'send_for_change_shatus', :id => article.id %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
+
+<script type="text/javascript">
+star = (function(){
+  var toggledStars = {};
+  var images = ['/images/star_off.gif', '/images/star_on.gif'];
+
+  $(images).each(function(val){
+    (new Image()).src = val;
+  });
+
+  return {
+    'toggle' : function (el, id){
+      var on = (el.src.indexOf(images[0]) == -1);
+      if(on){
+        toggledStars[id] = true;
+      }else{
+        delete toggledStars[id];
+      }
+
+      $(el).attr('src', images[+!on]);
+    }
+  }
+})();
+</script>
 
 <%= link_to 'New article', new_article_path %>
