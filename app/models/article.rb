@@ -1,26 +1,23 @@
 require 'gtin_field_validations'
 
 class Article < ActiveRecord::Base
-  @@in_dir = nil
-  @@out_dir = nil
+  include AASM
   include FilterByUser
+
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user
   belongs_to :country_of_origin, :class_name => 'Country'
-  #GTIN
-  validates_is_gtin :gtin
+
+  #validates_is_gtin :gtin
   validates_presence_of :gtin
   validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
   validates_uniqueness_of :gtin, :scope => :user_id
 
-  #Length
   validates_length_of :plu_description, :maximum => 12
   validates_length_of :item_name_long_en, :maximum => 30
   validates_length_of :manufacturer_name, :maximum => 35
   validates_length_of :item_name_long_ru, :maximum => 30
 
-  #Numericality
-  #XXX greater_than_or_equal doesn't work
   validates_numericality_of :internal_item_id
   validates_numericality_of :manufacturer_gln, :less_than => (10 ** 13), :greater_than_or_equal_to => (10 ** (13 -1))
   validates_numericality_of :content, :greater_than_or_equal_to => 0.001, :less_than => 10 ** 9
@@ -35,98 +32,46 @@ class Article < ActiveRecord::Base
   validates_numericality_of :depth,  :less_than => 10 ** 5, :greater_than => 0
   validates_numericality_of :width,  :less_than => 10 ** 5, :greater_than => 0
 
+  aasm_column :status
 
-  
-  @@statuses = {
-    :draft => 1, 
-    :published => 2,
-    :disabled => 3,
-    :error => 4
-  }
+  aasm_initial_state :draft
 
-  @@status_messages = {
-    :draft => 'Draft',
-    :published => 'Published',
-    :disabled => 'In progress',
-    :error => 'Declined'
-  }
-  
-  def set_default_status
-    update_status self.class.default_status
-  end
-  
-  
-  def self.default_status
-    :draft
-  end
-  
-  def update_status id
-    self.status = @@statuses[id]
+  aasm_state :draft
+  aasm_state :published
+  aasm_state :pending, :enter => :send_request
+  aasm_state :rejected
+
+  aasm_event :publish do
+    transitions :to => :pending, :from => [:draft, :rejected]
+    transitions :to => :published, :from => [:pending], :guard => :request_accepted?
+    transitions :to => :rejected, :from => [:pending], :guard => :request_rejected?
   end
 
-  def print_status
-    @@status_messages[get_status]
-  end
-
-  def get_status
-    @@statuses.index(status)
-  end
-  
-  def status_disabled
-    update_status :disabled
-  end
-  
-  def status_enabled
-    update_status :published
-  end
-  
-  def self.fetch_and_approve
-    MailOperations.fetch_emails_via_imap
-    ArticleMailer.processed_data
-  end
-
-  def deliver_approve_email
+  def send_request
     ArticleMailer.deliver_approve_email(self)
-    update_status :disabled
   end
 
-  def publish_xml(xml)
-    f = File.new("#{out_dir}/#{id}.xml", 'w')
-    f.write(xml)
-    f.close
-    ArticleMailer.deliver_approve_email(self)
-    update_status :disabled
-    save
+  def request_accepted?
+    false
   end
 
-  def check_for_xml_response
-    fname = "#{in_dir}/#{id}.xml"
-    if File::exists?(fname) && File::readable?(fname)
-
-    end
+  def request_rejected?
+    false
   end
 
-  def after_initalize
-    unless self.new_record?
-      check_for_xml_response
-    end
-  end
 
-  def out_dir
-    @@out_dir || RECORDS_OUT_DIR
-  end
+  #def check_for_xml_response
+    #fname = "#{RECORDS_IN_DIR}/#{id}.xml"
+    #if File::exists?(fname) && File::readable?(fname)
 
-  def out_dir=(val)
-    @@out_dir = val
-  end
+    #end
+  #end
 
-  def in_dir
-    @@in_dir || RECORDS_IN_DIR
-  end
-  
-  def in_dir=(val)
-    @@in_dir = val
-  end
+  #def after_initalize
+    #unless self.new_record?
+      #check_for_xml_response
+    #end
+  #end
 
   def vats
     [['0 %', 57], ['10 %', 59], ['18 %', 60]]

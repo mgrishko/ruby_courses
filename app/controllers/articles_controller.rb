@@ -48,11 +48,11 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
-    @article.set_default_status
 
+    generate_attachment
     respond_to do |format|
       if @article.save
-        if params[:publish] && @article.publish_xml
+        if params[:publish] && @article.publish!
           flash[:notice] = 'Article was successfully created and sent'
         else
           flash[:notice] = 'Article was successfully created.'
@@ -95,25 +95,17 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def send_for_change_shatus
+  def publish
     @article = Article.find params[:id]
-    if @article
-      if @article.get_status == :draft
-        @article.publish_xml render_to_string :template => 'article_mailer/approve_email.html.erb', :layout => false
-        flash[:notice] = 'Query was sent'
-      elsif article.get_status == :disabled
-        flash[:notice] = 'The record is waiting for approving'
-      else
-        flash[:notice] = 'You already recieved answer for this record'
-      end
-      redirect_to :action => 'index'
-    end
+    generate_attachment
+    @article.publish!
+    redirect_to :action => 'index'
   end
 
   # GET /approve_emails
-  def approve_emails
-    @emails = Article.fetch_and_approve
-  end
+  #def approve_emails
+    #@emails = Article.fetch_and_approve
+  #end
 
   # GET /articles/auto_complete_for_record_value
   def auto_complete_for_record_value
@@ -121,5 +113,13 @@ class ArticlesController < ApplicationController
 
     render :inline => "<%= auto_complete_result(@items, 'name') %>"
   end
-    
+
+  private
+
+  def generate_attachment
+    f = File.new("#{RECORDS_OUT_DIR}/#{@article.id}.xml", 'w')
+    f.write(render_to_string :template => 'articles/attachment.xml', :layout => false)
+    f.close
+  end
+
 end

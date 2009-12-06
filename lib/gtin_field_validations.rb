@@ -32,7 +32,7 @@ module ActiveRecord
           s = value.to_s.rjust 8, '0'
 
           if [8, *(12..14)].grep(s.size).size != 0
-            tmp = s.split '' 
+            tmp = s.split ''
             checknum = tmp.pop.to_i
 
             sum = 0

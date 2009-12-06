@@ -10,7 +10,7 @@ class ArticleMailer < ActionMailer::Base
     content_type 'text/plain'
     attachment :content_type => "text/xml",
       :filename => "hello.xml",
-      :body => File.read(File.join(RAILS_ROOT, 'tmp', 'records_out_dir', "#{article.id}.xml"))
+      :body => File.read(File.join(RECORDS_OUT_DIR, "#{article.id}.xml"))
   end
 
   def receive(email)

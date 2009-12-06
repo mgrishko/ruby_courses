@@ -29,12 +29,12 @@
     <td><img width="15" height="15" class="star" onclick="star.toggle(this, 13)" src="/images/star_off.gif"/></td>
     <td onclick="go('<%= url_for article %>')"><%=h article.gtin %></td>
     <td onclick="go('<%= url_for article %>')"><%=h article.name %></td>
-    <td onclick="go('<%= url_for article %>')"><%=article.print_status %></td>
+    <td onclick="go('<%= url_for article %>')"><%=article.status %></td>
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
     <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Создать на основе этой', :controller => :articles, :action => :new, :base => article.id %></td>
   <% if false %><td><%= link_to_item_with_count 'Packaging items для этой статьи', article_packaging_items_path(article), article.packaging_items.count%> <% end %>
-    <td><%= link_to 'Publish', :controller => 'articles', :action => 'send_for_change_shatus', :id => article.id %></td>
+    <td><%= link_to 'Publish', publish_article_path(article) %></td>
   </tr>
 <% end %>
 </table>
