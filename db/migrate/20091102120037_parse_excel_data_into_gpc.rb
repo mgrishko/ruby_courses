@@ -9,7 +9,7 @@ class ParseExcelDataIntoGpc < ActiveRecord::Migration
     i = 'g'[0] - 'a'[0]
     k = 'i'[0] - 'a'[0]
 
-    1.upto(worksheet.count) do |n|
+    1.upto(worksheet.count - 1) do |n|
       Gpc.create(
         :gpc_id => worksheet.cell(n, i).to_i,
         :name => worksheet.cell(n, k).to_s('UTF-8')

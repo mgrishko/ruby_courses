@@ -1,0 +1,124 @@
+<%= f.error_messages %>
+
+<p>
+  Sample autocomplete field<br />
+  <%= text_field_with_auto_complete :record, :value, {}, :method => :get %>
+</p>
+<p>
+  <%= f.label :gtin %><br />
+  <%= f.text_field :gtin %>
+</p>
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+
+<p>
+internal item id<br />
+<%=f.text_field :internal_item_id%>
+</p>
+
+<p>
+item name long ru<br />
+<%=f.text_field :item_name_long_ru%>
+</p>
+
+<p>
+item name long en<br />
+<%=f.text_field :item_name_long_en%>
+</p>
+
+<p>
+despatch unit<br />
+<%=f.text_field :despatch_unit%>
+</p>
+
+<p>
+invoice unit<br />
+<%=f.text_field :invoice_unit%>
+</p>
+
+<p>
+order unit<br />
+<%=f.text_field :order_unit%>
+</p>
+
+<p>
+consumer unit<br />
+<%=f.text_field :consumer_unit%>
+</p>
+
+<p>
+manufacturer name<br />
+<%=f.text_field :manufacturer_name%>
+</p>
+
+<p>
+manufacturer gln<br />
+<%=f.text_field :manufacturer_gln%>
+</p>
+
+<p>
+content<br />
+<%=f.text_field :content%>
+</p>
+
+<p>
+<%= f.label :content_uom %>
+<%= f.select :content_uom, @article.content_uoms %>
+</p>
+
+<p>
+gross weight<br />
+<%=f.text_field :gross_weight%>
+</p>
+
+<p>
+<%= f.label :vat%>
+<%= f.select :vat, @article.vats %>
+</p>
+
+<p>
+plu description<br />
+<%=f.text_field :plu_description%>
+</p>
+
+<p>
+gpc<br />
+<%=f.text_field :gpc%>
+</p>
+
+<p>
+<%= f.label :country_of_origin_id %>
+<%= f.select :country_of_origin_id, @article.countries %>
+</p>
+
+<p>
+minimum durability from arrival<br />
+<%=f.text_field :minimum_durability_from_arrival%>
+</p>
+
+<p>
+<%= f.label :packaging_type %>
+<%= f.select :packaging_type, @article.packaging_types %>
+</p>
+
+<p>
+height<br />
+<%=f.text_field :height%>
+</p>
+
+<p>
+depth<br />
+<%=f.text_field :depth%>
+</p>
+
+<p>
+width<br />
+<%=f.text_field :width%>
+</p>
+
+<p>
+  <%=check_box_tag :publish%>
+  <%=label_tag :publish, "Publish record ?"%>
+</p>
