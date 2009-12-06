@@ -14,7 +14,7 @@ module FilterByUser
 
   def find(*args)
     if !@@user.nil? && !@@user.new_record? && !@@user.is_admin
-      if args.size > 1 
+      if args.size > 1
         if args[1].is_a?(Hash) && args[1][:conditions]
           conditions = merge_conditions(args[1][:conditions], :user_id => @@user.id)
         else

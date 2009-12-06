@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
     generate_attachment
     respond_to do |format|
       if @article.save
-        if params[:publish] && @article.publish!
+        if params[:publish] && @article.publish_request!
           flash[:notice] = 'Article was successfully created and sent'
         else
           flash[:notice] = 'Article was successfully created.'
@@ -98,7 +98,7 @@ class ArticlesController < ApplicationController
   def publish
     @article = Article.find params[:id]
     generate_attachment
-    @article.publish!
+    @article.publish_request!
     redirect_to :action => 'index'
   end
 

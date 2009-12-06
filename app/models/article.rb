@@ -41,24 +41,21 @@ class Article < ActiveRecord::Base
   aasm_state :pending, :enter => :send_request
   aasm_state :rejected
 
-  aasm_event :publish do
+  aasm_event :publish_request do
     transitions :to => :pending, :from => [:draft, :rejected]
-    transitions :to => :published, :from => [:pending], :guard => :request_accepted?
-    transitions :to => :rejected, :from => [:pending], :guard => :request_rejected?
+  end
+
+  aasm_event :publish do
+    transitions :to => :published, :from => [:pending]
+  end
+
+  aasm_event :reject do
+    transitions :to => :rejected, :from => [:pending]
   end
 
   def send_request
     ArticleMailer.deliver_approve_email(self)
   end
-
-  def request_accepted?
-    false
-  end
-
-  def request_rejected?
-    false
-  end
-
 
   #def check_for_xml_response
     #fname = "#{RECORDS_IN_DIR}/#{id}.xml"

@@ -5,6 +5,12 @@
 
 <% form_for(@article) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
+
+  <p>
+    <%=check_box_tag :publish%>
+    <%=label_tag :publish, "Publish record ?"%>
+  </p>
+
   <p>
     <%= f.submit "Create" %>
   </p>
