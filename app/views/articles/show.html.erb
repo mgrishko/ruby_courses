@@ -1,16 +1,98 @@
 <%= javascript_include_tag 'jquery/jquery.formLoad.js', 'jquery/jquery.form.js', 'article_show' %>
 
 <% pi = PackagingItem.new %>
+
 <p>
   <b>Record code:</b>
-  <%=h @article.gtin %>
+  <%= h @article.gtin %>
+</p>
+<p>
+  <b>Name:</b>
+  <%= h @article.name %>
+</p>
+<p>
+  <b>Internal item id:</b>
+  <%= h @article.internal_item_id %>
+</p>
+<p>
+  <b>Item name long ru:</b>
+  <%= h @article.item_name_long_ru %>
+</p>
+<p>
+  <b>Item name long en:</b>
+  <%= h @article.item_name_long_en %>
+</p>
+<p>
+  <b>Despatch unit:</b>
+  <%= h @article.despatch_unit %>
+</p>
+<p>
+  <b>Invoice unit:</b>
+  <%= h @article.invoice_unit %>
+</p>
+<p>
+  <b>Order unit:</b>
+  <%= h @article.order_unit %>
+</p>
+<p>
+  <b>Consumer unit:</b>
+  <%= h @article.consumer_unit %>
+</p>
+<p>
+  <b>Manufacturer name:</b>
+  <%= h @article.manufacturer_name %>
+</p>
+<p>
+  <b>Manufacturer gln:</b>
+  <%= h @article.manufacturer_gln %>
+</p>
+<p>
+  <b>Content:</b>
+  <%= h @article.content %>
+  <%= @article.content_uoms.detect { |u| @article.content_uom == u[1] }[0] %>
+</p>
+<p>
+  <b>Gross weight:</b>
+  <%= h @article.gross_weight %>
+</p>
+<p>
+  <b>Vat:</b>
+  <%= @article.vats.detect { |u| @article.vat == u[1] }[0] %>
+</p>
+<p>
+  <b>Plu description:</b>
+  <%= h @article.plu_description %>
+</p>
+<p>
+  <b>Gpc:</b>
+  <%= h @article.gpc %>
+</p>
+<p>
+  <b>Country of origin:</b>
+  <%= h @article.country_of_origin.description %>
 </p>
 
 <p>
-  <b>Name:</b>
-  <%=h @article.name %>
+  <b>Minimum durability from arrival:</b>
+  <%= h @article.minimum_durability_from_arrival %>
 </p>
 
+<p>
+  <b>Packaging type:</b>
+  <%= @article.packaging_types.detect { |u| @article.packaging_type == u[1] }[0] %>
+</p>
+<p>
+  <b>Height:</b>
+  <%= h @article.height %>
+</p>
+<p>
+  <b>Depth:</b>
+  <%= h @article.depth %>
+</p>
+<p>
+  <b>Width</b>
+  <%= h @article.width %>
+</p>
 <p>
   <b>Status:</b>
   <%=@article.print_status %>

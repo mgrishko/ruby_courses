@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   include FilterByUser
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user
-  has_one :country_of_origin, :class_name => 'Country'
+  belongs_to :country_of_origin, :class_name => 'Country'
   #GTIN
   validates_is_gtin :gtin
   validates_presence_of :gtin
