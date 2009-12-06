@@ -90,9 +90,11 @@ class Article < ActiveRecord::Base
     update_status :disabled
   end
 
-  def publish_xml
+  def publish_xml(xml)
     f = File.new("#{out_dir}/#{id}.xml", 'w')
-    f.syswrite("test")
+    f.write(xml)
+    f.close
+    ArticleMailer.deliver_approve_email(self)
     update_status :disabled
     save
   end

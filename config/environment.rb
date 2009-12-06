@@ -84,6 +84,9 @@ TMP_DIR = File.expand_path(File.dirname(__FILE__) + "/../tmp")
 RECORDS_IN_DIR = TMP_DIR + "/records_in_dir"
 RECORDS_OUT_DIR = TMP_DIR + "/records_out_dir"
 
+FileUtils.mkdir_p(RECORDS_IN_DIR)
+FileUtils.mkdir_p(RECORDS_OUT_DIR)
+
 APP_CONFIG = { } unless defined?(APP_CONFIG)
 APP_CONFIG[:mail] = {
 	:server => {
@@ -118,6 +121,6 @@ ActionMailer::Base.smtp_settings = {
 	:domain => APP_CONFIG[:mail][:client][:domain],
 	:authentication => APP_CONFIG[:mail][:client][:smtp_authentication],
 	:user_name => APP_CONFIG[:mail][:client][:email],
-	:password => APP_CONFIG[:mail][:client][:password] 
+	:password => APP_CONFIG[:mail][:client][:password]
 }
 

@@ -9,10 +9,10 @@ class MailOperations
     pop.start(
       APP_CONFIG[:mail][:client][:email],
       APP_CONFIG[:mail][:client][:password]
-    ) 
+    )
 
-    unless pop.mails.empty?  
-      pop.each_mail do |mail|  
+    unless pop.mails.empty?
+      pop.each_mail do |mail|
         email = TMail::Mail.parse(mail.pop)
         new_emails.push(email)
       end
@@ -29,8 +29,8 @@ class MailOperations
       ArticleMailer.receive(msg)
       #imap.store(message_id, "+FLAGS", [:Deleted])
     end
-    imap.logout 
+    imap.logout
     imap.disconnect
   end
-  
+
 end

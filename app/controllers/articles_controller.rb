@@ -96,10 +96,10 @@ class ArticlesController < ApplicationController
   end
 
   def send_for_change_shatus
-    article = Article.find params[:id]
-    if article
-      if article.get_status == :draft
-        article.publish_xml
+    @article = Article.find params[:id]
+    if @article
+      if @article.get_status == :draft
+        @article.publish_xml render_to_string :template => 'article_mailer/approve_email.html.erb', :layout => false
         flash[:notice] = 'Query was sent'
       elsif article.get_status == :disabled
         flash[:notice] = 'The record is waiting for approving'

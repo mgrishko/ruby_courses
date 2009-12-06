@@ -13,10 +13,10 @@
     <fnf_fnd_ru:Item xmlns:fnf_fnd_ru="http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RU">
       <fnf_fnd_ru:BaseItem>
         <fnf_fnd_ru:BaseItemVersion>
-          <fnf_fnd_ru:GTIN><%= @article.gtin %></fnf_fnd_ru:GTIN>
+          <fnf_fnd_ru:GTIN>10000000000000</fnf_fnd_ru:GTIN>
           <fnf_fnd_ru:StartValidityDate>2009-05-20</fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
-          <fnf_fnd_ru:NameOfDataSupplier><%= @article.name %></fnf_fnd_ru:NameOfDataSupplier>
+          <fnf_fnd_ru:NameOfDataSupplier></fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
           <fnf_fnd_ru:SectorCode>FNF</fnf_fnd_ru:SectorCode>
           <fnf_fnd_ru:FnFRelevantPartOfProfile>FNF</fnf_fnd_ru:FnFRelevantPartOfProfile>
@@ -68,7 +68,7 @@
           <fnf_fnd_ru:DangerousSubstancesDeclaration>N</fnf_fnd_ru:DangerousSubstancesDeclaration>
           <fnf_fnd_ru:MaterialSafetyDataSheet>N</fnf_fnd_ru:MaterialSafetyDataSheet>
           <fnf_fnd_ru:Biocide>N</fnf_fnd_ru:Biocide>
-          <fnf_fnd_ru:CountryOfOrigin><%= @article.country_of_origin.code %></fnf_fnd_ru:CountryOfOrigin>
+          <fnf_fnd_ru:CountryOfOrigin>AT</fnf_fnd_ru:CountryOfOrigin>
           <fnf_fnd_ru:BatchNumbered>X11</fnf_fnd_ru:BatchNumbered>
           <fnf_fnd_ru:FunctionalsHealthClaims>
 <fnf_fnd_ru:functionalsHealthClaims />
