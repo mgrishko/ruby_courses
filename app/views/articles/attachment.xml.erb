@@ -20,7 +20,7 @@
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
           <fnf_fnd_ru:SectorCode>FNF</fnf_fnd_ru:SectorCode>
           <fnf_fnd_ru:FnFRelevantPartOfProfile>FNF</fnf_fnd_ru:FnFRelevantPartOfProfile>
-          <fnf_fnd_ru:ActionRequest>ADD</fnf_fnd_ru:ActionRequest>
+          <fnf_fnd_ru:ActionRequest><%= @article.published.empty? ? 'ADD' : 'CHN' %></fnf_fnd_ru:ActionRequest>
           <fnf_fnd_ru:BaseUnit>BI</fnf_fnd_ru:BaseUnit>
           <fnf_fnd_ru:NonPublicTradeItem>N</fnf_fnd_ru:NonPublicTradeItem>
           <fnf_fnd_ru:NumberOfBaseUnitContained>1</fnf_fnd_ru:NumberOfBaseUnitContained>

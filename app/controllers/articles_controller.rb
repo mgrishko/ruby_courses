@@ -46,8 +46,7 @@ class ArticlesController < ApplicationController
 
   def published
     @article = Article.find(params[:id])
-    version = @article.versions.scoped(:conditions => 'changes like "%pending%published%"').last
-    @article.revert_to(version.number)
+    @article.revert_to(@article.published.last.number) unless @article.published.empty?
     render 'edit'
   end
 

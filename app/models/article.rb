@@ -63,6 +63,10 @@ class Article < ActiveRecord::Base
     ArticleMailer.deliver_approve_email(self)
   end
 
+  def published
+    versions.scoped(:conditions => 'changes like "%pending%published%"')
+  end
+
   #def check_for_xml_response
     #fname = "#{RECORDS_IN_DIR}/#{id}.xml"
     #if File::exists?(fname) && File::readable?(fname)
