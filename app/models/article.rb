@@ -39,7 +39,7 @@ class Article < ActiveRecord::Base
   aasm_initial_state :draft
 
   aasm_state :draft
-  aasm_state :published
+  aasm_state :published, :enter => :cleanup_versions
   aasm_state :pending, :enter => :send_request
   aasm_state :rejected
 
@@ -61,6 +61,10 @@ class Article < ActiveRecord::Base
 
   def send_request
     ArticleMailer.deliver_approve_email(self)
+  end
+
+  def cleanup_versions
+    versions.delete_all
   end
 
   def published
