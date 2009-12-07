@@ -44,6 +44,13 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def published
+    @article = Article.find(params[:id])
+    version = @article.versions.scoped(:conditions => 'changes like "%pending%published%"').last
+    @article.revert_to(version.number)
+    render 'edit'
+  end
+
   # POST /articles
   # POST /articles.xml
   def create
@@ -52,7 +59,7 @@ class ArticlesController < ApplicationController
     generate_attachment
     respond_to do |format|
       if @article.save
-        if params[:publish] && @article.publish_request!
+        if params[:publish] && @article.publish!
           flash[:notice] = 'Article was successfully created and sent'
         else
           flash[:notice] = 'Article was successfully created.'
@@ -71,14 +78,18 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
 
-    respond_to do |format|
-      if @article.update_attributes(params[:article])
-        flash[:notice] = 'Article was successfully updated.'
-        format.html { redirect_to(@article) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+    Article.transaction do
+      respond_to do |format|
+        if @article.update_attributes(params[:article])
+          @article.draft!
+
+          flash[:notice] = 'Article was successfully updated.'
+          format.html { redirect_to(@article) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
@@ -98,7 +109,19 @@ class ArticlesController < ApplicationController
   def publish
     @article = Article.find params[:id]
     generate_attachment
-    @article.publish_request!
+    @article.publish!
+    redirect_to :action => 'index'
+  end
+
+  def accept
+    @article = Article.find params[:id]
+    @article.accept!
+    redirect_to :action => 'index'
+  end
+
+  def reject
+    @article = Article.find params[:id]
+    @article.reject!
     redirect_to :action => 'index'
   end
 

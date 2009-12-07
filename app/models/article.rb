@@ -4,6 +4,8 @@ class Article < ActiveRecord::Base
   include AASM
   include FilterByUser
 
+  versioned
+
   has_many :packaging_items, :conditions => {:packaging_item_id => nil}
   belongs_to :user
   belongs_to :country_of_origin, :class_name => 'Country'
@@ -41,11 +43,15 @@ class Article < ActiveRecord::Base
   aasm_state :pending, :enter => :send_request
   aasm_state :rejected
 
-  aasm_event :publish_request do
-    transitions :to => :pending, :from => [:draft, :rejected]
+  aasm_event :draft do
+    transitions :to => :draft, :from => [:published, :rejected, :draft]
   end
 
   aasm_event :publish do
+    transitions :to => :pending, :from => [:draft]
+  end
+
+  aasm_event :accept do
     transitions :to => :published, :from => [:pending]
   end
 

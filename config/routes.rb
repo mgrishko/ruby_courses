@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'approve_emails', :controller => 'articles', :action => 'approve_emails'
   map.connect 'articles/auto_complete_for_record_value', :controller=> 'articles', :action => 'auto_complete_for_record_value'
 
-  map.resources :articles, :member => { :publish => :get } do |articles|
+  map.resources :articles, :member => { :publish => :get, :accept => :get, :reject => :get, :published => :get } do |articles|
     articles.resources :packaging_items
   end
 
