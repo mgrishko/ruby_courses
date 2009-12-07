@@ -6,7 +6,7 @@ class PackagingItem < ActiveRecord::Base
   acts_as_tree :foreign_key => :packaging_item_id
   belongs_to :articles, :conditions => {:packaging_item_id => nil}
   belongs_to :user
-  validates_is_gtin :gtin
+  #validates_is_gtin :gtin
   validates_presence_of :gtin
   validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
   validates_uniqueness_of :gtin, :scope => :user_id
