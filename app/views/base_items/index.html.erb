@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 <% end %>
-<h1>Listing articles</h1>
+<h1>Listing base items</h1>
 
 <table class="results" cellspacing="0" cellpadding="2">
   <tr>
@@ -24,19 +24,19 @@
     <th></th>
   </tr>
 
-<% for article in @articles %>
+<% @base_items.each do |base_item| %>
   <tr>
     <td><img width="15" height="15" class="star" onclick="star.toggle(this, 13)" src="/images/star_off.gif"/></td>
-    <td onclick="go('<%= url_for article %>')"><%=h article.gtin %></td>
-    <td onclick="go('<%= url_for article %>')"><%=h article.name %></td>
-    <td onclick="go('<%= url_for article %>')"><%=article.status %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
-    <td><%= link_to 'Создать на основе этой', :controller => :articles, :action => :new, :base => article.id %></td>
-  <% if false %><td><%= link_to_item_with_count 'Packaging items для этой статьи', article_packaging_items_path(article), article.packaging_items.count%> <% end %>
-    <td><%= link_to 'Publish', publish_article_path(article) %></td>
-    <td><%= link_to 'Accept', accept_article_path(article) %></td>
-    <td><%= link_to 'Reject', reject_article_path(article) %></td>
+    <td onclick="go('<%= url_for base_item %>')"><%=h base_item.gtin %></td>
+    <td onclick="go('<%= url_for base_item %>')"><%=h base_item.name %></td>
+    <td onclick="go('<%= url_for base_item %>')"><%=base_item.status %></td>
+    <td><%= link_to 'Edit', edit_base_item_path(base_item) %></td>
+    <td><%= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
+  <% if false %><td><%= link_to_item_with_count 'Packaging items для этой статьи', base_item_packaging_items_path(base_item), base_item.packaging_items.count%> <% end %>
+    <td><%= link_to 'Publish', publish_base_item_path(base_item) %></td>
+    <td><%= link_to 'Accept', accept_base_item_path(base_item) %></td>
+    <td><%= link_to 'Reject', reject_base_item_path(base_item) %></td>
   </tr>
 <% end %>
 </table>
@@ -67,4 +67,4 @@ star = (function(){
 })();
 </script>
 
-<%= link_to 'New article', new_article_path %>
+<%= link_to 'New base_item', new_base_item_path %>

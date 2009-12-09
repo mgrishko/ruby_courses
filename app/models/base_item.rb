@@ -1,6 +1,6 @@
 require 'gtin_field_validations'
 
-class Article < ActiveRecord::Base
+class BaseItem < ActiveRecord::Base
   include AASM
   include FilterByUser
 
@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :country_of_origin, :class_name => 'Country'
 
-  #validates_is_gtin :gtin
+  validates_is_gtin :gtin
   validates_presence_of :gtin
   validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
   validates_uniqueness_of :gtin, :scope => :user_id
@@ -60,11 +60,12 @@ class Article < ActiveRecord::Base
   end
 
   def send_request
-    ArticleMailer.deliver_approve_email(self)
+    BaseItemMailer.deliver_approve_email(self)
   end
 
   def cleanup_versions
     versions.delete_all
+    packaging_items.update_all(:published => true)
   end
 
   def published

@@ -1,6 +1,6 @@
 class PackagingItemsController < ApplicationController
   before_filter :require_user
-  before_filter :require_article
+  before_filter :require_base_item
   before_filter :check_for_parent
   before_filter :require_packaging_item, :only => [:show, :edit, :destroy, :update]
   @@model = PackagingItem
@@ -11,12 +11,12 @@ class PackagingItemsController < ApplicationController
     end
   end
 
-  def require_article
-    @article = Article.find(params[:article_id])
+  def require_base_item
+    @base_item = BaseItem.find(params[:base_item_id])
   end
 
   def require_packaging_item
-    @packaging_item = PackagingItem.find_by_id_and_article_id(params[:id], @article.id)
+    @packaging_item = PackagingItem.find_by_id_and_base_item_id(params[:id], @base_item.id)
     
     if @packaging_item.nil?
       raise ActiveRecord::RecordNotFound
@@ -28,7 +28,7 @@ class PackagingItemsController < ApplicationController
     if @parent
       @packaging_items = @parent.children
     else
-      @packaging_items = @article.packaging_items
+      @packaging_items = @base_item.packaging_items
     end
 
     respond_to do |format|
@@ -79,13 +79,13 @@ class PackagingItemsController < ApplicationController
       @packaging_item.packaging_item_id = @parent.id
     end
 
-    @packaging_item.article_id = @article.id
+    @packaging_item.base_item_id = @base_item.id
 
     respond_to do |format|
       if @packaging_item.save
         format.html {
           flash[:notice] = 'PackagingItem was successfully created.'
-          redirect_to(@article) 
+          redirect_to(@base_item)
         }
         format.xml  { render :xml => @packaging_item, :status => :created, :location => @packaging_item }
         format.json {
@@ -106,7 +106,7 @@ class PackagingItemsController < ApplicationController
       if @packaging_item.update_attributes(params[:packaging_item])
         format.html {
           flash[:notice] = 'PackagingItem was successfully updated.'
-          redirect_to(@article) 
+          redirect_to(@base_item)
         }
         format.xml  { head :ok }
         format.json { render :json => {:success => :true , :out => render_to_string(:partial => '/pi_list', :locals => {:packaging_items => @packaging_item})} }
@@ -124,7 +124,7 @@ class PackagingItemsController < ApplicationController
     @packaging_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(@article) }
+      format.html { redirect_to(@base_item) }
       format.xml  { head :ok }
       format.json { render :json => {:success => true}}
     end

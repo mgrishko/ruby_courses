@@ -67,3 +67,15 @@ class ApplicationController < ActionController::Base
       end
     end
 end
+
+class TrueClass
+  def to_char
+    'Y'
+  end
+end
+
+class FalseClass
+  def to_char
+    'N'
+  end
+end

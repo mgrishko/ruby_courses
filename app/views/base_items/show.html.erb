@@ -4,105 +4,105 @@
 
 <p>
   <b>Record code:</b>
-  <%= h @article.gtin %>
+  <%= h @base_item.gtin %>
 </p>
 <p>
   <b>Name:</b>
-  <%= h @article.name %>
+  <%= h @base_item.name %>
 </p>
 <p>
   <b>Internal item id:</b>
-  <%= h @article.internal_item_id %>
+  <%= h @base_item.internal_item_id %>
 </p>
 <p>
   <b>Item name long ru:</b>
-  <%= h @article.item_name_long_ru %>
+  <%= h @base_item.item_name_long_ru %>
 </p>
 <p>
   <b>Item name long en:</b>
-  <%= h @article.item_name_long_en %>
+  <%= h @base_item.item_name_long_en %>
 </p>
 <p>
   <b>Despatch unit:</b>
-  <%= h @article.despatch_unit %>
+  <%= h @base_item.despatch_unit %>
 </p>
 <p>
   <b>Invoice unit:</b>
-  <%= h @article.invoice_unit %>
+  <%= h @base_item.invoice_unit %>
 </p>
 <p>
   <b>Order unit:</b>
-  <%= h @article.order_unit %>
+  <%= h @base_item.order_unit %>
 </p>
 <p>
   <b>Consumer unit:</b>
-  <%= h @article.consumer_unit %>
+  <%= h @base_item.consumer_unit %>
 </p>
 <p>
   <b>Manufacturer name:</b>
-  <%= h @article.manufacturer_name %>
+  <%= h @base_item.manufacturer_name %>
 </p>
 <p>
   <b>Manufacturer gln:</b>
-  <%= h @article.manufacturer_gln %>
+  <%= h @base_item.manufacturer_gln %>
 </p>
 <p>
   <b>Content:</b>
-  <%= h @article.content %>
-  <%= @article.content_uoms.detect { |u| @article.content_uom == u[1] }[0] %>
+  <%= h @base_item.content %>
+  <%= @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] %>
 </p>
 <p>
   <b>Gross weight:</b>
-  <%= h @article.gross_weight %>
+  <%= h @base_item.gross_weight %>
 </p>
 <p>
   <b>Vat:</b>
-  <%= @article.vats.detect { |u| @article.vat == u[1] }[0] %>
+  <%= @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] %>
 </p>
 <p>
   <b>Plu description:</b>
-  <%= h @article.plu_description %>
+  <%= h @base_item.plu_description %>
 </p>
 <p>
   <b>Gpc:</b>
-  <%= h @article.gpc %>
+  <%= h @base_item.gpc %>
 </p>
 <p>
   <b>Country of origin:</b>
-  <%= h @article.country_of_origin.description %>
+  <%= h @base_item.country_of_origin.description %>
 </p>
 
 <p>
   <b>Minimum durability from arrival:</b>
-  <%= h @article.minimum_durability_from_arrival %>
+  <%= h @base_item.minimum_durability_from_arrival %>
 </p>
 
 <p>
   <b>Packaging type:</b>
-  <%= @article.packaging_types.detect { |u| @article.packaging_type == u[1] }[0] %>
+  <%= @base_item.packaging_types.detect { |u| @base_item.packaging_type == u[1] }[0] %>
 </p>
 <p>
   <b>Height:</b>
-  <%= h @article.height %>
+  <%= h @base_item.height %>
 </p>
 <p>
   <b>Depth:</b>
-  <%= h @article.depth %>
+  <%= h @base_item.depth %>
 </p>
 <p>
   <b>Width</b>
-  <%= h @article.width %>
+  <%= h @base_item.width %>
 </p>
 <p>
   <b>Status:</b>
-  <%=@article.status %>
+  <%=@base_item.status %>
 </p>
 
 <div style="border:1px solid black" id="pi_container">
   <div id="pi_new">
-    <ul><li><span class="item"><%= link_to_new_pi(@article, pi) %></span></li></ul>
+    <ul><li><span class="item"><%= link_to_new_pi(@base_item, pi) %></span></li></ul>
   </div>
-  <%= render :partial => '/pi_list', :locals => { :packaging_items => @article.packaging_items } %>
+  <%= render :partial => '/pi_list', :locals => { :packaging_items => @base_item.packaging_items } %>
 </div>
 <div id="editform" style="border:3px solid blue;background:white;display:none;width:200px;overflow:hidden;">
   edit element
@@ -258,9 +258,9 @@ width<br />
   <% end %>
 </div>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Edit', edit_base_item_path(@base_item) %> |
 <% if false %>
-<%= link_to 'Создать PackagingItem', new_article_packaging_item_path(@article) %> |
-<%= link_to_item_with_count 'Посмотреть все PackagingItems', article_packaging_items_path(@article), @article.packaging_items.count %>
+<%= link_to 'Создать PackagingItem', new_base_item_packaging_item_path(@base_item) %> |
+<%= link_to_item_with_count 'Посмотреть все PackagingItems', base_item_packaging_items_path(@base_item), @base_item.packaging_items.count %>
 <% end %>
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Back', base_items_path %>

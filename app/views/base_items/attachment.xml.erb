@@ -13,48 +13,47 @@
     <fnf_fnd_ru:Item xmlns:fnf_fnd_ru="http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RU">
       <fnf_fnd_ru:BaseItem>
         <fnf_fnd_ru:BaseItemVersion>
-          <fnf_fnd_ru:GTIN><%= @article.gtin %></fnf_fnd_ru:GTIN>
-          <fnf_fnd_ru:StartValidityDate>2009-05-20</fnf_fnd_ru:StartValidityDate>
+          <fnf_fnd_ru:GTIN><%= @base_item.gtin %></fnf_fnd_ru:GTIN>
+          <fnf_fnd_ru:StartValidityDate>2009-12-01</fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
-          <fnf_fnd_ru:NameOfDataSupplier>Procter and Gamble Russia</fnf_fnd_ru:NameOfDataSupplier>
+          <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
           <fnf_fnd_ru:SectorCode>FNF</fnf_fnd_ru:SectorCode>
           <fnf_fnd_ru:FnFRelevantPartOfProfile>FNF</fnf_fnd_ru:FnFRelevantPartOfProfile>
-          <fnf_fnd_ru:ActionRequest><%= @article.published.empty? ? 'ADD' : 'CHN' %></fnf_fnd_ru:ActionRequest>
+          <fnf_fnd_ru:ActionRequest><%= @base_item.published.empty? ? 'ADD' : 'CHN' %></fnf_fnd_ru:ActionRequest>
           <fnf_fnd_ru:BaseUnit>BI</fnf_fnd_ru:BaseUnit>
-          <fnf_fnd_ru:NonPublicTradeItem>N</fnf_fnd_ru:NonPublicTradeItem>
+          <fnf_fnd_ru:NonPublicTradeItem>Y</fnf_fnd_ru:NonPublicTradeItem>
+          <fnf_fnd_ru:NonPublicGLNList>4607154959985</fnf_fnd_ru:NonPublicGLNList>
           <fnf_fnd_ru:NumberOfBaseUnitContained>1</fnf_fnd_ru:NumberOfBaseUnitContained>
           <fnf_fnd_ru:ItemNameLongML>
-            <fnf_fnd_ru:ItemNameLongML language="RU"><%= @article.name %></fnf_fnd_ru:ItemNameLongML>
+            <fnf_fnd_ru:ItemNameLongML language="RU"><%= @base_item.name %></fnf_fnd_ru:ItemNameLongML>
           </fnf_fnd_ru:ItemNameLongML>
           <fnf_fnd_ru:ItemName>
-            <fnf_fnd_ru:ItemName language="EN"><%= @article.item_name_long_en %></fnf_fnd_ru:ItemName>
-            <fnf_fnd_ru:ItemName language="RU"><%= @article.item_name_long_ru %></fnf_fnd_ru:ItemName>
+            <fnf_fnd_ru:ItemName language="EN"><%= @base_item.item_name_long_en %></fnf_fnd_ru:ItemName>
+            <fnf_fnd_ru:ItemName language="RU"><%= @base_item.item_name_long_ru %></fnf_fnd_ru:ItemName>
           </fnf_fnd_ru:ItemName>
-          <fnf_fnd_ru:DespatchUnit><%= @article.despatch_unit %></fnf_fnd_ru:DespatchUnit>
-          <fnf_fnd_ru:InvoiceUnit><%= @article.invoice_unit %></fnf_fnd_ru:InvoiceUnit>
-          <fnf_fnd_ru:OrderingUnit><%= @article.order_unit %></fnf_fnd_ru:OrderingUnit>
+          <fnf_fnd_ru:DespatchUnit><%= @base_item.despatch_unit.to_char %></fnf_fnd_ru:DespatchUnit>
+          <fnf_fnd_ru:InvoiceUnit><%= @base_item.invoice_unit.to_char %></fnf_fnd_ru:InvoiceUnit>
+          <fnf_fnd_ru:OrderingUnit><%= @base_item.order_unit.to_char %></fnf_fnd_ru:OrderingUnit>
           <fnf_fnd_ru:AdditionalInformation>N</fnf_fnd_ru:AdditionalInformation>
           <fnf_fnd_ru:BulkProduct>N</fnf_fnd_ru:BulkProduct>
-          <fnf_fnd_ru:ConsumerUnit><%= @article.consumer_unit %></fnf_fnd_ru:ConsumerUnit>
-          <fnf_fnd_ru:GLNofManufacturer><%= @article.manufacturer_gln %></fnf_fnd_ru:GLNofManufacturer>
-          <fnf_fnd_ru:ManufacturersName><%= @article.manufacturer_name %></fnf_fnd_ru:ManufacturersName>
-          <fnf_fnd_ru:Content><%= @article.content %></fnf_fnd_ru:Content>
-          <fnf_fnd_ru:ContentUnitOfMeasure><%= @article.content_uoms.detect { |u| @article.content_uom == u[1] }[0] %></fnf_fnd_ru:ContentUnitOfMeasure>
-          <fnf_fnd_ru:GrossWeightFNFTSS><%= @article.gross_weight %></fnf_fnd_ru:GrossWeightFNFTSS>
+          <fnf_fnd_ru:ConsumerUnit><%= @base_item.consumer_unit.to_char %></fnf_fnd_ru:ConsumerUnit>
+          <fnf_fnd_ru:GLNofManufacturer><%= @base_item.manufacturer_gln %></fnf_fnd_ru:GLNofManufacturer>
+          <fnf_fnd_ru:ManufacturersName><%= @base_item.manufacturer_name %></fnf_fnd_ru:ManufacturersName>
+          <fnf_fnd_ru:Content><%= @base_item.content %></fnf_fnd_ru:Content>
+          <fnf_fnd_ru:ContentUnitOfMeasure><%= @base_item.content_uom %></fnf_fnd_ru:ContentUnitOfMeasure>
+          <fnf_fnd_ru:GrossWeightFNFTSS><%= @base_item.gross_weight %></fnf_fnd_ru:GrossWeightFNFTSS>
           <fnf_fnd_ru:GrossWeightUnitOfMeasure>GRM</fnf_fnd_ru:GrossWeightUnitOfMeasure>
-          <fnf_fnd_ru:NetWeight>200</fnf_fnd_ru:NetWeight>
-          <fnf_fnd_ru:NetWeightUnitOfMeasure>GRM</fnf_fnd_ru:NetWeightUnitOfMeasure>
           <fnf_fnd_ru:BasePriceDeclarationRelevant>N</fnf_fnd_ru:BasePriceDeclarationRelevant>
-          <fnf_fnd_ru:VAT_RU><%= @article.vat %></fnf_fnd_ru:VAT_RU>
+          <fnf_fnd_ru:VAT_RU><%= @base_item.vat %></fnf_fnd_ru:VAT_RU>
           <fnf_fnd_ru:BrandNameML>
-            <fnf_fnd_ru:BrandNameML language="EN">NESTLE</fnf_fnd_ru:BrandNameML>
-            <fnf_fnd_ru:BrandNameML language="RU">NESTLE</fnf_fnd_ru:BrandNameML>
+            <fnf_fnd_ru:BrandNameML language="EN">Test</fnf_fnd_ru:BrandNameML>
+            <fnf_fnd_ru:BrandNameML language="RU">Test</fnf_fnd_ru:BrandNameML>
           </fnf_fnd_ru:BrandNameML>
           <fnf_fnd_ru:PLUDescriptionML>
-            <fnf_fnd_ru:PLUDescriptionML language="RU"><%= @article.plu_description %></fnf_fnd_ru:PLUDescriptionML>
+            <fnf_fnd_ru:PLUDescriptionML language="RU"><%= @base_item.plu_description %></fnf_fnd_ru:PLUDescriptionML>
           </fnf_fnd_ru:PLUDescriptionML>
-          <fnf_fnd_ru:GPC><%= @article.gpc %></fnf_fnd_ru:GPC>
+          <fnf_fnd_ru:GPC><%= @base_item.gpc %></fnf_fnd_ru:GPC>
           <fnf_fnd_ru:PricingOnTheProduct>N</fnf_fnd_ru:PricingOnTheProduct>
           <fnf_fnd_ru:FreshnessDateOnProduct>
             <fnf_fnd_ru:freshnessDatesOnProduct>
@@ -68,7 +67,7 @@
           <fnf_fnd_ru:DangerousSubstancesDeclaration>N</fnf_fnd_ru:DangerousSubstancesDeclaration>
           <fnf_fnd_ru:MaterialSafetyDataSheet>N</fnf_fnd_ru:MaterialSafetyDataSheet>
           <fnf_fnd_ru:Biocide>N</fnf_fnd_ru:Biocide>
-          <fnf_fnd_ru:CountryOfOrigin><%= @article.country_of_origin.code %></fnf_fnd_ru:CountryOfOrigin>
+          <fnf_fnd_ru:CountryOfOrigin><%= @base_item.country_of_origin.code %></fnf_fnd_ru:CountryOfOrigin>
           <fnf_fnd_ru:BatchNumbered>X11</fnf_fnd_ru:BatchNumbered>
           <fnf_fnd_ru:FunctionalsHealthClaims>
             <fnf_fnd_ru:functionalsHealthClaims />
@@ -76,12 +75,12 @@
           <fnf_fnd_ru:TechnoChemicalProperties>
             <fnf_fnd_ru:technoChemicalProperties />
           </fnf_fnd_ru:TechnoChemicalProperties>
-          <fnf_fnd_ru:PackagingTypeFNF><%= @article.packaging_type %></fnf_fnd_ru:PackagingTypeFNF>
-          <fnf_fnd_ru:MeasurementTradeItemHeight><%= @article.height %></fnf_fnd_ru:MeasurementTradeItemHeight>
+          <fnf_fnd_ru:PackagingTypeFNF><%= @base_item.packaging_type %></fnf_fnd_ru:PackagingTypeFNF>
+          <fnf_fnd_ru:MeasurementTradeItemHeight><%= @base_item.height %></fnf_fnd_ru:MeasurementTradeItemHeight>
           <fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>
-          <fnf_fnd_ru:MeasurementTradeItemLengthDepth><%= @article.depth %></fnf_fnd_ru:MeasurementTradeItemLengthDepth>
+          <fnf_fnd_ru:MeasurementTradeItemLengthDepth><%= @base_item.depth %></fnf_fnd_ru:MeasurementTradeItemLengthDepth>
           <fnf_fnd_ru:MeasurementTradeItemLengthDepthUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemLengthDepthUnitOfMeasure>
-          <fnf_fnd_ru:MeasurementTradeItemWidth><%= @article.width %></fnf_fnd_ru:MeasurementTradeItemWidth>
+          <fnf_fnd_ru:MeasurementTradeItemWidth><%= @base_item.width %></fnf_fnd_ru:MeasurementTradeItemWidth>
           <fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>
           <fnf_fnd_ru:Barcoded>Y</fnf_fnd_ru:Barcoded>
           <fnf_fnd_ru:TemperatureMinStorage>6</fnf_fnd_ru:TemperatureMinStorage>
@@ -94,37 +93,35 @@
           <fnf_fnd_ru:ChangedBy>gdsn</fnf_fnd_ru:ChangedBy>
           <fnf_fnd_ru:GlobalTradeItemIndicator>N</fnf_fnd_ru:GlobalTradeItemIndicator>
           <fnf_fnd_ru:ReleaseStatusOfTradeItem>5000</fnf_fnd_ru:ReleaseStatusOfTradeItem>
-          <fnf_fnd_ru:GLOBAL_ActionRequest>CHANGE_BY_REFRESH</fnf_fnd_ru:GLOBAL_ActionRequest>
         </fnf_fnd_ru:BaseItemVersion>
       </fnf_fnd_ru:BaseItem>
-    <% @article.packaging_items.each do |packaging_item| %>
+    <% @base_item.packaging_items.each do |packaging_item| %>
       <fnf_fnd_ru:PackagingItem>
         <fnf_fnd_ru:PackagingItemVersion>
           <fnf_fnd_ru:GTIN><%= packaging_item.gtin %></fnf_fnd_ru:GTIN>
           <fnf_fnd_ru:StartValidityDate>2009-06-01</fnf_fnd_ru:StartValidityDate>
-          <fnf_fnd_ru:GLNofDataSupplier>4600705999997</fnf_fnd_ru:GLNofDataSupplier>
-          <fnf_fnd_ru:NameOfDataSupplier>Procter and Gamble Russia</fnf_fnd_ru:NameOfDataSupplier>
+          <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
+          <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
           <fnf_fnd_ru:SectorCode>FNF</fnf_fnd_ru:SectorCode>
           <fnf_fnd_ru:FnFRelevantPartOfProfile>FNF</fnf_fnd_ru:FnFRelevantPartOfProfile>
-          <fnf_fnd_ru:ActionRequest>COR</fnf_fnd_ru:ActionRequest>
+          <fnf_fnd_ru:ActionRequest><%= packaging_item.published ? 'CHN' : 'ADD' %></fnf_fnd_ru:ActionRequest>
           <fnf_fnd_ru:BaseUnit>PI</fnf_fnd_ru:BaseUnit>
-          <fnf_fnd_ru:NonPublicTradeItem>N</fnf_fnd_ru:NonPublicTradeItem>
-          <fnf_fnd_ru:GTINofNextLowerPackagingItem>03014260243555</fnf_fnd_ru:GTINofNextLowerPackagingItem>
+          <fnf_fnd_ru:NonPublicTradeItem>Y</fnf_fnd_ru:NonPublicTradeItem>
+          <fnf_fnd_ru:NonPublicGLNList>4607154959985</fnf_fnd_ru:NonPublicGLNList>
+          <fnf_fnd_ru:GTINofNextLowerPackagingItem><%= @base_item.gtin %></fnf_fnd_ru:GTINofNextLowerPackagingItem>
           <fnf_fnd_ru:NumberOfNextLowerItemContained><%= packaging_item.number_of_next_lower_item %></fnf_fnd_ru:NumberOfNextLowerItemContained>
           <fnf_fnd_ru:NumberOfBaseUnitContained><%= packaging_item.number_of_bi_items %></fnf_fnd_ru:NumberOfBaseUnitContained>
           <fnf_fnd_ru:ItemNameLongML>
             <fnf_fnd_ru:ItemNameLongML language="EN">MACH3 RAZOR</fnf_fnd_ru:ItemNameLongML>
             <fnf_fnd_ru:ItemNameLongML language="RU"><%= packaging_item.item_name_long_ru %></fnf_fnd_ru:ItemNameLongML>
           </fnf_fnd_ru:ItemNameLongML>
-          <fnf_fnd_ru:DespatchUnit><%= packaging_item.despatch_unit %></fnf_fnd_ru:DespatchUnit>
-          <fnf_fnd_ru:InvoiceUnit><%= packaging_item.invoice_unit %></fnf_fnd_ru:InvoiceUnit>
-          <fnf_fnd_ru:OrderingUnit><%= packaging_item.order_unit %></fnf_fnd_ru:OrderingUnit>
-          <fnf_fnd_ru:ConsumerUnit><%= packaging_item.consumer_unit %></fnf_fnd_ru:ConsumerUnit>
+          <fnf_fnd_ru:DespatchUnit><%= packaging_item.despatch_unit.to_char %></fnf_fnd_ru:DespatchUnit>
+          <fnf_fnd_ru:InvoiceUnit><%= packaging_item.invoice_unit.to_char %></fnf_fnd_ru:InvoiceUnit>
+          <fnf_fnd_ru:OrderingUnit><%= packaging_item.order_unit.to_char %></fnf_fnd_ru:OrderingUnit>
+          <fnf_fnd_ru:ConsumerUnit><%= packaging_item.consumer_unit.to_char %></fnf_fnd_ru:ConsumerUnit>
           <fnf_fnd_ru:GrossWeightFNFTSS><%= packaging_item.gross_weight %></fnf_fnd_ru:GrossWeightFNFTSS>
           <fnf_fnd_ru:GrossWeightUnitOfMeasure>GRM</fnf_fnd_ru:GrossWeightUnitOfMeasure>
-          <fnf_fnd_ru:NetWeight>0.45</fnf_fnd_ru:NetWeight>
-          <fnf_fnd_ru:NetWeightUnitOfMeasure>KGM</fnf_fnd_ru:NetWeightUnitOfMeasure>
           <fnf_fnd_ru:PackagingTypeFNF><%= packaging_item.packaging_type %></fnf_fnd_ru:PackagingTypeFNF>
           <fnf_fnd_ru:MeasurementTradeItemHeight><%= packaging_item.height %></fnf_fnd_ru:MeasurementTradeItemHeight>
           <fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>
@@ -140,7 +137,6 @@
           <fnf_fnd_ru:ChangedBy>gdsn</fnf_fnd_ru:ChangedBy>
           <fnf_fnd_ru:GlobalTradeItemIndicator>N</fnf_fnd_ru:GlobalTradeItemIndicator>
           <fnf_fnd_ru:ReleaseStatusOfTradeItem>5000</fnf_fnd_ru:ReleaseStatusOfTradeItem>
-          <fnf_fnd_ru:GLOBAL_ActionRequest>CHANGE_BY_REFRESH</fnf_fnd_ru:GLOBAL_ActionRequest>
         </fnf_fnd_ru:PackagingItemVersion>
       </fnf_fnd_ru:PackagingItem>
     <% end %>

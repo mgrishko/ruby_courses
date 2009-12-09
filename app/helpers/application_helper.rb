@@ -24,7 +24,7 @@ module ApplicationHelper
     end
   end
 
-  def link_to_new_pi(article, packaging_item, parent_id = nil)
-    link_to_function('New', "PI.showForm('new', this, '" + url_for(hash_for_article_packaging_items_path.merge(:article_id => article, :id => nil, :parent_id => parent_id, :format => :json)) + "')")
+  def link_to_new_pi(base_item, packaging_item, parent_id = nil)
+    link_to_function('New', "PI.showForm('new', this, '" + url_for(hash_for_base_item_packaging_items_path.merge(:base_item_id => base_item, :id => nil, :parent_id => parent_id, :format => :json)) + "')")
   end
 end

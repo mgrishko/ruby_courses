@@ -1,15 +1,15 @@
 require 'test_helper'
 
-class ArticleTest < ActiveSupport::TestCase
+class BaseItemTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   context "Gtin: " do
     should_validate_uniqueness_of :gtin, :scoped_to => :user_id
     should_validate_presence_of :gtin
     context "Numbers less than 8 in length are accepted" do
-      should_allow_values_for :gtin, 
+      should_allow_values_for :gtin,
         17, 24, 31, 48,
         109, 116, 123
-      should_not_allow_values_for :gtin, 
+      should_not_allow_values_for :gtin,
         18, 25, 32,49,
         110, 117, 124, :message => "checksum is not correct"
     end
@@ -29,8 +29,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   context "Check numeric numbers " do
-    should_validate_numericality_of :gtin, :manufacturer_gln, :content, :content_uom, 
-      :gross_weight, :vat, :gpc, :country_of_origin, :minimum_durability_from_arrival, :packaging_type, :height, :depth, :width 
+    should_validate_numericality_of :gtin, :manufacturer_gln, :content, :content_uom,
+      :gross_weight, :vat, :gpc, :country_of_origin, :minimum_durability_from_arrival, :packaging_type, :height, :depth, :width
   end
 
   context "Checking decimal values" do

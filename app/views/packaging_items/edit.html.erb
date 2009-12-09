@@ -1,6 +1,6 @@
 <h1>Editing packaging_item</h1>
 
-<% form_for([@article, @packaging_item]) do |f| %>
+<% form_for([@base_item, @packaging_item]) do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :gtin %><br />
@@ -72,5 +72,5 @@ width<br />
   </p>
 <% end %>
 
-<%=render :partial => "url_bar", :locals => {:article => @article} %> |
-<%= link_to 'Back', article_packaging_item_path(@article, @packaging_item) %>
+<%=render :partial => "url_bar", :locals => {:base_item => @base_item} %> |
+<%= link_to 'Back', base_item_packaging_item_path(@base_item, @packaging_item) %>

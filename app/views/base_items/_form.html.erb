@@ -29,23 +29,23 @@ item name long en<br />
 </p>
 
 <p>
-despatch unit<br />
-<%=f.text_field :despatch_unit%>
+  <%= f.check_box :despatch_unit %>
+  <%= f.label :despatch_unit %>
 </p>
 
 <p>
-invoice unit<br />
-<%=f.text_field :invoice_unit%>
+  <%= f.check_box :invoice_unit %>
+  <%= f.label :invoice_unit %>
 </p>
 
 <p>
-order unit<br />
-<%=f.text_field :order_unit%>
+  <%= f.check_box :order_unit %>
+  <%= f.label :order_unit %>
 </p>
 
 <p>
-consumer unit<br />
-<%=f.text_field :consumer_unit%>
+  <%= f.check_box :consumer_unit %>
+  <%= f.label :consumer_unit %>
 </p>
 
 <p>
@@ -65,7 +65,7 @@ content<br />
 
 <p>
 <%= f.label :content_uom %>
-<%= f.select :content_uom, @article.content_uoms %>
+<%= f.select :content_uom, @base_item.content_uoms %>
 </p>
 
 <p>
@@ -75,7 +75,7 @@ gross weight<br />
 
 <p>
 <%= f.label :vat%>
-<%= f.select :vat, @article.vats %>
+<%= f.select :vat, @base_item.vats %>
 </p>
 
 <p>
@@ -90,7 +90,7 @@ gpc<br />
 
 <p>
 <%= f.label :country_of_origin_id %>
-<%= f.select :country_of_origin_id, @article.countries %>
+<%= f.select :country_of_origin_id, @base_item.countries %>
 </p>
 
 <p>
@@ -100,7 +100,7 @@ minimum durability from arrival<br />
 
 <p>
 <%= f.label :packaging_type %>
-<%= f.select :packaging_type, @article.packaging_types %>
+<%= f.select :packaging_type, @base_item.packaging_types %>
 </p>
 
 <p>

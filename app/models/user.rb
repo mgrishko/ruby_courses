@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :articles
+  has_many :base_items
   has_many :packaging_items
   validates_uniqueness_of :gln
   acts_as_authentic do |a|

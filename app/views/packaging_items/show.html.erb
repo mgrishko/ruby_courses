@@ -3,5 +3,5 @@ Code: <%=h @packaging_item.gtin %><br />
 
 <%=debug @packaging_item%>
 
-<%=render :partial => "url_bar", :locals => {:article => @article, :packaging_item => @packaging_item} %>
+<%=render :partial => "url_bar", :locals => {:base_item => @base_item, :packaging_item => @packaging_item} %>
 
