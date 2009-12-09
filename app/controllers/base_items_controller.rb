@@ -100,7 +100,7 @@ class BaseItemsController < ApplicationController
     @base_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(articles_url) }
+      format.html { redirect_to(base_items_url) }
       format.xml  { head :ok }
     end
   end
@@ -109,19 +109,19 @@ class BaseItemsController < ApplicationController
     @base_item = BaseItem.find params[:id]
     generate_attachment
     @base_item.publish!
-    redirect_to :action => 'index'
+    redirect_to base_items_url
   end
 
   def accept
     @base_item = BaseItem.find params[:id]
     @base_item.accept!
-    redirect_to :action => 'index'
+    redirect_to base_items_url
   end
 
   def reject
     @base_item = BaseItem.find params[:id]
     @base_item.reject!
-    redirect_to :action => 'index'
+    redirect_to base_items_url
   end
 
   # GET /approve_emails
@@ -140,7 +140,7 @@ class BaseItemsController < ApplicationController
 
   def generate_attachment
     f = File.new("#{RECORDS_OUT_DIR}/#{@base_item.id}.xml", 'w')
-    f.write(render_to_string :template => 'articles/attachment.xml', :layout => false)
+    f.write(render_to_string :template => 'base_items/attachment.xml', :layout => false)
     f.close
   end
 

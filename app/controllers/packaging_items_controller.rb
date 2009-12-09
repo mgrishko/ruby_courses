@@ -17,7 +17,7 @@ class PackagingItemsController < ApplicationController
 
   def require_packaging_item
     @packaging_item = PackagingItem.find_by_id_and_base_item_id(params[:id], @base_item.id)
-    
+
     if @packaging_item.nil?
       raise ActiveRecord::RecordNotFound
     end
