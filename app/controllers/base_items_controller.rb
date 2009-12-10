@@ -17,9 +17,10 @@ class BaseItemsController < ApplicationController
   # GET /articles/1.xml
   def show
     @base_item = BaseItem.find(params[:id])
+    @packaging_items = @base_item.packaging_items
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'show', :layout => 'base_item_show' }
       format.xml  { render :xml => @base_item }
     end
   end

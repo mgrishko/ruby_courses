@@ -1,19 +1,7 @@
-<%= javascript_include_tag 'application.js' %>
-<% content_for :css do %>
-.results td, .results th {
-  border-bottom:1px solid #BBBBBB;
-}
-.results td {
-  border-bottom:1px solid #BBBBBB;
-  padding:4px;
-  cursor: pointer;
-}
-<% end %>
 <h1>Listing base items</h1>
 
 <table class="results" cellspacing="0" cellpadding="2">
   <tr>
-    <th></th>
     <th>Record code</th>
     <th>Name</th>
     <th>Status</th>
@@ -26,45 +14,17 @@
 
 <% @base_items.each do |base_item| %>
   <tr>
-    <td><img width="15" height="15" class="star" onclick="star.toggle(this, 13)" src="/images/star_off.gif"/></td>
-    <td onclick="go('<%= url_for base_item %>')"><%=h base_item.gtin %></td>
-    <td onclick="go('<%= url_for base_item %>')"><%=h base_item.name %></td>
-    <td onclick="go('<%= url_for base_item %>')"><%=base_item.status %></td>
+    <td><%= link_to base_item.gtin, base_item_path(base_item) %></td>
+    <td><%= h base_item.name %></td>
+    <td><%= base_item.status %></td>
     <td><%= link_to 'Edit', edit_base_item_path(base_item) %></td>
     <td><%= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
-  <% if false %><td><%= link_to_item_with_count 'Packaging items для этой статьи', base_item_packaging_items_path(base_item), base_item.packaging_items.count%> <% end %>
     <td><%= link_to 'Publish', publish_base_item_path(base_item) %></td>
     <td><%= link_to 'Accept', accept_base_item_path(base_item) %></td>
     <td><%= link_to 'Reject', reject_base_item_path(base_item) %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<script type="text/javascript">
-star = (function(){
-  var toggledStars = {};
-  var images = ['/images/star_off.gif', '/images/star_on.gif'];
-
-  $(images).each(function(val){
-    (new Image()).src = val;
-  });
-
-  return {
-    'toggle' : function (el, id){
-      var on = (el.src.indexOf(images[0]) == -1);
-      if(on){
-        toggledStars[id] = true;
-      }else{
-        delete toggledStars[id];
-      }
-
-      $(el).attr('src', images[+!on]);
-    }
-  }
-})();
-</script>
 
 <%= link_to 'New base_item', new_base_item_path %>

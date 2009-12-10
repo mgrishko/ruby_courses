@@ -2,11 +2,11 @@ require 'gtin_field_validations'
 
 class BaseItem < ActiveRecord::Base
   include AASM
-  include FilterByUser
+  #include FilterByUser
 
   versioned
 
-  has_many :packaging_items, :conditions => {:packaging_item_id => nil}
+  has_many :packaging_items
   belongs_to :user
   belongs_to :country_of_origin, :class_name => 'Country'
 

@@ -6,8 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
-  <%= javascript_include_tag 'jquery', 'jquery-ui', 'jrails', :cache => true %>
-  <%= javascript_include_tag  'jquery/additional_ajax_methods.js' %>
+  <%= javascript_include_tag :defaults %>
   <style type="text/css">
     <%= yield :css %>
   </style>

@@ -1,0 +1,111 @@
+body, html
+{
+	behavior: url(csshover.htc);
+	height: 100%;
+	width: 100%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color: #000;
+	line-height: 130%;
+}
+
+a
+{
+	color: #f60;
+	text-decoration: underline;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+
+p, ul, ol
+{
+	margin-bottom: 10px;
+	line-height: 140%;
+}
+
+h1
+{
+	font-size: 15pt;
+	line-height: 110%;
+}
+
+h2
+{
+	font-size: 12pt;
+	line-height: 140%;
+	margin-bottom: 50px;
+}
+
+.body
+{
+	behavior: url(iepngfix.htc);
+	position: relative;
+	height: auto !important;
+    height: 100%;
+    min-height: 100%;
+	margin: 0 auto;
+    padding-bottom: -20px;
+}
+
+.header
+{
+	height: 50px;
+	position: relative;
+	margin-bottom: 35px;
+}
+
+.logo
+{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+.content
+{
+	width: 100%;
+	display: table;
+	clear: both;
+    padding-bottom: 40px;
+}
+
+.row
+{
+	display: table-row;
+}
+
+.column
+{
+	display: table-cell;
+	vertical-align: top;
+}
+
+.column,
+{
+	display: inline;
+	vertical-align: top;
+	zoom: 1;
+}
+
+.left
+{
+	width: 20%;
+}
+
+.right
+{
+	width: 80%;
+}
+
+.footer
+{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 20px;
+	border-top: 2px solid #676766;
+	width: 100%;
+}

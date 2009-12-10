@@ -1,15 +1,6 @@
-[submodule "vendor/plugins/shoulda"]
-	path = vendor/plugins/shoulda
-	url = git://github.com/thoughtbot/shoulda.git
 [submodule "vendor/plugins/auto_complete"]
 	path = vendor/plugins/auto_complete
 	url = git://github.com/rails/auto_complete.git
 [submodule "vendor/plugins/acts_as_tree"]
 	path = vendor/plugins/acts_as_tree
 	url = git://github.com/rails/acts_as_tree.git
-[submodule "vendor/plugins/smtp-tls"]
-	path = vendor/plugins/smtp-tls
-	url = git://github.com/ambethia/smtp-tls.git
-[submodule "vendor/plugins/jrails"]
-	path = vendor/plugins/jrails
-	url = git://github.com/aaronchi/jrails.git

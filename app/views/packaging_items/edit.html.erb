@@ -1,76 +1,11 @@
 <h1>Editing packaging_item</h1>
 
 <% form_for([@base_item, @packaging_item]) do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :gtin %><br />
-    <%= f.text_field :gtin %>
-  </p>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name%>
-  </p>
-
-<p>
-number of next lower item<br />
-<%=f.text_field :number_of_next_lower_item%>
-</p>
-
-<p>
-number of bi items<br />
-<%=f.text_field :number_of_bi_items%>
-</p>
-
-<p>
-despatch unit<br />
-<%=f.text_field :despatch_unit%>
-</p>
-
-<p>
-invoice unit<br />
-<%=f.text_field :invoice_unit%>
-</p>
-
-<p>
-order unit<br />
-<%=f.text_field :order_unit%>
-</p>
-
-<p>
-consumer unit<br />
-<%=f.text_field :consumer_unit%>
-</p>
-
-<p>
-gross weight<br />
-<%=f.text_field :gross_weight%>
-</p>
-
-<p>
-packaging type<br />
-<%=f.text_field :packaging_type%>
-</p>
-
-<p>
-height<br />
-<%=f.text_field :height%>
-</p>
-
-<p>
-depth<br />
-<%=f.text_field :depth%>
-</p>
-
-<p>
-width<br />
-<%=f.text_field :width%>
-</p>
+  <%= render :partial => 'form', :locals => { :f => f } %>
 
   <p>
     <%= f.submit "Update" %>
   </p>
 <% end %>
 
-<%=render :partial => "url_bar", :locals => {:base_item => @base_item} %> |
 <%= link_to 'Back', base_item_packaging_item_path(@base_item, @packaging_item) %>

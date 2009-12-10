@@ -1,0 +1,16 @@
+<h1>Listing packaging_items</h1>
+<table>
+  <tr>
+  </tr>
+
+<% @packaging_items.each do |packaging_item| %>
+  <tr>
+    <td><%=h packaging_item.item_name_long_ru %>
+    <td><%= link_to 'Show', base_item_packaging_item_path(@base_item, packaging_item) %></td>
+    <td><%= link_to 'Edit', edit_base_item_packaging_item_path(@base_item, packaging_item) %></td>
+    <td><%= link_to 'Destroy', [@base_item, packaging_item], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'New', new_base_item_packaging_item_path(@base_item) %>

@@ -1,9 +1,0 @@
-<h1>processed articles with subjects:</h1>
-<% unless @emails.empty? %>
-	<% @emails.each do |email| %>
-		<p><%= email.subject.empty? ? 'No subject' : email.subject %></p>
-	<% end %>
-<% else %>
-	There are no new emails.
-<% end %>
-<p><%= link_to 'Articles list', articles_path %></p>

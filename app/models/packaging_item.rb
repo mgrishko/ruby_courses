@@ -1,10 +1,11 @@
 require 'gtin_field_validations'
 
 class PackagingItem < ActiveRecord::Base
-  include FilterByUser
-  set_table_name :packaging_items
-  acts_as_tree :foreign_key => :packaging_item_id
-  belongs_to :base_items, :conditions => {:packaging_item_id => nil}
+  #include FilterByUser
+
+  acts_as_nested_set :scope => :base_item
+
+  belongs_to :base_items
   belongs_to :user
 
   validates_is_gtin :gtin
@@ -20,12 +21,4 @@ class PackagingItem < ActiveRecord::Base
   validates_numericality_of :depth, :less_than => 10 ** 5, :greater_than => 0
   validates_numericality_of :width, :less_than => 10 ** 5, :greater_than => 0
 
-
-  def name
-    item_name_long_ru
-  end
-
-  def name=(value)
-    write_attribute :item_name_long_ru, value
-  end
 end

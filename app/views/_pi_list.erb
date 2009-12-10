@@ -1,7 +1,0 @@
-<%=tree_to_list(packaging_items) {|packaging_item|
-sprintf("<span class=\"item\">%s (%s)</span>",
-        link_to_function(packaging_item.name, "PI.show('" + base_item_packaging_item_path(@base_item, packaging_item, :format => :json) + "', this)"),
-        [ link_to_new_pi(@base_item, packaging_item, packaging_item),
-          link_to_function('Edit', "PI.showForm('edit', this, '" + url_for(:controller => :packaging_items, :action => :update, :base_item_id => @base_item, :id => packaging_item, :format => :json) + "','" + edit_base_item_packaging_item_path(@base_item, packaging_item) + "')"),
-          link_to_function('Destroy', "PI.delete(this, '" + url_for(hash_for_base_item_packaging_item_path.merge(:base_item_id => @base_item, :id => packaging_item, :format => :json)) + "')") ].join(' | '))
-}%>
