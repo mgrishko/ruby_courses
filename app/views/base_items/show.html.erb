@@ -61,7 +61,7 @@
 </p>
 <p>
   <b>Gpc:</b>
-  <%= h @base_item.gpc %>
+  <%= h @base_item.gpc.name %>
 </p>
 <p>
   <b>Country of origin:</b>
@@ -97,6 +97,6 @@
 <%= link_to 'Edit', edit_base_item_path(@base_item) %> |
 <%= link_to 'Back', base_items_path %>
 
-<% content_for :packaging_items do %>
+<% content_for :right do %>
   <%= render 'packaging_items/index' %>
 <% end %>

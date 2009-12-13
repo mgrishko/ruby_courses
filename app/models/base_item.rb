@@ -2,16 +2,15 @@ require 'gtin_field_validations'
 
 class BaseItem < ActiveRecord::Base
   include AASM
-  #include FilterByUser
 
   versioned
 
   has_many :packaging_items
   belongs_to :user
-  belongs_to :country_of_origin, :class_name => 'Country'
+  belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
+  belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
 
   validates_is_gtin :gtin
-  validates_presence_of :gtin
   validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
   validates_uniqueness_of :gtin, :scope => :user_id
 
@@ -23,16 +22,14 @@ class BaseItem < ActiveRecord::Base
   validates_numericality_of :internal_item_id
   validates_numericality_of :manufacturer_gln, :less_than => (10 ** 13), :greater_than_or_equal_to => (10 ** (13 -1))
   validates_numericality_of :content, :greater_than_or_equal_to => 0.001, :less_than => 10 ** 9
-  #validates_numericality_of :content_uom
   validates_numericality_of :gross_weight, :less_than => 10 ** 7, :greater_than => 0
   validates_numericality_of :vat
-  validates_numericality_of :gpc
-  #validates_numericality_of :country_of_origin
   validates_numericality_of :minimum_durability_from_arrival, :less_than => 10 ** 4, :greater_than => 0
-  #validates_numericality_of :packaging_type
-  validates_numericality_of :height, :less_than => 10 ** 5, :greater_than => 0
-  validates_numericality_of :depth,  :less_than => 10 ** 5, :greater_than => 0
-  validates_numericality_of :width,  :less_than => 10 ** 5, :greater_than => 0
+  validates_numericality_of :height, :greater_than => 0
+  validates_numericality_of :depth, :greater_than => 0
+  validates_numericality_of :width, :greater_than => 0
+
+  validates_presence_of :gpc
 
   aasm_column :status
 
@@ -85,6 +82,14 @@ class BaseItem < ActiveRecord::Base
     #end
   #end
 
+  def gpc_name= (name)
+    self.gpc = name.blank? ? nil : Gpc.find_by_name(name)
+  end
+
+  def gpc_name
+    gpc.name if gpc
+  end
+
   def vats
     [['0 %', 57], ['10 %', 59], ['18 %', 60]]
   end
@@ -134,7 +139,7 @@ class BaseItem < ActiveRecord::Base
   end
 
   def countries
-    Country.find(:all, :select => 'id, description').map { |c| [c.description, c.id] }
+    Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
 end

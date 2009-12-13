@@ -6,6 +6,7 @@ class RenameArticles < ActiveRecord::Migration
     rename_column :packaging_items, :packaging_item_id, :parent_id
     add_column :packaging_items, :rgt, :integer
     add_column :packaging_items, :lft, :integer
+    add_column :packaging_items, :level_cache, :integer, :default => 0
   end
 
   def self.down
@@ -15,5 +16,6 @@ class RenameArticles < ActiveRecord::Migration
     rename_column :packaging_items, :parent_id, :packaging_item_id
     remove_column :packaging_items, :rgt
     remove_column :packaging_items, :lft
+    remove_column :packaging_items, :level_cache
   end
 end

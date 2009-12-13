@@ -4,10 +4,10 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => :user_sessions, :action => :logout
 
   #map.connect 'approve_emails', :controller => 'base_items', :action => 'approve_emails'
-  map.connect 'base_items/auto_complete_for_record_value', :controller=> 'base_items', :action => 'auto_complete_for_record_value'
 
-  map.resources :base_items, :member => { :publish => :get, :accept => :get, :reject => :get, :published => :get } do |base_items|
-    base_items.resources :packaging_items
+  map.resources :base_items, :member => { :publish => :get, :accept => :get, :reject => :get, :published => :get },
+    :collection => { :auto_complete_for_base_item_gpc_name => :get } do |base_items|
+    base_items.resources :packaging_items, :member => { :new_sub => :get }
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

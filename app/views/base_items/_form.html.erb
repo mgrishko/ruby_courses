@@ -1,11 +1,6 @@
 <%= f.error_messages %>
 
 <p>
-  Sample autocomplete field<br />
-  <%= text_field_with_auto_complete :record, :value, {}, :method => :get %>
-</p>
-
-<p>
   <%= f.label :gtin %><br />
   <%= f.text_field :gtin %>
 </p>
@@ -66,8 +61,8 @@ content<br />
 </p>
 
 <p>
-<%= f.label :content_uom %>
-<%= f.select :content_uom, @base_item.content_uoms %>
+  <%= f.label :content_uom %>
+  <%= f.select :content_uom, @base_item.content_uoms %>
 </p>
 
 <p>
@@ -76,8 +71,8 @@ gross weight<br />
 </p>
 
 <p>
-<%= f.label :vat%>
-<%= f.select :vat, @base_item.vats %>
+  <%= f.label :vat%>
+  <%= f.select :vat, @base_item.vats %>
 </p>
 
 <p>
@@ -86,13 +81,13 @@ plu description<br />
 </p>
 
 <p>
-gpc<br />
-<%=f.text_field :gpc%>
+  <%= f.label :gpc_name %>
+  <%= text_field_with_auto_complete :base_item, :gpc_name %>
 </p>
 
 <p>
-<%= f.label :country_of_origin_id %>
-<%= f.select :country_of_origin_id, @base_item.countries %>
+  <%= f.label :country_of_origin_code %>
+  <%= f.select :country_of_origin_code, @base_item.countries %>
 </p>
 
 <p>
@@ -101,8 +96,8 @@ minimum durability from arrival<br />
 </p>
 
 <p>
-<%= f.label :packaging_type %>
-<%= f.select :packaging_type, @base_item.packaging_types %>
+  <%= f.label :packaging_type %>
+  <%= f.select :packaging_type, @base_item.packaging_types %>
 </p>
 
 <p>

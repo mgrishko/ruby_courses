@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-5"?>
 <sinfos:TradeItemMessage xmlns:sinfos="http://schemas.sinfos.de/TradeItemMessages/1.2.0/TradeItemMessage">
   <sinfos:MessageInformation>
-    <sinfos:CreationDate>2009-09-30</sinfos:CreationDate>
+    <sinfos:CreationDate><%= Time.now.sprintf("%Y-%m-%d") %></sinfos:CreationDate>
     <sinfos:MessageSender>4607154959985</sinfos:MessageSender>
     <sinfos:MessageReceiver>4607154959992</sinfos:MessageReceiver>
     <sinfos:ContentOwner>4607154959992</sinfos:ContentOwner>
@@ -14,7 +14,7 @@
       <fnf_fnd_ru:BaseItem>
         <fnf_fnd_ru:BaseItemVersion>
           <fnf_fnd_ru:GTIN><%= @base_item.gtin %></fnf_fnd_ru:GTIN>
-          <fnf_fnd_ru:StartValidityDate>2009-12-01</fnf_fnd_ru:StartValidityDate>
+          <fnf_fnd_ru:StartValidityDate><%= Time.now.sprintf("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
           <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
@@ -53,12 +53,12 @@
           <fnf_fnd_ru:PLUDescriptionML>
             <fnf_fnd_ru:PLUDescriptionML language="RU"><%= @base_item.plu_description %></fnf_fnd_ru:PLUDescriptionML>
           </fnf_fnd_ru:PLUDescriptionML>
-          <fnf_fnd_ru:GPC><%= @base_item.gpc %></fnf_fnd_ru:GPC>
+          <fnf_fnd_ru:GPC><%= @base_item.gpc_code %></fnf_fnd_ru:GPC>
           <fnf_fnd_ru:PricingOnTheProduct>N</fnf_fnd_ru:PricingOnTheProduct>
           <fnf_fnd_ru:FreshnessDateOnProduct>
             <fnf_fnd_ru:freshnessDatesOnProduct>
               <fnf_fnd_ru:freshnessDateOnProduct>
-                <fnf_fnd_ru:freshnessDateOnProduct>31</fnf_fnd_ru:freshnessDateOnProduct>
+                <fnf_fnd_ru:freshnessDateOnProduct>NOD</fnf_fnd_ru:freshnessDateOnProduct>
               </fnf_fnd_ru:freshnessDateOnProduct>
             </fnf_fnd_ru:freshnessDatesOnProduct>
           </fnf_fnd_ru:FreshnessDateOnProduct>
@@ -67,14 +67,8 @@
           <fnf_fnd_ru:DangerousSubstancesDeclaration>N</fnf_fnd_ru:DangerousSubstancesDeclaration>
           <fnf_fnd_ru:MaterialSafetyDataSheet>N</fnf_fnd_ru:MaterialSafetyDataSheet>
           <fnf_fnd_ru:Biocide>N</fnf_fnd_ru:Biocide>
-          <fnf_fnd_ru:CountryOfOrigin><%= @base_item.country_of_origin.code %></fnf_fnd_ru:CountryOfOrigin>
+          <fnf_fnd_ru:CountryOfOrigin><%= @base_item.country_of_origin_code %></fnf_fnd_ru:CountryOfOrigin>
           <fnf_fnd_ru:BatchNumbered>X11</fnf_fnd_ru:BatchNumbered>
-          <fnf_fnd_ru:FunctionalsHealthClaims>
-            <fnf_fnd_ru:functionalsHealthClaims />
-          </fnf_fnd_ru:FunctionalsHealthClaims>
-          <fnf_fnd_ru:TechnoChemicalProperties>
-            <fnf_fnd_ru:technoChemicalProperties />
-          </fnf_fnd_ru:TechnoChemicalProperties>
           <fnf_fnd_ru:PackagingTypeFNF><%= @base_item.packaging_type %></fnf_fnd_ru:PackagingTypeFNF>
           <fnf_fnd_ru:MeasurementTradeItemHeight><%= @base_item.height %></fnf_fnd_ru:MeasurementTradeItemHeight>
           <fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemHeightUnitOfMeasure>
@@ -83,23 +77,15 @@
           <fnf_fnd_ru:MeasurementTradeItemWidth><%= @base_item.width %></fnf_fnd_ru:MeasurementTradeItemWidth>
           <fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>
           <fnf_fnd_ru:Barcoded>Y</fnf_fnd_ru:Barcoded>
-          <fnf_fnd_ru:TemperatureMinStorage>6</fnf_fnd_ru:TemperatureMinStorage>
-          <fnf_fnd_ru:TemperatureMaxStorage>30</fnf_fnd_ru:TemperatureMaxStorage>
-          <fnf_fnd_ru:TemperatureUnitOfMeasure>CEL</fnf_fnd_ru:TemperatureUnitOfMeasure>
           <fnf_fnd_ru:TradeItemIsReleased>Y</fnf_fnd_ru:TradeItemIsReleased>
-          <fnf_fnd_ru:ReleasedAtDateTime>2009-09-29T23:24:00</fnf_fnd_ru:ReleasedAtDateTime>
-          <fnf_fnd_ru:LastChangedDateTime>2009-09-29T23:24:00</fnf_fnd_ru:LastChangedDateTime>
-          <fnf_fnd_ru:CreatedAtDateTime>2009-07-01T10:24:00</fnf_fnd_ru:CreatedAtDateTime>
-          <fnf_fnd_ru:ChangedBy>gdsn</fnf_fnd_ru:ChangedBy>
           <fnf_fnd_ru:GlobalTradeItemIndicator>N</fnf_fnd_ru:GlobalTradeItemIndicator>
-          <fnf_fnd_ru:ReleaseStatusOfTradeItem>5000</fnf_fnd_ru:ReleaseStatusOfTradeItem>
         </fnf_fnd_ru:BaseItemVersion>
       </fnf_fnd_ru:BaseItem>
     <% @base_item.packaging_items.each do |packaging_item| %>
       <fnf_fnd_ru:PackagingItem>
         <fnf_fnd_ru:PackagingItemVersion>
           <fnf_fnd_ru:GTIN><%= packaging_item.gtin %></fnf_fnd_ru:GTIN>
-          <fnf_fnd_ru:StartValidityDate>2009-06-01</fnf_fnd_ru:StartValidityDate>
+          <fnf_fnd_ru:StartValidityDate><%= Time.now.sprintf("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
           <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
@@ -131,12 +117,7 @@
           <fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>MMT</fnf_fnd_ru:MeasurementTradeItemWidthUnitOfMeasure>
           <fnf_fnd_ru:Barcoded>Y</fnf_fnd_ru:Barcoded>
           <fnf_fnd_ru:TradeItemIsReleased>Y</fnf_fnd_ru:TradeItemIsReleased>
-          <fnf_fnd_ru:ReleasedAtDateTime>2009-07-08T20:29:00</fnf_fnd_ru:ReleasedAtDateTime>
-          <fnf_fnd_ru:LastChangedDateTime>2009-07-08T20:29:00</fnf_fnd_ru:LastChangedDateTime>
-          <fnf_fnd_ru:CreatedAtDateTime>2009-04-21T07:27:00</fnf_fnd_ru:CreatedAtDateTime>
-          <fnf_fnd_ru:ChangedBy>gdsn</fnf_fnd_ru:ChangedBy>
           <fnf_fnd_ru:GlobalTradeItemIndicator>N</fnf_fnd_ru:GlobalTradeItemIndicator>
-          <fnf_fnd_ru:ReleaseStatusOfTradeItem>5000</fnf_fnd_ru:ReleaseStatusOfTradeItem>
         </fnf_fnd_ru:PackagingItemVersion>
       </fnf_fnd_ru:PackagingItem>
     <% end %>
