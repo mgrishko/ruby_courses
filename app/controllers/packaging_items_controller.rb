@@ -26,10 +26,12 @@ class PackagingItemsController < ApplicationController
 
   def create
     @packaging_item = @base_item.packaging_items.new(params[:packaging_item])
+    @packaging_item.user = current_user
 
     if @packaging_item.save
       respond_to do |format|
         format.html { redirect_to(@base_item) }
+        format.js { @packaging_items = @base_item.packaging_items }
       end
     else
       render 'new'

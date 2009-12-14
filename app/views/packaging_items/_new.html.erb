@@ -1,11 +1,15 @@
+<div class="item">
 <div class="arrow">⇨</div>
 
-<% remote_form_for(@packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item)) do |f| %>
+<% remote_form_for(@packaging_item, :url => base_item_packaging_items_path(@base_item)) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 
+  <%= f.hidden_field :parent_id %>
+
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit "Create" %>
   </p>
 <% end %>
 
-<%= link_to_remote 'Cancel', :url => base_item_packaging_item_path(@base_item, @packaging_item), :method => :get %>
+<%= link_to_remote 'Cancel', :url => base_item_packaging_items_path(@base_item), :method => :get %>
+</div>
