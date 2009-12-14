@@ -36,7 +36,6 @@ h2
 {
 	font-size: 12pt;
 	line-height: 140%;
-	margin-bottom: 50px;
 }
 
 .body
@@ -110,22 +109,17 @@ h2
 	width: 100%;
 }
 
-ul.items
-{
-  margin-top: 20px;
-}
-
-ul.items ul
+ul.items li>ul
 {
   margin-left: 220px;
   margin-bottom: 20px;
   position: relative;
 }
 
-ul.items li
+ul.items ul>li, ul.items>li
 {
   list-style: none;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   overflow: hidden;
   padding-left: 30px;
 }
@@ -134,8 +128,10 @@ ul.items li .item
 {
   float: left;
   width: 200px;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
+  background: #dfeef3;
   position: relative;
+  padding: 5px;
 }
 
 ul.items li .item p
@@ -149,6 +145,7 @@ ul.items li.new .item
   line-height: 30px;
   height: 30px;
   width: 40px;
+  background: transparent;
 }
 
 ul.items li .item .arrow
@@ -161,4 +158,14 @@ ul.items li .item .arrow
   width: 20px;
   margin-top: -10px;
   font-size: 20pt;
+}
+
+ul.items li.new .item ul
+{
+  margin: 0;
+}
+
+input
+{
+  width: 190px;
 }

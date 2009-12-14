@@ -1,0 +1,1 @@
+page.replace_html "#{dom_id(@packaging_item)}_item", :partial => 'new'

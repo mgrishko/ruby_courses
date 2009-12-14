@@ -10,6 +10,11 @@
   <div class="body">
     <div class="header">
       <div class="logo"><a href="/">webforms 2</a></div>
+      <% if !current_user.new_record? %>
+        <%= link_to 'Logout', url_for(:controller => :user_sessions, :action => :logout) %>
+      <% else %>
+        <%= link_to 'Login', url_for(:controller => :user_sessions, :action => :login) %>
+      <% end %>
     </div>
     <div class="content">
       <div class="row">

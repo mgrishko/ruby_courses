@@ -1,5 +1,2 @@
-Name: <%=h @packaging_item.item_name_long_ru %><br />
-Code: <%=h @packaging_item.gtin %><br />
-
-<%= @packaging_item.inspect %>
+<%= render :partial => 'item', :object => @packaging_item %>
 

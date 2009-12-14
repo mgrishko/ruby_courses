@@ -1,0 +1,2 @@
+page.replace_html "packaging_items", :partial => 'index'
+page["packaging_items"].scroll_to

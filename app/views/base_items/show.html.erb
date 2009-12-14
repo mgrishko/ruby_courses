@@ -98,5 +98,7 @@
 <%= link_to 'Back', base_items_path %>
 
 <% content_for :right do %>
-  <%= render 'packaging_items/index' %>
+  <div id="packaging_items">
+    <%= render 'packaging_items/index' %>
+  </div>
 <% end %>

@@ -35,7 +35,6 @@ class PackagingItem < ActiveRecord::Base
   before_validation :set_number_of_bi_items
   after_create :move_to_parent, :attach_to_user
   after_move :set_level_cache
-  after_save :set_descendants_number_of_bi_items
 
   def move_to_parent
     move_to_child_of parent_id if parent_id
@@ -53,10 +52,11 @@ class PackagingItem < ActiveRecord::Base
     self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item_changed?
   end
 
-  def set_descendants_number_of_bi_items
-    descendants.each do |item|
-      item.update_attribute(:number_of_bi_items, item.self_and_ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item })
-    end if number_of_next_lower_item_changed?
-  end
+  #after_save :set_descendants_number_of_bi_items
+  #def set_descendants_number_of_bi_items
+    #descendants.each do |item|
+      #item.update_attribute(:number_of_bi_items, item.self_and_ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item })
+    #end if number_of_next_lower_item_changed?
+  #end
 
 end

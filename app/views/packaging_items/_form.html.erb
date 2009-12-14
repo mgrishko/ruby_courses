@@ -17,22 +17,13 @@ number of next lower item<br />
 
 <p>
   <%= f.check_box :despatch_unit %>
-  <%= f.label :despatch_unit %>
-</p>
-
-<p>
+  <%= f.label :despatch_unit, 'DU' %>
   <%= f.check_box :invoice_unit %>
-  <%= f.label :invoice_unit %>
-</p>
-
-<p>
+  <%= f.label :invoice_unit, 'IU' %>
   <%= f.check_box :order_unit %>
-  <%= f.label :order_unit %>
-</p>
-
-<p>
+  <%= f.label :order_unit, 'OU' %>
   <%= f.check_box :consumer_unit %>
-  <%= f.label :consumer_unit %>
+  <%= f.label :consumer_unit, 'CU' %>
 </p>
 
 <p>
@@ -46,16 +37,7 @@ gross weight<br />
 </p>
 
 <p>
-height<br />
-<%=f.text_field :height%>
-</p>
-
-<p>
-depth<br />
-<%=f.text_field :depth%>
-</p>
-
-<p>
-width<br />
-<%=f.text_field :width%>
+  H <%=f.text_field :height, :style => 'width: 43px;' %>
+  W <%=f.text_field :width, :style => 'width: 43px;' %>
+  D <%=f.text_field :depth, :style => 'width: 43px;' %>
 </p>

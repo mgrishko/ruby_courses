@@ -1,14 +1,6 @@
-<h1>Listing packaging_items</h1>
-
 <% recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
-  <div class="item">
-    <div class="arrow">⇨</div>
-    <p><%= h item.gtin %><p>
-    <p><%= h item.item_name_long_ru %>, <%= item.gross_weight %> кг<p>
-    <p>Д<%= h item.width %> В<%= h item.height %> Г<%= h item.depth %> мм<p>
-    <p>Внутри <%= h item.number_of_next_lower_item %> уп., <%= item.number_of_bi_items %> ед.<p>
-    <p><%= link_to 'править', edit_base_item_packaging_item_path(@base_item, item) %>
-    <%= link_to 'удалить', [@base_item, item], :confirm => 'Are you sure?', :method => :delete if item.leaf? %></p>
+  <div class="item" id="<%= dom_id item %>_item">
+    <%= render :partial => 'packaging_items/item', :object => item %>
   </div>
 <% end %>
 
@@ -21,15 +13,12 @@
   });
   $$('#items ul').each(function(element) {
     var li = new Element('li', { className: 'new' });
-    if (element.up('li')) {
-      var id = element.up('li').id.gsub(/packaging_item_/, '');
-      li.update('<div class="item"><a href="/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub">создать</a></div>');
-    } else {
-      li.update('<div class="item"><a href="/base_items/<%= @base_item.id %>/packaging_items/new">создать</a></div>');
-    }
+    var id = element.up('li').id.gsub(/packaging_item_/, '');
+    li.update('<div class="item"><a href="/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub">создать</a></div>');
     element.appendChild(li);
   });
   var li = new Element('li', { className: 'new' });
   li.update('<div class="item"><a href="/base_items/<%= @base_item.id %>/packaging_items/new">создать</a></div>');
   $('items').appendChild(li);
+  setHeights();
 <% end %>

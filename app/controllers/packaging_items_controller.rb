@@ -28,10 +28,11 @@ class PackagingItemsController < ApplicationController
     @packaging_item = @base_item.packaging_items.new(params[:packaging_item])
 
     if @packaging_item.save
-      flash[:notice] = 'PackagingItem was successfully created.'
-      redirect_to(@base_item)
+      respond_to do |format|
+        format.html { redirect_to(@base_item) }
+      end
     else
-      render :action => "new"
+      render 'new'
     end
   end
 
@@ -39,10 +40,12 @@ class PackagingItemsController < ApplicationController
     @packaging_item = @base_item.packaging_items.find(params[:id])
 
     if @packaging_item.update_attributes(params[:packaging_item])
-      flash[:notice] = 'PackagingItem was successfully updated.'
-      redirect_to(@base_item)
+      respond_to do |format|
+        format.html { redirect_to(@base_item) }
+        format.js { @packaging_items = @base_item.packaging_items }
+      end
     else
-      render :action => "edit"
+      render 'edit'
     end
   end
 
@@ -50,7 +53,10 @@ class PackagingItemsController < ApplicationController
     @packaging_item = @base_item.packaging_items.find(params[:id])
     @packaging_item.destroy
 
-    redirect_to(@base_item)
+    respond_to do |format|
+      format.html { redirect_to(@base_item) }
+      format.js { @packaging_items = @base_item.packaging_items }
+    end
   end
 
   private
