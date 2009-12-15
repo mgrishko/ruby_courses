@@ -1,5 +1,3 @@
-require 'gtin_field_validations'
-
 class BaseItem < ActiveRecord::Base
   include AASM
 
@@ -10,26 +8,36 @@ class BaseItem < ActiveRecord::Base
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
 
-  validates_is_gtin :gtin
-  validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
+  validates_associated :gpc
+  validates_associated :country_of_origin
+
+  validates_presence_of :gtin
+  validates_gtin :gtin
   validates_uniqueness_of :gtin, :scope => :user_id
 
+  validates_length_of :name, :maximum => 105
+  validates_length_of :item_name_long_en, :maximum => 35
+  validates_length_of :item_name_long_ru, :maximum => 35
+
+  validates_gln :manufacturer_gln
+  validates_length_of :manufacturer_name, :maximum => 35, :allow_nil => true
+
+  validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999
+
+  validates_number_length_of :gross_weight, 7
+
   validates_length_of :plu_description, :maximum => 12
-  validates_length_of :item_name_long_en, :maximum => 30
-  validates_length_of :manufacturer_name, :maximum => 35
-  validates_length_of :item_name_long_ru, :maximum => 30
 
-  validates_numericality_of :internal_item_id
-  validates_numericality_of :manufacturer_gln, :less_than => (10 ** 13), :greater_than_or_equal_to => (10 ** (13 -1))
-  validates_numericality_of :content, :greater_than_or_equal_to => 0.001, :less_than => 10 ** 9
-  validates_numericality_of :gross_weight, :less_than => 10 ** 7, :greater_than => 0
-  validates_numericality_of :vat
-  validates_numericality_of :minimum_durability_from_arrival, :less_than => 10 ** 4, :greater_than => 0
-  validates_numericality_of :height, :greater_than => 0
-  validates_numericality_of :depth, :greater_than => 0
-  validates_numericality_of :width, :greater_than => 0
+  validates_number_length_of :height, 5
+  validates_number_length_of :depth, 5
+  validates_number_length_of :width, 5
 
-  validates_presence_of :gpc
+  validates_number_length_of :internal_item_id, 20
+  validates_number_length_of :minimum_durability_from_arrival, 4
+
+  validates_presence_of :vat
+  validates_presence_of :content_uom
+  validates_presence_of :packaging_type
 
   aasm_column :status
 

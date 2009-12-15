@@ -1,0 +1,97 @@
+<p>
+  <b>Record code:</b>
+  <%= h @base_item.gtin %>
+</p>
+<p>
+  <b>Name:</b>
+  <%= h @base_item.name %>
+</p>
+<p>
+  <b>Internal item id:</b>
+  <%= h @base_item.internal_item_id %>
+</p>
+<p>
+  <b>Item name long ru:</b>
+  <%= h @base_item.item_name_long_ru %>
+</p>
+<p>
+  <b>Item name long en:</b>
+  <%= h @base_item.item_name_long_en %>
+</p>
+<p>
+  <b>Despatch unit:</b>
+  <%= h @base_item.despatch_unit %>
+</p>
+<p>
+  <b>Invoice unit:</b>
+  <%= h @base_item.invoice_unit %>
+</p>
+<p>
+  <b>Order unit:</b>
+  <%= h @base_item.order_unit %>
+</p>
+<p>
+  <b>Consumer unit:</b>
+  <%= h @base_item.consumer_unit %>
+</p>
+<p>
+  <b>Manufacturer name:</b>
+  <%= h @base_item.manufacturer_name %>
+</p>
+<p>
+  <b>Manufacturer gln:</b>
+  <%= h @base_item.manufacturer_gln %>
+</p>
+<p>
+  <b>Content:</b>
+  <%= h @base_item.content %>
+  <%= @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] %>
+</p>
+<p>
+  <b>Gross weight:</b>
+  <%= h @base_item.gross_weight %>
+</p>
+<p>
+  <b>Vat:</b>
+  <%= @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] %>
+</p>
+<p>
+  <b>Plu description:</b>
+  <%= h @base_item.plu_description %>
+</p>
+<p>
+  <b>Gpc:</b>
+  <%= h @base_item.gpc.name %>
+</p>
+<p>
+  <b>Country of origin:</b>
+  <%= h @base_item.country_of_origin.description %>
+</p>
+
+<p>
+  <b>Minimum durability from arrival:</b>
+  <%= h @base_item.minimum_durability_from_arrival %>
+</p>
+
+<p>
+  <b>Packaging type:</b>
+  <%= @base_item.packaging_types.detect { |u| @base_item.packaging_type == u[1] }[0] %>
+</p>
+<p>
+  <b>Height:</b>
+  <%= h @base_item.height %>
+</p>
+<p>
+  <b>Depth:</b>
+  <%= h @base_item.depth %>
+</p>
+<p>
+  <b>Width</b>
+  <%= h @base_item.width %>
+</p>
+<p>
+  <b>Status:</b>
+  <%=@base_item.status %>
+</p>
+
+<%= link_to_remote 'править', :url => edit_base_item_path(@base_item), :method => :get %>

@@ -3,7 +3,9 @@ function setHeights() {
     element.setStyle({minHeight: ''});
   });
   $$('#items .item').each(function(element){
-    element.setStyle({minHeight: element.up('li').getHeight() - 2 + 'px'});
+    if (!element.up('li').hasClassName('new')) {
+      element.setStyle({minHeight: element.up('li').getHeight() - 10 + 'px'});
+    }
   });
 }
 

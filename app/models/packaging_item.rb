@@ -1,5 +1,3 @@
-require 'gtin_field_validations'
-
 class PackagingItem < ActiveRecord::Base
   acts_as_nested_set :scope => :base_item
   default_scope :order => 'lft'
@@ -7,14 +5,18 @@ class PackagingItem < ActiveRecord::Base
   belongs_to :base_item
   belongs_to :user
 
-  validates_is_gtin :gtin
-  validates_numericality_of :gtin, :less_than => 10 ** 14, :greater_than_or_equal_to => (10 ** (14 - 1))
+  validates_presence_of :gtin
+  validates_gtin :gtin
   validates_uniqueness_of :gtin, :scope => :user_id
 
-  validates_numericality_of :number_of_next_lower_item, :greater_than => 0
-  validates_numericality_of :height, :greater_than => 0
-  validates_numericality_of :depth, :greater_than => 0
-  validates_numericality_of :width, :greater_than => 0
+  validates_number_length_of :number_of_next_lower_item, 6
+  validates_number_length_of :number_of_bi_items, 6
+  validates_number_length_of :gross_weight, 7
+  validates_number_length_of :height, 5
+  validates_number_length_of :depth, 5
+  validates_number_length_of :width, 5
+
+  validates_length_of :item_name_long_ru, :maximum => 35, :allow_nil => true
 
   validate :gross_weight_validation
   def gross_weight_validation
@@ -49,7 +51,7 @@ class PackagingItem < ActiveRecord::Base
   end
 
   def set_number_of_bi_items
-    self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item_changed?
+    self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
 
   #after_save :set_descendants_number_of_bi_items

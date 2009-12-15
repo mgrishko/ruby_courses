@@ -6,7 +6,7 @@ body, html
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 9pt;
 	color: #000;
-	line-height: 130%;
+	line-height: 150%;
 }
 
 a
@@ -23,19 +23,56 @@ a:hover
 p, ul, ol
 {
 	margin-bottom: 10px;
-	line-height: 140%;
+}
+
+td
+{
+    padding: 3px 5px;
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
 }
 
 h1
 {
 	font-size: 15pt;
-	line-height: 110%;
 }
 
 h2
 {
 	font-size: 12pt;
-	line-height: 140%;
 }
 
 .body
@@ -91,12 +128,11 @@ h2
 
 .left
 {
-	width: 20%;
+	width: 220px;
 }
 
 .right
 {
-	width: 80%;
 }
 
 .footer
@@ -112,14 +148,14 @@ h2
 ul.items li>ul
 {
   margin-left: 220px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   position: relative;
 }
 
 ul.items ul>li, ul.items>li
 {
   list-style: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   overflow: hidden;
   padding-left: 30px;
 }
@@ -128,7 +164,6 @@ ul.items li .item
 {
   float: left;
   width: 200px;
-  /*border: 1px solid #ccc;*/
   background: #dfeef3;
   position: relative;
   padding: 5px;
@@ -139,10 +174,14 @@ ul.items li .item p
   margin-bottom: 5px;
 }
 
+ul.items li:last-child
+{
+  margin-bottom: 0;
+}
+
 ul.items li.new .item
 {
   border: none;
-  line-height: 30px;
   height: 30px;
   width: 40px;
   background: transparent;
@@ -168,4 +207,11 @@ ul.items li.new .item ul
 input
 {
   width: 190px;
+}
+
+.base_item
+{
+  width: 200px;
+  padding: 5px;
+  background: #dfeef3;
 }

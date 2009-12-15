@@ -9,20 +9,28 @@
 <body>
   <div class="body">
     <div class="header">
-      <div class="logo"><a href="/">webforms 2</a></div>
-      <% if !current_user.new_record? %>
+      <% if current_user %>
         <%= link_to 'Logout', url_for(:controller => :user_sessions, :action => :logout) %>
-      <% else %>
-        <%= link_to 'Login', url_for(:controller => :user_sessions, :action => :login) %>
       <% end %>
     </div>
+    <div>
+      <%= yield :top %>
+    </div>
     <div class="content">
+    <% if @content_for_right %>
+      <div class="row">
+        <div class="column left">
+          <%= yield %>
+        </div>
+        <div class="column right">
+          <%= yield :right %>
+        </div>
+      </div>
+    <% else %>
       <div>
         <%= yield %>
       </div>
-      <div class="footer">
-        webforms 2
-      </div>
+    <% end %>
     </div>
   </div>
 </body>

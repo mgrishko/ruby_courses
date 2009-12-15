@@ -1,0 +1,9 @@
+<% remote_form_for(@base_item) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to_remote 'отмена', :url => @base_item, :method => :get %>

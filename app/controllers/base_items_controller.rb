@@ -8,8 +8,6 @@ class BaseItemsController < ApplicationController
   def show
     @base_item = current_user.base_items.find(params[:id])
     @packaging_items = @base_item.packaging_items
-
-    render 'show', :layout => 'base_item_show'
   end
 
   def new
@@ -42,7 +40,7 @@ class BaseItemsController < ApplicationController
       end
       redirect_to(@base_item)
     else
-      render :action => "new"
+      render 'new'
     end
   end
 
@@ -53,10 +51,12 @@ class BaseItemsController < ApplicationController
       if @base_item.update_attributes(params[:base_item])
         @base_item.draft!
 
-        flash[:notice] = 'BaseItem was successfully updated.'
-        redirect_to(@base_item)
+        respond_to do |format|
+          format.html { redirect_to(@base_item) }
+          format.js
+        end
       else
-        render :action => "edit"
+        render 'edit'
       end
     end
   end
