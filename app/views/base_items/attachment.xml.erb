@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-5"?>
 <sinfos:TradeItemMessage xmlns:sinfos="http://schemas.sinfos.de/TradeItemMessages/1.2.0/TradeItemMessage">
   <sinfos:MessageInformation>
-    <sinfos:CreationDate><%= Time.now.sprintf("%Y-%m-%d") %></sinfos:CreationDate>
+    <sinfos:CreationDate><%= Time.now.strftime("%Y-%m-%d") %></sinfos:CreationDate>
     <sinfos:MessageSender>4607154959985</sinfos:MessageSender>
     <sinfos:MessageReceiver>4607154959992</sinfos:MessageReceiver>
     <sinfos:ContentOwner>4607154959992</sinfos:ContentOwner>
@@ -14,7 +14,7 @@
       <fnf_fnd_ru:BaseItem>
         <fnf_fnd_ru:BaseItemVersion>
           <fnf_fnd_ru:GTIN><%= @base_item.gtin %></fnf_fnd_ru:GTIN>
-          <fnf_fnd_ru:StartValidityDate><%= Time.now.sprintf("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
+          <fnf_fnd_ru:StartValidityDate><%= Time.now.strftime("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
           <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
@@ -85,7 +85,7 @@
       <fnf_fnd_ru:PackagingItem>
         <fnf_fnd_ru:PackagingItemVersion>
           <fnf_fnd_ru:GTIN><%= packaging_item.gtin %></fnf_fnd_ru:GTIN>
-          <fnf_fnd_ru:StartValidityDate><%= Time.now.sprintf("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
+          <fnf_fnd_ru:StartValidityDate><%= Time.now.strftime("%Y-%m-%d") %></fnf_fnd_ru:StartValidityDate>
           <fnf_fnd_ru:GLNofDataSupplier>4607154959985</fnf_fnd_ru:GLNofDataSupplier>
           <fnf_fnd_ru:NameOfDataSupplier>SA2 testing product</fnf_fnd_ru:NameOfDataSupplier>
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
