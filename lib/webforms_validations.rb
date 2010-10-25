@@ -24,7 +24,6 @@ module WebformsValidations
   protected
 
   def valid_gtin? gtin
-    gtin = gtin.to_s
     return false unless [8, 12, 13, 14].include?(gtin.length)
     digits = gtin.rjust(18, '0').split(//)
     check_digit = digits.pop.to_i

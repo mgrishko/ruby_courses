@@ -95,7 +95,7 @@
           <fnf_fnd_ru:BaseUnit>PI</fnf_fnd_ru:BaseUnit>
           <fnf_fnd_ru:NonPublicTradeItem>Y</fnf_fnd_ru:NonPublicTradeItem>
           <fnf_fnd_ru:NonPublicGLNList>4607154959985</fnf_fnd_ru:NonPublicGLNList>
-          <fnf_fnd_ru:GTINofNextLowerPackagingItem><%= @packaging_item.parent ? @packaging_item.parent.gtin : @base_item.gtin %></fnf_fnd_ru:GTINofNextLowerPackagingItem>
+          <fnf_fnd_ru:GTINofNextLowerPackagingItem><%= (packaging_item.parent || @base_item).gtin %></fnf_fnd_ru:GTINofNextLowerPackagingItem>
           <fnf_fnd_ru:NumberOfNextLowerItemContained><%= packaging_item.number_of_next_lower_item %></fnf_fnd_ru:NumberOfNextLowerItemContained>
           <fnf_fnd_ru:NumberOfBaseUnitContained><%= packaging_item.number_of_bi_items %></fnf_fnd_ru:NumberOfBaseUnitContained>
           <fnf_fnd_ru:ItemNameLongML>
