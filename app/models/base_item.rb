@@ -39,6 +39,7 @@ class BaseItem < ActiveRecord::Base
   validates_presence_of :content_uom
   validates_presence_of :packaging_type
   validates_presence_of :gpc_code
+  validates_presence_of :gpc_name
   validates_presence_of :country_of_origin_code
 
   aasm_column :status
@@ -92,12 +93,12 @@ class BaseItem < ActiveRecord::Base
     #end
   #end
 
-  def gpc_name= (name)
-    self.gpc = name.blank? ? nil : Gpc.find_by_name(name)
+  def gpc_name= name
+    self.gpc = Gpc.find_by_name(name)
   end
 
   def gpc_name
-    gpc.name if gpc
+    swallow_nil{gpc.name}
   end
 
   def vats
