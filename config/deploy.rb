@@ -12,6 +12,7 @@ set :branch, "master"
 set :git_enable_submodules, true
 set :deploy_via, :copy
 set :copy_exclude, [".git"]
+set :git_enable_submodules, 1
 set :use_sudo, false
 
 namespace :deploy do

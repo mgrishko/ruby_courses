@@ -8,8 +8,8 @@ class BaseItem < ActiveRecord::Base
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
 
-  validates_associated :gpc
-  validates_associated :country_of_origin
+  #validates_associated :gpc
+  #validates_associated :country_of_origin
 
   validates_presence_of :gtin
   validates_gtin :gtin
@@ -38,6 +38,8 @@ class BaseItem < ActiveRecord::Base
   validates_presence_of :vat
   validates_presence_of :content_uom
   validates_presence_of :packaging_type
+  validates_presence_of :gpc_code
+  validates_presence_of :country_of_origin_code
 
   aasm_column :status
 
