@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       unless current_user.id
         store_location
         flash[:notice] = "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-        redirect_to :controller => :user_sessions, :action => :login
+        redirect_to login_url
         return false
       end
     end
@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
     def require_admin
       if require_user.nil? && !current_user.is_admin
         flash[:notice] = "Только администратор имеет право доступа к этой странице"
+        redirect_to :controller => :user_sessions, :action => :login
         redirect_to root_url
         return false
       end
