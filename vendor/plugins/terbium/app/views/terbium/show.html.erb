@@ -1,0 +1,44 @@
+<% @title = "Show #{controller.model_name.humanize.downcase}" %>
+<h1><%= @title %></h1>
+<ul class="show_entry">
+  <% if resource_children.present? %>
+    <li>
+      <h2>Associations</h2>
+      <% resource_children.each do |child| %>
+        <%= link_to child.humanize, resource_child_path(@record, child) %>
+      <% end %>
+    </li>
+  <% end %>
+
+<% controller.show_fields.each do |field| -%>
+  <li>
+    <h2><%= field.label %></h2>
+    <div>
+      <%= render_field record, field %>
+    </div>
+  </li>
+<% end if controller.show_fields && record -%>
+</ul>
+<% content_for :additional_navigation do %>
+  <ul class="buttons">
+    <% 0.upto(resource_ancestors_records.length - 1) do |i| %>
+      <li><%= link_to resource_ancestors[i].to_s.pluralize.humanize, polymorphic_path([route_prefix] + resource_ancestors_records[0..i-3] + [resource_ancestors[i].to_s.pluralize]) %></li>
+      <li><%= link_to resource_ancestors_records[i].to_title, polymorphic_path([route_prefix] + resource_ancestors_records[0..i]) %></li>
+    <% end %>
+    <% if plural? %>
+      <% if controller.update_fields || controller.form_fields %>
+        <li><%= link_to "Edit #{controller.model_name.humanize.downcase}", edit_resource_path %></li>
+      <% end %>
+    <% else %>
+      <% if !record && (controller.create_fields || controller.form_fields) %>
+        <li><%= link_to "Add #{controller.model_name.humanize.downcase}", new_resource_path %></li>
+      <% end %>
+      <% if record && (controller.update_fields || controller.form_fields) %>
+        <li><%= link_to "Edit #{controller.model_name.humanize.downcase}", edit_resource_path %></li>
+        <% if controller.terbium_config.destroy %>
+          <li><%= link_to "Destroy #{controller.model_name.humanize.downcase}", resource_path, :confirm => "Are you sure?", :method => :delete %></li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,137 @@
+.paginator
+{
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10pt;
+  margin: 10px 0 0 0;
+  line-height: 22px;
+}
+
+.paginator a
+{
+  color: #333;
+  white-space: nowrap;
+  text-decoration: underline;
+  font-size: 10pt;
+}
+
+.paginator a:hover
+{
+  text-decoration: none;
+}
+
+.paginator .wrap
+{
+  width: 100%;
+  position: relative;
+}
+
+.paginator .scroll
+{
+  font-size: 1px;
+  line-height: 1px;
+  height: 4px;
+  background: #ccc;
+  margin: 10px 150px;
+  position: relative;
+}
+
+.paginator .track
+{
+  font-size: 1px;
+  line-height: 1px;
+  height: 4px;
+  background: #333;
+  width: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.paginator .mark
+{
+  font-size: 1px;
+  line-height: 1px;
+  height: 4px;
+  background: orange;
+  width: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.paginator .track .pointer
+{
+  cursor: pointer;
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -3px;
+  background: #aaa;
+}
+
+.paginator .left, .paginator .right
+{
+  position: absolute;
+  top: 0;
+  width: 120px;
+  font-size: 10pt;
+}
+
+.paginator .left a, .paginator .right a
+{
+  font-size: 10pt;
+}
+
+.paginator .left
+{  
+  left: 0px;
+  text-align: right;
+  margin-right: 30px;
+}
+
+.paginator .right
+{
+  right: 0px;
+  margin-left: 30px;
+}
+
+.paginator .last, .paginator .first, .paginator .last a, .paginator .first a
+{
+  font-size: 8pt
+}
+
+.paginator ul
+{
+  margin: 0 150px;
+  overflow: hidden;
+  padding: 0;
+  height: 22px;
+}
+
+.paginator ul li
+{
+  height: 22px;
+  width: 50px;
+  text-align: center;
+  list-style: none;
+  float: left;
+}
+
+.paginator ul li a
+{
+  padding: 4px 4px;
+}
+
+.paginator ul li a:hover
+{
+  background: #666;
+}
+
+.paginator ul li.current span
+{
+  color: #fff;
+  background: #666;
+  padding: 4px 4px;
+}

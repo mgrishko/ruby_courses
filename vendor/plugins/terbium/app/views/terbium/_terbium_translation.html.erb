@@ -1,0 +1,26 @@
+<ul class="navigation translations">
+<% (I18n.available_locales & (record.available_locales | [translation])).each do |locale| %>
+  <li "<%= locale == translation ? 'class="selected"' : '' %>">
+    <%= link_to locale, current_path(:translation => locale) %>
+    <% unless record.available_locales.include?(locale) %>
+      <span class="options">
+        Change new translation locale to:
+        <% (I18n.available_locales - record.available_locales - [translation]).each do |locale| %>
+          <%= link_to locale, current_path(:translation => locale) %>
+        <% end %>
+      </span>
+    <% end %>
+  </li>
+<% end %>
+<% if (I18n.available_locales & record.available_locales) != I18n.available_locales && record.available_locales.include?(translation) %>
+  <li>
+    <%= link_to '+', current_path(:translation => (I18n.available_locales - (I18n.available_locales & record.available_locales)).first) %>
+    <span class="options">
+      Choose new tanslation locale:
+      <% (I18n.available_locales - record.available_locales).each do |locale| %>
+        <%= link_to locale, current_path(:translation => locale) %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
