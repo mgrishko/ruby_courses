@@ -15,6 +15,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "aasm", :lib => "aasm"
   config.gem 'vestal_versions'
+  config.gem 'will_paginate', :version => '2.3.15'
   config.gem "awesome_nested_set", :lib => false, :source => 'http://gemcutter.org'
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source =>  "http://gems.github.com"

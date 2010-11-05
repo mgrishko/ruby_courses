@@ -1,4 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.namespace :admin do |admin|
+    admin.resources :users do |user|
+      user.resources :base_items
+    end
+    admin.resources :base_items do |base_item|
+      base_item.resources :packaging_items
+    end
+    admin.resources :packaging_items
+    admin.resources :gpcs
+    admin.resources :countries
+  end
+
   map.resources :users
   map.login 'login', :controller => :user_sessions, :action => :login
   map.logout 'logout', :controller => :user_sessions, :action => :logout
