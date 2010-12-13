@@ -216,3 +216,40 @@ input
   padding: 5px;
   background: #dfeef3;
 }
+
+.item_header
+{
+	font-size: 20pt;
+	margin-bottom: 30px;
+}
+
+.gtin
+{
+	font-size: 12pt;
+	font-weight:bold;
+	margin-bottom: 10px;
+}
+
+.item_name
+{
+	font-size: 12pt;
+	margin-bottom: 10px;
+}
+
+.unit_status_true
+{
+	color: red;
+	font-weight:bold;
+}
+
+.unit_status_false
+{
+	color: gray;
+	font-weight:bold;
+}
+
+.label
+{
+	color: gray;
+	font-weight:bold;
+}

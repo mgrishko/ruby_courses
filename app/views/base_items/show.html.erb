@@ -9,5 +9,6 @@
 <% end %>
 
 <% content_for :top do %>
-  <p><%= link_to 'вернуться к списку bi', base_items_path %></p>
+	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
+	<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.name %></div>
 <% end %>
