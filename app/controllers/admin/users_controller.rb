@@ -3,11 +3,13 @@ class Admin::UsersController < Terbium::Controller::Base
 
   index do
     field :gln
+    field :name
     field :is_admin
   end
 
   form do
     field :gln
+    field :name
     field :password
     field :password_confirmation
     field :is_admin
