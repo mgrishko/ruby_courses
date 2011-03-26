@@ -1,98 +1,116 @@
 <%= f.error_messages %>
-
-<p>
+<div id="tab-1" class="tab">
+<h2>Основные данные</h2><hr/>
+<table>
+<tr>
+<td>
   <%= f.label :gtin %><br />
   <%= f.text_field :gtin %>
-</p>
+</td>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-
-<p>
+<td>
 internal item id<br />
 <%=f.text_field :internal_item_id%>
-</p>
-
-<p>
+</td>
+</tr>
+<tr>
+<td>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</td>
+<td>
 item name long ru<br />
 <%=f.text_field :item_name_long_ru%>
-</p>
-
-<p>
+</td>
+<td>
 item name long en<br />
 <%=f.text_field :item_name_long_en%>
-</p>
-
-<p>
-  <%= f.check_box :despatch_unit %>
-  <%= f.label :despatch_unit, 'DU' %>
-  <%= f.check_box :invoice_unit %>
-  <%= f.label :invoice_unit, 'IU' %>
-  <%= f.check_box :order_unit %>
-  <%= f.label :order_unit, 'OU' %>
-  <%= f.check_box :consumer_unit %>
-  <%= f.label :consumer_unit, 'CU' %>
-</p>
-
-<p>
+</td>
+</tr>
+<tr>
+<td>
+<%= f.check_box :despatch_unit %>
+<%= f.label :despatch_unit, 'DU' %>
+<%= f.check_box :invoice_unit %>
+<%= f.label :invoice_unit, 'IU' %>
+<%= f.check_box :order_unit %>
+<%= f.label :order_unit, 'OU' %>
+<%= f.check_box :consumer_unit %>
+<%= f.label :consumer_unit, 'CU' %>
+</td>
+</tr>
+<tr>
+<td>
 manufacturer name<br />
 <%=f.text_field :manufacturer_name%>
-</p>
-
-<p>
+</td>
+<td>
 manufacturer gln<br />
 <%=f.text_field :manufacturer_gln%>
-</p>
-
-<p>
+</td>
+<td>
+<%= f.label :country_of_origin_code %><br/>
+<%= f.select :country_of_origin_code, @base_item.countries %>
+</td>
+</tr>
+<tr>
+<td>
 content<br />
 <%=f.text_field :content%>
-</p>
-
-<p>
-  <%= f.label :content_uom %>
+</td>
+<td>
+  <%= f.label :content_uom %><br/>
   <%= f.select :content_uom, @base_item.content_uoms %>
-</p>
-
-<p>
-gross weight<br />
-<%=f.text_field :gross_weight%>
-</p>
-
-<p>
-  <%= f.label :vat%>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<%= f.label :gpc_name %><br/>
+<%= text_field_with_auto_complete :base_item, :gpc_name %>
+</td>
+</tr>
+<tr>
+<td>
+  <%= f.label :vat%><br/>
   <%= f.select :vat, @base_item.vats %>
-</p>
-
-<p>
-plu description<br />
-<%=f.text_field :plu_description%>
-</p>
-
-<p>
-  <%= f.label :gpc_name %>
-  <%= text_field_with_auto_complete :base_item, :gpc_name %>
-</p>
-
-<p>
-  <%= f.label :country_of_origin_code %>
-  <%= f.select :country_of_origin_code, @base_item.countries %>
-</p>
-
-<p>
+</td>
+<td>
 minimum durability from arrival<br />
 <%=f.text_field :minimum_durability_from_arrival%>
-</p>
-
-<p>
+</td>
+</tr>
+<tr>
+<td>
+plu description<br />
+<%=f.text_field :plu_description%>
+</td>
+</tr>
+</table>
+<button onclick="return showTab(2);">Продолжить</button>
+</div>
+<div class="tab" id="tab-2">
+<h2>Логистика</h2><hr/>
+<table>
+<tr>
+<td>
+gross weight<br />
+<%=f.text_field :gross_weight%>
+</td>
+</tr>
+<tr>
+<td>
   <%= f.label :packaging_type %>
   <%= f.select :packaging_type, @base_item.packaging_types %>
-</p>
+</td>
+</tr>
+<tr>
+<td>
+<%=f.text_field :height, :style => 'width: 43px;' %>x<%=f.text_field :width, :style => 'width: 43px;' %>x<%=f.text_field :depth, :style => 'width: 43px;' %>
+</td
+<td>H x W x D</td>
+</tr>
+</table>
+<button onclick="return showTab(1);">Назад</button>
 
-<p>
-  H <%=f.text_field :height, :style => 'width: 43px;' %>
-  W <%=f.text_field :width, :style => 'width: 43px;' %>
-  D <%=f.text_field :depth, :style => 'width: 43px;' %>
-</p>
+<%= f.submit "Create" %>
+</div>

@@ -2,17 +2,16 @@
 <%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls' %>
 
 <h1>New base item</h1>
-
 <% form_for(@base_item) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 
   <p>
-    <%=check_box_tag :publish%>
-    <%=label_tag :publish, "Publish record ?"%>
+    <%#=check_box_tag :publish%>
+    <%#=label_tag :publish, "Publish record ?"%>
   </p>
 
   <p>
-    <%= f.submit "Create" %>
+    <%#= f.submit "Create" %>
   </p>
 <% end %>
 

@@ -208,6 +208,7 @@ ul.items li.new .item ul
 input
 {
   width: 190px;
+  margin: 3px;
 }
 
 .base_item
@@ -252,4 +253,12 @@ input
 {
 	color: gray;
 	font-weight:bold;
+}
+
+
+.tab {
+  display: none;
+}
+.error_field {
+  background-color: #ff9090;
 }
