@@ -1,0 +1,12 @@
+<h1>Поставщики</h1>
+<table>
+<tr>
+<td>GLN</td><td>Название</td><td>количество bi</td><td>дата самого свежего bi</td>
+</tr>
+<% for u in @users do %>
+<tr>
+<td><%= u.gln %></td><td></td></td><td></td>
+</tr>
+<% end %>
+</table>
+<% c = will_paginate @users %>
