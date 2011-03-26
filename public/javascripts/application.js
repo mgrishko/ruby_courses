@@ -37,3 +37,13 @@ $j(function() {
   $j("#tab-1").show();
   return false;
 });
+
+function subscription(that, supplier_id) {
+  $j.post('/subscriptions/status', {id: supplier_id}, function(data) {
+    if (data.error) {
+      alert(data.error);
+    } else {
+      $j(that).html(data.text);
+    }
+  });
+}

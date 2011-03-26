@@ -21,9 +21,17 @@ class User < ActiveRecord::Base
 
   def fresh_base_items
     if self.base_items.count > 0
-      return self.base_items.first(:order => 'created_at desc').created_at;
+      return self.base_items.first(:order => 'created_at desc').created_at
     else
       return '---'
+    end
+  end
+
+  def my_retailer_info(user_id)
+    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
+      return "Отписаться"
+    else
+      return "Подписаться"
     end
   end
 end

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   @@model = nil
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  protect_from_forgery :except => [:status] # See ActionController::RequestForgeryProtection for details
   before_filter :link_model_with_auth_user
   filter_parameter_logging :password, :password_confirmation
 
