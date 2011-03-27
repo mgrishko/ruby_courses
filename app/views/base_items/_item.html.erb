@@ -75,5 +75,6 @@
   <b>Status:</b>
   <%=@base_item.status %>
 </p>
-
+<% unless @view_only %>
 <%= link_to_remote 'править', :url => edit_base_item_path(@base_item), :method => :get %>
+<% end %>

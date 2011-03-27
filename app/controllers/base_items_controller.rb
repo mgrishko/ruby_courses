@@ -6,8 +6,14 @@ class BaseItemsController < ApplicationController
   end
 
   def show
-    @base_item = current_user.base_items.find(params[:id])
-    @packaging_items = @base_item.packaging_items
+    if params[:view]
+      @view_only = true;
+      @base_item = BaseItem.find(params[:id])
+      @packaging_items = @base_item.packaging_items
+    else
+      @base_item = current_user.base_items.find(params[:id])
+      @packaging_items = @base_item.packaging_items
+    end
   end
 
   def new

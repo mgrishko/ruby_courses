@@ -1,0 +1,18 @@
+<h1>Listing base items</h1>
+
+<table class="results" cellspacing="0" cellpadding="2">
+<tr>
+<th>Record code</th>
+<th>Name</th>
+<th>Status</th>
+</tr>
+
+<% @base_items.each do |base_item| %>
+<tr>
+<td><%= link_to base_item.gtin, base_item_path(base_item, :view => "1") %></td>
+<td><%= h base_item.name %></td>
+<td><%= base_item.status %></td>
+</tr>
+<% end %>
+</table>
+<%= will_paginate @base_items %>
