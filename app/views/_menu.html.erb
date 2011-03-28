@@ -1,14 +1,14 @@
 <div class="header">
+  <% if current_user.id %>
   <div class="fleft">
     <%= link_to 'Items', :controller => 'base_items' %> |
     <%= link_to 'Suppliers', :controller => 'suppliers'  %> |
     <%= link_to 'Subscription', :controller => 'subscription' %>
   </div>
   <div class="fright">
-  <% if current_user.id %>
     <%= link_to 'Logout', url_for(:controller => :user_sessions, :action => :logout) %>
-  <% end %>
   </div>
   <div class="clear"></div>
+  <% end %>
 </div>
 
