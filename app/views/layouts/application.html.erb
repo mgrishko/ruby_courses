@@ -9,11 +9,7 @@
 </head>
 <body>
   <div class="body">
-    <div class="header">
-      <% if current_user %>
-        <%= link_to 'Logout', url_for(:controller => :user_sessions, :action => :logout) %>
-      <% end %>
-    </div>
+    <%= render :partial => '/menu' %>
     <div>
       <%= yield :top %>
     </div>

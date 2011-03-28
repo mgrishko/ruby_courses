@@ -262,3 +262,12 @@ input
 .error_field {
   background-color: #ff9090;
 }
+.fleft {
+  float: left;
+}
+.fright {
+  float: right;
+}
+.clear {
+  clear: both;
+}
