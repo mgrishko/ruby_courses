@@ -40,9 +40,9 @@ class BaseItem < ActiveRecord::Base
   #validates_associated :gpc
   #validates_associated :country_of_origin
 
-  validates_presence_of :gtin, :if => :first_step?
-  validates_gtin :gtin, :if => :first_step?
-  validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
+  #validates_presence_of :gtin, :if => :first_step?
+  #validates_gtin :gtin, :if => :first_step?
+  #validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
 
   validates_length_of :name, :maximum => 105, :if => :first_step?
   validates_length_of :item_name_long_en, :within => 1..35, :if => :first_step?
@@ -50,7 +50,7 @@ class BaseItem < ActiveRecord::Base
   validates_length_of :brand, :within => 1..70, :if => :first_step?
   validates_length_of :functional, :within => 1..35, :if => :first_step?
   
-  validates_gln :manufacturer_gln, :first_step?
+  #validates_gln :manufacturer_gln, :first_step?
 
   validates_length_of :manufacturer_name, :maximum => 35, :allow_nil => true, :if => :first_step?
 
