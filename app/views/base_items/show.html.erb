@@ -1,16 +1,18 @@
-<div id="base_item", class="base_item">
+<div id="base_item">
+  <div style="min-width: 1000px;"/>
   <%= render :partial => 'item' %>
+  </div>
 </div>
-
-<% content_for :right do %>
+<div class="clear"></div>
+<%# content_for :right do %>
   <div id="packaging_items">
     <%= render 'packaging_items/index' %>
   </div>
-<% end %>
+<%# end %>
 
 <% content_for :top do %>
 	<% unless @view_only %>
 	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
 	<% end %>
-	<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.name %></div>
+	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.name %></div>-->
 <% end %>

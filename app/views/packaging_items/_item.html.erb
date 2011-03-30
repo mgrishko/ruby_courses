@@ -1,4 +1,4 @@
-<div class="arrow"></div>
+<% if item.parent_id %><div class="arrow"></div><% end %>
 <p><%= image_tag "pi/pi_#{item.level_cache}.jpg" %></p>
 <p><%= h item.gtin %></p>
 <p><%= h item.packaging_type %>, <%= item.gross_weight %> грамм</p>

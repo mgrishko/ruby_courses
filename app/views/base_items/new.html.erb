@@ -2,11 +2,11 @@
 <%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls' %>
 <%= link_to 'Back', base_items_path %>
 <div class="clear"></div>
-<h1>New base item</h1>
-<div style="min-width: 810px, max-width: 850px;"/>
+<h2>Основные данные</h2>
+<div style="min-width: 1000px"/>
 <% form_for(@base_item) do |f| %>
   <%= f.error_messages %>
-  <div style="min-width: 200px; float: left;">
+  <div style="min-width: 150px; float: left;">
   image
   </div>
   <div style="min-width: 600px; float: left">

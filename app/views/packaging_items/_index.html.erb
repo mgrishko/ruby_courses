@@ -1,3 +1,4 @@
+<h2>Логистика</h2>
 <% recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
   <div class="item" id="<%= dom_id item %>_item">
     <%= render :partial => 'packaging_items/item', :object => item %>

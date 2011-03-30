@@ -40,7 +40,6 @@ class BaseItemsController < ApplicationController
 
   def create
     session[:base_item_params].deep_merge!(params[:base_item]) if params[:base_item]
-    
     @base_item = current_user.base_items.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
     if @base_item.valid?
