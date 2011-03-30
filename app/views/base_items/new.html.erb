@@ -1,11 +1,16 @@
 <%= javascript_include_tag "jquery/jquery.selectchain.js" %>
 <%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls' %>
-
+<%= link_to 'Back', base_items_path %>
+<div class="clear"></div>
 <h1>New base item</h1>
+<div style="min-width: 810px, max-width: 850px;"/>
 <% form_for(@base_item) do |f| %>
   <%= f.error_messages %>
+  <div style="min-width: 200px; float: left;">
+  image
+  </div>
+  <div style="min-width: 600px; float: left">
   <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
-
   <p>
     <%#=check_box_tag :publish%>
     <%#=label_tag :publish, "Publish record ?"%>
@@ -15,6 +20,7 @@
     <%= f.submit "Next" %>
   </p>
   <p><%= f.submit "Back", :name => "back_button" unless @base_item.first_step? %></p>
+  </div>
 <% end %>
-
-<%= link_to 'Back', base_items_path %>
+</div>
+<div class="clear"></div>

@@ -47,6 +47,8 @@ class BaseItem < ActiveRecord::Base
   validates_length_of :name, :maximum => 105, :if => :first_step?
   validates_length_of :item_name_long_en, :within => 1..35, :if => :first_step?
   validates_length_of :item_name_long_ru, :within => 1..35, :if => :first_step?
+  validates_length_of :brand, :within => 1..70, :if => :first_step?
+  validates_length_of :functional, :within => 1..35, :if => :first_step?
   
   validates_gln :manufacturer_gln, :first_step?
 

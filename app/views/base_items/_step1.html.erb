@@ -14,6 +14,34 @@ internal item id<br />
 </tr>
 <tr>
 <td>
+<%= f.label :brand %><br />
+<%= f.text_field :brand %>
+</td>
+<td>
+<%= f.label :subbrand %><br />
+<%= f.text_field :subbrand %>
+</td>
+<td>
+<%= f.label :functional %><br />
+<%= f.text_field :functional %>
+</td>
+<td>
+content<br />
+<%=f.text_field :content%>
+</td>
+<td>
+  <%= f.label :content_uom %><br/>
+  <%= f.select :content_uom, @base_item.content_uoms %>
+</td>
+</tr>
+<tr>
+<td colspan="4">
+<%= f.label :item_description %><br />
+<%= f.text_field :item_description, :class => "w100" %>
+</td>
+</tr>
+<tr>
+<td>
   <%= f.label :name %><br />
   <%= f.text_field :name %>
 </td>
@@ -27,7 +55,7 @@ item name long en<br />
 </td>
 </tr>
 <tr>
-<td>
+<td colspan="3" align="left">
 <%= f.check_box :despatch_unit %>
 <%= f.label :despatch_unit, 'DU' %>
 <%= f.check_box :invoice_unit %>
@@ -40,26 +68,16 @@ item name long en<br />
 </tr>
 <tr>
 <td>
-manufacturer name<br />
-<%=f.text_field :manufacturer_name%>
-</td>
-<td>
 manufacturer gln<br />
 <%=f.text_field :manufacturer_gln%>
 </td>
 <td>
+manufacturer name<br />
+<%=f.text_field :manufacturer_name%>
+</td>
+<td>
 <%= f.label :country_of_origin_code %><br/>
 <%= f.select :country_of_origin_code, @base_item.countries %>
-</td>
-</tr>
-<tr>
-<td>
-content<br />
-<%=f.text_field :content%>
-</td>
-<td>
-  <%= f.label :content_uom %><br/>
-  <%= f.select :content_uom, @base_item.content_uoms %>
 </td>
 </tr>
 <tr>
@@ -74,7 +92,7 @@ content<br />
   <%= f.select :vat, @base_item.vats %>
 </td>
 <td>
-minimum durability from arrival<br />
+shelf life period<br />
 <%=f.text_field :minimum_durability_from_arrival%>
 </td>
 </tr>

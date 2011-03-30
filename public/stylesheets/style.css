@@ -207,10 +207,10 @@ ul.items li.new .item ul
 
 input
 {
-  width: 190px;
+  width: 150px;
   margin: 3px;
+  background: #FFE9BE;
 }
-
 .base_item
 {
   width: 200px;
@@ -259,9 +259,6 @@ input
 .tab {
   display: none;
 }
-.error_field {
-  background-color: #ff9090;
-}
 .fleft {
   float: left;
 }
@@ -270,4 +267,16 @@ input
 }
 .clear {
   clear: both;
+}
+.w100 {
+  width: 100%;
+}
+#base_item_country_of_origin_code {
+  width: 150px;
+}
+#base_item_vat {
+  width: 60px;
+}
+.error_field {
+  background-color: #ff9090;
 }
