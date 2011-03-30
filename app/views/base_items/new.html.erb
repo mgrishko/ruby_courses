@@ -3,7 +3,8 @@
 
 <h1>New base item</h1>
 <% form_for(@base_item) do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.error_messages %>
+  <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
 
   <p>
     <%#=check_box_tag :publish%>
@@ -11,8 +12,9 @@
   </p>
 
   <p>
-    <%#= f.submit "Create" %>
+    <%= f.submit "Next" %>
   </p>
+  <p><%= f.submit "Back", :name => "back_button" unless @base_item.first_step? %></p>
 <% end %>
 
 <%= link_to 'Back', base_items_path %>

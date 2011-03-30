@@ -17,11 +17,15 @@ class BaseItemsController < ApplicationController
   end
 
   def new
-    if params[:base].nil?
-      @base_item = current_user.base_items.new
-    else
-      @base_item = current_user.base_items.find(params[:base].to_i)
-    end
+    session[:base_item_params] ||= {}
+    @base_item = BaseItem.new(session[:base_item_params])  
+    @base_item.current_step = session[:base_item_step]
+
+    #if params[:base].nil?
+    #  @base_item = current_user.base_items.new
+    #else
+    #  @base_item = current_user.base_items.find(params[:base].to_i)
+    #end
   end
 
   def edit
@@ -35,19 +39,43 @@ class BaseItemsController < ApplicationController
   end
 
   def create
-    @base_item = current_user.base_items.new(params[:base_item])
-
-    generate_attachment
-    if @base_item.save
-      if params[:publish] && @base_item.publish!
-        flash[:notice] = 'BaseItem was successfully created and sent'
+    session[:base_item_params].deep_merge!(params[:base_item]) if params[:base_item]
+    
+    @base_item = current_user.base_items.new(session[:base_item_params])
+    @base_item.current_step = session[:base_item_step]
+    if @base_item.valid?
+      if params[:back_button]  
+	@base_item.previous_step
+      elsif @base_item.last_step?
+	if @base_item.all_valid?
+	  @base_item.save
+	  session[:base_item_step] = session[:base_item_params] = nil
+	  if params[:publish] && @base_item.publish!
+	    flash[:notice] = 'BaseItem was successfully created and sent'
+	  else
+	    flash[:notice] = 'BaseItem was successfully created.'
+	  end
+	  return redirect_to(@base_item)
+	end
       else
-        flash[:notice] = 'BaseItem was successfully created.'
+	@base_item.next_step
       end
-      redirect_to(@base_item)
-    else
-      render 'new'
+      session[:base_item_step] = @base_item.current_step
     end
+    render 'new' 
+    #@base_item = current_user.base_items.new(params[:base_item])
+
+    #generate_attachment
+    #if @base_item.save
+    #  if params[:publish] && @base_item.publish!
+    #    flash[:notice] = 'BaseItem was successfully created and sent'
+    #  else
+    #    flash[:notice] = 'BaseItem was successfully created.'
+    #  end
+    #  redirect_to(@base_item)
+    #else
+    #  render 'new'
+    #end
   end
 
   def update

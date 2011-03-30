@@ -8,39 +8,69 @@ class BaseItem < ActiveRecord::Base
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
 
+  attr_writer :current_step
+  
+  def current_step
+    @current_step || steps.first
+  end
+
+  def steps
+    %w[step1 step2]
+  end
+  
+  def next_step
+    self.current_step = steps[steps.index(current_step)+1]
+  end
+  def previous_step  
+    self.current_step = steps[steps.index(current_step)-1]  
+  end
+  def first_step?
+    current_step == steps.first
+  end
+  def last_step?
+    current_step == steps.last
+  end
+  
+  def all_valid?  
+    steps.all? do |step|  
+      self.current_step = step  
+      valid?  
+    end  
+  end  
   #validates_associated :gpc
   #validates_associated :country_of_origin
 
-  validates_presence_of :gtin
-  validates_gtin :gtin
-  validates_uniqueness_of :gtin, :scope => :user_id
+  validates_presence_of :gtin, :if => :first_step?
+  validates_gtin :gtin, :if => :first_step?
+  validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
 
-  validates_length_of :name, :maximum => 105
-  validates_length_of :item_name_long_en, :maximum => 35
-  validates_length_of :item_name_long_ru, :maximum => 35
+  validates_length_of :name, :maximum => 105, :if => :first_step?
+  validates_length_of :item_name_long_en, :within => 1..35, :if => :first_step?
+  validates_length_of :item_name_long_ru, :within => 1..35, :if => :first_step?
+  
+  validates_gln :manufacturer_gln, :first_step?
 
-  validates_gln :manufacturer_gln
-  validates_length_of :manufacturer_name, :maximum => 35, :allow_nil => true
+  validates_length_of :manufacturer_name, :maximum => 35, :allow_nil => true, :if => :first_step?
 
-  validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999
+  validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999, :if => :first_step?
 
-  validates_number_length_of :gross_weight, 7
+  validates_number_length_of :gross_weight, 7, :last_step?
 
-  validates_length_of :plu_description, :maximum => 12
+  validates_length_of :plu_description, :maximum => 12, :if => :first_step?
 
-  validates_number_length_of :height, 5
-  validates_number_length_of :depth, 5
-  validates_number_length_of :width, 5
+  validates_number_length_of :height, 5, :last_step?
+  validates_number_length_of :depth, 5, :last_step?
+  validates_number_length_of :width, 5, :last_step?
+  validates_number_length_of :internal_item_id, 20, :first_step?
+  validates_number_length_of :minimum_durability_from_arrival, 4, :first_step?
 
-  validates_number_length_of :internal_item_id, 20
-  validates_number_length_of :minimum_durability_from_arrival, 4
+  validates_presence_of :vat, :if => :first_step?
+  validates_presence_of :content_uom, :if => :first_step?
+  validates_presence_of :packaging_type, :if => :last_step?
+  validates_presence_of :gpc_code, :if => :first_step?
+  validates_presence_of :gpc_name, :if => :first_step?
+  validates_presence_of :country_of_origin_code, :if => :first_step?
 
-  validates_presence_of :vat
-  validates_presence_of :content_uom
-  validates_presence_of :packaging_type
-  validates_presence_of :gpc_code
-  validates_presence_of :gpc_name
-  validates_presence_of :country_of_origin_code
 
   aasm_column :status
 
@@ -92,7 +122,7 @@ class BaseItem < ActiveRecord::Base
       #check_for_xml_response
     #end
   #end
-
+  
   def gpc_name= name
     self.gpc = Gpc.find_by_name(name)
   end

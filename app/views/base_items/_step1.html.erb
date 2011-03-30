@@ -1,0 +1,88 @@
+<div id="step1">
+<h2>Основные данные</h2><hr/>
+<table>
+<tr>
+<td>
+  <%= f.label :gtin %><br />
+  <%= f.text_field :gtin %>
+</td>
+
+<td>
+internal item id<br />
+<%=f.text_field :internal_item_id%>
+</td>
+</tr>
+<tr>
+<td>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</td>
+<td>
+item name long ru<br />
+<%=f.text_field :item_name_long_ru%>
+</td>
+<td>
+item name long en<br />
+<%=f.text_field :item_name_long_en%>
+</td>
+</tr>
+<tr>
+<td>
+<%= f.check_box :despatch_unit %>
+<%= f.label :despatch_unit, 'DU' %>
+<%= f.check_box :invoice_unit %>
+<%= f.label :invoice_unit, 'IU' %>
+<%= f.check_box :order_unit %>
+<%= f.label :order_unit, 'OU' %>
+<%= f.check_box :consumer_unit %>
+<%= f.label :consumer_unit, 'CU' %>
+</td>
+</tr>
+<tr>
+<td>
+manufacturer name<br />
+<%=f.text_field :manufacturer_name%>
+</td>
+<td>
+manufacturer gln<br />
+<%=f.text_field :manufacturer_gln%>
+</td>
+<td>
+<%= f.label :country_of_origin_code %><br/>
+<%= f.select :country_of_origin_code, @base_item.countries %>
+</td>
+</tr>
+<tr>
+<td>
+content<br />
+<%=f.text_field :content%>
+</td>
+<td>
+  <%= f.label :content_uom %><br/>
+  <%= f.select :content_uom, @base_item.content_uoms %>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<%= f.label :gpc_name %><br/>
+<%= text_field_with_auto_complete :base_item, :gpc_name %>
+</td>
+</tr>
+<tr>
+<td>
+  <%= f.label :vat%><br/>
+  <%= f.select :vat, @base_item.vats %>
+</td>
+<td>
+minimum durability from arrival<br />
+<%=f.text_field :minimum_durability_from_arrival%>
+</td>
+</tr>
+<tr>
+<td>
+plu description<br />
+<%=f.text_field :plu_description%>
+</td>
+</tr>
+</table>
+</div>
