@@ -10,6 +10,13 @@
   </div>
 <%# end %>
 
+<% if @base_item.draft? %>
+  <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
+    <%= f.submit "Опубликовать" %>
+    <%= f.submit "Отменить", :name => "cancel" %>
+  <% end %>
+<% end %>
+
 <% content_for :top do %>
 	<% unless @view_only %>
 	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>

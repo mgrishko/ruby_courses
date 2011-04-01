@@ -19,7 +19,7 @@
     <td><%= base_item.status %></td>
     <td><%= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
-    <td><%= link_to 'Publish', publish_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Publish', publish_base_item_path(base_item) %></td>
     <td><%= link_to 'Accept', accept_base_item_path(base_item) %></td>
     <td><%= link_to 'Reject', reject_base_item_path(base_item) %></td>
   </tr>

@@ -2,7 +2,8 @@ class BaseItemMailer < ActionMailer::Base
   #@@processed_data = []
 
   def approve_email(base_item)
-    recipients 'mrostotski@gmail.com'
+    #recipients 'mrostotski@gmail.com'
+    recipients 'vick.orel@gmail.com'
     from       APP_CONFIG[:mail][:client][:email]
     subject    "#{base_item.gtin}"
     sent_on    Time.now

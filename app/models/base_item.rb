@@ -2,9 +2,10 @@ class BaseItem < ActiveRecord::Base
   include AASM
 
   versioned
-
-  has_many :packaging_items
+  
+  has_many :packaging_items, :dependent => :destroy
   belongs_to :user
+  belongs_to :item
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
 
@@ -78,39 +79,59 @@ class BaseItem < ActiveRecord::Base
 
   aasm_initial_state :draft
 
+  #aasm_state :draft
+  #aasm_state :published, :enter => :cleanup_versions
+  #aasm_state :pending, :enter => :send_request
+  #aasm_state :rejected
+  
+  #aasm_state :published, :enter => :draft_all
+  aasm_state :published
+
   aasm_state :draft
-  aasm_state :published, :enter => :cleanup_versions
-  aasm_state :pending, :enter => :send_request
-  aasm_state :rejected
+  aasm_state :published
+
+  #aasm_event :draft do
+  #  transitions :to => :draft, :from => [:published, :rejected, :draft]
+  #end
 
   aasm_event :draft do
-    transitions :to => :draft, :from => [:published, :rejected, :draft]
+    transitions :to => :draft, :from => [:published, :draft]
   end
+
+  #aasm_event :publish do
+  #  transitions :to => :pending, :from => [:draft]
+  #end
 
   aasm_event :publish do
-    transitions :to => :pending, :from => [:draft]
+    transitions :to => :published, :from => [:draft]
   end
 
-  aasm_event :accept do
-    transitions :to => :published, :from => [:pending]
-  end
+  #aasm_event :accept do
+  #  transitions :to => :published, :from => [:pending]
+  #end
 
-  aasm_event :reject do
-    transitions :to => :rejected, :from => [:pending]
-  end
+  #aasm_event :reject do
+  #  transitions :to => :rejected, :from => [:pending]
+  #end
 
   def send_request
     BaseItemMailer.deliver_approve_email(self)
   end
 
-  def cleanup_versions
-    versions.delete_all
-    packaging_items.update_all(:published => true)
+  #def cleanup_versions
+  #  versions.delete_all
+  #  packaging_items.update_all(:published => true)
+  #end
+  
+  def draft_all
+    self.item.base_items.each do |bi|
+      bi.draft!
+    end
   end
 
-  def published
-    versions.scoped(:conditions => 'changes like "%pending%published%"')
-  end
+  #def published
+  #  versions.scoped(:conditions => 'changes like "%pending%published%"')
+  #end
 
   #def check_for_xml_response
     #fname = "#{RECORDS_IN_DIR}/#{id}.xml"

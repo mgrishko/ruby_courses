@@ -12,7 +12,7 @@
       element.appendChild(ul);
     }
   });
-  <% unless @view_only %>
+  <% unless @view_only || @base_item.published? %>
   $$('#items ul').each(function(element) {
     var id = element.up('li').id.gsub(/packaging_item_/, '');
     var li = new Element('li', { className: 'new', id: 'packaging_item_new_' + id  });

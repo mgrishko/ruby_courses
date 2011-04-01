@@ -5,9 +5,9 @@ class PackagingItem < ActiveRecord::Base
   belongs_to :base_item
   belongs_to :user
 
-  validates_presence_of :gtin
-  validates_gtin :gtin
-  validates_uniqueness_of :gtin, :scope => :user_id
+  #validates_presence_of :gtin
+  #validates_gtin :gtin
+  #validates_uniqueness_of :gtin, :scope => :user_id
 
   validates_number_length_of :number_of_next_lower_item, 6
   validates_number_length_of :number_of_bi_items, 6
@@ -60,5 +60,4 @@ class PackagingItem < ActiveRecord::Base
       #item.update_attribute(:number_of_bi_items, item.self_and_ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item })
     #end if number_of_next_lower_item_changed?
   #end
-
 end

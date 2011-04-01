@@ -2,7 +2,7 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
-    @base_items = current_user.base_items.find(:all)
+    @base_items = current_user.base_items.find(:all, :conditions => {:status => 'published'})
   end
 
   def show
@@ -32,11 +32,11 @@ class BaseItemsController < ApplicationController
     @base_item = current_user.base_items.find(params[:id])
   end
 
-  def published
-    @base_item = current_user.base_items.find(params[:id])
-    @base_item.revert_to(@base_item.published.last.number) unless @base_item.published.empty?
-    render 'edit'
-  end
+  #def published
+  #  @base_item = current_user.base_items.find(params[:id])
+  #  @base_item.revert_to(@base_item.published.last.number) unless @base_item.published.empty?
+  #  render 'edit'
+  #end
 
   def create
     session[:base_item_params].deep_merge!(params[:base_item]) if params[:base_item]
@@ -47,7 +47,9 @@ class BaseItemsController < ApplicationController
 	@base_item.previous_step
       elsif @base_item.last_step?
 	if @base_item.all_valid?
-	  @base_item.save
+	  i = current_user.items.new()
+	  i.base_items << @base_item
+	  i.save
 	  session[:base_item_step] = session[:base_item_params] = nil
 	  if params[:publish] && @base_item.publish!
 	    flash[:notice] = 'BaseItem was successfully created and sent'
@@ -101,13 +103,51 @@ class BaseItemsController < ApplicationController
     redirect_to(base_items_url)
   end
 
-  def publish
+  def published
     @base_item = current_user.base_items.find params[:id]
-    generate_attachment
-    @base_item.publish!
+    #generate_attachment
+    if @base_item.draft? and params[:cancel]
+      @base_item.destroy
+    else
+      @base_item.publish!
+    end
     redirect_to base_items_url
   end
 
+  def draft
+    @base_item = current_user.base_items.find params[:id]
+    if @base_item.published?
+      #make new base_item.tree
+      n = BaseItem.new(@base_item.attributes)
+      n.created_at = n.updated_at = nil
+      n.draft!
+      #n.save
+      
+      map_id = {}
+      
+      roots = @base_item.packaging_items.find_all{|pi| pi.parent_id == nil}
+      roots.each  do |root|
+	pi = n.packaging_items.new(root.attributes)
+	pi.user = current_user
+	pi.save
+
+	#old new
+	map_id[root.id] = pi.id
+
+	root.descendants.each do |d|
+	  pi = n.packaging_items.new(d.attributes)
+	  pi.user = current_user
+	  pi.parent_id = map_id[d.parent_id]
+	  pi.save
+
+	  map_id[d.id] = pi.id
+	end
+      end
+      #end
+      #redirect_to :action => "show", :id => n.id
+      redirect_to base_item_path(n)
+    end
+  end
   def accept
     @base_item = current_user.base_items.find params[:id]
     @base_item.accept!

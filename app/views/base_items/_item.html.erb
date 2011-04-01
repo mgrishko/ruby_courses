@@ -1,3 +1,8 @@
+<% unless @view_only || @base_item.draft? %>
+  <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
+    <%= f.submit "Правка" %>
+  <% end %>
+<% end %>
 <h2>Основные данные</h2>
 <div style="min-width: 150px; float: left;">
 image
@@ -76,7 +81,7 @@ Shelf life period<br />
 </tr>
 </table>
 </div>
-<% unless @view_only %>
+<% unless @view_only || @base_item.published? %>
 <%= link_to_remote 'править', :url => edit_base_item_path(@base_item), :method => :get %>
 <% end %>
 </div>

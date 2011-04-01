@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :items
   has_many :base_items
   has_many :packaging_items
   has_many :subscriptions, :foreign_key => 'retailer_id'
