@@ -1,3 +1,10 @@
+<% if @view_only || @base_item.published? %>
+<% i = 0%>
+<% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at desc').reverse!.each do |v| %>
+<% i=i+1 %>
+<% if v.id == @base_item.id %><%= i %><% else %><a href="<%= v.id %>"><%= i %></a><% end %> |
+<% end %>
+<% end %>
 <% unless @view_only || @base_item.draft? %>
   <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
     <%= f.submit "Правка" %>

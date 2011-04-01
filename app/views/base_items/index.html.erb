@@ -12,7 +12,9 @@
     <th></th>
   </tr>
 
-<% @base_items.each do |base_item| %>
+<% @items.each do |item| %>
+  <% base_item = item.base_items.find(:first, :conditions => {:status => 'published'}, :order => 'created_at desc') %>
+  <% if base_item %>
   <tr>
     <td><%= link_to base_item.gtin, base_item_path(base_item) %></td>
     <td><%= h base_item.name %></td>
@@ -23,6 +25,7 @@
     <td><%= link_to 'Accept', accept_base_item_path(base_item) %></td>
     <td><%= link_to 'Reject', reject_base_item_path(base_item) %></td>
   </tr>
+  <% end %>
 <% end %>
 </table>
 

@@ -2,7 +2,7 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
-    @base_items = current_user.base_items.find(:all, :conditions => {:status => 'published'})
+    @items = current_user.items.find(:all)
   end
 
   def show
