@@ -282,3 +282,6 @@ input
 .error_field {
   background-color: #ff9090;
 }
+#retailer_attributes {
+  display: none;
+}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  retailer_artcle_id: 1
+  retailer_classification: MyString
+  retailer_item_description: MyString
+  retailer_comment: MyString
+
+two:
+  retailer_artcle_id: 1
+  retailer_classification: MyString
+  retailer_item_description: MyString
+  retailer_comment: MyString

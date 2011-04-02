@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :auto_complete_for_base_item_gpc_name => :get } do |base_items|
     base_items.resources :packaging_items, :member => { :new_sub => :get }
   end
+  map.resources :retailer_attributes
 
   # The priority is based upon order of creation: first created -> highest priority.
 

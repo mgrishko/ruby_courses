@@ -1,0 +1,2 @@
+module RetailerAttributesHelper
+end
