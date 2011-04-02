@@ -1,0 +1,4 @@
+<h1>SubscriptionResults</h1>
+<% @results.each do |r| %>
+<a href="<%= url_for(r.base_item)%>?view=1"><%=r.base_item.id %></a>
+<% end %>

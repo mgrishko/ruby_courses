@@ -84,11 +84,8 @@ class BaseItem < ActiveRecord::Base
   #aasm_state :pending, :enter => :send_request
   #aasm_state :rejected
   
-  #aasm_state :published, :enter => :draft_all
-  aasm_state :published
-
   aasm_state :draft
-  aasm_state :published
+  aasm_state :published, :enter => :make_subscription_result
 
   #aasm_event :draft do
   #  transitions :to => :draft, :from => [:published, :rejected, :draft]
@@ -126,6 +123,12 @@ class BaseItem < ActiveRecord::Base
   def draft_all
     self.item.base_items.each do |bi|
       bi.draft!
+    end
+  end
+  
+  def make_subscription_result
+    self.item.user.subscribers.each do |s|
+      s.subscription_results << SubscriptionResult.new(:base_item_id => self.id)
     end
   end
 
