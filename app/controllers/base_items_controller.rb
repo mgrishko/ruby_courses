@@ -15,6 +15,7 @@ class BaseItemsController < ApplicationController
       @packaging_items = @base_item.packaging_items
     end
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
+    @tags = Tag.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
   def new

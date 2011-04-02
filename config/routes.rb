@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :retailer_attributes
   map.resources :comments
+  map.resources :tags
 
   # The priority is based upon order of creation: first created -> highest priority.
 

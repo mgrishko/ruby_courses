@@ -1,0 +1,3 @@
+<% @tags.each do |t| %>
+<div><%= link_to_remote t.name, :url => tag_url(:id => t), :method => :delete %></div>
+<% end %>

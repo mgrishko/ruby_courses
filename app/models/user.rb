@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   has_many :retailers, :class_name => 'User', :through => :subscribers
   has_many :subscription_results, :through => :subscriptions
   has_many :comments
-  
+  has_many :tags
+
   validates_uniqueness_of :gln
   acts_as_authentic do |a|
     a.validate_login_field = false

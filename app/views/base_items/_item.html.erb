@@ -12,7 +12,16 @@
 <% end %>
 <h2>Основные данные</h2>
 <div style="min-width: 150px; float: left;">
-image
+image<br/>
+<div id="tags">
+<% @tags.each do |t| %>
+<div><%= link_to_remote t.name, :url => tag_url(:id => t), :method => :delete %></div>
+<% end %>
+</div>
+<% remote_form_for Tag.new do |f| %>
+<input type="hidden" name="tag[item_id]" value="<%= @base_item.item.id %>"/>
+<%= f.text_field :name %>
+<% end %>
 </div>
 <div style="min-width: 600px; float: left">
 <div id="step1">
