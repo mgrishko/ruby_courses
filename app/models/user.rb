@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :suppliers, :class_name => 'User', :through => :subscriptions
   has_many :retailers, :class_name => 'User', :through => :subscribers
   has_many :subscription_results, :through => :subscriptions
+  has_many :comments
   
   validates_uniqueness_of :gln
   acts_as_authentic do |a|

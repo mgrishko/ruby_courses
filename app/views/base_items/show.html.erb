@@ -9,14 +9,29 @@
     <%= render 'packaging_items/index' %>
   </div>
 <%# end %>
-
+<!--comments block-->
+<div id="comments">
+<% @base_item.item.comments.each do |c| %>
+<div>
+<%= c.user.name %>, <%= c.created_at %><br/>
+<strong><%= c.content %></strong>
+</div>
+<% end %>
+</div>
+<% if @base_item.item.user.id == current_user.id %>
+  <% remote_form_for Comment.new do |f| %>
+  <input type="hidden" name="comment[item_id]" value="<%= @base_item.item.id %>"/>
+  <%= f.text_area :content, :rows => 2, :cols => "30" %><br/>
+  <%= f.submit "Добавить комментарий" %>
+  <% end %>
+<% end %>
+<!--/comments block-->
 <% if @base_item.draft? %>
   <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
     <%= f.submit "Опубликовать" %>
     <%= f.submit "Отменить", :name => "cancel" %>
   <% end %>
 <% end %>
-
 <% content_for :top do %>
 	<% unless @view_only %>
 	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>

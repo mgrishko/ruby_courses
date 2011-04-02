@@ -1,0 +1,1 @@
+page.insert_html :bottom, "comments", "<div>#{@comment.user.name}, #{@comment.created_at}<br/><strong>#{@comment.content}</strong></div>"

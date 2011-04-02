@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     base_items.resources :packaging_items, :member => { :new_sub => :get }
   end
   map.resources :retailer_attributes
+  map.resources :comments
 
   # The priority is based upon order of creation: first created -> highest priority.
 
