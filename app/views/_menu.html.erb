@@ -7,7 +7,7 @@
     <%= link_to 'Subscription results', :controller => 'subscription_results' %>
   </div>
   <div class="fright">
-    <%= link_to 'Logout', url_for(:controller => :user_sessions, :action => :logout) %>
+    <%= current_user.name %> | <%= link_to 'Log off', url_for(:controller => :user_sessions, :action => :logout) %>
   </div>
   <div class="clear"></div>
   <% end %>

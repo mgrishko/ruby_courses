@@ -1,4 +1,4 @@
 class Tag < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :item
+  has_many :items, :through => :clouds
+  has_many :clouds
 end

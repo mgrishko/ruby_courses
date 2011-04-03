@@ -11,7 +11,7 @@ body, html
 
 a
 {
-	color: #f60;
+	color: #000;
 	text-decoration: underline;
 }
 
@@ -77,15 +77,15 @@ h2
 	margin: 1em 0;
 }
 
-.body
-{
-	behavior: url(iepngfix.htc);
-	position: relative;
-	height: auto !important;
-    height: 100%;
-    min-height: 100%;
-	margin: 0 auto;
-    padding-bottom: -20px;
+.body {
+  behavior: url(iepngfix.htc);
+  position: relative;
+  height: auto !important;
+  height: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 0 1em;
+  //padding-bottom: -20px;
 }
 
 .header
@@ -284,4 +284,35 @@ input
 }
 #retailer_attributes {
   display: none;
+}
+.tag {
+  padding: 0 2px;
+  margin: 0 2px;
+  font-size: 80%;
+  background: #C6D9E9;
+}
+.tags {
+  text-align: right;
+}
+table.results {
+}
+table.results tr {
+  border-bottom: 1px solid #BBB;
+}
+table.results td {
+  padding: 0 5px;
+}
+.checkbox {
+  width: auto;
+}
+.date {
+  font-size: 80%;
+}
+.filters {
+  float: left;
+  min-width:15%;
+}
+.data {
+  float: left;
+  width: 85%;
 }

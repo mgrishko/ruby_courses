@@ -1,32 +1,65 @@
-<h1>Listing base items</h1>
+<h2>Listing base items</h2>
+<!--filters-->
+<div class="filters">
+<div>
+<strong>Тэги</strong>
+<% @clouds.each do |c| %>
+  <div><a href="?tag=<%=c.tag.id %>"><%= c.tag.name %></a> (<%= c.q %>)</div>
+<% end %>
+</div>
+<br/>
+<div>
+<strong>Бренды</strong>
+<% @brands.each do |b| %>
+  <div><a href="?brand=<%=CGI::escapeHTML b.brand %>"><%= b.brand %></a> (<%= b.q %>)</div>
+<% end %>
+</div>
+<br/>
+<div>
+<strong>Производители</strong>
+<% @manufacturers.each do |m| %>
+  <div><a href="?manufacturer_name=<%=CGI::escapeHTML m.manufacturer_name %>"><%= m.manufacturer_name %></a> (<%= m.q %>)</div>
+<% end %>
+</div>
+<br/>
+<div>
+<strong>Functional</strong>
+<% @functionals.each do |f| %>
+  <div><a href="?functional=<%=CGI::escapeHTML f.functional %>"><%= f.functional %></a> (<%= f.q %>)</div>
+<% end %>
+</div>
 
-<table class="results" cellspacing="0" cellpadding="2">
+</div>
+<!--/filters-->
+<!--data-->
+<div class="data">
+<table class="results">
+<col />
+<col width="100" />
+<col width="300" />
+<col width="300" align="center" />
+<col />
+<% @base_items.each do |base_item| %>
   <tr>
-    <th>Record code</th>
-    <th>Name</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @items.each do |item| %>
-  <% base_item = item.base_items.find(:first, :conditions => {:status => 'published'}, :order => 'created_at desc') %>
-  <% if base_item %>
-  <tr>
+    <td><input type="checkbox" class="checkbox" name="" id=""/></td>
     <td><%= link_to base_item.gtin, base_item_path(base_item) %></td>
-    <td><%= h base_item.name %></td>
-    <td><%= base_item.status %></td>
-    <td><%= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
-    <td><%= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
+    <td><%= link_to base_item.name, base_item_path(base_item) %></td>
+    <td class="tags">
+    <% base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).each do |c| %>
+    <span class="tag"><%= c.tag.name %></span>
+    <% end %>
+    </td>
+    <td class="date"><%= base_item.created_at.to_s(:short) %></td>
+    <!--<td><%#= base_item.status %></td>-->
+    <!--<td><%#= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%#= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
     <td><%#= link_to 'Publish', publish_base_item_path(base_item) %></td>
-    <td><%= link_to 'Accept', accept_base_item_path(base_item) %></td>
-    <td><%= link_to 'Reject', reject_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Accept', accept_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Reject', reject_base_item_path(base_item) %></td>-->
   </tr>
-  <% end %>
 <% end %>
 </table>
 
 <%= link_to 'New base_item', new_base_item_path %>
+</div>
+<!--/data-->

@@ -2,7 +2,24 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
-    @items = current_user.items.find(:all)
+    @conditions = ["b.brand = ?",params[:brand]] if params[:brand]
+    @conditions = ["b.manufacturer_name = ?", params[:manufacturer_name]] if params[:manufacturer_name]
+    @conditions = ["functional = ?", params[:functional]] if params[:functional]
+    if params[:tag]
+      @base_items = current_user.base_items.find_by_sql(["select a.* from base_items as a left join items i on a.item_id = i.id left join clouds c on i.id = c.item_id where c.user_id = #{current_user.id} and c.tag_id = ? and a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) order by a.created_at desc", params[:tag]])
+    else 
+      if @conditions
+	@base_items = current_user.base_items.find_by_sql(["select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} and "+@conditions.first.to_s+" order by created_at desc limit 1) order by a.created_at desc", @conditions.last])
+      else
+	@base_items = current_user.base_items.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) order by a.created_at desc")
+      end
+    end
+    
+    @clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id")
+    @brands = BaseItem.find_by_sql("select a.brand, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by brand")
+    @manufacturers = BaseItem.find_by_sql("select a.manufacturer_name, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by manufacturer_name");
+    #functional name
+    @functionals = BaseItem.find_by_sql("select a.functional, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by functional");
   end
 
   def show
@@ -15,7 +32,7 @@ class BaseItemsController < ApplicationController
       @packaging_items = @base_item.packaging_items
     end
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
-    @tags = Tag.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
+    @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
   def new
