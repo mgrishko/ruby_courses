@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :base_items
   has_many :packaging_items
   has_many :subscriptions, :foreign_key => 'retailer_id'
-  has_many :subscribers, :class_name => 'Subscription', :foreign_key => 'supplier_id'
+  has_many :subscribers, :class_name => 'Subscription', :foreign_key => 'supplier_id', :conditions => ["subscriptions.status = ?", "active"]
   has_many :suppliers, :class_name => 'User', :through => :subscriptions
   has_many :retailers, :class_name => 'User', :through => :subscribers
   has_many :subscription_results, :through => :subscriptions

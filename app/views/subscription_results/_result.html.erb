@@ -1,0 +1,20 @@
+<td>
+<a href="<%= url_for(r.base_item)%>?view=1"><%=r.base_item.id %></a>
+</td>
+<td>
+<%= r.aasm_current_state %>
+</td>
+<td>
+<% if r.new? %>
+<% remote_form_for(r) do |f| %>
+<%= f.submit "Акцептовать", :name => 'accept' %>
+<% end %>
+<% end %>
+</td>
+<td>
+<% if r.new? %>
+<% remote_form_for(r) do |f| %>
+<%= f.submit "Отменить", :name => 'cancel' %>
+<% end %>
+<% end %>
+</td>

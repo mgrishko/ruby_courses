@@ -4,7 +4,8 @@
     <%= link_to 'Items', :controller => 'base_items' %> |
     <%= link_to 'Suppliers', :controller => 'suppliers'  %> |
     <%= link_to 'Subscription', :controller => 'subscription' %> |
-    <%= link_to 'Subscription results', :controller => 'subscription_results' %>
+    <%= link_to 'Subscription results', :controller => 'subscription_results' %> |
+    <%= link_to 'Retailer Items', :controller => 'retailer_items' %>
   </div>
   <div class="fright">
     <%= current_user.name %> | <%= link_to 'Log off', url_for(:controller => :user_sessions, :action => :logout) %>

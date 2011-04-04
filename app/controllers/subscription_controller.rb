@@ -11,8 +11,13 @@ class SubscriptionController < ApplicationController
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
       json = {'error' => 'Ошибка'}
       if @subscription
-	@subscription.destroy
-	json = {'text' => 'Подписаться', 'flag' => false}
+	if @subscription.active?
+	  @subscription.cancel!
+	  json = {'text' => 'Подписаться', 'flag' => false}
+	else
+	  @subscription.active!
+	  json = {'text' => 'Отписаться', 'flag' => true}
+	end
       else
 	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
 	if @subscription.save
@@ -24,23 +29,27 @@ class SubscriptionController < ApplicationController
   end
   
   def instantstatus
+    json = {'error' => 'Ошибка'}
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
-      json = {'error' => 'Ошибка'}
       if @subscription
-	json = {'error' => 'У Вас уже есть подписка'}
+	if @subscription.active?
+	  json = {'error' => 'У Вас уже есть подписка'}
+	  return render :json => json
+	else
+	  @subscription.active!
+	end
       else
 	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
-	if @subscription.save
-	  @supplier = User.find(params[:id])
-	  @supplier.all_fresh_base_items.each do |bi|
-	    @subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
-	  end
-	  json = {'text' => 'Недоступно', 'flag' => true}
-	end
+	@subscription.save
       end
-      render :json => json
+      @supplier = User.find(params[:id])
+      @supplier.all_fresh_base_items.each do |bi|
+	@subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
+      end
+      json = {'text' => 'Недоступно', 'flag' => true}
     end
+    render :json => json
   end
 
 end
