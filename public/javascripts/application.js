@@ -44,6 +44,24 @@ function subscription(that, supplier_id) {
       alert(data.error);
     } else {
       $j(that).html(data.text);
+      if (data.flag) {
+	$j('#bis-'+supplier_id).html('Недоступно');
+	$j('#bis-'+supplier_id).attr('disabled','disabled');
+      } else {
+	$j('#bis-'+supplier_id).removeAttr('disabled');
+	$j('#bis-'+supplier_id).html('Подписаться');
+      }
     }
   });
+}
+function instantSubscription(that, supplier_id) {
+  $j.post('/subscriptions/instantstatus', {id: supplier_id}, function(data) {
+    if (data.error) {
+      alert(data.error);
+    } else {
+      $j(that).html(data.text);
+      $j(that).attr('disabled','disabled');
+      $j('#bs-'+supplier_id).html('Отписаться');
+    }
+  })
 }

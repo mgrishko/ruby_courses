@@ -12,14 +12,35 @@ class SubscriptionController < ApplicationController
       json = {'error' => 'Ошибка'}
       if @subscription
 	@subscription.destroy
-	json = {'text' => 'Подписаться'}
+	json = {'text' => 'Подписаться', 'flag' => false}
       else
 	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
 	if @subscription.save
-	  json = {'text' => 'Отписаться'}
+	  json = {'text' => 'Отписаться', 'flag' => true}
 	end
       end
       render :json => json
     end
   end
+  
+  def instantstatus
+    if request.post? and params[:id]
+      @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
+      json = {'error' => 'Ошибка'}
+      if @subscription
+	json = {'error' => 'У Вас уже есть подписка'}
+      else
+	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
+	if @subscription.save
+	  @supplier = User.find(params[:id])
+	  @supplier.all_fresh_base_items.each do |bi|
+	    @subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
+	  end
+	  json = {'text' => 'Недоступно', 'flag' => true}
+	end
+      end
+      render :json => json
+    end
+  end
+
 end

@@ -29,12 +29,23 @@ class User < ActiveRecord::Base
       return '---'
     end
   end
-
+  
+  def all_fresh_base_items
+    BaseItem.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by created_at desc limit 1) order by a.created_at desc")
+  end
+  
   def my_retailer_info(user_id)
     if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
       return "Отписаться"
     else
       return "Подписаться"
+    end
+  end
+  def my_retailer_flag(user_id)
+    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
+      return true
+    else
+      return nil
     end
   end
 end
