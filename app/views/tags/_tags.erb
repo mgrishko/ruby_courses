@@ -1,0 +1,3 @@
+<% @clouds.each do |c| %>
+<div><span class="tag"><%= link_to_remote c.tag.name, :url => tag_url(:id => c), :method => :delete %></span></div>
+<% end %>

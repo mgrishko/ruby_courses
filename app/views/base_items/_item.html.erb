@@ -1,99 +1,138 @@
+<!--
 <% if @view_only || @base_item.published? %>
 <% i = 0%>
 <% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at desc').reverse!.each do |v| %>
 <% i=i+1 %>
 <% if v.id == @base_item.id %><%= i %><% else %><a href="<%= v.id %><%if  @view_only %>?view=1<% end %>"><%= i %></a><% end %> |
 <% end %>
-<% end %>
+<% end %>-->
 <% unless @view_only || @base_item.draft? %>
+  <div class="fright">
   <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
-    <%= f.submit "Правка" %>
+    <%= f.submit "Правка", :class => "button" %>
   <% end %>
+  </div>
+  <div class="clear"></div>
 <% end %>
 <h2>Основные данные</h2>
-<div style="min-width: 150px; float: left;">
-image<br/>
+<div style="min-width: 240px; float: left;">
+<img src="/images/item_image.jpg" alt="Item Image"/>
 <% if @clouds %>
 <div id="tags">
-<% @clouds.each do |c| %>
-<div><%= link_to_remote c.tag.name, :url => tag_url(:id => c), :method => :delete %></div>
-<% end %>
+<%= render :partial => "/tags/tags", :locals => {:clouds => @clouds} %>
 </div>
 <% end %>
+<a href="#" id="add_tag_link" onclick="$j(this).hide(); $j('#new_tag').show();return false;">Добавить ярлык</a>
 <% remote_form_for Tag.new do |f| %>
 <input type="hidden" name="tag[item_id]" value="<%= @base_item.item.id %>"/>
-<%= f.text_field :name %>
+<%= f.text_field :name %><button onclick="$j('#new_tag').hide();$j('#add_tag_link').show();">x</button>
 <% end %>
 </div>
 <div style="min-width: 600px; float: left">
 <div id="step1">
 <table>
-<tr>
+<tr class="info">
 <td>
-GTIN<br />
+GTIN
+</td>
+<td>
+Internal item id
+</td>
+</tr>
+<tr class="val">
+<td>
 <%= @base_item.gtin %>
 </td>
-
 <td>
-Internal item id<br />
 <%=@base_item.internal_item_id%>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-Brand<br />
+Brand
+</td>
+<td>
+Subbrand
+</td>
+<td>
+Functional
+</td>
+<td colspan="2">
+Content
+</td>
+</tr>
+<tr class="val">
+<td>
 <%= @base_item.brand %>
 </td>
 <td>
-Subbrand<br />
 <%= @base_item.subbrand %>
 </td>
 <td>
-Functional<br />
 <%= @base_item.functional %>
 </td>
 <td>
-Content<br />
 <%=@base_item.content%>
 </td>
 <td>
-&nbsp;<br/>
 <%= @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td colspan="4">
-Item_description<br />
+Item Description
+</td>
+</tr>
+<tr class="val">
+<td colspan="4">
 <%= @base_item.item_description %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-manufacturer gln<br />
+Manufacturer GLN
+</td>
+<td>
+Manufacturer name
+</td>
+<td>
+Country of origin
+</td>
+</tr>
+<tr class="val">
+<td>
 <%=@base_item.manufacturer_gln %>
 </td>
 <td>
-manufacturer name<br />
 <%=@base_item.manufacturer_name %>
 </td>
 <td>
-Country of origin<br/>
 <%= @base_item.country_of_origin.description %>
 </td>
 </tr>
-<tr>
-<td colspan="3">
-Gpc code <br/>
+<tr class="info">
+<td colspan="5">
+Gpc code
+</td>
+</tr>
+<tr class="val">
+<td colspan="5">
 <%= @base_item.gpc.code %> : <%= @base_item.gpc.name %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-Vat<br/>
+Vat
+</td>
+<td>
+Shelf life period
+</td>
+</tr>
+<tr class="val">
+<td>
 <%= @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] %>
 </td>
 <td>
-Shelf life period<br />
 <%= @base_item.minimum_durability_from_arrival %>
 </td>
 </tr>
@@ -105,26 +144,45 @@ Shelf life period<br />
 <% remote_form_for(@retailer_attribute) do |f| %>
 <input type="hidden" name="retailer_attribute[item_id]" value="<%= @base_item.item.id %>"/>
 <table>
-<tr>
-<td><%= f.label :retailer_article_id %><br/>
+<tr class="info">
+<td>
+Retailer article id
+</td>
+<td>
+Retailer Classification
+</td>
+</tr>
+<tr class="val">
+<td>
 <%= f.text_field :retailer_article_id %>
 </td>
-<td><%= f.label :retailer_classification %><br/>
+<td>
 <%= f.text_field :retailer_classification %>
 </td>
 </tr>
-<tr>
-<td colspan="3"><%= f.label :retailer_item_description %><br/>
+<tr class="info">
+<td colspan="3">
+Retailer Item Description
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
 <%= f.text_field :retailer_item_description, :style => "width: 100%;"%>
 </td>
 </tr>
+
+<tr class="info">
+<td colspan="3">
+Retailer comment
+</td>
+</tr>
 <tr>
-<td colspan="3"><%= f.label :retailer_comment %><br/>
+<td colspan="3">
 <%= f.text_area :retailer_comment, :rows => 2, :style => "width: 100%"%>
 </td>
 </tr>
 </table>
-<%= f.submit %><%= f.submit "Отмена", :onclick=>"$j('#retailer_attributes').hide(); $j('#show_retailer_attributes').show();return false"%>
+<%= f.submit "Сохранить", :class=>"button" %><%= f.submit "Отмена", :class=> "button", :onclick=>"$j('#retailer_attributes').hide(); $j('#show_retailer_attributes').show();return false"%>
 <% end %>
 </div>
 <% end %>

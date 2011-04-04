@@ -1,9 +1,8 @@
 <% if item.parent_id %><div class="arrow"></div><% end %>
-<p><%= image_tag "pi/pi_#{item.level_cache}.jpg" %></p>
-<p><%= h item.gtin %></p>
+<h3><%= h item.gtin %></h3>
+<p><%= h item.number_of_next_lower_item %> уп., внутри <%= item.number_of_bi_items %> ед.</p>
+<p><%= h item.height %> x <%=h item.width %> x <%=h item.depth %> (В x Д x Ш)</p>
 <p><%= h item.packaging_type %>, <%= item.gross_weight %> грамм</p>
-<p>Д<%= h item.width %> В<%= h item.height %> Г<%= h item.depth %> мм</p>
-<p>Внутри <%= h item.number_of_next_lower_item %> уп., <%= item.number_of_bi_items %> ед.</p>
 <% unless @view_only || @base_item.published? %>
 <p><%= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
 <%= link_to_remote 'удалить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></p>

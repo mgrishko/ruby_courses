@@ -70,13 +70,15 @@ h1
 	font-size: 15pt;
 }
 
-h2
-{
-	font-size: 12pt;
-	border-bottom: 1px solid gray;
+h2 {
+	font-size: 2em;
+	border-bottom: 1px solid #000;
 	margin: 1em 0;
+	padding: 0 0 0.1em;
 }
-
+h3 {
+  font-size: 1.5em;
+}
 .body {
   behavior: url(iepngfix.htc);
   position: relative;
@@ -166,7 +168,8 @@ ul.items li .item
 {
   float: left;
   width: 200px;
-  background: #dfeef3;
+  //background: #dfeef3;
+  border: 1px solid #000;
   position: relative;
   padding: 5px;
 }
@@ -212,6 +215,10 @@ input
   width: 150px;
   margin: 3px;
   background: #FFE9BE;
+}
+textarea {
+  background: #FFE9BE;
+  width: 100%;
 }
 .base_item
 {
@@ -291,6 +298,10 @@ input
   font-size: 80%;
   background: #C6D9E9;
 }
+.tag a {
+  text-decoration: none;
+}
+
 .tags {
   text-align: right;
 }
@@ -315,4 +326,39 @@ table.results td {
 .data {
   float: left;
   width: 85%;
+}
+#new_tag {
+  display: none;
+}
+#tag_name {
+  width: 100px;
+}
+tr.info td{
+  color: #bbb;
+  font-size: 85%;
+  font-weight: bold;
+  padding: 0 3px;
+}
+tr.val td {
+  color: #000;
+  font-size: 140%;
+  padding: 0 3px 10px;
+}
+tr.val td input {
+  font-size: 110%;
+}
+
+.button {
+  background: none;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 10px 0;
+}
+.comment-area {
+  background: none;
+  width: 450px;
+}
+#comments {
+  border-top: 1px solid #000;
+  margin-top: 1em;
 }

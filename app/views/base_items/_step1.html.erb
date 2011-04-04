@@ -1,105 +1,158 @@
 <div id="step1">
 <table>
-<tr>
+<tr class="info">
 <td>
-  <%= f.label :gtin %><br />
+GTIN
+</td>
+<td>
+Internal item id
+</td>
+</tr>
+<tr class="val">
+<td>
   <%= f.text_field :gtin %>
 </td>
-
 <td>
-internal item id<br />
 <%=f.text_field :internal_item_id%>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-<%= f.label :brand %><br />
+Brand
+</td>
+<td>
+Subbrand
+</td>
+<td>
+Functional
+</td>
+<td>
+Content
+</td>
+<td>
+Content uom
+</td>
+</tr>
+<tr class="val">
+<td>
 <%= f.text_field :brand %>
 </td>
 <td>
-<%= f.label :subbrand %><br />
 <%= f.text_field :subbrand %>
 </td>
 <td>
-<%= f.label :functional %><br />
 <%= f.text_field :functional %>
 </td>
 <td>
-content<br />
 <%=f.text_field :content%>
 </td>
 <td>
-  <%= f.label :content_uom %><br/>
   <%= f.select :content_uom, @base_item.content_uoms %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td colspan="4">
-<%= f.label :item_description %><br />
+Item Description
+</td>
+</tr>
+<tr class="val">
+<td colspan="4">
 <%= f.text_field :item_description, :class => "w100" %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-  <%= f.label :name %><br />
+Name
+</td>
+<td>
+item name long ru
+</td>
+<td>
+item name long en
+</td>
+</tr>
+<tr class="val">
+<td>
   <%= f.text_field :name %>
 </td>
 <td>
-item name long ru<br />
 <%=f.text_field :item_name_long_ru%>
 </td>
 <td>
-item name long en<br />
 <%=f.text_field :item_name_long_en%>
 </td>
 </tr>
-<tr>
+
+<tr class="info">
 <td colspan="3" align="left">
-<%= f.check_box :despatch_unit %>
+<%= f.check_box :despatch_unit, :class => "checkbox" %>
 <%= f.label :despatch_unit, 'DU' %>
-<%= f.check_box :invoice_unit %>
+<%= f.check_box :invoice_unit, :class => "checkbox" %>
 <%= f.label :invoice_unit, 'IU' %>
-<%= f.check_box :order_unit %>
+<%= f.check_box :order_unit, :class => "checkbox" %>
 <%= f.label :order_unit, 'OU' %>
-<%= f.check_box :consumer_unit %>
+<%= f.check_box :consumer_unit, :class => "checkbox" %>
 <%= f.label :consumer_unit, 'CU' %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-manufacturer gln<br />
+Manufacturer GLN
+</td>
+<td>
+Manufacturer name
+</td>
+<td>
+Country of origin
+</td>
+</tr>
+<tr class="val">
+<td>
 <%=f.text_field :manufacturer_gln%>
 </td>
 <td>
-manufacturer name<br />
 <%=f.text_field :manufacturer_name%>
 </td>
 <td>
-<%= f.label :country_of_origin_code %><br/>
 <%= f.select :country_of_origin_code, @base_item.countries %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td colspan="3">
-<%= f.label :gpc_name %><br/>
+GPC Name
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
 <%= text_field_with_auto_complete :base_item, :gpc_name %>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-  <%= f.label :vat%><br/>
+Vat
+</td>
+<td>
+Shelf life period
+</td>
+</tr>
+<tr class="val">
+<td>
   <%= f.select :vat, @base_item.vats %>
 </td>
 <td>
-shelf life period<br />
 <%=f.text_field :minimum_durability_from_arrival%>
 </td>
 </tr>
-<tr>
+<tr class="info">
 <td>
-plu description<br />
+plu description
+</td>
+</tr>
+<tr class="val">
+<td>
 <%=f.text_field :plu_description%>
 </td>
 </tr>
+
 </table>
 </div>
