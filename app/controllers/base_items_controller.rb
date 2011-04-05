@@ -2,7 +2,7 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
-    @conditions = ["b.brand = ?",params[:brand]] if params[:brand]
+    @conditions = ["b.brand = ?", params[:brand]] if params[:brand]
     @conditions = ["b.manufacturer_name = ?", params[:manufacturer_name]] if params[:manufacturer_name]
     @conditions = ["functional = ?", params[:functional]] if params[:functional]
     if params[:tag]

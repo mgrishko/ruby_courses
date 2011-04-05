@@ -323,6 +323,10 @@ table.results td {
   float: left;
   min-width:15%;
 }
+.filter {
+  text-decoration: none;
+}
+
 .data {
   float: left;
   width: 85%;
@@ -364,4 +368,7 @@ tr.val td select {
 #comments {
   border-top: 1px solid #000;
   margin-top: 1em;
+}
+.selected {
+  background: #6cbf18;
 }

@@ -4,28 +4,28 @@
 <div>
 <strong>Тэги</strong>
 <% @clouds.each do |c| %>
-  <div><a href="?tag=<%=c.tag.id %>"><%= c.tag.name %></a> (<%= c.q %>)</div>
-<% end %>
+  <div <% if params[:tag].to_s == c.tag_id.to_s %>class="selected"<% end %>><a href="?tag=<%=c.tag.id %>" class="filter"><%= c.tag.name %></a> (<%= c.q %>)</div>
+  <% end %>
 </div>
 <br/>
 <div>
 <strong>Бренды</strong>
 <% @brands.each do |b| %>
-  <div><a href="?brand=<%=CGI::escapeHTML b.brand %>"><%= b.brand %></a> (<%= b.q %>)</div>
+  <div <% if params[:brand].to_s == b.brand.to_s %>class="selected"<% end %>><a href="?brand=<%=CGI::escapeHTML b.brand %>" class="filter"><%= b.brand %></a> (<%= b.q %>)</div>
 <% end %>
 </div>
 <br/>
 <div>
 <strong>Производители</strong>
 <% @manufacturers.each do |m| %>
-  <div><a href="?manufacturer_name=<%=CGI::escapeHTML m.manufacturer_name %>"><%= m.manufacturer_name %></a> (<%= m.q %>)</div>
+  <div <% if params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>class="selected"<% end %>><a href="?manufacturer_name=<%=CGI::escapeHTML m.manufacturer_name %>" class="filter"><%= m.manufacturer_name %></a> (<%= m.q %>)</div>
 <% end %>
 </div>
 <br/>
 <div>
 <strong>Functional</strong>
 <% @functionals.each do |f| %>
-  <div><a href="?functional=<%=CGI::escapeHTML f.functional %>"><%= f.functional %></a> (<%= f.q %>)</div>
+  <div <% if params[:functional].to_s == f.functional.to_s %>class="selected"<% end %>><a href="?functional=<%=CGI::escapeHTML f.functional %>" class="filter"><%= f.functional %></a> (<%= f.q %>)</div>
 <% end %>
 </div>
 
