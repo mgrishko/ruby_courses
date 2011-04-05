@@ -8,6 +8,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(:first, :conditions => {:name => params[:tag][:name]})
     unless @tag
       @tag = Tag.new(:name => params[:tag][:name])
+      @tag.save
     end
     @cloud = Cloud.new(:user => current_user, :item => @item, :tag => @tag)
     @cloud.save
