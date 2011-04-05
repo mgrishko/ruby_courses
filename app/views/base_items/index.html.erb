@@ -60,6 +60,6 @@
 <% end %>
 </table>
 
-<%= link_to 'New base_item', new_base_item_path %>
+<%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>
 </div>
 <!--/data-->

@@ -137,7 +137,7 @@ Shelf life period
 </td>
 </tr>
 </table>
-<% if @base_item.published? %>
+<% if @base_item.published? && current_user.retailer? %>
 <a id="show_retailer_attributes" href="" onclick="$j('#retailer_attributes').show(); $j(this).hide(); return false">Добавить данные</a>
 <div id="retailer_attributes">
 <hr/>
