@@ -347,7 +347,10 @@ tr.val td {
 tr.val td input {
   font-size: 110%;
 }
-
+tr.val td select {
+  font-size: 110%;
+  background: #FFE9BE;
+}
 .button {
   background: none;
   font-size: 100%;
