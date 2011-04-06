@@ -49,7 +49,7 @@ BaseItem.delete_all
   :id => 1,
   :gtin => '4607085440385',
   :name	=> 'Nescafe Classic',
-  :status => 'piblished',
+  :status => 'published',
   :user_id => '1',
   :internal_item_id => '1',
   :item_name_long_ru => 'Кофе Нескафе Классик',
@@ -109,13 +109,12 @@ BaseItem.delete_all
   :functional => 'CN',
   :item_description => '',
   :item_id => 2
-
 }, {
   :id => 3,
   :gtin => '4607003953133',
   :name => 'Brookbond Tea',
   :status => 'published',
-  :user_id =>  '2',
+  :user_id =>  '1',
   :internal_item_id => '8',
   :item_name_long_ru => 'Чай Брукбонд',
   :item_name_long_en => 'Brookbond Tea',
