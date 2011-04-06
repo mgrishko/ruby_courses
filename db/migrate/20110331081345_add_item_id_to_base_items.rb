@@ -1,6 +1,6 @@
 class AddItemIdToBaseItems < ActiveRecord::Migration
   def self.up
-    add_column :base_items, :item_id, :integer, :null => false, :options =>
+    add_column :base_items, :item_id, :integer, :null => false, :default => 0, :options =>
       "CONSTRAINT fk_base_item_items REFERENCES items(id)"
   end
 
