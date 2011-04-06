@@ -15,8 +15,7 @@ User.delete_all
     :password_confirmation => '1234',
     :is_admin => 1,
     :name => 'Море Вкуса',
-    :role => 'retailer'
-  }
+    :role => 'retailer'},
 ].each do |user|
   u = User.new(user)
   u.id = user[:id]
