@@ -7,13 +7,15 @@ User.delete_all
     :password => '1234',
     :password_confirmation => '1234',
     :is_admin => 1,
-    :name => 'Продуктовая Компания'},
+    :name => 'Продуктовая Компания',
+    :role => 'supplier'},
    {:id => 2,
     :gln => 4321,
     :password => '1234',
     :password_confirmation => '1234',
     :is_admin => 1,
-    :name => 'Море Вкуса'
+    :name => 'Море Вкуса',
+    :role => 'retailer'
   }
 ].each do |user|
   u = User.new(user)
@@ -22,6 +24,25 @@ User.delete_all
 end
 puts "ok"
 
+puts "Making 3 Items"
+
+Item.delete_all
+[
+  {:id => 1,
+  :user_id => 1
+  },
+  {:id => 2,
+  :user_id => 1
+  },
+  {:id => 3,
+  :user_id => 1
+  }
+].each do |item|
+  i = Item.new(item)
+  i.id = item[:id]
+  i.save
+end
+
 puts "Making 3 BI"
 
 BaseItem.delete_all
@@ -29,7 +50,7 @@ BaseItem.delete_all
   :id => 1,
   :gtin => '4607085440385',
   :name	=> 'Nescafe Classic',
-  :status => 'draft',
+  :status => 'piblished',
   :user_id => '1',
   :internal_item_id => '1',
   :item_name_long_ru => 'Кофе Нескафе Классик',
@@ -51,12 +72,17 @@ BaseItem.delete_all
   :height => '1',
   :depth => '1',
   :width => '1',
-  :content => '1.000'
+  :content => '1.000',
+  :brand  => 'Nestle',
+  :subbrand => '',
+  :functional => 'N',
+  :item_description => '',
+  :item_id => 1
 }, {
   :id => 2,
   :gtin => '9785249003791',
   :name => 'Nesquick',
-  :status => 'draft',
+  :status => 'published',
   :user_id => '1',
   :internal_item_id => '2',
   :item_name_long_ru => 'Какао Несквик',
@@ -78,12 +104,18 @@ BaseItem.delete_all
   :height => '2',
   :depth => '2',
   :width => '2',
-  :content => '1.000'
+  :content => '1.000',
+  :brand  => 'Nestle',
+  :subbrand => '',
+  :functional => 'CN',
+  :item_description => '',
+  :item_id => 2
+
 }, {
   :id => 3,
   :gtin => '4607003953133',
   :name => 'Brookbond Tea',
-  :status => 'draft',
+  :status => 'published',
   :user_id =>  '2',
   :internal_item_id => '8',
   :item_name_long_ru => 'Чай Брукбонд',
@@ -105,11 +137,17 @@ BaseItem.delete_all
   :height => '1',
   :depth => '1',
   :width => '1',
-  :content => '1.000'
+  :content => '1.000',
+  :brand  => 'Brook Bond',
+  :subbrand => '',
+  :functional => 'TTT',
+  :item_description => '',
+  :item_id => 3
 }].each do |base_item|
   bi = BaseItem.new(base_item)
   bi.id = base_item[:id]
   bi.save
+  puts bi.errors.full_messages
 end
 puts "ok"
 
