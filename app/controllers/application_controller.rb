@@ -67,6 +67,14 @@ class ApplicationController < ActionController::Base
         @@model.set_auth_user current_user
       end
     end
+    
+    def get_filters_data_for_base_items
+      @clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id")
+      @brands = BaseItem.find_by_sql("select a.brand, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by brand")
+      @manufacturers = BaseItem.find_by_sql("select a.manufacturer_name, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by manufacturer_name");
+      #functional name
+      @functionals = BaseItem.find_by_sql("select a.functional, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by functional");
+    end
 end
 
 class TrueClass

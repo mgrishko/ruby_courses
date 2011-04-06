@@ -14,12 +14,7 @@ class BaseItemsController < ApplicationController
 	@base_items = current_user.base_items.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) order by a.created_at desc")
       end
     end
-    
-    @clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id")
-    @brands = BaseItem.find_by_sql("select a.brand, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by brand")
-    @manufacturers = BaseItem.find_by_sql("select a.manufacturer_name, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by manufacturer_name");
-    #functional name
-    @functionals = BaseItem.find_by_sql("select a.functional, count(*) as q from base_items a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) group by functional");
+    get_filters_data_for_base_items
   end
 
   def show

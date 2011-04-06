@@ -1,0 +1,66 @@
+<h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>
+<!--filters-->
+<div class="filters">
+<div>
+<strong>Тэги</strong>
+<% @clouds.each do |c| %>
+  <div <% if params[:tag].to_s == c.tag_id.to_s %>class="selected"<% end %>><a href="?tag=<%=c.tag.id %>" class="filter"><%= c.tag.name %></a> (<%= c.q %>)</div>
+  <% end %>
+</div>
+<br/>
+<div>
+<strong>Бренды</strong>
+<% @brands.each do |b| %>
+  <div <% if params[:brand].to_s == b.brand.to_s %>class="selected"<% end %>><a href="?brand=<%=CGI::escapeHTML b.brand %>" class="filter"><%= b.brand %></a> (<%= b.q %>)</div>
+<% end %>
+</div>
+<br/>
+<div>
+<strong>Производители</strong>
+<% @manufacturers.each do |m| %>
+  <div <% if params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>class="selected"<% end %>><a href="?manufacturer_name=<%=CGI::escapeHTML m.manufacturer_name %>" class="filter"><%= m.manufacturer_name %></a> (<%= m.q %>)</div>
+<% end %>
+</div>
+<br/>
+<div>
+<strong>Functional</strong>
+<% @functionals.each do |f| %>
+  <div <% if params[:functional].to_s == f.functional.to_s %>class="selected"<% end %>><a href="?functional=<%=CGI::escapeHTML f.functional %>" class="filter"><%= f.functional %></a> (<%= f.q %>)</div>
+<% end %>
+</div>
+
+</div>
+<!--/filters-->
+<!--data-->
+<div class="data">
+<table class="results">
+<col />
+<col width="100" />
+<col width="300" />
+<col width="300" align="center" />
+<col />
+<% @base_items.each do |base_item| %>
+	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+  <tr>
+    <td><input type="checkbox" class="checkbox" name="" id=""/></td>
+    <td><%= link_to base_item.gtin, base_item_path(path_params) %></td>
+    <td><%= link_to base_item.name, base_item_path(path_params) %></td>
+    <td class="tags">
+    <% base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).each do |c| %>
+    <span class="tag"><%= c.tag.name %></span>
+    <% end %>
+    </td>
+    <td class="date"><%= base_item.created_at.to_s(:short) %></td>
+    <!--<td><%#= base_item.status %></td>-->
+    <!--<td><%#= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%#= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
+    <td><%#= link_to 'Publish', publish_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Accept', accept_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Reject', reject_base_item_path(base_item) %></td>-->
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>
+</div>
+<!--/data-->
