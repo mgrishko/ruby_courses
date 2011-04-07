@@ -29,7 +29,8 @@
   $$('#items ul').each(function(element) {
     var id = element.up('li').id.gsub(/packaging_item_/, '');
     var li = new Element('li', { className: 'new', id: 'packaging_item_new_' + id  });
-    li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#">упаковать</a></div>');
+    li.update('<div class="item" style="display:none"></div>')
+    //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#">упаковать</a></div>');
     element.appendChild(li);
   });
   var li = new Element('li', { className: 'new', id: 'packaging_item_new' });

@@ -148,10 +148,17 @@ h3 {
 	border-top: 2px solid #676766;
 	width: 100%;
 }
+.items ul {
+  border-left: 1px solid #666;
+}
+.items {
+  border-left: 1px solid #666;
+}
+
 
 ul.items li>ul
 {
-  margin-left: 220px;
+  margin-left: 211px;
   margin-bottom: 0;
   position: relative;
 }
@@ -169,7 +176,7 @@ ul.items li .item
   float: left;
   width: 200px;
   //background: #dfeef3;
-  border: 1px solid #666;
+  //border: 1px solid #666;
   position: relative;
   padding: 5px;
 }
@@ -209,7 +216,9 @@ ul.items li.new .item ul
 {
   margin: 0;
 }
-
+.pi {
+  border: 1px solid #666;
+}
 input
 {
   width: 150px;

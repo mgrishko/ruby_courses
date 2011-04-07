@@ -1,10 +1,19 @@
 <div class="arrow"></div>
+<div class="pi">
 <h3><%= h item.gtin %></h3>
 <p><%= h item.packaging_type %></p>
 <p><%= h item.number_of_next_lower_item %> уп., внутри <%= item.number_of_bi_items %> ед.</p>
 <p><%= h item.height %> x <%=h item.width %> x <%=h item.depth %> (В x Д x Ш)</p>
 <p><%= item.gross_weight %> грамм</p>
 <% unless @view_only || @base_item.published? %>
-<p><%= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
-<%= link_to_remote 'удалить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></p>
+<%= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
+<% end %>
+</div>
+<% unless @view_only || @base_item.published? %>
+<p><small>
+<div class="fleft">
+<%= link_to_remote 'удалить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></div>
+<div class="fright"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/' + <%=item.id %> + '/new_sub/', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></small></div>
+</p>
+<div class="clear"></div>
 <% end %>
