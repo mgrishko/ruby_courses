@@ -11,18 +11,18 @@ class SubscriptionController < ApplicationController
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
       json = {'error' => 'Ошибка'}
       if @subscription
-	if @subscription.active?
-	  @subscription.cancel!
-	  json = {'text' => 'Подписаться', 'flag' => false}
-	else
-	  @subscription.active!
-	  json = {'text' => 'Отписаться', 'flag' => true}
-	end
+	      if @subscription.active?
+	        @subscription.cancel!
+	        json = {'text' => 'Подписаться', 'flag' => false}
+	      else
+	        @subscription.active!
+	        json = {'text' => 'Отписаться', 'flag' => true}
+	      end
       else
-	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
-	if @subscription.save
-	  json = {'text' => 'Отписаться', 'flag' => true}
-	end
+	      @subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
+	      if @subscription.save
+	        json = {'text' => 'Отписаться', 'flag' => true}
+	      end
       end
       render :json => json
     end
@@ -33,23 +33,22 @@ class SubscriptionController < ApplicationController
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
       if @subscription
-	if @subscription.active?
-	  json = {'error' => 'У Вас уже есть подписка'}
-	  return render :json => json
-	else
-	  @subscription.active!
-	end
+	      if @subscription.active?
+	        json = {'error' => 'У Вас уже есть подписка'}
+	        return render :json => json
+	      else
+	        @subscription.active!
+	      end
       else
-	@subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
-	@subscription.save
+	      @subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
+	      @subscription.save
       end
       @supplier = User.find(params[:id])
       @supplier.all_fresh_base_items.each do |bi|
-	@subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
+	      @subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
       end
       json = {'text' => 'Недоступно', 'flag' => true}
     end
     render :json => json
   end
-
 end

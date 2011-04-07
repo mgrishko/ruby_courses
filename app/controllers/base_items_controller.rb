@@ -2,18 +2,11 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
-    @conditions = ["b.brand = ?", params[:brand]] if params[:brand]
-    @conditions = ["b.manufacturer_name = ?", params[:manufacturer_name]] if params[:manufacturer_name]
-    @conditions = ["functional = ?", params[:functional]] if params[:functional]
-    if params[:tag]
-      @base_items = current_user.base_items.find_by_sql(["select a.* from base_items as a left join items i on a.item_id = i.id left join clouds c on i.id = c.item_id where c.user_id = #{current_user.id} and c.tag_id = ? and a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) order by a.created_at desc", params[:tag]])
-    else 
-      if @conditions
-	@base_items = current_user.base_items.find_by_sql(["select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} and "+@conditions.first.to_s+" order by created_at desc limit 1) order by a.created_at desc", @conditions.last])
-      else
-	@base_items = current_user.base_items.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{current_user.id} order by created_at desc limit 1) order by a.created_at desc")
-      end
-    end
+    @base_items = BaseItem.get_base_items :user_id => current_user.id,
+                                          :manufacturer_name => params[:manufacturer_name],
+                                          :functional => params[:functional],
+                                          :brand => params[:brand], 
+                                          :tag => params[:tag]
     get_filters_data_for_base_items
   end
 
@@ -67,22 +60,22 @@ class BaseItemsController < ApplicationController
     @base_item.current_step = session[:base_item_step]
     if @base_item.valid?
       if params[:back_button]  
-	@base_item.previous_step
+	      @base_item.previous_step
       elsif @base_item.last_step?
-	if @base_item.all_valid?
-	  i = current_user.items.new()
-	  i.base_items << @base_item
-	  i.save
-	  session[:base_item_step] = session[:base_item_params] = nil
-	  if params[:publish] && @base_item.publish!
-	    flash[:notice] = 'BaseItem was successfully created and sent'
-	  else
-	    flash[:notice] = 'BaseItem was successfully created.'
-	  end
-	  return redirect_to(@base_item)
-	end
+	      if @base_item.all_valid?
+	        i = current_user.items.new()
+	        i.base_items << @base_item
+	        i.save
+	        session[:base_item_step] = session[:base_item_params] = nil
+	        if params[:publish] && @base_item.publish!
+	          flash[:notice] = 'BaseItem was successfully created and sent'
+	        else
+	          flash[:notice] = 'BaseItem was successfully created.'
+	        end
+	        return redirect_to(@base_item)
+	      end
       else
-	@base_item.next_step
+	      @base_item.next_step
       end
       session[:base_item_step] = @base_item.current_step
     end

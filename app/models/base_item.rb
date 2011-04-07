@@ -209,4 +209,164 @@ class BaseItem < ActiveRecord::Base
     Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
+  def self.get_brands current_user
+    if current_user.retailer?
+      find_by_sql <<-SQL
+        SELECT a.brand, count(*) AS q FROM base_items a
+        JOIN subscription_results sr ON a.id = sr.base_item_id
+        JOIN subscriptions s ON sr.subscription_id = s.id
+        WHERE a.id = (SELECT b.id FROM base_items b 
+                        WHERE a.item_id = b.item_id 
+                          AND b.status ='published' 
+                      ORDER BY created_at DESC LIMIT 1) 
+          AND  s.retailer_id = #{current_user.id} GROUP by brand      
+      SQL
+    else
+      find_by_sql <<-SQL
+        SELECT a.brand, count(*) AS q FROM base_items a 
+        WHERE a.id = (SELECT b.id FROM base_items b 
+                        WHERE a.item_id = b.item_id 
+                          AND b.status = 'published' 
+                          AND b.user_id = #{current_user.id} 
+                      ORDER BY created_at DESC LIMIT 1) GROUP by brand      
+      SQL
+    end
+  end
+  
+  def self.get_manufacturers current_user
+    if current_user.retailer?
+      find_by_sql <<-SQL
+        SELECT a.manufacturer_name, count(*) AS q FROM base_items a
+        JOIN subscription_results sr ON a.id = sr.base_item_id
+        JOIN subscriptions s ON sr.subscription_id = s.id
+        WHERE a.id = (SELECT b.id FROM base_items b 
+                        WHERE a.item_id = b.item_id 
+                          AND b.status ='published' 
+                      ORDER BY created_at DESC LIMIT 1) 
+          AND  s.retailer_id = #{current_user.id} GROUP by manufacturer_name      
+      SQL
+    else
+      find_by_sql <<-SQL
+        SELECT a.manufacturer_name, count(*) AS q FROM base_items a 
+        WHERE a.id = (SELECT b.id FROM base_items b 
+                        WHERE a.item_id = b.item_id 
+                          AND b.status = 'published' 
+                          AND b.user_id = #{current_user.id} 
+                      ORDER BY created_at DESC LIMIT 1) GROUP by manufacturer_name      
+      SQL
+    end
+  end
+  
+  def self.get_functionals current_user
+     if current_user.retailer?
+       find_by_sql <<-SQL
+         SELECT a.functional, count(*) AS q FROM base_items a
+         JOIN subscription_results sr ON a.id = sr.base_item_id
+         JOIN subscriptions s ON sr.subscription_id = s.id
+         WHERE a.id = (SELECT b.id FROM base_items b 
+                         WHERE a.item_id = b.item_id 
+                           AND b.status ='published' 
+                       ORDER BY created_at DESC LIMIT 1) 
+           AND  s.retailer_id = #{current_user.id} GROUP by functional      
+       SQL
+     else
+       find_by_sql <<-SQL
+         SELECT a.functional, count(*) AS q FROM base_items a 
+         WHERE a.id = (SELECT b.id FROM base_items b 
+                         WHERE a.item_id = b.item_id 
+                           AND b.status = 'published' 
+                           AND b.user_id = #{current_user.id} 
+                       ORDER BY created_at DESC LIMIT 1) GROUP by functional      
+       SQL
+     end
+   end
+  
+  
+  def self.get_base_items options={}
+    conditions = ["brand = ?", options[:brand]] if options[:brand]
+    conditions = ["manufacturer_name = ?", options[:manufacturer_name]] if options[:manufacturer_name]
+    conditions = ["functional = ?", options[:functional]] if options[:functional]
+    if options[:retailer] # for retailer items
+      subquery = <<-SQL
+      (SELECT b.id FROM base_items b 
+                  WHERE bi.item_id = b.item_id 
+                    AND b.status='published' 
+                    AND b.user_id = s.supplier_id
+                  ORDER BY created_at DESC LIMIT 1)
+      SQL
+      if options[:tag]
+        query = <<-SQL
+          SELECT bi.* FROM base_items AS bi
+          LEFT JOIN items i ON bi.item_id = i.id
+          LEFT JOIN clouds c on i.id = c.item_id 
+          JOIN subscription_results sr ON bi.id = sr.base_item_id
+          JOIN subscriptions s ON sr.subscription_id = s.id
+          WHERE sr.status = 'accepted'
+            AND c.user_id = ?
+            AND c.tag_id = ?
+            AND bi.id = #{subquery}
+          ORDER BY bi.created_at DESC
+        SQL
+        find_by_sql([query, options[:user_id], options[:tag]])
+      else 
+        if conditions
+  	        query = <<-SQL
+              SELECT bi.* FROM base_items AS bi
+              LEFT JOIN items i ON bi.item_id = i.id
+              JOIN subscription_results sr ON bi.id = sr.base_item_id
+              JOIN subscriptions s ON sr.subscription_id = s.id
+              WHERE sr.status = 'accepted'
+                AND bi.id = #{subquery}
+                AND #{conditions.first.to_s}
+                AND s.retailer_id = #{options[:user_id]}
+              ORDER BY bi.created_at DESC
+            SQL
+            find_by_sql([query, conditions.last])
+        else
+	        query = <<-SQL
+            SELECT bi.* FROM base_items AS bi
+            LEFT JOIN items i ON bi.item_id = i.id
+            JOIN subscription_results sr ON bi.id = sr.base_item_id
+            JOIN subscriptions s ON sr.subscription_id = s.id
+            WHERE sr.status = 'accepted'
+              AND bi.id = #{subquery}
+            ORDER BY bi.created_at DESC
+          SQL
+          find_by_sql([query, options[:user_id]])
+        end
+      end
+    else # for base_items
+      if options[:tag]
+        find_by_sql(["select a.* from base_items as a 
+          left join items i on a.item_id = i.id 
+          left join clouds c on i.id = c.item_id 
+          where c.user_id = #{options[:user_id]} 
+            and c.tag_id = ? 
+            and a.id = (select b.id from base_items b 
+                        where a.item_id = b.item_id 
+                          and b.status='published' 
+                          and b.user_id = #{options[:user_id]} 
+                        order by created_at desc limit 1) 
+          order by a.created_at desc", options[:tag]])
+      else 
+        if conditions
+  	      find_by_sql(["select a.* from base_items as a 
+  	        where a.id = (select b.id from base_items b 
+  	                      where a.item_id = b.item_id 
+  	                        and b.status='published' 
+  	                        and b.user_id = #{options[:user_id]} 
+  	                        and "+conditions.first.to_s+" 
+  	                      order by created_at desc limit 1) 
+  	        order by a.created_at desc", conditions.last])
+        else
+  	      find_by_sql("select a.* from base_items as a 
+  	        where a.id = (select b.id from base_items b 
+  	                      where a.item_id = b.item_id and b.status='published' 
+  	                        and b.user_id = #{options[:user_id]} 
+  	                      order by created_at desc limit 1) 
+  	        order by a.created_at desc")
+        end
+      end
+    end 
+  end
 end
