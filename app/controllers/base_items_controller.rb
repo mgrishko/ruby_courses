@@ -40,6 +40,7 @@ class BaseItemsController < ApplicationController
 
   def edit
     @base_item = current_user.base_items.find(params[:id])
+    @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
   #def published
@@ -97,6 +98,7 @@ class BaseItemsController < ApplicationController
 
   def update
     @base_item = current_user.base_items.find(params[:id])
+    @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
 
     BaseItem.transaction do
       if @base_item.update_attributes(params[:base_item])

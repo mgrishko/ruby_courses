@@ -4,7 +4,8 @@
 <% remote_form_for(@base_item) do |f| %>
 <%= f.error_messages %>
 <div style="min-width: 240px; float: left;">
-<img src="/images/item_image.jpg" alt="Item Image"/>
+<%= render :partial => "image" %>
+<%= render :partial => "clouds" %>
 </div>
 <div style="min-width: 600px; float: left">
 <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>

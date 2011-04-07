@@ -1,15 +1,8 @@
 <div class="step2">
 <h2>Логистика</h2>
-<table>
-<tr class="info">
-<td>
-gross weight
-</td>
-</tr>
-<tr class="val">
-<td>
-<%=f.text_field :gross_weight%>
-</td>
+<table class="logistic">
+<tr>
+<td class="val"><h3><%= @base_item.gtin %></h3></td>
 </tr>
 <tr class="info">
 <td>
@@ -21,7 +14,6 @@ Packaging Type
   <%= f.select :packaging_type, @base_item.packaging_types %>
 </td>
 </tr>
-
 <tr class="info">
 <td>H x W x D</td>
 </tr>
@@ -30,6 +22,15 @@ Packaging Type
 <%=f.text_field :height, :style => 'width: 43px;' %>x<%=f.text_field :width, :style => 'width: 43px;' %>x<%=f.text_field :depth, :style => 'width: 43px;' %>
 </td>
 </tr>
-
+<tr class="info">
+<td>
+gross weight
+</td>
+</tr>
+<tr class="val">
+<td>
+<%=f.text_field :gross_weight%>
+</td>
+</tr>
 </table>
 </div>

@@ -1,10 +1,23 @@
 <h2>Логистика</h2>
+<table>
+<tr>
+<td valign="top" style="vertical-align: top;">
+<div style="border: 1px solid #666;">
+<h3><%= h @base_item.gtin %></h3>
+<p><%= h @base_item.packaging_type %></p>
+<p><%= h @base_item.height %> x <%=h @base_item.width %> x <%=h @base_item.depth %> (В x Д x Ш)</p>
+<p><%= @base_item.gross_weight %> грамм</p>
+</div>
+</td>
+<td>
 <% recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
   <div class="item" id="<%= dom_id item %>_item">
     <%= render :partial => 'packaging_items/item', :object => item %>
   </div>
 <% end %>
-
+</td>
+</tr>
+</table>
 <% javascript_tag do %>
   $$('#items li').each(function(element) {
     if (!element.select('ul')[0]) {
@@ -25,3 +38,4 @@
   <% end %>
   setHeights();
 <% end %>
+<div class="clear"></div>

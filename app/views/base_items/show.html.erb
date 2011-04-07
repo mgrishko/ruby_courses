@@ -1,13 +1,15 @@
 <div id="base_item">
-  <div style="min-width: 1000px;"/>
+  <div style="width: 1200px;"/>
   <%= render :partial => 'item' %>
   </div>
 </div>
 <div class="clear"></div>
 <%# content_for :right do %>
-  <div id="packaging_items">
-    <%= render 'packaging_items/index' %>
-  </div>
+<!--pi-->
+<div id="packaging_items">
+<%= render 'packaging_items/index' %>
+</div>
+<!--/pi-->
 <%# end %>
 <!--comments block-->
 <h2>Комментарии</h2>

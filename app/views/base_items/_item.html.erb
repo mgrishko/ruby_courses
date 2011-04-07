@@ -16,127 +16,15 @@
 <% end %>
 <h2>Основные данные</h2>
 <div style="min-width: 240px; float: left;">
-<img src="/images/item_image.jpg" alt="Item Image"/>
-<% if @clouds %>
-<div id="tags">
-<%= render :partial => "/tags/tags", :locals => {:clouds => @clouds} %>
-</div>
-<% end %>
-<a href="#" id="add_tag_link" onclick="$j(this).hide(); $j('#new_tag').show();return false;">Добавить ярлык</a>
-<% remote_form_for Tag.new do |f| %>
-<input type="hidden" name="tag[item_id]" value="<%= @base_item.item.id %>"/>
-<%= f.text_field :name %><button onclick="$j('#new_tag').hide();$j('#add_tag_link').show();">x</button>
-<% end %>
+<%= render :partial => "image" %>
+<%= render :partial => "clouds" %>
+<%= render :partial => "add_tag" %>
 </div>
 <div style="min-width: 600px; float: left">
 <div id="step1">
-<table>
-<tr class="info">
-<td>
-GTIN
-</td>
-<td>
-Internal item id
-</td>
-</tr>
-<tr class="val">
-<td>
-<%= @base_item.gtin %>
-</td>
-<td>
-<%=@base_item.internal_item_id%>
-</td>
-</tr>
-<tr class="info">
-<td>
-Brand
-</td>
-<td>
-Subbrand
-</td>
-<td>
-Functional
-</td>
-<td colspan="2">
-Content
-</td>
-</tr>
-<tr class="val">
-<td>
-<%= @base_item.brand %>
-</td>
-<td>
-<%= @base_item.subbrand %>
-</td>
-<td>
-<%= @base_item.functional %>
-</td>
-<td>
-<%=@base_item.content%>
-</td>
-<td>
-<%= @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] %>
-</td>
-</tr>
-<tr class="info">
-<td colspan="4">
-Item Description
-</td>
-</tr>
-<tr class="val">
-<td colspan="4">
-<%= @base_item.item_description %>
-</td>
-</tr>
-<tr class="info">
-<td>
-Manufacturer GLN
-</td>
-<td>
-Manufacturer name
-</td>
-<td>
-Country of origin
-</td>
-</tr>
-<tr class="val">
-<td>
-<%=@base_item.manufacturer_gln %>
-</td>
-<td>
-<%=@base_item.manufacturer_name %>
-</td>
-<td>
-<%= @base_item.country_of_origin.description %>
-</td>
-</tr>
-<tr class="info">
-<td colspan="5">
-Gpc code
-</td>
-</tr>
-<tr class="val">
-<td colspan="5">
-<%= @base_item.gpc.code %> : <%= @base_item.gpc.name %>
-</td>
-</tr>
-<tr class="info">
-<td>
-Vat
-</td>
-<td>
-Shelf life period
-</td>
-</tr>
-<tr class="val">
-<td>
-<%= @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] %>
-</td>
-<td>
-<%= @base_item.minimum_durability_from_arrival %>
-</td>
-</tr>
-</table>
+<!--base-->
+<%= render :partial => "base" %>
+<!--/base-->
 <% if @base_item.published? && current_user.retailer? %>
 <a id="show_retailer_attributes" href="" onclick="$j('#retailer_attributes').show(); $j(this).hide(); return false">Добавить данные</a>
 <div id="retailer_attributes">

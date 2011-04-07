@@ -169,7 +169,7 @@ ul.items li .item
   float: left;
   width: 200px;
   //background: #dfeef3;
-  border: 1px solid #000;
+  border: 1px solid #666;
   position: relative;
   padding: 5px;
 }
@@ -188,7 +188,7 @@ ul.items li.new .item
 {
   border: none;
   height: 30px;
-  width: 40px;
+  width: 70px;
   background: transparent;
 }
 
@@ -364,11 +364,16 @@ tr.val td select {
 .comment-area {
   background: none;
   width: 450px;
+  border: 1px solid #666;
 }
 #comments {
-  border-top: 1px solid #000;
+  border-top: 1px solid #666;
   margin-top: 1em;
 }
 .selected {
   background: #6cbf18;
+}
+.logistic {
+  border: 1px solid #666;
+  width:auto;
 }
