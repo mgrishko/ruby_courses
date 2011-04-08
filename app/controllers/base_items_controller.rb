@@ -115,9 +115,13 @@ class BaseItemsController < ApplicationController
     @base_item = current_user.base_items.find(params[:id])
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
     if params[:step]
-      @base_item.update_attributes(params[:base_item])
-      @base_item.draft!
-      return render 'update_step2'
+      @base_item.next_step
+      if @base_item.update_attributes(params[:base_item])
+	@base_item.draft!
+	return render 'update_step2'
+      else
+	return render 'edit_step2'
+      end
     end
     BaseItem.transaction do
       if @base_item.update_attributes(params[:base_item])
