@@ -8,6 +8,7 @@ class BaseItem < ActiveRecord::Base
   belongs_to :item
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
+  has_one   :subscription_result
 
   attr_writer :current_step
   

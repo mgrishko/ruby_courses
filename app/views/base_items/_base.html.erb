@@ -8,10 +8,10 @@ Internal item id
 </td>
 </tr>
 <tr class="val">
-<td>
+<td <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.gtin %>
 </td>
-<td>
+<td <%= highlight(:internal_item_id, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%=@base_item.internal_item_id%>
 </td>
 </tr>
@@ -30,19 +30,19 @@ Content
 </td>
 </tr>
 <tr class="val">
-<td>
+<td <%= highlight(:brand, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.brand %>
 </td>
-<td>
+<td <%= highlight(:subbrand, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.subbrand %>
 </td>
-<td>
+<td <%= highlight(:functional, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.functional %>
 </td>
-<td>
+<td <%= highlight(:content, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%=@base_item.content%>
 </td>
-<td>
+<td <%= highlight(:content_uom, @base_item, @accepted_base_item) if @accepted_base_item -%> <%= "title='#{ @accepted_base_item.content_uoms.detect { |u| @accepted_base_item.content_uom == u[1] }[0]}'" if @accepted_base_item && @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] != @accepted_base_item.content_uoms.detect { |u| @accepted_base_item.content_uom == u[1] }[0] -%>>
 <%= @base_item.content_uoms.detect { |u| @base_item.content_uom == u[1] }[0] %>
 </td>
 </tr>
@@ -52,7 +52,7 @@ Item Description
 </td>
 </tr>
 <tr class="val">
-<td colspan="4">
+<td colspan="4" <%= highlight(:item_description, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.item_description %>
 </td>
 </tr>
@@ -68,13 +68,13 @@ Country of origin
 </td>
 </tr>
 <tr class="val">
-<td>
+<td <%= highlight(:manufacturer_gln, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%=@base_item.manufacturer_gln %>
 </td>
-<td>
+<td <%= highlight(:manufacturer_name, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%=@base_item.manufacturer_name %>
 </td>
-<td>
+<td <%= highlight(:country_of_origin, @base_item, @accepted_base_item, false) if @accepted_base_item -%> <%= "title=\"#{ @accepted_base_item.country_of_origin.description}\"" if @accepted_base_item && @base_item.country_of_origin != @accepted_base_item.country_of_origin-%>>
 <%= @base_item.country_of_origin.description %>
 </td>
 </tr>
@@ -84,7 +84,7 @@ Gpc code
 </td>
 </tr>
 <tr class="val">
-<td colspan="5">
+<td colspan="5" <%= highlight(:gpc, @base_item, @accepted_base_item, false) if @accepted_base_item -%> <%= "title='#{@accepted_base_item.gpc.code.to_s+' : '+@accepted_base_item.gpc.name.to_s}'" if @accepted_base_item && @base_item.gpc != @accepted_base_item.gpc -%>>
 <%= @base_item.gpc.code %> : <%= @base_item.gpc.name %>
 </td>
 </tr>
@@ -97,10 +97,10 @@ Shelf life period
 </td>
 </tr>
 <tr class="val">
-<td>
+<td <%= highlight(:vat, @base_item, @accepted_base_item, false) if @accepted_base_item -%> <%= "title='#{ @accepted_base_item.vats.detect { |u| @base_item.vat == u[1] }[0]}'" if @accepted_base_item && @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] != @accepted_base_item.vats.detect { |u| @accepted_base_item.vat == u[1] }[0]-%>>
 <%= @base_item.vats.detect { |u| @base_item.vat == u[1] }[0] %>
 </td>
-<td>
+<td <%= highlight(:minimum_durability_from_arrival, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%= @base_item.minimum_durability_from_arrival %>
 </td>
 </tr>

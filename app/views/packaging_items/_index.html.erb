@@ -3,11 +3,11 @@
 <tr>
 <td valign="top" style="vertical-align: top;">
 <div style="border: 1px solid #666;width:200px;" class="pi">
-<h3><%= h @base_item.gtin %></h3>
-<p><%= h @base_item.packaging_type %></p>
+<h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
+<p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
 <p>1 уп. внутри, 1 ед.</p>
-<p><%= h @base_item.height %> x <%=h @base_item.width %> x <%=h @base_item.depth %> (В x Д x Ш)</p>
-<p><%= @base_item.gross_weight %> г. брутто, <%= @base_item.net_weight %> г. нетто</p>
+<p <%= "class='highlight' title='#{h @accepted_base_item.height} x #{h @accepted_base_item.width} x #{h @accepted_base_item.depth} (В x Д x Ш)'" if  @accepted_base_item && ((@base_item.height != @accepted_base_item.height) || (@base_item.width != @accepted_base_item.width) || (@base_item.depth != @accepted_base_item.depth)) -%>> <%= h @base_item.height %> x <%=h @base_item.width %> x <%=h @base_item.depth %> (В x Д x Ш)</p>
+<p <%= "class='highlight' title='#{@accepted_base_item.gross_weight} г. брутто, #{@accepted_base_item.net_weight} г. нетто'" if @accepted_base_item && ((@accepted_base_item.gross_weight != @base_item.gross_weight) || (@accepted_base_item.net_weight != @base_item.net_weight)) -%>><%= @base_item.gross_weight %> г. брутто, <%= @base_item.net_weight %> г. нетто</p>
 </div>
 </td>
 <td>
