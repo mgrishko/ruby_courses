@@ -1,0 +1,16 @@
+<% remote_form_for(@base_item) do |f| %>
+<input type="hidden" name="step" value="2"/>
+<%= f.error_messages %>
+<h3><%= @base_item.gtin %></h3>
+<p>
+<%= f.select :packaging_type, @base_item.packaging_types %>
+</p>
+<p>
+<%=f.text_field :height, :style => 'width: 25px; border: 0;' %>x<%=f.text_field :width, :style => 'width: 25px;border:0' %>x<%=f.text_field :depth, :style => 'width: 25px;border:0' %> (В x Д x Ш)
+</p>
+<p>
+<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> г. брутто, <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> г. нетто
+</p>
+<div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
+    <div class="fright min"><%= button_to_remote 'Отмена', :url => base_item_path(@base_item)+"?step=2", :method => :get %></div>
+<% end %>

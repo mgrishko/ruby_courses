@@ -25,6 +25,11 @@ class BaseItemsController < ApplicationController
       @base_item = current_user.base_items.find(params[:id])
       @packaging_items = @base_item.packaging_items
     end
+    ####
+    if params[:step]
+      return render 'update_step2'
+    end
+    ####
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
@@ -47,6 +52,10 @@ class BaseItemsController < ApplicationController
   def edit
     @base_item = current_user.base_items.find(params[:id])
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
+    if params[:step]
+      @base_item.next_step
+      render 'edit_step2'
+    end
   end
 
   #def published
@@ -105,7 +114,11 @@ class BaseItemsController < ApplicationController
   def update
     @base_item = current_user.base_items.find(params[:id])
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
-
+    if params[:step]
+      @base_item.update_attributes(params[:base_item])
+      @base_item.draft!
+      return render 'update_step2'
+    end
     BaseItem.transaction do
       if @base_item.update_attributes(params[:base_item])
         @base_item.draft!
