@@ -12,7 +12,6 @@ class PackagingItem < ActiveRecord::Base
   validates_number_length_of :number_of_next_lower_item, 6
   validates_number_length_of :number_of_bi_items, 6
   validates_number_length_of :gross_weight, 7
-  validates_number_length_of :net_weight, 7
   validates_number_length_of :height, 5
   validates_number_length_of :depth, 5
   validates_number_length_of :width, 5
@@ -26,13 +25,6 @@ class PackagingItem < ActiveRecord::Base
     errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}") if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
   end
   
-  validate :net_weight_validation
-  def net_weight_validation
-    parent_item = parent || base_item
-    items_number = parent ? number_of_next_lower_item : number_of_bi_items
-    errors.add('net_weight', "must be greater or equal #{parent_item.net_weight * items_number}") if items_number && net_weight && net_weight < parent_item.net_weight * items_number
-  end
-
   validate :package_volume_validation
   def package_volume_validation
     parent_item = parent || base_item
@@ -40,6 +32,20 @@ class PackagingItem < ActiveRecord::Base
     volume = width * height * depth if width && height && depth
     parent_volume = parent_item.width * parent_item.height * parent_item.depth
     errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}") if items_number && volume && volume < parent_volume * items_number
+  end
+  
+  validate :children_dependencies
+  def children_dependencies
+    brutto = gross_weight
+    volume = height*depth*width
+    children.each do |child|
+      if child.number_of_next_lower_item*brutto > child.gross_weight
+	errors.add_to_base("Gross Weight is more than child gross weight")
+      end
+      if child.number_of_next_lower_item*volume > child.height*child.depth*child.width
+	errors.add_to_base("Volume is more than child volume")
+      end
+    end
   end
 
   before_validation :set_number_of_bi_items
