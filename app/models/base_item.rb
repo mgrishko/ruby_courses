@@ -58,6 +58,7 @@ class BaseItem < ActiveRecord::Base
   validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999, :if => :first_step?
 
   validates_number_length_of :gross_weight, 7, :last_step?
+  validates_number_length_of :net_weight, 7, :last_step?
 
   validates_length_of :plu_description, :maximum => 12, :if => :first_step?
 

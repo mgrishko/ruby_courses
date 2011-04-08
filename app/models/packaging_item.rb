@@ -12,6 +12,7 @@ class PackagingItem < ActiveRecord::Base
   validates_number_length_of :number_of_next_lower_item, 6
   validates_number_length_of :number_of_bi_items, 6
   validates_number_length_of :gross_weight, 7
+  validates_number_length_of :net_weight, 7
   validates_number_length_of :height, 5
   validates_number_length_of :depth, 5
   validates_number_length_of :width, 5
@@ -23,6 +24,13 @@ class PackagingItem < ActiveRecord::Base
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
     errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}") if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
+  end
+  
+  validate :net_weight_validation
+  def net_weight_validation
+    parent_item = parent || base_item
+    items_number = parent ? number_of_next_lower_item : number_of_bi_items
+    errors.add('net_weight', "must be greater or equal #{parent_item.net_weight * items_number}") if items_number && net_weight && net_weight < parent_item.net_weight * items_number
   end
 
   validate :package_volume_validation
@@ -51,7 +59,9 @@ class PackagingItem < ActiveRecord::Base
   end
 
   def set_number_of_bi_items
-    self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
+    puts "set_number_of_bi_items"
+    self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item
+    #self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
 
   #after_save :set_descendants_number_of_bi_items

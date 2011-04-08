@@ -4,7 +4,7 @@
 <p><%= h item.packaging_type %></p>
 <p><%= h item.number_of_next_lower_item %> уп., внутри <%= item.number_of_bi_items %> ед.</p>
 <p><%= h item.height %> x <%=h item.width %> x <%=h item.depth %> (В x Д x Ш)</p>
-<p><%= item.gross_weight %> грамм</p>
+<p><%= item.gross_weight %> г. брутто, <%= item.net_weight %> г. нетто</p>
 <% unless @view_only || @base_item.published? %>
 <%= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
 <% end %>
