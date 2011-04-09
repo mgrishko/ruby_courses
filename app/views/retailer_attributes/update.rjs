@@ -1,2 +1,0 @@
-page[:retailer_attributes].hide
-page[:show_retailer_attributes].show

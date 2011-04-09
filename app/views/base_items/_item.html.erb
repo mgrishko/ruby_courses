@@ -26,8 +26,10 @@
 <%= render :partial => "base" %>
 <!--/base-->
 <% if @base_item.published? && current_user.retailer? %>
+<% unless @retailer_attribute.id %>
 <a id="show_retailer_attributes" href="" onclick="$j('#retailer_attributes').show(); $j(this).hide(); return false">Добавить данные</a>
-<div id="retailer_attributes">
+<% end %>
+<div id="retailer_attributes" <% unless @retailer_attribute.id %>class="hide"<% end %>>
 <hr/>
 <% remote_form_for(@retailer_attribute) do |f| %>
 <input type="hidden" name="retailer_attribute[item_id]" value="<%= @base_item.item.id %>"/>
@@ -70,7 +72,7 @@ Retailer comment
 </td>
 </tr>
 </table>
-<%= f.submit "Сохранить", :class=>"button" %><%= f.submit "Отмена", :class=> "button", :onclick=>"$j('#retailer_attributes').hide(); $j('#show_retailer_attributes').show();return false"%>
+<%= f.submit "Сохранить", :class=>"button" %>
 <% end %>
 </div>
 <% end %>
