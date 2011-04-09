@@ -12,7 +12,7 @@ class RetailerAttributesController < ApplicationController
   end
 
   def create
-    @retailer_attribute = RetailerAttribute.new(params[:retailer_attribute])
+    @retailer_attribute = @item.retailer_attributes.new(params[:retailer_attribute])
     @r = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => params[:retailer_attribute][:item_id]})
     if @r
       @r.update_attributes(params[:retailer_attribute])

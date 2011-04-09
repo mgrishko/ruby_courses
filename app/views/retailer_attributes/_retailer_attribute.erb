@@ -37,4 +37,4 @@ Retailer comment
 </td>
 </tr>
 </table>
-<%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", "retailer_attribute[item_id]" => @retailer_attribute.item.id), :method => :get %>
+<%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id), :method => :get %>
