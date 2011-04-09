@@ -151,6 +151,9 @@ class BaseItemsController < ApplicationController
       @base_item.destroy
     else
       @base_item.publish!
+      unless params[:base_item][:comment][:content].blank?
+        current_user.comments.create params[:base_item][:comment]
+      end
     end
     redirect_to base_items_url
   end

@@ -4,6 +4,7 @@ class BaseItem < ActiveRecord::Base
   versioned
   
   has_many :packaging_items, :dependent => :destroy
+  has_many :comments
   belongs_to :user
   belongs_to :item
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code

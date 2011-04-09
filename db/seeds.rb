@@ -1,7 +1,4 @@
-puts "Making 2 admins (u/p): 1234/1234 & 4321/1234"
-
-User.delete_all
-[
+users = [
    {:id => 1,
     :gln => 1234,
     :password => '1234',
@@ -10,23 +7,32 @@ User.delete_all
     :name => 'Продуктовая Компания',
     :role => 'supplier'},
    {:id => 2,
+     :gln => 5678,
+     :password => '1234',
+     :password_confirmation => '1234',
+     :is_admin => 1,
+     :name => 'Напитки',
+     :role => 'supplier'},
+   {:id => 3,
     :gln => 4321,
     :password => '1234',
     :password_confirmation => '1234',
     :is_admin => 1,
     :name => 'Море Вкуса',
     :role => 'retailer'},
-].each do |user|
+]
+puts "Making #{users.size} users"
+
+User.delete_all
+users.each do |user|
   u = User.new(user)
   u.id = user[:id]
   u.save
+  puts "#{u.gln}/#{u.password}"
 end
 puts "ok"
 
-puts "Making 3 Items"
-
-Item.delete_all
-[
+items = [
   {:id => 1,
   :user_id => 1
   },
@@ -35,17 +41,24 @@ Item.delete_all
   },
   {:id => 3,
   :user_id => 1
-  }
-].each do |item|
+  },
+  {:id => 4,
+   :user_id => 2
+   },
+  {:id => 5,
+   :user_id => 2
+   }
+]
+puts "Making #{items.size} Items"
+
+Item.delete_all
+items.each do |item|
   i = Item.new(item)
   i.id = item[:id]
   i.save
 end
 
-puts "Making 3 BI"
-
-BaseItem.delete_all
-[{
+bis = [{
   :id => 1,
   :gtin => '4607085440385',
   :name	=> 'Nescafe Classic',
@@ -141,7 +154,43 @@ BaseItem.delete_all
   :functional => 'TTT',
   :item_description => '',
   :item_id => 3
-}].each do |base_item|
+},
+{
+  :id => 4,
+  :gtin => '4607003953134',
+  :name => 'CocaCola',
+  :status => 'published',
+  :user_id =>  '2',
+  :internal_item_id => '8',
+  :item_name_long_ru => 'Кока-кола',
+  :item_name_long_en => 'CocaCola',
+  :despatch_unit => '0',
+  :invoice_unit => '1',
+  :order_unit => '0',
+  :consumer_unit => '0',
+  :manufacturer_name => 'Brook',
+  :manufacturer_gln => '1000000000008',
+  :content_uom => 'PCE',
+  :gross_weight => '2',
+  :vat => '57',
+  :plu_description => '1',
+  :gpc_code => '10000201',
+  :country_of_origin_code => 'RU',
+  :minimum_durability_from_arrival => '4',
+  :packaging_type => 'CX',
+  :height => '1',
+  :depth => '1',
+  :width => '1',
+  :content => '1.000',
+  :brand  => 'CocaCola Co',
+  :subbrand => '',
+  :functional => 'TTT',
+  :item_description => '',
+  :item_id => 4
+}]
+puts "Making #{bis.size} BI"
+BaseItem.delete_all
+bis.each do |base_item|
   bi = BaseItem.new(base_item)
   bi.id = base_item[:id]
   bi.save
@@ -149,26 +198,20 @@ BaseItem.delete_all
 end
 puts "ok"
 
+pis = [
+'|  1 |            1 |      NULL | 4607085440385 | Кофе Нескафе Классик | 2011-03-27 12:17:17 | 2011-03-27 12:17:17 |       1 |                         1 |                  1 |             1 |            0 |          0 |             0 |            1 | CX             |      1 |     2 |     2 |         0 |    6 |    1 |           0 | ',
+'|  2 |            1 |         1 | 9785985032666 | Кофе Нескафе Классик | 2011-03-27 12:21:18 | 2011-03-27 12:21:18 |       1 |                         1 |                  1 |             1 |            0 |          0 |             0 |            1 | CX             |      2 |     2 |     2 |         0 |    5 |    2 |           1 | ',
+'|  3 |            1 |         2 | 9785945824898 | Кофе Нескафе Классик | 2011-03-27 12:22:20 | 2011-03-27 12:22:20 |       1 |                         1 |                  1 |             0 |            0 |          0 |             0 |            1 | CX             |      4 |     4 |     4 |         0 |    4 |    3 |           2 | ',
+'|  4 |            1 |      NULL | 9785402000049 | Кофе Нескафе Классик | 2011-03-27 12:23:14 | 2011-03-27 12:23:14 |       1 |                         2 |                  2 |             0 |            1 |          0 |             0 |            6 | BX             |      6 |     6 |     6 |         0 |    8 |    7 |           0 | ',
+'|  5 |            2 |      NULL | 9785249003791 | Какао Несквик        | 2011-03-27 12:31:46 | 2011-03-27 12:31:46 |       1 |                         1 |                  1 |             0 |            0 |          0 |             1 |            4 | BME            |      1 |     3 |     8 |         0 |    4 |    1 |           0 | ',
+'|  6 |            2 |         5 | 9785802919729 | Какао Несквик        | 2011-03-27 12:32:48 | 2011-03-27 12:32:48 |       1 |                         1 |                  1 |             0 |            0 |          1 |             0 |            6 | BK             |      3 |     3 |     3 |         0 |    3 |    2 |           1 | ',
+'|  7 |            3 |      NULL | 4607003953133 | Чай Брукбонд         | 2011-03-27 12:39:42 | 2011-03-27 12:39:42 |       2 |                         1 |                  1 |             0 |            0 |          0 |             1 |            2 | CT             |      1 |     1 |     1 |         0 |    4 |    1 |           0 | ',
+'|  8 |            3 |         7 | 4660000860286 | Чай Брукбонд         | 2011-03-27 12:42:24 | 2011-03-27 12:42:24 |       2 |                        10 |                 10 |             0 |            0 |          1 |             0 |           20 | PX             |      3 |     6 |     4 |         0 |    3 |    2 |           1 | ',
+'|  9 |            4 |      NULL | 4607003953134 | Кока-кола            | 2011-03-27 12:43:25 | 2011-03-27 12:43:25 |       3 |                        10 |                 10 |             0 |            0 |          1 |             0 |           20 | СX             |      2 |     2 |     2 |         0 |    3 |    2 |           1 | ']
 
-puts "Making 8 PI"
+puts "Making #{pis.size} PI"
 PackagingItem.delete_all
-
-[
-'|  1 |            1 |      NULL | 4607085440385 | Кофе Нескафе Классик | 2011-03-27 12:17:17 | 2011-03-27 12:17:17 |       1 |                         1 |                  1 |             1 |            0 |          0 |             0 |1| CX             |      1 |     2 |     2 |         0 |    6 |    1 |           0 | ',
-'|  2 |            1 |         1 | 9785985032666 | Кофе Нескафе Классик | 2011-03-27 12:21:18 | 2011-03-27 12:21:18 |       1 |                         1 |                  1 |             1 |            0 |          0 |             0 |            1 | CX             |      2 |     2 |     2 |         0 |    5 |    2 |           1 | 
-',
-'|  3 |            1 |         2 | 9785945824898 | Кофе Нескафе Классик | 2011-03-27 12:22:20 | 2011-03-27 12:22:20 |       1 |                         1 |                  1 |             0 |            0 |          0 |             0 |            1 | CX             |      4 |     4 |     4 |         0 |    4 |    3 |           2 | 
-',
-'|  4 |            1 |      NULL | 9785402000049 | Кофе Нескафе Классик | 2011-03-27 12:23:14 | 2011-03-27 12:23:14 |       1 |                         2 |                  2 |             0 |            1 |          0 |             0 |            6 | BX             |      6 |     6 |     6 |         0 |    8 |    7 |           0 | 
-',
-'|  5 |            2 |      NULL | 9785249003791 | Какао Несквик              | 2011-03-27 12:31:46 | 2011-03-27 12:31:46 |       1 |                         1 |                  1 |             0 |            0 |          0 |             1 |            4 | BME            |      1 |     3 |     8 |         0 |    4 |    1 |           0 | 
-',
-'|  6 |            2 |         5 | 9785802919729 | Какао Несквик              | 2011-03-27 12:32:48 | 2011-03-27 12:32:48 |       1 |                         1 |                  1 |             0 |            0 |          1 |             0 |            6 | BK             |      3 |     3 |     3 |         0 |    3 |    2 |           1 | 
-',
-'|  7 |            3 |      NULL | 4607003953133 | Чай Брукбонд                | 2011-03-27 12:39:42 | 2011-03-27 12:39:42 |       2 |                         1 |                  1 |             0 |            0 |          0 |             1 |            2 | CT             |      1 |     1 |     1 |         0 |    4 |    1 |           0 | 
-',
-'|  8 |            3 |         7 | 4660000860286 | Чай Брукбонд                | 2011-03-27 12:42:24 | 2011-03-27 12:42:24 |       2 |                        10 |                 10 |             0 |            0 |          1 |             0 |           20 | PX             |      3 |     6 |     4 |         0 |    3 |    2 |           1 | 
-'].each do |pi|
+pis.each do |pi|
   start, id, base_item_id, parent_id, gtin, item_name_long_ru, created_at, updated_at, user_id, number_of_next_lower_item, number_of_bi_items, despatch_unit, invoice_unit, order_unit, consumer_unit, gross_weight, packaging_type, height, depth, width, published, rgt, lft, level_cache, finish = pi.chomp.split("|").map {|val| val.strip}
   #puts "GW: #{gross_weight}"
   #@base_item = User.find(user_id).base_items.find(base_item_id)

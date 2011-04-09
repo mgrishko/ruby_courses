@@ -1,11 +1,26 @@
-<h1>SubscriptionResults</h1>
+<h1>Inbox	</h1>
 <table class="results">
 <tr>
-<td>#</td><td>status</td><td colspan="2" align="center">actions</td>
+<td>gln</td><td>name</td><td>date</td><td>new</td><td>changed</td>
 </tr>
 <% @results.each do |r| %>
-<tr id="sr-<%=r.id %>">
-<%= render :partial => 'result', :locals => {:r => r} %>
+<tr id="sr-<%=r[0].id %>">
+	<td>
+		<%= link_to r[0].supplier.gln, subscription_result_path(r[0]) %>
+	</td>
+	<td>
+		<%= link_to r[0].supplier.name, subscription_result_path(r[0]) %>
+	</td>
+	<td>
+		<%= link_to r[1].sort_by(&:updated_at).first.updated_at, subscription_result_path(r[0]) %>
+	</td>
+	<td>
+		<%= link_to r[1].collect{|s|s.new?}.size, subscription_result_path(r[0]) %>
+	</td>
+	<td>
+		<%= link_to r[1].size, subscription_result_path(r[0]) %>
+	</td>
+	<%#= render :partial => 'result', :locals => {:r => r[1]} %>
 </tr>
 <% end %>
 </table>
