@@ -70,6 +70,19 @@ class PackagingItem < ActiveRecord::Base
     #self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
 
+  # methods calculate_* for view (highlighting) 
+  def calculate_quanity
+    "#{number_of_next_lower_item} уп., внутри #{number_of_bi_items} ед."
+  end
+  
+  def calculate_weights
+    "#{gross_weight} г. брутто, #{base_item.net_weight* number_of_bi_items} г. нетто"
+  end
+  
+  def calculate_dimmensions
+    "#{height} x #{width} x #{depth} (В x Д x Ш)"
+  end
+  
   #after_save :set_descendants_number_of_bi_items
   #def set_descendants_number_of_bi_items
     #descendants.each do |item|
