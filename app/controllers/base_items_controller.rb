@@ -151,13 +151,10 @@ class BaseItemsController < ApplicationController
       @base_item.destroy
     else
       @base_item.publish!
-<<<<<<< HEAD
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
-=======
       @base_item.item.change! if @base_item.item.new?
->>>>>>> 7a4de1b0972a310ac0c77454d644eac1621a46f5
     end
     redirect_to base_items_url
   end
