@@ -1,0 +1,40 @@
+<hr/>
+<table>
+<tr class="info">
+<td>
+Retailer article id
+</td>
+<td>
+Retailer Classification
+</td>
+</tr>
+<tr class="val">
+<td>
+<%= @retailer_attribute.retailer_article_id %>
+</td>
+<td>
+<%= @retailer_attribute.retailer_classification %>
+</td>
+</tr>
+<tr class="info">
+<td colspan="3">
+Retailer Item Description
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
+<%= @retailer_attribute.retailer_item_description %>
+</td>
+</tr>
+<tr class="info">
+<td colspan="3">
+Retailer comment
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
+<%= @retailer_attribute.retailer_comment%>
+</td>
+</tr>
+</table>
+<%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", "retailer_attribute[item_id]" => @retailer_attribute.item.id), :method => :get %>

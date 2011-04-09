@@ -1,5 +1,15 @@
 class RetailerAttributesController < ApplicationController
   before_filter :require_user
+  before_filter :find_item
+
+  def new
+    @retailer_attribute = @item.retailer_attributes.new()
+  end
+  
+  def edit
+    @retailer_attribute = @item.retailer_attributes.find(:first, :conditions => {:user_id => current_user.id})
+    render :new
+  end
 
   def create
     @retailer_attribute = RetailerAttribute.new(params[:retailer_attribute])
@@ -16,11 +26,16 @@ class RetailerAttributesController < ApplicationController
   end
 
   def update
-    @retailer_attribute = RetailerAttribute.find(params[:id])
+    @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :id => params[:id]})
     @retailer_attribute.update_attributes(params[:retailer_attribute])
     @retailer_attribute.save
     respond_to do |format|
       format.js
     end
+  end
+  
+  private
+  def find_item
+    @item = Item.find(params[:retailer_attribute][:item_id])
   end
 end

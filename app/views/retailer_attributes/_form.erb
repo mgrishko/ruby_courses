@@ -1,0 +1,43 @@
+<hr/>
+<% remote_form_for(@retailer_attribute) do |f| %>
+<input type="hidden" name="retailer_attribute[item_id]" value="<%= @retailer_attribute.item.id %>"/>
+<table>
+<tr class="info">
+<td>
+Retailer article id
+</td>
+<td>
+Retailer Classification
+</td>
+</tr>
+<tr class="val">
+<td>
+<%= f.text_field :retailer_article_id %>
+</td>
+<td>
+<%= f.text_field :retailer_classification %>
+</td>
+</tr>
+<tr class="info">
+<td colspan="3">
+Retailer Item Description
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
+<%= f.text_field :retailer_item_description, :style => "width: 100%;"%>
+</td>
+</tr>
+<tr class="info">
+<td colspan="3">
+Retailer comment
+</td>
+</tr>
+<tr class="val">
+<td colspan="3">
+<%= f.text_area :retailer_comment, :rows => 2, :style => "width: 100%"%>
+</td>
+</tr>
+</table>
+<%= f.submit "Сохранить", :class=>"button" %>
+<% end %>

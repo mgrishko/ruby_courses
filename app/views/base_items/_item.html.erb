@@ -26,55 +26,13 @@
 <%= render :partial => "base" %>
 <!--/base-->
 <% if @base_item.published? && current_user.retailer? %>
-<% unless @retailer_attribute.id %>
-<a id="show_retailer_attributes" href="" onclick="$j('#retailer_attributes').show(); $j(this).hide(); return false">Добавить данные</a>
-<% end %>
-<div id="retailer_attributes" <% unless @retailer_attribute.id %>class="hide"<% end %>>
-<hr/>
-<% remote_form_for(@retailer_attribute) do |f| %>
-<input type="hidden" name="retailer_attribute[item_id]" value="<%= @base_item.item.id %>"/>
-<table>
-<tr class="info">
-<td>
-Retailer article id
-</td>
-<td>
-Retailer Classification
-</td>
-</tr>
-<tr class="val">
-<td>
-<%= f.text_field :retailer_article_id %>
-</td>
-<td>
-<%= f.text_field :retailer_classification %>
-</td>
-</tr>
-<tr class="info">
-<td colspan="3">
-Retailer Item Description
-</td>
-</tr>
-<tr class="val">
-<td colspan="3">
-<%= f.text_field :retailer_item_description, :style => "width: 100%;"%>
-</td>
-</tr>
-
-<tr class="info">
-<td colspan="3">
-Retailer comment
-</td>
-</tr>
-<tr>
-<td colspan="3">
-<%= f.text_area :retailer_comment, :rows => 2, :style => "width: 100%"%>
-</td>
-</tr>
-</table>
-<%= f.submit "Сохранить", :class=>"button" %>
-<% end %>
-</div>
+  <div id="retailer_attributes">
+  <% if @retailer_attribute.id %>
+  <%= render :partial => "/retailer_attributes/retailer_attribute" %>
+  <% else %>
+  <%= link_to_remote 'Добавить данные', :url => url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => @base_item.item.id), :method => :get %>
+  <% end %>
+  </div>
 <% end %>
 </div>
 <% unless @view_only || @base_item.published? %>

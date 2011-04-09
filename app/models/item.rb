@@ -7,6 +7,8 @@ class Item < ActiveRecord::Base
   has_many :tags, :through => :clouds
   has_many :clouds
 
+  has_many :retailer_attributes
+
   aasm_column :status
   aasm_initial_state :new
 
