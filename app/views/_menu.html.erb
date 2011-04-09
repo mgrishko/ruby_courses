@@ -1,11 +1,11 @@
 <div class="header">
   <% if current_user.id %>
   <div class="fleft">
-    <%= link_to 'Items', :controller => 'base_items' %> |
-    <%= link_to 'Suppliers', :controller => 'suppliers'  %> |
-    <%= link_to 'Subscription', :controller => 'subscription' %> |
-    <%= link_to 'Subscription results', :controller => 'subscription_results' %> |
-    <%= link_to('Retailer Items', :controller => 'retailer_items') if current_user.retailer? %>
+    <% if current_user.supplier? %><%= link_to 'My Items', :controller => 'base_items' %> | <% end %>
+    <% if current_user.retailer? %><%= link_to 'Suppliers', :controller => 'suppliers' %> | <% end %>
+    <% if current_user.retailer? %><%= link_to 'Subscription', :controller => 'subscription' %> | <% end %>
+    <% if current_user.retailer? %><%= link_to 'Inbox', :controller => 'subscription_results' %> | <% end %>
+    <% if current_user.retailer? %><%= link_to('Received Items', :controller => 'retailer_items') %> <% end %>
   </div>
   <div class="fright">
     <%= current_user.name %> | <%= link_to 'Log off', url_for(:controller => :user_sessions, :action => :logout) %>
