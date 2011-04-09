@@ -211,6 +211,31 @@ class BaseItem < ActiveRecord::Base
     Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
+  # methods calculate_* for view (highlighting)
+  def calculate_content
+    content_uoms.detect { |u| content_uom == u[1] }[0]
+  end
+  
+  def calculate_country
+    country_of_origin.description
+  end
+  
+  def calculate_gpc
+    "#{gpc.code} : #{gpc.name}"
+  end
+  
+  def calculate_vat
+    vats.detect { |u| vat == u[1] }[0]
+  end
+  
+  def calculate_dimmensions
+    "#{height} x #{width} x #{depth} (В x Д x Ш)"
+  end
+  
+  def calculate_weights
+    "#{gross_weight} г. брутто, #{net_weight} г. нетто"
+  end
+
   def self.get_brands current_user
     if current_user.retailer?
       find_by_sql <<-SQL

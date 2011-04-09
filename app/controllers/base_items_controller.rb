@@ -19,7 +19,7 @@ class BaseItemsController < ApplicationController
         @accepted_base_item = BaseItem.all(:conditions => ["item_id = ? AND sr.status = 'accepted' AND base_items.id < ? AND base_items.status = 'published'", @base_item.item_id,@base_item.id],
                                             :joins => 'JOIN subscription_results sr ON base_items.id = sr.base_item_id',
                                             :order => 'base_items.id DESC').first
-        @accepted_packaging_items = @accepted_base_item.packaging_items
+        #@accepted_packaging_items = @accepted_base_item.packaging_items
       end
     else
       @base_item = current_user.base_items.find(params[:id])
