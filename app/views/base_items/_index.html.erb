@@ -38,6 +38,7 @@
 <col width="100" />
 <col width="300" />
 <col width="300" align="center" />
+<col width="50"  align="center" />
 <col />
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
@@ -50,6 +51,7 @@
     <span class="tag"><%= c.tag.name %></span>
     <% end %>
     </td>
+    <td><%= base_item.item.status %></td>
     <td class="date"><%= base_item.created_at.to_s(:short) %></td>
     <!--<td><%#= base_item.status %></td>-->
     <!--<td><%#= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
