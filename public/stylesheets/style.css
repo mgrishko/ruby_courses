@@ -306,7 +306,6 @@ textarea {
   background-color: #ff9090;
 }
 #retailer_attributes {
-  display: none;
 }
 .tag {
   padding: 0 2px;
@@ -395,4 +394,7 @@ tr.val td select {
 }
 .min input{
   width: auto;
+}
+.hide {
+  display: none;
 }
