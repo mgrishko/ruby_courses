@@ -2,7 +2,11 @@ class SubscriptionResultsController < ApplicationController
   before_filter :require_user
 
   def index
-    @results = current_user.subscription_results
+    @results = current_user.subscription_results.sort_by(&:updated_at).group_by{|sr|sr.subscription}
+  end
+  
+  def show
+    @subscription_results = Subscription.first(:conditions => {:id => params[:id], :retailer_id => current_user.id}).subscription_results
   end
   
   def update
@@ -10,9 +14,9 @@ class SubscriptionResultsController < ApplicationController
     if @subscription_result.subscription.retailer_id = current_user.id
       #my subscription result
       if params[:accept]
-	@subscription_result.accept!
+	      @subscription_result.accept!
       else
-	@subscription_result.cancel!
+	      @subscription_result.cancel!
       end
     end
     
