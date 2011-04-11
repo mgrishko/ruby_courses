@@ -79,6 +79,7 @@ class BaseItemsController < ApplicationController
 	      @base_item.previous_step
       elsif @base_item.last_step?
 	      if @base_item.all_valid?
+		@base_item.state = 'add' #new status of bi
 	        i = current_user.items.new()
 	        i.base_items << @base_item
 	        i.save
@@ -165,6 +166,7 @@ class BaseItemsController < ApplicationController
       #make new base_item.tree
       n = BaseItem.new(@base_item.attributes)
       n.created_at = n.updated_at = nil
+      n.state = 'change' #not new. This is version
       n.draft!
       #n.save
       
