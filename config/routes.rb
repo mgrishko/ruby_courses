@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :comments
   map.resources :tags
   map.resources :subscription_results
+  map.resources :suppliers
 
   # The priority is based upon order of creation: first created -> highest priority.
 
