@@ -4,7 +4,7 @@
 <td>gln</td><td>name</td><td>date</td><td>new</td><td>changed</td>
 </tr>
 <% @results.each do |r| %>
-<tr id="sr-<%=r[0].id %>">
+<tr>
 	<td>
 		<%= link_to r[0].supplier.gln, subscription_result_path(r[0]) %>
 	</td>
@@ -15,12 +15,11 @@
 		<%= link_to r[1].sort_by(&:updated_at).first.updated_at, subscription_result_path(r[0]) %>
 	</td>
 	<td>
-		<%= link_to r[1].collect{|s|s.new?}.size, subscription_result_path(r[0]) %>
+		<%= link_to r[0].new_items_count, subscription_result_path(r[0]) %>
 	</td>
 	<td>
-		<%= link_to r[1].size, subscription_result_path(r[0]) %>
+		<%= link_to r[0].changed_items_count, subscription_result_path(r[0]) %>
 	</td>
-	<%#= render :partial => 'result', :locals => {:r => r[1]} %>
 </tr>
 <% end %>
 </table>

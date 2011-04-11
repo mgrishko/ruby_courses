@@ -1,22 +1,7 @@
 <h1>Inbox	</h1>
 <table class="results">
 <tr>
-<td>gtin</td><td>name</td><td>status</td><td>comment</td>
+	<th>gtin</th><th>name</th><th>status</th><th>comment</th><th></th><th></th>
 </tr>
-<% @subscription_results.each do |sr| %>
-<tr>
-	<td>
-		<%= link_to sr.base_item.gtin, base_item_path(sr.base_item, :view => true) %>
-	</td>
-	<td>
-		<%= link_to sr.base_item.name, base_item_path(sr.base_item, :view => true) %>
-	</td>
-	<td>
-		<%= link_to 'todo', base_item_path(sr.base_item, :view => true) %>
-	</td>
-	<td>
-		<%= link_to truncated_comment(sr.base_item), base_item_path(sr.base_item, :view => true) %>
-	</td>
-</tr>
-<% end %>
+<%= render :partial => 'result', :collection => @subscription_results %>
 </table>

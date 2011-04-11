@@ -17,4 +17,21 @@ class Subscription < ActiveRecord::Base
   aasm_event :active do
     transitions :to => :active, :from => :canceled
   end
+  
+  def new_items_count
+    Subscription.count_by_sql <<-SQL
+      SELECT COUNT(*) FROM subscription_results 
+        JOIN base_items ON subscription_results.base_item_id = base_items.id
+        JOIN items ON base_items.item_id = items.id
+      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') = 1
+    SQL
+  end
+  def changed_items_count
+    Subscription.count_by_sql <<-SQL
+      SELECT COUNT(*) FROM subscription_results 
+        JOIN base_items ON subscription_results.base_item_id = base_items.id
+        JOIN items ON base_items.item_id = items.id
+      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') > 1
+    SQL
+  end
 end
