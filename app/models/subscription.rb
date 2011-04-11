@@ -24,6 +24,7 @@ class Subscription < ActiveRecord::Base
         JOIN base_items ON subscription_results.base_item_id = base_items.id
         JOIN items ON base_items.item_id = items.id
       WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') = 1
+        AND subscription_results.status = 'new'
     SQL
   end
   def changed_items_count
@@ -32,6 +33,7 @@ class Subscription < ActiveRecord::Base
         JOIN base_items ON subscription_results.base_item_id = base_items.id
         JOIN items ON base_items.item_id = items.id
       WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') > 1
+        AND subscription_results.status = 'new'
     SQL
   end
 end

@@ -1,28 +1,35 @@
 <tr id="sr-<%= result.id %>">
 	<td>
-		<%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true) %>
+		<%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to result.base_item.name, base_item_path(result.base_item, :view => true) %>
+		<%= link_to result.base_item.name, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to result.base_item.item.not_new? ? '' : 'new', base_item_path(result.base_item, :view => true) %>
+		<%= link_to result.base_item.item.not_new? ? '' : 'new', base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true) %>
+		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<td>
+		<% result.base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => result.base_item.item.id}).each do |c| %>
+    	<span class="tag"><%= c.tag.name %></span>
+    <% end %>
 	</td>
 	<% if result.new? %>
 		<td>
-			<% remote_form_for(result) do |f| %>
-				<%= f.submit "Акцептовать", :name => 'accept' %>
-			<% end %>
-		</td>
-		<td>
-			<% remote_form_for(result) do |f| %>
-				<%= f.submit "Отменить", :name => 'cancel' %>
-			<% end %>
+			<div style="float:left;">
+				<% remote_form_for(result) do |f| %>
+					<%= f.submit "Акцептовать", :name => 'accept' %>
+				<% end %>
+			</div>
+			<div style="float:left;">
+				<% remote_form_for(result) do |f| %>
+					<%= f.submit "Отменить", :name => 'cancel' %>
+				<% end %>
+			</div>
 		</td>
 	<% else %>
-		<td collspan="2"></td>
+		<td> already <%= result.status %></td>
 	<% end %>
 </tr>

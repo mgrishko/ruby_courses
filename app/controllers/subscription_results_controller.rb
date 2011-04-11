@@ -22,6 +22,7 @@ class SubscriptionResultsController < ApplicationController
     
     respond_to do |format|
       format.js
+      format.html { redirect_to subscription_result_path(@subscription_result.subscription) }
     end
 
   end
