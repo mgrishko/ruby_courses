@@ -364,11 +364,12 @@ class BaseItem < ActiveRecord::Base
         end
       end
     else # for base_items
+      options[:retailer_id] = options[:user_id] unless options[:retailer_id] #for controller => :suplier, action => :show
       if options[:tag]
         find_by_sql(["select a.* from base_items as a 
           left join items i on a.item_id = i.id 
           left join clouds c on i.id = c.item_id 
-          where c.user_id = #{options[:user_id]} 
+          where c.user_id = #{options[:retailer_id]} 
             and c.tag_id = ? 
             and a.id = (select b.id from base_items b 
                         where a.item_id = b.item_id 

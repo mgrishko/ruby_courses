@@ -11,7 +11,8 @@ class SuppliersController < ApplicationController
 					  :brand => params[:brand],
 					  :manufacturer_name => params[:manufacturer_name],
 					  :functional => params[:functional],
-					  :tag => params[:tag]
+					  :tag => params[:tag],
+					  :retailer_id => current_user.id
     get_filters_data_for_base_items
   end
 end
