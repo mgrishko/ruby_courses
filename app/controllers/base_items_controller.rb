@@ -15,11 +15,11 @@ class BaseItemsController < ApplicationController
       @view_only = true;
       @base_item = BaseItem.find(params[:id])
       @packaging_items = @base_item.packaging_items
-      if current_user.retailer? && !@base_item.subscription_result.accepted?
+      @subscription_result = SubscriptionResult.find(params[:subscription_result_id]) if params[:subscription_result_id]
+      if current_user.retailer? && @subscription_result
         @accepted_base_item = BaseItem.all(:conditions => ["item_id = ? AND sr.status = 'accepted' AND base_items.id < ? AND base_items.status = 'published'", @base_item.item_id,@base_item.id],
                                             :joins => 'JOIN subscription_results sr ON base_items.id = sr.base_item_id',
                                             :order => 'base_items.id DESC').first
-        @subscription_result = SubscriptionResult.find(params[:subscription_result_id])
       end
     else
       @base_item = current_user.base_items.find(params[:id])
