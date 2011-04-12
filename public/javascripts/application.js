@@ -45,11 +45,9 @@ function subscription(that, supplier_id) {
     } else {
       $j(that).html(data.text);
       if (data.flag) {
-	$j('#bis-'+supplier_id).html('Недоступно');
-	$j('#bis-'+supplier_id).attr('disabled','disabled');
+	$j('#tr-'+supplier_id).addClass('subscribed');
       } else {
-	$j('#bis-'+supplier_id).removeAttr('disabled');
-	$j('#bis-'+supplier_id).html('Подписаться');
+	$j('#tr-'+supplier_id).removeClass('subscribed');
       }
     }
   });

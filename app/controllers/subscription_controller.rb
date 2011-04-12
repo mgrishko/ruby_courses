@@ -24,11 +24,22 @@ class SubscriptionController < ApplicationController
 	        json = {'text' => 'Отписаться', 'flag' => true}
 	      end
       end
+      
+      # instant subscription
+      if json['flag']
+	@supplier = User.find(params[:id])
+        @supplier.all_fresh_base_items.each do |bi|
+	  @subscription.subscription_results << SubscriptionResult.new(
+	    :base_item_id => bi.id, :subscription_id => @subscription_id
+	  )
+	end
+      end
+
       render :json => json
     end
   end
   
-  def instantstatus
+  def instantstatus # unneccessary now
     json = {'error' => 'Ошибка'}
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});

@@ -398,3 +398,6 @@ tr.val td select {
 .hide {
   display: none;
 }
+.subscribed {
+  background: #daffb5;
+}
