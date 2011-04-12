@@ -15,7 +15,7 @@ body, html
 
 a
 {
-	color: #000;
+	color: #6B89AD;
 	text-decoration: underline;
 }
 
@@ -165,7 +165,7 @@ h3 {
 
 ul.items li>ul
 {
-  margin-left: 211px;
+  margin-left: 238px;
   margin-bottom: 0;
   position: relative;
 }
@@ -186,11 +186,12 @@ ul.items li .item
   //border: 1px solid #666;
   position: relative;
   padding: 5px;
+padding-right:30px;
 }
 
 ul.items li .item p
 {
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 ul.items li:last-child
@@ -224,8 +225,17 @@ ul.items li.new .item ul
   margin: 0;
 }
 .pi {
-  border: 1px solid #666;
+  background:url(/images/box.gif);
+	width:213px;
+	height:123px;
+	padding-top:18px;
+	padding-left:10px;
 }
+
+.pi p{
+	margin-bottom:3px;
+}
+
 input
 {
   width: 150px;
@@ -289,6 +299,7 @@ textarea {
 }
 .fright {
   float: right;
+	color:#596979;
 }
 .clear {
   clear: both;

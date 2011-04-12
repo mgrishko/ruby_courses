@@ -2,7 +2,7 @@
 <table>
 <tr>
 <td valign="top" style="vertical-align: top;">
-<div style="border: 1px solid #666;width:200px;" class="pi" id="first_pi">
+<div class="pi" id="first_pi">
 <h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
 <p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
 <p>1 уп. внутри, 1 ед.</p>
