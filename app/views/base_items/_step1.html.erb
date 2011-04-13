@@ -124,8 +124,16 @@ GPC Name
 </tr>
 <tr class="val">
 <td colspan="3">
-<%= text_field_with_auto_complete :base_item, :gpc_name, :class => "w100" %>
+<%= f.text_field :gpc_name, :class => "w100" %>
 </td>
+<script type="text/javascript">
+	$j('#base_item_gpc_name').click(function(){
+		$j.ajax({
+		    url: '/main/classifier', type: 'get', dataType: 'html'
+		});
+		return false;
+	})
+</script>
 </tr>
 Classifier: <div id="classifier_input" class="input input_div"> <span class='dotted'><%= link_to_remote "Классификатор", :url => classifier_path, :class => 'none', :id => 'classifier_link', 'data-remote' => true %></span></div>
 <input type="hidden" id="classifier_value">
