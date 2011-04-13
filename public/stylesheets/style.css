@@ -410,7 +410,7 @@ tr.val td select {
   margin-top: 1em;
 }
 .selected {
-  background: #6cbf18;
+  background: #ccc;
 }
 .logistic {
   border: 1px solid #666;

@@ -254,7 +254,9 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status ='published' 
                       ORDER BY created_at DESC LIMIT 1) 
-          AND  s.retailer_id = #{current_user.id} GROUP by brand      
+          AND  s.retailer_id = #{current_user.id}
+	  AND  sr.status = 'accepted'
+	  GROUP by brand      
       SQL
     else
       find_by_sql <<-SQL
@@ -278,7 +280,9 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status ='published' 
                       ORDER BY created_at DESC LIMIT 1) 
-          AND  s.retailer_id = #{current_user.id} GROUP by manufacturer_name      
+          AND  s.retailer_id = #{current_user.id}
+	  AND  sr.status = 'accepted'
+	  GROUP by manufacturer_name      
       SQL
     else
       find_by_sql <<-SQL
@@ -302,7 +306,9 @@ class BaseItem < ActiveRecord::Base
                          WHERE a.item_id = b.item_id 
                            AND b.status ='published' 
                        ORDER BY created_at DESC LIMIT 1) 
-           AND  s.retailer_id = #{current_user.id} GROUP by functional      
+           AND  s.retailer_id = #{current_user.id}
+	   AND sr.status = 'accepted'
+	   GROUP by functional      
        SQL
      else
        find_by_sql <<-SQL

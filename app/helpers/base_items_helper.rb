@@ -8,4 +8,12 @@ module BaseItemsHelper
       end
     end
   end
+
+  def selected_wrapper content, condition=nil
+    if condition  #logical true
+      "<div class='selected'>#{content}<div class='fright'><a href='?' title='Remove this filter'>x</a></div></div>"
+    else
+      "<div>#{content}</div>"
+    end
+  end
 end
