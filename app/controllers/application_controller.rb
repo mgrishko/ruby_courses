@@ -75,6 +75,15 @@ class ApplicationController < ActionController::Base
       #functional name
       @functionals = BaseItem.get_functionals current_user
     end
+
+    def get_filters_data_for_base_items_conditions retailer, supplier=nil
+      @clouds = Cloud.get_clouds retailer, supplier 
+      @brands = BaseItem.get_brands supplier ? supplier : retailer
+      @manufacturers = BaseItem.get_manufacturers supplier ? supplier : retailer
+      #functional name
+      @functionals = BaseItem.get_functionals supplier ? supplier : retailer
+
+    end
 end
 
 class TrueClass

@@ -244,6 +244,7 @@ class BaseItem < ActiveRecord::Base
       return false
     end
   end
+
   def self.get_brands current_user
     if current_user.retailer?
       find_by_sql <<-SQL
@@ -376,7 +377,7 @@ class BaseItem < ActiveRecord::Base
           find_by_sql([query, options[:user_id]])
         end
       end
-    else # for base_items
+    else # for base_items, common case: user is supplier
       options[:retailer_id] = options[:user_id] unless options[:retailer_id] #for controller => :suplier, action => :show
       if options[:tag]
         find_by_sql(["select a.* from base_items as a 
