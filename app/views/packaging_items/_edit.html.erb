@@ -1,5 +1,4 @@
-<div class="arrow"></div>
-
+<%= render :partial => "packaging_items/arrow", :locals => {:item => @packaging_item} %>
 <% remote_form_for(@packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item)) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 

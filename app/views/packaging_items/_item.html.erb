@@ -1,5 +1,5 @@
 <% accepted_packaging_item = @accepted_base_item.packaging_items.detect{|i|i.gtin == item.gtin} if @accepted_base_item %>
-<div class="arrow"></div>
+<%= render :partial => "packaging_items/arrow", :locals => {:item => item} %>
 <div class="pi <%= "highlight" if @accepted_base_item && !accepted_packaging_item -%>">
 <h3 <%= highlight(:gtin, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.gtin %></h3>
 <p <%= highlight(:packaging_type, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.packaging_type %></p>

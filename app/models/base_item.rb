@@ -236,7 +236,14 @@ class BaseItem < ActiveRecord::Base
   def calculate_weights
     "#{gross_weight} г. брутто, #{net_weight} г. нетто"
   end
-
+  
+  def has_forest?
+    if self.packaging_items.count(:conditions => {:parent_id => nil}) > 1
+      return true
+    else
+      return false
+    end
+  end
   def self.get_brands current_user
     if current_user.retailer?
       find_by_sql <<-SQL

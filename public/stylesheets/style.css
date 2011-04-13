@@ -155,13 +155,10 @@ h3 {
 	border-top: 2px solid #676766;
 	width: 100%;
 }
-.items ul {
-  border-left: 1px solid #666;
-}
-.items {
-  border-left: 1px solid #666;
-}
 
+li.pack {
+  background: url(/images/lbg.png) left top repeat-y;
+}
 
 ul.items li>ul
 {
@@ -173,7 +170,7 @@ ul.items li>ul
 ul.items ul>li, ul.items>li
 {
   list-style: none;
-  margin-bottom: 20px;
+  //padding-bottom: 20px;
   overflow: hidden;
   padding-left: 60px;
 }
@@ -202,32 +199,48 @@ ul.items li:last-child
 ul.items li.new .item
 {
   border: none;
-  height: 30px;
-  width: 70px;
+  //height: 30px;
+  //width: 70px;
   background: transparent;
 }
 
 ul.items li .item .arrow
 {
   position: absolute;
-  left: -60px;
-  top: 50%;
+  left: -70px;
+  top: 20px;
   line-height: 20px;
-  height: 41px;
-  width: 50px;
+  height: 144px;
+  width: 59px;
   margin-top: -25px;
   font-size: 20pt;
-  background: url(/images/arrow.jpg)
+  background: url(/images/arrow.png);
 }
 
+ul.items li .item .single-arrow {
+  position: absolute;
+  left: -70px;
+  top: 20px;
+  line-height: 20px;
+  height: 144px;
+  width: 59px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/single-arrow.png);
+}
+
+li.new {
+  background: none;
+}
 ul.items li.new .item ul
 {
   margin: 0;
+
 }
 .pi {
-  background:url(/images/box.gif);
+  background:url(/images/box.gif) no-repeat 0 bottom;
 	width:213px;
-	height:123px;
+	min-height:133px;
 	padding-top:18px;
 	padding-left:10px;
 }
@@ -411,4 +424,6 @@ tr.val td select {
 }
 .subscribed {
   background: #daffb5;
+}
+.edit_packaging_item {
 }
