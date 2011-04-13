@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'classifier' %>
+<% end %>
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
 <div id="base_item">
   <div style="width: 1200px;"/>

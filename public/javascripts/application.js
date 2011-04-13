@@ -63,3 +63,177 @@ function instantSubscription(that, supplier_id) {
     }
   })
 }
+
+
+// Place your application-specific JavaScript functions and classes here
+// This file is automatically included by javascript_include_tag :defaults
+
+var active = -1;
+var selected_li = null;
+var timeout = null;
+
+
+function classifierSelect(li){
+  var lis = $j("li", "#groups");
+  if (!lis[0]) return;
+  lis.removeClass("ac_over");
+  $j(li).addClass("ac_over");
+}
+
+function casesSelect(li){
+  var lis = $j("li", "#cases_results");
+  if (!lis[0]) return;
+  lis.removeClass("ac_liselected");
+  lis.removeClass("ac_over");
+  lis.removeClass("ac_loading");
+  $j(li).addClass("ac_liselected");
+  selected_li = lis[active];
+  $j(li).addClass("ac_loading");
+  requestManData($j(li).attr("id"));
+}
+
+function moveTownsSelect(step) {
+
+  var lis = $j("li", "#cases_results");
+  if (!lis[0]) return;
+
+  active += step;
+
+  if (active < 0) {
+    active = 0;
+  } else if (active >= lis.size()) {
+    active = lis.size() - 1;
+  }
+  lis.removeClass("ac_over");
+  lis.removeClass("ac_loading");
+  $j(lis[active]).addClass("ac_over");
+  selected_li = lis[active];
+  $j(lis[active]).addClass("ac_loading");
+  requestManData($j(lis[active]).attr("id"));
+
+  if (lis[active]){
+    lis[active].scrollIntoViewIfNeeded();
+  }
+};
+
+function selectTownsCurrent() {
+  var li = $j("li.ac_over", "#cases_results")[0];
+  if (!li) {
+    // active = 0;
+    moveTownsSelect(1);
+  }
+  if (li) {
+    selectTownsItem(li);
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function selectCasesItem(li){
+  var li = $j("li.ac_liselected", "#cases_results")[0];
+  if (li){
+    $j("#cases_link").html(li.innerHTML);
+    $j("#cases_value").val($j(li).attr("id"));
+    hideResultsNow();
+  }
+}
+
+function selectClassifierGroup(li){
+  $j("#categories").html("");
+  var lis = $j("li", "#groups");
+  lis.removeClass("ac_liselected");
+  $j(li).addClass("ac_liselected");
+  requestSubgroupsData($j(li).attr("id"));
+}
+
+function selectClassifierSubgroup(li){
+  var lis = $j("li", "#subgroups");
+  lis.removeClass("ac_liselected");
+  $j(li).addClass("ac_liselected");
+  requestCategoriesData($j(li).attr("id"));
+};
+
+function selectClassifierCategory(li){
+  var lis = $j("li", "#categories");
+  lis.removeClass("ac_liselected");
+  $j(li).addClass("ac_liselected");
+}
+
+
+function selectClassifierItem(li){
+  var li = $j("li.ac_liselected", "#categories")[0];
+  if (li){
+    $j("#classifier_link").html(li.innerHTML);
+    $j("#classifier_value").val($j(li).attr("id"));
+    hideClassifierNow();
+  }
+}
+
+
+function requestCategoriesData(q){
+  var data = null;
+  $j.get("/main/categories/" + q, function(data) {
+    receiveCategoriesData(data);
+  });
+}
+
+function receiveCategoriesData(data) {
+  if (data) {
+    $j("li", "#subgroups").removeClass("ac_loading");
+    $j("#categories").html(data);
+  }
+};
+
+
+function requestSubgroupsData(q){
+  var data = null;
+  $j.get("/main/subgroups/" + q, function(data) {
+    receiveSubgroupsData(data);
+  });
+}
+
+function receiveSubgroupsData(data) {
+  if (data) {
+    $j("li", "#groups").removeClass("ac_loading");
+    $j("#subgroups").html(data);
+  }
+};
+
+
+
+function requestManData(q){
+  var data = null;
+  $j.get("/main/show_man/" + q, function(data) {
+    receiveManData(data);
+  });
+}
+
+function receiveManData(data) {
+  if (data) {
+    $j("li", "#cases_results").removeClass("ac_loading");
+    $j("#cases_man").html(data);
+  }
+};
+
+function hideResults() {
+  if (timeout) clearTimeout(timeout);
+  timeout = setTimeout(hideResultsNow, 500);
+};
+
+function hideResultsNow() {
+  $j("#cases").hide();
+  $j('#hidden_div').hide();
+};
+
+function hideClassifierNow(){
+  var lis = $j("li", "#classifier");
+  lis.removeClass("ac_liselected")
+  $j("#subgroups").html("");
+  $j("#categories").html("");
+  if (timeout) clearTimeout(timeout);
+  if ($j("#classifier").is(":visible")) {
+    $j("#classifier").hide();
+  }
+  $j('#hidden_div').hide();
+}
