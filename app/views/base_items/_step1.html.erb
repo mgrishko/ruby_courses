@@ -124,9 +124,40 @@ GPC Name
 </tr>
 <tr class="val">
 <td colspan="3">
-<%= text_field_with_auto_complete :base_item, :gpc_name, :class => "w100" %>
+<%= f.text_field :gpc_name, :class => "w100" %>
 </td>
+<script type="text/javascript">
+	$j('#base_item_gpc_name').click(function(){
+		$j('#classifier').show();
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); return false;
+		return false;
+	})
+  $j("#classifier_close").click(function(){
+    hideClassifierNow();
+  })
+  $j("#classifier_select").click(function(){
+    selectClassifierItem();
+		$j('#base_item_gpc_name').val($j("#classifier_value").val());
+  })
+</script>
 </tr>
+<input type="hidden" id="classifier_value">
+<div id="classifier" class="results classifier" style="display:none">
+  <div class='corner'></div>
+  <a href="#" id="classifier_close" class="close"></a>
+ 
+  <div id="groups" class="inline results_ul">
+  </div>
+  <div id="subgroups" class="inline results_ul">
+  </div>
+  <div id="categories" class="inline results_ul">
+  </div>
+  <div style="width:100%; position: relative; text-align: right;" class="inline">
+    <hr>
+    <a id="classifier_select" class="ok_button" href="#"></a>
+  </div>
+</div>
+
 <tr class="info">
 <td>
 Vat
@@ -156,3 +187,4 @@ plu description
 
 </table>
 </div>
+<div id='hidden_div' style="display: none"></div>

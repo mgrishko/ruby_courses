@@ -212,6 +212,13 @@ class BaseItemsController < ApplicationController
     #@emails = BaseItem.fetch_and_approve
   #end
 
+  def classifier
+    #@groups = Group.find(:all)
+    respond_to do |format| 
+      format.js
+    end
+  end
+  
   def auto_complete_for_base_item_gpc_name
     @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
     render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"

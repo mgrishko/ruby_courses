@@ -430,3 +430,158 @@ tr.val td select {
 }
 .edit_packaging_item {
 }
+
+.inline{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.input{
+  background: #FFE8BE;
+  border: none;
+  font-size: 1.5em;
+}
+
+.input_div{
+  padding: 2px;
+  width: 150px;
+}
+
+.dotted{
+  position: relative;
+  border-bottom: 2px dotted green;
+}
+
+.corner{
+  position:absolute;
+  top: 10px;
+  left: -11px;
+  width: 11px;
+  height: 27px;
+  background: url(/images/corner.png) no-repeat;
+  z-index: 101;
+}
+
+.cases{
+}
+
+.results {
+  position: absolute;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 5px black; /* Параметры тени */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+  min-height: 30px;
+  padding: 5px;
+  z-index: 100;
+	background-color: #fff;
+}
+
+.ac_results {
+  border: 1px solid #aaa;
+  box-shadow: 0 0 5px black; /* Параметры тени */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+  min-height: 30px;
+  padding: 5px;
+  z-index: 100;
+  background-color: #fff;
+}
+
+.results_ul{
+  position:relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 350px;
+  min-width: 150px;
+  max-width: 200px;
+  float: left;
+}
+
+#cases_man{
+  position:relative;
+  max-width: 240px;
+  float: left;
+}
+
+#hidden_div{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 99;
+}
+
+.ok_button{
+  position: relative;
+  display: block;
+  width: 85px;
+  height: 32px;
+  float: right;
+  margin: 5px;
+  background: url(/images/ok_button.png) center no-repeat;
+}
+
+.close{  
+  display: block;
+  position: absolute;  
+  right: 5px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  background: url(/images/close.jpeg) center no-repeat;
+  z-index: 101;
+}
+
+.ac_results ul, .results ul {
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results iframe {
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+	filter:mask();
+	width:3000px;
+	height:3000px;
+}
+
+.ac_results div ul li, .results li {
+	position:relative;
+  margin: 0px;
+	padding: 2px 5px;
+	cursor: pointer;
+	display: block;
+/*  width: 100%;*/
+	font: menu;
+	font-size: 1em;
+	overflow: hidden;
+}
+
+.ac_loading {
+	background: Window url('/images/autocomplete_indicator.gif') right center no-repeat;
+}
+
+.ac_over {
+	background-color: Highlight;
+	color: HighlightText;
+}
+.ac_liselected{
+  background-color: orange;
+  color: HighlightText;
+}
+
+.none{
+  color: #000;
+  text-decoration: none;
+}
