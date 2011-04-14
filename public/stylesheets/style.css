@@ -331,14 +331,27 @@ textarea {
 }
 #retailer_attributes {
 }
+
+.tag-box {
+}
+
+.tag-del {
+  background: #ccc;
+  margin-right: 2px;
+  padding: 0 2px;
+  font-size: 85%;
+  visibility: hidden;
+}
+
 .tag {
   padding: 0 2px;
   margin: 0 2px;
-  font-size: 80%;
-  background: #C6D9E9;
+  background: #ccc;
+  font-size: 85%;
 }
-.tag a {
+.tag-del a {
   text-decoration: none;
+  color: #000;
 }
 
 .tags {

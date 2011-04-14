@@ -1,3 +1,3 @@
 <% @clouds.each do |c| %>
-<div><span class="tag"><%= link_to_remote c.tag.name, :url => tag_url(:id => c), :method => :delete %></span></div>
+<div><span class="tag-box" onmouseover="$j(this).find('.tag-del').css('visibility','visible')" onmouseout="$j(this).find('.tag-del').css('visibility','hidden')"><span class="tag-del"><%= link_to_remote 'x', :url => tag_url(:id => c), :method => :delete %></span><span class="tag"><%= c.tag.name %></span></span></div>
 <% end %>
