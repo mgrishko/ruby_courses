@@ -62,41 +62,6 @@ Item Description
 </tr>
 <tr class="info">
 <td>
-Name
-</td>
-<td>
-item name long ru
-</td>
-<td>
-item name long en
-</td>
-</tr>
-<tr class="val">
-<td>
-  <%= f.text_field :name %>
-</td>
-<td>
-<%=f.text_field :item_name_long_ru%>
-</td>
-<td>
-<%=f.text_field :item_name_long_en%>
-</td>
-</tr>
-
-<tr class="info">
-<td colspan="3" align="left">
-<%= f.check_box :despatch_unit, :class => "checkbox" %>
-<%= f.label :despatch_unit, 'DU' %>
-<%= f.check_box :invoice_unit, :class => "checkbox" %>
-<%= f.label :invoice_unit, 'IU' %>
-<%= f.check_box :order_unit, :class => "checkbox" %>
-<%= f.label :order_unit, 'OU' %>
-<%= f.check_box :consumer_unit, :class => "checkbox" %>
-<%= f.label :consumer_unit, 'CU' %>
-</td>
-</tr>
-<tr class="info">
-<td>
 Manufacturer GLN
 </td>
 <td>
@@ -126,6 +91,22 @@ GPC Name
 <td colspan="3">
 <%= f.text_field :gpc_name, :class => "w100" %>
 </td>
+</tr>
+<input type="hidden" id="classifier_value">
+<div id="classifier" class="gpc_results classifier" style="display:none">
+  <div class='corner'></div>
+  <a href="#" id="classifier_close" class="close"></a>
+  <div id="groups" class="inline results_ul">
+  </div>
+  <div id="subgroups" class="inline results_ul">
+  </div>
+  <div id="categories" class="inline results_ul">
+  </div>
+  <div style="width:100%; position: relative; text-align: right;" class="inline">
+    <hr>
+    <a id="classifier_select" class="ok_button" href="#"></a>
+  </div>
+</div>
 <script type="text/javascript">
 	$j('#base_item_gpc_name').click(function(){
 		$j('#classifier').show();
@@ -140,24 +121,6 @@ GPC Name
 		$j('#base_item_gpc_name').val($j("#classifier_value").val());
   })
 </script>
-</tr>
-<input type="hidden" id="classifier_value">
-<div id="classifier" class="gpc_results classifier" style="display:none">
-  <div class='corner'></div>
-  <a href="#" id="classifier_close" class="close"></a>
- 
-  <div id="groups" class="inline results_ul">
-  </div>
-  <div id="subgroups" class="inline results_ul">
-  </div>
-  <div id="categories" class="inline results_ul">
-  </div>
-  <div style="width:100%; position: relative; text-align: right;" class="inline">
-    <hr>
-    <a id="classifier_select" class="ok_button" href="#"></a>
-  </div>
-</div>
-
 <tr class="info">
 <td>
 Vat
@@ -172,16 +135,6 @@ Shelf life period
 </td>
 <td>
 <%=f.text_field :minimum_durability_from_arrival%>
-</td>
-</tr>
-<tr class="info">
-<td>
-plu description
-</td>
-</tr>
-<tr class="val">
-<td>
-<%=f.text_field :plu_description%>
 </td>
 </tr>
 

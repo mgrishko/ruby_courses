@@ -47,9 +47,6 @@ class BaseItem < ActiveRecord::Base
   #validates_gtin :gtin, :if => :first_step?
   #validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
 
-  validates_length_of :name, :maximum => 105, :if => :first_step?
-  validates_length_of :item_name_long_en, :within => 1..35, :if => :first_step?
-  validates_length_of :item_name_long_ru, :within => 1..35, :if => :first_step?
   validates_length_of :brand, :within => 1..70, :if => :first_step?
   validates_length_of :functional, :within => 1..35, :if => :first_step?
   
@@ -61,8 +58,6 @@ class BaseItem < ActiveRecord::Base
 
   validates_number_length_of :gross_weight, 7, :last_step?
   validates_number_length_of :net_weight, 7, :last_step?
-
-  validates_length_of :plu_description, :maximum => 12, :if => :first_step?
 
   validates_number_length_of :height, 5, :last_step?
   validates_number_length_of :depth, 5, :last_step?

@@ -1,5 +1,7 @@
-<%= javascript_include_tag "jquery/jquery.selectchain.js" %>
-<%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls' %>
+<% content_for :head do %>
+  <%= javascript_include_tag 'classifier' %>
+<% end %>
+
 <%= link_to 'Back', base_items_path %>
 <div class="clear"></div>
 <h2>Основные данные</h2>
