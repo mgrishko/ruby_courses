@@ -2,6 +2,8 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
+    redirect_to :controller => "subscription_results" if current_user.retailer?
+
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
