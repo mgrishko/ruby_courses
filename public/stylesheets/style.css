@@ -454,7 +454,7 @@ tr.val td select {
   left: -11px;
   width: 11px;
   height: 27px;
-  background: url(corner.png) no-repeat;
+  background: url(/images/corner.png) no-repeat;
   z-index: 101;
 }
 
@@ -519,7 +519,7 @@ tr.val td select {
   height: 32px;
   float: right;
   margin: 5px;
-  background: url(ok_button.png) center no-repeat;
+  background: url(/images/ok_button.png) center no-repeat;
 }
 
 .close{  
@@ -529,7 +529,7 @@ tr.val td select {
   top: 5px;
   width: 16px;
   height: 16px;
-  background: url(close.jpeg) center no-repeat;
+  background: url(/images/close.jpeg) center no-repeat;
   z-index: 101;
 }
 
@@ -565,7 +565,7 @@ tr.val td select {
 }
 
 .ac_loading {
-	background: Window url('autocomplete_indicator.gif') right center no-repeat;
+	background: Window url('/images/autocomplete_indicator.gif') right center no-repeat;
 }
 
 .ac_over {

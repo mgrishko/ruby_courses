@@ -116,20 +116,6 @@ function moveTownsSelect(step) {
   }
 };
 
-function selectTownsCurrent() {
-  var li = $j("li.ac_over", "#cases_results")[0];
-  if (!li) {
-    // active = 0;
-    moveTownsSelect(1);
-  }
-  if (li) {
-    selectTownsItem(li);
-    return true;
-  } else {
-    return false;
-  }
-};
-
 function selectCasesItem(li){
   var li = $j("li.ac_liselected", "#cases_results")[0];
   if (li){
@@ -165,7 +151,7 @@ function selectClassifierItem(li){
   var li = $j("li.ac_liselected", "#categories")[0];
   if (li){
     $j("#classifier_link").html(li.innerHTML);
-    $j("#classifier_value").val($j(li).attr("id"));
+    $j("#classifier_value").val($j(li).html());
     hideClassifierNow();
   }
 }

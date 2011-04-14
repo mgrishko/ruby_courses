@@ -128,23 +128,24 @@ GPC Name
 </td>
 <script type="text/javascript">
 	$j('#base_item_gpc_name').click(function(){
-		$j.ajax({
-		    url: '/main/classifier', type: 'get', dataType: 'html'
-		});
+		$j('#classifier').show();
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); return false;
 		return false;
 	})
-</script>
-</tr>
-Classifier: <div id="classifier_input" class="input input_div"> <span class='dotted'><%= link_to_remote "Классификатор", :url => classifier_path, :class => 'none', :id => 'classifier_link', 'data-remote' => true %></span></div>
-<input type="hidden" id="classifier_value">
-<div id="classifier" class="results classifier" style="">
-  <div class='corner'></div>
-  <a href="#" id="classifier_close" class="close"></a>
-  <script type="text/javascript">
   $j("#classifier_close").click(function(){
     hideClassifierNow();
   })
-  </script>
+  $j("#classifier_select").click(function(){
+    selectClassifierItem();
+		$j('#base_item_gpc_name').val($j("#classifier_value").val());
+  })
+</script>
+</tr>
+<input type="hidden" id="classifier_value">
+<div id="classifier" class="results classifier" style="display:none">
+  <div class='corner'></div>
+  <a href="#" id="classifier_close" class="close"></a>
+ 
   <div id="groups" class="inline results_ul">
   </div>
   <div id="subgroups" class="inline results_ul">
@@ -154,11 +155,6 @@ Classifier: <div id="classifier_input" class="input input_div"> <span class='dot
   <div style="width:100%; position: relative; text-align: right;" class="inline">
     <hr>
     <a id="classifier_select" class="ok_button" href="#"></a>
-    <script type="text/javascript">
-    $j("#classifier_select").click(function(){
-      selectClassifierItem();
-    })
-    </script>
   </div>
 </div>
 
