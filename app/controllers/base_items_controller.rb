@@ -221,10 +221,10 @@ class BaseItemsController < ApplicationController
     end
   end
   
-  def auto_complete_for_base_item_gpc_name
-    @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
-    render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
-  end
+  #def auto_complete_for_base_item_gpc_name
+  #  @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
+  #  render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
+  #end
 
   private
 

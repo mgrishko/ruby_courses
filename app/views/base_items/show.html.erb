@@ -50,6 +50,6 @@
 	<% unless @view_only %>
 	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
 	<% end %>
-	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.name %></div>-->
+	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.item_description %></div>-->
 <% end %>
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>

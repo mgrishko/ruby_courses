@@ -48,7 +48,7 @@
 <th>name</th>
 <% end %>
 <th>gtin</th>
-<th>name</th>
+<th>description</th>
 <th>tags</th>
 <th>status</th>
 <th>date</th>
@@ -62,7 +62,7 @@
     <td><%= base_item.user.name %></td>
     <% end %>
     <td><%= link_to base_item.gtin, base_item_path(path_params) %></td>
-    <td><%= link_to base_item.name, base_item_path(path_params) %></td>
+    <td><%= link_to base_item.item_description, base_item_path(path_params) %></td>
     <td class="tags">
     <% base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).each do |c| %>
     <span class="tag"><%= c.tag.name %></span>
