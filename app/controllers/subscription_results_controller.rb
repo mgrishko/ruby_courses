@@ -6,7 +6,7 @@ class SubscriptionResultsController < ApplicationController
   end
     
   def show
-    @subscription_results = Subscription.first(:conditions => {:id => params[:id], :retailer_id => current_user.id}).subscription_results
+    @subscription = Subscription.first(:conditions => {:id => params[:id], :retailer_id => current_user.id})
   end
   
   def update
