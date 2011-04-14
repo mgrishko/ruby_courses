@@ -1,7 +1,5 @@
 class BaseItem < ActiveRecord::Base
   include AASM
-
-  versioned
   
   has_many :packaging_items, :dependent => :destroy
   has_many :comments
