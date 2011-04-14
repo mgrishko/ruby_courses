@@ -352,6 +352,9 @@ table.results tr {
 table.results td {
   padding: 0 5px;
 }
+table.results th {
+  background: #BBB;
+}
 .checkbox {
   width: auto;
 }

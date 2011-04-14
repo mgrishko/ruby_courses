@@ -34,16 +34,33 @@
 <!--data-->
 <div class="data">
 <table class="results">
+<%= defined?(retailer) ? '<col></col><col></col>' : '' -%>
 <col />
 <col width="100" />
 <col width="300" />
-<col width="300" align="center" />
+<col width="200" align="center" />
 <col width="50"  align="center" />
 <col />
+<tr>
+<th></th>
+<% if defined?(retailer) %>
+<th>gln</th>
+<th>name</th>
+<% end %>
+<th>gtin</th>
+<th>name</th>
+<th>tags</th>
+<th>status</th>
+<th>date</th>
+</tr>
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
   <tr>
     <td><input type="checkbox" class="checkbox" name="" id=""/></td>
+    <% if defined?(retailer) %>
+    <td><%= base_item.user.gln %></td>
+    <td><%= base_item.user.name %></td>
+    <% end %>
     <td><%= link_to base_item.gtin, base_item_path(path_params) %></td>
     <td><%= link_to base_item.name, base_item_path(path_params) %></td>
     <td class="tags">
