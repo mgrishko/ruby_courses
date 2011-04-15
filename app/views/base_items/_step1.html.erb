@@ -35,16 +35,16 @@ Content uom
 </tr>
 <tr class="val">
 <td>
-<%= f.text_field :brand %>
+<%= text_field_with_auto_complete :base_item, :brand %>
 </td>
 <td>
-<%= f.text_field :subbrand %>
+<%= text_field_with_auto_complete :base_item, :subbrand %>
 </td>
 <td>
-<%= f.text_field :functional %>
+<%= text_field_with_auto_complete :base_item, :functional %>
 </td>
 <td>
-<%=f.text_field :content%>
+<%=f.text_field :content %>
 </td>
 <td>
   <%= f.select :content_uom, @base_item.content_uoms %>
@@ -57,7 +57,7 @@ Item Description
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= f.text_field :item_description, :class => "w100" %>
+<%= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
 </td>
 </tr>
 <tr class="info">
@@ -73,10 +73,18 @@ Country of origin
 </tr>
 <tr class="val">
 <td>
-<%=f.text_field :manufacturer_gln%>
+<%= text_field_with_auto_complete :base_item, :manufacturer_gln, {}, :select => "value", :after_update_element => 
+"function (e,v) {
+	$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
+  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
+}", :skip_style => true %>
 </td>
 <td>
-<%=f.text_field :manufacturer_name%>
+	<%= text_field_with_auto_complete :base_item, :manufacturer_name, {}, :select => "value", :after_update_element => 
+	"function (e,v) {
+		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
+	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
+	}", :skip_style => true %>
 </td>
 <td>
 <%= f.select :country_of_origin_code, @base_item.countries %>
