@@ -154,7 +154,7 @@ class BaseItem < ActiveRecord::Base
   end
   
   def country= name
-    country_of_origin = Country.first(:conditions => ['LOWER(description) LIKE ?', '%#{name.downcase}%']).code
+    self.country_of_origin_code = Country.first(:conditions => ['description = ?', name]).code
   end
   
   def country
