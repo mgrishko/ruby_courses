@@ -18,7 +18,13 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.connect 'approve_emails', :controller => 'base_items', :action => 'approve_emails'
 
-  map.resources :base_items, :member => {:accept => :get, :reject => :get, :published => :put, :draft => :put } do |base_items|
+  map.resources :base_items, :member => {:accept => :get, :reject => :get, :published => :put, :draft => :put },
+    :collection => { :auto_complete_for_base_item_brand => :get,
+                     :auto_complete_for_base_item_subbrand => :get,
+                     :auto_complete_for_base_item_functional => :get,
+                     :auto_complete_for_base_item_description => :get,
+                     :auto_complete_for_base_item_manufacturer_gln => :get,
+                     :auto_complete_for_base_item_manufacturer_name => :get } do |base_items|
     base_items.resources :packaging_items, :member => { :new_sub => :get }
   end
   map.resources :retailer_attributes
