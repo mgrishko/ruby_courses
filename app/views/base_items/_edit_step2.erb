@@ -12,5 +12,5 @@
 <%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> г. брутто, <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> г. нетто
 </p>
 <div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
-    <div class="fright min"><%= button_to_remote 'Отмена', :url => base_item_path(@base_item)+"?step=2", :method => :get %></div>
+    <div class="fright min" style="margin-right: 25px;"><%= button_to_remote 'Отмена', :url => base_item_path(@base_item)+"?step=2", :method => :get %></div>
 <% end %>

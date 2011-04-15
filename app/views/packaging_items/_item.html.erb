@@ -14,7 +14,7 @@
 <% unless @view_only || @base_item.published? %>
 <p><small>
 <div class="fleft">
-<%= link_to_remote 'удалить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></div>
+<%= link_to_remote 'отменить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></div>
 <div class="fright"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/' + <%=item.id %> + '/new_sub/', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></small></div>
 </p>
 <div class="clear"></div>

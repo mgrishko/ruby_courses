@@ -20,5 +20,9 @@
       <!--<div class="arrow"></div>-->
     <% end %>
   <% end %>
+<% else %>
+  <% if item.last? %>
+    <div class="last-arrow"></div>
+  <% end %>
 <% end %>
 <!--/arrow logic-->

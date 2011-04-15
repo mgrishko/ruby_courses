@@ -172,7 +172,7 @@ ul.items ul>li, ul.items>li
   list-style: none;
   //padding-bottom: 20px;
   overflow: hidden;
-  padding-left: 60px;
+  padding-left: 30px;
 }
 
 ul.items li .item
@@ -183,6 +183,7 @@ ul.items li .item
   //border: 1px solid #666;
   position: relative;
   padding: 5px;
+  padding-top: 20px;
 padding-right:30px;
 }
 
@@ -207,11 +208,11 @@ ul.items li.new .item
 ul.items li .item .arrow
 {
   position: absolute;
-  left: -70px;
+  left: -45px;
   top: 20px;
   line-height: 20px;
   height: 144px;
-  width: 59px;
+  width: 40px;
   margin-top: -25px;
   font-size: 20pt;
   background: url(/images/arrow.png);
@@ -219,14 +220,26 @@ ul.items li .item .arrow
 
 ul.items li .item .single-arrow {
   position: absolute;
-  left: -70px;
+  left: -45px;
   top: 20px;
   line-height: 20px;
   height: 144px;
-  width: 59px;
+  width: 40px;
   margin-top: -25px;
   font-size: 20pt;
   background: url(/images/single-arrow.png);
+}
+
+ul.items li .item .last-arrow {
+  position: absolute;
+  left: -45px;
+  top: 180px;
+  line-height: 20px;
+  height: 144px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/last-arrow.png) ;
 }
 
 li.new {
@@ -239,20 +252,23 @@ ul.items li.new .item ul
 }
 .pi {
   background:url(/images/box.gif) no-repeat 0 bottom;
-	width:213px;
-	min-height:133px;
-	padding-top:18px;
-	padding-left:10px;
+  width:213px;
+  min-height:138px;
+  padding-top:18px;
+  padding-left:10px;
 }
 
 .pi p{
 	margin-bottom:3px;
 }
-
+#first_pi {
+  padding-top: 37px;
+}
 input
 {
   width: 150px;
   margin: 3px;
+  margin-top: 0px;
   background: #FFE9BE;
 }
 textarea {
