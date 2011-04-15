@@ -73,18 +73,45 @@ Country of origin
 </tr>
 <tr class="val">
 <td>
-<%= text_field_with_auto_complete :base_item, :manufacturer_gln, {}, :select => "value", :after_update_element => 
-"function (e,v) {
-	$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
-  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-}", :skip_style => true %>
-</td>
-<td>
-	<%= text_field_with_auto_complete :base_item, :manufacturer_name, {}, :select => "value", :after_update_element => 
-	"function (e,v) {
+	<style type="text/css">
+	  div.manufacturer_auto_complete {
+	    width: 500px !important;
+	    background: #fff;
+	  }
+	  div.manufacturer_auto_complete ul {
+	    border:1px solid #888;
+	    margin:0;
+	    padding:0;
+	    width:100%;
+	    list-style-type:none;
+	  }
+	  div.manufacturer_auto_complete ul li {
+	    margin:0;
+	    padding:3px;
+	  }
+	  div.manufacturer_auto_complete ul li.selected {
+	    background-color: #ffb;
+	  }
+	  div.manufacturer_auto_complete ul strong.highlight {
+	    color: #800; 
+	    margin:0;
+	    padding:0;
+	  }
+	</style>
+	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
+	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>
+	<%= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
 		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
 	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-	}", :skip_style => true %>
+	}"}) -%>
+</td>
+<td>
+	<%= f.text_field :manufacturer_name, :autocomplete => "off" %>
+	<div id = "base_item_manufacturer_name_auto_complete" class = "manufacturer_auto_complete"></div>
+	<%= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
+		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
+	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
+	}"}) -%>
 </td>
 <td>
 <%= f.select :country_of_origin_code, @base_item.countries %>
