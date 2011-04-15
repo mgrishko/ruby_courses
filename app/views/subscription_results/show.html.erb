@@ -1,7 +1,8 @@
-<h1>Inbox	</h1>
+<h1><%= @subscription.supplier.gln %> <%= @subscription.supplier.name %></h1>
+<br/>
 <table class="results">
 <tr>
 	<th>gtin</th><th>name</th><th>status</th><th>comment</th><th>tags</th><th>actions</th>
 </tr>
-<%= render :partial => 'result', :collection => @subscription_results %>
+<%= render :partial => 'result', :collection => @subscription.subscription_results %>
 </table>

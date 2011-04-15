@@ -35,16 +35,16 @@ Content uom
 </tr>
 <tr class="val">
 <td>
-<%= f.text_field :brand %>
+<%= text_field_with_auto_complete :base_item, :brand %>
 </td>
 <td>
-<%= f.text_field :subbrand %>
+<%= text_field_with_auto_complete :base_item, :subbrand %>
 </td>
 <td>
-<%= f.text_field :functional %>
+<%= text_field_with_auto_complete :base_item, :functional %>
 </td>
 <td>
-<%=f.text_field :content%>
+<%=f.text_field :content %>
 </td>
 <td>
   <%= f.select :content_uom, @base_item.content_uoms %>
@@ -57,42 +57,7 @@ Item Description
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= f.text_field :item_description, :class => "w100" %>
-</td>
-</tr>
-<tr class="info">
-<td>
-Name
-</td>
-<td>
-item name long ru
-</td>
-<td>
-item name long en
-</td>
-</tr>
-<tr class="val">
-<td>
-  <%= f.text_field :name %>
-</td>
-<td>
-<%=f.text_field :item_name_long_ru%>
-</td>
-<td>
-<%=f.text_field :item_name_long_en%>
-</td>
-</tr>
-
-<tr class="info">
-<td colspan="3" align="left">
-<%= f.check_box :despatch_unit, :class => "checkbox" %>
-<%= f.label :despatch_unit, 'DU' %>
-<%= f.check_box :invoice_unit, :class => "checkbox" %>
-<%= f.label :invoice_unit, 'IU' %>
-<%= f.check_box :order_unit, :class => "checkbox" %>
-<%= f.label :order_unit, 'OU' %>
-<%= f.check_box :consumer_unit, :class => "checkbox" %>
-<%= f.label :consumer_unit, 'CU' %>
+<%= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
 </td>
 </tr>
 <tr class="info">
@@ -108,10 +73,45 @@ Country of origin
 </tr>
 <tr class="val">
 <td>
-<%=f.text_field :manufacturer_gln%>
+	<style type="text/css">
+	  div.manufacturer_auto_complete {
+	    width: 500px !important;
+	    background: #fff;
+	  }
+	  div.manufacturer_auto_complete ul {
+	    border:1px solid #888;
+	    margin:0;
+	    padding:0;
+	    width:100%;
+	    list-style-type:none;
+	  }
+	  div.manufacturer_auto_complete ul li {
+	    margin:0;
+	    padding:3px;
+	  }
+	  div.manufacturer_auto_complete ul li.selected {
+	    background-color: #ffb;
+	  }
+	  div.manufacturer_auto_complete ul strong.highlight {
+	    color: #800; 
+	    margin:0;
+	    padding:0;
+	  }
+	</style>
+	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
+	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>
+	<%= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
+		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
+	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
+	}"}) -%>
 </td>
 <td>
-<%=f.text_field :manufacturer_name%>
+	<%= f.text_field :manufacturer_name, :autocomplete => "off" %>
+	<div id = "base_item_manufacturer_name_auto_complete" class = "manufacturer_auto_complete"></div>
+	<%= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
+		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
+	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
+	}"}) -%>
 </td>
 <td>
 	<div id="country_input">
@@ -130,20 +130,6 @@ GPC Name
 		<%= f.text_field :gpc_name, :class => "w100 classifier_input" %>
 	</div>
 </td>
-<script type="text/javascript">
-	$j('#base_item_gpc_name').click(function(){
-		$j('#classifier').show();
-		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); return false;
-		return false;
-	})
-  $j("#classifier_close").click(function(){
-    hideClassifierNow();
-  })
-  $j("#classifier_select").click(function(){
-    selectClassifierItem();
-		$j('#base_item_gpc_name').val($j("#classifier_value").val());
-  })
-</script>
 </tr>
 <tr class="info">
 <td>
@@ -180,10 +166,9 @@ Shelf life period
 </div>
 
 <input type="hidden" id="classifier_value">
-<div id="classifier" class="results classifier" style="display:none">
+<div id="classifier" class="gpc_results classifier" style="display:none">
   <div class='corner'></div>
   <a href="#" id="classifier_close" class="close"></a>
- 
   <div id="groups" class="inline results_ul">
   </div>
   <div id="subgroups" class="inline results_ul">
@@ -195,7 +180,20 @@ Shelf life period
     <a id="classifier_select" class="ok_button" href="#"></a>
   </div>
 </div>
-
+<script type="text/javascript">
+	$j('#base_item_gpc_name').click(function(){
+		$j('#classifier').show();
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); return false;
+		return false;
+	})
+  $j("#classifier_close").click(function(){
+    hideClassifierNow();
+  })
+  $j("#classifier_select").click(function(){
+    selectClassifierItem();
+		$j('#base_item_gpc_name').val($j("#classifier_value").val());
+  })
+</script>
 <tr class="info">
 <td>
 Vat
@@ -210,16 +208,6 @@ Shelf life period
 </td>
 <td>
 <%=f.text_field :minimum_durability_from_arrival%>
-</td>
-</tr>
-<tr class="info">
-<td>
-plu description
-</td>
-</tr>
-<tr class="val">
-<td>
-<%=f.text_field :plu_description%>
 </td>
 </tr>
 

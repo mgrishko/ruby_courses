@@ -83,6 +83,14 @@ class PackagingItem < ActiveRecord::Base
     "#{height} x #{width} x #{depth} (В x Д x Ш)"
   end
   
+  def first?
+    parent.nil? or parent.lft==self.lft-1
+  end
+
+  def last?
+    parent.nil? or parent.rgt==self.rgt+1
+  end
+
   #after_save :set_descendants_number_of_bi_items
   #def set_descendants_number_of_bi_items
     #descendants.each do |item|

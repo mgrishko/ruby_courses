@@ -3,7 +3,6 @@
   <div class="fleft">
     <% if current_user.supplier? %><%= link_to 'My Items', :controller => 'base_items' %> | <% end %>
     <% if current_user.retailer? %><%= link_to 'Suppliers', :controller => 'suppliers' %> | <% end %>
-    <% if current_user.retailer? %><%= link_to 'Subscription', :controller => 'subscription' %> | <% end %>
     <% if current_user.retailer? %><%= link_to 'Inbox', :controller => 'subscription_results' %> | <% end %>
     <% if current_user.retailer? %><%= link_to('Received Items', :controller => 'retailer_items') %> <% end %>
   </div>

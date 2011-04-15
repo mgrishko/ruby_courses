@@ -2,6 +2,8 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   def index
+    redirect_to :controller => "subscription_results" if current_user.retailer?
+
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
@@ -219,9 +221,39 @@ class BaseItemsController < ApplicationController
     end
   end
   
-  def auto_complete_for_base_item_gpc_name
-    @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
-    render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
+  #def auto_complete_for_base_item_gpc_name
+  #  @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
+  #  render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
+  #end
+  
+  def auto_complete_for_base_item_brand
+    @base_items = BaseItem.find(:all, :conditions => ["LOWER(brand) LIKE ?", "%#{params[:base_item][:brand].downcase}%"])
+    render :inline => "<%= auto_complete_result(@base_items, 'brand') %>"
+  end
+  
+  def auto_complete_for_base_item_subbrand
+    @base_items = BaseItem.find(:all, :conditions => ["LOWER(subbrand) LIKE ?", "%#{params[:base_item][:subbrand].downcase}%"])
+    render :inline => "<%= auto_complete_result(@base_items, 'subbrand') %>"
+  end
+  
+  def auto_complete_for_base_item_functional
+    @base_items = BaseItem.find(:all, :conditions => ["LOWER(functional) LIKE ?", "%#{params[:base_item][:functional].downcase}%"])
+    render :inline => "<%= auto_complete_result(@base_items, 'functional') %>"
+  end
+  
+  def auto_complete_for_base_item_item_description
+    @base_items = BaseItem.find(:all, :conditions => ["LOWER(item_description) LIKE ?", "%#{params[:base_item][:item_description].downcase}%"])
+    render :inline => "<%= auto_complete_result(@base_items, 'item_description') %>"
+  end
+  
+  def auto_complete_for_base_item_manufacturer_gln
+     @base_items = BaseItem.find(:all, :conditions => ["manufacturer_gln LIKE ?", "%#{params[:base_item][:manufacturer_gln]}%"])
+     render :partial => 'autocomplete_manufacturer'
+  end
+  
+  def auto_complete_for_base_item_manufacturer_name
+     @base_items = BaseItem.find(:all, :conditions => ["LOWER(manufacturer_name) LIKE ?", "%#{params[:base_item][:manufacturer_name].downcase}%"])
+     render :partial => 'autocomplete_manufacturer'
   end
 
   private

@@ -1,7 +1,5 @@
 class BaseItem < ActiveRecord::Base
   include AASM
-
-  versioned
   
   has_many :packaging_items, :dependent => :destroy
   has_many :comments
@@ -47,9 +45,6 @@ class BaseItem < ActiveRecord::Base
   #validates_gtin :gtin, :if => :first_step?
   #validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
 
-  validates_length_of :name, :maximum => 105, :if => :first_step?
-  validates_length_of :item_name_long_en, :within => 1..35, :if => :first_step?
-  validates_length_of :item_name_long_ru, :within => 1..35, :if => :first_step?
   validates_length_of :brand, :within => 1..70, :if => :first_step?
   validates_length_of :functional, :within => 1..35, :if => :first_step?
   
@@ -61,8 +56,6 @@ class BaseItem < ActiveRecord::Base
 
   validates_number_length_of :gross_weight, 7, :last_step?
   validates_number_length_of :net_weight, 7, :last_step?
-
-  validates_length_of :plu_description, :maximum => 12, :if => :first_step?
 
   validates_number_length_of :height, 5, :last_step?
   validates_number_length_of :depth, 5, :last_step?
@@ -244,6 +237,14 @@ class BaseItem < ActiveRecord::Base
   def calculate_weights
     "#{gross_weight} г. брутто, #{net_weight} г. нетто"
   end
+  
+  def has_forest?
+    if self.packaging_items.count(:conditions => {:parent_id => nil}) > 1
+      return true
+    else
+      return false
+    end
+  end
 
   def self.get_brands current_user
     if current_user.retailer?
@@ -255,7 +256,9 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status ='published' 
                       ORDER BY created_at DESC LIMIT 1) 
-          AND  s.retailer_id = #{current_user.id} GROUP by brand      
+          AND  s.retailer_id = #{current_user.id}
+	  AND  sr.status = 'accepted'
+	  GROUP by brand      
       SQL
     else
       find_by_sql <<-SQL
@@ -279,7 +282,9 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status ='published' 
                       ORDER BY created_at DESC LIMIT 1) 
-          AND  s.retailer_id = #{current_user.id} GROUP by manufacturer_name      
+          AND  s.retailer_id = #{current_user.id}
+	  AND  sr.status = 'accepted'
+	  GROUP by manufacturer_name      
       SQL
     else
       find_by_sql <<-SQL
@@ -303,7 +308,9 @@ class BaseItem < ActiveRecord::Base
                          WHERE a.item_id = b.item_id 
                            AND b.status ='published' 
                        ORDER BY created_at DESC LIMIT 1) 
-           AND  s.retailer_id = #{current_user.id} GROUP by functional      
+           AND  s.retailer_id = #{current_user.id}
+	   AND sr.status = 'accepted'
+	   GROUP by functional      
        SQL
      else
        find_by_sql <<-SQL
@@ -371,7 +378,7 @@ class BaseItem < ActiveRecord::Base
           find_by_sql([query, options[:user_id]])
         end
       end
-    else # for base_items
+    else # for base_items, common case: user is supplier
       options[:retailer_id] = options[:user_id] unless options[:retailer_id] #for controller => :suplier, action => :show
       if options[:tag]
         find_by_sql(["select a.* from base_items as a 

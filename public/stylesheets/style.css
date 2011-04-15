@@ -155,13 +155,10 @@ h3 {
 	border-top: 2px solid #676766;
 	width: 100%;
 }
-.items ul {
-  border-left: 1px solid #666;
-}
-.items {
-  border-left: 1px solid #666;
-}
 
+li.pack {
+  background: url(/images/lbg.png) left top repeat-y;
+}
 
 ul.items li>ul
 {
@@ -173,9 +170,9 @@ ul.items li>ul
 ul.items ul>li, ul.items>li
 {
   list-style: none;
-  margin-bottom: 20px;
+  //padding-bottom: 20px;
   overflow: hidden;
-  padding-left: 60px;
+  padding-left: 30px;
 }
 
 ul.items li .item
@@ -186,6 +183,7 @@ ul.items li .item
   //border: 1px solid #666;
   position: relative;
   padding: 5px;
+  padding-top: 20px;
 padding-right:30px;
 }
 
@@ -202,44 +200,75 @@ ul.items li:last-child
 ul.items li.new .item
 {
   border: none;
-  height: 30px;
-  width: 70px;
+  //height: 30px;
+  //width: 70px;
   background: transparent;
 }
 
 ul.items li .item .arrow
 {
   position: absolute;
-  left: -60px;
-  top: 50%;
+  left: -45px;
+  top: 20px;
   line-height: 20px;
-  height: 41px;
-  width: 50px;
+  height: 144px;
+  width: 40px;
   margin-top: -25px;
   font-size: 20pt;
-  background: url(/images/arrow.jpg)
+  background: url(/images/arrow.png);
 }
 
+ul.items li .item .single-arrow {
+  position: absolute;
+  left: -45px;
+  top: 20px;
+  line-height: 20px;
+  height: 144px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/single-arrow.png);
+}
+
+ul.items li .item .last-arrow {
+  position: absolute;
+  left: -45px;
+  top: 180px;
+  line-height: 20px;
+  height: 144px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/last-arrow.png) ;
+}
+
+li.new {
+  background: none;
+}
 ul.items li.new .item ul
 {
   margin: 0;
+
 }
 .pi {
-  background:url(/images/box.gif);
-	width:213px;
-	height:123px;
-	padding-top:18px;
-	padding-left:10px;
+  background:url(/images/box.gif) no-repeat 0 bottom;
+  width:213px;
+  min-height:138px;
+  padding-top:18px;
+  padding-left:10px;
 }
 
 .pi p{
 	margin-bottom:3px;
 }
-
+#first_pi {
+  padding-top: 37px;
+}
 input
 {
   width: 150px;
   margin: 3px;
+  margin-top: 0px;
   background: #FFE9BE;
 }
 textarea {
@@ -318,14 +347,27 @@ textarea {
 }
 #retailer_attributes {
 }
+
+.tag-box {
+}
+
+.tag-del {
+  background: #ccc;
+  margin-right: 2px;
+  padding: 0 2px;
+  font-size: 85%;
+  visibility: hidden;
+}
+
 .tag {
   padding: 0 2px;
   margin: 0 2px;
-  font-size: 80%;
-  background: #C6D9E9;
+  background: #ccc;
+  font-size: 85%;
 }
-.tag a {
+.tag-del a {
   text-decoration: none;
+  color: #000;
 }
 
 .tags {
@@ -338,6 +380,9 @@ table.results tr {
 }
 table.results td {
   padding: 0 5px;
+}
+table.results th {
+  background: #BBB;
 }
 .checkbox {
   width: auto;
@@ -397,7 +442,7 @@ tr.val td select {
   margin-top: 1em;
 }
 .selected {
-  background: #6cbf18;
+  background: #ccc;
 }
 .logistic {
   border: 1px solid #666;
@@ -412,9 +457,8 @@ tr.val td select {
 .subscribed {
   background: #daffb5;
 }
-
-
-
+.edit_packaging_item {
+}
 
 .inline{
   display: inline-block;
@@ -437,17 +481,6 @@ tr.val td select {
   border-bottom: 2px dotted green;
 }
 
-.man{
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #aaa;
-  box-shadow: 0 0 5px black; /* Параметры тени */
-  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
-  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
-  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
-}
-
 .corner{
   position:absolute;
   top: 10px;
@@ -461,7 +494,7 @@ tr.val td select {
 .cases{
 }
 
-.results {
+.gpc_results {
   position: absolute;
   border: 1px solid #aaa;
   box-shadow: 0 0 5px black; /* Параметры тени */

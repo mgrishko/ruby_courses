@@ -10,7 +10,15 @@ module PackagingItemsHelper
       concat("</li>\n") if level == prev_level
       (prev_level-level).times { |i| concat("</li>\n</ul>\n") } if level < prev_level
       concat("</li>\n") if level < prev_level
-      concat("<li id=\"#{dom_id node}\">\n")
+      if node.first? and node.last?
+	if node.root? and @base_item.has_forest?
+	  concat("<li id=\"#{dom_id node}\" class='pack'>\n")
+	else
+	  concat("<li id=\"#{dom_id node}\" style='background: none;'>\n")
+	end
+      else
+	concat("<li id=\"#{dom_id node}\" class='pack'>\n")
+      end
 
       concat capture(node, &block)
 

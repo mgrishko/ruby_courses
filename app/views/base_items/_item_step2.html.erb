@@ -5,4 +5,9 @@
 <p><%= @base_item.gross_weight %> г. брутто, <%= @base_item.net_weight %> г. нетто</p>
 <% unless @view_only || @base_item.published? %>
 <%= link_to_remote 'править', :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
+<p>
+&nbsp;
+</p>
+<div class="fleft"></div>
+<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
 <% end %>

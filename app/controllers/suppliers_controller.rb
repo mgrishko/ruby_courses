@@ -13,6 +13,7 @@ class SuppliersController < ApplicationController
 					  :functional => params[:functional],
 					  :tag => params[:tag],
 					  :retailer_id => current_user.id
-    get_filters_data_for_base_items
+    
+    get_filters_data_for_base_items_conditions current_user, @supplier
   end
 end

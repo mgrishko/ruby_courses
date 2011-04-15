@@ -1,6 +1,13 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'classifier' %>
 <% end %>
+<% if @subscription_result && @subscription_result.new? %>
+<%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } %>
+<% else %>
+  <% if params[:view] %>
+    <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
+  <% end %>
+<% end %>
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
 <div id="base_item">
   <div style="width: 1200px;"/>
@@ -43,6 +50,6 @@
 	<% unless @view_only %>
 	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
 	<% end %>
-	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.name %></div>-->
+	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.item_description %></div>-->
 <% end %>
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>

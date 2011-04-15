@@ -27,11 +27,7 @@
 <!--/base-->
 <% if @base_item.published? && current_user.retailer? %>
   <div id="retailer_attributes">
-  <% if @retailer_attribute.id %>
-  <%= render :partial => "/retailer_attributes/retailer_attribute" %>
-  <% else %>
-  <%= link_to_remote 'Добавить данные', :url => url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => @base_item.item.id), :method => :get %>
-  <% end %>
+  <%= render :partial => "/retailer_attributes/retailer_attribute", :locals => {:item => @base_item.item} %>
   </div>
 <% end %>
 </div>
