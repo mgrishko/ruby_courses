@@ -1,7 +1,11 @@
 class RetailerAttributesController < ApplicationController
   before_filter :require_user
   before_filter :find_item
-
+  
+  def show
+    @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @item.id})
+  end
+  
   def new
     @retailer_attribute = @item.retailer_attributes.new()
   end
