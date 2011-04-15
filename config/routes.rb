@@ -62,10 +62,10 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => 'base_items'
   
-  map.classifier "main/classifier", :controller => "main", :action => 'classifier'
-  map.subgroups "main/subgroups/:id", :controller => "main", :action => 'subgroups'
-  map.categories "main/categories/:id", :controller => "main", :action => 'categories'
-
+  map.classifier  "main/classifier",     :controller => "main", :action => 'classifier'
+  map.subgroups   "main/subgroups/:id",  :controller => "main", :action => 'subgroups'
+  map.categories  "main/categories/:id", :controller => "main", :action => 'categories'
+  map.countries   "main/countries",      :controller => "main", :action => 'countries'
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.

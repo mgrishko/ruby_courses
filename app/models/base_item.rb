@@ -159,6 +159,14 @@ class BaseItem < ActiveRecord::Base
   def gpc_name
     swallow_nil{gpc.name}
   end
+  
+  def country= name
+    country_of_origin = Country.first(:conditions => ['LOWER(description) LIKE ?', '%#{name.downcase}%']).code
+  end
+  
+  def country
+    country_of_origin.description
+  end
 
   def vats
     [['0 %', 57], ['10 %', 59], ['18 %', 60]]

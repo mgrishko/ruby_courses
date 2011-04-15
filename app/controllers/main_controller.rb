@@ -15,4 +15,11 @@ class MainController < ApplicationController
     @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ?', CGI::unescape(params[:id])]
   end
   
+  def countries
+    @countries = Country.all :order => 'description'
+    respond_to do |format| 
+      format.js
+    end
+  end
+  
 end

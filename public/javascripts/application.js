@@ -72,6 +72,15 @@ var active = -1;
 var selected_li = null;
 var timeout = null;
 
+function findCountryPos(obj) {
+  var curleft = obj.offsetLeft || 0;
+  var curtop = obj.offsetTop || 0;
+  while (obj = obj.offsetParent) {
+    curleft += obj.offsetLeft;
+    curtop += obj.offsetTop;
+  }
+  return {x:curleft, y:curtop};
+}
 
 function classifierSelect(li){
   var lis = $j("li", "#groups");
@@ -80,48 +89,20 @@ function classifierSelect(li){
   $j(li).addClass("ac_over");
 }
 
-function casesSelect(li){
-  var lis = $j("li", "#cases_results");
+function selectCountry(li){
+  var lis = $j("li", "#countries_results");
   if (!lis[0]) return;
   lis.removeClass("ac_liselected");
-  lis.removeClass("ac_over");
-  lis.removeClass("ac_loading");
   $j(li).addClass("ac_liselected");
   selected_li = lis[active];
-  $j(li).addClass("ac_loading");
-  requestManData($j(li).attr("id"));
 }
 
-function moveTownsSelect(step) {
-
-  var lis = $j("li", "#cases_results");
-  if (!lis[0]) return;
-
-  active += step;
-
-  if (active < 0) {
-    active = 0;
-  } else if (active >= lis.size()) {
-    active = lis.size() - 1;
-  }
-  lis.removeClass("ac_over");
-  lis.removeClass("ac_loading");
-  $j(lis[active]).addClass("ac_over");
-  selected_li = lis[active];
-  $j(lis[active]).addClass("ac_loading");
-  requestManData($j(lis[active]).attr("id"));
-
-  if (lis[active]){
-    lis[active].scrollIntoViewIfNeeded();
-  }
-};
-
-function selectCasesItem(li){
-  var li = $j("li.ac_liselected", "#cases_results")[0];
+function selectCountryItem(li){
+  var li = $j("li.ac_liselected", "#countries_results")[0];
   if (li){
-    $j("#cases_link").html(li.innerHTML);
-    $j("#cases_value").val($j(li).attr("id"));
-    hideResultsNow();
+    $j("#country_link").html(li.innerHTML);
+    $j("#country_value").val(li.innerHTML);
+    hideCountriesNow();
   }
 }
 
@@ -156,7 +137,6 @@ function selectClassifierItem(li){
   }
 }
 
-
 function requestCategoriesData(q){
   var data = null;
   $j.get("/main/categories/" + q, function(data) {
@@ -187,28 +167,15 @@ function receiveSubgroupsData(data) {
 };
 
 
-
-function requestManData(q){
-  var data = null;
-  $j.get("/main/show_man/" + q, function(data) {
-    receiveManData(data);
-  });
-}
-
-function receiveManData(data) {
-  if (data) {
-    $j("li", "#cases_results").removeClass("ac_loading");
-    $j("#cases_man").html(data);
-  }
-};
-
 function hideResults() {
   if (timeout) clearTimeout(timeout);
   timeout = setTimeout(hideResultsNow, 500);
 };
 
-function hideResultsNow() {
-  $j("#cases").hide();
+function hideCountriesNow() {
+	var lis = $j("li", "#countries");
+  lis.removeClass("ac_liselected")
+	$j("#countries").hide();
   $j('#hidden_div').hide();
 };
 

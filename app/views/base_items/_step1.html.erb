@@ -114,7 +114,9 @@ Country of origin
 <%=f.text_field :manufacturer_name%>
 </td>
 <td>
-<%= f.select :country_of_origin_code, @base_item.countries %>
+	<div id="country_input">
+		<%= f.text_field :country %>
+	</div>
 </td>
 </tr>
 <tr class="info">
@@ -124,7 +126,9 @@ GPC Name
 </tr>
 <tr class="val">
 <td colspan="3">
-<%= f.text_field :gpc_name, :class => "w100" %>
+	<div id="classifier_input">
+		<%= f.text_field :gpc_name, :class => "w100 classifier_input" %>
+	</div>
 </td>
 <script type="text/javascript">
 	$j('#base_item_gpc_name').click(function(){
@@ -141,6 +145,40 @@ GPC Name
   })
 </script>
 </tr>
+<tr class="info">
+<td>
+Vat
+</td>
+<td>
+Shelf life period
+</td>
+</tr>
+<tr class="val">
+<td>
+  <%= f.select :vat, @base_item.vats %>
+</td>
+<td>
+<%=f.text_field :minimum_durability_from_arrival%>
+</td>
+</tr>
+</table>
+
+<input type="hidden" id="country_value">
+<br>
+<div id="countries" class="country_results countries" style="display:none;">
+  <div class='corner'></div>
+  <a href="#" id="countries_close" class="close"></a>
+  <div id="countries_results" class="inline results_ul">
+		<ul>
+		  <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
+		</ul>
+  </div>
+  <div style="width:100%; position: relative; float: right;" class="inline">
+    <hr>
+    <a id="country_select" class="ok_button" href="#"></a>
+  </div>
+</div>
+
 <input type="hidden" id="classifier_value">
 <div id="classifier" class="results classifier" style="display:none">
   <div class='corner'></div>
@@ -186,5 +224,39 @@ plu description
 </tr>
 
 </table>
+<script type="text/javascript">
+	$j('#base_item_country').click(function(){
+		var pos = $j("#country_input").offset();
+		$j("#countries").css({
+			top: (pos.top - 15) + "px",
+			left: (pos.left + $j("#country_input").width() * 0.7) + "px"
+		}).show();
+		return false;
+	});
+	$j("#countries_close").click(function(){
+	  hideCountriesNow();
+	});
+	$j("#country_select").click(function(){
+	  selectCountryItem();
+		$j('#base_item_country').val($j("#country_value").val());
+	});
+
+	$j("li", "#countries").click(function(){
+	  selectCountry(this);
+	});
+
+	$j('#base_item_gpc_name').click(function(){
+		$j('#classifier').show();
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); 
+		return false;
+	});
+  $j("#classifier_close").click(function(){
+    hideClassifierNow();
+  });
+  $j("#classifier_select").click(function(){
+    selectClassifierItem();
+		$j('#base_item_gpc_name').val($j("#classifier_value").val());
+  });
+</script>
 </div>
 <div id='hidden_div' style="display: none"></div>
