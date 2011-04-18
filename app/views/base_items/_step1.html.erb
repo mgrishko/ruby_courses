@@ -193,26 +193,6 @@ Shelf life period
     selectClassifierItem();
 		$j('#base_item_gpc_name').val($j("#classifier_value").val());
   })
-</script>
-<tr class="info">
-<td>
-Vat
-</td>
-<td>
-Shelf life period
-</td>
-</tr>
-<tr class="val">
-<td>
-  <%= f.select :vat, @base_item.vats %>
-</td>
-<td>
-<%=f.text_field :minimum_durability_from_arrival%>
-</td>
-</tr>
-
-</table>
-<script type="text/javascript">
 	$j('#base_item_country').click(function(){
 		var pos = $j("#country_input").offset();
 		$j("#countries").css({
