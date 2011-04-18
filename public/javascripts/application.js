@@ -50,7 +50,7 @@ function subscription(that, supplier_id) {
 	$j('#tr-'+supplier_id).removeClass('subscribed');
       }
     }
-  });
+  }, "json");
 }
 function instantSubscription(that, supplier_id) {
   $j.post('/subscriptions/instantstatus', {id: supplier_id}, function(data) {
