@@ -50,7 +50,7 @@ class BaseItem < ActiveRecord::Base
   
   #validates_gln :manufacturer_gln, :first_step?
 
-  validates_length_of :manufacturer_name, :maximum => 35, :allow_nil => true, :if => :first_step?
+  validates_length_of :manufacturer_name, :within => 1..35, :if => :first_step?
 
   validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999, :if => :first_step?
 
