@@ -1,22 +1,31 @@
-<% if @retailer_attribute && @retailer_attribute.id %>
+<% if @retailer_attribute && @retailer_attribute.id && !@retailer_attribute.destroyed?%>
 <hr/>
 <table>
 <tr class="info">
+<% if @retailer_attribute.retailer_article_id.to_s.length > 0 %>
 <td>
 Retailer article id
 </td>
+<% end %>
+<% if @retailer_attribute.retailer_classification.to_s.length > 0 %>
 <td>
 Retailer Classification
 </td>
+<% end %>
 </tr>
 <tr class="val">
+<% if @retailer_attribute.retailer_article_id.to_s.length > 0 %>
 <td>
 <%= @retailer_attribute.retailer_article_id %>
 </td>
+<% end %>
+<% if @retailer_attribute.retailer_classification.to_s.length > 0 %>
 <td>
 <%= @retailer_attribute.retailer_classification %>
 </td>
+<% end %>
 </tr>
+<% if @retailer_attribute.retailer_item_description.to_s.length > 0 %>
 <tr class="info">
 <td colspan="3">
 Retailer Item Description
@@ -27,6 +36,8 @@ Retailer Item Description
 <%= @retailer_attribute.retailer_item_description %>
 </td>
 </tr>
+<% end %>
+<% if @retailer_attribute.retailer_comment.to_s.length > 0 %>
 <tr class="info">
 <td colspan="3">
 Retailer comment
@@ -37,6 +48,7 @@ Retailer comment
 <%= @retailer_attribute.retailer_comment%>
 </td>
 </tr>
+<% end %>
 </table>
 <%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id), :method => :get %>
 <% else %>

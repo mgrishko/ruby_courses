@@ -16,13 +16,15 @@ class RetailerAttributesController < ApplicationController
   end
 
   def create
-    @retailer_attribute = @item.retailer_attributes.new(params[:retailer_attribute])
-    @r = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => params[:retailer_attribute][:item_id]})
-    if @r
-      @r.update_attributes(params[:retailer_attribute])
-    else
-      @retailer_attribute.user_id = current_user.id
-      @retailer_attribute.save
+    if retailer_attribute_data_exists?
+      @retailer_attribute = @item.retailer_attributes.new(params[:retailer_attribute])
+      @r = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => params[:retailer_attribute][:item_id]})
+      if @r
+	@r.update_attributes(params[:retailer_attribute])
+      else
+	@retailer_attribute.user_id = current_user.id
+	@retailer_attribute.save
+      end
     end
     respond_to do |format|
       format.js
@@ -31,8 +33,12 @@ class RetailerAttributesController < ApplicationController
 
   def update
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :id => params[:id]})
-    @retailer_attribute.update_attributes(params[:retailer_attribute])
-    @retailer_attribute.save
+    if retailer_attribute_data_exists?
+      @retailer_attribute.update_attributes(params[:retailer_attribute])
+      @retailer_attribute.save
+    else
+      @retailer_attribute.destroy
+    end
     respond_to do |format|
       format.js
     end
@@ -41,5 +47,10 @@ class RetailerAttributesController < ApplicationController
   private
   def find_item
     @item = Item.find(params[:retailer_attribute][:item_id])
+  end
+  
+  def retailer_attribute_data_exists?
+    p = params[:retailer_attribute]
+    [p[:retailer_article_id],p[:retailer_classification],p[:retailer_item_description],p[:retailer_comment]].join.length > 0
   end
 end
