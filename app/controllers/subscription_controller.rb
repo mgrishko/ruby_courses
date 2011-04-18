@@ -8,7 +8,7 @@ class SubscriptionController < ApplicationController
 
   def status
     if request.post? and params[:id]
-      @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
+      @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id})
       json = {'error' => 'Ошибка'}
       if @subscription
 	      if @subscription.active?
@@ -19,7 +19,7 @@ class SubscriptionController < ApplicationController
 	        json = {'text' => 'Отписаться', 'flag' => true}
 	      end
       else
-	      @subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id);
+	      @subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id)
 	      if @subscription.save
 	        json = {'text' => 'Отписаться', 'flag' => true}
 	      end
@@ -27,12 +27,15 @@ class SubscriptionController < ApplicationController
       
       # instant subscription
       if json['flag']
-	@supplier = User.find(params[:id])
+        @supplier = User.find(params[:id])
         @supplier.all_fresh_base_items.each do |bi|
-	  @subscription.subscription_results << SubscriptionResult.new(
-	    :base_item_id => bi.id, :subscription_id => @subscription_id
-	  )
-	end
+          @subscription.subscription_results.each do |sr|
+            sr.delete if sr.base_item.gtin == bi.gtin && sr.status == 'new'
+          end
+          @subscription.subscription_results << SubscriptionResult.new(
+              :base_item_id => bi.id, :subscription_id => @subscription_id
+          )
+	      end
       end
 
       render :json => json
