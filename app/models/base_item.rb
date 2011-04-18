@@ -158,7 +158,7 @@ class BaseItem < ActiveRecord::Base
   end
   
   def country
-    try(:country_of_origin).description 
+    country_of_origin.try(:description)
   end
 
   def vats
