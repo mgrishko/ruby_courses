@@ -18,13 +18,12 @@
     <%#=check_box_tag :publish%>
     <%#=label_tag :publish, "Publish record ?"%>
   </p>
-
-  <p><%#= f.submit "Back", :name => "back_button", :class => "button" unless @base_item.first_step? %></p>
   </div>
 </div>
 <div class="clear"></div>
 <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step2' %>
 <p>
+<%= f.submit "Назад", :name => "back_button", :class => "button" unless @base_item.first_step? %></p>
 <%= f.submit "Дальше", :class => "button" %>
 </p>
 <% end %>
