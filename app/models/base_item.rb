@@ -154,7 +154,9 @@ class BaseItem < ActiveRecord::Base
   end
   
   def country= name
-    self.country_of_origin_code = Country.first(:conditions => ['description = ?', name]).code
+    self.country_of_origin_code = 
+    c = Country.first(:conditions => ['description = ?', name])
+    self.country_of_origin_code = c.code if c
   end
   
   def country
