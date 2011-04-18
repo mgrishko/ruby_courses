@@ -8,7 +8,6 @@
     <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
   <% end %>
 <% end %>
-<%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
 <div id="base_item">
   <div style="width: 1200px;"/>
   <%= render :partial => 'item' %>
