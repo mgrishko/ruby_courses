@@ -6,7 +6,7 @@ class Cloud < ActiveRecord::Base
 
   def self.get_clouds retailer, supplier=nil
     if supplier
-      #/suppliers/1
+      #/suppliers/1 = ok
       find_by_sql <<-SQL
 	SELECT c.tag_id, t.name, count(*) as q FROM base_items as bi
 	LEFT JOIN items i ON bi.item_id = i.id
@@ -23,7 +23,7 @@ class Cloud < ActiveRecord::Base
 	GROUP BY name
       SQL
     else
-      #retailer_items
+      #retailer_items = ok
       find_by_sql <<-SQL
 	SELECT c.tag_id, t.name, count(*) as q FROM base_items as bi
 	LEFT JOIN items i ON bi.item_id = i.id
@@ -33,13 +33,17 @@ class Cloud < ActiveRecord::Base
 	JOIN subscriptions s ON sr.subscription_id = s.id
       
 	WHERE bi.id = (
-	  SELECT b.id FROM base_items b 
-	  WHERE bi.item_id = b.item_id 
-	  AND b.status ='published'
-	  ORDER BY created_at DESC LIMIT 1
+	  SELECT b.base_item_id FROM subscription_results b
+	  LEFT JOIN base_items c on c.id = b.base_item_id
+	  LEFT JOIN items d on d.id = c.item_id    
+	  where
+	  b.status='accepted'
+	  AND d.id = i.id
+	  ORDER BY b.created_at DESC LIMIT 1
 	)
 	AND c.user_id = #{retailer.id}
-	AND  sr.status = 'accepted'
+	AND sr.status = 'accepted'
+	AND s.retailer_id = #{retailer.id}
 	GROUP BY name
       SQL
     end

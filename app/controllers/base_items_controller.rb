@@ -9,7 +9,7 @@ class BaseItemsController < ApplicationController
                                           :functional => params[:functional],
                                           :brand => params[:brand], 
                                           :tag => params[:tag]
-    get_filters_data_for_base_items
+    get_bi_filters current_user
   end
 
   def show

@@ -256,46 +256,84 @@ class BaseItem < ActiveRecord::Base
     end
   end
 
-  def self.get_brands current_user
-    if current_user.retailer?
-      find_by_sql <<-SQL
-        SELECT a.brand, count(*) AS q FROM base_items a
-        JOIN subscription_results sr ON a.id = sr.base_item_id
-        JOIN subscriptions s ON sr.subscription_id = s.id
-        WHERE a.id = (SELECT b.id FROM base_items b 
-                        WHERE a.item_id = b.item_id 
-                          AND b.status ='published' 
-                      ORDER BY created_at DESC LIMIT 1) 
-          AND  s.retailer_id = #{current_user.id}
-	  AND  sr.status = 'accepted'
-	  GROUP by brand      
-      SQL
-    else
+  def self.get_brands current_user, supplier=nil
+    if current_user.retailer? # case when /suppliers/ and /retailer_items/ controllers works
+      if supplier # /suppliers/:id
+	find_by_sql <<-SQL
+	  SELECT a.brand, count(*) AS q FROM base_items a 
+	  WHERE a.id = (
+	    SELECT b.id FROM base_items b 
+            WHERE a.item_id = b.item_id 
+            AND b.status = 'published' 
+            AND b.user_id = #{supplier.id} 
+            ORDER BY created_at DESC LIMIT 1
+	  ) GROUP by brand
+	SQL
+      else # /retaler_items/
+	find_by_sql <<-SQL
+	  SELECT a.brand, count(*) AS q FROM base_items a
+	  LEFT JOIN items i on i.id = a.item_id
+	  LEFT JOIN subscription_results sr ON a.id = sr.base_item_id
+	  LEFT JOIN subscriptions s ON sr.subscription_id = s.id
+	  WHERE a.id = (
+	    SELECT b.base_item_id FROM subscription_results b
+	    LEFT JOIN base_items c on c.id = b.base_item_id
+	    LEFT JOIN items d on d.id = c.item_id    
+	    where
+	    b.status='accepted'
+	    AND d.id = i.id
+	    ORDER BY b.created_at DESC LIMIT 1
+	  ) 
+	    AND  s.retailer_id = #{current_user.id}
+	    AND  sr.status = 'accepted'
+	  GROUP by brand
+	SQL
+      end
+    else #/base_items/
       find_by_sql <<-SQL
         SELECT a.brand, count(*) AS q FROM base_items a 
-        WHERE a.id = (SELECT b.id FROM base_items b 
-                        WHERE a.item_id = b.item_id 
-                          AND b.status = 'published' 
-                          AND b.user_id = #{current_user.id} 
-                      ORDER BY created_at DESC LIMIT 1) GROUP by brand      
+        WHERE a.id = (
+	  SELECT b.id FROM base_items b 
+          WHERE a.item_id = b.item_id 
+          AND b.status = 'published' 
+          AND b.user_id = #{current_user.id} 
+	  ORDER BY created_at DESC LIMIT 1
+	) GROUP by brand
       SQL
     end
   end
   
-  def self.get_manufacturers current_user
+  def self.get_manufacturers current_user, supplier=nil
     if current_user.retailer?
-      find_by_sql <<-SQL
-        SELECT a.manufacturer_name, count(*) AS q FROM base_items a
-        JOIN subscription_results sr ON a.id = sr.base_item_id
-        JOIN subscriptions s ON sr.subscription_id = s.id
-        WHERE a.id = (SELECT b.id FROM base_items b 
+      if supplier # /suppliers/:id
+	find_by_sql <<-SQL
+	  SELECT a.manufacturer_name, count(*) AS q FROM base_items a 
+	  WHERE a.id = (SELECT b.id FROM base_items b 
                         WHERE a.item_id = b.item_id 
-                          AND b.status ='published' 
-                      ORDER BY created_at DESC LIMIT 1) 
+                          AND b.status = 'published' 
+                          AND b.user_id = #{supplier.id} 
+                      ORDER BY created_at DESC LIMIT 1) GROUP by manufacturer_name      
+	SQL
+      else # /retailer_items/
+	find_by_sql <<-SQL
+	  SELECT a.manufacturer_name, count(*) AS q FROM base_items a
+	  LEFT JOIN items i on i.id = a.item_id
+	  LEFT JOIN subscription_results sr ON a.id = sr.base_item_id
+	  LEFT JOIN subscriptions s ON sr.subscription_id = s.id
+	  WHERE a.id = (
+	    SELECT b.base_item_id FROM subscription_results b
+	    LEFT JOIN base_items c on c.id = b.base_item_id
+	    LEFT JOIN items d on d.id = c.item_id    
+	    where
+	    b.status='accepted'
+	    AND d.id = i.id
+	    ORDER BY b.created_at DESC LIMIT 1
+	  ) 
           AND  s.retailer_id = #{current_user.id}
 	  AND  sr.status = 'accepted'
 	  GROUP by manufacturer_name      
-      SQL
+	SQL
+      end
     else
       find_by_sql <<-SQL
         SELECT a.manufacturer_name, count(*) AS q FROM base_items a 
@@ -308,28 +346,49 @@ class BaseItem < ActiveRecord::Base
     end
   end
   
-  def self.get_functionals current_user
-     if current_user.retailer?
-       find_by_sql <<-SQL
-         SELECT a.functional, count(*) AS q FROM base_items a
-         JOIN subscription_results sr ON a.id = sr.base_item_id
-         JOIN subscriptions s ON sr.subscription_id = s.id
-         WHERE a.id = (SELECT b.id FROM base_items b 
-                         WHERE a.item_id = b.item_id 
-                           AND b.status ='published' 
-                       ORDER BY created_at DESC LIMIT 1) 
-           AND  s.retailer_id = #{current_user.id}
-	   AND sr.status = 'accepted'
-	   GROUP by functional      
-       SQL
-     else
-       find_by_sql <<-SQL
-         SELECT a.functional, count(*) AS q FROM base_items a 
-         WHERE a.id = (SELECT b.id FROM base_items b 
-                         WHERE a.item_id = b.item_id 
-                           AND b.status = 'published' 
-                           AND b.user_id = #{current_user.id} 
-                       ORDER BY created_at DESC LIMIT 1) GROUP by functional      
+  def self.get_functionals current_user, supplier = nil
+    if current_user.retailer?
+      if supplier #/suppliers/:id
+	find_by_sql <<-SQL
+	    SELECT a.functional, count(*) AS q FROM base_items a 
+	    WHERE a.id = (
+	      SELECT b.id FROM base_items b 
+	      WHERE a.item_id = b.item_id 
+	      AND b.status = 'published' 
+	      AND b.user_id = #{supplier.id} 
+	      ORDER BY created_at DESC LIMIT 1
+	    ) GROUP by functional      
+	SQL
+      else # /retailer_items/
+	find_by_sql <<-SQL
+	    SELECT a.functional, count(*) AS q FROM base_items a
+	    LEFT JOIN items i on i.id = a.item_id
+	    LEFT JOIN subscription_results sr ON a.id = sr.base_item_id
+	    LEFT JOIN subscriptions s ON sr.subscription_id = s.id
+	    WHERE a.id = (
+	      SELECT b.base_item_id FROM subscription_results b
+	      LEFT JOIN base_items c on c.id = b.base_item_id
+	      LEFT JOIN items d on d.id = c.item_id    
+	      where
+	      b.status='accepted'
+	      AND d.id = i.id
+	      ORDER BY b.created_at DESC LIMIT 1
+	    ) 
+	    AND  s.retailer_id = #{current_user.id}
+	    AND  sr.status = 'accepted'
+	    GROUP by functional      
+	SQL
+      end
+    else # /base_items/
+      find_by_sql <<-SQL
+        SELECT a.functional, count(*) AS q FROM base_items a 
+        WHERE a.id = (
+	  SELECT b.id FROM base_items b 
+          WHERE a.item_id = b.item_id 
+          AND b.status = 'published' 
+	  AND b.user_id = #{current_user.id} 
+          ORDER BY created_at DESC LIMIT 1
+	) GROUP by functional      
        SQL
      end
    end
@@ -339,7 +398,17 @@ class BaseItem < ActiveRecord::Base
     conditions = ["brand = ?", options[:brand]] if options[:brand]
     conditions = ["manufacturer_name = ?", options[:manufacturer_name]] if options[:manufacturer_name]
     conditions = ["functional = ?", options[:functional]] if options[:functional]
-    if options[:retailer] # for retailer items
+    if options[:retailer] # for retailer items only
+      subquery = <<-SQL
+	(SELECT b.base_item_id FROM subscription_results b
+	LEFT JOIN base_items c on c.id = b.base_item_id
+	LEFT JOIN items d on d.id = c.item_id    
+	where
+	b.status='accepted'
+	AND d.id = i.id
+	ORDER BY b.created_at DESC LIMIT 1)
+      SQL
+=begin
       subquery = <<-SQL
       (SELECT b.id FROM base_items b 
                   WHERE bi.item_id = b.item_id 
@@ -347,6 +416,7 @@ class BaseItem < ActiveRecord::Base
                     AND b.user_id = s.supplier_id
                   ORDER BY created_at DESC LIMIT 1)
       SQL
+=end
       if options[:tag]
         query = <<-SQL
           SELECT bi.* FROM base_items AS bi
@@ -358,6 +428,7 @@ class BaseItem < ActiveRecord::Base
             AND c.user_id = ?
             AND c.tag_id = ?
             AND bi.id = #{subquery}
+	    AND s.retailer_id = #{options[:user_id]}
           ORDER BY bi.created_at DESC
         SQL
         find_by_sql([query, options[:user_id], options[:tag]])
@@ -383,6 +454,7 @@ class BaseItem < ActiveRecord::Base
             JOIN subscriptions s ON sr.subscription_id = s.id
             WHERE sr.status = 'accepted'
               AND bi.id = #{subquery}
+	      AND s.retailer_id = #{options[:user_id]}
             ORDER BY bi.created_at DESC
           SQL
           find_by_sql([query, options[:user_id]])
