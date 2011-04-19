@@ -10,7 +10,7 @@
 <% @base_items.each do |base_item| %>
 <tr>
 <td><%= link_to base_item.gtin, base_item_path(base_item, :view => "1") %></td>
-<td><%= h base_item.name %></td>
+<td><%= h base_item.item_description %></td>
 <td><%= base_item.status %></td>
 </tr>
 <% end %>

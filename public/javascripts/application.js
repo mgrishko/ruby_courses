@@ -190,3 +190,40 @@ function hideClassifierNow(){
   }
   $j('#hidden_div').hide();
 }
+
+// cases
+
+function casesSelect(li){
+  var lis = $j("li", ".cases_results");
+  if (!lis[0]) return;
+  lis.removeClass("ac_liselected");
+  lis.removeClass("ac_over");
+  lis.removeClass("ac_loading");
+  $j(li).addClass("ac_liselected");
+  selected_li = lis[active];
+  $j(li).addClass("ac_loading");
+  requestManData($j(li).attr("id"));
+}
+
+function selectCasesItem(li){
+  var li = $j("li.ac_liselected", "#cases_results")[0];
+  if (li){
+    $j("#cases_link").html(li.innerHTML);
+    $j("#cases_value").val($j(li).attr("id"));
+    hideResultsNow();
+  }
+}
+
+function requestManData(q){
+  var data = null;
+  $j.get("/main/show_man/" + q, function(data) {
+    receiveManData(data);
+  });
+}
+
+function receiveManData(data) {
+  if (data) {
+    $j("li", "#cases_results").removeClass("ac_loading");
+    $j("#cases_man").html(data);
+  }
+};

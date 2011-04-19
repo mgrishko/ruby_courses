@@ -1,0 +1,16 @@
+<ul>
+  <%= render :partial => "result", :collection => @results %>
+</ul>
+<script type="text/javascript">
+$j("li", ".cases_results").hover(
+  function(){
+    $j(this).addClass("ac_over");
+  },
+  function(){
+    $j(this).removeClass("ac_over");
+  }
+).click(function(){
+  casesSelect(this);
+}
+);
+</script>

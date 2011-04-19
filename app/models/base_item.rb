@@ -191,30 +191,52 @@ class BaseItem < ActiveRecord::Base
     ]
   end
 
-  def packaging_types
-    [
-      ["Банка"              , "CX" ],
-      ["Блистер"            , "BME"],
-      ["Блок"               , "BK" ],
-      ["Бочка"              , "BA" ],
-      ["Бутылка"            , "BO" ],
-      ["Бутылка пластиковая", "KF" ],
-      ["Коробка"            , "CT" ],
-      ["Мешок"              , "BG" ],
-      ["Пакет"              , "PA" ],
-      ["Палета"             , "PX" ],
-      ["Подложка"           , "PU" ],
-      ["Рулон"              , "RO" ],
-      ["Связка"             , "BE" ],
-      ["Сетка"              , "UUE"],
-      ["Стакан"             , "CU" ],
-      ["Тюбик"              , "TU" ],
-      ["Упак. пленочн."     , "UVQ"],
-      ["Упаковка"           , "PK" ],
-      ["Ящик дерев."        , "CR" ],
-      ["Ящик обычный"       , "BX" ],
-      ["Ящик для бутылок"   , "BC" ],
-    ]
+  def self.packaging_types
+    [{:id => 1, :code => "AE", :name => "Aerosol"},
+    {:id => 2, :code => "AM", :name => "Ampoule"},
+    {:id => 3, :code =>  "AT", :name => "Atomizer"},
+    {:id => 4, :code => "BG", :name => "Bag"},
+    {:id => 5, :code => "NEW", :name => "Bag in Box"},
+    {:id => 6, :code => "NEW", :name => "Banded package"},
+    {:id => 7, :code => "BA", :name => "Barrel"},
+    {:id => 8, :code => "BK", :name => "Basket"},
+    {:id => 9, :code => "NEW", :name => "Blister pack"},
+    {:id => 10, :code => "BO", :name => "Bottle"},
+    {:id => 11, :code => "BX", :name => "Box"},
+    {:id => 12, :code => "NEW", :name => "Brick"},
+    {:id => 13, :code => "BJ", :name => "Bucket"},
+    {:id => 14, :code => "CG", :name => "Cage"},
+    {:id => 15, :code => "NEW", :name => "Can"},
+    {:id => 16, :code => "NEW", :name => "Card"},
+    {:id => 17, :code => "CT", :name => "Carton"},
+    {:id => 18, :code => "CS", :name => "Case"},
+    {:id => 19, :code => "CR", :name => "Crate"},
+    {:id => 20, :code => "CU", :name => "Cup"},
+    {:id => 21, :code => "CY", :name => "Cylinder"},
+    {:id => 22, :code => "DN", :name => "Dispenser"},
+    {:id => 23, :code => "EN", :name => "Envelope"},
+    {:id => 24, :code => "NEW", :name => "Flexible Intermediate Bulk Container"},
+    {:id => 25, :code => "NEW", :name => "Gable top"},
+    {:id => 26, :code => "JR", :name => "Jar"},
+    {:id => 27, :code => "JG", :name => "Jug"},
+    {:id => 28, :code => "NEW", :name => "Multipack"},
+    {:id => 29, :code => "NT", :name => "Net"},
+    {:id => 30, :code => "NEW", :name => "Not packed"},
+    {:id => 31, :code => "NEW", :name => "Packed, unspecified"},
+    {:id => 32, :code => "PX", :name => "Pallet"},
+    {:id => 33, :code => "PB", :name => "Pallet Box"},
+    {:id => 34, :code => "NEW", :name => "Peel pack"},
+    {:id => 35, :code => "PO", :name => "Pouch"},
+    {:id => 36, :code => "RK", :name => "Rack"},
+    {:id => 37, :code => "RL", :name => "Reel"},
+    {:id => 38, :code => "SW", :name => "Shrinkwrapped"},
+    {:id => 39, :code => "NEW", :name => "Sleeve"},
+    {:id => 40, :code => "NEW", :name => "Stretchwrapped "},
+    {:id => 41, :code => "PU", :name => "Tray"},
+    {:id => 42, :code => "TB", :name => "Tub"},
+    {:id => 43, :code => "TU", :name => "Tube"},
+    {:id => 44, :code => "VP", :name => "Vacuum-packed"},
+    {:id => 45, :code => "NEW", :name => "Wrapper"}]
   end
 
   def countries
@@ -422,3 +444,41 @@ class BaseItem < ActiveRecord::Base
     end 
   end
 end
+
+# == Schema Information
+#
+# Table name: base_items
+#
+#  id                              :integer(4)      not null, primary key
+#  gtin                            :string(255)
+#  status                          :string(255)
+#  created_at                      :datetime
+#  updated_at                      :datetime
+#  user_id                         :integer(4)
+#  internal_item_id                :string(255)
+#  despatch_unit                   :boolean(1)      default(FALSE)
+#  invoice_unit                    :boolean(1)      default(FALSE)
+#  order_unit                      :boolean(1)      default(FALSE)
+#  consumer_unit                   :boolean(1)      default(FALSE)
+#  manufacturer_name               :string(255)
+#  manufacturer_gln                :string(13)
+#  content_uom                     :string(3)
+#  gross_weight                    :integer(4)
+#  vat                             :integer(4)
+#  gpc_code                        :integer(4)
+#  country_of_origin_code          :string(2)
+#  minimum_durability_from_arrival :integer(4)
+#  packaging_type                  :string(3)
+#  height                          :integer(4)
+#  depth                           :integer(4)
+#  width                           :integer(4)
+#  content                         :decimal(6, 3)
+#  brand                           :string(70)      default(""), not null
+#  subbrand                        :string(70)
+#  functional                      :string(35)      default(""), not null
+#  item_description                :string(178)
+#  item_id                         :integer(4)      default(0), not null
+#  net_weight                      :integer(4)
+#  state                           :string(255)     default("add")
+#
+

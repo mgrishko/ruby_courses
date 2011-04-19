@@ -45,3 +45,16 @@ class Cloud < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: clouds
+#
+#  id         :integer(4)      not null, primary key
+#  tag_id     :integer(4)      not null
+#  item_id    :integer(4)      not null
+#  user_id    :integer(4)      not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+

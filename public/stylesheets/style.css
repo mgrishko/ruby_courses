@@ -520,6 +520,19 @@ tr.val td select {
 	background-color: #fff;
 }
 
+.cases_results {
+  position: absolute;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 5px black; /* Параметры тени */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+  min-height: 30px;
+  padding: 5px;
+  z-index: 100;
+	background-color: #fff;
+}
+
 .ac_results {
   border: 1px solid #aaa;
   box-shadow: 0 0 5px black; /* Параметры тени */
@@ -623,4 +636,23 @@ tr.val td select {
 }
 .versions {
   font-size: 75%;
+}
+.man{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 5px black; /* Параметры тени */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+}
+#cases_man{
+  position:relative;
+  max-width: 240px;
+  float: left;
+}
+
+.cases_results ul{
+	background: #FFF;
 }

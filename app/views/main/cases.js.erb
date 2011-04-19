@@ -1,0 +1,8 @@
+$j('#hidden_div').show();
+$j("#cases_results_<%= @packagin_item.id -%>").html("<%= escape_javascript (render :file => 'main/results') %>");
+var pos = $j("#cases_input_<%= @packagin_item.id -%>").offset();
+//$j("#cases_<%= @packagin_item.id -%>").css({
+//	top: (pos.top - 15) + "px",
+//	left: (pos.left + $j("#cases_input_<%= @packagin_item.id -%>").width() * 0.7) + "px"
+//}).show();
+$j("#cases_<%= @packagin_item.id -%>").show();
