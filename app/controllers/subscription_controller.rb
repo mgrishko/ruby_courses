@@ -29,9 +29,11 @@ class SubscriptionController < ApplicationController
       if json['flag']
         @supplier = User.find(params[:id])
         @supplier.all_fresh_base_items.each do |bi|
+          # Comment this for turn-off grouping of base items changes in subscription result
           @subscription.subscription_results.each do |sr|
             sr.delete if sr.base_item.gtin == bi.gtin && sr.status == 'new'
           end
+
           @subscription.subscription_results << SubscriptionResult.new(
               :base_item_id => bi.id, :subscription_id => @subscription_id
           )
