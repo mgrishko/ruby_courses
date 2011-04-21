@@ -36,6 +36,7 @@ Content uom
 <tr class="val">
 <td>
 <%= text_field_with_auto_complete :base_item, :brand %>
+
 </td>
 <td>
 <%= text_field_with_auto_complete :base_item, :subbrand %>
@@ -225,6 +226,72 @@ Shelf life period
     selectClassifierItem();
 		$j('#base_item_gpc_name').val($j("#classifier_value").val());
   });
+
+	var is_description_touched = false;
+	var brand = "";
+	var subbrand = "";
+	var functional = "";
+	var content = "";
+	var content_uom ="";
+	
+	$j("#base_item_brand").change(function() {
+		if(!is_description_touched){
+			brand = $j("#base_item_brand").val();
+			$j("#base_item_item_description").val(PrepareDescriptionString());
+			}
+	});
+	$j("#base_item_subbrand").change(function() {
+
+		if(!is_description_touched){
+			subbrand = $j("#base_item_subbrand").val();
+			$j("#base_item_item_description").val(PrepareDescriptionString());
+			}
+	});
+	$j("#base_item_functional").change(function() {
+		if(!is_description_touched){
+			functional = $j("#base_item_functional").val();
+			$j("#base_item_item_description").val(PrepareDescriptionString());
+			}
+	});
+	$j("#base_item_content").change(function() {
+		if(!is_description_touched){
+			content = $j("#base_item_content").val();
+			$j("#base_item_item_description").val(PrepareDescriptionString());
+			}
+	});
+	$j("#base_item_content_uom").change(function() {
+		if(!is_description_touched){
+			content_uom = '1 ' + $j("#base_item_content_uom :selected").text();
+			$j("#base_item_item_description").val(PrepareDescriptionString());
+			}
+	});
+
+	$j("#base_item_item_description").change(function() {
+		is_description_touched = true;
+	});
+	
+	function PrepareDescriptionString(){
+		var string = ""
+		if (brand != "") {string = brand}
+		
+		if (subbrand != "") {
+			string += ' ' + subbrand;
+		}else {return string;}
+		
+		if (functional != ""){
+			string += ' ' + functional;
+		}else {return string;}
+		
+		if (content != ""){
+			string += ' ' + content;
+		}else {return string;}
+		
+		if (content_uom != ""){
+			string += ' ' + content_uom;
+		}else {return string;}
+		
+		return string;
+		}
 </script>
 </div>
 <div id='hidden_div' style="display: none"></div>
