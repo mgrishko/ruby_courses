@@ -64,7 +64,15 @@ function instantSubscription(that, supplier_id) {
   })
 }
 
-
+function check_pallete(emitter) {
+  if ($j(emitter).val() == 'PX') {
+    $j(emitter).parent().parent().addClass('pl');
+    $j(".pallet").show();
+  } else {
+    $j(emitter).parent().parent().removeClass('pl');
+    $j(".pallet").hide();
+  }
+}
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 

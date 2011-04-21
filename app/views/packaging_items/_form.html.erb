@@ -1,10 +1,18 @@
-<div class="pi">
+<div class="pi <%= "pl" if @packaging_item.pallet? %>">
 <%= f.error_messages %>
 <p>
   <%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
 </p>
 <p>
-  <%= f.select :packaging_type, @base_item.packaging_types, :style=>"border: 0;", :title =>"Packaging Type" %>
+  <%#= f.select :packaging_type, @base_item.packaging_types,{}, {:onchange=> "check_pallete(this)"}%>
+  <select onchange="check_pallete(this)" name="packaging_item[packaging_type]" id="packaging_item_packaging_type">
+  <% for o in @base_item.packaging_types do %>
+    <% if @packaging_item.children.count > 0 && o[1] == 'PX' %>
+    <% else %>
+      <option value="<%= o[1]%>"<%= "selected='selected'" if @packaging_item.packaging_type == o[1] %>><%=h o[0]%></option>
+    <% end %>
+  <% end %>
+  </select>
 </p>
 
 <!--
@@ -19,6 +27,9 @@
 <% else %>
 <%= @packaging_item.number_of_next_lower_item %>
 <% end %>уп. внутри
+</p>
+<p class="pallet <%= "hide" unless @packaging_item.pallet? %>">
+<%=f.text_field :quantity_of_layers_per_pallet, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Layers Per Pallet"%>слоев, по <%=f.text_field :quantity_of_trade_items_per_pallet_layer, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Trade Items Per Pallet Layer" %>уп. <%=f.text_field :stacking_factor, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Stacking Factor"%> стекинг
 </p>
 <!--
 <p>

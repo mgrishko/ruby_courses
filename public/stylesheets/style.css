@@ -258,6 +258,14 @@ ul.items li.new .item ul
   padding-left:10px;
 }
 
+.pl {
+  background:url(/images/pallet.gif) no-repeat 0 bottom;
+  min-height: 168px;
+}
+.pallet {
+  font-size: 85%;
+}
+
 .pi p{
 	margin-bottom:3px;
 }
