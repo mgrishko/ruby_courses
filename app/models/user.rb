@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   def fresh_base_items
     if self.base_items.count > 0
-      return self.base_items.first(:order => 'created_at desc').created_at
+      return self.base_items.first(:conditions => {:status => "published"}, :order => 'created_at desc').created_at.to_s(:db)
     else
       return '---'
     end
@@ -33,7 +33,11 @@ class User < ActiveRecord::Base
   def all_fresh_base_items
     BaseItem.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by created_at desc limit 1) order by a.created_at desc")
   end
- 
+
+  def count_fresh_base_items
+    BaseItem.count_by_sql("select count(*) from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by created_at desc limit 1)")
+  end
+
   def my_retailer_info(user_id)
     if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
       return "Отписаться"
