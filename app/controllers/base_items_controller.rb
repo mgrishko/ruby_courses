@@ -157,7 +157,7 @@ class BaseItemsController < ApplicationController
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
-      @base_item.item.change! if @base_item.item.new?
+      @base_item.item.change! if @base_item.item.add?
     end
     redirect_to base_items_url
   end

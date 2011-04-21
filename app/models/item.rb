@@ -10,13 +10,13 @@ class Item < ActiveRecord::Base
   has_many :retailer_attributes
 
   aasm_column :status
-  aasm_initial_state :new
+  aasm_initial_state :add
 
-  aasm_state :new
-  aasm_state :changed
+  aasm_state :add
+  aasm_state :change
 
   aasm_event :change do
-    transitions :to => :changed, :from => :new, :guard => :not_new?
+    transitions :to => :change, :from => :add, :guard => :not_new?
   end
 
   def not_new?
