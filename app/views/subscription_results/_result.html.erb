@@ -15,6 +15,7 @@
 		<% result.base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => result.base_item.item.id}).each do |c| %>
     	<span class="tag"><%= c.tag.name %></span>
     <% end %>
+		&nbsp;
 	</td>
 	<% if result.new? %>
 		<td>
@@ -32,7 +33,7 @@
 	<% else %>
 		<td><%= result.status %></td>
 	<% end %>
-	</tr>
 	<td>
 		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
+</tr>
