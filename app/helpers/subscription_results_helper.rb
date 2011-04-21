@@ -8,7 +8,7 @@ module SubscriptionResultsHelper
         comment.content
       end
     else
-      'n/a'
+      '&nbsp;'
     end
   end
 end

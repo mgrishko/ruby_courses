@@ -3,13 +3,13 @@
 		<%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to result.base_item.item_description, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<td>
 		<%= link_to result.base_item.item.not_new? ? '' : 'new', base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+		<%= link_to result.base_item.item_description, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<td>
+		<%= link_to humanize_date(result.base_item.created_at), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
 		<% result.base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => result.base_item.item.id}).each do |c| %>
@@ -30,6 +30,9 @@
 			</div>
 		</td>
 	<% else %>
-		<td> already <%= result.status %></td>
+		<td><%= result.status %></td>
 	<% end %>
-</tr>
+	</tr>
+	<td>
+		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
