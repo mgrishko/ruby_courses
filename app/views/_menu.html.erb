@@ -2,9 +2,9 @@
   <% if current_user.id %>
   <div class="fleft">
     <% if current_user.supplier? %><%= link_to 'My Items', :controller => 'base_items' %> | <% end %>
-    <% if current_user.retailer? %><%= link_to 'Suppliers', :controller => 'suppliers' %> | <% end %>
     <% if current_user.retailer? %><%= link_to 'Inbox', :controller => 'subscription_results' %> | <% end %>
-    <% if current_user.retailer? %><%= link_to('Received Items', :controller => 'retailer_items') %> <% end %>
+    <% if current_user.retailer? %><%= link_to('Received Items', :controller => 'retailer_items') %> | <% end %>
+    <% if current_user.retailer? %><%= link_to 'Suppliers', :controller => 'suppliers' %><% end %>
   </div>
   <div class="fright">
     <%= current_user.name %> | <%= link_to 'Log off', url_for(:controller => :user_sessions, :action => :logout) %>
