@@ -41,6 +41,7 @@ class BaseItemsController < ApplicationController
       redirect_to :action => 'index'
     end
     session[:base_item_params] = {}
+    session.delete :base_item_step if session[:base_item_step]
     @base_item = BaseItem.new(session[:base_item_params])  
     @base_item.current_step = session[:base_item_step]
 

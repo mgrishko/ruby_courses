@@ -12,13 +12,17 @@ class PackagingItem < ActiveRecord::Base
   validates_number_length_of :number_of_next_lower_item, 6
   validates_number_length_of :number_of_bi_items, 6
   validates_number_length_of :gross_weight, 7
+  validate :gross_weight_validation
   validates_number_length_of :height, 5
   validates_number_length_of :depth, 5
   validates_number_length_of :width, 5
 
+  validates_numericality_of :quantity_of_layers_per_pallet, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?
+  validates_numericality_of :quantity_of_trade_items_per_pallet_layer, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?
+  validates_numericality_of :stacking_factor, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?
+
   validates_length_of :item_name_long_ru, :maximum => 35, :allow_nil => true
 
-  validate :gross_weight_validation
   def gross_weight_validation
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
@@ -36,8 +40,8 @@ class PackagingItem < ActiveRecord::Base
   
   validate :children_dependencies
   def children_dependencies
-    brutto = gross_weight
-    volume = height*depth*width
+    brutto = gross_weight||0
+    volume = (height||0)*(depth||0)*(width||0)
     children.each do |child|
       if child.number_of_next_lower_item*brutto > child.gross_weight
 	errors.add_to_base("Gross Weight is more than child gross weight")
@@ -75,6 +79,10 @@ class PackagingItem < ActiveRecord::Base
     "#{number_of_next_lower_item} уп., внутри #{number_of_bi_items} ед."
   end
   
+  def calculate_pallet
+    "#{quantity_of_layers_per_pallet} слоев, по #{quantity_of_trade_items_per_pallet_layer} уп. #{stacking_factor} стекинг"
+  end
+  
   def calculate_weights
     "#{gross_weight} г. брутто, #{base_item.net_weight* number_of_bi_items} г. нетто"
   end
@@ -89,6 +97,10 @@ class PackagingItem < ActiveRecord::Base
 
   def last?
     parent.nil? or parent.rgt==self.rgt+1
+  end
+  
+  def pallet?
+    packaging_type == 'PX'
   end
 
   #after_save :set_descendants_number_of_bi_items
