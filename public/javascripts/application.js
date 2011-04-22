@@ -73,6 +73,16 @@ function check_pallete(emitter) {
     $j(".pallet").hide();
   }
 }
+
+function submitReceiver(suffix) {
+  if (!suffix) {
+    suffix = '';
+  }
+  $j("#receiver_gln").val($j("#new_receiver_input"+suffix).val());
+  document.getElementById("new_receiver").onsubmit();
+  return false;
+}
+
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 

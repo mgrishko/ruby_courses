@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
   has_many :clouds
 
   has_many :retailer_attributes
+  has_many :receivers
 
   aasm_column :status
   aasm_initial_state :add

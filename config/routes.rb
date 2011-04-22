@@ -29,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :retailer_attributes
   map.resources :comments
+  map.resources :receivers
   map.resources :tags
   map.resources :subscription_results
   map.resources :suppliers

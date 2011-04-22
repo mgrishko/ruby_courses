@@ -20,6 +20,11 @@ class Cloud < ActiveRecord::Base
 	)
 	AND c.user_id = #{retailer.id}
 	AND i.user_id = #{supplier.id}
+	AND
+	IF ((i.private=1),
+	  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{retailer.id}),
+	  1=1
+	)
 	GROUP BY name
       SQL
     else
@@ -44,6 +49,11 @@ class Cloud < ActiveRecord::Base
 	AND c.user_id = #{retailer.id}
 	AND sr.status = 'accepted'
 	AND s.retailer_id = #{retailer.id}
+	AND
+	IF ((i.private=1),
+	  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{retailer.id}),
+	  1=1
+	)
 	GROUP BY name
       SQL
     end

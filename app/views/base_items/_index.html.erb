@@ -1,6 +1,15 @@
 <h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>
 <!--filters-->
 <div class="filters">
+<% if current_user.supplier? %>
+<div>
+<strong>Получатели</strong>
+<% @receivers.each do |r| %>
+  <%= selected_wrapper "<a href='?receiver=#{r.id}' class='filter'>#{r.name}</a> (#{r.q})", params[:receiver].to_s == r.id.to_s %>
+<% end %>
+</div>
+<br/>
+<% end %>
 <div>
 <strong>Тэги</strong>
 <% @clouds.each do |c| %>
@@ -55,7 +64,7 @@
 </tr>
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-  <tr>
+  <tr <%= "class='private'" if base_item.item.private %>>
     <td><input type="checkbox" class="checkbox" name="" id=""/></td>
     <% if defined?(retailer) %>
     <td><%= base_item.user.gln %></td>

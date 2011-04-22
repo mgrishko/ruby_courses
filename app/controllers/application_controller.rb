@@ -87,6 +87,7 @@ class ApplicationController < ActionController::Base
     def get_bi_filters current_user, supplier=nil
       if current_user.supplier? # /base_items/:id
 	@clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id") #ok
+	@receivers = BaseItem.get_receivers current_user
       else
 	@clouds = Cloud.get_clouds current_user, supplier
       end

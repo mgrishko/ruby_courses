@@ -128,8 +128,12 @@ class BaseItem < ActiveRecord::Base
       s.subscription_results.each do |sr|
         sr.delete if sr.base_item.gtin == self.gtin && sr.status == 'new'
       end
-
-      s.subscription_results << SubscriptionResult.new(:base_item_id => self.id)
+      # private condition
+      if item.private
+	s.subscription_results << SubscriptionResult.new(:base_item_id => self.id) if self.item.receivers.detect {|r| r.user_id == s.retailer_id}
+      else
+	s.subscription_results << SubscriptionResult.new(:base_item_id => self.id)
+      end
     end
   end
 
@@ -255,21 +259,45 @@ class BaseItem < ActiveRecord::Base
       return false
     end
   end
+  
+  def self.get_receivers current_user #only for suppliers
+    find_by_sql <<-SQL
+      SELECT u.id, u.name, count(*) as q from base_items a
+      LEFT JOIN items i on i.id = a.item_id
+      LEFT JOIN receivers r on r.item_id = i.id
+      LEFT JOIN users u on u.id = r.user_id
+      WHERE i.private = 1
+      AND a.id = (
+	SELECT b.id FROM base_items b 
+	WHERE a.item_id = b.item_id 
+	AND b.status = 'published' 
+	AND b.user_id = #{current_user.id} 
+	ORDER BY created_at DESC LIMIT 1
+      ) GROUP by u.name
+    SQL
+  end
 
   def self.get_brands current_user, supplier=nil
     if current_user.retailer? # case when /suppliers/ and /retailer_items/ controllers works
       if supplier # /suppliers/:id
 	find_by_sql <<-SQL
-	  SELECT a.brand, count(*) AS q FROM base_items a 
+	  SELECT a.brand, count(*) AS q FROM base_items a
+	  LEFT JOIN items i on i.id = a.item_id
 	  WHERE a.id = (
 	    SELECT b.id FROM base_items b 
             WHERE a.item_id = b.item_id 
             AND b.status = 'published' 
             AND b.user_id = #{supplier.id} 
             ORDER BY created_at DESC LIMIT 1
-	  ) GROUP by brand
+	  )
+	  AND
+	  IF ((i.private=1),
+	    i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    1=1
+	  )
+	  GROUP by brand
 	SQL
-      else # /retaler_items/
+      else # /retailer_items/
 	find_by_sql <<-SQL
 	  SELECT a.brand, count(*) AS q FROM base_items a
 	  LEFT JOIN items i on i.id = a.item_id
@@ -286,6 +314,11 @@ class BaseItem < ActiveRecord::Base
 	  ) 
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
+	    AND 
+	    IF ((i.private=1),
+	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	      1=1
+	    )
 	  GROUP by brand
 	SQL
       end
@@ -308,11 +341,18 @@ class BaseItem < ActiveRecord::Base
       if supplier # /suppliers/:id
 	find_by_sql <<-SQL
 	  SELECT a.manufacturer_name, count(*) AS q FROM base_items a 
+	  LEFT JOIN items i on i.id = a.item_id
 	  WHERE a.id = (SELECT b.id FROM base_items b 
                         WHERE a.item_id = b.item_id 
                           AND b.status = 'published' 
                           AND b.user_id = #{supplier.id} 
-                      ORDER BY created_at DESC LIMIT 1) GROUP by manufacturer_name      
+                      ORDER BY created_at DESC LIMIT 1)
+	  AND 
+	    IF ((i.private=1),
+	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	      1=1
+	    )
+	  GROUP by manufacturer_name      
 	SQL
       else # /retailer_items/
 	find_by_sql <<-SQL
@@ -331,6 +371,11 @@ class BaseItem < ActiveRecord::Base
 	  ) 
           AND  s.retailer_id = #{current_user.id}
 	  AND  sr.status = 'accepted'
+	  AND 
+	    IF ((i.private=1),
+	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	      1=1
+	    )
 	  GROUP by manufacturer_name      
 	SQL
       end
@@ -350,14 +395,21 @@ class BaseItem < ActiveRecord::Base
     if current_user.retailer?
       if supplier #/suppliers/:id
 	find_by_sql <<-SQL
-	    SELECT a.functional, count(*) AS q FROM base_items a 
+	    SELECT a.functional, count(*) AS q FROM base_items a
+	    LEFT JOIN items i on i.id = a.item_id
 	    WHERE a.id = (
 	      SELECT b.id FROM base_items b 
 	      WHERE a.item_id = b.item_id 
 	      AND b.status = 'published' 
 	      AND b.user_id = #{supplier.id} 
 	      ORDER BY created_at DESC LIMIT 1
-	    ) GROUP by functional      
+	    )
+	    AND
+	    IF ((i.private=1),
+	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	      1=1
+	    )
+	    GROUP by functional      
 	SQL
       else # /retailer_items/
 	find_by_sql <<-SQL
@@ -376,6 +428,11 @@ class BaseItem < ActiveRecord::Base
 	    ) 
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
+	    AND
+	    IF ((i.private=1),
+	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	      1=1
+	    )
 	    GROUP by functional      
 	SQL
       end
@@ -429,6 +486,11 @@ class BaseItem < ActiveRecord::Base
             AND c.tag_id = ?
             AND bi.id = #{subquery}
 	    AND s.retailer_id = #{options[:user_id]}
+	    AND
+	      IF (i.private=1,
+		i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+		1=1
+	      )
           ORDER BY bi.created_at DESC
         SQL
         find_by_sql([query, options[:user_id], options[:tag]])
@@ -443,6 +505,11 @@ class BaseItem < ActiveRecord::Base
                 AND bi.id = #{subquery}
                 AND #{conditions.first.to_s}
                 AND s.retailer_id = #{options[:user_id]}
+		AND
+		  IF (i.private=1,
+		    i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+		    1=1
+		  )
               ORDER BY bi.created_at DESC
             SQL
             find_by_sql([query, conditions.last])
@@ -455,6 +522,11 @@ class BaseItem < ActiveRecord::Base
             WHERE sr.status = 'accepted'
               AND bi.id = #{subquery}
 	      AND s.retailer_id = #{options[:user_id]}
+	      AND 
+		IF (i.private=1,
+		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+		  1=1
+		)
             ORDER BY bi.created_at DESC
           SQL
           find_by_sql([query, options[:user_id]])
@@ -472,25 +544,57 @@ class BaseItem < ActiveRecord::Base
                         where a.item_id = b.item_id 
                           and b.status='published' 
                           and b.user_id = #{options[:user_id]} 
-                        order by created_at desc limit 1) 
+                        order by created_at desc limit 1)
+	   AND
+	   IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
+		   i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+		   1=1
+	      )
           order by a.created_at desc", options[:tag]])
       else 
         if conditions
   	      find_by_sql(["select a.* from base_items as a 
-  	        where a.id = (select b.id from base_items b 
+  	        left join items i on i.id = a.item_id
+		where a.id = (select b.id from base_items b 
   	                      where a.item_id = b.item_id 
   	                        and b.status='published' 
   	                        and b.user_id = #{options[:user_id]} 
   	                        and "+conditions.first.to_s+" 
-  	                      order by created_at desc limit 1) 
+  	                      order by created_at desc limit 1)
+		AND
+		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
+		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+		  1=1
+		)
   	        order by a.created_at desc", conditions.last])
         else
-  	      find_by_sql("select a.* from base_items as a 
+	  if options[:receiver] #receivers only
+	      find_by_sql("select a.* from base_items as a 
+  	        left join items i on i.id = a.item_id
+		where a.id = (select b.id from base_items b 
+  	                      where a.item_id = b.item_id 
+  	                        and b.status='published' 
+  	                        and b.user_id = #{options[:user_id]} 
+  	                      order by created_at desc limit 1)
+		AND
+		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:receiver]})
+  	        order by a.created_at desc")
+
+	  else
+  	      find_by_sql("select a.* from base_items as a
+		left join items i on i.id = a.item_id
   	        where a.id = (select b.id from base_items b 
   	                      where a.item_id = b.item_id and b.status='published' 
   	                        and b.user_id = #{options[:user_id]} 
   	                      order by created_at desc limit 1) 
+		AND
+		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
+		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+		  1=1
+		)
+
   	        order by a.created_at desc")
+	  end
         end
       end
     end 

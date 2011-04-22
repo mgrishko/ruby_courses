@@ -410,7 +410,7 @@ table.results th {
   float: left;
   width: 85%;
 }
-#new_tag {
+#new_tag, #new_receiver_form, #new_receiver_form_list {
   display: none;
 }
 #tag_name {
@@ -638,4 +638,10 @@ tr.val td select {
 .t {
   color: #999;
   font-size: 95%;
+}
+#receivers {
+  min-height: 50px;
+}
+.private {
+  background: #fff8ab;
 }

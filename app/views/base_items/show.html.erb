@@ -32,6 +32,14 @@
 <% end %>
 </div>
 <!--/comments block-->
+
+<% unless @view_only %>
+  <% if @base_item.item.private && @base_item.published? %>
+    <h2>Приватность</h2>
+    Получатели: <%= @base_item.item.receivers.collect {|r| r.user.name }.join(", ") %>
+  <% end %>
+<% end %>
+
 <% if @base_item.draft? %>
   <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
 		<% if @base_item.item.user.id == current_user.id %>
@@ -39,10 +47,19 @@
 		  <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
 			<%= c.hidden_field 'base_item_id', :value => @base_item.id %>
 		  <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
+		  <h2>Приватность</h2>
+		  <input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.item.private %>/>Приватно<br/>
+		  <div id="receivers">
+		  <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.item.receivers} %>
+		  </div>
 		  <% end %>
 		<% end %>
     <%= f.submit "Опубликовать", :class => "button" %>
     <%= f.submit "Отменить", :name => "cancel", :class => "button" %>
+  <% end %>
+  <% remote_form_for Receiver.new do |f| %>
+  <input type="hidden" id="receiver_item_id" name="receiver[item_id]" value="<%= @base_item.item.id %>"/>
+  <input type="hidden" id="receiver_gln" name="receiver[gln]" />
   <% end %>
 <% end %>
 <% content_for :top do %>

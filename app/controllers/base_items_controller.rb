@@ -8,7 +8,8 @@ class BaseItemsController < ApplicationController
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
                                           :brand => params[:brand], 
-                                          :tag => params[:tag]
+                                          :tag => params[:tag],
+					  :receiver => params[:receiver]
     get_bi_filters current_user
   end
 
@@ -33,6 +34,7 @@ class BaseItemsController < ApplicationController
     end
     ####
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
+    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
@@ -59,6 +61,7 @@ class BaseItemsController < ApplicationController
       @base_item.next_step
       render 'edit_step2'
     end
+    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
   end
 
   #def published
@@ -154,6 +157,8 @@ class BaseItemsController < ApplicationController
     if @base_item.draft? and params[:cancel]
       @base_item.destroy
     else
+      @base_item.item.update_attributes(:private => (params[:base_item][:private] ? true : false))
+
       @base_item.publish!
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
