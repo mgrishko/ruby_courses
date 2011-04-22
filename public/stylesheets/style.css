@@ -632,3 +632,10 @@ tr.val td select {
 .versions {
   font-size: 75%;
 }
+.d {
+  font-weight: bold;
+}
+.t {
+  color: #999;
+  font-size: 95%;
+}

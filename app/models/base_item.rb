@@ -241,11 +241,11 @@ class BaseItem < ActiveRecord::Base
   end
   
   def calculate_dimmensions
-    "#{height} x #{width} x #{depth} (В x Д x Ш)"
+    "<span class='d'>#{height}</span> <span class='t'>x</span> <span class='d'>#{width}</span> <span class='t'>x</span> <span class='d'>#{depth}</span> <span class='t'>(В x Д x Ш)</span>"
   end
   
   def calculate_weights
-    "#{gross_weight} г. брутто, #{net_weight} г. нетто"
+    "<span class='d'>#{gross_weight}</span> <span class='t'>г. брутто,</span> <span class='d'>#{net_weight}</span> <span class='t'>г. нетто</span>"
   end
   
   def has_forest?

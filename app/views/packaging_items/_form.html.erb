@@ -26,10 +26,10 @@
 <%=f.text_field :number_of_next_lower_item, :size => 4, :maxlength => 6, :style => "width: 43px; border: 0;", :title=> "Number of Next Lower Item"%>
 <% else %>
 <%= @packaging_item.number_of_next_lower_item %>
-<% end %>уп. внутри
+<% end %><span class='t'>уп. внутри</span>
 </p>
 <p class="pallet <%= "hide" unless @packaging_item.pallet? %>">
-<%=f.text_field :quantity_of_layers_per_pallet, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Layers Per Pallet"%>слоев, по <%=f.text_field :quantity_of_trade_items_per_pallet_layer, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Trade Items Per Pallet Layer" %>уп. <%=f.text_field :stacking_factor, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Stacking Factor"%> стекинг
+<%=f.text_field :quantity_of_layers_per_pallet, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Layers Per Pallet"%><span class='t'>слоев, по</span> <%=f.text_field :quantity_of_trade_items_per_pallet_layer, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Trade Items Per Pallet Layer" %><span class='t'>уп.</span> <%=f.text_field :stacking_factor, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Stacking Factor"%> <span class='t'>стекинг</span>
 </p>
 <!--
 <p>
@@ -43,9 +43,9 @@
   <%#= f.label :consumer_unit, 'CU' %>
 </p>-->
 <p>
-<%=f.text_field :height, :style => 'width: 25px; border: 0;' %>x<%=f.text_field :width, :style => 'width: 25px;border:0' %>x<%=f.text_field :depth, :style => 'width: 25px;border:0' %> (В x Д x Ш)
+<%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'>(В x Д x Ш)</span>
 </p>
 <p>
-<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> г. брутто
+<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%><span class='t'>г. брутто</span>
 </p>
 </div>

@@ -3,7 +3,14 @@
 <div class="pi" style="width:250px">
 <h3><%= @base_item.gtin %></h3>
 <p>
-<%= f.select :packaging_type, @base_item.packaging_types %>
+<select name="base_item[packaging_type]" id="base_item_packaging_type">
+<% for o in @base_item.packaging_types do %>
+<% if o[1] == 'PX' %>
+<% else %>
+  <option value="<%= o[1]%>"<%= "selected='selected'" if @base_item.packaging_type == o[1] %>><%=h o[0]%></option>
+<% end %>
+<% end %>
+</select>
 </p>
 <p>
 <%=f.text_field :height, :style => 'width: 25px; border: 0;' %>x<%=f.text_field :width, :style => 'width: 25px;border:0' %>x<%=f.text_field :depth, :style => 'width: 25px;border:0' %> (В x Д x Ш)

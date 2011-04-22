@@ -76,19 +76,19 @@ class PackagingItem < ActiveRecord::Base
 
   # methods calculate_* for view (highlighting) 
   def calculate_quanity
-    "#{number_of_next_lower_item} уп., внутри #{number_of_bi_items} ед."
+    "<span class='d'>#{number_of_next_lower_item}</span> <span class='t'>уп. внутри</span> <span class='d'>#{number_of_bi_items}</span> <span class='t'>ед.</span>"
   end
   
   def calculate_pallet
-    "#{quantity_of_layers_per_pallet} слоев, по #{quantity_of_trade_items_per_pallet_layer} уп. #{stacking_factor} стекинг"
+    "<span class='d'>#{quantity_of_layers_per_pallet}</span> <span class='t'>слоев, по</span> <span class='d'>#{quantity_of_trade_items_per_pallet_layer}</span> <span class='t'>уп. </span><span class='d'>#{stacking_factor}</span> <span class='t'>стекинг</span>"
   end
   
   def calculate_weights
-    "#{gross_weight} г. брутто, #{base_item.net_weight* number_of_bi_items} г. нетто"
+    "<span class='d'>#{gross_weight}</span> <span class='t'>г. брутто,</span> <span class='d'>#{base_item.net_weight* number_of_bi_items}</span> <span class='t'>г. нетто</span>"
   end
   
   def calculate_dimmensions
-    "#{height} x #{width} x #{depth} (В x Д x Ш)"
+    "<span class='d'>#{height}</span> <span class='t'>x</span> <span class='d'>#{width}</span> <span class='t'>x</span> <span class='d'>#{depth}</span> <span class='t'>(В x Д x Ш)</span>"
   end
   
   def first?
