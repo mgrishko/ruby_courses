@@ -206,7 +206,7 @@ function casesSelect(li){
 }
 
 function selectCasesItem(li){
-  var li = $j("li.ac_liselected", "#cases_results")[0];
+  var li = $j("li.ac_liselected", ".cases_results")[0];
   if (li){
     $j("#cases_link").html(li.innerHTML);
     $j("#cases_value").val($j(li).attr("id"));
@@ -223,7 +223,7 @@ function requestManData(q){
 
 function receiveManData(data) {
   if (data) {
-    $j("li", "#cases_results").removeClass("ac_loading");
-    $j("#cases_man").html(data);
+    $j("li", ".cases_results").removeClass("ac_loading");
+    $j(".cases_man").html(data);
   }
 };

@@ -23,7 +23,11 @@ class MainController < ApplicationController
   end
   
   def cases
-    @packagin_item = PackagingItem.find(params[:packagin_item_id])
+    @id = if PackagingItem.find_by_id(params[:packagin_item_id])
+      PackagingItem.find(params[:packagin_item_id]).id
+    else
+      0
+    end
     @results = BaseItem.packaging_types 
     respond_to do |format| 
       format.js
@@ -77,11 +81,11 @@ class MainController < ApplicationController
     hash[43] = "A cylindrical container sealed on one end that could be closed with a cap or dispenser on the other end. "
     hash[44] = "Packaging in containers, either rigid or flexible, from which substantially all gases have been removed prior to final sealing of the container. "
     hash[45] = "The process of enclosing all or part of an item with layers of flexible wrapping material (e.g., for an individually packed ice cream). Does not include items which are shrink-wrapped or vacuum-packed "
-    @case = {:id => params[:id], :description => hash[params[:id].to_i]}
-    if [5, 12, 17, 18, 25, 28, 33, 35, 38, 45].include?(params[:id].to_i)
-      @case[:img] = "#{params[:id]}.png"
+    id = BaseItem.packaging_types.find{|i|i[:code]==params[:id]}[:id]
+    @case = {:id => id, :description => hash[id]}
+    if [5, 12, 17, 18, 25, 28, 33, 35, 38, 45].include?(id)
+      @case[:img] = "pi/#{id}.png"
     end
-    
   end
   
 end

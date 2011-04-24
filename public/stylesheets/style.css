@@ -171,8 +171,8 @@ ul.items ul>li, ul.items>li
 {
   list-style: none;
   //padding-bottom: 20px;
-  overflow: hidden;
-  padding-left: 30px;
+  //overflow: hidden;
+  padding-left: 40px;
 }
 
 ul.items li .item
@@ -492,6 +492,7 @@ tr.val td select {
 }
 
 .cases{
+	width:440px;
 }
 
 .gpc_results {
@@ -529,7 +530,7 @@ tr.val td select {
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
   min-height: 30px;
   padding: 5px;
-  z-index: 100;
+  z-index: 1000000;
 	background-color: #fff;
 }
 
@@ -647,7 +648,7 @@ tr.val td select {
   -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Firefox */
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
 }
-#cases_man{
+.cases_man{
   position:relative;
   max-width: 240px;
   float: left;
