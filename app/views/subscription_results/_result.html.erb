@@ -9,13 +9,7 @@
 		<%= link_to result.base_item.item_description, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<td>
-		<%= link_to humanize_date(result.base_item.created_at), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<td>
-		<% result.base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => result.base_item.item.id}).each do |c| %>
-    	<span class="tag"><%= c.tag.name %></span>
-    <% end %>
-		&nbsp;
+		<%= link_to humanize_date(result.base_item.updated_at), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 	<% if result.new? %>
 		<td>
