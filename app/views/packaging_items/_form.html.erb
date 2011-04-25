@@ -1,19 +1,49 @@
 <div class="pi <%= "pl" if @packaging_item.pallet? %>">
-<%= f.error_messages %>
-<p>
-  <%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
-</p>
-<p>
-  <%#= f.select :packaging_type, @base_item.packaging_types,{}, {:onchange=> "check_pallete(this)"}%>
-  <select onchange="check_pallete(this)" name="packaging_item[packaging_type]" id="packaging_item_packaging_type">
-  <% for o in @base_item.packaging_types do %>
-    <% if @packaging_item.children.count > 0 && o[1] == 'PX' %>
-    <% else %>
-      <option value="<%= o[1]%>"<%= "selected='selected'" if @packaging_item.packaging_type == o[1] %>><%=h o[0]%></option>
-    <% end %>
-  <% end %>
-  </select>
-</p>
+	<%= f.error_messages %>
+	<p>
+  	<%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
+	</p>
+	<p>
+		<div id="cases_input_<%= @packaging_item.id -%>" class="input input_div"> 
+  		<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type" %>
+		</div>
+	</p>
+	<input type="hidden" id="cases_value">
+	<br>
+	<div id="cases_<%= @packaging_item.id -%>" class="cases_results cases" style="display:none;">
+  	<div class='corner'></div>
+  	<a href="#" id="cases_close_<%= @packaging_item.id -%>" class="close"></a>
+  	<div id="cases_results_<%= @packaging_item.id -%>" class="inline results_ul">
+  </div>
+  <div class="cases_man">
+  </div>
+  <div style="width:100%; position: relative; float: right;" class="inline">
+    <hr>
+    <a id="cases_select_<%= @packaging_item.id -%>" class="ok_button" href="#"></a>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$j('#packaging_item_packaging_type').click(function(){
+		$j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_pl=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
+		$j('#cases_<%= @packaging_item.id -%>').show();
+		return false;
+	})
+	$j("#cases_close_<%= @packaging_item.id -%>").click(function(){
+	  $j("#cases_<%= @packaging_item.id -%>").hide();
+	  $j('#hidden_div').hide();
+		return false;
+	})
+	$j("#cases_select_<%= @packaging_item.id -%>").click(function(){
+		var li = $j("li.ac_liselected", ".cases_results")[0];
+		$j("#cases_input_<%= @packaging_item.id -%> input").val($j(li).attr("id"));
+		$j("#cases_<%= @packaging_item.id -%>").hide();
+	  $j('#hidden_div').hide();
+	})
+	$j('#packaging_item_packaging_type').change(function(){
+		check_pallet($j(this));
+	}
+</script>
 
 <!--
 <p>

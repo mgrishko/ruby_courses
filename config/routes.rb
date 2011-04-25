@@ -72,6 +72,9 @@ ActionController::Routing::Routes.draw do |map|
   map.subgroups   "main/subgroups/:id",  :controller => "main", :action => 'subgroups'
   map.categories  "main/categories/:id", :controller => "main", :action => 'categories'
   map.countries   "main/countries",      :controller => "main", :action => 'countries'
+  map.cases       "main/cases",          :controller => "main", :action => 'cases'
+  map.show_man    "main/show_man/:id",   :controller => "main", :action => 'show_man'
+  
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.

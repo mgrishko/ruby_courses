@@ -61,3 +61,19 @@ class User < ActiveRecord::Base
     self.role == 'retailer'
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                :integer(4)      not null, primary key
+#  gln               :integer(4)
+#  pw_hash           :string(255)
+#  persistence_token :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  is_admin          :boolean(1)
+#  name              :string(255)
+#  role              :string(255)
+#
+

@@ -9,27 +9,27 @@
   <% end %>
 <% end %>
 <div id="base_item">
-  <div style="width: 1200px;"/>
-  <%= render :partial => 'item' %>
+  <div style="width: 1200px;">
+  	<%= render :partial => 'item' %>
   </div>
 </div>
 <div class="clear"></div>
-<%# content_for :right do %>
 <!--pi-->
 <div id="packaging_items">
-<%= render 'packaging_items/index' %>
+	<%= render 'packaging_items/index' %>
 </div>
 <!--/pi-->
-<%# end %>
 <!--comments block-->
+<br>
+<br>
 <h2>Комментарии</h2>
 <div id="comments">
-<% @base_item.item.comments.each do |c| %>
-<div>
-<div style="background: #FFFECC"><%= c.user.name %>, <%= c.created_at.to_s(:cmnt) %></div>
-<strong><%= c.content %></strong>
-</div>
-<% end %>
+	<% @base_item.item.comments.each do |c| %>
+		<div>
+			<div style="background: #FFFECC"><%= c.user.name %>, <%= c.created_at.to_s(:cmnt) %></div>
+			<strong><%= c.content %></strong>
+		</div>
+	<% end %>
 </div>
 <!--/comments block-->
 
@@ -41,7 +41,7 @@
 <% end %>
 
 <% if @base_item.draft? %>
-  <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
+ 	<% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
 		<% if @base_item.item.user.id == current_user.id %>
 		  <% f.fields_for @base_item.comments.new do |c| %>
 		  <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
@@ -62,10 +62,11 @@
   <input type="hidden" id="receiver_gln" name="receiver[gln]" />
   <% end %>
 <% end %>
+
 <% content_for :top do %>
 	<% unless @view_only %>
-	<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
+		<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
 	<% end %>
-	<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.item_description %></div>-->
+<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.item_description %></div>-->
 <% end %>
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
