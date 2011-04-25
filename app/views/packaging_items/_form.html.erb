@@ -39,9 +39,7 @@
 		$j("#cases_input_<%= @packaging_item.id -%> input").val($j(li).attr("id"));
 		$j("#cases_<%= @packaging_item.id -%>").hide();
 	  $j('#hidden_div').hide();
-	})
-	$j('#packaging_item_packaging_type').change(function(){
-		check_pallet($j(this));
+	  check_pallete($j('#packaging_item_packaging_type'));
 	})
 </script>
 
