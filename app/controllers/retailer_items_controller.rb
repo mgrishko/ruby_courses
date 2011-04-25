@@ -9,7 +9,8 @@ class RetailerItemsController < ApplicationController
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
                                           :tag => params[:tag],
-                                          :retailer => true
+                                          :retailer => true,
+					  :search => params[:search]
     get_bi_filters current_user
   end
 

@@ -12,7 +12,8 @@ class SuppliersController < ApplicationController
 					  :manufacturer_name => params[:manufacturer_name],
 					  :functional => params[:functional],
 					  :tag => params[:tag],
-					  :retailer_id => current_user.id
+					  :retailer_id => current_user.id,
+					  :search => params[:search]
     
     get_bi_filters current_user, @supplier
   end

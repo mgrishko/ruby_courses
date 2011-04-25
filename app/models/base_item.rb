@@ -9,6 +9,8 @@ class BaseItem < ActiveRecord::Base
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
   has_many   :subscription_result
 
+  before_save :update_mix_field # data for search
+
   attr_writer :current_step
   
   def current_step
@@ -282,6 +284,17 @@ class BaseItem < ActiveRecord::Base
     end
   end
   
+  def update_mix_field
+    unnecessary_fields = ['status', 'created_at','updated_at','user_id','despatch_unit','invoice_unit','order_unit','consumer_unit','item_id'] #fields for delete
+    
+    attributes = self.attributes
+    unnecessary_fields.each do |uf|
+      attributes.delete(uf)
+    end
+    
+    self.mix = attributes.values.join(' ')
+  end
+
   def self.get_receivers current_user #only for suppliers
     find_by_sql <<-SQL
       SELECT u.id, u.name, count(*) as q from base_items a
@@ -477,6 +490,7 @@ class BaseItem < ActiveRecord::Base
     conditions = ["brand = ?", options[:brand]] if options[:brand]
     conditions = ["manufacturer_name = ?", options[:manufacturer_name]] if options[:manufacturer_name]
     conditions = ["functional = ?", options[:functional]] if options[:functional]
+    conditions = ["mix like ?", '%'+options[:search]+'%'] if options[:search]
     if options[:retailer] # for retailer items only
       subquery = <<-SQL
 	(SELECT b.base_item_id FROM subscription_results b
