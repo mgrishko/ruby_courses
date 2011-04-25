@@ -157,7 +157,7 @@ class BaseItemsController < ApplicationController
     if @base_item.draft? and params[:cancel]
       @base_item.destroy
     else
-      @base_item.item.update_attributes(:private => (params[:base_item][:private] ? true : false))
+      @base_item.item.update_attributes(:private => params[:base_item][:private])
 
       @base_item.publish!
       unless params[:base_item][:comment][:content].blank?

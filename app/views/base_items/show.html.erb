@@ -22,6 +22,19 @@
 <!--comments block-->
 <br>
 <br>
+<% unless @view_only %>
+  <% if @base_item.item.private && @base_item.published? %>
+    <h2>Приватность</h2>
+    Получатели: <%= @base_item.item.receivers.collect {|r| r.user.name }.join(", ") %>
+  <% end %>
+<% end %>
+<% if @base_item.draft? %>
+<h2>Приватность</h2>
+<input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.item.private %> onchange="$j('#base_item_private').val(this.checked);"/>Приватно<br/>
+<div id="receivers">
+<%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.item.receivers} %>
+</div>
+<% end %>
 <h2>Комментарии</h2>
 <div id="comments">
 	<% @base_item.item.comments.each do |c| %>
@@ -33,12 +46,6 @@
 </div>
 <!--/comments block-->
 
-<% unless @view_only %>
-  <% if @base_item.item.private && @base_item.published? %>
-    <h2>Приватность</h2>
-    Получатели: <%= @base_item.item.receivers.collect {|r| r.user.name }.join(", ") %>
-  <% end %>
-<% end %>
 
 <% if @base_item.draft? %>
  	<% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
@@ -47,11 +54,8 @@
 		  <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
 			<%= c.hidden_field 'base_item_id', :value => @base_item.id %>
 		  <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
-		  <h2>Приватность</h2>
-		  <input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.item.private %>/>Приватно<br/>
-		  <div id="receivers">
-		  <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.item.receivers} %>
-		  </div>
+		  <input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.item.private %>"/>
+		  
 		  <% end %>
 		<% end %>
     <%= f.submit "Опубликовать", :class => "button" %>

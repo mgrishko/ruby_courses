@@ -591,16 +591,17 @@ class BaseItem < ActiveRecord::Base
   	        order by a.created_at desc", conditions.last])
         else
 	  if options[:receiver] #receivers only
-	      find_by_sql("select a.* from base_items as a 
+	      find_by_sql(["select a.* from base_items as a 
   	        left join items i on i.id = a.item_id
 		where a.id = (select b.id from base_items b 
   	                      where a.item_id = b.item_id 
   	                        and b.status='published' 
   	                        and b.user_id = #{options[:user_id]} 
   	                      order by created_at desc limit 1)
-		AND
-		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:receiver]})
-  	        order by a.created_at desc")
+		AND i.private=1
+		AND 
+		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = ?)
+  	        order by a.created_at desc", options[:receiver]])
 
 	  else
   	      find_by_sql("select a.* from base_items as a
