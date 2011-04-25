@@ -8,11 +8,11 @@ class MainController < ApplicationController
   end
   
   def subgroups
-    @subgroups = Gpc.all :select => "DISTINCT(gpcs.description)", :order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]
+    @subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
   end
   
   def categories
-    @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ?', CGI::unescape(params[:id])]
+    @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
   end
   
   def countries

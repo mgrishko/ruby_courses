@@ -1,5 +1,8 @@
 <ul>
-  <%= render :partial => "subgroup", :collection => @subgroups %>
+	<% @subgroups.each do |k,v| %>
+		<li id="<%= k -%>"><span style="color: grey; font-weight: bolder;"><%= k -%></span></li>
+  	<%= render :partial => "subgroup", :collection => v.map(&:description).uniq %>
+	<% end %>
 </ul>
 
 <script type="text/javascript">
