@@ -1,3 +1,11 @@
+<script>
+var is_description_touched = false;
+var brand = "";
+var subbrand = "";
+var functional = "";
+var content = "";
+var content_uom ="";
+</script>
 <div id="step1">
 <table>
 <tr class="info">
@@ -35,20 +43,19 @@ Content uom
 </tr>
 <tr class="val">
 <td>
-<%= text_field_with_auto_complete :base_item, :brand %>
-
+<%= text_field_with_auto_complete :base_item, :brand, {}, :after_update_element => "function (e,v){ brand = v.innerHTML; $j(\"#base_item_brand\").change();}" %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :subbrand %>
+<%= text_field_with_auto_complete :base_item, :subbrand, :after_update_element => "function (e,v){ subbrand = v.innerHTML; $j(\"#base_item_subbrand\").change();}"  %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :functional %>
+<%= text_field_with_auto_complete :base_item, :functional, :after_update_element => "function (e,v){ functional = v.innerHTML; $j(\"#base_item_functional\").change();}"  %>
 </td>
 <td>
 <%=f.text_field :content %>
 </td>
 <td>
-  <%= f.select :content_uom, @base_item.content_uoms %>
+  <%= f.select :content_uom, [nil] + @base_item.content_uoms %>
 </td>
 </tr>
 <tr class="info">
@@ -227,12 +234,7 @@ Shelf life period
 		$j('#base_item_gpc_name').val($j("#classifier_value").val());
   });
 
-	var is_description_touched = false;
-	var brand = "";
-	var subbrand = "";
-	var functional = "";
-	var content = "";
-	var content_uom ="";
+
 	
 	$j("#base_item_brand").change(function() {
 		if(!is_description_touched){
@@ -261,7 +263,7 @@ Shelf life period
 	});
 	$j("#base_item_content_uom").change(function() {
 		if(!is_description_touched){
-			content_uom = '1 ' + $j("#base_item_content_uom :selected").text();
+			content_uom = $j("#base_item_content_uom :selected").text();
 			$j("#base_item_item_description").val(PrepareDescriptionString());
 			}
 	});
