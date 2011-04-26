@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
 	$j('#packaging_item_packaging_type').click(function(){
-		$j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_pl=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
+		$j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_px=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
 		$j('#cases_<%= @packaging_item.id -%>').show();
 		return false;
 	})
