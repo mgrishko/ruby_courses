@@ -1,4 +1,4 @@
-<div class="pi <%= "pl" if @packaging_item.pallet? %>">
+<div class="pi <%= "pl" if @packaging_item.pallet? %>" id="pi_new">
 	<%= f.error_messages %>
 	<p>
   	<%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
@@ -9,7 +9,6 @@
 		</div>
 	</p>
 	<input type="hidden" id="cases_value">
-	<br>
 	<div id="cases_<%= @packaging_item.id -%>" class="cases_results cases" style="display:none;">
   	<div class='corner'></div>
   	<a href="#" id="cases_close_<%= @packaging_item.id -%>" class="close"></a>
@@ -24,8 +23,25 @@
 </div>
 
 <script type="text/javascript">
+	
 	$j('#packaging_item_packaging_type').click(function(){
+	  //packaging_item_335_item
+	  //packaging_item_new_336
+	  <% if @packaging_item.id %>
+	    var offset = $j('#cases_input_<%= @packaging_item.id -%>').offset();
+	    offset.left +=50;
+	    offset.top -=10;
+	  <% else %>
+	    var offset = $j('#cases_input_').offset();
+	    offset.left +=50;
+	    offset.top -=10;
+	  <% end %>
 		$j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_px=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
+		$j('#cases_<%= @packaging_item.id -%>').appendTo("body");
+		$j('#cases_<%= @packaging_item.id -%>').css({
+		  left: offset.left+"px",
+		  top: offset.top+"px"
+		});
 		$j('#cases_<%= @packaging_item.id -%>').show();
 		return false;
 	})
@@ -40,6 +56,7 @@
 		$j("#cases_<%= @packaging_item.id -%>").hide();
 	  $j('#hidden_div').hide();
 	  check_pallete($j('#packaging_item_packaging_type'));
+	  return false;
 	})
 </script>
 

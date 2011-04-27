@@ -8,7 +8,6 @@
 	</div>
 </p>
 <input type="hidden" id="cases_value">
-<br>
 <div id="cases_0" class="cases_results cases" style="display:none;">
 	<div class='corner'></div>
 	<a href="#" id="cases_close_0" class="close"></a>
@@ -24,8 +23,15 @@
 
 <script type="text/javascript">
 $j('#base_item_packaging_type').click(function(){
+	var offset = $j('#cases_input_0').offset();
+	offset.left +=50;
+	offset.top -=10;
 	$j.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
 	$j('#cases_0').show();
+	$j('#cases_0').css({
+	  left: offset.left+"px",
+	  top: offset.top+"px"
+	});
 	return false;
 })
 $j("#cases_close_0").click(function(){
@@ -38,6 +44,7 @@ $j("#cases_select_0").click(function(){
 	$j("#cases_input_0 input").val($j(li).attr("id"));
 	$j("#cases_0").hide();
   $j('#hidden_div').hide();
+  return false;
 })
 </script>
 <p>

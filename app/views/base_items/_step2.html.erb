@@ -3,11 +3,11 @@
 <div class="pi" style="width:250px">
 <h3><%= @base_item.gtin %></h3>
 <p>
-<select name="base_item[packaging_type]" id="base_item_packaging_type">
-<% for o in @base_item.packaging_types do %>
-<% if o[1] == 'PX' %>
+<select name="base_item[packaging_type]" id="base_item_packaging_type" style="width: 180px">
+<% for o in BaseItem.packaging_types do %>
+<% if o[:code] == 'PX' %>
 <% else %>
-  <option value="<%= o[1]%>"<%= "selected='selected'" if @base_item.packaging_type == o[1] %>><%=h o[0]%></option>
+  <option value="<%= o[:code]%>"<%= "selected='selected'" if @base_item.packaging_type == o[:code] %>><%=h o[:name]%></option>
 <% end %>
 <% end %>
 </select>

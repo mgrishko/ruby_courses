@@ -171,8 +171,8 @@ ul.items ul>li, ul.items>li
 {
   list-style: none;
   //padding-bottom: 20px;
-  //overflow: hidden;
-  padding-left: 40px;
+  overflow: hidden;
+  padding-left: 30px;
 }
 
 ul.items li .item

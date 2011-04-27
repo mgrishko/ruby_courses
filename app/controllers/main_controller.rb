@@ -26,7 +26,11 @@ class MainController < ApplicationController
     @id = if PackagingItem.find_by_id(params[:packagin_item_id])
       PackagingItem.find(params[:packagin_item_id]).id
     else
-      0
+      if params[:packagin_item_id].to_s == '0'
+	0
+      else
+	''
+      end
     end
     @results = params[:hide_px] ? BaseItem.packaging_types.delete_if{|i|i[:code]=='PX'} : BaseItem.packaging_types
     respond_to do |format| 
