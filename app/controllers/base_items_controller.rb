@@ -10,7 +10,8 @@ class BaseItemsController < ApplicationController
                                           :brand => params[:brand], 
                                           :tag => params[:tag],
 					  :receiver => params[:receiver],
-					  :search => params[:search]
+					  :search => params[:search],
+					  :page => params[:page]
     get_bi_filters current_user
   end
 

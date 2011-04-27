@@ -84,16 +84,20 @@ class ApplicationController < ActionController::Base
       @functionals = BaseItem.get_functionals supplier ? supplier : retailer
     end
 
-    def get_bi_filters current_user, supplier=nil
+    def get_bi_filters current_user, supplier=nil, all_suppliers=nil
       if current_user.supplier? # /base_items/:id
 	@clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id") #ok
 	@receivers = BaseItem.get_receivers current_user
       else
-	@clouds = Cloud.get_clouds current_user, supplier
+	if all_suppliers
+	  @clouds = Cloud.get_clouds current_user, supplier, all_suppliers
+	else
+	  @clouds = Cloud.get_clouds current_user, supplier
+	end
       end
-      @brands = BaseItem.get_brands current_user, supplier
-      @manufacturers = BaseItem.get_manufacturers current_user, supplier
-      @functionals = BaseItem.get_functionals current_user, supplier
+      @brands = BaseItem.get_brands current_user, supplier, all_suppliers
+      @manufacturers = BaseItem.get_manufacturers current_user, supplier, all_suppliers
+      @functionals = BaseItem.get_functionals current_user, supplier, all_suppliers
     end
 end
 

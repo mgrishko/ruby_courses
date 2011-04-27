@@ -4,11 +4,11 @@ class Cloud < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :tag_id
 
-  def self.get_clouds retailer, supplier=nil
-    if supplier
+  def self.get_clouds retailer, supplier=nil, all_suppliers=nil
+    if supplier or all_suppliers
       #/suppliers/1 = ok
-      find_by_sql <<-SQL
-	SELECT c.tag_id, t.name, count(*) as q FROM base_items as bi
+      find_by_sql (
+       "SELECT c.tag_id, t.name, count(*) as q FROM base_items as bi
 	LEFT JOIN items i ON bi.item_id = i.id
 	LEFT JOIN clouds c ON c.item_id = i.id
 	LEFT JOIN tags t ON c.tag_id = t.id
@@ -18,15 +18,14 @@ class Cloud < ActiveRecord::Base
 	  AND b.status ='published'
 	  ORDER BY created_at DESC LIMIT 1
 	)
-	AND c.user_id = #{retailer.id}
-	AND i.user_id = #{supplier.id}
-	AND
+	AND c.user_id = #{retailer.id} " +
+	(supplier ? " AND i.user_id = #{supplier.id} " : '') +
+	"AND
 	IF ((i.private=1),
 	  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{retailer.id}),
 	  1=1
 	)
-	GROUP BY name
-      SQL
+	GROUP BY name")
     else
       #retailer_items = ok
       find_by_sql <<-SQL

@@ -6,15 +6,22 @@ class SuppliersController < ApplicationController
   end
 
   def show
-    @supplier = User.find(params[:id])
-    @base_items = BaseItem.get_base_items :user_id => @supplier.id,
+    if params[:id].to_s == 'all'
+      #
+      get_bi_filters current_user, nil, :all_suppliers => true
+    else
+      @supplier = User.find(params[:id])
+      get_bi_filters current_user, @supplier
+    end
+    
+    @base_items = BaseItem.get_base_items :user_id => (@supplier ? @supplier.id : nil),
 					  :brand => params[:brand],
 					  :manufacturer_name => params[:manufacturer_name],
 					  :functional => params[:functional],
 					  :tag => params[:tag],
 					  :retailer_id => current_user.id,
-					  :search => params[:search]
+					  :search => params[:search],
+					  :page => params[:page]
     
-    get_bi_filters current_user, @supplier
   end
 end

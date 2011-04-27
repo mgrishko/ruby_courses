@@ -3,6 +3,7 @@
 <input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %>Поиск<% else %><%=h params[:search] %><% end %>"/>
 <a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
 </form>
+<div style="clear:both"><%= will_paginate(@base_items) %></div>
 </div>
 <br/>
 <h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>

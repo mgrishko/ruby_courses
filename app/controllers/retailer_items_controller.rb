@@ -10,7 +10,8 @@ class RetailerItemsController < ApplicationController
                                           :functional => params[:functional],
                                           :tag => params[:tag],
                                           :retailer => true,
-					  :search => params[:search]
+					  :search => params[:search],
+					  :page => params[:page]
     get_bi_filters current_user
   end
 
