@@ -35,6 +35,28 @@ function showTab(tab) {
 }
 $j(function() {
   $j("#tab-1").show();
+  $j("#search-form-input").blur(function() {
+    $j(this).css('color', '#CCC');
+    if ((this.value == '') || (this.value == 'Поиск')) {
+      this.value = 'Поиск'
+      $j("#search-clear").addClass('search-clear-inactive');
+    }
+  });
+  $j("#search-form-input").focus(function() {
+    $j(this).css('color', '#000');
+    if (this.value == 'Поиск') {
+      this.value = '';
+    }
+  });
+  $j("#search-form-input").keyup(function() {
+    if ($j("#search-form-input").val().length > 0) {
+       $j("#search-clear").removeClass('search-clear-inactive');
+      $j("#search-clear").addClass('search-clear-active');
+    } else {
+      $j("#search-clear").removeClass('search-clear-active');
+      $j("#search-clear").addClass('search-clear-inactive');
+    }
+  });
   return false;
 });
 

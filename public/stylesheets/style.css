@@ -678,3 +678,32 @@ tr.val td select {
 .cases_results ul{
 	background: #FFF;
 }
+#search-form {
+  background: url(/images/search-form.png) no-repeat;
+  width: 310px;
+  height: 20px;
+
+}
+
+#search-form-input {
+  padding-left: 25px;
+  border: 0px;
+  background: none;
+  width: 260px;
+  height: 20px;
+  float: left;
+  font-size: 90%;
+  color: #ccc;
+}
+#search-clear {
+  float: left;
+  width: 15px;
+  height: 20px;
+  cursor: pointer;
+}
+.search-clear-active {
+  background: url(/images/search-clear-active.png);
+}
+.search-clear-inactive {
+  background: url(/images/search-clear-inactive.png);
+}
