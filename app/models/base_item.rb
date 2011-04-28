@@ -285,14 +285,15 @@ class BaseItem < ActiveRecord::Base
   end
   
   def update_mix_field
-    unnecessary_fields = ['status', 'created_at','updated_at','user_id','despatch_unit','invoice_unit','order_unit','consumer_unit','item_id'] #fields for delete
-    
-    attributes = self.attributes
-    unnecessary_fields.each do |uf|
-      attributes.delete(uf)
+    necessary_fields = [:gtin, :internal_item_id, :manufacturer_name, :manufacturer_gln, :gpc_code, :country_of_origin_code, :brand, :subbrand, :functional, :item_description] #fields for search
+
+    self.mix = ''
+    necessary_fields.each do |nf|
+      self.mix += self[nf].to_s + ' '
     end
-    
-    self.mix = attributes.values.join(' ')
+    self.packaging_items.each do |pi|
+      self.mix += pi.gtin.to_s + ' '
+    end
   end
 
   def self.get_receivers current_user #only for suppliers

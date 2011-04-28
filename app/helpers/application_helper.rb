@@ -52,16 +52,16 @@ module ApplicationHelper
     i2 = i1 + pc.count - 1
     pager = "#{i1} - #{i2} of #{pc.total_entries}"
     if pc.current_page > 1
-      pager = " <a href='#{current_url(p.merge(:page => pc.current_page-1))}'>Newer</a> "+pager
+      pager = " <a href='#{current_url(p.merge(:page => pc.current_page-1))}'>Пред.</a> "+pager
     end
     if pc.current_page > 2
-      pager = " <a href='#{current_url(p.merge(:page => 1))}'>Newest</a> "+pager
+      pager = " <a href='#{current_url(p.merge(:page => 1))}'>Самые новые</a> "+pager
     end
     if pc.current_page < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(:page => pc.current_page+1))}'>Older</a> "
+      pager = pager + " <a href='#{current_url(p.merge(:page => pc.current_page+1))}'>След.</a> "
     end
     if (pc.current_page+1) < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(:page => pc.total_pages))}'>Oldest</a> "
+      pager = pager + " <a href='#{current_url(p.merge(:page => pc.total_pages))}'>Самые старые</a> "
     end
     pager
   end
