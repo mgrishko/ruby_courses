@@ -6,6 +6,7 @@
 <% else %>
   <% if params[:view] %>
     <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
+    <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
   <% end %>
 <% end %>
 <div id="base_item">

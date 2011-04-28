@@ -12,6 +12,7 @@ class SubscriptionController < ApplicationController
       json = {'error' => 'Ошибка'}
       if @subscription
 	      if @subscription.active?
+		@subscription.details = '';
 	        @subscription.cancel!
 	        json = {'text' => 'Подписаться', 'flag' => false}
 	      else
@@ -35,15 +36,57 @@ class SubscriptionController < ApplicationController
           end
 
           @subscription.subscription_results << SubscriptionResult.new(
-              :base_item_id => bi.id, :subscription_id => @subscription_id
+              :base_item_id => bi.id, :subscription_id => @subscription.id
           )
-	      end
+	end
       end
 
       render :json => json
     end
   end
   
+  def by_item_id
+    @item = Item.find(params[:item_id])
+    @base_item = @item.last_bi.first
+
+    @subscription = Subscription.find(:first, :conditions => {:supplier_id => @item.user.id, :retailer_id => current_user.id})
+    if params[:do] == 'Отписаться'
+      if @subscription
+	ids = @subscription.details.to_s.split(',')
+	ids.delete_if {|i| i.to_s == @item.id.to_s}
+	@subscription.details = ids.join(',')
+	@subscription.save
+      end
+    else
+      if @subscription
+	#need check
+	if @subscription.canceled?
+	  @subscription.active!
+	end
+      else
+	#need create
+	@subscription = Subscription.new(:supplier_id => @item.user.id, :retailer_id => current_user.id)
+      end
+    
+      ids = @subscription.details.to_s.split(',')
+      ids.delete_if {|i| i.to_s == @item.id.to_s}
+      ids.push(@item.id)
+      @subscription.details = ids.join(',')
+      @subscription.save
+
+      # Comment this for turn-off grouping of base items changes in subscription result
+      @subscription.subscription_results.each do |sr|
+	sr.delete if sr.base_item.gtin == @base_item.gtin && sr.status == 'new'
+      end
+
+      @subscription.subscription_results << SubscriptionResult.new(
+	:base_item_id => @base_item.id, :subscription_id => @subscription.id
+      )
+    end
+  end
+  
+
+
   def instantstatus # unneccessary now
     json = {'error' => 'Ошибка'}
     if request.post? and params[:id]

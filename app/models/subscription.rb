@@ -36,6 +36,22 @@ class Subscription < ActiveRecord::Base
         AND subscription_results.status = 'new'
     SQL
   end
+
+  def self.find_in_details details, id
+    if details.to_s != ''
+      return details.split(',').include? id.to_s
+    else
+      return true
+    end
+  end
+  
+  def self.present_and_find_in_details details, id
+    if details.to_s != ''
+      return details.split(',').include? id.to_s
+    else
+      return false
+    end
+  end
 end
 
 # == Schema Information
