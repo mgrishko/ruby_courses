@@ -26,4 +26,17 @@ class SubscriptionResultsController < ApplicationController
     end
 
   end
+  
+  def update_all
+    @subscription = Subscription.find(
+      :first, :conditions => {:id => params[:subscription_id], :retailer_id => current_user.id}
+    )
+    @subscription.subscription_results.find(:all, :conditions => {:status => 'new'}).each do |sr|
+      if params[:accept]
+	sr.accept!
+      else
+	sr.cancel!
+      end
+    end
+  end
 end
