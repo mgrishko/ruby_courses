@@ -43,7 +43,7 @@ class BaseItem < ActiveRecord::Base
   #validates_associated :gpc
   #validates_associated :country_of_origin
 
-  #validates_presence_of :gtin, :if => :first_step?
+  validates_presence_of :gtin, :if => :first_step?
   #validates_gtin :gtin, :if => :first_step?
   #validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
 
@@ -71,7 +71,9 @@ class BaseItem < ActiveRecord::Base
   validates_presence_of :gpc_code, :if => :first_step?
   validates_presence_of :gpc_name, :if => :first_step?
   validates_presence_of :country_of_origin_code, :if => :first_step?
-
+  
+  validates_presence_of :item_description, :if => :first_step?
+  validates_presence_of :manufacturer_gln
 
   aasm_column :status
 
