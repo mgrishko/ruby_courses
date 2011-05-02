@@ -7,8 +7,8 @@
 
 filename = 'plaintext.txt'
 File.open(filename, 'r+') do |file|
-  line = file.readlines.to_s
-  line['word']= 'inserted word'
+  line = file.readlines.to_s.sub('word', 'inserted word')
+# line['word']= 'inserted word'
   file.puts line
 end
 
