@@ -14,3 +14,4 @@ Dir.chdir('tmp')
 puts Dir.pwd
 Dir.chdir('..')
 Dir.rmdir('tmp')
+Dir.entries(home).each { |e| puts e}
