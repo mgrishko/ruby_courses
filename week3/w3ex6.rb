@@ -19,12 +19,13 @@ def random_year
   rand(21) + 1930
 end
 
-str = 'a'
-while str != str.upcase
-  puts "HUH?! SPEAK UP, SONNY!"
-  str = gets.chomp!
-  break if str == "BYE"
-  if str == str.upcase 
+str = ''
+while str != "BYE"
+  print "Say: "
+  str = gets.chomp
+  if str == str.downcase
+    puts "HUH?! SPEAK UP, SONNY!"
+  elsif str == str.upcase 
     puts "NO, NOT SINCE #{random_year}!"
   end
 end
