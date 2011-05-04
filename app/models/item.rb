@@ -33,6 +33,18 @@ class Item < ActiveRecord::Base
       "select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.item_id = #{self.id} order by created_at desc limit 1) order by a.created_at desc limit 1"
     )
   end
+
+  def subscribers
+    sns = self.user.subscribers #subscriptions
+    @subscribers = Array.new();
+    for s in sns do
+      if Subscription.find_in_details(s.details, self.id)
+	@subscribers.push(s.retailer)
+      end
+    end
+    @subscribers
+  end
+
 end
 
 # == Schema Information

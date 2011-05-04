@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     a.disable_perishable_token_maintenance  true
     a.crypto_provider Authlogic::CryptoProviders::MD5
   end
-
+  
   def fresh_base_items
     if self.base_items.count > 0
       return self.base_items.first(:conditions => {:status => "published"}, :order => 'created_at desc').created_at.to_s(:db)

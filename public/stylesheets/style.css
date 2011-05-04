@@ -707,3 +707,9 @@ tr.val td select {
 .search-clear-inactive {
   background: url(/images/search-clear-inactive.png);
 }
+table.standart {
+  width: 100%;
+}
+table.standart td, table.standart th {
+  border: 1px solid gray;
+}
