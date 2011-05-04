@@ -57,22 +57,34 @@ $j(function() {
       $j("#search-clear").addClass('search-clear-inactive');
     }
   });
+  $j(".bi").hover(function() {
+    $j(this).addClass("hovered");
+  },
+  function() {
+    $j(this).removeClass("hovered");
+  });
+  $j('body').click(function(e){
+  e.stopPropagation();
+  //DO SOMETHING
+  });
   return false;
 });
 
-function subscription(that, supplier_id) {
+function subscription(event, that, supplier_id) {
+  event.stopPropagation();
   $j.post('/subscriptions/status', {id: supplier_id}, function(data) {
     if (data.error) {
       alert(data.error);
     } else {
       $j(that).html(data.text);
       if (data.flag) {
-	$j('#tr-'+supplier_id).addClass('subscribed');
+	$j('#bi-'+supplier_id).addClass('subscribed');
       } else {
-	$j('#tr-'+supplier_id).removeClass('subscribed');
+	$j('#bi-'+supplier_id).removeClass('subscribed');
       }
     }
   }, "json");
+  return false;
 }
 function instantSubscription(that, supplier_id) {
   $j.post('/subscriptions/instantstatus', {id: supplier_id}, function(data) {

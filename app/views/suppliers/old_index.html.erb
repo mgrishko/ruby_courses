@@ -1,0 +1,21 @@
+<div class="fright">
+<form method="GET" action="/suppliers/all" id="search-form">
+<input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %>Поиск<% else %><%=h params[:search] %><% end %>"/>
+<a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
+</form>
+</div>
+<h1>Поставщики</h1>
+<table>
+<tr>
+<td>GLN</td><td>Название</td><td>количество bi</td><td>дата самого свежего bi</td><td>Подписка</td>
+</tr>
+<% for u in @users do %>
+<tr<% if u.my_retailer_flag(current_user.id) %> class="subscribed"<% end %> id="tr-<%= u.id %>">
+<td><%= link_to u.gln, supplier_path(u) %></td><td><%= link_to u.name, supplier_path(u) %></td><td><%=u.count_fresh_base_items %></td><td><%= u.fresh_base_items %></td>
+<td>
+<button id="bs-<%= u.id %>" onclick="return subscription(this, '<%= u.id %>')"><%= u.my_retailer_info(current_user.id) %></button>
+</td>
+</tr>
+<% end %>
+</table>
+<%= will_paginate @users %>

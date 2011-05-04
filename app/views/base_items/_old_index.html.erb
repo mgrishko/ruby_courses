@@ -50,18 +50,52 @@
 <!--/filters-->
 <!--data-->
 <div class="data">
+<table class="results">
+<%= defined?(retailer) ? '<col></col><col></col>' : '' -%>
+<col />
+<col width="100" />
+<col width="300" />
+<col width="200" align="center" />
+<col width="50"  align="center" />
+<col />
+<tr>
+<th></th>
+<% if defined?(retailer) %>
+<th>gln</th>
+<th>name</th>
+<% end %>
+<th>gtin</th>
+<th>description</th>
+<th>tags</th>
+<th>status</th>
+<th>date</th>
+</tr>
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-  <div class="bi <%= "private" if base_item.item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
-    <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
-    <div class="bi-content">
-      <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
-      <div class="usual"><%= base_item.item_description %></div>
-      <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
-      <div class="light mini"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
-    </div>
-  </div>
+  <tr <%= "class='private'" if base_item.item.private %>>
+    <td><input type="checkbox" class="checkbox" name="" id=""/></td>
+    <% if defined?(retailer) %>
+    <td><%= base_item.user.gln %></td>
+    <td><%= base_item.user.name %></td>
+    <% end %>
+    <td><%= link_to base_item.gtin, base_item_path(path_params) %></td>
+    <td><%= link_to base_item.item_description, base_item_path(path_params) %></td>
+    <td class="tags">
+    <% base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).each do |c| %>
+    <span class="tag"><%= c.tag.name %></span>
+    <% end %>
+    </td>
+    <td><%= base_item.item.status %></td>
+    <td class="date"><%= base_item.created_at.to_s(:short) %></td>
+    <!--<td><%#= base_item.status %></td>-->
+    <!--<td><%#= link_to 'Destroy', base_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%#= link_to 'Создать на основе этой', :controller => :base_items, :action => :new, :base => base_item.id %></td>
+    <td><%#= link_to 'Publish', publish_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Accept', accept_base_item_path(base_item) %></td>
+    <td><%#= link_to 'Reject', reject_base_item_path(base_item) %></td>-->
+  </tr>
 <% end %>
+</table>
 
 <%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>
 </div>

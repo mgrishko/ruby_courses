@@ -1,0 +1,33 @@
+<tr id="sr-<%= result.id %>">
+	<td>
+		<%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<td>
+		<%= link_to result.base_item.item.not_new? ? '' : 'new', base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<td>
+		<%= link_to result.base_item.item_description, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<td>
+		<%= link_to humanize_date(result.base_item.updated_at), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+	<% if result.new? %>
+		<td>
+			<div style="float:left;">
+				<% remote_form_for(result) do |f| %>
+					<%= f.submit "Акцептовать", :name => 'accept' %>
+				<% end %>
+			</div>
+			<div style="float:left;">
+				<% remote_form_for(result) do |f| %>
+					<%= f.submit "Отменить", :name => 'cancel' %>
+				<% end %>
+			</div>
+		</td>
+	<% else %>
+		<td><%= result.status %></td>
+	<% end %>
+	<td>
+		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
+	</td>
+</tr>

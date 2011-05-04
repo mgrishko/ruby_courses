@@ -5,17 +5,16 @@
 </form>
 </div>
 <h1>Поставщики</h1>
-<table>
-<tr>
-<td>GLN</td><td>Название</td><td>количество bi</td><td>дата самого свежего bi</td><td>Подписка</td>
-</tr>
 <% for u in @users do %>
-<tr<% if u.my_retailer_flag(current_user.id) %> class="subscribed"<% end %> id="tr-<%= u.id %>">
-<td><%= link_to u.gln, supplier_path(u) %></td><td><%= link_to u.name, supplier_path(u) %></td><td><%=u.count_fresh_base_items %></td><td><%= u.fresh_base_items %></td>
-<td>
-<button id="bs-<%= u.id %>" onclick="return subscription(this, '<%= u.id %>')"><%= u.my_retailer_info(current_user.id) %></button>
-</td>
-</tr>
+<div class="bi <% if u.my_retailer_flag(current_user.id) %>subscribed<% end %>" id="bi-<%= u.id %>" onclick="document.location='<%= supplier_path(u) %>'">
+  <div class="bi-right"><button id="bs-<%= u.id %>" onclick="return subscription(event, this, '<%= u.id %>')"><%= u.my_retailer_info(current_user.id) %></button></div>
+  <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+  <div class="bi-content">
+    <div><span class="normal"><%= u.gln %></span> <span class="light"><%= link_to u.name, supplier_path(u) %></div>
+    <div class="usual">Количество товаров: <%=u.count_fresh_base_items %></div>
+    <div class="light">Дата самого свежего: <%= u.fresh_base_items %></div>
+    <div class="light mini"></div>
+  </div>
+</div>
 <% end %>
-</table>
 <%= will_paginate @users %>

@@ -657,7 +657,7 @@ tr.val td select {
   min-height: 50px;
 }
 .private {
-  background: #fff8ab;
+  border-right: 4px dotted #999;
 }
 .man{
   position: relative;
@@ -712,4 +712,37 @@ table.standart {
 }
 table.standart td, table.standart th {
   border: 1px solid gray;
+}
+
+.bi {
+  clear: both;
+  border-bottom: 1px solid #EBEBEB;
+  padding: 15px 20px;
+  cursor: pointer;
+  min-height: 50px;
+}
+.bi-image {
+  float: left;
+}
+.bi-content {
+  margin-left: 60px;
+}
+.bi-right {
+  float: right;
+}
+.hovered {
+  background: #eee;
+}
+.normal {
+  font-size: 120%;
+  font-weight: bold;
+}
+.light {
+  color: #6c6c6c;
+}
+.mini {
+  font-size: 75%;
+}
+.usual {
+  font-size: 110%;
 }

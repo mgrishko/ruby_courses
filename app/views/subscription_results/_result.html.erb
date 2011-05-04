@@ -1,33 +1,25 @@
-<tr id="sr-<%= result.id %>">
-	<td>
-		<%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<td>
-		<%= link_to result.base_item.item.not_new? ? '' : 'new', base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<td>
-		<%= link_to result.base_item.item_description, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<td>
-		<%= link_to humanize_date(result.base_item.updated_at), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-	<% if result.new? %>
-		<td>
-			<div style="float:left;">
-				<% remote_form_for(result) do |f| %>
-					<%= f.submit "Акцептовать", :name => 'accept' %>
-				<% end %>
-			</div>
-			<div style="float:left;">
-				<% remote_form_for(result) do |f| %>
-					<%= f.submit "Отменить", :name => 'cancel' %>
-				<% end %>
-			</div>
-		</td>
-	<% else %>
-		<td><%= result.status %></td>
+<div class="bi" id="sr-<%= result.id %>" onclick="document.location='<%= base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>'">
+  <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+  <div class="bi-content">
+    <div><span class="normal"><%= result.base_item.gtin %></span> <span class="light"><%= result.base_item.user.name %></span></div>
+    <div class="usual"><%= result.base_item.item_description %></div>
+    <div class="light"><%= humanize_date(result.base_item.updated_at) %></div>
+    <div class="light mini"><%= result.base_item.item.not_new? ? '' : 'new' %></div>
+    <div><%= truncated_comment(result.base_item) %></div>
+    <% if result.new? %>
+      <div style="float:left;">
+	<% remote_form_for(result) do |f| %>
+	<%= f.submit "Акцептовать", :name => 'accept', :onclick=>"event.stopPropagation();" %>
 	<% end %>
-	<td>
-		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
-	</td>
-</tr>
+      </div>
+      <div style="float:left;">
+	<% remote_form_for(result) do |f| %>
+	<%= f.submit "Отменить", :name => 'cancel', :onclick=>"event.stopPropagation();" %>
+	<% end %>
+      </div>
+    <% else %>
+      <div><%= result.status %></div>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+</div>
