@@ -753,3 +753,34 @@ table.standart td, table.standart th {
 .usual {
   font-size: 115%;
 }
+
+.align_center
+{
+position: relative;
+width: 100%;
+}
+.align_center:after
+{
+content: '';
+display: block;
+clear: both;
+}
+.align_center_to_left
+{
+position: relative;
+right: 50%;
+float: right;
+}
+.align_center_to_right
+{
+position: relative;
+z-index: 1;
+right: -50%;
+min-width: 1000px;
+background: #fff;
+border: 1px solid #D8D9DC;
+box-shadow: 0 0 3px #B6B7BB; /* Параметры тени */
+-moz-box-shadow: 0 0 3px #B6B7BB; /* Для Firefox */
+-webkit-box-shadow: 0 0 3px #B6B7BB; /* Для Safari и Chrome */
+padding: 0 1em;
+}
