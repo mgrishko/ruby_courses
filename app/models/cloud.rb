@@ -16,7 +16,7 @@ class Cloud < ActiveRecord::Base
 	  SELECT b.id FROM base_items b 
 	  WHERE bi.item_id = b.item_id 
 	  AND b.status ='published'
-	  ORDER BY created_at DESC LIMIT 1
+	  ORDER BY id DESC LIMIT 1
 	)
 	AND c.user_id = #{retailer.id} " +
 	(supplier ? " AND i.user_id = #{supplier.id} " : '') +
@@ -43,7 +43,7 @@ class Cloud < ActiveRecord::Base
 	  where
 	  b.status='accepted'
 	  AND d.id = i.id
-	  ORDER BY b.created_at DESC LIMIT 1
+	  ORDER BY b.id DESC LIMIT 1
 	)
 	AND c.user_id = #{retailer.id}
 	AND sr.status = 'accepted'

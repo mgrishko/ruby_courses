@@ -311,7 +311,7 @@ class BaseItem < ActiveRecord::Base
 	WHERE a.item_id = b.item_id 
 	AND b.status = 'published' 
 	AND b.user_id = #{current_user.id} 
-	ORDER BY created_at DESC LIMIT 1
+	ORDER BY id DESC LIMIT 1
       ) GROUP by u.name
     SQL
   end
@@ -327,7 +327,7 @@ class BaseItem < ActiveRecord::Base
             WHERE a.item_id = b.item_id 
             AND b.status = 'published' " + 
             (supplier ? " AND b.user_id = #{supplier.id} " : '') +
-            " ORDER BY created_at DESC LIMIT 1
+            " ORDER BY id DESC LIMIT 1
 	  )
 	  AND
 	  IF ((i.private=1),
@@ -349,7 +349,7 @@ class BaseItem < ActiveRecord::Base
 	    where
 	    b.status='accepted'
 	    AND d.id = i.id
-	    ORDER BY b.created_at DESC LIMIT 1
+	    ORDER BY b.id DESC LIMIT 1
 	  ) 
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
@@ -369,7 +369,7 @@ class BaseItem < ActiveRecord::Base
           WHERE a.item_id = b.item_id 
           AND b.status = 'published' 
           AND b.user_id = #{current_user.id} 
-	  ORDER BY created_at DESC LIMIT 1
+	  ORDER BY id DESC LIMIT 1
 	) GROUP by brand
       SQL
     end
@@ -385,7 +385,7 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status = 'published' " +
                           (supplier ? " AND b.user_id = #{supplier.id} " : '') +
-                      "ORDER BY created_at DESC LIMIT 1)
+                      "ORDER BY id DESC LIMIT 1)
 	  AND 
 	    IF ((i.private=1),
 	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
@@ -406,7 +406,7 @@ class BaseItem < ActiveRecord::Base
 	    where
 	    b.status='accepted'
 	    AND d.id = i.id
-	    ORDER BY b.created_at DESC LIMIT 1
+	    ORDER BY b.id DESC LIMIT 1
 	  ) 
           AND  s.retailer_id = #{current_user.id}
 	  AND  sr.status = 'accepted'
@@ -425,7 +425,7 @@ class BaseItem < ActiveRecord::Base
                         WHERE a.item_id = b.item_id 
                           AND b.status = 'published' 
                           AND b.user_id = #{current_user.id} 
-                      ORDER BY created_at DESC LIMIT 1) GROUP by manufacturer_name      
+                      ORDER BY id DESC LIMIT 1) GROUP by manufacturer_name      
       SQL
     end
   end
@@ -441,7 +441,7 @@ class BaseItem < ActiveRecord::Base
 	      WHERE a.item_id = b.item_id 
 	      AND b.status = 'published' " +
 	      (supplier ? " AND b.user_id = #{supplier.id} " : '') +
-	      "ORDER BY created_at DESC LIMIT 1
+	      "ORDER BY id DESC LIMIT 1
 	    )
 	    AND
 	    IF ((i.private=1),
@@ -463,7 +463,7 @@ class BaseItem < ActiveRecord::Base
 	      where
 	      b.status='accepted'
 	      AND d.id = i.id
-	      ORDER BY b.created_at DESC LIMIT 1
+	      ORDER BY b.id DESC LIMIT 1
 	    ) 
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
@@ -483,7 +483,7 @@ class BaseItem < ActiveRecord::Base
           WHERE a.item_id = b.item_id 
           AND b.status = 'published' 
 	  AND b.user_id = #{current_user.id} 
-          ORDER BY created_at DESC LIMIT 1
+          ORDER BY id DESC LIMIT 1
 	) GROUP by functional      
        SQL
      end
@@ -503,7 +503,7 @@ class BaseItem < ActiveRecord::Base
 	where
 	b.status='accepted'
 	AND d.id = i.id
-	ORDER BY b.created_at DESC LIMIT 1)
+	ORDER BY b.id DESC LIMIT 1)
       SQL
 =begin
       subquery = <<-SQL
@@ -584,7 +584,7 @@ class BaseItem < ActiveRecord::Base
                         where a.item_id = b.item_id 
                           and b.status='published' 
                           " + (options[:user_id] ? " and b.user_id = #{options[:user_id]} " : '') + 
-                        "order by created_at desc limit 1)
+                        "order by id desc limit 1)
 	   AND
 	   IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
 		   i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
@@ -600,7 +600,7 @@ class BaseItem < ActiveRecord::Base
   	                        and b.status='published' " + 
   	                        (options[:user_id] ? " and b.user_id = #{options[:user_id]} " : '') + 
   	                        "and "+conditions.first.to_s+" 
-  	                      order by created_at desc limit 1)
+  	                      order by id desc limit 1)
 		AND
 		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
 		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
@@ -615,7 +615,7 @@ class BaseItem < ActiveRecord::Base
   	                      where a.item_id = b.item_id 
   	                        and b.status='published' 
   	                        and b.user_id = #{options[:user_id]} 
-  	                      order by created_at desc limit 1)
+  	                      order by id desc limit 1)
 		AND i.private=1
 		AND 
 		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = ?)
@@ -627,7 +627,7 @@ class BaseItem < ActiveRecord::Base
   	        where a.id = (select b.id from base_items b 
   	                      where a.item_id = b.item_id and b.status='published' "+ 
   	                        (options[:user_id] ? " and b.user_id = #{options[:user_id]} " : '') +
-  	                      "order by created_at desc limit 1) 
+  	                      "order by id desc limit 1) 
 		AND
 		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
 		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
