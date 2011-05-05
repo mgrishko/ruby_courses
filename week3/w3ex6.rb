@@ -20,7 +20,7 @@ def random_year
 end
 
 str = ''
-while str != "BYE"
+until str == "BYE"
   print "Say: "
   str = gets.chomp
   if str == str.downcase
