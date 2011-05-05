@@ -3,7 +3,6 @@
   <div class="bi-content">
     <div><span class="normal"><%= result.base_item.gtin %></span> <span class="light"><%= result.base_item.user.name %></span></div>
     <div class="usual"><%= result.base_item.item_description %></div>
-    <div class="light"><%= humanize_date(result.base_item.updated_at) %></div>
     <div class="light mini"><%= result.base_item.item.not_new? ? '' : 'new' %></div>
     <div><%= truncated_comment(result.base_item) %></div>
     <% if result.new? %>
@@ -18,7 +17,7 @@
 	<% end %>
       </div>
     <% else %>
-      <div><%= result.status %></div>
+      <div class="light mini"><%= result.status %>, <%= humanize_date(result.base_item.updated_at) %></div>
     <% end %>
     <div class="clear"></div>
   </div>
