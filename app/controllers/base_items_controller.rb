@@ -177,7 +177,7 @@ class BaseItemsController < ApplicationController
       n = BaseItem.new(@base_item.attributes)
       n.created_at = n.updated_at = nil
       n.state = 'change' #not new. This is version
-      n.draft!
+      return render :text => n.errors.full_messages unless n.draft!
       #n.save
       
       map_id = {}
