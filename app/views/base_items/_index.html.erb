@@ -58,7 +58,7 @@
       <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
       <div class="usual"><%= base_item.item_description %></div>
       <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
-      <div class="light mini"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
+      <div class="light"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
     </div>
   </div>
 <% end %>
