@@ -1,2 +1,4 @@
-<% if @subscription.subscription_results.detect {|r| r.new?} %><% remote_form_for :subscription_result, :url => {:action => 'update_all'} do |f| %><input type="hidden" name="subscription_id" value="<%= @subscription.id %>"/><%= f.submit "Акцептовать все", :name => 'accept' %><%= f.submit "Отменить все", :name => 'cancel' %><% end %><% end %>
+<% if @subscription.subscription_results.detect {|r| r.new?} %><%= link_to_remote('Акцептовать все', :url => {:controller => "subscription_results", :action => "update_all"}, :method => "POST", :with => "'accept=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите акцептовать все результаты?") %> <%= link_to_remote('Отменить все', :url => {:controller => "subscription_results", :action => "update_all"}, :method => "POST", :with => "'cancel=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите отменить все результаты?") %>
+
+<% end %>
 <%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>

@@ -4,20 +4,18 @@
     <div><span class="normal"><%= result.base_item.gtin %></span> <span class="light"><%= result.base_item.user.name %></span></div>
     <div class="usual"><%= result.base_item.item_description %></div>
     <div class="light mini"><%= result.base_item.item.not_new? ? '' : 'new' %></div>
-    <div><%= truncated_comment(result.base_item) %></div>
+    <div class="light"><%= truncated_comment(result.base_item) %></div>
+    <div style="float: left" class="light"><%= humanize_date(result.base_item.updated_at) %>&nbsp;</div>
     <% if result.new? %>
-      <div style="float:left;">
-	<% remote_form_for(result) do |f| %>
-	<%= f.submit "Акцептовать", :name => 'accept', :onclick=>"event.stopPropagation();" %>
-	<% end %>
+      <div style="float:left;" class="light">
+	<%= link_to_remote('Акцептовать', :url => url_for(result), :method => "PUT", :before => "event.stopPropagation()", :with => "'accept=yes'") %>
       </div>
-      <div style="float:left;">
-	<% remote_form_for(result) do |f| %>
-	<%= f.submit "Отменить", :name => 'cancel', :onclick=>"event.stopPropagation();" %>
-	<% end %>
+      <div style="float:left;" class="light">
+	&nbsp;<%= link_to_remote('Отменить', :url => url_for(result), :method => "PUT", :before => "event.stopPropagation()", :with => "'cancel=yes'") %>
+
       </div>
     <% else %>
-      <div class="light"><%= result.status %>, <%= humanize_date(result.base_item.updated_at) %></div>
+      <div class="light">&nbsp;<%= result.status %></div>
     <% end %>
     <div class="clear"></div>
   </div>
