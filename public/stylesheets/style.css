@@ -757,7 +757,6 @@ table.standart td, table.standart th {
 .align_center
 {
 position: relative;
-width: 100%;
 height: 100%;
 }
 .align_center:after

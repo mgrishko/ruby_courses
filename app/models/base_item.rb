@@ -42,10 +42,12 @@ class BaseItem < ActiveRecord::Base
   end  
   #validates_associated :gpc
   #validates_associated :country_of_origin
+  
+  validate :check_gtin
 
   validates_presence_of :gtin, :if => :first_step?
   #validates_gtin :gtin, :if => :first_step?
-  #validates_uniqueness_of :gtin, :scope => :user_id, :if => :first_step?
+  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?
 
   validates_length_of :brand, :within => 1..70, :if => :first_step?
   validates_length_of :functional, :within => 1..35, :if => :first_step?
@@ -120,6 +122,11 @@ class BaseItem < ActiveRecord::Base
   #  packaging_items.update_all(:published => true)
   #end
   
+  def check_gtin
+    errors.add(:gtin, "Уже существует") if BaseItem.count(:conditions => ["item_id != ? and user_id = ? and gtin = ? and status = 'published'", self.item_id, self.user_id, self.gtin]) > 0
+    errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.user_id, self.gtin], :joins => :base_item) > 0
+  end
+
   def draft_all
     self.item.base_items.each do |bi|
       bi.draft!
