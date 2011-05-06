@@ -785,5 +785,5 @@ box-shadow: 0 0 3px #B6B7BB; /* Параметры тени */
 -moz-box-shadow: 0 0 3px #B6B7BB; /* Для Firefox */
 -webkit-box-shadow: 0 0 3px #B6B7BB; /* Для Safari и Chrome */
 padding: 0 1em;
-min-height: 99%;
+min-height: 98%;
 }
