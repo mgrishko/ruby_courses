@@ -3,7 +3,7 @@ body, html
 	behavior: url(csshover.htc);
 	height: 100%;
 	width: 100%;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: Arial, Verdana,Verdana,  Helvetica, sans-serif;
 	font-size: 9pt;
 	color: #000;
 	line-height: 150%;
@@ -36,6 +36,7 @@ ul, ol
 td
 {
     padding: 3px 5px;
+    vertical-align: top;
 }
 
 .fieldWithErrors {
@@ -80,9 +81,9 @@ h1
 
 h2 {
 	font-size: 2em;
-	border-bottom: 1px solid #000;
-	margin: 1em 0;
-	padding: 0 0 0.1em;
+	font-weight: bold;
+	margin: 0.5em 0;
+	//padding: 0 0 0.1em;
 }
 h3 {
   font-size: 1.5em;
@@ -106,9 +107,11 @@ h3 {
 
 .header
 {
-	height: 50px;
+	min-height: 30px;
 	position: relative;
-	margin-bottom: 35px;
+	background: #FaFaFa;
+	//margin-bottom: 35px;
+	padding: 0 1em;
 }
 
 .logo
@@ -123,7 +126,7 @@ h3 {
 	width: 100%;
 	display: table;
 	clear: both;
-    padding-bottom: 40px;
+    padding: 20px 0;
 }
 
 .row
@@ -444,8 +447,7 @@ tr.val td select {
 .button {
   background: none;
   font-size: 100%;
-  font-weight: bold;
-  padding: 10px 0;
+  padding: 4px 0;
 }
 .comment-area {
   background: none;
@@ -652,6 +654,7 @@ tr.val td select {
 }
 .versions {
   font-size: 75%;
+  margin-bottom: 5px;
 }
 .d {
   font-weight: bold;
@@ -754,6 +757,30 @@ table.standart td, table.standart th {
   font-size: 115%;
 }
 
+.item-content {
+  background: #f4f5f8;
+  width: 100%;
+  box-shadow: 0 0 3px #B6B7BB; /* Параметры тени */
+  -moz-box-shadow: 0 0 3px #B6B7BB; /* Для Firefox */
+  -webkit-box-shadow: 0 0 3px #B6B7BB; /* Для Safari и Chrome */
+
+}
+
+.part-left {
+  background: transparent;
+  padding: 1em 0.5em;
+ 
+}
+.part-right {
+  background: #fff;
+  border: 1px solid #D8D9DC;
+  box-shadow: 0 0 3px #B6B7BB; /* Параметры тени */
+  -moz-box-shadow: 0 0 3px #B6B7BB; /* Для Firefox */
+  -webkit-box-shadow: 0 0 3px #B6B7BB; /* Для Safari и Chrome */
+  padding: 5px;
+
+}
+
 .align_center
 {
 position: relative;
@@ -785,4 +812,6 @@ box-shadow: 0 0 3px #B6B7BB; /* Параметры тени */
 -webkit-box-shadow: 0 0 3px #B6B7BB; /* Для Safari и Chrome */
 padding: 0 1em;
 min-height: 98%;
+margin-top: 2em;
 }
+

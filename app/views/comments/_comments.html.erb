@@ -1,0 +1,14 @@
+<h2>Комментарии</h2>
+<div id="comments">
+<% @base_item.item.comments.each do |c| %>
+<div class="bi">
+<div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+<div class="bi-content">
+<div><span class="normal"><%= c.user.name %></span></div>
+<div class="usual"><%= c.content %></div>
+<div class="light"><%= c.created_at.to_s(:cmnt) %></div>
+</div>
+</div>
+<% end %>
+</div>
+

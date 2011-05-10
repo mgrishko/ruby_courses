@@ -1,0 +1,29 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'classifier' %>
+<% end %>
+
+<%= link_to 'Back', base_items_path %>
+<div class="clear"></div>
+<h2>Основные данные</h2>
+<% form_for(@base_item) do |f| %>
+<div style="width: 1200px"/>
+  <%= f.error_messages %>
+  <div style="min-width: 240px; float: left;">
+  <%= render :partial => "image" %>
+  </div>
+  <div style="min-width: 700px; float: left">
+  <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>
+  <%= render :partial => "base" if @base_item.current_step == 'step2' %>
+  <p>
+    <%#=check_box_tag :publish%>
+    <%#=label_tag :publish, "Publish record ?"%>
+  </p>
+  </div>
+</div>
+<div class="clear"></div>
+<%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step2' %>
+<p>
+<%= f.submit "Назад", :name => "back_button", :class => "button" unless @base_item.first_step? %></p>
+<%= f.submit "Дальше", :class => "button" %>
+</p>
+<% end %>

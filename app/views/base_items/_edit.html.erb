@@ -1,19 +1,19 @@
 <div class="clear"></div>
 <h2>Основные данные</h2>
-<div style="min-width: 1200px"/>
+<div>
 <% remote_form_for(@base_item) do |f| %>
 <%= f.error_messages %>
+<!--
 <div style="min-width: 240px; float: left;">
 <%= render :partial => "image" %>
 <%= render :partial => "clouds" %>
-</div>
+</div>-->
 <div style="min-width: 600px; float: left">
 <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
 <p>
 <%#=check_box_tag :publish%>
 <%#=label_tag :publish, "Publish record ?"%>
 </p>
-
 <p>
 <%= f.submit "Применить", :class=> "button" %>
 </p>

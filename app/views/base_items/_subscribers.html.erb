@@ -1,0 +1,15 @@
+<% unless @view_only %>
+  <% if @base_item.published? %>
+    <h2>Подписчики</h2>
+    <% if @base_item.item.subscribers.count > 0 %>
+      <table class="standart"><tr><th>Ритейлер</th><th>Article Id</th><th>Item description</th><th>Classification</th></tr>
+      <% for u in @base_item.item.subscribers do %>
+	<tr>
+	  <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
+	<td><%= u.name %></td><td><%= ra.retailer_article_id %></td><td><%= ra.retailer_item_description %></td><td><%= ra.retailer_classification %></td>
+	</tr>
+      <% end %>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

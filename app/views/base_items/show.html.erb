@@ -1,95 +1,42 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'classifier' %>
 <% end %>
+
 <% if @subscription_result && @subscription_result.new? %>
-<%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } %>
+  <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } %>
 <% else %>
   <% if params[:view] %>
     <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
     <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
   <% end %>
 <% end %>
-<div id="base_item">
-  <div style="width: 1000px;">
-  	<%= render :partial => 'item' %>
-  </div>
-</div>
-<div class="clear"></div>
-<!--pi-->
-<div id="packaging_items">
-	<%= render 'packaging_items/index' %>
-</div>
-<!--/pi-->
-<% unless @view_only %>
-  <% if @base_item.published? %>
-    <h2>Подписчики</h2>
-    <% if @base_item.item.subscribers.count > 0 %>
-      <table class="standart"><tr><th>Ритейлер</th><th>Article Id</th><th>Item description</th><th>Classification</th></tr>
-      <% for u in @base_item.item.subscribers do %>
-	<tr>
-	  <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
-	  <td><%= u.name %></td><td><%= ra.retailer_article_id %></td><td><%= ra.retailer_item_description %></td><td><%= ra.retailer_classification %></td>
-	</tr>
-      <% end %>
-      </table>
-    <% end %>
-  <% end %>
-<% end %>
-<!--comments block-->
-<br>
-<% unless @view_only %>
-  <% if @base_item.item.private && @base_item.published? %>
-    <h2>Приватность</h2>
-    Получатели: <%= @base_item.item.receivers.collect {|r| r.user.name }.join(", ") %>
-  <% end %>
-<% end %>
-<% if @base_item.draft? %>
-<h2>Приватность</h2>
-<input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.item.private %> onchange="$j('#base_item_private').val(this.checked);"/>Приватно<br/>
-<div id="receivers">
-<%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.item.receivers} %>
-</div>
-<% end %>
-<h2>Комментарии</h2>
-<div id="comments">
-	<% @base_item.item.comments.each do |c| %>
-		<div class="bi">
-		<div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
-		<div class="bi-content">
-		  <div><span class="normal"><%= c.user.name %></span></div>
-		  <div class="usual"><%= c.content %></div>
-		  <div class="light"><%= c.created_at.to_s(:cmnt) %></div>
-		</div>
-		</div>
-	<% end %>
-</div>
-<!--/comments block-->
 
+<%= render :partial => "versions" %>
 
-<% if @base_item.draft? %>
- 	<% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
-		<% if @base_item.item.user.id == current_user.id %>
-		  <% f.fields_for @base_item.comments.new do |c| %>
-		  <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
-			<%= c.hidden_field 'base_item_id', :value => @base_item.id %>
-		  <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
-		  <input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.item.private %>"/>
-		  
-		  <% end %>
-		<% end %>
-    <%= f.submit "Опубликовать", :class => "button" %>
-    <%= f.submit "Отменить", :name => "cancel", :class => "button" %>
-  <% end %>
-  <% remote_form_for Receiver.new do |f| %>
-  <input type="hidden" id="receiver_item_id" name="receiver[item_id]" value="<%= @base_item.item.id %>"/>
-  <input type="hidden" id="receiver_gln" name="receiver[gln]" />
-  <% end %>
-<% end %>
+<table valign="top" class="item-content">
+<tr>
+<td valign="top" style="width: 200px">
+<%= render :partial => "image" %>
+<%= render :partial => "clouds" %>
+<%= render :partial => "add_tag" %>
+</td>
+<td valign="top" style="background: #fff; padding: 0">
+<div class="part-right">
+  <%= render :partial => 'item' %>
+  <%= render 'packaging_items/index' %>
+  <%= render :partial => 'subscribers' %>
+  <%= render :partial => 'privacy' %>
+  <%= render 'comments/comments' %>
+  <%= render :partial => 'publish' %>
 
 <% content_for :top do %>
-	<% unless @view_only %>
-		<p><%= link_to 'вернуться к списку bi', base_items_path %></p>
-	<% end %>
-<!--<div class="item_header"><%= h @base_item.gtin %> <%= h @base_item.item_description %></div>-->
+  <% unless @view_only %>
+    <p><%= link_to 'вернуться к списку bi', base_items_path %></p>
+  <% end %>
 <% end %>
+
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
+</div>
+</td>
+</tr>
+</table>

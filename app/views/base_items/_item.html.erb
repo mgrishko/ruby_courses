@@ -1,25 +1,12 @@
-<% unless @view_only || @base_item.draft? %>
-<div class="versions">Versions: 
-<% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at').each do |v| %>
-<% if v.id == @base_item.id %><%= @base_item.updated_at.to_s(:db) %><% else %><a href="<%= v.id %><%if  @view_only %>?view=1<% end %>"><%= v.updated_at.to_s(:db) %></a><% end %> |
-<% end %>
-</div>
-<% end %>
+<div id="base_item">
 <% unless @view_only || @base_item.draft? %>
   <div class="fright">
-  <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
+    <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
     <%= f.submit "Правка", :class => "button" %>
   <% end %>
   </div>
-  <div class="clear"></div>
 <% end %>
 <h2>Основные данные</h2>
-<div style="min-width: 240px; float: left;">
-<%= render :partial => "image" %>
-<%= render :partial => "clouds" %>
-<%= render :partial => "add_tag" %>
-</div>
-<div style="min-width: 600px; float: left">
 <div id="step1">
 <!--base-->
 <%= render :partial => "base" %>
