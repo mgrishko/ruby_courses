@@ -1,1 +1,9 @@
 <img src="/images/item_image.jpg" alt="Item Image"/>
+<% content_for :head do %>
+<script type="text/javascript">
+  $j(function() {
+   $j("#width").css("min-width",$j(".align_center_to_left").width());
+  });
+</script>
+
+<% end %>
