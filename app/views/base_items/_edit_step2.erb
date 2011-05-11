@@ -24,8 +24,8 @@
 <script type="text/javascript">
 $j('#base_item_packaging_type').click(function(){
 	var offset = $j('#cases_input_0').offset();
-	offset.left +=50;
-	offset.top -=10;
+	offset.left +=30;
+	offset.top -=65;
 	$j.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
 	$j('#cases_0').show();
 	$j('#cases_0').css({

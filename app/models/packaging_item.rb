@@ -27,7 +27,7 @@ class PackagingItem < ActiveRecord::Base
   
   def check_gtin
     errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin], :joins => :base_item) > 0 # versions
-    errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["base_item_id=? and id != ? and gtin = ?", self.base_item_id, self.id, self.gtin]) > 0 # same PI tree
+    errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["base_item_id=? and id != '?' and gtin = ?", self.base_item_id, self.id, self.gtin]) > 0 # same PI tree
     errors.add(:gtin, "Уже существует") if BaseItem.count(:conditions => ["user_id = ? and gtin = ? and status = 'published'", self.user_id, self.gtin]) > 0 # bi
     errors.add(:gtin, "Уже существует") if self.gtin.to_s == self.base_item.gtin.to_s
   end
