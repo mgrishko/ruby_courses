@@ -12,7 +12,6 @@ class SubscriptionController < ApplicationController
       json = {'error' => 'Ошибка'}
       if @subscription
 	      if @subscription.active?
-		@subscription.details = '';
 	        @subscription.cancel!
 	        json = {'text' => 'Подписаться', 'flag' => false}
 	      else
@@ -72,6 +71,7 @@ class SubscriptionController < ApplicationController
       ids.delete_if {|i| i.to_s == @item.id.to_s}
       ids.push(@item.id)
       @subscription.details = ids.join(',')
+      @subscription.specific = true
       @subscription.save
 
       # Comment this for turn-off grouping of base items changes in subscription result

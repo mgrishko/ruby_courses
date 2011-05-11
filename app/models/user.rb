@@ -60,6 +60,11 @@ class User < ActiveRecord::Base
   def retailer?
     self.role == 'retailer'
   end
+
+  def has_usual_subscription? item
+    return true if Subscription.count(:conditions => {:retailer_id => self.id, :supplier_id => item.user_id, :status => 'active', :specific => false}) > 0
+    false
+  end
 end
 
 # == Schema Information

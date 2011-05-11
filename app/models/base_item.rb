@@ -135,7 +135,9 @@ class BaseItem < ActiveRecord::Base
   
   def make_subscription_result
     self.item.user.subscribers.each do |s|
-      return false unless Subscription.find_in_details(s.details, self.item.id)
+      if s.specific
+	next unless Subscription.find_in_details(s.details, self.item.id)
+      end
       # Comment this for turn-off grouping of base items changes in subscription result
       s.subscription_results.each do |sr|
         sr.delete if sr.base_item.gtin == self.gtin && sr.status == 'new'

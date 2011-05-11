@@ -9,7 +9,7 @@ class Subscription < ActiveRecord::Base
   aasm_initial_state :active
 
   aasm_state :active
-  aasm_state :canceled
+  aasm_state :canceled, :enter => :reset_subscription
 
   aasm_event :cancel do
     transitions :to => :canceled, :from => :active
@@ -18,6 +18,12 @@ class Subscription < ActiveRecord::Base
     transitions :to => :active, :from => :canceled
   end
   
+  def reset_subscription
+    self.details = '';
+    self.specific = false;
+    self.save
+  end
+
   def new_items_count
     Subscription.count_by_sql <<-SQL
       SELECT COUNT(*) FROM subscription_results 
@@ -41,7 +47,7 @@ class Subscription < ActiveRecord::Base
     if details.to_s != ''
       return details.split(',').include? id.to_s
     else
-      return true
+      return false
     end
   end
   
