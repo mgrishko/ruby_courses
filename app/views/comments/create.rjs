@@ -1,1 +1,2 @@
-page.insert_html :bottom, "comments", "<div>#{@comment.user.name}, #{@comment.created_at}<br/><strong>#{@comment.content}</strong></div>"
+page.replace_html "comments", :partial => 'comments/comment', :collection => @item.comments
+page[:comment_content].value = ''

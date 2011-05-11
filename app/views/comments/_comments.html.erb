@@ -1,14 +1,12 @@
 <h2>Комментарии</h2>
 <div id="comments">
-<% @base_item.item.comments.each do |c| %>
-<div class="bi">
-<div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
-<div class="bi-content">
-<div><span class="normal"><%= c.user.name %></span></div>
-<div class="usual"><%= c.content %></div>
-<div class="light"><%= c.created_at.to_s(:cmnt) %></div>
+<%= render :partial => 'comments/comment', :collection => @base_item.item.comments %>
 </div>
-</div>
+<% if @base_item.item.user.id == current_user.id and @base_item.published? %>
+<% remote_form_for Comment.new do |f|%>
+<%= f.hidden_field :item_id, :value => @base_item.item.id %>
+<%= f.hidden_field :base_item_id, :value => @base_item.id %>
+<%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
+<%= f.submit "Добавить комментарий", :name => "new", :class => "button", :style => "width: auto;" %>
 <% end %>
-</div>
-
+<% end %>
