@@ -15,3 +15,11 @@ puts Dir.pwd
 Dir.chdir('..')
 Dir.rmdir('tmp')
 Dir.entries(home).each { |e| puts e}
+
+#2 method
+puts Dir.pwd
+Dir.mkdir('tmp')
+Dir.chdir('tmp') do
+  puts Dir.pwd
+end
+Dir.rmdir('tmp')
