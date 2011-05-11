@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_filter :require_user
 
   def create
-    @item = current_user.items.find(params[:comment][:item_id])
+    @item = Item.find(params[:comment][:item_id])
     @comment = current_user.comments.new(params[:comment])
     @item.comments << @comment
     respond_to do |format|

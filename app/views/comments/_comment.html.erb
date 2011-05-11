@@ -1,4 +1,5 @@
-<div class="bi">
+<% if (current_user.id == comment.item.user_id) or ((comment.user_id == current_user.id) or (comment.item.user_id == comment.user_id)) %> 
+<div class="bi <%= "rc" if comment.item.user_id != comment.user_id %>">
 <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
 <div class="bi-content">
 <div><span class="normal"><%= comment.user.name %></span></div>
@@ -6,3 +7,4 @@
 <div class="light"><%= comment.created_at.to_s(:cmnt) %></div>
 </div>
 </div>
+<% end %>

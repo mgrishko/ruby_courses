@@ -814,4 +814,6 @@ padding: 0 1em;
 min-height: 98%;
 margin-top: 2em;
 }
-
+.rc div span.normal {
+  color: red;
+}

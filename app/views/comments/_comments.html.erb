@@ -2,7 +2,7 @@
 <div id="comments">
 <%= render :partial => 'comments/comment', :collection => @base_item.item.comments %>
 </div>
-<% if @base_item.item.user.id == current_user.id and @base_item.published? %>
+<% if @base_item.published? %>
 <% remote_form_for Comment.new do |f|%>
 <%= f.hidden_field :item_id, :value => @base_item.item.id %>
 <%= f.hidden_field :base_item_id, :value => @base_item.id %>
