@@ -724,13 +724,22 @@ table.standart td, table.standart th {
   border: 1px solid gray;
 }
 
-.bi {
+.bi, .cm {
   clear: both;
   border-bottom: 1px solid #EBEBEB;
   padding: 15px 20px;
   cursor: pointer;
   min-height: 50px;
 }
+.cm-child {
+  margin-left: 2em;
+}
+
+.actions {
+  float: left;
+  display: none;
+}
+
 .bi-image {
   float: left;
 }

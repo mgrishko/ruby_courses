@@ -63,12 +63,42 @@ $j(function() {
   function() {
     $j(this).removeClass("hovered");
   });
+  
+  $j(".cm").hover(function() {
+    $j(this).find(".actions").show();
+  },
+  function() {
+    $j(this).find(".actions").hide();
+  });
+  hovers();
   $j('body').click(function(e){
   e.stopPropagation();
   //DO SOMETHING
   });
   return false;
 });
+
+function hovers() {
+  bi_hover(); //base_items
+  cm_hover(); //comments
+}
+
+function bi_hover() {
+  $j(".bi").hover(function() {
+    $j(this).addClass("hovered");
+  },
+  function() {
+    $j(this).removeClass("hovered");
+  });
+}
+function cm_hover() {
+  $j(".cm").hover(function() {
+    $j(this).find(".actions").show();
+  },
+  function() {
+    $j(this).find(".actions").hide();
+  });
+}
 
 function subscription(event, that, supplier_id) {
   event.stopPropagation();
