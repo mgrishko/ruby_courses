@@ -1,7 +1,4 @@
 <h2>Комментарии</h2>
-<div id="comments">
-<%= render :partial => 'comments/comment', :collection => @base_item.item.comments %>
-</div>
 <% if @base_item.published? %>
 <% remote_form_for Comment.new do |f|%>
 <%= f.hidden_field :item_id, :value => @base_item.item.id %>
@@ -10,3 +7,7 @@
 <%= f.submit "Добавить комментарий", :name => "new", :class => "button", :style => "width: auto;" %>
 <% end %>
 <% end %>
+<div id="comments">
+<%= render :partial => 'comments/comment', :collection => @base_item.item.comments %>
+</div>
+

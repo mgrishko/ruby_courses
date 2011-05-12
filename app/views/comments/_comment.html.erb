@@ -1,26 +1,25 @@
 <% if (current_user.id == comment.item.user_id) or ((comment.user_id == current_user.id) or (comment.item.user_id == comment.user_id)) %> 
-<div class="bi cm <%= "rc" if comment.item.user_id != comment.user_id %>">
+<div class="cm <%= "rc" if comment.item.user_id != comment.user_id %>">
 <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
 <div class="bi-content">
 <div><span class="normal"><%= comment.user.name %></span></div>
 <div class="usual"><%= comment.content %></div>
 <div class="light fleft"><%= comment.created_at.to_s(:cmnt) %></div>
-<div class="light actions">&nbsp;<% if comment.user_id != current_user.id %><%= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id } %><% end %></div>
 </div>
 </div>
 <% for c in comment.get_children do %>
 <% if (c.get_root.user_id == current_user.id) or (c.user_id == current_user.id) or (!!c.parent_id && (c.get_parent.user_id == current_user.id)) %>
-<div class="bi cm cm-child <%= "rc" if c.item.user_id != c.user_id %>">
+<div class="cm cm-child <%= "rc" if c.item.user_id != c.user_id %>">
 <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
 <div class="bi-content">
 <div><span class="normal"><%= c.user.name %></span></div>
 <div class="usual"><%= c.content %></div>
 <div class="light fleft"><%= c.created_at.to_s(:cmnt) %></div>
-<div class="light actions">&nbsp;<% if c.user_id != current_user.id %><%= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id, "comment[parent_id]"=>c.id } %><% end %></div>
-
+<div class="light actions">&nbsp;<% if c.user_id != current_user.id %><%#= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id, "comment[parent_id]"=>c.id } %><% end %></div>
 </div>
 </div>
 <% end %>
 <% end %>
-<div id="cr-<%= comment.id %>"></div>
+<div style="margin-left: 2em;"><% if ((comment.item.user_id == current_user.id) && (comment.user_id != current_user.id)) || ((comment.item.user_id != current_user.id) && (comment.user_id == current_user.id)) %><%= link_to_remote "Комментировать", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id } %><% end %></div>
+<div id="cr-<%= comment.id %>" style="margin-left: 2em;"></div>
 <% end %>

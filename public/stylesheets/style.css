@@ -731,8 +731,12 @@ table.standart td, table.standart th {
   cursor: pointer;
   min-height: 50px;
 }
+.cm {
+  cursor: default;
+}
 .cm-child {
   margin-left: 2em;
+  background: #edeff4;
 }
 
 .actions {
