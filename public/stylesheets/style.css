@@ -726,17 +726,21 @@ table.standart td, table.standart th {
 
 .bi, .cm {
   clear: both;
-  border-bottom: 1px solid #EBEBEB;
+  border-bottom: 1px solid #E4E4E4;
   padding: 15px 20px;
   cursor: pointer;
   min-height: 50px;
 }
 .cm {
   cursor: default;
+  background: #EFEFEF;
+  margin-top: 0.5em;
 }
 .cm-child {
-  margin-left: 2em;
-  background: #edeff4;
+  clear: both;
+  min-height: 50px;
+  padding: 15px 20px;
+  padding-left: 4em;
 }
 
 .actions {
@@ -754,7 +758,7 @@ table.standart td, table.standart th {
   float: right;
 }
 .hovered {
-  background: #eee;
+  background: #EFEFEF;
 }
 .normal {
   font-size: 120%;
@@ -827,6 +831,6 @@ padding: 0 1em;
 min-height: 98%;
 margin-top: 2em;
 }
-.rc div span.normal {
+.red {
   color: red;
 }

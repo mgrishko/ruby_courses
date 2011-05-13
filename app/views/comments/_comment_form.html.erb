@@ -3,7 +3,7 @@
 <%= f.hidden_field :base_item_id, :value => @base_item.id %>
 <%= f.hidden_field :root_id, :value => @r.id %>
 <%= f.hidden_field :parent_id, :value => @p.id if @p %>
-<%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
+<%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area", :style => "background: #FFF;" %><br/>
 <%= f.submit "Ответить", :name => "new", :class => "button", :style => "width: auto;" %>
 <%= f.submit "Отмена", :name=> "cancel", :class => "button", :style => "width: auto;", :onclick => "$j('#cr-#{@r.id}').html(''); return false;" %>
 <% end %>
