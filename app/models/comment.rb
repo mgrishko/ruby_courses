@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
   belongs_to :base_item
+  after_save :update_root_replies #trigger for root
 
   def get_children
     Comment.all(:conditions => {:root_id => self.id})
@@ -13,6 +14,14 @@ class Comment < ActiveRecord::Base
 
   def get_parent
     Comment.find(:first, :conditions => {:id => self.parent_id})
+  end
+
+  def update_root_replies
+    if self.root_id
+      root = Comment.find(self.root_id)
+      root.replies = Comment.count(:conditions => {:root_id => self.root_id})
+      root.save
+    end
   end
 end
 

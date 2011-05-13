@@ -50,7 +50,7 @@ module ApplicationHelper
     p.delete('id')
     i1 = (pc.current_page-1)*pc.per_page+1 # interval 1
     i2 = i1 + pc.count - 1
-    pager = "#{i1} - #{i2} of #{pc.total_entries}"
+    pager = "#{i1} - #{i2} из #{pc.total_entries}"
     if pc.current_page > 1
       pager = " <a href='#{current_url(p.merge(:page => pc.current_page-1))}'>Пред.</a> "+pager
     end

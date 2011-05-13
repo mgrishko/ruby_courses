@@ -1,3 +1,8 @@
-page.replace_html "comments", :partial => 'comments/comment', :collection => @item.comments
-page[:comment_content].value = ''
-page << "hovers();"
+if @message_info
+  page.insert_html :bottom, "allch-#{@comment.root_id}", :partial => 'comments/child_comment'
+  page.replace_html "cr-#{@comment.root_id}", ""
+else
+  page.replace_html "comments", :partial => 'comments/comment', :collection => @item.comments
+  page[:comment_content].value = ''
+  page << "hovers();"
+end

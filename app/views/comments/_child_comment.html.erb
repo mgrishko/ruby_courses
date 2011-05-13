@@ -1,0 +1,9 @@
+<div class="cm-child">
+<div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+<div class="bi-content">
+<div><span class="normal <%= "red" if @comment.item.user_id != @comment.user_id %>"><%= @comment.user.name %></span></div>
+<div class="usual"><%= @comment.content %></div>
+<div class="light fleft"><%= @comment.created_at.to_s(:cmnt) %></div>
+<div class="light actions">&nbsp;<% if @comment.user_id != current_user.id %><%#= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id, "comment[parent_id]"=>c.id } %><% end %></div>
+</div>
+</div>
