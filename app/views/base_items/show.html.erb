@@ -29,11 +29,11 @@
   <%= render 'comments/comments' %>
   <%= render :partial => 'publish' %>
 
-<% content_for :top do %>
   <% unless @view_only %>
-    <p><%= link_to 'вернуться к списку bi', base_items_path %></p>
+    <% content_for :leftmenu do %>
+    <%= link_to 'вернуться к списку товаров', base_items_path %>
+    <% end %>
   <% end %>
-<% end %>
 
 <%= render :partial => 'subscription_results/actions', :locals => { :result => @subscription_result } if @subscription_result && @subscription_result.new? %>
 </div>
