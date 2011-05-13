@@ -2,12 +2,11 @@
     <div style="margin-top: 1em;"><strong>Подписчики</strong></div>
     <% if @base_item.item.subscribers.count > 0 %>
       <% for u in @base_item.item.subscribers do %>
-      <div class="cm" style="padding-left: 2px;">
-      <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
-      <div class="bi-content">
-      <div><span class="light"><%= u.name %></span></div>
+      <div class="cm" style="padding: 2px; min-height: 1em; background: none;">
+      <div class="">
+      <div><span class="normal"><%= u.name %></span></div>
       <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
-      <div class="light"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
+      <div class="light" style="font-size: 0.9em;"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
       </div>
       </div>
       <% end %>
