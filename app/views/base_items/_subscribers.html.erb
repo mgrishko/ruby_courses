@@ -1,15 +1,16 @@
 <% unless @view_only %>
-  <% if @base_item.published? %>
-    <h2>Подписчики</h2>
+    <div style="margin-top: 1em;"><strong>Подписчики</strong></div>
     <% if @base_item.item.subscribers.count > 0 %>
-      <table class="standart"><tr><th>Ритейлер</th><th>Article Id</th><th>Item description</th><th>Classification</th></tr>
       <% for u in @base_item.item.subscribers do %>
-	<tr>
-	  <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
-	<td><%= u.name %></td><td><%= ra.retailer_article_id %></td><td><%= ra.retailer_item_description %></td><td><%= ra.retailer_classification %></td>
-	</tr>
+      <div class="cm" style="padding-left: 2px;">
+      <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+      <div class="bi-content">
+      <div><span class="light"><%= u.name %></span></div>
+      <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
+      <div class="light"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
+      </div>
+      </div>
       <% end %>
-      </table>
+
     <% end %>
-  <% end %>
 <% end %>
