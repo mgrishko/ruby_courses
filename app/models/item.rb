@@ -39,7 +39,7 @@ class Item < ActiveRecord::Base
     sns = self.user.subscribers #subscriptions
     @subscribers = Array.new();
     for s in sns do
-      if (s.specific && Subscription.find_in_details(s.details, self.id)) || (!s.specific)
+      if (s.specific && s.find_in_details(self.id)) || (!s.specific)
 	@subscribers.push(s.retailer)
       end
     end

@@ -51,9 +51,12 @@ class SubscriptionController < ApplicationController
     @subscription = Subscription.find(:first, :conditions => {:supplier_id => @item.user.id, :retailer_id => current_user.id})
     if params[:do] == 'Отписаться'
       if @subscription
-	ids = @subscription.details.to_s.split(',')
-	ids.delete_if {|i| i.to_s == @item.id.to_s}
-	@subscription.details = ids.join(',')
+	# new block
+	SubscriptionDetails.delete_all(:subscription_id => @subscription.id, :item_id => @item.id)
+	# old block
+	#ids = @subscription.details.to_s.split(',')
+	#ids.delete_if {|i| i.to_s == @item.id.to_s}
+	#@subscription.details = ids.join(',')
 	@subscription.save
       end
     else
@@ -67,10 +70,15 @@ class SubscriptionController < ApplicationController
 	@subscription = Subscription.new(:supplier_id => @item.user.id, :retailer_id => current_user.id)
       end
     
-      ids = @subscription.details.to_s.split(',')
-      ids.delete_if {|i| i.to_s == @item.id.to_s}
-      ids.push(@item.id)
-      @subscription.details = ids.join(',')
+      SubscriptionDetails.delete_all(:subscription_id => @subscription.id, :item_id => @item.id)
+      @sd = SubscriptionDetails.new(:subscription_id => @subscription.id, :item_id => @item.id)
+      @sd.save
+      
+      #ids = @subscription.details.to_s.split(',')
+      #
+      #ids.delete_if {|i| i.to_s == @item.id.to_s}
+      #ids.push(@item.id)
+      #@subscription.details = ids.join(',')
       @subscription.specific = true
       @subscription.save
 

@@ -4,6 +4,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :retailer, :class_name => 'User', :foreign_key => 'retailer_id'
   belongs_to :supplier, :class_name => 'User', :foreign_key => 'supplier_id'
   has_many :subscription_results
+  has_many :subscription_details
 
   aasm_column :status
   aasm_initial_state :active
@@ -22,6 +23,7 @@ class Subscription < ActiveRecord::Base
     self.details = '';
     self.specific = false;
     self.save
+    SubscriptionDetails.delete_all(:subscription_id => self.id)
   end
 
   def new_items_count
@@ -43,21 +45,22 @@ class Subscription < ActiveRecord::Base
     SQL
   end
 
-  def self.find_in_details details, id
-    if details.to_s != ''
-      return details.split(',').include? id.to_s
-    else
-      return false
-    end
+  def find_in_details id
+    SubscriptionDetails.find(:first, :conditions => {:subscription_id => self.id, :item_id => id})
+    #if details.to_s != ''
+    #  return details.split(',').include? id.to_s
+    #else
+    #  return false
+    #end
   end
   
-  def self.present_and_find_in_details details, id
-    if details.to_s != ''
-      return details.split(',').include? id.to_s
-    else
-      return false
-    end
-  end
+  #def self.present_and_find_in_details details, id # will be drop soon
+  #  if details.to_s != ''
+  #    return details.split(',').include? id.to_s
+  #  else
+  #    return false
+  #  end
+  #end
 end
 
 # == Schema Information

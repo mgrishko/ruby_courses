@@ -1,6 +1,6 @@
 <% if (current_user.id == comment.item.user_id) or ((comment.user_id == current_user.id) or (comment.item.user_id == comment.user_id)) %> 
 <div class="cm">
-<% if @message_info %><div style="font-size: 125%; margin-bottom: 1em;"><strong><a href="/base_items/<%= comment.item.last_bi.first.id %>"><%= comment.item.last_bi.first.gtin %>, <%= comment.item.last_bi.first.item_description %></a></strong></div><% end %>
+<% if @message_info %><div style="font-size: 125%; margin-bottom: 1em;"><strong><a href="/base_items/<%= comment.item.last_bi.first.id %><%= '?view=true' if current_user.retailer? %>"><%= comment.item.last_bi.first.gtin %>, <%= comment.item.last_bi.first.item_description %></a></strong></div><% end %>
 <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
 <div class="bi-content">
 <div><span class="normal <%= "red" if comment.item.user_id != comment.user_id %>"><%= comment.user.name %></span></div>
