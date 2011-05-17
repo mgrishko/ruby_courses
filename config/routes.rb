@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
     base_items.resources :packaging_items, :member => { :new_sub => :get }
   end
   map.resources :retailer_attributes
+  map.resources :user_attributes
   map.resources :comments
   map.resources :receivers
   map.resources :tags
@@ -83,6 +84,8 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.connect '/subscriptions/status', :controller => "subscription", :action => "status"
   map.connect '/subscriptions/instantstatus', :controller => "subscription", :action => "instantstatus"
+  
+  map.connect '/profiles/:id', :controller => "profiles", :action => "show"
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

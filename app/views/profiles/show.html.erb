@@ -1,0 +1,15 @@
+<h1>Название</h1>
+<p><%= @user.name %></p>
+<h1>GLN</h1>
+<p><%= @user.gln %></p>
+<% if @user.description.to_s.length > 0 %>
+<h3>Описание</h3>
+<p><%=h @user.description %></p>
+<% end %>
+<% if @user.contacts.to_s.length > 0 %>
+<h3>Контактная информация</h3>
+<p><%=h @user.contacts %></p>
+<% end %>
+<% if current_user.retailer? %>
+  <%= render :partial => "/user_attributes/user_attributes" %>
+<% end %>
