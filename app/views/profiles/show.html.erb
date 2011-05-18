@@ -12,4 +12,6 @@
 <% end %>
 <% if current_user.retailer? %>
   <%= render :partial => "/user_attributes/user_attributes" %>
+  <%= render :partial => "tags/clouds" %>
+  <%= render :partial => "add_tag" %>
 <% end %>

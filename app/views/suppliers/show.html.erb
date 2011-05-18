@@ -1,1 +1,4 @@
+<% if @supplier %>
+<a href="/profiles/<%= @supplier.id %>"><%= @supplier.gln %> <%= @supplier.name %></a>
+<% end %>
 <%= render :partial => 'base_items/index',:locals => {:retailer => true} %>
