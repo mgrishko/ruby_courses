@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :subscription_results, :through => :subscriptions
   has_many :comments
   has_many :clouds
+  has_many :user_tags
 
   validates_uniqueness_of :gln
   acts_as_authentic do |a|

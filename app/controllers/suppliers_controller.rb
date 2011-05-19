@@ -2,7 +2,15 @@ class SuppliersController < ApplicationController
   before_filter :require_user
 
   def index
-    @users = User.paginate :page => params[:page], :per_page => 10, :conditions => {:role => 'supplier'}
+    conditions = ["users.role = 'supplier'"]
+    if params[:tag]
+      conditions = ["users.role = 'supplier' and user_tags.author_id = ? and user_tags.tag_id = ?", current_user.id, params[:tag]]
+    end
+    if params[:subscribed]
+      conditions = ["users.role = 'supplier' and subscriptions.retailer_id = ?", current_user.id]
+    end
+    @users = User.paginate :page => params[:page], :per_page => 10, :conditions => conditions, :include => [:user_tags, :subscribers]
+    @clouds = UserTag.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id", :conditions => {:author_id => current_user.id}) #ok
   end
 
   def show

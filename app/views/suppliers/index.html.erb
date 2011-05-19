@@ -3,8 +3,24 @@
 <input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %>Поиск<% else %><%=h params[:search] %><% end %>"/>
 <a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
 </form>
+<div style="clear:both; text-align:center;"><%= html_pager @users %></div>
 </div>
-<h1>Поставщики</h1>
+<br/>
+<h2>Поставщики</h2>
+<div class="filters">
+<div>
+<strong>Поставщики</strong>
+<%= selected_wrapper "<a href='?subscribed=true' class='filter'>Мои поставщики</a>", params[:subscribed].to_s == 'true' %>
+</div>
+<br/>
+<div>
+<strong>Тэги</strong>
+<% @clouds.each do |c| %>
+<%= selected_wrapper "<a href='?tag=#{c.tag.id}' class='filter'>#{c.tag.name}</a> (#{c.q})", params[:tag].to_s == c.tag_id.to_s %>
+<% end %>
+</div>
+</div>
+<div class="data">
 <% for u in @users do %>
 <div class="bi <% if u.my_retailer_flag(current_user.id) %>subscribed<% end %>" id="bi-<%= u.id %>" onclick="document.location='<%= supplier_path(u) %>'">
   <div class="bi-right"><button id="bs-<%= u.id %>" onclick="return subscription(event, this, '<%= u.id %>')"><%= u.my_retailer_info(current_user.id) %></button></div>
@@ -12,9 +28,11 @@
   <div class="bi-content">
     <div><span class="normal"><%= u.gln %></span> <span class="light"><%= link_to u.name, supplier_path(u) %></div>
     <div class="usual">Количество товаров: <%=u.count_fresh_base_items %></div>
+    <div class="light"><%= u.user_tags.find(:all, :conditions =>{:author_id => current_user.id}).collect{|c| c.tag.name}.join(', ') %></div>
     <div class="light">Дата самого свежего: <%= u.fresh_base_items %></div>
     <div class="light mini"></div>
   </div>
 </div>
 <% end %>
+</div>
 <%= will_paginate @users %>
