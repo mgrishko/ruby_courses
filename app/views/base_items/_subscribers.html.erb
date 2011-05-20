@@ -5,7 +5,7 @@
       <% sr = u.subscription_results.find_by_base_item_id(@base_item.id) if @base_item.published? %>
       <div class="cm" style="padding: 2px 0 5px 2px; min-height: 1em; background: none;">
       <div class="">
-      <div class="fleft"><span class="normal"><%= u.name %></span></div><div class="fright"><% if @base_item.published? %><div class="sr-status sr-<%=sr.status %>" title="<%= sr.status_for_title %>"></div><% end %></div>
+      <div class="fleft"><span class="normal"><%= u.name %></span></div><div class="fright"><% if @base_item.published? %><div class="sr-status sr-<%=(sr ? sr.status : 'canceled')%>" title="<%= (sr ? sr.status_for_title : 'Данные не приняты' )%>"></div><% end %></div>
       <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
       <div class="clear light" style="font-size: 0.9em;"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
       </div>
