@@ -834,3 +834,17 @@ margin-top: 2em;
 .red {
   color: red;
 }
+.sr-status {
+  width: 16px;
+  height: 16px;
+  background: url(/images/lights.png) 0 0;
+}
+.sr-accepted {
+  background-position: 0 -32px;
+}
+.sr-canceled {
+  background-position: 0 0;
+}
+.sr-new {
+  background-position: 0 -16px;
+}

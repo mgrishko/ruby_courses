@@ -7,6 +7,7 @@
 <%= f.submit "Добавить комментарий", :name => "new", :class => "button", :style => "width: auto;" %>
 <% end %>
 <% end %>
+<div>
 <div id="comments">
 <%= render :partial => 'comments/comment', :collection => @base_item.item.comments %>
 </div>

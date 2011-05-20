@@ -20,7 +20,12 @@ class SubscriptionResult < ActiveRecord::Base
   aasm_event :cancel do
     transitions :to => :canceled, :from => :new
   end
-
+  
+  def status_for_title
+    return "Данные отправлены" if self.new?
+    return "Данные акцептованы" if self.accepted?
+    "Данные не приняты"
+  end
 end
 
 # == Schema Information
