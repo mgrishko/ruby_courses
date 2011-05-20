@@ -7,7 +7,7 @@
       <div class="">
       <div class="fleft"><span class="normal"><%= u.name %></span></div><div class="fright"><% if @base_item.published? %><div class="sr-status sr-<%=sr.status %>" title="<%= sr.status_for_title %>"></div><% end %></div>
       <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
-      <div class="light" style="font-size: 0.9em;"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
+      <div class="clear light" style="font-size: 0.9em;"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
       </div>
       </div>
       <% end %>
