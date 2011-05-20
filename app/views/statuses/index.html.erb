@@ -1,22 +1,22 @@
 <h2>Статусы результатов подписки</h2>
 <table class="standart">
 <tr>
-<td>Подписчики\Товары</td>
-<% for bi in @base_items do %>
-<td><%= bi.item_description %></td>
-<% end %>
-<td rowspan="<%=@users.count + 1 %>">Товары: <%= html_pager(@base_items) %></td>
-</tr>
+<td>Товары\Подписчики</td>
 <% for u in @users do %>
-<tr>
 <td><%= u.name %></td>
+<% end %>
+<td rowspan="<%=@base_items.count + 1 %>">Подписчики: <%= html_pager(@users, 'page_users') %></td>
+</tr>
 <% for bi in @base_items do %>
+<tr>
+<td><%= bi.item_description %></td>
+<% for u in @users do %>
 <% sr = u.subscription_results.find_by_base_item_id(bi.id) if bi.published? %>
 <td><div class="sr-status sr-<%=(sr ? sr.status : 'none')%>" title="<%= (sr ? sr.status_for_title : 'Данные не отправлялись' )%>"></div></td>
 <% end %>
 </tr>
 <% end %>
 <tr>
-<td colspan="<%=@base_items.count + 1 %>">Подписчики: <%= html_pager(@users, 'page_users') %></td>
+<td colspan="<%=@users.count + 1 %>">Товары: <%= html_pager(@base_items) %></td>
 </tr>
 </table>
