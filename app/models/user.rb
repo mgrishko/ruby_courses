@@ -25,18 +25,22 @@ class User < ActiveRecord::Base
   
   def fresh_base_items
     if self.base_items.count > 0
-      return self.base_items.first(:conditions => {:status => "published"}, :order => 'created_at desc').created_at.to_s(:db)
+      return self.base_items.first(:conditions => {:status => "published"}, :order => 'id desc').created_at.to_s(:db)
     else
       return '---'
     end
   end
   
   def all_fresh_base_items
-    BaseItem.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by created_at desc limit 1) order by a.created_at desc")
+    BaseItem.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1) order by a.id desc")
+  end
+
+  def all_fresh_base_items_paginate page
+    BaseItem.paginate_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1) order by a.id desc", :page => page, :per_page => 10)
   end
 
   def count_fresh_base_items
-    BaseItem.count_by_sql("select count(*) from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by created_at desc limit 1)")
+    BaseItem.count_by_sql("select count(*) from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1)")
   end
 
   def my_retailer_info(user_id)

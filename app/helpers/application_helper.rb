@@ -50,7 +50,8 @@ module ApplicationHelper
     end
   end
 
-  def html_pager(pc) #pager_collection
+  def html_pager(pc, pn=nil) #pager_collection, pager_name
+    pn = 'page' unless pn
     p = params.clone
     p.delete('action')
     p.delete('controller')
@@ -61,16 +62,16 @@ module ApplicationHelper
     i1 = 0 if pc.count == 0
     pager = "#{i1} - #{i2} из #{pc.total_entries}"
     if pc.current_page > 1
-      pager = " <a href='#{current_url(p.merge(:page => pc.current_page-1))}'>Пред.</a> "+pager
+      pager = " <a href='#{current_url(p.merge(pn => pc.current_page-1))}'>Пред.</a> "+pager
     end
     if pc.current_page > 2
-      pager = " <a href='#{current_url(p.merge(:page => 1))}'>Самые новые</a> "+pager
+      pager = " <a href='#{current_url(p.merge(pn => 1))}'>Самые новые</a> "+pager
     end
     if pc.current_page < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(:page => pc.current_page+1))}'>След.</a> "
+      pager = pager + " <a href='#{current_url(p.merge(pn => pc.current_page+1))}'>След.</a> "
     end
     if (pc.current_page+1) < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(:page => pc.total_pages))}'>Самые старые</a> "
+      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>Самые старые</a> "
     end
     pager
   end

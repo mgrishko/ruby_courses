@@ -842,6 +842,10 @@ margin-top: 2em;
 .sr-accepted {
   background-position: 0 -32px;
 }
+.sr-none {
+  background-position: 0 -48px;
+}
+
 .sr-canceled {
   background-position: 0 0;
 }
