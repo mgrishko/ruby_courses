@@ -6,7 +6,7 @@
 #d = Dog.new('Leo')
 
 class Dog
-  attr_reader :name, :bark, :eat, :chase_cat
+  attr_reader :name
 
   def initialize(name)
     @name = name
