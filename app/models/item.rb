@@ -45,6 +45,12 @@ class Item < ActiveRecord::Base
     end
     @subscribers
   end
+  
+  def image_url suffix=nil
+    image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
+    return "/data/#{image.id}#{suffix.to_s}.jpg" if image
+    "/images/item_image#{suffix.to_s}.jpg"
+  end
 
 end
 

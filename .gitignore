@@ -6,3 +6,4 @@ config/database.yml
 .rvmrc
 *.swp
 .idea
+public/data

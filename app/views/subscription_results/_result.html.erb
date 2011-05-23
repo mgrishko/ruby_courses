@@ -1,5 +1,5 @@
 <div class="bi" id="sr-<%= result.id %>" onclick="document.location='<%= base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>'">
-  <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+  <div class="bi-image"><img src="<%= result.base_item.item.image_url('small') %>" width="50px" alt="Supplier Image"/></div>
   <div class="bi-content">
     <div><span class="normal"><%= result.base_item.gtin %></span> <span class="light"><%= result.base_item.user.name %></span></div>
     <div class="usual"><%= result.base_item.item_description %></div>

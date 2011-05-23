@@ -53,7 +53,7 @@
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
   <div class="bi <%= "private" if base_item.item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
-    <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+    <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
     <div class="bi-content">
       <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
       <div class="usual"><%= base_item.item_description %></div>

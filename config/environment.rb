@@ -3,6 +3,7 @@
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
+require 'RMagick'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
@@ -14,6 +15,7 @@ Rails::Initializer.run do |config|
   config.gem "parseexcel"
   config.gem "authlogic", :version => '2.1.6'
   config.gem "aasm", :lib => "aasm"
+  config.gem "responds_to_parent"
   #config.gem 'vestal_versions'
   config.gem 'will_paginate', :version => '2.3.15'
   config.gem "awesome_nested_set", :version => '1.4.3', :lib => false, :source => 'http://gemcutter.org'
@@ -144,3 +146,24 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
 end
 
 Time::DATE_FORMATS.merge!({:short => "%Y-%m-%d", :cmnt => "%a, %d %b %Y, %H:%M", :db => "%Y-%m-%d %H:%M"})
+IMAGE_PARAMETERS = [
+  {
+    'name'    => 'big', # big
+    'width'   => 800,
+    'height'  => 600,
+    'scale'   => false,
+    'fill'    => false
+  }, {
+    'name'    => '', # without suffix = medium
+    'width'   => 200,
+    'height'  => 200,
+    'scale'   => false,
+    'fill'    => false
+  }, {
+    'name'    => 'small', # small
+    'width'   => 50,
+    'height'  => 50,
+    'scale'   => true,
+    'fill'    => true
+  }
+]
