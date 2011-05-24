@@ -2,8 +2,7 @@
 content_a = IO.read('a.txt')
 content_b = IO.read('b.txt')
 
-file_a = File.open('a.txt', 'w')
-file_b = File.open('b.txt', 'w')
+file_a, file_b = File.open('a.txt', 'w'), File.open('b.txt', 'w')
 
 file_a.write(content_b)
 file_b.write(content_a)
