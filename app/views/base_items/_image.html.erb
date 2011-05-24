@@ -1,4 +1,4 @@
-<img id="item_image" src="<% if @base_item.id %><%= @base_item.item.image_url %><% else %>/images/item_image.jpg<% end %>" alt="Item Image"/>
+<a id="iil" href="<% if @base_item.id %><%= @base_item.item.image_url('big') %><% else %>/images/item_image.jpg<% end %>" title=""><img id="item_image" src="<% if @base_item.id %><%= @base_item.item.image_url %><% else %>/images/item_image.jpg<% end %>" alt="Item Image"/>
 <% unless @view_only %>
 <% if @base_item.id %>
 <div id="upload">
