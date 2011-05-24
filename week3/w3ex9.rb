@@ -1,6 +1,0 @@
-str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu aliquam purus. Etiam luctus rhoncus adipiscing. Pellentesque in lorem arcu, sed vestibulum sapien. Ut eleifend venenatis dictum. Mauris gravida sapien eros, nec tincidunt metus. Nulla eros quam, dapibus ultricies dictum vel, posuere sit amet sem. Sed vulputate dolor ut metus pretium ut vulputate magna viverra. Curabitur quis elementum erat. Quisque pharetra tellus at ligula gravida sagittis. Nunc imperdiet tincidunt turpis, quis semper nulla luctus non. Aenean felis leo, dignissim in ornare ut, faucibus et turpis. Sed facilisis mollis velit, sit amet vestibulum diam faucibus sit amet. Quisque augue augue, tincidunt vel tempor in, aliquet feugiat eros. Phasellus tincidunt congue porttitor. Aliquam tristique turpis sit amet purus mollis condimentum. Nullam fringilla magna odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ac purus sed lorem posuere consequat et luctus nunc. Vivamus at augue odio, in varius est. Aenean orci mi, pretium nec convallis eu, malesuada vitae magna."
-arr = str.split
-arr.reverse.map { |each| print each.downcase, " "}
-
-#2
-puts str.split.reverse.join(' ')
