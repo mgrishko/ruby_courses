@@ -21,6 +21,7 @@ class ImagesController < ApplicationController
       render :update do |page|
 	page << "$j('#link_upload').show(); $j('#form_upload').hide();"
 	page << "$j('#item_image').attr('src','#{@item.image_url}')" if @image
+	page << "$j('#iil').attr('href', '#{@item.image_url('big')}')" if @image
       end
     end
   end

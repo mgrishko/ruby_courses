@@ -24,6 +24,7 @@ after "deploy:update_code", :copy_database_config
 task :copy_database_config, roles => :app do
   db_config = "#{shared_path}/database.yml"
   run "cp #{db_config} #{release_path}/config/database.yml"
+  run "ln -s /home/hosting_max2015/projects/datapool/shared/data #{release_path}/public/data"
 end
 
 set :unicorn_rails, "/var/lib/gems/1.8/bin/unicorn_rails"
