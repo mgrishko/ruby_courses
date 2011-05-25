@@ -17,6 +17,7 @@
 
 #Exercise3. Call this program (p026zdeafgm2.rb) - Modify your Deaf Grandma program (Week 3 / Exercise6): What if grandma doesn't want you to leave? When you shout BYE, she could pretend not to hear you. Change your previous program so that you have to shout BYE three times in a row. Make sure to test your program: if you shout BYE three times, but not in a row, you should still be talking to grandma. You must shout BYE three separate times. If you shout BYEBYEBYE or BYE BYE BYE, grandma should pretend not to hear you (and not count it as a BYE).
 
+=begin
 def random_year
   rand(21) + 1930
 end
@@ -31,3 +32,26 @@ until str == "BYE"
     puts "NO, NOT SINCE #{random_year}!"
   end
 end
+=end
+
+class GrandMa
+  def random_year
+    rand(21) + 1930
+  end
+  
+  bye_count = 0
+  while bye_count == 3
+    print "Say: "
+    str = gets.chomp
+    if str == "BYE"
+      bye_count +=1
+    elsif str == str.downcase
+      puts "HUH?! SPEAK UP, SONNY"
+    elsif str == str.upcase
+      puts "NO, NOT SINCE #{random_year}"
+    else
+      "YOU DAMAGE MY PROGRAMM!"
+    end
+  end
+end
+
