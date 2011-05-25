@@ -13,9 +13,11 @@
 
 old_array = IO.readlines("old-inventory.txt")
 new_array = IO.readlines("new-inventory.txt")
-#old_array.size > new_array.size ? puts "Deleted: #{old_array - new_array}" : puts "Added: #{new_array - old_array}" 
+old_array.size > new_array.size ? "Deleted: #{old_array - new_array}" : "Added: #{new_array - old_array}" 
+=begin
 if old_array.size > new_array.size
   puts "Delete: #{old_array - new_array}"
 else
   puts "Added: #{new_array - old_array}"
 end
+=end
