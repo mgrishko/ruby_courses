@@ -656,6 +656,9 @@ tr.val td select {
   font-size: 75%;
   margin-bottom: 5px;
 }
+.line-through {
+  text-decoration: line-through;
+}
 .d {
   font-weight: bold;
 }

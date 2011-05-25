@@ -1,7 +1,13 @@
 <% unless @view_only || @base_item.draft? %>
-<div class="versions">Versions:
-<% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at').each do |v| %>
-<% if v.id == @base_item.id %><%= @base_item.updated_at.to_s(:db) %><% else %><a href="<%= v.id %><%if  @view_only %>?view=1<% end %>"><%= v.updated_at.to_s(:db) %></a><% end %> |
+<br/>
+<strong>Versions</strong>
+<div class="versions">
+<% i = 0 %>
+<% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at').reverse.each do |v| %>
+<div class="<%= 'line-through' unless i == 0 %>">
+  <% if v.id == @base_item.id %><%= @base_item.updated_at.to_s(:db) %><% else %><a href="<%= v.id %><%if  @view_only %>?view=1<% end %>"><%= v.updated_at.to_s(:db) %></a><% end %>
+</div>
+<% i +=1 %>
 <% end %>
 </div>
 <div class="clear"></div>
