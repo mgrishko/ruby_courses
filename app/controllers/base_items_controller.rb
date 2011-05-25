@@ -159,13 +159,18 @@ class BaseItemsController < ApplicationController
     if @base_item.draft? and params[:cancel]
       @base_item.destroy
     else
-      @base_item.item.update_attributes(:private => params[:base_item][:private])
+      #@base_item.item.update_attributes(:private => params[:base_item][:private])
+      @base_item.update_attributes(:private => params[:base_item][:private])
 
-      @base_item.publish!
+
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
-      @base_item.item.change! if @base_item.item.add?
+      
+      if @base_item.has_difference_between_old?
+	@base_item.publish!
+	@base_item.item.change! if @base_item.item.add?
+      end
     end
     redirect_to base_items_url
   end
@@ -200,6 +205,12 @@ class BaseItemsController < ApplicationController
 	  map_id[d.id] = pi.id
 	end
       end
+
+      # receivers list
+      @base_item.receivers.each do |r|
+	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
+      end
+
       #end
       #redirect_to :action => "show", :id => n.id
       redirect_to base_item_path(n)

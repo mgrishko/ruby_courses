@@ -5,7 +5,7 @@
 <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
 <%= c.hidden_field 'base_item_id', :value => @base_item.id %>
 <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
-<input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.item.private %>"/>
+<input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.private %>"/>
 
 <% end %>
 <% end %>
@@ -14,7 +14,7 @@
 <% end %>
 
 <% remote_form_for Receiver.new do |f| %>
-<input type="hidden" id="receiver_item_id" name="receiver[item_id]" value="<%= @base_item.item.id %>"/>
+<input type="hidden" id="receiver_base_item_id" name="receiver[base_item_id]" value="<%= @base_item.id %>"/>
 <input type="hidden" id="receiver_gln" name="receiver[gln]" />
 <% end %>
 <% end %>

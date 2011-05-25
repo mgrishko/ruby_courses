@@ -21,8 +21,8 @@ class Cloud < ActiveRecord::Base
 	AND c.user_id = #{retailer.id} " +
 	(supplier ? " AND i.user_id = #{supplier.id} " : '') +
 	"AND
-	IF ((i.private=1),
-	  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{retailer.id}),
+	IF ((bi.private=1),
+	  bi.id = (select r.base_item_id from receivers r where r.base_item_id = bi.id and r.user_id = #{retailer.id}),
 	  1=1
 	)
 	GROUP BY name")
@@ -49,8 +49,8 @@ class Cloud < ActiveRecord::Base
 	AND sr.status = 'accepted'
 	AND s.retailer_id = #{retailer.id}
 	AND
-	IF ((i.private=1),
-	  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{retailer.id}),
+	IF ((bi.private=1),
+	  bi.id = (select r.base_item_id from receivers r where r.base_item_id = bi.id and r.user_id = #{retailer.id}),
 	  1=1
 	)
 	GROUP BY name

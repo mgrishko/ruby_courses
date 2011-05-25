@@ -2,6 +2,7 @@ class BaseItem < ActiveRecord::Base
   include AASM
   
   has_many :packaging_items, :dependent => :destroy
+  has_many :receivers
   has_many :comments
   belongs_to :user
   belongs_to :item
@@ -143,14 +144,53 @@ class BaseItem < ActiveRecord::Base
         sr.delete if sr.base_item.gtin == self.gtin && sr.status == 'new'
       end
       # private condition
-      if item.private
-	s.subscription_results << SubscriptionResult.new(:base_item_id => self.id) if self.item.receivers.detect {|r| r.user_id == s.retailer_id}
+      if self.private
+	s.subscription_results << SubscriptionResult.new(:base_item_id => self.id) if self.receivers.detect {|r| r.user_id == s.retailer_id}
       else
 	s.subscription_results << SubscriptionResult.new(:base_item_id => self.id)
       end
     end
   end
   
+  def has_difference_between_old?
+    old_bi = self.item.last_bi.first
+    return true unless old_bi
+    # 1. bi_attributes
+    # 2. receivers
+    # 3. pi_attributes
+    
+    # 1
+    necessary_attributes = old_bi.attributes.keys - ['id', 'status', 'created_at', 'updated_at', 'user_id', 'state', 'mix']
+    necessary_attributes.each do |na|
+      return true if old_bi[na] != self[na]
+    end
+    old_pi  = PackagingItem.find(:all, :conditions => {:base_item_id => old_bi.id},  :order => "lft, created_at")
+    pi	    = PackagingItem.find(:all, :conditions => {:base_item_id => self.id},    :order => "lft, created_at") 
+    
+    # 2
+    old_receivers = old_bi.receivers.sort{|b,a| a.user_id <=> b.user_id}
+    new_receivers = self.receivers.sort{|b,a| a.user_id <=> b.user_id}
+    return true if old_receivers.length != new_receivers.length
+    if old_receivers.length > 0
+      i = 0
+      while i < old_receivers.length do
+	return true if old_receivers[i][:user_id] != new_receivers[i][:user_id]
+	i += 1
+      end
+    end
+    # 3
+    return true if old_pi.length != pi.length
+    return false if old_pi.length == 0
+    necessary_attributes = old_pi.first.attributes.keys - ['id', 'base_item_id', 'parent_id', 'created_at', 'updated_at', 'published']
+    i = 0
+    while i < old_pi.length do
+      necessary_attributes.each do |na|
+	return true if old_pi[i][na] != pi[i][na]
+      end
+      i += 1
+    end
+    false
+  end
   #def published
   #  versions.scoped(:conditions => 'changes like "%pending%published%"')
   #end
@@ -312,9 +352,9 @@ class BaseItem < ActiveRecord::Base
     find_by_sql <<-SQL
       SELECT u.id, u.name, count(*) as q from base_items a
       LEFT JOIN items i on i.id = a.item_id
-      LEFT JOIN receivers r on r.item_id = i.id
+      LEFT JOIN receivers r on r.base_item_id = a.id
       LEFT JOIN users u on u.id = r.user_id
-      WHERE i.private = 1
+      WHERE a.private = 1
       AND a.id = (
 	SELECT b.id FROM base_items b 
 	WHERE a.item_id = b.item_id 
@@ -339,8 +379,8 @@ class BaseItem < ActiveRecord::Base
             " ORDER BY id DESC LIMIT 1
 	  )
 	  AND
-	  IF ((i.private=1),
-	    i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	  IF ((a.private=1),
+	    a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	    1=1
 	  )
 	  GROUP by brand"
@@ -363,8 +403,8 @@ class BaseItem < ActiveRecord::Base
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
 	    AND 
-	    IF ((i.private=1),
-	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    IF ((a.private=1),
+	      a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	      1=1
 	    )
 	  GROUP by brand
@@ -396,8 +436,8 @@ class BaseItem < ActiveRecord::Base
                           (supplier ? " AND b.user_id = #{supplier.id} " : '') +
                       "ORDER BY id DESC LIMIT 1)
 	  AND 
-	    IF ((i.private=1),
-	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    IF ((a.private=1),
+	      a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	      1=1
 	    )
 	  GROUP by manufacturer_name"
@@ -420,8 +460,8 @@ class BaseItem < ActiveRecord::Base
           AND  s.retailer_id = #{current_user.id}
 	  AND  sr.status = 'accepted'
 	  AND 
-	    IF ((i.private=1),
-	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    IF ((a.private=1),
+	      a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	      1=1
 	    )
 	  GROUP by manufacturer_name      
@@ -453,8 +493,8 @@ class BaseItem < ActiveRecord::Base
 	      "ORDER BY id DESC LIMIT 1
 	    )
 	    AND
-	    IF ((i.private=1),
-	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    IF ((a.private=1),
+	      a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	      1=1
 	    )
 	    GROUP by functional"
@@ -477,8 +517,8 @@ class BaseItem < ActiveRecord::Base
 	    AND  s.retailer_id = #{current_user.id}
 	    AND  sr.status = 'accepted'
 	    AND
-	    IF ((i.private=1),
-	      i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{current_user.id}),
+	    IF ((a.private=1),
+	      a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{current_user.id}),
 	      1=1
 	    )
 	    GROUP by functional      
@@ -536,8 +576,8 @@ class BaseItem < ActiveRecord::Base
             AND bi.id = #{subquery}
 	    AND s.retailer_id = #{options[:user_id]}
 	    AND
-	      IF (i.private=1,
-		i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+	      IF (bi.private=1,
+		bi.id = (select r.base_item_id from receivers r where r.base_item_id = bi.id and r.user_id = #{options[:user_id]}),
 		1=1
 	      )
           ORDER BY bi.created_at DESC
@@ -555,8 +595,8 @@ class BaseItem < ActiveRecord::Base
                 AND #{conditions.first.to_s}
                 AND s.retailer_id = #{options[:user_id]}
 		AND
-		  IF (i.private=1,
-		    i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+		  IF (bi.private=1,
+		    bi.id = (select r.base_item_id from receivers r where r.base_item_id = bi.id and r.user_id = #{options[:user_id]}),
 		    1=1
 		  )
               ORDER BY bi.created_at DESC
@@ -572,8 +612,8 @@ class BaseItem < ActiveRecord::Base
               AND bi.id = #{subquery}
 	      AND s.retailer_id = #{options[:user_id]}
 	      AND 
-		IF (i.private=1,
-		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:user_id]}),
+		IF (bi.private=1,
+		  bi.id = (select r.base_item_id from receivers r where r.base_item_id = bi.id and r.user_id = #{options[:user_id]}),
 		  1=1
 		)
             ORDER BY bi.created_at DESC
@@ -595,8 +635,8 @@ class BaseItem < ActiveRecord::Base
                           " + (options[:user_id] ? " and b.user_id = #{options[:user_id]} " : '') + 
                         "order by id desc limit 1)
 	   AND
-	   IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
-		   i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+	   IF ((a.private=1 AND i.user_id != #{options[:retailer_id]}),
+		   a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{options[:retailer_id]}),
 		   1=1
 	      )
           order by a.created_at desc", options[:tag]], :page => options[:page], :per_page => 10)
@@ -611,8 +651,8 @@ class BaseItem < ActiveRecord::Base
   	                        "and "+conditions.first.to_s+" 
   	                      order by id desc limit 1)
 		AND
-		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
-		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+		IF ((a.private=1 AND i.user_id != #{options[:retailer_id]}),
+		  a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{options[:retailer_id]}),
 		  1=1
 		)
   	        order by a.created_at desc", conditions.last], :page => options[:page], :per_page => 10)
@@ -625,9 +665,9 @@ class BaseItem < ActiveRecord::Base
   	                        and b.status='published' 
   	                        and b.user_id = #{options[:user_id]} 
   	                      order by id desc limit 1)
-		AND i.private=1
+		AND a.private=1
 		AND 
-		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = ?)
+		  a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = ?)
   	        order by a.created_at desc", options[:receiver]], :page => options[:page], :per_page => 10)
 
 	  else
@@ -638,8 +678,8 @@ class BaseItem < ActiveRecord::Base
   	                        (options[:user_id] ? " and b.user_id = #{options[:user_id]} " : '') +
   	                      "order by id desc limit 1) 
 		AND
-		IF ((i.private=1 AND i.user_id != #{options[:retailer_id]}),
-		  i.id = (select r.item_id from receivers r where r.item_id = i.id and r.user_id = #{options[:retailer_id]}),
+		IF ((a.private=1 AND i.user_id != #{options[:retailer_id]}),
+		  a.id = (select r.base_item_id from receivers r where r.base_item_id = a.id and r.user_id = #{options[:retailer_id]}),
 		  1=1
 		)
 

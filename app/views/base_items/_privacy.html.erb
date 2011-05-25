@@ -1,14 +1,14 @@
 <% unless @view_only %>
-  <% if @base_item.item.private && @base_item.published? %>
+  <% if @base_item.private && @base_item.published? %>
     <h2>Приватность</h2>
-    Получатели: <%= @base_item.item.receivers.collect {|r| r.user.name }.join(", ") %>
+    Получатели: <%= @base_item.receivers.collect {|r| r.user.name }.join(", ") %>
   <% end %>
 <% end %>
 
 <% if @base_item.draft? %>
   <h2>Приватность</h2>
-  <input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.item.private %> onchange="$j('#base_item_private').val(this.checked);"/>Приватно<br/>
+  <input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.private %> onchange="$j('#base_item_private').val(this.checked);"/>Приватно<br/>
   <div id="receivers">
-  <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.item.receivers} %>
+  <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.receivers} %>
   </div>
 <% end %>
