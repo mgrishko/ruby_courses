@@ -1,4 +1,6 @@
 class RetailerAttribute < ActiveRecord::Base
+  has_one :event, :as => :content
+
   belongs_to :user
   belongs_to :item
 end

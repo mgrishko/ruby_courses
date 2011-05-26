@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
   include AASM
 
+  has_one :event, :as => :content
   has_many :base_items
   belongs_to :user
   #has_many :comments #, :conditions => '#{Comment.table_name}.user_id = #{self.send(:user_id)}'

@@ -1,5 +1,7 @@
 class SubscriptionResult < ActiveRecord::Base
   include AASM
+  
+  has_one :event, :as => :content, :dependent => :destroy
 
   validates_uniqueness_of :base_item_id, :scope => :subscription_id
 

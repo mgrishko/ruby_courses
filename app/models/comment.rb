@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  
+  has_one :event, :as => :content
+
   belongs_to :user
   belongs_to :item
   belongs_to :base_item

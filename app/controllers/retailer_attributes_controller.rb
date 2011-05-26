@@ -17,14 +17,15 @@ class RetailerAttributesController < ApplicationController
 
   def create
     if retailer_attribute_data_exists?
-      @retailer_attribute = @item.retailer_attributes.new(params[:retailer_attribute])
-      @r = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => params[:retailer_attribute][:item_id]})
-      if @r
-	@r.update_attributes(params[:retailer_attribute])
+      @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => params[:retailer_attribute][:item_id]})
+      if @retailer_attribute
+	@retailer_attribute.update_attributes(params[:retailer_attribute])
       else
+	@retailer_attribute = @item.retailer_attributes.new(params[:retailer_attribute])
 	@retailer_attribute.user_id = current_user.id
 	@retailer_attribute.save
       end
+      Event.log(current_user, @retailer_attribute)
     end
     respond_to do |format|
       format.js
@@ -36,6 +37,7 @@ class RetailerAttributesController < ApplicationController
     if retailer_attribute_data_exists?
       @retailer_attribute.update_attributes(params[:retailer_attribute])
       @retailer_attribute.save
+      Event.log(current_user, @retailer_attribute)
     else
       @retailer_attribute.destroy
     end

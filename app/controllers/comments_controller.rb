@@ -7,7 +7,10 @@ class CommentsController < ApplicationController
     @item = Item.find(params[:comment][:item_id])
     @base_item = BaseItem.find(params[:comment][:base_item_id])
     @comment = current_user.comments.new(params[:comment])
-    @comment.save if params[:new] && params[:comment][:content].to_s.length > 0
+    if params[:new] && params[:comment][:content].to_s.length > 0
+      @comment.save
+      Event.log(current_user, @comment)
+    end
     #@item.comments << @comment
     respond_to do |format|
       format.js

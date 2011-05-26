@@ -8,6 +8,7 @@ class ImagesController < ApplicationController
       @image = Image.new()
       @image.item_id = @item.id
       @image.save
+      Event.log(current_user,@image)
       for image_parameter in IMAGE_PARAMETERS do
 	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
 	else

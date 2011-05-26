@@ -1,5 +1,7 @@
 class Image < ActiveRecord::Base
   
+  has_one :event, :as => :content
+
   def resize(data, width, height, scale, fill, name)
     image = data.clone
     original_width = image.columns.to_i

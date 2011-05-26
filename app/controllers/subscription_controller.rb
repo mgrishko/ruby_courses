@@ -25,6 +25,8 @@ class SubscriptionController < ApplicationController
 	      end
       end
       
+      Event.log(current_user, @subscription)
+
       # instant subscription
       if json['flag']
         @supplier = User.find(params[:id])
@@ -91,6 +93,7 @@ class SubscriptionController < ApplicationController
 	:base_item_id => @base_item.id, :subscription_id => @subscription.id
       )
     end
+    Event.log(current_user, @subscription)
   end
   
 

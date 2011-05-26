@@ -1,6 +1,8 @@
 class BaseItem < ActiveRecord::Base
   include AASM
   
+  has_one :event, :as => :content
+
   has_many :packaging_items, :dependent => :destroy
   has_many :receivers
   has_many :comments

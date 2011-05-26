@@ -170,6 +170,9 @@ class BaseItemsController < ApplicationController
       if @base_item.has_difference_between_old?
 	@base_item.publish!
 	@base_item.item.change! if @base_item.item.add?
+	# add new event into log
+	Event.log(current_user, @base_item)
+	# /log
       end
     end
     redirect_to base_items_url

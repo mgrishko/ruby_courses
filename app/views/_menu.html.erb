@@ -10,6 +10,7 @@
   <% if current_user.supplier? %><%= link_to 'Statuses', :controller => 'statuses' %> | <% end %>
   <% if current_user.retailer? %><%= link_to('Received Items', :controller => 'retailer_items') %> | <% end %>
   <% if current_user.retailer? %><%= link_to 'Suppliers', :controller => 'suppliers' %><% end %>
+  <%= link_to 'Events', :controller => 'events' %> |
   <% end %>
   </div>
   <div class="fright">
