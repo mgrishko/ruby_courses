@@ -34,24 +34,22 @@ until str == "BYE"
 end
 =end
 
-class GrandMa
-  def random_year
-    rand(21) + 1930
-  end
-  
-  bye_count = 0
-  while bye_count == 3
-    print "Say: "
-    str = gets.chomp
-    if str == "BYE"
-      bye_count +=1
-    elsif str == str.downcase
-      puts "HUH?! SPEAK UP, SONNY"
-    elsif str == str.upcase
-      puts "NO, NOT SINCE #{random_year}"
-    else
-      "YOU DAMAGE MY PROGRAMM!"
-    end
-  end
+def random_year
+  rand(21) + 1930
 end
 
+str = ''
+bye_count = 0
+until bye_count == 3
+  print "Say: "
+  str = gets.chomp
+  if str == "BYE"
+    bye_count +=1
+  elsif str == str.downcase
+    puts "HUH?! SPEAK UP, SONNY"
+    bye_count = 0
+  elsif str == str.upcase
+    puts "NO, NOT SINCE #{random_year}"
+    bye_count = 0
+  end
+end

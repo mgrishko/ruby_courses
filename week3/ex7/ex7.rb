@@ -31,6 +31,7 @@
 #Perform calculations to work out the averages.
 #Create a new, blank Ruby source file and save it as analyzer.rb in your Ruby folder.
 
+=begin
 text = ""
 file = File.open("text.txt").each {|line| text << line}
 
@@ -50,3 +51,58 @@ puts "#{sentence_count} sentences"
 puts "#{paragraph_count} paragraphs"
 puts "#{sentence_count/paragraph_count} sentences per paragraph (average)"
 puts "#{all_words/sentence_count} words per sentence (average)"
+=end
+
+def dir_entries
+  home = Dir.pwd
+  Dir.entries(home) {|e| puts e}
+end
+
+puts "#{dir_entries}"
+
+print "Input file for analize: "
+file = gets.chomp
+
+@lines = IO.readlines(file)
+@text = @lines.join
+
+def line_count
+  @lines.size
+end
+
+def all_characters
+  @text.length
+end
+
+def all_characters_without_spaces
+  @text.gsub(/\s*/, '').length
+end
+
+def all_words
+  @text.scan(/\w+/).size
+end
+
+def sentence_count
+  @text.scan(/\.|\?|!\.../).size
+end
+
+def paragraph_count
+  @text.scan(/\n\n/).size
+end
+
+def average_sentences_per_paragraph
+  sentence_count/paragraph_count
+end
+
+def average_words_in_sentences
+  all_words/sentence_count
+end
+
+puts "#{line_count} lines"
+puts "#{all_characters} characters"
+puts "#{all_characters_without_spaces} characters excluding spaces"
+puts "#{all_words} words"
+puts "#{sentence_count} sentences"
+puts "#{paragraph_count} paragraphs"
+puts "#{average_sentences_per_paragraph} sentences per paragraph (average)"
+puts "#{average_words_in_sentences} words per sentence (average)"
