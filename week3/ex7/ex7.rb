@@ -53,17 +53,22 @@ puts "#{sentence_count/paragraph_count} sentences per paragraph (average)"
 puts "#{all_words/sentence_count} words per sentence (average)"
 =end
 
+
 def dir_entries
-  home = Dir.pwd
-  Dir.entries(home) {|e| puts e}
+  current_dir = Dir.pwd
+  array = Dir.entries(current_dir).sort
+  hash = {}
+  array.each_with_index{|v,k| hash[k]=v}
+  hash
+  #@hash = hash.each{|k,v| puts "#{k}/#{v}"}
 end
 
 puts "#{dir_entries}"
 
-print "Input file for analize: "
-file = gets.chomp
+print "Input number file for analize: "
+number_file = gets.chomp.to_i
 
-@lines = IO.readlines(file)
+@lines = IO.readlines(dir_entries[number_file])
 @text = @lines.join
 
 def line_count
