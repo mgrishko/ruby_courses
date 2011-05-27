@@ -26,6 +26,22 @@ class Comment < ActiveRecord::Base
       root.save
     end
   end
+
+  def get_url(current_user)
+    if current_user.retailer?
+      "/base_items/#{self.base_item_id}?view=true#c-#{self.id}"
+    else
+      "/base_items/#{self.base_item_id}#c-#{self.id}"
+    end
+  end
+
+  def get_title
+    self.content
+  end
+
+  def get_description
+    self.base_item.item_description
+  end
 end
 
 # == Schema Information

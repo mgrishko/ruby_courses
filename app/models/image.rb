@@ -1,6 +1,7 @@
 class Image < ActiveRecord::Base
   
-  has_one :event, :as => :content
+  has_one :event, :as => :content, :dependent => :destroy
+  belongs_to :base_item
 
   def resize(data, width, height, scale, fill, name)
     image = data.clone
@@ -27,6 +28,21 @@ class Image < ActiveRecord::Base
       Dir.mkdir("#{RAILS_ROOT}/public/data")
     end
     image.write("#{RAILS_ROOT}/public/data/#{self.id}#{name}.jpg")
+  end
+  
+  def get_url(current_user)
+    if current_user.retailer?
+      "/base_items/#{self.base_item_id}?view=true"
+    else
+      "/base_items/#{self.base_item_id}"
+    end
+  end
+  
+  def get_title
+  end
+
+  def get_description
+    self.base_item.item_description.to_s
   end
 
 protected

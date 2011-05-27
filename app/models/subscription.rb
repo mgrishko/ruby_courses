@@ -21,6 +21,22 @@ class Subscription < ActiveRecord::Base
     transitions :to => :active, :from => :canceled
   end
   
+  def get_url(current_user)
+    if current_user.retailer?
+      "/suppliers/"
+    else
+      "/profiles/#{self.retailer_id}"
+    end
+  end
+
+  def get_title
+  end
+
+  def get_description
+    self.supplier.name
+  end
+
+
   def reset_subscription
     self.details = '';
     self.specific = false;

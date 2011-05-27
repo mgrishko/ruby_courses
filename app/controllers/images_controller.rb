@@ -7,6 +7,7 @@ class ImagesController < ApplicationController
     if @original.test_and_prepare?
       @image = Image.new()
       @image.item_id = @item.id
+      @image.base_item_id = params[:base_item_id]
       @image.save
       Event.log(current_user,@image)
       for image_parameter in IMAGE_PARAMETERS do

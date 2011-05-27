@@ -8,10 +8,12 @@ class RetailerAttributesController < ApplicationController
   
   def new
     @retailer_attribute = @item.retailer_attributes.new()
+    @retailer_attribute.base_item_id = params[:retailer_attribute][:base_item_id]
   end
   
   def edit
     @retailer_attribute = @item.retailer_attributes.find(:first, :conditions => {:user_id => current_user.id})
+    @retailer_attribute.base_item_id = params[:retailer_attribute][:base_item_id]
     render :new
   end
 
@@ -27,6 +29,9 @@ class RetailerAttributesController < ApplicationController
       end
       Event.log(current_user, @retailer_attribute)
     end
+    
+    @base_item = BaseItem.find(params[:retailer_attribute][:base_item_id])
+    
     respond_to do |format|
       format.js
     end
@@ -41,6 +46,9 @@ class RetailerAttributesController < ApplicationController
     else
       @retailer_attribute.destroy
     end
+    
+    @base_item = BaseItem.find(params[:retailer_attribute][:base_item_id])
+
     respond_to do |format|
       format.js
     end

@@ -28,6 +28,23 @@ class SubscriptionResult < ActiveRecord::Base
     return "Данные акцептованы" if self.accepted?
     "Данные не приняты"
   end
+  
+  def get_url(current_user)
+    if current_user.retailer?
+      "/subscription_results/#{self.subscription_id}"
+    else
+      "/base_items/#{self.base_item_id}"
+    end
+  end
+  
+  def get_title 
+    self.base_item.item_description
+  end
+
+  def get_description
+    "<div class='sr-status sr-#{self.status}' title='#{self.status_for_title}'></div>"
+  end
+
 end
 
 # == Schema Information

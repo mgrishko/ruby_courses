@@ -15,8 +15,10 @@ class SubscriptionResultsController < ApplicationController
       #my subscription result
       if params[:accept]
 	      @subscription_result.accept!
+	      Event.log(current_user, @subscription_result)
       else
 	      @subscription_result.cancel!
+	      Event.log(current_user, @subscription_result)
       end
     end
     
@@ -34,8 +36,10 @@ class SubscriptionResultsController < ApplicationController
     @subscription.subscription_results.find(:all, :conditions => {:status => 'new'}).each do |sr|
       if params[:accept]
 	sr.accept!
+	Event.log(current_user, sr)
       else
 	sr.cancel!
+	Event.log(current_user, sr)
       end
     end
   end

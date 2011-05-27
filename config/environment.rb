@@ -145,7 +145,7 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   html_tag
 end
 
-Time::DATE_FORMATS.merge!({:short => "%Y-%m-%d", :cmnt => "%a, %d %b %Y, %H:%M", :db => "%Y-%m-%d %H:%M"})
+Time::DATE_FORMATS.merge!({:short => "%Y-%m-%d", :cmnt => "%a, %d %b %Y, %H:%M", :db => "%Y-%m-%d %H:%M", :event => "%d %b %Y, %A"})
 IMAGE_PARAMETERS = [
   {
     'name'    => 'big', # big

@@ -337,7 +337,23 @@ class BaseItem < ActiveRecord::Base
       return false
     end
   end
-  
+ 
+  def get_url(current_user)
+    if current_user.retailer?
+      "/base_items/#{self.id}?view=true"
+    else
+      "/base_items/#{self.id}"
+    end
+
+  end
+  def get_title
+    self.item_description.to_s
+  end
+
+  def get_description
+    self.item_description.to_s
+  end
+
   def update_mix_field
     necessary_fields = [:gtin, :internal_item_id, :manufacturer_name, :manufacturer_gln, :gpc_code, :country_of_origin_code, :brand, :subbrand, :functional, :item_description] #fields for search
 
