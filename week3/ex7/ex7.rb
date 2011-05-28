@@ -95,6 +95,10 @@ def paragraph_count
   @text.scan(/\n\n/).size
 end
 
+if (sentence_count || paragraph_count) == 0
+  puts "It's a blank file"
+  exit
+end
 def average_sentences_per_paragraph
   sentence_count/paragraph_count
 end
