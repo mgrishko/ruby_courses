@@ -56,7 +56,7 @@ puts "#{all_words/sentence_count} words per sentence (average)"
 
 def dir_entries
   current_dir = Dir.pwd
-  array = Dir.entries(current_dir).sort
+  array = Dir.entries(current_dir).sort.drop(2)
   hash = {}
   array.each_with_index{|v,k| hash[k]=v}
   hash
