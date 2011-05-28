@@ -60,10 +60,9 @@ def dir_entries
   hash = {}
   array.each_with_index{|v,k| hash[k]=v}
   hash
-  #@hash = hash.each{|k,v| puts "#{k}/#{v}"}
 end
 
-puts "#{dir_entries}"
+dir_entries.each {|number, filename| puts "#{number}: #{filename}"}
 
 print "Input number file for analize: "
 number_file = gets.chomp.to_i
