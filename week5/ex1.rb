@@ -17,5 +17,11 @@ class UnpredictableString < String
     @str.split(//).shuffle.join
   end
 end
+#2 variant
+#class UnpredictableString < String
+#def scramble
+# self.split(//).shuffle.join
+#end
+#end
 str = UnpredictableString.new("this method must work")
 puts str.scramble
