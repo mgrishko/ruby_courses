@@ -3,8 +3,8 @@
 #"There will be an amoeba shape on the screen, with the others. When the user clicks on the amoeba, it will rotate like the others, and play a .hif sound file. The other figures like rectangle rotate around the center. I want the amoeba shape to rotate around a point on one end, like a clock hand !"
 
 class Shape
-  def name
-    self.class
+  def initialize(*args)
+    puts "I'm #{self.class}"
   end
 
   def click
@@ -18,9 +18,8 @@ class Shape
 end
 
 class Polygon < Shape
-  def initialize(sides)
-    @sides = sides
-    puts "I'm a #{name} and I have #{@sides} sides"
+  def initialize
+    super
   end
 end
 
@@ -31,18 +30,18 @@ class Amoeba < Shape
   end
 
   def music
-    puts "play some music"
+    puts "I'm play a .hif sound file"
   end
 end
 
 class Triangle < Polygon
-  def initialize(sides = 3)
+  def initialize
     super
   end
 end
 
 class Square < Polygon
-  def initialize(sides = 4)
+  def initialize
     super
   end
 end
@@ -53,3 +52,24 @@ square  = Square.new
 amoeba.click
 triangle.click
 square.click
+
+=begin
+   doctest: Create an Amoeba Shape
+   >> amoeba = Amoeba.new
+   =>I'm  Amoeba
+   doctest: An Amoeba plays a .hif file & rotate
+   >> amoeba.click
+   =>You activate this shape
+   =>I'm playing a .hif sound file
+   =>I'm individual rotate
+   doctest: Create a Square & Triangle
+   >>square = Square.new
+   >>triangle = Triangle.new
+   =>I'm Triangle
+   =>I'm Square
+   doctest: Polygon rotate
+   >>square.click
+   >>triangle.click
+   =>I'm rotate
+   =>I'm rotate
+=end
