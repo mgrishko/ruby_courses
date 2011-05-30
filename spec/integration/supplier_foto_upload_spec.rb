@@ -33,7 +33,6 @@ context 'Поставщик вошел' do
           click_link("link_upload")
         end
         it 'Видит форму загрузки фото ' do
-          # не получилось отработать js
           find_button('Загрузить').should be_visible
         end
         context 'Загружает картинку с локального диска' do
@@ -51,7 +50,8 @@ context 'Поставщик вошел' do
 
           it 'На сервере должна появиться картинка' do
             find("a[@id='iil']").click
-            page.driver.response.status.should be_equal(200)
+            find('div[@id="lightbox-container-image"]').should be_visible
+#            page.driver.response.status.should be_equal(200)
           end
         end
 

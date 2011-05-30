@@ -27,11 +27,10 @@ context 'Поставщик вошел.' do
           click_button("Опубликовать")
         end
         it 'ID не должен меняться' do
-          BaseItem.first(:conditions=>{:status=>'published',:gtin=>base_item.gtin},:order=>" created_at DESC").id.should be_equal(base_item.id)
+          BaseItem.first(:conditions=>{:status=>'published',:gtin=>base_item.gtin},:order=>" id DESC").id.should be_equal(base_item.id)
         end
       end
       context "Вносит изменения." do
-        # пока не разобрался с яваскриптом.
         before do
           find("div[@id='base_item']/a").click
           fill_in("base_item_subbrand", :with=> 'another brand')
@@ -39,7 +38,8 @@ context 'Поставщик вошел.' do
           click_button("Опубликовать")
         end
         it 'ID должен меняться' do
-          BaseItem.first(:conditions=>{:status=>'published',:gtin=>base_item.gtin},:order=>"created_at DESC").id.should_not be_equal(base_item.id)
+          BaseItem.first(:conditions=>{:status=>'published',:gtin=>base_item.gtin},:order=>"id DESC").id.should_not be_equal(base_item.id)
+
         end
       end
 

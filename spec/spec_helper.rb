@@ -13,7 +13,8 @@ require 'spec/rails'
 require 'capybara/rails'
 require 'capybara/dsl'
 require 'factory_girl'
-
+require 'database_cleaner'
+ DatabaseCleaner.strategy = :truncation
 require  File.expand_path(File.join(File.dirname(__FILE__),'factories'))
 
 # Uncomment the next line to use webrat's matchers
@@ -27,12 +28,20 @@ Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
-  config.use_transactional_fixtures = true
+  #config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  config.use_transactional_fixtures = false
+  config.before :each do
+    DatabaseCleaner.start
+  end
+  config.after :each do
+    DatabaseCleaner.clean
+  end
+
   config.include(Capybara, :type => :integration)
-  #Capybara.default_driver = :culerity
+  Capybara.default_driver = :selenium
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
