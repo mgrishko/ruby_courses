@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
   config.gem "thoughtbot-factory_girl", :lib => false, :source =>  "http://gems.github.com"
   config.gem "capybara"
+  config.gem "selenium-webdriver"
   config.gem "annotate"
 
   # Settings in config/environments/* take precedence over those specified here.
