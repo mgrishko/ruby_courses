@@ -25,6 +25,7 @@ Rails::Initializer.run do |config|
   config.gem "capybara"
   config.gem "database_cleaner", :source =>  "http://gems.github.com"
   config.gem "selenium-webdriver"
+  config.gem "spork"
   config.gem "annotate"
 
   # Settings in config/environments/* take precedence over those specified here.

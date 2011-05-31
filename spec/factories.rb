@@ -1,8 +1,5 @@
 
 
-Factory.define :item do |f|
-  f.user_id 1
-end
 
 Factory.define :country do |f|
   f.description ''
@@ -10,7 +7,6 @@ Factory.define :country do |f|
 end
 
 Factory.define :user do |f|
-  f.gln ''
   f.password  ''
   f.role ''
 end
