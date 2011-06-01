@@ -6,8 +6,8 @@ Feature: Supplier publishes base_item
 
 
   Scenario: Do not edit but publish
-    Given supplier has gln "1234" and password "1234"
-    And I logged in as supplier
+    Given "supplier" has gln "1234" and password "1234"
+    And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I press "Правка"
@@ -15,8 +15,8 @@ Feature: Supplier publishes base_item
     Then I new publication should not occur
 
   Scenario: Edit and publish
-    Given supplier has gln "1234" and password "1234"
-    And I logged in as supplier
+    Given "supplier" has gln "1234" and password "1234"
+    And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I press "Правка"

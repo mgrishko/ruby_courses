@@ -6,8 +6,8 @@ Feature: Supplier events
 
 
   Scenario: Make event after comment
-    Given supplier has gln "1234" and password "1234"
-    And I logged in as supplier
+    Given "supplier" has gln "1234" and password "1234"
+    And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I fill in "New Comment" for "comment_content"
@@ -16,8 +16,8 @@ Feature: Supplier events
     Then I should see "Comment" within ".event-comment"
 
   Scenario: Make event after publish
-    Given supplier has gln "1234" and password "1234"
-    And I logged in as supplier
+    Given "supplier" has gln "1234" and password "1234"
+    And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I press "Правка"

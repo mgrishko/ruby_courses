@@ -13,8 +13,8 @@ Feature: Supplier foto upload feature
 #    Then should be visible "form_upload"
 
   Scenario: Upload image
-    Given supplier has gln "1234" and password "1234"
-    And I logged in as supplier
+    Given "supplier" has gln "1234" and password "1234"
+    And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I follow "Сменить изображение"
