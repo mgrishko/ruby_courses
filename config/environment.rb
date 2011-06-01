@@ -27,7 +27,7 @@ Rails::Initializer.run do |config|
   config.gem "database_cleaner", :source =>  "http://gems.github.com"
   config.gem "selenium-webdriver"
   config.gem "cucumber"
-  config.gem "cucumber-rails",:lib=>false
+  config.gem "cucumber-rails",:lib => false, :version => '0.3.2'
   config.gem "spork"
   config.gem "annotate"
   # Settings in config/environments/* take precedence over those specified here.
