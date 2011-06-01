@@ -6,6 +6,7 @@
 require 'rubygems'
 require 'RMagick'
 
+
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 
@@ -25,9 +26,10 @@ Rails::Initializer.run do |config|
   config.gem "capybara"
   config.gem "database_cleaner", :source =>  "http://gems.github.com"
   config.gem "selenium-webdriver"
+  config.gem "cucumber"
+  config.gem "cucumber-rails",:lib=>false
   config.gem "spork"
   config.gem "annotate"
-
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
