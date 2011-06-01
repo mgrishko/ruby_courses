@@ -5,6 +5,6 @@
 <%= f.hidden_field :parent_id, :value => @p.id if @p %>
 <%= f.hidden_field :message_info, :value => @message_info if @message_info %>
 <%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area", :style => "background: #FFF;" %><br/>
-<%= f.submit "Ответить", :name => "new", :class => "button", :style => "width: auto;" %>
-<%= f.submit "Отмена", :name=> "cancel", :class => "button", :style => "width: auto;", :onclick => "$j('#cr-#{@r.id}').html(''); return false;" %>
+<%= f.submit t('main.reply'), :name => "new", :class => "button", :style => "width: auto;" %>
+<%= f.submit t('main.cancel'), :name=> "cancel", :class => "button", :style => "width: auto;", :onclick => "$j('#cr-#{@r.id}').html(''); return false;" %>
 <% end %>

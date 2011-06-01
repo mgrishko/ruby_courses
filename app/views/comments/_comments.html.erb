@@ -1,10 +1,10 @@
-<h2>Комментарии</h2>
+<h2><%= t 'comment.title' %></h2>
 <% if @base_item.published? %>
 <% remote_form_for Comment.new do |f|%>
 <%= f.hidden_field :item_id, :value => @base_item.item.id %>
 <%= f.hidden_field :base_item_id, :value => @base_item.id %>
 <%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
-<%= f.submit "Добавить комментарий", :name => "new", :class => "button", :style => "width: auto;" %>
+<%= f.submit t('comment.add'), :name => "new", :class => "button", :style => "width: auto;" %>
 <% end %>
 <% end %>
 <div>

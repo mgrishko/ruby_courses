@@ -1,5 +1,5 @@
 <div class="clear"></div>
-<h2>Основные данные</h2>
+<h2><%= t 'item.base' %></h2>
 <div>
 <% remote_form_for(@base_item) do |f| %>
 <%= f.error_messages %>
@@ -15,12 +15,12 @@
 <%#=label_tag :publish, "Publish record ?"%>
 </p>
 <p>
-<%= f.submit "Применить", :class=> "button" %>
+<%= f.submit t('main.apply'), :class=> "button" %>
 </p>
-<p><%= f.submit "Назад", :class => "button", :name => "back_button" unless @base_item.first_step? %></p>
+<p><%= f.submit t('main.back'), :class => "button", :name => "back_button" unless @base_item.first_step? %></p>
 </div>
 <% end %>
 </div>
 <div class="clear"></div>
 
-<%= link_to_remote 'отмена', :url => @base_item, :method => :get %>
+<%= link_to_remote t('main.cancel'), :url => @base_item, :method => :get %>

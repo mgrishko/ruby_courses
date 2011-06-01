@@ -1,6 +1,6 @@
 <div class="fright">
 <form method="GET" action="" id="search-form">
-<input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %>Поиск<% else %><%=h params[:search] %><% end %>"/>
+<input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %><%= t 'main.search' %><% else %><%=h params[:search] %><% end %>"/>
 <a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
 </form>
 <div style="clear:both; text-align:center;"><%= html_pager @base_items %></div>
@@ -11,7 +11,7 @@
 <div class="filters">
 <% if current_user.supplier? %>
 <div>
-<strong>Получатели</strong>
+<strong><%= t 'main.receivers' %></strong>
 <% @receivers.each do |r| %>
   <%= selected_wrapper "<a href='?receiver=#{r.id}' class='filter'>#{r.name}</a> (#{r.q})", params[:receiver].to_s == r.id.to_s %>
 <% end %>
@@ -19,28 +19,28 @@
 <br/>
 <% end %>
 <div>
-<strong>Тэги</strong>
+<strong><%= t 'main.tags' %></strong>
 <% @clouds.each do |c| %>
     <%= selected_wrapper "<a href='?tag=#{c.tag.id}' class='filter'>#{c.tag.name}</a> (#{c.q})", params[:tag].to_s == c.tag_id.to_s %>
 <% end %>
 </div>
 <br/>
 <div>
-<strong>Бренды</strong>
+<strong><%= t 'main.brands' %></strong>
 <% @brands.each do |b| %>
   <%= selected_wrapper "<a href='?brand=#{CGI::escapeHTML b.brand}' class='filter'>#{b.brand}</a> (#{b.q})", params[:brand].to_s == b.brand.to_s %>
 <% end %>
 </div>
 <br/>
 <div>
-<strong>Производители</strong>
+<strong><%= t 'main.manufacturers' %></strong>
 <% @manufacturers.each do |m| %>
   <%= selected_wrapper "<a href='?manufacturer_name=#{CGI::escapeHTML m.manufacturer_name}' class='filter'>#{m.manufacturer_name}</a> (#{m.q})", params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>
 <% end %>
 </div>
 <br/>
 <div>
-<strong>Functional</strong>
+<strong><%= t 'main.functional' %></strong>
 <% @functionals.each do |f| %>
   <%= selected_wrapper "<a href='?functional=#{CGI::escapeHTML f.functional}' class='filter'>#{f.functional}</a> (#{f.q})", params[:functional].to_s == f.functional.to_s %>
 <% end %>

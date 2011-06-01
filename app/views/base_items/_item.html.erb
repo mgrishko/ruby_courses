@@ -2,11 +2,11 @@
 <% unless @view_only || @base_item.draft? %>
   <div class="fright">
     <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
-    <%= f.submit "Правка", :class => "button" %>
+    <%= f.submit t('main.edit'), :class => "button" %>
   <% end %>
   </div>
 <% end %>
-<h2>Основные данные</h2>
+<h2><%= t 'item.base' %></h2>
 <div id="step1">
 <!--base-->
 <%= render :partial => "base" %>
@@ -18,6 +18,6 @@
 <% end %>
 </div>
 <% unless @view_only || @base_item.published? %>
-<%= link_to_remote 'править', :url => edit_base_item_path(@base_item), :method => :get %>
+<%= link_to_remote t('item.edit'), :url => edit_base_item_path(@base_item), :method => :get %>
 <% end %>
 </div>

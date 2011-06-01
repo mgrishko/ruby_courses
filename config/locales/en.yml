@@ -2,4 +2,82 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  main:
+    apply: 'Apply'
+    back: 'Back'
+    next: 'Next'
+    cancel: 'Cancel'
+    update: 'Update'
+    search: 'Search'
+    edit: 'Edit'
+    confirm: 'Are you sure?'
+    receivers: 'Receivers'
+    subscribers: 'Subscribers'
+    tags: 'Tags'
+    brands: 'Brands'
+    manufacturers: 'Manufacturers'
+    functional: 'Functional'
+    publish: 'Publish'
+    reply: 'Reply'
+  pager:
+    from: 'from'
+    previous: 'Newer'
+    next: 'Next'
+    newest: 'The Newest'
+    oldest: 'The Oldest'
+  item:
+    gtin: 'gtin'
+    internal_item_id: 'Internal item id'
+    brand: 'Brand'
+    subbrand: 'Subbrand'
+    functional: 'Functional'
+    content: 'Content'
+    content_uom: 'Content uom'
+    description: 'Item Description'
+    manufacturer_gln: 'Manufacturer GLN'
+    manufacturer_name: 'Manufacturer name'
+    country_of_origin: 'Country of origin'
+    gpc_code: 'GPC Code'
+    gpc_name: 'GPC Name'
+    vat: 'Vat'
+    shelf_life_period: 'Shelf life period'
+    base: 'Base data'
+    logistic: 'Logistic'
+    privacy: 'Privacy'
+    private: 'Private'
+    back: 'Back to the items'  #вернуться к списку товаров
+    versions: 'Versions'
+  pi:
+    pack: 'pack'
+  sr:
+    not_send: 'Data was not sent' #Данные не отправлялись
+  comment:
+    title: 'Comments'
+    add: 'Add Comment'
+  event:
+    title: 'Event Log'
+  user:
+    title: 'Company'
+    name: 'Company Name'
+    gln: 'GLN'
+    description: 'Description'
+    contacts: 'Contacts'
+
+
+  menu:
+    my_items: 'My Items' #My Items
+    inbox: 'Inbox' #Inbox
+    messages: 'Messages' #Messages
+    statuses: 'Statuses' #Statuses
+    received_items: 'Received Items' #Received Items
+    suppliers: 'Suppliers'
+    events: 'Events'
+    log_off: 'Log off'
+  message:
+    title: 'Messages'
+  image:
+    change: 'Change Image'
+    upload: 'Upload'
+
+  tag:
+    add: 'Add tag'

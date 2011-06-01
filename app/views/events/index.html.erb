@@ -1,4 +1,4 @@
-<h2>Event Log</h2>
+<h2><%= t 'event.title' %></h2>
 <% od = @events.first.created_at.to_s(:event) if @events.length > 0 %>
 <%= "<span class='event-date'>#{od}</span>" if od %>
 <% @events.each do |e| %>

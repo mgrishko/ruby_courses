@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery :except => [:status, :instantstatus] # See ActionController::RequestForgeryProtection for details
   before_filter :link_model_with_auth_user
+  before_filter :set_user_language
+
   filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user
@@ -98,6 +100,10 @@ class ApplicationController < ActionController::Base
       @brands = BaseItem.get_brands current_user, supplier, all_suppliers
       @manufacturers = BaseItem.get_manufacturers current_user, supplier, all_suppliers
       @functionals = BaseItem.get_functionals current_user, supplier, all_suppliers
+    end
+
+    def set_user_language
+      I18n.locale = 'en'
     end
 end
 

@@ -1,6 +1,6 @@
 <% unless @view_only || @base_item.draft? %>
 <br/>
-<strong>Versions</strong>
+<strong><%= t 'item.versions' %></strong>
 <div class="versions">
 <% i = 0 %>
 <% @base_item.item.base_items.find(:all, :conditions => {:status => "published"}, :order => 'created_at').reverse.each do |v| %>

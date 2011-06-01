@@ -60,18 +60,18 @@ module ApplicationHelper
     i1 = (pc.current_page-1)*pc.per_page+1 # interval 1
     i2 = i1 + pc.count - 1
     i1 = 0 if pc.count == 0
-    pager = "#{i1} - #{i2} из #{pc.total_entries}"
+    pager = "#{i1} - #{i2} #{t 'pager.from'} #{pc.total_entries}"
     if pc.current_page > 1
-      pager = " <a href='#{current_url(p.merge(pn => pc.current_page-1))}'>Пред.</a> "+pager
+      pager = " <a href='#{current_url(p.merge(pn => pc.current_page-1))}'>#{t 'pager.previous'}</a> "+pager
     end
     if pc.current_page > 2
-      pager = " <a href='#{current_url(p.merge(pn => 1))}'>Самые новые</a> "+pager
+      pager = " <a href='#{current_url(p.merge(pn => 1))}'>#{t 'pager.newest'}</a> "+pager
     end
     if pc.current_page < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(pn => pc.current_page+1))}'>След.</a> "
+      pager = pager + " <a href='#{current_url(p.merge(pn => pc.current_page+1))}'>#{t 'pager.next'}</a> "
     end
     if (pc.current_page+1) < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>Самые старые</a> "
+      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>#{t 'pager.oldest'}</a> "
     end
     pager
   end
