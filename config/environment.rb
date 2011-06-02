@@ -30,6 +30,7 @@ Rails::Initializer.run do |config|
   config.gem "cucumber-rails",:lib => false, :version => '0.3.2'
   config.gem "spork"
   config.gem "annotate"
+  config.gem "pickle"
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
