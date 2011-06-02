@@ -17,7 +17,7 @@ require 'capybara/cucumber'
 require 'capybara/session'
 
 require 'factory_girl'
-require 'factory_girl/step_definitions'
+
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'..','factories','*.rb'))].each {|f| require f}
 #require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

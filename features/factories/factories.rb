@@ -2,7 +2,7 @@
 
 
 Factory.define :country do |f|
-  f.description ''
+  f.description 'Country name'
   f.code 'RU'
 end
 
@@ -28,6 +28,11 @@ end
 Factory.define :gpc do |f|
   f.code '10000115'
   f.name 'Some Name'
+end
+
+Factory.define :subscription do |f|
+  f.association :retailer, :factory => :user
+  f.association :supplier, :factory => :user
 end
 
 
