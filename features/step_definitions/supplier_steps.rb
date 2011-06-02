@@ -1,7 +1,7 @@
 Given /^"([^"]*)" has gln "([^"]*)" and password "([^"]*)"$/ do |role, gln, password|
   User.destroy_all
   @users = {}
-  @users["supplier"] = Factory(role.to_sym,
+  @users[role] = Factory(role.to_sym,
   :gln => gln,
   :password => password,
   :password_confirmation => password)
