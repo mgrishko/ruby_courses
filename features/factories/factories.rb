@@ -30,6 +30,7 @@ end
 Factory.define :another_retailer, :parent => :user do |f|
   f.gln '5678'
   f.password '1234'
+  f.name "Another Retailer"
   f.password_confirmation '1234'
   f.role 'retailer'
 end
