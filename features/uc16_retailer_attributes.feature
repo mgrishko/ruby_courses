@@ -18,7 +18,6 @@
 #13. Вносит данные
 #14. Нажимает кнопку Сохранить
 #15. Должны быть видны добавленные данные
-
 @javascript
 Feature:  Supplier can reply 
   In order to reply for comments

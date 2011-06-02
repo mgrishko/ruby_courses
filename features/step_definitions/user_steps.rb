@@ -17,3 +17,6 @@ Given /^"(.+)" has a base_item$/ do |role|
   @base_item = Factory(:base_item, :user_id=>@users[role].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc_code=> gpc.code)
 end
 
+When /(?:|I ) press Enter in "(.+)"$/ do |field|
+  find_field(field).native.send_key(:enter)
+end
