@@ -9,7 +9,7 @@ Feature: Supplier publishes base_item
     Given "supplier" has gln "1234" and password "1234"
     And I logged in as "supplier"
     And I have a base_item
-    When I go to the base_itemz page
+    When I go to the base_item page
     And I press "Правка"
     And I press "Опубликовать"
     Then I new publication should not occur
