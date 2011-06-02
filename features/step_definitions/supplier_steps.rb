@@ -52,6 +52,7 @@ Then /^I new publication should occur$/ do
 end
 
 When /^I wait for (\d+) seconds$/ do |time|
+  puts Item.last.base_items[0].user
   sleep time.to_i
 end
 
