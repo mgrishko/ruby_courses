@@ -1,7 +1,7 @@
 Given /^"([^"]*)" has gln "([^"]*)" and password "([^"]*)"$/ do |role, gln, password|
-  User.destroy_all
-  @users = {}
-  @users["supplier"] = Factory(role.to_sym,
+  @users ||= {}
+  User.destroy_all unless @users.any?
+  @users[role] = Factory(role.to_sym,
   :gln => gln,
   :password => password,
   :password_confirmation => password)
@@ -42,5 +42,13 @@ end
 
 Then /^I new publication should occur$/ do
   BaseItem.first(:conditions => {:status => 'published', :gtin => @base_item.gtin}, :order => "id DESC").id.should_not be_equal(@base_item.id)
+end
+
+When /^I wait for (\d+) seconds$/ do |time|
+  sleep time.to_i
+end
+
+When /^I click element "([^"]*)"$/ do |id|
+  find(id).click
 end
 
