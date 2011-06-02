@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Subscription Accepting
   In order to test subscription aceptance by retailer
   As a retailer

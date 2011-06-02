@@ -35,7 +35,9 @@ Factory.define :subscription do |f|
   f.association :supplier, :factory => :user
 end
 
-
+Factory.define :subscription_result do |f|
+  f.association :subscription
+end
 Factory.define :base_item do |f|
   f.gtin  '4607085440385'
   f.item_description 'Nescafe Classic'
