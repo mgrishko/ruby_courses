@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Retailer makes specific subscription
   In order to test specific subscription process
   As a retailer
@@ -14,7 +13,7 @@ Feature: Retailer makes specific subscription
       And I click element ".bi-image"
       And I click element ".bi-image"
       And I press "Подписаться"
-    Then a subscription should exist
+    Then a subscription should exist with specific: true, status: "active"
     When I logged in as "supplier"
     When I go to the base_items page
       And I click element ".bi"
