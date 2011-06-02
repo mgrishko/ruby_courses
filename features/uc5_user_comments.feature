@@ -9,9 +9,14 @@ Feature: User can post comments
   As a user
   I want post comments
   
-  Scenario: Supplier post comments
+  Background:
     Given "supplier" has gln "1234" and password "1234"
-    And I logged in as "supplier"
+    And "retailer" has gln "4321" and password "1234" also
+    And "another_retailer" has gln "5678" and password "1234" also
+
+
+  Scenario: Supplier post comments
+    Given I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
     And I fill in "comment_content" with "Very Long comment-comment and commemt again"
@@ -19,9 +24,7 @@ Feature: User can post comments
     Then I should see "Very Long comment-comment and commemt again" within "#comments"
   
   Scenario: Supplier and Retailer post comments
-    Given "supplier" has gln "1234" and password "1234" 
-    Given "retailer" has gln "4321" and password "1234" also
-    And I logged in as "supplier"
+    Given I logged in as "supplier"
     And I have a base_item
     And I go to the base_item page
     And I fill in "comment_content" with "Very Long comment-comment and commemt again"
@@ -34,10 +37,7 @@ Feature: User can post comments
     Then I should see "Very Long comment-comment and commemt again" within "#comments"
 
   Scenario: Retailer and Another Retailer post comments, Supplier can see all, Retailers can see only own
-    Given "supplier" has gln "1234" and password "1234"
-    Given "retailer" has gln "4321" and password "1234" also
-    Given "another_retailer" has gln "5678" and password "1234" also
-    And I logged in as "supplier"
+    Given I logged in as "supplier"
     And I have a base_item
     And I logged in as "retailer"
     And I go with "?view=true" to the base_item page
