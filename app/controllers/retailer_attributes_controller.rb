@@ -4,6 +4,7 @@ class RetailerAttributesController < ApplicationController
   
   def show
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @item.id})
+    @base_item = BaseItem.find(params[:retailer_attribute][:base_item_id])
   end
   
   def new
