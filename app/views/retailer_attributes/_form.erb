@@ -41,5 +41,5 @@ Retailer comment
 </tr>
 </table>
 <%= f.submit "Сохранить", :class=>"button" %>
-<%= button_to_remote "Отмена", {:url => url_for(:controller => "retailer_attributes", :action => "show", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => item.id), :method => :get}, :class => "button" %>
+<%= button_to_remote "Отмена", {:url => url_for(:controller => "retailer_attributes", :action => "show", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @retailer_attribute.base_item_id ), :method => :get}, :class => "button" %>
 <% end %>

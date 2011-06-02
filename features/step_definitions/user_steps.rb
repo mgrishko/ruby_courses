@@ -10,3 +10,13 @@ When /^(?:|I )go with "(.+)" to (.+)$/ do |url, page_name|
   visit path_to(page_name)+url.to_s
 end
 
+Given /^"(.+)" has a base_item$/ do |role|
+  gpc = Factory(:gpc, :code => '10000115', :name => 'Some Name')
+  item = Item.create(:user_id => @users[role].id)
+  country = Factory(:country, :code => 'RU', :description => '')
+  @base_item = Factory(:base_item, :user_id=>@users[role].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc_code=> gpc.code)
+end
+
+When /(?:|I ) press Enter in "(.+)"$/ do |field|
+  find_field(field).native.send_key(:enter)
+end
