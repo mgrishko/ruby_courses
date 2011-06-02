@@ -27,6 +27,13 @@ Factory.define :retailer, :parent => :user do |f|
   f.role 'retailer'
 end
 
+Factory.define :another_retailer, :parent => :user do |f|
+  f.gln '5678'
+  f.password '1234'
+  f.password_confirmation '1234'
+  f.role 'retailer'
+end
+
 Factory.define :gpc do |f|
   f.code '10000115'
   f.name 'Some Name'
