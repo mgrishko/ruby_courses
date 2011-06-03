@@ -29,6 +29,8 @@ Rails::Initializer.run do |config|
   config.gem "cucumber"
   config.gem "cucumber-rails",:lib => false, :version => '0.3.2'
   config.gem "spork"
+  config.gem "rspec-rails", :version => "1.3.4", :lib => false
+  config.gem "rspec", :version => "1.3.2", :lib => 'spec'
   config.gem "annotate"
   config.gem "pickle"
   # Settings in config/environments/* take precedence over those specified here.
