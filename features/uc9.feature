@@ -20,6 +20,7 @@ Feature: Subscription Result generation
     When I logged in as "supplier"
     And I go to the base_items page
     And I follow "New base_item"
+    And I wait for 1 second
     And I fill in "base_item_gtin" with "1234567"
     And I fill in "base_item_internal_item_id" with "1"
     And I fill in "base_item_brand" with "Brand name"
@@ -37,6 +38,7 @@ Feature: Subscription Result generation
     And I follow "country_select"
     And I fill in "base_item_gpc_name" with "Artists Accessories"
     And I press "Дальше"
+    And I wait for 1 second
     And I fill in "base_item_packaging_type" with "AM"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
@@ -44,6 +46,7 @@ Feature: Subscription Result generation
     And I fill in "base_item_gross_weight" with "1"
     And I fill in "base_item_net_weight" with "1"
     And I press "Дальше"
+    And I wait for 1 second
     And I press "Опубликовать"
     When I logged in as "retailer"
     And I go to the subscription_results page

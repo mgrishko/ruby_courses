@@ -51,8 +51,7 @@ Then /^I new publication should occur$/ do
   BaseItem.first(:conditions => {:status => 'published', :gtin => @base_item.gtin}, :order => "id DESC").id.should_not be_equal(@base_item.id)
 end
 
-When /^I wait for (\d+) seconds$/ do |time|
-  puts Item.last.base_items[0].user
+When /^I wait for (\d+) second(?:|s)$/ do |time|
   sleep time.to_i
 end
 

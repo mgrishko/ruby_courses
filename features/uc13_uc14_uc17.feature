@@ -26,6 +26,7 @@ Feature: Retailer subscribes
     When I logged in as "retailer"
     And go to the suppliers page
     And press "Отписаться"
+    And I wait for 1 second
     Then a subscription should not exist with retailer_id: 2, supplier_id: 1, status: "active"
     Then a subscription should exist with retailer_id: 2, supplier_id: 1, status: "canceled"
 

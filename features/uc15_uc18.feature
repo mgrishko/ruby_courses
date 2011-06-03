@@ -13,6 +13,7 @@ Feature: Retailer makes specific subscription
       And I click element ".bi-image"
       And I click element ".bi-image"
       And I press "Подписаться"
+      And I wait for 1 second
     Then a subscription should exist with specific: true, status: "active"
     When I logged in as "supplier"
     When I go to the base_items page
