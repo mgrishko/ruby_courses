@@ -4,12 +4,12 @@
 <tr class="info">
 <% if @retailer_attribute.retailer_article_id.to_s.length > 0 %>
 <td>
-Retailer article id
+  <%= t 'ra.article_id' %>
 </td>
 <% end %>
 <% if @retailer_attribute.retailer_classification.to_s.length > 0 %>
 <td>
-Retailer Classification
+  <%= t 'ra.classification' %>
 </td>
 <% end %>
 </tr>
@@ -28,7 +28,7 @@ Retailer Classification
 <% if @retailer_attribute.retailer_item_description.to_s.length > 0 %>
 <tr class="info">
 <td colspan="3">
-Retailer Item Description
+  <%= t 'ra.item_description' %>
 </td>
 </tr>
 <tr class="val">
@@ -40,7 +40,7 @@ Retailer Item Description
 <% if @retailer_attribute.retailer_comment.to_s.length > 0 %>
 <tr class="info">
 <td colspan="3">
-Retailer comment
+  <%= t 'ra.comment' %>
 </td>
 </tr>
 <tr class="val">
@@ -50,7 +50,7 @@ Retailer comment
 </tr>
 <% end %>
 </table>
-<%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get %>
+<%= link_to_remote t('main.edit'), :url => url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get %>
 <% else %>
-<%= link_to_remote 'Добавить данные', :url => url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get %>
+<%= link_to_remote t('ra.add'), :url => url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get %>
 <% end %>

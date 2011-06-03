@@ -1,8 +1,8 @@
-<h1>Inbox	</h1>
+<h1><%= t 'sr.inbox' %></h1>
 <br/>
 <table class="results">
 <tr>
-<td>gln</td><td>name</td><td>date</td><td>new</td><td>changed</td>
+  <td><%= t 'user.gln' %></td><td><%= t 'user.name' %></td><td><%= t 'sr.date' %></td><td><%= t 'sr.new' %></td><td><%= t 'sr.changed' %></td>
 </tr>
 <% @results.each do |r| %>
 <tr>

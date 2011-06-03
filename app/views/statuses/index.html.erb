@@ -1,22 +1,22 @@
-<h2>Статусы результатов подписки</h2>
+<h2><%= t 'status.title' %></h2>
 <table class="standart">
 <tr>
-<td>Товары\Подписчики</td>
+  <td><%= t 'status.items_subscribers' %></td>
 <% for u in @users do %>
 <td><%= u.name %></td>
 <% end %>
-<td rowspan="<%=@base_items.count + 1 %>">Подписчики: <%= html_pager(@users, 'page_users') %></td>
+<td rowspan="<%=@base_items.count + 1 %>"><%= t 'main.subscribers' %><%= html_pager(@users, 'page_users') %></td>
 </tr>
 <% for bi in @base_items do %>
 <tr>
 <td><%= bi.item_description %></td>
 <% for u in @users do %>
 <% sr = u.subscription_results.find_by_base_item_id(bi.id) if bi.published? %>
-<td><div class="sr-status sr-<%=(sr ? sr.status : 'none')%>" title="<%= (sr ? sr.status_for_title : 'Данные не отправлялись' )%>"></div></td>
+<td><div class="sr-status sr-<%=(sr ? sr.status : 'none')%>" title="<%= (sr ? sr.status_for_title : t('sr.not_send') )%>"></div></td>
 <% end %>
 </tr>
 <% end %>
 <tr>
-<td colspan="<%=@users.count + 1 %>">Товары: <%= html_pager(@base_items) %></td>
+  <td colspan="<%=@users.count + 1 %>"><%= t 'main.items' %>: <%= html_pager(@base_items) %></td>
 </tr>
 </table>

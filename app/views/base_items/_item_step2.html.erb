@@ -1,13 +1,13 @@
 <h3><%= h @base_item.gtin %></h3>
 <p><%= h @base_item.packaging_type %></p>
-<p><span class='d'>1</span> <span class='t'>уп. внутри,</span> <span class='d'>1</span> <span class='t'>ед.</span></p>
-<p><span class='d'><%= h @base_item.height %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.width %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.depth %></span> <span class='t'>(В x Д x Ш)</span></p>
-<p><span class='d'><%= @base_item.gross_weight %></span> <span class='t'>г. брутто,</span> <span class='d'><%= @base_item.net_weight %></span> <span class='t'>г. нетто</span></p>
+<p><span class='d'>1</span> <span class='t'><%=t 'item.packages_inside'%>,</span> <span class='d'>1</span> <span class='t'><%= t 'item.items' %></span></p>
+<p><span class='d'><%= h @base_item.height %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.width %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.depth %></span> <span class='t'><%= t 'pi.size' %></span></p>
+<p><span class='d'><%= @base_item.gross_weight %></span> <span class='t'><%= t 'pi.gross_weight' %></span> <span class='d'><%= @base_item.net_weight %></span> <span class='t'><%= t 'pi.new_weight' %></span></p>
 <% unless @view_only || @base_item.published? %>
-<%= link_to_remote 'править', :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
+<%= link_to_remote t('main.edit'), :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
 <p>
 &nbsp;
 </p>
 <div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
+<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#"><%= t 'pi.pack' %></a></div>
 <% end %>

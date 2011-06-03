@@ -6,10 +6,10 @@
   <%= f.hidden_field :parent_id %>
   <p>
   <div class="fleft min">
-    <%= f.submit "Упаковать" %>
+    <%= f.submit t('pi.pack') %>
   </div>
   <div class="fright min">
-  <%= button_to_remote 'Отмена', :url => base_item_packaging_items_path(@base_item), :method => :get %>
+    <%= button_to_remote t('main.cancel'), :url => base_item_packaging_items_path(@base_item), :method => :get %>
   </div>
   </p>
 <% end %>

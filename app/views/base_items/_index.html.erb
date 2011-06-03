@@ -6,7 +6,8 @@
 <div style="clear:both; text-align:center;"><%= html_pager @base_items %></div>
 </div>
 <br/>
-<h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>
+<!--<h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>-->
+<h2><%= t 'main.base_items' %></h2>
 <!--filters-->
 <div class="filters">
 <% if current_user.supplier? %>
@@ -63,6 +64,6 @@
   </div>
 <% end %>
 
-<%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>
+<%= link_to t('item.new_base_item'), new_base_item_path if current_user.supplier?%>
 </div>
 <!--/data-->

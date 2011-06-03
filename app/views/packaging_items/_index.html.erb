@@ -6,7 +6,7 @@
 <div class="pi" id="first_pi">
 <h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
 <p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
-<p><span class='d'>1</span> <span class='t'>уп. внутри,</span> <span class='d'>1</span> <span class='t'>ед.</span></p>
+<p><span class='d'>1</span> <span class='t'><%= t 'pi.packages_inside' %>,</span> <span class='d'>1</span> <span class='t'><%= t 'pi.items' %></span></p>
 <p <%= highlight(:calculate_dimmensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_dimmensions -%></p>
 <p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_weights %></p>
 <% unless @view_only || @base_item.published? %>
@@ -15,7 +15,7 @@
 &nbsp;
 </p>
 <div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
+<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#"><%= t 'pi.pack' %></a></div>
 <% end %>
 </div>
 </td>
@@ -40,7 +40,7 @@
     var id = element.up('li').id.gsub(/packaging_item_/, '');
     var li = new Element('li', { className: 'pack new', id: 'packaging_item_new_' + id  });
     li.update('<div class="item" style="display:none"></div>')
-    //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#">упаковать</a></div>');
+    //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#"><%= t 'pi.pack' %></a></div>');
     element.appendChild(li);
   });
   var li = new Element('li', { className: 'pack new', id: 'packaging_item_new' });

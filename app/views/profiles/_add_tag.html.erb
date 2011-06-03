@@ -1,4 +1,4 @@
-<a href="#" id="add_tag_link" onclick="$j(this).hide(); $j('#new_tag').show();return false;">Добавить ярлык</a>
+<a href="#" id="add_tag_link" onclick="$j(this).hide(); $j('#new_tag').show();return false;"><%= t 'tag.add' %></a>
 
 <% remote_form_for Tag.new do |f| %>
 <input type="hidden" name="tag[user_id]" value="<%= @user.id %>"/>
