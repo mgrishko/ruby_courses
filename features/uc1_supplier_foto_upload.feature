@@ -14,5 +14,6 @@ Feature: Supplier foto upload feature
     And I attach the test image to "image"
     And I press "Загрузить"
     And I go to the base_item page
-    Then I should see new image
+    And I wait for 1 seconds
+    And I should see new image
 
