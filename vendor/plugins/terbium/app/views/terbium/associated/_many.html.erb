@@ -2,14 +2,14 @@
 <div class="header">
   <div class="popup_close"><%= link_to t(:close), '#', :terbium_popup_close => true %></div>
   <ul class="navigation">
-    <li<%= ' class="selected"' if params[:action] == "associated_#{field}" %>>
+    <li<%= raw(' class="selected"') if params[:action] == "associated_#{field}" %>>
       <%= link_to t(:existing), '#', :ajax => resources_path("associated_#{field}"), :ids => ids %>
     </li>
-    <li<%= ' class="selected"' if params[:action] == "associated_#{field}_choosing" %>>
+    <li<%= raw(' class="selected"') if params[:action] == "associated_#{field}_choosing" %>>
       <%= link_to t(:choosing), '#', :ajax => resources_path("associated_#{field}_choosing"), :ids => ids %>
     </li>
     <li class="notab">
-      <% form_tag '#', :class => 'associated_search', :ajax => current_path, :ids => ids do %>
+      <%= form_tag '#', :class => 'associated_search', :ajax => current_path, :ids => ids do %>
         <%= text_field_tag :query, resource_session[:query] %>
         <%= submit_tag 'Search' %>
         <% if resource_session[:query].present? %>

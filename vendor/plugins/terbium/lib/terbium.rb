@@ -1,4 +1,4 @@
 module Terbium
 end
 
-require File.join(File.dirname(__FILE__), 'terbium/core_ext')
+require 'terbium/core_ext'

@@ -20,24 +20,20 @@ module Terbium
 
       def index
         @records = target.scoped(terbium_config.scope).scoped(:conditions => boolean_filters).scoped(:conditions => search_query, :order => resource_session[:order]).paginate(:page => params[:page], :include => resource_children | includes)
-        render_action :index
       end
 
       def show
         @record = plural? ? target.find(params[:id]) : target
-        render_action :show
       end
 
       def new
         @record = plural? ? target.new : resource_parent_record.send("build_#{resource}")
         session[:terbium_back] = request.referrer
-        render_action :new
       end
 
       def edit
         @record = plural? ? target.find(params[:id]) : target
         session[:terbium_back] = request.referrer
-        render_action :edit
       end
 
       def create
@@ -50,7 +46,7 @@ module Terbium
             redirect_to(session[:terbium_back] || plural? ? resources_path : resource_path)
           end
         else
-          render_action :new
+          render 'new'
         end
       end
 
@@ -64,7 +60,7 @@ module Terbium
             redirect_to(session[:terbium_back] || plural? ? resources_path : resource_path)
           end
         else
-          render_action :edit
+          render 'edit'
         end
       end
 
@@ -87,7 +83,7 @@ module Terbium
         fields ||= index_fields
         @includes ||= fields.map{|f| f if f.to_s.include?('.')}.compact.map do |field|
           field = [field.main_model.to_s.underscore.to_sym] + field.to_s.split('.').map(&:to_sym)
-          field.delete_at(-1)
+          field.pop
           segment = []
           (field.size - 1).downto(1) do |i|
             parent_model = field[i-1].to_s.classify.constantize rescue nil

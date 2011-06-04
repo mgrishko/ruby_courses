@@ -35,7 +35,7 @@ module Terbium
     end
 
     def association field
-        @template.render :partial => "terbium/association/#{field.collection? ? 'many' : 'one'}", :object => @object.send(field.name), :locals => {:field => field}
+      @template.render :partial => "terbium/association/#{field.collection? ? 'many' : 'one'}", :locals => {:field => field, :many => @object.send(field.name)}
     end
 
     def terbium_text_area field

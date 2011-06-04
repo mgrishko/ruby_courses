@@ -4,6 +4,9 @@ module Terbium
 
       def self.included base
         base.class_eval do
+          class_attribute :terbium_fields
+          self.terbium_fields = {}
+
           extend ClassMethods
         end
       end
@@ -28,7 +31,7 @@ module Terbium
           @terbium_config ||= Terbium::Controller::Config.new
         end
 
-        def config &block
+        def configure &block
           block.bind(terbium_config).call
         end
 
@@ -40,22 +43,20 @@ module Terbium
           class_eval <<-EOS
             def #{sym}
               @terbium_option = :#{sym}
+              terbium_fields[@terbium_option] = []
               yield if block_given?
             end
           EOS
           define_method("#{sym}_fields") do
-            @terbium_fields = {} unless @terbium_fields
             terbium_fields[sym]
           end
         end
 
         def field name, options = {}
-          @terbium_fields = {} unless @terbium_fields
-          @terbium_fields[@terbium_option] = [] unless @terbium_fields[@terbium_option]
           field = ::Terbium::Field.new(model_name.classify.constantize, name, options)
           generate_association_actions field if field.association?
           generate_change_actions field if field.toggable?
-          @terbium_fields[@terbium_option] << field
+          terbium_fields[@terbium_option] << field
         end
 
         def generate_association_actions field
@@ -93,18 +94,6 @@ module Terbium
             render 'terbium/toggle'
           end
         end
-
-        def terbium_fields
-          @terbium_fields
-        end
-
-        def append_route_options options
-          options[:member] ? options[:member].reverse_merge!(route_member_actions) : options[:member] = route_member_actions
-          options[:collection] ? options[:collection].reverse_merge!(route_collection_actions) : options[:collection] = route_collection_actions
-          options
-        end
-
-      private
 
         def route_member_actions
           unless @route_member_actions

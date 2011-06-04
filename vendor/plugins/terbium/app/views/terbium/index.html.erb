@@ -13,7 +13,7 @@
         <thead>
           <tr>
           <% controller.index_fields.each do |field| -%>
-            <th><%= render_head field %></th>
+            <th><%= raw render_head(field) %></th>
           <% end -%>
             <th class="actions">Actions</th>
           </tr>
@@ -49,7 +49,7 @@
       <dl>
         <dt>Search</dt>
         <dd>
-        <% form_tag resources_path, {:method => :get} do %>
+        <%= form_tag resources_path, {:method => :get} do %>
           <%= text_field_tag :query, resource_session[:query] %>
           <%= submit_tag 'Search' %>
           <% if resource_session[:query].present? %>

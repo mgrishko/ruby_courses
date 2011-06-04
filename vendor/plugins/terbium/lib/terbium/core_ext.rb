@@ -48,116 +48,171 @@ ActionView::Helpers::FormTagHelper.class_eval do
 
 end
 
-ActionController::Routing::Route.class_eval do
+ActionDispatch::Routing::RouteSet.class_eval do
 
-  alias_method :origin_append_query_string, :append_query_string
-  alias_method :origin_freeze, :freeze
-  #alias_method :origin_generate, :generate
+  alias_method :original_clear!, :clear!
 
-=begin
-  def generate *args
-    translation = args.first.delete(:translation)
-    url = origin_generate *args
-    if translation && I18n.available_locales.include?(translation.to_sym) && translation.to_sym != I18n.default_locale
-      url = "/#{translation}#{url}"
+  def clear!
+    @admined_controllers = {}
+    original_clear!
+  end
+
+  def admined_controllers prefix, controller = nil
+    @admined_controllers ||= {}
+    @admined_controllers[prefix] ||= []
+    if controller
+      @admined_controllers[prefix].push(controller)
+    else
+      @admined_controllers[prefix]
     end
-    url
-  end
-=end
-
-  def append_query_string(path, hash, query_keys = nil)
-    return nil unless path
-    translation = hash.delete(:translation)
-    path = "#{path}_#{translation}" if path != '/' && translation && I18n.available_locales.include?(translation.to_sym) && translation.to_sym != I18n.default_locale
-    origin_append_query_string(path, hash, query_keys)
-  end
-
-  def freeze
-    segs unless frozen?
-    origin_freeze
-  end
-
-  def segs
-    @segs ||= segments.last.is_optional ? segments[0..-2].join : segments.join
   end
 
 end
 
-ActionController::Resources.class_eval do
+ActionDispatch::Routing::Mapper.class_eval do
 
-  remove_const :INHERITABLE_OPTIONS if const_defined?(:INHERITABLE_OPTIONS)
-  const_set :INHERITABLE_OPTIONS, [:namespace, :shallow, :ancestors]
+  alias_method :original_resource, :resource
+  alias_method :original_resources, :resources
 
-  alias_method :origin_map_resource, :map_resource
-  alias_method :origin_map_singleton_resource, :map_singleton_resource
-  alias_method :origin_action_options_for, :action_options_for
+  def resource *resources, &block
+    administrator_resource(*resources, &block) || original_resource(*resources, &block)
+  end
 
-  def action_options_for(action, resource, method = nil, resource_options = {})
-    options = origin_action_options_for action, resource, method, resource_options
-    controller = "#{resource.controller}_controller".classify.constantize rescue nil
-    if controller && controller.terbium_admin?
-      options[:resources] ||= {}
-      options[:resources][:ancestors] = resource.options[:ancestors]
-      options[:resources][:children] = resource.options[:children]
+  def resources *resources, &block
+    administrator_resources(*resources, &block) || original_resources(*resources, &block)
+  end
+
+  def administrator_resource(*resources, &block)
+    options = resources.extract_options!
+
+    if apply_common_behavior_for(:resource, resources, options, &block)
+      return self
     end
-    options
+
+    resource_name = resources.pop
+    resource = ActionDispatch::Routing::Mapper::Resources::SingletonResource.new(resource_name, options)
+    controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".classify.constantize rescue nil
+
+    return if controller.nil? || (controller && !swallow_nil{controller.terbium_admin?})
+
+    @scope[:ancestors] ||= []
+    @scope[:children] ||= []
+
+    resource_scope(resource) do
+      siblings = @scope[:children].dup
+      @scope[:children] = []
+      @scope[:ancestors].push resource.singular.to_s
+
+      yield if block_given?
+
+      @scope[:ancestors].pop
+      Rails.application.routes.admined_controllers(@scope[:module], controller) if @scope[:ancestors].empty?
+      options = {:resources => {:ancestors => @scope[:ancestors].dup.push(resource_name.to_s.pluralize), :children => @scope[:children].dup}}
+      siblings.push resource.singular.to_s
+      @scope[:children] = siblings
+
+      collection_scope do
+        post :create, options
+        controller.route_collection_actions.each do |(method, action)|
+          send action, method, options
+        end
+      end
+
+      new_scope do
+        get :new, options
+      end
+
+      member_scope  do
+        get    :edit, options
+        get    :show, options
+        put    :update, options
+        delete :destroy, options
+        controller.route_member_actions.each do |(method, action)|
+          send action, method, options
+        end
+      end
+
+    end
+
+    self
   end
 
-  def map_resource(entities, options = {}, &block)
-    origin_map_resource entities, append_terbium_routes(entities, options, false, &block), &block
-  end
+  def administrator_resources(*resources, &block)
+    options = resources.extract_options!
 
-  def map_singleton_resource(entities, options = {}, &block)
-    origin_map_singleton_resource entities, append_terbium_routes(entities, options, true, &block), &block
-  end
+    if apply_common_behavior_for(:resources, resources, options, &block)
+      return self
+    end
 
-  def append_terbium_routes entities, options, singleton, &block
-    controller = "#{options[:namespace]}#{options[:controller] || entities.to_s.pluralize}_controller".classify.constantize rescue nil
-    if controller && controller.terbium_admin?
-      options = Marshal.load(Marshal.dump(options))
-      options = controller.append_route_options(options)
-      options[:ancestors] ||= []
-      options[:ancestors] << (singleton ? controller.controller_name.singularize : controller.controller_name)
-      options[:children] = []
-      if block_given?
-        harvester = ActionController::ResourceHarvester.new(options)
-        block.call(harvester)
-        options[:children] = harvester.children
+    resource_name = resources.pop
+    resource = ActionDispatch::Routing::Mapper::Resources::Resource.new(resource_name, options)
+    controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".classify.constantize rescue nil
+
+    return if controller.nil? || (controller && !swallow_nil{controller.terbium_admin?})
+
+    @scope[:ancestors] ||= []
+    @scope[:children] ||= []
+
+    resource_scope(resource) do
+      siblings = @scope[:children].dup
+      @scope[:children] = []
+      @scope[:ancestors].push resource.plural.to_s
+
+      yield if block_given?
+
+      @scope[:ancestors].pop
+      Rails.application.routes.admined_controllers(@scope[:module], controller) if @scope[:ancestors].empty?
+      options = {:resources => {:ancestors => @scope[:ancestors].dup.push(resource_name.to_s.pluralize), :children => @scope[:children].dup}}
+      siblings.push resource.plural.to_s
+      @scope[:children] = siblings
+
+
+      collection_scope do
+        get  :index, options
+        post :create, options
+        controller.route_collection_actions.each do |(method, action)|
+          send action, method, options
+        end
+      end
+
+      new_scope do
+        get :new, options
+      end
+
+      member_scope  do
+        get    :edit, options
+        get    :show, options
+        put    :update, options
+        delete :destroy, options
+        controller.route_member_actions.each do |(method, action)|
+          send action, method, options
+        end
       end
     end
-    options
+
+    self
+  end
+  def collection_scope
+    with_scope_level(:collection) do
+              scope(parent_resource.collection_scope) do
+                yield
+              end
+            end
+  end
+  def new_scope
+    with_scope_level(:new) do
+              scope(parent_resource.new_scope(action_path(:new))) do
+                yield
+              end
+            end
   end
 
+  def member_scope
+            with_scope_level(:member) do
+              scope(parent_resource.member_scope) do
+                yield
+              end
+            end
+          end
 end
 
-module ActionController
-  class ResourceHarvester
-    attr_accessor :children
-
-    def initialize options = {}
-      @options = options
-      @children = []
-    end
-
-    def resource *entities, &block
-      collect_children entities, true
-    end
-
-    def resources *entities, &block
-      collect_children entities, false
-    end
-
-    def collect_children entities, singleton
-      options = entities.extract_options!
-      options.reverse_merge! @options
-      entities.each do |entity|
-        controller = "#{options[:namespace]}#{options[:controller] || entity.to_s.pluralize}_controller".classify.constantize rescue nil
-        @children << (singleton ? controller.controller_name.singularize : controller.controller_name) if controller && controller.terbium_admin?
-      end
-    end
-
-    def method_missing method, *arguments, &block
-    end
-
-  end
-end

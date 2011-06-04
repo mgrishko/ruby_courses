@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), 'lib/terbium')
-require File.join(File.dirname(__FILE__), "/lib/paginator")
+require 'terbium'
+require 'paginator'
 
 ActionView::Base.send :include, Paginator::ViewHelpers
 
-ActionController::Dispatcher.middleware.use Terbium::Rack::TranslationsOverlay
-ActionController::Dispatcher.middleware.use Terbium::Rack::StaticOverlay, File.join(File.dirname(__FILE__), 'public')
+Rails.application.config.middleware.use Terbium::Rack::TranslationsOverlay
+Rails.application.config.middleware.use Terbium::Rack::StaticOverlay, File.join(File.dirname(__FILE__), 'public')
 
 ActionView::Helpers::FormBuilder.class_eval do
   include Terbium::FormBuilder
