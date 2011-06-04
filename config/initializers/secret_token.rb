@@ -1,0 +1,2 @@
+Webforms::Application.config.secret_token = '8972ab405ee275f815c789c35f0a9e12c2dcd9e03a9d526842745ce910b92fc89eac4494f0063f37d4a7af2ea83991dc62f7dc33495d316b71b85fb92916cbe7'
+

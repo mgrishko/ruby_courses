@@ -1,92 +1,68 @@
-ActionController::Routing::Routes.draw do |map|
-
-  map.namespace :admin do |admin|
-    admin.resources :users do |user|
-      user.resources :base_items
+Webforms::Application.routes.draw do
+  namespace :admin do
+    resources :users do
+      resources :base_items
     end
-    admin.resources :base_items do |base_item|
-      base_item.resources :packaging_items
+    resources :base_items do
+      resources :packaging_items
     end
-    admin.resources :packaging_items
-    admin.resources :gpcs
-    admin.resources :countries
+    resources :packaging_items
+    resources :gpcs
+    resources :countries
   end
 
-  map.resources :users
-  map.login 'login', :controller => :user_sessions, :action => :login
-  map.logout 'logout', :controller => :user_sessions, :action => :logout
+  resources :users
+  match '/login' => 'user_sessions#login'
+  match '/logout' => 'user_sessions#logout'
 
-  #map.connect 'approve_emails', :controller => 'base_items', :action => 'approve_emails'
+  match '/approve_emails' => 'base_items#approve_emails'
 
-  map.resources :base_items, :member => {:accept => :get, :reject => :get, :published => :put, :draft => :put },
-    :collection => { :auto_complete_for_base_item_brand => :get,
-                     :auto_complete_for_base_item_subbrand => :get,
-                     :auto_complete_for_base_item_functional => :get,
-                     :auto_complete_for_base_item_description => :get,
-                     :auto_complete_for_base_item_manufacturer_gln => :get,
-                     :auto_complete_for_base_item_manufacturer_name => :get } do |base_items|
-    base_items.resources :packaging_items, :member => { :new_sub => :get }
+  resources :base_items do
+    member do
+      get 'accept'
+      get 'reject'
+      put 'published'
+      put 'draft'
+    end
+    collection do
+      get 'auto_complete_for_base_item_brand'
+      get 'auto_complete_for_base_item_subbrand'
+      get 'auto_complete_for_base_item_functional'
+      get 'auto_complete_for_base_item_description'
+      get 'auto_complete_for_base_item_manufacturer_gln'
+      get 'auto_complete_for_base_item_manufacturer_name'
+    end
+
+    resources :packaging_items do
+      member do
+        get 'new_sub'
+      end
+    end
   end
-  map.resources :retailer_attributes
-  map.resources :user_attributes
-  map.resources :comments
-  map.resources :receivers
-  map.resources :tags
-  map.resources :subscription_results
-  map.resources :subscription
-  map.resources :suppliers
+  resources :retailer_attributes
+  resources :user_attributes
+  resources :comments
+  resources :receivers
+  resources :tags
+  resources :subscription_results
+  resources :subscription
+  resources :suppliers
 
-  # The priority is based upon order of creation: first created -> highest priority.
+  root :to => 'base_items#index'
 
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
+  match  'main/classifier' =>     'main#classifier', :as => :classifier
+  match   'main/subgroups/:id' =>  'main#subgroups', :as => :subgroups
+  match  'main/categories/:id' => 'main#categories', :as => :countries
+  match   'main/countries' =>      'main#countries', :as => :countries
+  match       'main/cases' =>          'main#cases', :as => :cases
+  match    'main/show_man/:id' =>   'main#show_man', :as => :show_man
 
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
+  match '/subscriptions/status' => 'subscription#status'
+  match '/subscriptions/instantstatus' => 'subscription#instantstatus'
 
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
+  match '/profiles/:id' => 'profiles#show'
 
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
-
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => 'base_items'
-  
-  map.classifier  "main/classifier",     :controller => "main", :action => 'classifier'
-  map.subgroups   "main/subgroups/:id",  :controller => "main", :action => 'subgroups'
-  map.categories  "main/categories/:id", :controller => "main", :action => 'categories'
-  map.countries   "main/countries",      :controller => "main", :action => 'countries'
-  map.cases       "main/cases",          :controller => "main", :action => 'cases'
-  map.show_man    "main/show_man/:id",   :controller => "main", :action => 'show_man'
-  
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect '/subscriptions/status', :controller => "subscription", :action => "status"
-  map.connect '/subscriptions/instantstatus', :controller => "subscription", :action => "instantstatus"
-  
-  map.connect '/profiles/:id', :controller => "profiles", :action => "show"
-
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  match ':controller(/:action(/:id(.:format)))'
 end
+

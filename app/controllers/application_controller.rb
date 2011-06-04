@@ -7,21 +7,20 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery :except => [:status, :instantstatus] # See ActionController::RequestForgeryProtection for details
   before_filter :link_model_with_auth_user
-  filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user
- 
+
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
     end
- 
+
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session ? current_user_session.user : User.new
     end
- 
+
     def require_user
       unless current_user.id
         store_location
@@ -30,7 +29,7 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
- 
+
     def require_no_user
       if current_user.id
         store_location
@@ -48,11 +47,11 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
- 
+
     def store_location
       session[:return_to] = request.request_uri
     end
- 
+
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
@@ -67,7 +66,7 @@ class ApplicationController < ActionController::Base
         @@model.set_auth_user current_user
       end
     end
-    
+
     def get_filters_data_for_base_items
       @clouds = current_user.clouds.find(:all, :select => "tag_id, count(*) as q", :group=>"tag_id")
       @brands = BaseItem.get_brands current_user
@@ -77,7 +76,7 @@ class ApplicationController < ActionController::Base
     end
 
     def get_filters_data_for_base_items_conditions retailer, supplier=nil
-      @clouds = Cloud.get_clouds retailer, supplier 
+      @clouds = Cloud.get_clouds retailer, supplier
       @brands = BaseItem.get_brands supplier ? supplier : retailer
       @manufacturers = BaseItem.get_manufacturers supplier ? supplier : retailer
       #functional name
@@ -112,3 +111,4 @@ class FalseClass
     'N'
   end
 end
+
