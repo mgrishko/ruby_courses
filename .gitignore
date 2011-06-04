@@ -8,3 +8,4 @@ config/database.yml
 *.swo
 .idea
 public/data
+/Gemfile.lock
