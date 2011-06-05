@@ -40,7 +40,7 @@ module Webforms
     config.filter_parameters += [:password, :password_confirmation]
   end
 
-TMP_DIR = File.join(RAILS_ROOT, 'tmp')
+TMP_DIR = File.join(::Rails.root.to_s, 'tmp')
 RECORDS_IN_DIR = File.join(TMP_DIR, 'records_in_dir')
 RECORDS_OUT_DIR = File.join(TMP_DIR, 'records_out_dir')
 

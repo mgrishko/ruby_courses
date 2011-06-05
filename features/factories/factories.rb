@@ -12,7 +12,7 @@ Factory.define :user do |f|
 end
 
 Factory.define :supplier, :parent => :user do |f|
-  f.gln '1234'
+ # f.gln '1234'
   f.password  '1234'
   f.name "Supplier"
   f.password_confirmation '1234'
@@ -20,7 +20,7 @@ Factory.define :supplier, :parent => :user do |f|
 end
 
 Factory.define :retailer, :parent => :user do |f|
-  f.gln '4321'
+ # f.gln '4321'
   f.password  '1234'
   f.name "Retailer"
   f.password_confirmation '1234'
