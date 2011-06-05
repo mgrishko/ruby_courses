@@ -14,12 +14,12 @@
 	<% if result.new? %>
 		<td>
 			<div style="float:left;">
-				<% remote_form_for(result) do |f| %>
+				<% form_for(result, :remote => true) do |f| %>
 					<%= f.submit "Акцептовать", :name => 'accept' %>
 				<% end %>
 			</div>
 			<div style="float:left;">
-				<% remote_form_for(result) do |f| %>
+				<% form_for(result, :remote => true) do |f| %>
 					<%= f.submit "Отменить", :name => 'cancel' %>
 				<% end %>
 			</div>
@@ -31,3 +31,4 @@
 		<%= link_to truncated_comment(result.base_item), base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>
 	</td>
 </tr>
+

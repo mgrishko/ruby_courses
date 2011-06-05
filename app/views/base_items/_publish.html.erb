@@ -13,7 +13,7 @@
 <%= f.submit "Отменить", :name => "cancel", :class => "button" %>
 <% end %>
 
-<% remote_form_for Receiver.new do |f| %>
+<% form_for Receiver.new, :remote => true do |f| %>
 <input type="hidden" id="receiver_base_item_id" name="receiver[base_item_id]" value="<%= @base_item.id %>"/>
 <input type="hidden" id="receiver_gln" name="receiver[gln]" />
 <% end %>

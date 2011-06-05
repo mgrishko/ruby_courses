@@ -1,9 +1,9 @@
-<% remote_form_for(@base_item) do |f| %>
+<% form_for(@base_item), :remote => true do |f| %>
 <input type="hidden" name="step" value="2"/>
 <%= f.error_messages %>
 <h3><%= @base_item.gtin %></h3>
 <p>
-	<div id="cases_input_0" class="input input_div"> 
+	<div id="cases_input_0" class="input input_div">
 		<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type" %>
 	</div>
 </p>
@@ -56,3 +56,4 @@ $j("#cases_select_0").click(function(){
 <div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
     <div class="fright min" style="margin-right: 25px;"><%= button_to_remote 'Отмена', :url => base_item_path(@base_item)+"?step=2", :method => :get %></div>
 <% end %>
+

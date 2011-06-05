@@ -1,7 +1,7 @@
 <div class="clear"></div>
 <h2>Основные данные</h2>
 <div>
-<% remote_form_for(@base_item) do |f| %>
+<% form_for(@base_item), :remote => true do |f| %>
 <%= f.error_messages %>
 <!--
 <div style="min-width: 240px; float: left;">
@@ -24,3 +24,4 @@
 <div class="clear"></div>
 
 <%= link_to_remote 'отмена', :url => @base_item, :method => :get %>
+

@@ -1,10 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+
   def humanize_date something
     something.strftime("%d.%m.%y %H:%M")
   end
-  
+
   def link_to_item_with_count(caption, item, count)
     if count > 0
       link_to(caption + (count ? " (#{count})" : ''), item)
@@ -32,7 +32,7 @@ module ApplicationHelper
   def link_to_new_pi(base_item, packaging_item, parent_id = nil)
     link_to_function('New', "PI.showForm('new', this, '" + url_for(hash_for_base_item_packaging_items_path.merge(:base_item_id => base_item, :id => nil, :parent_id => parent_id, :format => :json)) + "')")
   end
-  
+
   def csrf_meta_tag
     if protect_against_forgery?
       out = %(<meta name="csrf-param" content="%s"/>\n)
@@ -41,12 +41,12 @@ module ApplicationHelper
               Rack::Utils.escape_html(form_authenticity_token) ]
     end
   end
-  
+
   def selected_wrapper content, condition=nil
     if condition  # logical true
-      "<div class='selected'>#{content}<div class='fright'><a href='?' title='Remove this filter'>x</a></div></div>"
+      "<div class='selected'>#{content}<div class='fright'><a href='?' title='Remove this filter'>x</a></div></div>".html_safe
     else
-      "<div>#{content}</div>"
+      "<div>#{content}</div>".html_safe
     end
   end
 
@@ -73,6 +73,7 @@ module ApplicationHelper
     if (pc.current_page+1) < pc.total_pages
       pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>Самые старые</a> "
     end
-    pager
+    pager.html_safe
   end
 end
+

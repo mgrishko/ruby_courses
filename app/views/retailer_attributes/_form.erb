@@ -1,5 +1,5 @@
 <hr/>
-<% remote_form_for(@retailer_attribute) do |f| %>
+<% form_for @retailer_attribute, :remote => true do |f| %>
 <input type="hidden" name="retailer_attribute[item_id]" value="<%= @retailer_attribute.item.id %>"/>
 <input type="hidden" name="retailer_attribute[base_item_id]" value="<%= @retailer_attribute.base_item_id %>"/>
 <table>
@@ -43,3 +43,4 @@ Retailer comment
 <%= f.submit "Сохранить", :class=>"button" %>
 <%= button_to_remote "Отмена", {:url => url_for(:controller => "retailer_attributes", :action => "show", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @retailer_attribute.base_item_id ), :method => :get}, :class => "button" %>
 <% end %>
+
