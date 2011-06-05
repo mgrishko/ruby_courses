@@ -7,8 +7,9 @@ gem 'authlogic', '3.0.3'
 gem 'aasm', :require => 'aasm'
 gem 'responds_to_parent'
 gem 'will_paginate', '~> 3.0.beta'
+gem 'dynamic_form'
 source 'http://gemcutter.org'
-gem 'awesome_nested_set', '1.4.3', :require => false
+gem 'nested_set'#, '1.4.3', :git => 'https://github.com/FreakyDazio/awesome_nested_set.git'
 
 source 'http://gems.github.com'
 gem 'thoughtbot-shoulda', :require => 'shoulda'
@@ -27,7 +28,6 @@ group :development, :test do
   gem 'rspec', '1.3.2', :require => 'spec'
   gem 'annotate'
   gem 'pickle'
-  gem 'dynamic_form'
 end
 
 # Bundle edge Rails instead:
