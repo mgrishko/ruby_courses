@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec', '1.3.2', :require => 'spec'
   gem 'annotate'
   gem 'pickle'
+  gem 'dynamic_form'
 end
 
 # Bundle edge Rails instead:
