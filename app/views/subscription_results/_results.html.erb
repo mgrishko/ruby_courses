@@ -1,4 +1,5 @@
-<% if @subscription.subscription_results.detect {|r| r.new?} %><%= link_to_remote('Акцептовать все', :url => {:controller => "subscription_results", :action => "update_all"}, :method => "POST", :with => "'accept=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите акцептовать все результаты?") %> <%= link_to_remote('Отменить все', :url => {:controller => "subscription_results", :action => "update_all"}, :method => "POST", :with => "'cancel=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите отменить все результаты?") %>
+<% if @subscription.subscription_results.detect {|r| r.new?} %><%= link_to('Акцептовать все', :url => {:controller => "subscription_results", :action => "update_all"}, :method => "POST", :with => "'accept=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите акцептовать все результаты?", :remote => true) %> <%= link_to('Отменить все', :url => {:controller => "subscription_results", :action => "update_all"}, {:method => "POST", :with => "'cancel=yes&subscription_id=#{@subscription.id}'", :confirm => "Вы точно хотите отменить все результаты?", :remote => true}) %>
 
 <% end %>
 <%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>
+

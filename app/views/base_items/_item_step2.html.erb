@@ -4,10 +4,11 @@
 <p><span class='d'><%= h @base_item.height %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.width %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.depth %></span> <span class='t'>(В x Д x Ш)</span></p>
 <p><span class='d'><%= @base_item.gross_weight %></span> <span class='t'>г. брутто,</span> <span class='d'><%= @base_item.net_weight %></span> <span class='t'>г. нетто</span></p>
 <% unless @view_only || @base_item.published? %>
-<%= link_to_remote 'править', :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
+<%= link_to 'править', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true} %>
 <p>
 &nbsp;
 </p>
 <div class="fleft"></div>
 <div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
 <% end %>
+

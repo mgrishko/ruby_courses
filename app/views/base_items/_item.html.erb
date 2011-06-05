@@ -18,6 +18,7 @@
 <% end %>
 </div>
 <% unless @view_only || @base_item.published? %>
-  <%= link_to_remote 'править', {:url => edit_base_item_path(@base_item), :method => :get}, {:id => 'edit_base_item_link'} %>
+  <%= link_to 'править',  edit_base_item_path(@base_item), {:id => 'edit_base_item_link', :remote => true,:method => :get} %>
 <% end %>
 </div>
+

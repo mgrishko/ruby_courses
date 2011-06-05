@@ -9,13 +9,13 @@
 <p <%= highlight(:calculate_weights, item, accepted_packaging_item) if accepted_packaging_item -%>><%= item.calculate_weights %></p>
 <% unless @view_only || @base_item.published? %>
 <%#= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
-<%= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get %>
+<%= link_to 'править',  edit_base_item_packaging_item_path(@base_item, item),{ :method => :get, :remote => true} %>
 <% end %>
 </div>
 <% unless @view_only || @base_item.published? %>
 <p><small>
 <div class="fleft">
-<%= link_to_remote 'отменить', :url => base_item_packaging_item_path(@base_item, item), :confirm => 'Are you sure?', :method => :delete if item.leaf? %></div>
+<%= link_to 'отменить', base_item_packaging_item_path(@base_item, item), {:confirm => 'Are you sure?', :method => :delete, :remote => true} if item.leaf? %></div>
 <% unless item.pallet? %>
 <div class="fright"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/' + <%=item.id %> + '/new_sub/', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
 <% end %>
@@ -23,3 +23,4 @@
 </p>
 <div class="clear"></div>
 <% end %>
+

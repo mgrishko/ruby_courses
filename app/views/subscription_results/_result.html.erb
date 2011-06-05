@@ -8,10 +8,10 @@
     <div style="float: left" class="light"><%= humanize_date(result.base_item.updated_at) %>&nbsp;</div>
     <% if result.new? %>
       <div style="float:left;" class="light">
-	<%= link_to_remote('Акцептовать', :url => url_for(result), :method => "PUT", :before => "event.stopPropagation()", :with => "'accept=yes'") %>
+	<%= link_to('Акцептовать', url_for(result), {:method => "PUT", :before => "event.stopPropagation()", :with => "'accept=yes'", :remote => true}) %>
       </div>
       <div style="float:left;" class="light">
-	&nbsp;<%= link_to_remote('Отменить', :url => url_for(result), :method => "PUT", :before => "event.stopPropagation()", :with => "'cancel=yes'") %>
+	&nbsp;<%= link_to('Отменить', url_for(result), {:method => "PUT", :before => "event.stopPropagation()", :with => "'cancel=yes'", :remote => true}) %>
 
       </div>
     <% else %>
@@ -20,3 +20,4 @@
     <div class="clear"></div>
   </div>
 </div>
+

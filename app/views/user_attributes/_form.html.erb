@@ -6,6 +6,6 @@
 <%= f.text_field :inner_id %>
 <br/>
 <%= f.submit "Сохранить", :class => "submit" %><br/>
-<%= button_to_remote "Отмена", {:url => url_for(:controller => "user_attributes", :action => "show", "user_attributes[user_id]" => @user.id), :method => :get}, :class => "button" %>
+<%= button_to "Отмена", url_for(:controller => "user_attributes", :action => "show", "user_attributes[user_id]" => @user.id), {:method => :get, :class => "button", :remote => true} %>
 <% end %>
 

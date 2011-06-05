@@ -10,7 +10,7 @@
 <p <%= highlight(:calculate_dimmensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_dimmensions -%></p>
 <p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_weights %></p>
 <% unless @view_only || @base_item.published? %>
-<%= link_to_remote 'править', :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
+<%= link_to 'править', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
 <p>
 &nbsp;
 </p>
@@ -51,3 +51,4 @@
 <% end %>
 <div class="clear"></div>
 </div>
+

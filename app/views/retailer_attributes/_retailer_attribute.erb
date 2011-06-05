@@ -50,7 +50,8 @@ Retailer comment
 </tr>
 <% end %>
 </table>
-<%= link_to_remote 'Правка', :url => url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get %>
+<%= link_to 'Правка', url_for(:controller => "retailer_attributes", :action => "edit", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => @retailer_attribute.item.id, "retailer_attribute[base_item_id]" => @base_item.id), {:method => :get, :remote => true} %>
 <% else %>
-  <%= link_to_remote 'Добавить данные', {:url => url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @base_item.id), :method => :get}, {:id => "add_retailer_attribute"} %>
+  <%= link_to 'Добавить данные', url_for(:controller => "retailer_attributes", :action => :new, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @base_item.id),{ :method => :get, :remote => true, :id => "add_retailer_attribute"} %>
 <% end %>
+
