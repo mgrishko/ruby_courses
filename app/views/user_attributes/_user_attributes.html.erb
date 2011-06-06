@@ -1,7 +1,7 @@
 <div id="user_attributes">
 <% if @user_attributes && @user_attributes.id && !@user_attributes.destroyed?%>
 <% if @user_attributes.comment.to_s.length > 0 %>
-<h3>Комментарий</h3>
+  <h3><%= t 'comment.title' %></h3>
 <%= @user_attributes.comment %>
 <% end %>
 <% if @user_attributes.inner_id.to_s.length > 0 %>
@@ -9,8 +9,8 @@
 <%= @user_attributes.inner_id %>
 <% end %>
 <br/>
-<%= link_to_remote 'Правка', :url => url_for(:controller => "user_attributes", :action => "edit", :id => @user_attributes.id, "user_attributes[user_id]" => @user.id), :method => :get %>
+<%= link_to_remote t('main.edit'), :url => url_for(:controller => "user_attributes", :action => "edit", :id => @user_attributes.id, "user_attributes[user_id]" => @user.id), :method => :get %>
 <% else %>
-<%= link_to_remote 'Добавить данные', :url => url_for(:controller => "user_attributes", :action => :new, "user_attributes[user_id]" => @user.id), :method => :get %>
+<%= link_to_remote t('main.add'), :url => url_for(:controller => "user_attributes", :action => :new, "user_attributes[user_id]" => @user.id), :method => :get %>
 <% end %>
 </div>

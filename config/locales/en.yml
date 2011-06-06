@@ -23,7 +23,19 @@ en:
     reply: 'Reply'
     base_items: 'Base Items'
     items: 'Items'
+    item_quantity: "Item's quantity" # Количество товаров
   
+  login:
+    require_user: 'Please login to access this page'
+    reqiure_no_user: 'Please logout to access this page'
+    require_admin: 'Only admin has access to this page'
+    logged_in: 'Successful login' # Успешно вошли
+    logged_out: 'Successful logout' # Успешно вышли
+
+  
+  filter:
+    remove: 'Remove filter'
+
   pager: # html_pager
     from: 'from'
     previous: 'Newer'
@@ -32,6 +44,7 @@ en:
     oldest: 'The Oldest'
   
   item: # Item, Base Item
+    edit: 'Edit'
     gtin: 'gtin'
     internal_item_id: 'Internal item id'
     brand: 'Brand'
@@ -54,6 +67,7 @@ en:
     back: 'Back to the items'  # Вернуться к списку товаров
     versions: 'Versions'
     new_base_item: 'New Base Item'
+    date_of_the_newest: 'Date of the newest' # Дата самого свежего
   
   pi: # Packaging Item
     pack: 'pack'
@@ -66,7 +80,9 @@ en:
   
   subscription:
     have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары
-
+    subscribe: 'Subscribe' # Подписаться
+    unsubscribe: 'Unsubscribe' # Отписаться
+  
   sr: # Subscription Result
     not_send: 'Data was not sent' #Данные не отправлялись
     accept: 'Accept' # Акцептовать
@@ -112,6 +128,7 @@ en:
     upload: 'Upload'
 
   tag: # Tags
+    title: 'Tags'
     add: 'Add tag'
 
   receivers: # Receivers in Base Item
@@ -124,9 +141,14 @@ en:
     item_description: 'Retailer Item Description'
     comment: 'Retailer Comment'
     add: 'Add Data' # Добавить данные
+  
   status:
     title: 'Subscription Results Statuses' # Статусы результатов подписки
     items_subscribers: 'Items\Subscribers' # Товары\Подписчики
+  
+  supplier:
+    title: 'Suppliers'
+
 
 
 

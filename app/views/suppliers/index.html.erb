@@ -6,15 +6,15 @@
 <div style="clear:both; text-align:center;"><%= html_pager @users %></div>
 </div>
 <br/>
-<h2>Поставщики</h2>
+<h2><%= t 'supplier.title' %></h2>
 <div class="filters">
 <div>
-<strong>Поставщики</strong>
-<%= selected_wrapper "<a href='?subscribed=true' class='filter'>Мои поставщики</a>", params[:subscribed].to_s == 'true' %>
+  <strong><%= t 'supplier.title' %></strong>
+<%= selected_wrapper "<a href='?subscribed=true' class='filter'>"+t('supplier.my_suppliers')+"</a>", params[:subscribed].to_s == 'true' %>
 </div>
 <br/>
 <div>
-<strong>Тэги</strong>
+  <strong><%= t 'tags.title' %></strong>
 <% @clouds.each do |c| %>
 <%= selected_wrapper "<a href='?tag=#{c.tag.id}' class='filter'>#{c.tag.name}</a> (#{c.q})", params[:tag].to_s == c.tag_id.to_s %>
 <% end %>
@@ -27,9 +27,9 @@
   <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
   <div class="bi-content">
     <div><span class="normal"><%= u.gln %></span> <span class="light"><%= link_to u.name, supplier_path(u) %></div>
-    <div class="usual">Количество товаров: <%=u.count_fresh_base_items %></div>
+      <div class="usual"><%= t 'main.item_quantity' %>: <%=u.count_fresh_base_items %></div>
     <div class="light"><%= u.user_tags.find(:all, :conditions =>{:author_id => current_user.id}).collect{|c| c.tag.name}.join(', ') %></div>
-    <div class="light">Дата самого свежего: <%= u.fresh_base_items %></div>
+    <div class="light"><%= t 'item.date_of_the_newest' %>: <%= u.fresh_base_items %></div>
     <div class="light mini"></div>
   </div>
 </div>
