@@ -41,7 +41,11 @@ Webforms::Application.routes.draw do
   end
   resources :retailer_attributes
   resources :user_attributes
-  resources :comments
+  resources :comments do
+    collection do
+      get 'reply'
+    end
+  end
   resources :receivers
   resources :tags
   resources :subscription_results

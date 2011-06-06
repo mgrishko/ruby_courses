@@ -11,6 +11,7 @@ Feature: Retailer subscribes
     When I logged in as "retailer"
     And go to the suppliers page
     And press "Подписаться"
+    And I wait for 1 second
     Then a subscription should exist with retailer_id: 2, supplier_id: 1, status: "active"
     When I logged in as "supplier"
     And I go to the base_items page

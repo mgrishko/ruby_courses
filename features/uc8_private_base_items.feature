@@ -31,7 +31,7 @@ Feature:  Some Base Items can be private
   As a retailer can do private data for suppliers
   As a supplier can receive private data
   I want make it possible
-  
+
   Background:
     Given "supplier" has gln "1234" and password "1234"
     And "retailer" has gln "4321" and password "1234" also
@@ -50,19 +50,22 @@ Feature:  Some Base Items can be private
     When I press "base_item_submit"
     And I follow "edit_base_item_link"
     And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
+    And I wait for 1 second
     And I press "Применить"
     And I check "base_item[private]"
     And I follow "add_receivers_from_list"
     And I select "Retailer" from "new_receiver_input2"
     And I press "submit_receiver_button"
+    And I wait for 1 second
     And I press "Опубликовать"
     Then I logged in as "retailer"
     And go to the subscription_results page
-    And I follow "Supplier" 
+    And I wait for 1 second
+    And I follow "Supplier"
+    And I wait for 1 second
     And I should see "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
     And I logged in as "another_retailer"
     And go to the subscription_results page
-    And I follow "Supplier" 
+    And I follow "Supplier"
     And I should not see "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
-
 
