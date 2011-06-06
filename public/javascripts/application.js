@@ -63,7 +63,7 @@ $j(function() {
   function() {
     $j(this).removeClass("hovered");
   });
-  
+
   $j(".cm").hover(function() {
     $j(this).find(".actions").show();
   },
@@ -309,3 +309,4 @@ function receiveManData(data) {
     $j(".cases_man").html(data);
   }
 };
+
