@@ -43,16 +43,19 @@ Content uom
 </tr>
 <tr class="val">
 <td>
-<%= text_field_with_auto_complete :base_item, :brand, {}, :after_update_element => "function (e,v){ brand = v.innerHTML; $j(\"#base_item_brand\").change();}" %>
+<%= f.text_field :brand %>
+<%#= text_field_with_auto_complete :base_item, :brand, {}, :after_update_element => "function (e,v){ brand = v.innerHTML; $j(\"#base_item_brand\").change();}" %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :subbrand, :after_update_element => "function (e,v){ subbrand = v.innerHTML; $j(\"#base_item_subbrand\").change();}"  %>
+<%= f.text_field :subbrand %>
+<%#= text_field_with_auto_complete :base_item, :subbrand, :after_update_element => "function (e,v){ subbrand = v.innerHTML; $j(\"#base_item_subbrand\").change();}"  %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :functional, :after_update_element => "function (e,v){ functional = v.innerHTML; $j(\"#base_item_functional\").change();}"  %>
+<%= f.text_field :functional %>
+<%#= text_field_with_auto_complete :base_item, :functional, :after_update_element => "function (e,v){ functional = v.innerHTML; $j(\"#base_item_functional\").change();}"  %>
 </td>
 <td>
-<%=f.text_field :content %>
+<%= f.text_field :content %>
 </td>
 <td>
   <%= f.select :content_uom, [nil] + @base_item.content_uoms %>
@@ -65,7 +68,8 @@ Item Description
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
+<%= f.text_field :item_description %>
+<%#= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
 </td>
 </tr>
 <tr class="info">
@@ -101,14 +105,14 @@ Country of origin
 	    background-color: #ffb;
 	  }
 	  div.manufacturer_auto_complete ul strong.highlight {
-	    color: #800; 
+	    color: #800;
 	    margin:0;
 	    padding:0;
 	  }
 	</style>
 	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
 	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
+	<%#= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
 		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
 	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
 	}"}) -%>
@@ -116,7 +120,7 @@ Country of origin
 <td>
 	<%= f.text_field :manufacturer_name, :autocomplete => "off" %>
 	<div id = "base_item_manufacturer_name_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
+	<%#= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
 		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
 	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
 	}"}) -%>
@@ -223,7 +227,7 @@ Shelf life period
 
 	$j('#base_item_gpc_name').click(function(){
 		$j('#classifier').show();
-		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); 
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
 		return false;
 	});
   $j("#classifier_close").click(function(){
@@ -235,7 +239,7 @@ Shelf life period
   });
 
 
-	
+
 	$j("#base_item_brand").change(function() {
 		if(!is_description_touched){
 			brand = $j("#base_item_brand").val();
@@ -271,29 +275,30 @@ Shelf life period
 	$j("#base_item_item_description").change(function() {
 		is_description_touched = true;
 	});
-	
+
 	function PrepareDescriptionString(){
 		var string = ""
 		if (brand != "") {string = brand}
-		
+
 		if (subbrand != "") {
 			string += ' ' + subbrand;
 		}else {return string;}
-		
+
 		if (functional != ""){
 			string += ' ' + functional;
 		}else {return string;}
-		
+
 		if (content != ""){
 			string += ' ' + content;
 		}else {return string;}
-		
+
 		if (content_uom != ""){
 			string += ' ' + content_uom;
 		}else {return string;}
-		
+
 		return string;
 		}
 </script>
 </div>
 <div id='hidden_div' style="display: none"></div>
+
