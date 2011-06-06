@@ -5,7 +5,7 @@
 <%= link_to 'Back', base_items_path %>
 <div class="clear"></div>
 <h2>Основные данные</h2>
-<% form_for(@base_item) do |f| %>
+<%= form_for(@base_item) do |f| %>
 <div style="width: 1200px"/>
   <%= f.error_messages %>
   <div style="min-width: 240px; float: left;">
@@ -27,3 +27,4 @@
 <%= f.submit "Дальше", :class => "button" %>
 </p>
 <% end %>
+

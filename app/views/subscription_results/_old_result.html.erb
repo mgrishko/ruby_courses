@@ -14,12 +14,12 @@
 	<% if result.new? %>
 		<td>
 			<div style="float:left;">
-				<% form_for(result, :remote => true) do |f| %>
+				<%= form_for(result, :remote => true) do |f| %>
 					<%= f.submit "Акцептовать", :name => 'accept' %>
 				<% end %>
 			</div>
 			<div style="float:left;">
-				<% form_for(result, :remote => true) do |f| %>
+				<%= form_for(result, :remote => true) do |f| %>
 					<%= f.submit "Отменить", :name => 'cancel' %>
 				<% end %>
 			</div>

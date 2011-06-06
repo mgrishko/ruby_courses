@@ -23,7 +23,14 @@
 <% end %>
 </div>
 <div style="clear: both; margin-left: 2em;"><% if ((comment.item.user_id == current_user.id) && (comment.user_id != current_user.id)) || ((comment.item.user_id != current_user.id) && (comment.user_id == current_user.id)) %>
-<%= link_to "Комментировать", {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => comment.base_item.id, "comment[root_id]" => comment.id, "comment[message_info]" => @message_info }, {:remote => true} %><% end %></div>
+<%= link_to "Комментировать", url_for(:controller => "comments",
+                                      :action => "reply",
+                                      "comment[item_id]" => comment.item.id,
+                                      "comment[base_item_id]" => comment.base_item.id,
+                                      "comment[root_id]" => comment.id,
+                                      "comment[message_info]" => @message_info),
+ {:remote => true} %>
+<% end %></div>
 <div id="cr-<%= comment.id %>" style="margin-left: 2em;"></div>
 </div>
 <% end %>

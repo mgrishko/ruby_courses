@@ -1,7 +1,7 @@
 <div id="base_item">
 <% unless @view_only || @base_item.draft? %>
   <div class="fright">
-    <% form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
+    <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
     <%= f.submit "Правка", :class => "button" %>
   <% end %>
   </div>

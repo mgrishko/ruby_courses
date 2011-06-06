@@ -8,15 +8,16 @@
 		</td>
 		<% unless result.accepted? -%>
 			<td>
-				<% form_for(result) do |f| %>
+				<%= form_for(result) do |f| %>
 					<%= f.submit "Акцептовать", :name => 'accept' %>
 				<% end %>
 			</td>
 			<td>
-				<% form_for(result) do |f| %>
+				<%= form_for(result) do |f| %>
 					<%= f.submit "Отменить", :name => 'cancel' %>
 				<% end %>
 			</td>
 		<% end -%>
 	</tr>
 </table>
+

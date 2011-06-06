@@ -1,4 +1,4 @@
-<% form_for @base_item, :remote => true do |f| %>
+<%= form_for @base_item, :remote => true do |f| %>
 <input type="hidden" name="step" value="2"/>
 <%= f.error_messages %>
 <h3><%= @base_item.gtin %></h3>

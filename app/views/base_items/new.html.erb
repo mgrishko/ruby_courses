@@ -10,7 +10,7 @@
 <%= render :partial => "image" %>
 </td>
 <td valign="top" style="background: #fff; padding: 0;">
-<% form_for(@base_item) do |f| %>
+<%= form_for(@base_item) do |f| %>
 <%= f.error_messages %>
 <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>
 <%= render :partial => "base" if @base_item.current_step == 'step2' %>
@@ -21,3 +21,4 @@
 </td>
 </tr>
 </table>
+

@@ -29,7 +29,7 @@ Given /^I have a base_item with gtin "([^"]*)"$/ do |gtin|
 end
 
 When /^I attach the test image to "([^"]*)"$/ do |field|
-  path = File.join(::Rails.root, 'spec', 'images', "test.jpg")
+  path = File.join(Rails.root, 'spec', 'images', "test.jpg")
   attach_file("image", path)
 end
 

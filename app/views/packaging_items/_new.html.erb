@@ -1,7 +1,7 @@
 <div class="item">
 <div class="single-arrow"></div>
 
-<% form_for @packaging_item, base_item_packaging_items_path(@base_item), :remote => true do |f| %>
+<%= form_for @packaging_item, base_item_packaging_items_path(@base_item), :remote => true do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.hidden_field :parent_id %>
   <p>

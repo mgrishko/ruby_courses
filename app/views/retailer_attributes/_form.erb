@@ -1,5 +1,5 @@
 <hr/>
-<% form_for @retailer_attribute, :remote => true do |f| %>
+<%= form_for @retailer_attribute, :remote => true do |f| %>
 <input type="hidden" name="retailer_attribute[item_id]" value="<%= @retailer_attribute.item.id %>"/>
 <input type="hidden" name="retailer_attribute[base_item_id]" value="<%= @retailer_attribute.base_item_id %>"/>
 <table>
