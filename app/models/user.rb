@@ -22,17 +22,17 @@ class User < ActiveRecord::Base
     a.disable_perishable_token_maintenance  true
     a.crypto_provider Authlogic::CryptoProviders::MD5
   end
-  
+
   def fresh_base_items
     if self.base_items.count > 0
-      return self.base_items.first(:conditions => {:status => "published"}, :order => 'id desc').created_at.to_s(:db)
+      return self.base_items.where(:status => "published").order('id desc').first.created_at.to_s(:db)
     else
       return '---'
     end
   end
-  
+
   def all_fresh_base_items
-    BaseItem.find_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1) order by a.id desc")
+    base_items.where(:status => 'published').order('id DESC')
   end
 
   def all_fresh_base_items_paginate page
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def count_fresh_base_items
-    BaseItem.count_by_sql("select count(*) from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1)")
+    base_items.where(:status => 'published').count()
   end
 
   def my_retailer_info(user_id)
@@ -61,14 +61,13 @@ class User < ActiveRecord::Base
   def supplier?
     self.role == 'supplier'
   end
-  
+
   def retailer?
     self.role == 'retailer'
   end
 
   def has_usual_subscription? item
-    return true if Subscription.count(:conditions => {:retailer_id => self.id, :supplier_id => item.user_id, :status => 'active', :specific => false}) > 0
-    false
+    Subscription.where(:retailer_id => self.id, :supplier_id => item.user_id, :status => 'active', :specific => false).count() > 0
   end
 end
 

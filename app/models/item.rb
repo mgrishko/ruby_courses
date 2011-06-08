@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
   has_many :comments , :conditions => '#{Comment.table_name}.root_id is null', :order => "id desc"
   has_many :tags, :through => :clouds
   has_many :clouds
-
+  has_many :base_items
   has_many :retailer_attributes
 
   aasm_column :status
@@ -22,17 +22,16 @@ class Item < ActiveRecord::Base
   end
 
   def not_new?
-    if self.base_items.count(:conditions => {:status => 'published'}) > 1
+    if self.base_items.where(:status => 'published').count() > 1
       return true
     else
       return nil
     end
   end
 
+  # Strange behaviour: logically should return 1 last base item but in code used as returning array
   def last_bi
-    BaseItem.find_by_sql(
-      "select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.item_id = #{self.id} order by id desc limit 1) order by id desc limit 1"
-    )
+    self.base_items.where( :status => "published").order("id desc")
   end
 
   def subscribers
@@ -45,7 +44,7 @@ class Item < ActiveRecord::Base
     end
     @subscribers
   end
-  
+
   def image_url suffix=nil
     image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
     return "/data/#{image.id}#{suffix.to_s}.jpg" if image

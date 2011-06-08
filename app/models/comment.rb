@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  
+
   has_one :event, :as => :content
 
   belongs_to :user
@@ -8,15 +8,15 @@ class Comment < ActiveRecord::Base
   after_save :update_root_replies #trigger for root
 
   def get_children
-    Comment.all(:conditions => {:root_id => self.id})
+    Comment.where(:root_id => self.id).all
   end
-  
+
   def get_root
-    Comment.find(:first, :conditions => {:id => self.root_id})
+    Comment.where(:id => self.root_id).first
   end
 
   def get_parent
-    Comment.find(:first, :conditions => {:id => self.parent_id})
+    Comment.where(:id => self.parent_id).first
   end
 
   def update_root_replies

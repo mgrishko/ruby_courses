@@ -1,6 +1,6 @@
 class Subscription < ActiveRecord::Base
   include AASM
-  
+
   has_one :event, :as => :content
 
   belongs_to :retailer, :class_name => 'User', :foreign_key => 'retailer_id'
@@ -20,7 +20,7 @@ class Subscription < ActiveRecord::Base
   aasm_event :active do
     transitions :to => :active, :from => :canceled
   end
-  
+
   def get_url(current_user)
     if current_user.retailer?
       "/suppliers/"
@@ -45,33 +45,36 @@ class Subscription < ActiveRecord::Base
   end
 
   def new_items_count
-    Subscription.count_by_sql <<-SQL
-      SELECT COUNT(*) FROM subscription_results 
-        JOIN base_items ON subscription_results.base_item_id = base_items.id
-        JOIN items ON base_items.item_id = items.id
-      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') = 1
-        AND subscription_results.status = 'new'
-    SQL
+    published = BaseItem.select("base_items.id, count(*) as count")\
+                        .where(:status => 'published').group("item_id")
+
+    published_ids = published.map{|bi| bi.id if bi.count == 1}.compact
+
+    SubscriptionResult.where( :subscription_id => id,
+                              :base_item_id => published_ids,
+                              :status => 'new'
+                            ).count()
   end
   def changed_items_count
-    Subscription.count_by_sql <<-SQL
-      SELECT COUNT(*) FROM subscription_results 
-        JOIN base_items ON subscription_results.base_item_id = base_items.id
-        JOIN items ON base_items.item_id = items.id
-      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') > 1
-        AND subscription_results.status = 'new'
-    SQL
+    published = BaseItem.select("base_items.id, count(*) as count")\
+                        .where(:status => 'published').group("item_id")
+
+    published_ids = published.map{|bi| bi.id if bi.count > 1}.compact
+    SubscriptionResult.where( :subscription_id => id,
+                              :base_item_id => published_ids,
+                              :status => 'new'
+                            ).count()
   end
 
   def find_in_details id
-    SubscriptionDetails.find(:first, :conditions => {:subscription_id => self.id, :item_id => id})
+    SubscriptionDetails.where(:subscription_id => self.id, :item_id => id).first
     #if details.to_s != ''
     #  return details.split(',').include? id.to_s
     #else
     #  return false
     #end
   end
-  
+
   #def self.present_and_find_in_details details, id # will be drop soon
   #  if details.to_s != ''
   #    return details.split(',').include? id.to_s
