@@ -4,12 +4,18 @@
 <% end %>
 <% end %>
 <div id="add_receiver_link"><!--<a href="#" onclick="$j('#add_receiver_link').hide(); $j('#new_receiver_form').show();return false;">Добавить получателя используя GLN</a>--><a id="add_receivers_from_list" href="#" onclick="$j('#add_receiver_link').hide(); $j('#new_receiver_form_list').show();return false;">Добавить получателя из списка</a></div>
-<div id="new_receiver_form"><input type="text" id="new_receiver_input"/><button onclick="return submitReceiver();"/>Поиск по GLN</button> <a href="#" onclick="$j('#new_receiver_form').hide();$j('#add_receiver_link').show();return false;">Отмена</a></div>
-<div id="new_receiver_form_list">
-<select id="new_receiver_input2">
-<% @retailers.each do |r| %>
-<option value="<%= r.gln %>"><%=h r.name %></option>
-<% end %>
-</select>
-<button id="submit_receiver_button" onclick="return submitReceiver('2');"/>Добавить</button> <a href="#" onclick="$j('#new_receiver_form_list').hide();$j('#add_receiver_link').show();return false;">Отмена</a></div>
+  <div id="new_receiver_form">
+    <input type="text" id="new_receiver_input"/><button onclick="return submitReceiver();"/>Поиск по GLN</button>
+    <a href="#" onclick="$j('#new_receiver_form').hide();$j('#add_receiver_link').show();return false;">Отмена</a>
+  </div>
+  <div id="new_receiver_form_list">
+    <select id="new_receiver_input2">
+      <% @retailers.each do |r| %>
+        <option value="<%= r.gln %>"><%=h r.name %></option>
+      <% end %>
+    </select>
+    <button id="submit_receiver_button" onclick="return submitReceiver('2');">Добавить</button>
+    <a href="#" onclick="$j('#new_receiver_form_list').hide();$j('#add_receiver_link').show();return false;">Отмена</a>
+  </div>
+</div>
 

@@ -1,2 +1,3 @@
 page.replace_html "packaging_items", :partial => 'index'
-page["#{dom_id(@packaging_item)}_item"].scroll_to
+#page["#{dom_id(@packaging_item)}_item"].scroll_to
+

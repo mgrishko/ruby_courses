@@ -1,5 +1,16 @@
+# функции "упаковать"
+var packageMe = function(bi_id){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
+  return false;
+};
+var packageMeWithSub = function(bi_id,iid){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', function() {});
+  return false;
+};
+
+
 function setHeights() {
-  $$('#items .item').each(function(element){
+  $j('#items .item').each(function(element){
     element.setStyle({minHeight: ''});
   });
   /*$$('#items .item').each(function(element){
@@ -138,12 +149,13 @@ function check_pallete(emitter) {
   }
 }
 
+// Function to submit receivers when private = true
 function submitReceiver(suffix) {
   if (!suffix) {
     suffix = '';
   }
   $j("#receiver_gln").val($j("#new_receiver_input"+suffix).val());
-  document.getElementById("new_receiver").onsubmit();
+  $j("#new_receiver").submit();
   return false;
 }
 

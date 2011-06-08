@@ -9,6 +9,8 @@
 &nbsp;
 </p>
 <div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
+<div class="fright" style="margin-right: 25px;">
+  <%= link_to "упаковать","javascript:void(0)", :onclick => "packageMe(#{@base_item.id})" %>
+</div>
 <% end %>
 

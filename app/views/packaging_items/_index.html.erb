@@ -15,7 +15,8 @@
 &nbsp;
 </p>
 <div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
+<div class="fright" style="margin-right: 25px;">
+  <%= link_to "упаковать","#", :onclick => "packageMe(#{@base_item.id})" %>
 <% end %>
 </div>
 </td>
@@ -29,14 +30,14 @@
 </tr>
 </table>
 <% javascript_tag do %>
-  $$('#items li').each(function(element) {
+  $j('#items li').each(function(element) {
     if (!element.select('ul')[0]) {
       var ul = new Element('ul');
       element.appendChild(ul);
     }
   });
   <% unless @view_only || @base_item.published? %>
-  $$('#items ul').each(function(element) {
+  $j('#items ul').each(function(element) {
     var id = element.up('li').id.gsub(/packaging_item_/, '');
     var li = new Element('li', { className: 'pack new', id: 'packaging_item_new_' + id  });
     li.update('<div class="item" style="display:none"></div>')
@@ -45,7 +46,7 @@
   });
   var li = new Element('li', { className: 'pack new', id: 'packaging_item_new' });
   //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/new\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#">упаковать1</a></div>');
-  $('items').appendChild(li);
+  $j('items').appendChild(li);
   <% end %>
   setHeights();
 <% end %>

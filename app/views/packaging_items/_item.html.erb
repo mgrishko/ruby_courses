@@ -17,7 +17,9 @@
 <div class="fleft">
 <%= link_to 'отменить', base_item_packaging_item_path(@base_item, item), {:confirm => 'Are you sure?', :method => :delete, :remote => true} if item.leaf? %></div>
 <% unless item.pallet? %>
-<div class="fright"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/' + <%=item.id %> + '/new_sub/', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#">упаковать</a></div>
+<div class="fright">
+  <%= link_to "упаковать","javascript:void(0)", :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>
+</div>
 <% end %>
 </small>
 </p>
