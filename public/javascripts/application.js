@@ -1,4 +1,4 @@
-# функции "упаковать"
+// функции "упаковать"
 var packageMe = function(bi_id){
   $j.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
   return false;
@@ -20,9 +20,9 @@ function setHeights() {
   });*/
 }
 
-Event.observe(window, 'load', setHeights);
+//Event.observe(window, 'load', setHeights);
 
-Ajax.Responders.register({onComplete: setHeights});
+//Ajax.Responders.register({onComplete: setHeights});
 
 //
 var _GT = {};

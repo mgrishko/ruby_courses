@@ -55,6 +55,7 @@ class Subscription < ActiveRecord::Base
                               :status => 'new'
                             ).count()
   end
+  #FIXME: needs refactoring
   def changed_items_count
     published = BaseItem.select("base_items.id, count(*) as count")\
                         .where(:status => 'published').group("item_id")

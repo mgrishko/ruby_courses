@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   after_save :update_root_replies #trigger for root
 
   def get_children
-    Comment.where(:root_id => self.id).all
+    Comment.where(:root_id => self.id)
   end
 
   def get_root

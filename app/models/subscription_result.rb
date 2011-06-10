@@ -23,6 +23,8 @@ class SubscriptionResult < ActiveRecord::Base
     transitions :to => :canceled, :from => :new
   end
 
+  scope :accepted, where(:status => 'accepted')
+
   def status_for_title
     return "Данные отправлены" if self.new?
     return "Данные акцептованы" if self.accepted?
