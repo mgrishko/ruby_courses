@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id           :integer(4)      not null, primary key
+#  item_id      :integer(4)      not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  base_item_id :integer(4)
+#
+
 class Image < ActiveRecord::Base
 
   has_one :event, :as => :content, :dependent => :destroy

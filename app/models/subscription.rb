@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id          :integer(4)      not null, primary key
+#  retailer_id :integer(4)
+#  supplier_id :integer(4)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  status      :string(255)
+#  details     :string(255)
+#  specific    :boolean(1)      default(FALSE), not null
+#
+
 class Subscription < ActiveRecord::Base
   include AASM
 

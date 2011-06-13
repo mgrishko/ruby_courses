@@ -1,3 +1,42 @@
+# == Schema Information
+#
+# Table name: base_items
+#
+#  id                              :integer(4)      not null, primary key
+#  gtin                            :string(255)
+#  status                          :string(255)
+#  created_at                      :datetime
+#  updated_at                      :datetime
+#  user_id                         :integer(4)
+#  internal_item_id                :string(255)
+#  despatch_unit                   :boolean(1)      default(FALSE)
+#  invoice_unit                    :boolean(1)      default(FALSE)
+#  order_unit                      :boolean(1)      default(FALSE)
+#  consumer_unit                   :boolean(1)      default(FALSE)
+#  manufacturer_name               :string(255)
+#  manufacturer_gln                :string(13)
+#  content_uom                     :string(3)
+#  gross_weight                    :integer(4)
+#  vat                             :integer(4)
+#  gpc_code                        :integer(4)
+#  country_of_origin_code          :string(2)
+#  minimum_durability_from_arrival :integer(4)
+#  packaging_type                  :string(3)
+#  height                          :integer(4)
+#  depth                           :integer(4)
+#  width                           :integer(4)
+#  content                         :decimal(6, 3)
+#  brand                           :string(70)      default(""), not null
+#  subbrand                        :string(70)
+#  functional                      :string(35)      default(""), not null
+#  item_description                :string(178)
+#  item_id                         :integer(4)      not null
+#  net_weight                      :integer(4)
+#  state                           :string(255)     default("add")
+#  mix                             :string(255)
+#  private                         :boolean(1)      default(FALSE)
+#
+
 class BaseItem < ActiveRecord::Base
   include AASM
 
