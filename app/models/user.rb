@@ -10,6 +10,13 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :clouds
   has_many :user_tags
+  has_many :tags , :through => :clouds
+  has_many :receivers
+  has_many :events
+  has_many :item_comments, :class_name => 'Comment', :through => :items
+  has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :through => :items
+  has_many :base_item_subscription_results, :class_name => 'SubscriptionResult', :through => :base_items
+  has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
   validates_uniqueness_of :gln
   acts_as_authentic do |a|
@@ -36,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def all_fresh_base_items_paginate page
-    BaseItem.paginate_by_sql("select a.* from base_items as a where a.id = (select b.id from base_items b where a.item_id = b.item_id and b.status='published' and b.user_id = #{self.id} order by id desc limit 1) order by a.id desc", :page => page, :per_page => 10)
+    BaseItem.last_published_by(self).reverse.paginate :page => page, :per_page => 10
   end
 
   def count_fresh_base_items
@@ -67,7 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def has_usual_subscription? item
-    Subscription.where(:retailer_id => self.id, :supplier_id => item.user_id, :status => 'active', :specific => false).count() > 0
+    self.subscriptions.usual.active.where(:supplier_id => item.user_id).count() > 0
   end
 end
 

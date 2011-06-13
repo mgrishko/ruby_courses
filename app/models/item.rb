@@ -4,12 +4,13 @@ class Item < ActiveRecord::Base
   has_one :event, :as => :content
   has_many :base_items
   belongs_to :user
-  #has_many :comments #, :conditions => '#{Comment.table_name}.user_id = #{self.send(:user_id)}'
   has_many :comments , :conditions => '#{Comment.table_name}.root_id is null', :order => "id desc"
+  has_many :item_comments, :class_name => 'Comment', :foreign_key => :item_id,:conditions => '#{Comment.table_name}.root_id is null', :order => "id desc"
   has_many :tags, :through => :clouds
   has_many :clouds
   has_many :base_items
   has_many :retailer_attributes
+  has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :foreign_key => :item_id
 
   aasm_column :status
   aasm_initial_state :add

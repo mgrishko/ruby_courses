@@ -6,7 +6,7 @@ class TagsController < ApplicationController
       @item = Item.find(params[:tag][:item_id])
       #@tag = Tag.find(:first, :conditions => {:name => params[:tag][:name], :user_id => current_user.id })
       #@tag = Tag.find(:first, :conditions => ["clouds.user_id=? and tags.name=?", current_user, params[:tag][:name]])
-      @tag = Tag.find(:first, :conditions => {:name => params[:tag][:name], :kind => 1})
+      @tag = Tag.where(:name => params[:tag][:name], :kind => 1).first
       unless @tag
 	@tag = Tag.new(:name => params[:tag][:name], :kind => 1)
 	@tag.save
@@ -14,17 +14,17 @@ class TagsController < ApplicationController
       @cloud = Cloud.new(:user => current_user, :item => @item, :tag => @tag)
       @cloud.save
 
-      @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @item.id})
+      @clouds = current_user.clouds.where(:item_id => @item.id)
     else # tags for users
       @user = User.find(params[:tag][:user_id])
-      @tag = Tag.find(:first, :conditions => {:name => params[:tag][:name], :kind => 2})
+      @tag = Tag.where(:name => params[:tag][:name], :kind => 2).firsts
       unless @tag
 	@tag = Tag.new(:name => params[:tag][:name], :kind => 2)
 	@tag.save
       end
       @cloud = UserTag.new(:author_id => current_user.id, :user_id => @user.id, :tag_id => @tag.id)
       @cloud.save
-      @clouds = UserTag.find(:all, :conditions => {:author_id => current_user.id, :user_id => @user.id})
+      @clouds = UserTag.where(:author_id => current_user.id, :user_id => @user.id)
     end
     respond_to do |format|
       format.js
@@ -33,13 +33,13 @@ class TagsController < ApplicationController
 
   def destroy
     if params[:kind].to_s == '1'
-      @cloud = Cloud.find(:first, :conditions => {:id => params[:id], :user_id => current_user.id})
+      @cloud = Cloud.where(:id => params[:id], :user_id => current_user.id).first
       @cloud.destroy
-      @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @cloud.item.id})
+      @clouds = current_user.clouds.where(:item_id => @cloud.item.id)
     else
-      @user_tag = UserTag.find(:first, :conditions => {:id => params[:id], :author_id => current_user.id})
+      @user_tag = UserTag.where(:id => params[:id], :author_id => current_user.id).first
       @user_tag.destroy
-      @clouds = UserTag.find(:all, :conditions => {:author_id => current_user.id, :user_id => @user_tag.user.id})
+      @clouds = UserTag.where(:author_id => current_user.id, :user_id => @user_tag.user.id)
     end
     respond_to do |format|
       format.js
@@ -47,3 +47,4 @@ class TagsController < ApplicationController
   end
 
 end
+

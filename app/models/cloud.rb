@@ -4,8 +4,7 @@ class Cloud < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :tag_id
   attr_accessor :q
-
-
+  belongs_to :clouded_item, :class_name => 'Item', :foreign_key => :item_id
 
   #FIXME: требуется рефакторинг.
   def self.get_clouds retailer, supplier=nil, all_suppliers=nil

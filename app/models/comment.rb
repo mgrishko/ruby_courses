@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
   belongs_to :base_item
   after_save :update_root_replies #trigger for root
 
+  scope :roots, where("root_id IS NULL")
+
   def get_children
     Comment.where(:root_id => self.id)
   end

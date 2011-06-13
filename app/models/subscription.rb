@@ -6,7 +6,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :retailer, :class_name => 'User', :foreign_key => 'retailer_id'
   belongs_to :supplier, :class_name => 'User', :foreign_key => 'supplier_id'
   has_many :subscription_results
-  has_many :subscription_details
+  has_many :subscription_details, :class_name => "SubscriptionDetails"
 
   aasm_column :status
   aasm_initial_state :active
@@ -21,6 +21,9 @@ class Subscription < ActiveRecord::Base
     transitions :to => :active, :from => :canceled
   end
 
+  scope :active, where(:status => 'active')
+  scope :usual, where(:specific => false)
+  scope :specific, where(:specific => true)
   def get_url(current_user)
     if current_user.retailer?
       "/suppliers/"
@@ -45,30 +48,20 @@ class Subscription < ActiveRecord::Base
   end
 
   def new_items_count
-    published = BaseItem.select("base_items.id, count(*) as count")\
-                        .where(:status => 'published').group("item_id")
-
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("item_id")
     published_ids = published.map{|bi| bi.id if bi.count == 1}.compact
-
-    SubscriptionResult.where( :subscription_id => id,
-                              :base_item_id => published_ids,
-                              :status => 'new'
-                            ).count()
+    subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
+
   #FIXME: needs refactoring
   def changed_items_count
-    published = BaseItem.select("base_items.id, count(*) as count")\
-                        .where(:status => 'published').group("item_id")
-
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("item_id")
     published_ids = published.map{|bi| bi.id if bi.count > 1}.compact
-    SubscriptionResult.where( :subscription_id => id,
-                              :base_item_id => published_ids,
-                              :status => 'new'
-                            ).count()
+    subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
 
   def find_in_details id
-    SubscriptionDetails.where(:subscription_id => self.id, :item_id => id).first
+    self.subscription_details.where(:item_id => id).first
     #if details.to_s != ''
     #  return details.split(',').include? id.to_s
     #else

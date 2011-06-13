@@ -10,3 +10,9 @@ Kernel.class_eval do
   end
 end
 
+class Array
+  def to_ids
+    map{|obj| obj.id}
+  end
+end
+
