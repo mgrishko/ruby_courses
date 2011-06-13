@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  
+
   has_one :event, :as => :content, :dependent => :destroy
   belongs_to :base_item
 
@@ -23,13 +23,13 @@ class Image < ActiveRecord::Base
 	end
       end
     end
-    
+
     unless File.exist?("#{RAILS_ROOT}/public/data")
       Dir.mkdir("#{RAILS_ROOT}/public/data")
     end
     image.write("#{RAILS_ROOT}/public/data/#{self.id}#{name}.jpg")
   end
-  
+
   def get_url(current_user)
     if current_user.retailer?
       "/base_items/#{self.base_item_id}?view=true"
@@ -37,7 +37,7 @@ class Image < ActiveRecord::Base
       "/base_items/#{self.base_item_id}"
     end
   end
-  
+
   def get_title
   end
 
@@ -54,3 +54,4 @@ protected
     end
   end
 end
+

@@ -31,7 +31,7 @@ group :development, :test do
   gem 'spork'
   gem 'rspec-rails', '1.3.4', :require => false
   gem 'rspec', '1.3.2', :require => 'spec'
-  gem 'annotate'
+  gem 'annotate_models'
   gem 'pickle'
 end
 

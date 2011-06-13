@@ -4,7 +4,7 @@ class RetailerAttribute < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
   belongs_to :base_item
-  
+
   def get_url(current_user)
     if current_user.retailer?
       "/base_items/#{self.base_item_id}?view=true"
@@ -12,11 +12,11 @@ class RetailerAttribute < ActiveRecord::Base
       "/base_items/#{self.base_item_id}"
     end
   end
-  
+
   def get_title
     self.base_item.item_description
   end
-  
+
   def get_description
     r = ''
     r = r + "#{self.retailer_article_id}" if self.retailer_article_id.to_s.length > 0
@@ -25,19 +25,4 @@ class RetailerAttribute < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: retailer_attributes
-#
-#  id                        :integer(4)      not null, primary key
-#  user_id                   :integer(4)      not null
-#  item_id                   :integer(4)      not null
-#  retailer_article_id       :integer(4)
-#  retailer_classification   :string(255)
-#  retailer_item_description :string(178)
-#  retailer_comment          :string(255)
-#  created_at                :datetime
-#  updated_at                :datetime
-#
 
