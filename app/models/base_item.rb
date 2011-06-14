@@ -428,7 +428,7 @@ class BaseItem < ActiveRecord::Base
   # Get receivers list for exact user( )
   def self.get_receivers current_user #only for suppliers-
     published_ids = private_last_published_by(current_user).map { |bi| bi.id }
-    Receiver.joins(:user).select('users.id, users.name, count(*) as q').where(:receivers => {:base_item_id => published_ids}).group("users.name")
+    Receiver.joins(:user).select('users.id, users.name, count(*) as q').where(:receivers => {:base_item_id => published_ids}).group("users.name, users.id")
   end
 
   # Может стоит преписать через паттерн method missing?

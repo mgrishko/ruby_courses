@@ -62,15 +62,15 @@ class Subscription < ActiveRecord::Base
   end
 
   def new_items_count
-    published = BaseItem.published.select("base_items.id, count(*) as count").group("item_id")
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("base_items.id")
     published_ids = published.map{|bi| bi.id if bi.count == 1}.compact
     subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
 
   #FIXME: needs refactoring
   def changed_items_count
-    published = BaseItem.published.select("base_items.id, count(*) as count").group("item_id")
-    published_ids = published.map{|bi| bi.id if bi.count > 1}.compact
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("base_items.id")
+    published_ids = published.map{|bi| bi.id if bi.count.to_i > 1}.compact
     subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
 
