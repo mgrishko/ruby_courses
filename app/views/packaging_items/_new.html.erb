@@ -9,7 +9,7 @@
     <%= f.submit "Упаковать" %>
   </div>
   <div class="fright min">
-  <%= button_to 'Отмена', base_item_packaging_items_path(@base_item), {:method => :get, :remote => true} %>
+  <%= button_to 'Отмена', 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;"} %>
   </div>
   </p>
 <% end %>

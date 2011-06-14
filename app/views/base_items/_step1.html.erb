@@ -15,6 +15,9 @@ GTIN
 <td>
 Internal item id
 </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="val">
 <td>
@@ -68,7 +71,7 @@ Item Description
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= f.text_field :item_description %>
+<%= f.text_field :item_description,:class => "w100 classifier_input" %>
 <%#= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
 </td>
 </tr>
@@ -86,7 +89,7 @@ Country of origin
 <tr class="val">
 <td>
 	<style type="text/css">
-	  div.manufacturer_auto_complete {
+	/*  div.manufacturer_auto_complete {
 	    width: 500px !important;
 	    background: #fff;
 	  }
@@ -108,7 +111,7 @@ Country of origin
 	    color: #800;
 	    margin:0;
 	    padding:0;
-	  }
+	  }*/
 	</style>
 	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
 	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>

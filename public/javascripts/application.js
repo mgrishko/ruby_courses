@@ -8,6 +8,10 @@ var packageMeWithSub = function(bi_id,iid){
   return false;
 };
 
+var cancelPackageMeWithSub = function(bi_id){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/', function() {});
+  return false;
+};
 
 function setHeights() {
   $j('#items .item').each(function(element){
@@ -44,7 +48,7 @@ function showTab(tab) {
   $j("#tab-"+tab).show();
   return false;
 }
-$j(function() {
+$(function() {
   $j("#tab-1").show();
   $j("#search-form-input").blur(function() {
     $j(this).css('color', '#CCC');
