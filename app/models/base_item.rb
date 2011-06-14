@@ -511,7 +511,7 @@ class BaseItem < ActiveRecord::Base
             base_items = where(:id => receiver_private_ids).order("created_at desc")
           else
             source = options[:user_id] ? supplier.base_items : BaseItem
-            base_items =source.order("created_at desc").last_published
+            base_items = source.order("created_at desc").last_published
           end
         end
       end

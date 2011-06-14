@@ -48,8 +48,7 @@ function showTab(tab) {
   $j("#tab-"+tab).show();
   return false;
 }
-$(function() {
-  $j("#tab-1").show();
+$(function(){
   $j("#search-form-input").blur(function() {
     $j(this).css('color', '#CCC');
     if ((this.value == '') || (this.value == 'Поиск')) {
@@ -78,7 +77,6 @@ $(function() {
   function() {
     $j(this).removeClass("hovered");
   });
-
   $j(".cm").hover(function() {
     $j(this).find(".actions").show();
   },
@@ -86,18 +84,12 @@ $(function() {
     $j(this).find(".actions").hide();
   });
   hovers();
-  $j('body').click(function(e){
-  e.stopPropagation();
-  //DO SOMETHING
-  });
   return false;
 });
-
 function hovers() {
   bi_hover(); //base_items
   cm_hover(); //comments
 }
-
 function bi_hover() {
   $j(".bi").hover(function() {
     $j(this).addClass("hovered");
@@ -115,6 +107,8 @@ function cm_hover() {
   });
 }
 
+// further undone
+
 function subscription(event, that, supplier_id) {
   event.stopPropagation();
   $j.post('/subscriptions/status', {id: supplier_id}, function(data) {
@@ -131,6 +125,16 @@ function subscription(event, that, supplier_id) {
   }, "json");
   return false;
 }
+//$j(function() {
+// $j("#tab-1").show();
+
+//  $j('body').click(function(e){
+//  e.stopPropagation();
+//  //DO SOMETHING
+//  });
+//  return false;
+//});
+
 function instantSubscription(that, supplier_id) {
   $j.post('/subscriptions/instantstatus', {id: supplier_id}, function(data) {
     if (data.error) {

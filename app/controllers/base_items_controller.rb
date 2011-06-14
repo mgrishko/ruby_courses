@@ -7,7 +7,7 @@ class BaseItemsController < ApplicationController
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
-                                          :brand => params[:brand], 
+                                          :brand => params[:brand],
                                           :tag => params[:tag],
 					  :receiver => params[:receiver],
 					  :search => params[:search],
@@ -46,7 +46,7 @@ class BaseItemsController < ApplicationController
     end
     session[:base_item_params] = {}
     session.delete :base_item_step if session[:base_item_step]
-    @base_item = BaseItem.new(session[:base_item_params])  
+    @base_item = BaseItem.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
 
     #if params[:base].nil?
@@ -83,7 +83,7 @@ class BaseItemsController < ApplicationController
     @base_item = current_user.base_items.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
     if @base_item.valid?
-      if params[:back_button]  
+      if params[:back_button]
 	      @base_item.previous_step
       elsif @base_item.last_step?
 	      if @base_item.all_valid?
@@ -104,7 +104,7 @@ class BaseItemsController < ApplicationController
       end
       session[:base_item_step] = @base_item.current_step
     end
-    render 'new' 
+    render 'new'
     #@base_item = current_user.base_items.new(params[:base_item])
 
     #generate_attachment
@@ -166,7 +166,7 @@ class BaseItemsController < ApplicationController
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
-      
+
       if @base_item.has_difference_between_old?
 	@base_item.publish!
 	@base_item.item.change! if @base_item.item.add?
@@ -186,32 +186,31 @@ class BaseItemsController < ApplicationController
       n.created_at = n.updated_at = nil
       n.state = 'change' #not new. This is version
       return render :text => n.errors.full_messages unless n.draft!
-      #n.save
-      
+      n.save
       map_id = {}
-      
-      roots = @base_item.packaging_items.find_all{|pi| pi.parent_id == nil}
+      roots = @base_item.packaging_items.roots
       roots.each  do |root|
-	pi = n.packaging_items.new(root.attributes)
-	pi.user = current_user
-	pi.save
+    	  pi = n.packaging_items.new(root.attributes)
+      	pi.user = current_user
+      	pi.base_item_id = n.id
+      	pi.save
 
-	#old new
-	map_id[root.id] = pi.id
+      	#old new
+      	map_id[root.id] = pi.id
 
-	root.descendants.each do |d|
-	  pi = n.packaging_items.new(d.attributes)
-	  pi.user = current_user
-	  pi.parent_id = map_id[d.parent_id]
-	  pi.save
+      	root.descendants.each do |d|
+      	  pi = n.packaging_items.new(d.attributes)
+      	  pi.user = current_user
+      	  pi.base_item_id = n.id
+      	  pi.parent_id = map_id[d.parent_id]
+      	  pi.save!
+      	  map_id[d.id] = pi.id
+      	end
 
-	  map_id[d.id] = pi.id
-	end
       end
-
       # receivers list
       @base_item.receivers.each do |r|
-	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
+      	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
       end
 
       #end
@@ -238,41 +237,41 @@ class BaseItemsController < ApplicationController
 
   def classifier
     #@groups = Group.find(:all)
-    respond_to do |format| 
+    respond_to do |format|
       format.js
     end
   end
-  
+
   #def auto_complete_for_base_item_gpc_name
   #  @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
   #  render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
   #end
-  
+
   def auto_complete_for_base_item_brand
     @base_items = BaseItem.find(:all, :conditions => ["LOWER(brand) LIKE ?", "%#{params[:base_item][:brand].downcase}%"])
     render :inline => "<%= auto_complete_result(@base_items, 'brand') %>"
   end
-  
+
   def auto_complete_for_base_item_subbrand
     @base_items = BaseItem.find(:all, :conditions => ["LOWER(subbrand) LIKE ?", "%#{params[:base_item][:subbrand].downcase}%"])
     render :inline => "<%= auto_complete_result(@base_items, 'subbrand') %>"
   end
-  
+
   def auto_complete_for_base_item_functional
     @base_items = BaseItem.find(:all, :conditions => ["LOWER(functional) LIKE ?", "%#{params[:base_item][:functional].downcase}%"])
     render :inline => "<%= auto_complete_result(@base_items, 'functional') %>"
   end
-  
+
   def auto_complete_for_base_item_item_description
     @base_items = BaseItem.find(:all, :conditions => ["LOWER(item_description) LIKE ?", "%#{params[:base_item][:item_description].downcase}%"])
     render :inline => "<%= auto_complete_result(@base_items, 'item_description') %>"
   end
-  
+
   def auto_complete_for_base_item_manufacturer_gln
      @base_items = BaseItem.find(:all, :conditions => ["manufacturer_gln LIKE ?", "%#{params[:base_item][:manufacturer_gln]}%"])
      render :partial => 'autocomplete_manufacturer'
   end
-  
+
   def auto_complete_for_base_item_manufacturer_name
      @base_items = BaseItem.find(:all, :conditions => ["LOWER(manufacturer_name) LIKE ?", "%#{params[:base_item][:manufacturer_name].downcase}%"])
      render :partial => 'autocomplete_manufacturer'
@@ -287,3 +286,4 @@ class BaseItemsController < ApplicationController
   end
 
 end
+
