@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
       @image.base_item_id = params[:base_item_id]
       @image.save
       Event.log(current_user,@image)
-
+      #Create a new image from source according to Image_Parameters(small, medium, large)
       for image_parameter in Webforms::IMAGE_PARAMETERS do
       	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
       	else

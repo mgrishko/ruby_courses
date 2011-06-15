@@ -13,6 +13,12 @@ var cancelPackageMeWithSub = function(bi_id){
   return false;
 };
 
+var acceptOrCancelSR =function(sr, action, event){
+  event.stopPropagation();
+  $j.getScript('/subscription_results/update_one/'+sr+'?'+action+'=yes', function() {});
+  return false;
+};
+
 function setHeights() {
   $j('#items .item').each(function(element){
     element.setStyle({minHeight: ''});

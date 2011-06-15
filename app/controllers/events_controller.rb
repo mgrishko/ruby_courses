@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
       user_events =current_user.events
 
-      comments = current_user.comments
+      comments = current_user.comments.to_ids
       comment_events = Event.comments.where(:content_id => comments)
 
       events = (comment_events | user_events).compact.sort{|a,b| b.id <=> a.id}

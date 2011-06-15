@@ -424,13 +424,13 @@ class BaseItem < ActiveRecord::Base
         clouded_base_items = retailer.clouds.where(:tag_id => options[:tag]).map{|cloud| cloud.item.base_items.to_ids}.flatten
         accepted_base_items = retailer.subscription_results.accepted.map { |sr| sr.base_item_id }
         ids = clouded_base_items & accepted_base_items
-        base_items = BaseItem.where(:id => ids).order("created_at DESC")
+        base_items = where(:id => ids).order("created_at DESC")
       else
         ids = self.retailer_items_ids(retailer)
         if conditions
-          base_items = BaseItem.where(conditions).where(:id => ids).order("created_at DESC")
+          base_items = where(conditions).where(:id => ids).order("created_at DESC")
         else
-          base_items = BaseItem.where(:id => ids).order("created_at DESC")
+          base_items = where(:id => ids).order("created_at DESC")
         end
       end
     else # for base_items, common case: user is supplier
@@ -464,18 +464,17 @@ class BaseItem < ActiveRecord::Base
   protected
   # Returns IDS of items accepted by retailer for /retailer_items/ page
   def self.retailer_items_ids(retailer)
-     #FIXME
-     # BI опубликованные, но не приватные
-     public_ids = public_last_published.to_ids
-     # BI опубликованные, приватные
-     private_ids = private_last_published.to_ids
-     # BI для текущего receiver
-     this_receiver_ids = Receiver.where(:user_id => retailer.id).map { |r| r.base_item_id }
-     # BI попавшие в подписку и помеченные как accepted
-     accepted_ids = retailer.subscription_results.accepted.map { |sr| sr.base_item_id }
-     # BI  - приватные данного пользователя и опубликованные неприватные и помеченные как accepted
-     this_receiver_private_ids = this_receiver_ids & private_ids & accepted_ids
-     ids = (public_ids & accepted_ids) | this_receiver_private_ids
+    # BI опубликованные, но не приватные
+    public_ids = public_last_published.to_ids
+    # BI опубликованные, приватные
+    private_ids = private_last_published.to_ids
+    # BI для текущего receiver
+    this_receiver_ids = Receiver.where(:user_id => retailer.id).map { |r| r.base_item_id }
+    # BI попавшие в подписку и помеченные как accepted
+    accepted_ids = retailer.subscription_results.accepted.map { |sr| sr.base_item_id }
+    # BI  - приватные данного пользователя и опубликованные неприватные и помеченные как accepted
+    this_receiver_private_ids = this_receiver_ids & private_ids & accepted_ids
+    ids = (public_ids & accepted_ids) | this_receiver_private_ids
   end
 
   # Build search conditions for #get_base_items method

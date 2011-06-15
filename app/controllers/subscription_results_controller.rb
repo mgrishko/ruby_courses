@@ -4,12 +4,12 @@ class SubscriptionResultsController < ApplicationController
   def index
     @results = current_user.subscription_results.sort_by(&:updated_at).reverse.group_by{|sr|sr.subscription}
   end
-    
+
   def show
     @subscription = Subscription.first(:conditions => {:id => params[:id], :retailer_id => current_user.id})
   end
-  
-  def update
+
+  def update_one
     @subscription_result = SubscriptionResult.find(params[:id])
     if @subscription_result.subscription.retailer_id = current_user.id
       #my subscription result
@@ -21,14 +21,14 @@ class SubscriptionResultsController < ApplicationController
 	      Event.log(current_user, @subscription_result)
       end
     end
-    
+
     respond_to do |format|
       format.js
       format.html { redirect_to subscription_result_path(@subscription_result.subscription) }
     end
 
   end
-  
+
   def update_all
     @subscription = Subscription.find(
       :first, :conditions => {:id => params[:subscription_id], :retailer_id => current_user.id}
@@ -44,3 +44,4 @@ class SubscriptionResultsController < ApplicationController
     end
   end
 end
+

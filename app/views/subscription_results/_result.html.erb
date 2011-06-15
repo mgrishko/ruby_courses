@@ -8,10 +8,10 @@
     <div style="float: left" class="light"><%= humanize_date(result.base_item.updated_at) %>&nbsp;</div>
     <% if result.new? %>
       <div style="float:left;" class="light">
-	<%= link_to('Акцептовать', url_for(result)+".js?accept=yes", {:method => "PUT", :remote => true}) %>
+	<%= link_to('Акцептовать', "javascript:void(0)", { :onclick => "acceptOrCancelSR(#{result.id},'accept',event)"}) %>
       </div>
       <div style="float:left;" class="light">
-	&nbsp;<%= link_to('Отменить', url_for(result)+".js?cancel=yes", {:method => "PUT", :remote => true}) %>
+	&nbsp;<%= link_to('Отменить', "javascript:void(0)", { :onclick => "acceptOrCancelSR(#{result.id},'cancel',event)"}) %>
       </div>
     <% else %>
       <div class="light">&nbsp;<%= result.status %></div>
