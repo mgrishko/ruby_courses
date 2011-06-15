@@ -289,73 +289,15 @@ class BaseItem < ActiveRecord::Base
   end
 
   def vats
-    [['0 %', 57], ['10 %', 59], ['18 %', 60]]
+    REF_BOOKS['vats'][I18n.locale]
   end
 
   def content_uoms
-    [
-        ["квадратный метр", "MTK"],
-        ["килограм", "KGM"],
-        ["комплект", "SET"],
-        ["кубометр", "MTQ"],
-        ["лист", "ST"],
-        ["литр", "LTR"],
-        ["пара", "PR"],
-        ["метр", "MTR"],
-        ["штука", "PCE"],
-        ["сантиметр", "CMT"],
-        ["грамм", "GRM"],
-        ["миллилитр", "MLT"],
-        ["миллиметр", "MMT"],
-    ]
+    REF_BOOKS['content_uoms'][I18n.locale]
   end
 
   def self.packaging_types
-    [{:id => 1, :code => "AE", :name => "Aerosol"},
-     {:id => 2, :code => "AM", :name => "Ampoule"},
-     {:id => 3, :code => "AT", :name => "Atomizer"},
-     {:id => 4, :code => "BG", :name => "Bag"},
-     {:id => 5, :code => "NEW", :name => "Bag in Box"},
-     {:id => 6, :code => "NEW", :name => "Banded package"},
-     {:id => 7, :code => "BA", :name => "Barrel"},
-     {:id => 8, :code => "BK", :name => "Basket"},
-     {:id => 9, :code => "NEW", :name => "Blister pack"},
-     {:id => 10, :code => "BO", :name => "Bottle"},
-     {:id => 11, :code => "BX", :name => "Box"},
-     {:id => 12, :code => "NEW", :name => "Brick"},
-     {:id => 13, :code => "BJ", :name => "Bucket"},
-     {:id => 14, :code => "CG", :name => "Cage"},
-     {:id => 15, :code => "NEW", :name => "Can"},
-     {:id => 16, :code => "NEW", :name => "Card"},
-     {:id => 17, :code => "CT", :name => "Carton"},
-     {:id => 18, :code => "CS", :name => "Case"},
-     {:id => 19, :code => "CR", :name => "Crate"},
-     {:id => 20, :code => "CU", :name => "Cup"},
-     {:id => 21, :code => "CY", :name => "Cylinder"},
-     {:id => 22, :code => "DN", :name => "Dispenser"},
-     {:id => 23, :code => "EN", :name => "Envelope"},
-     {:id => 24, :code => "NEW", :name => "Flexible Intermediate Bulk Container"},
-     {:id => 25, :code => "NEW", :name => "Gable top"},
-     {:id => 26, :code => "JR", :name => "Jar"},
-     {:id => 27, :code => "JG", :name => "Jug"},
-     {:id => 28, :code => "NEW", :name => "Multipack"},
-     {:id => 29, :code => "NT", :name => "Net"},
-     {:id => 30, :code => "NEW", :name => "Not packed"},
-     {:id => 31, :code => "NEW", :name => "Packed, unspecified"},
-     {:id => 32, :code => "PX", :name => "Pallet"},
-     {:id => 33, :code => "PB", :name => "Pallet Box"},
-     {:id => 34, :code => "NEW", :name => "Peel pack"},
-     {:id => 35, :code => "PO", :name => "Pouch"},
-     {:id => 36, :code => "RK", :name => "Rack"},
-     {:id => 37, :code => "RL", :name => "Reel"},
-     {:id => 38, :code => "SW", :name => "Shrinkwrapped"},
-     {:id => 39, :code => "NEW", :name => "Sleeve"},
-     {:id => 40, :code => "NEW", :name => "Stretchwrapped "},
-     {:id => 41, :code => "PU", :name => "Tray"},
-     {:id => 42, :code => "TB", :name => "Tub"},
-     {:id => 43, :code => "TU", :name => "Tube"},
-     {:id => 44, :code => "VP", :name => "Vacuum-packed"},
-     {:id => 45, :code => "NEW", :name => "Wrapper"}]
+    REF_BOOKS['packaging_types'][I18n.locale]
   end
 
   def countries
