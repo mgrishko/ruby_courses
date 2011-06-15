@@ -1,7 +1,0 @@
-<table class="results">
-<tr>
-<th>gtin</th><th>status</th><th>name</th><th>date</th><th>actions<% if @subscription.subscription_results.detect {|r| r.new?} %><%= form_for :subscription_result, :url => {:action => 'update_all'}, :remote => true do |f| %><input type="hidden" name="subscription_id" value="<%= @subscription.id %>"/><%= f.submit "Акцептовать все", :name => 'accept' %><%= f.submit "Отменить все", :name => 'cancel' %><% end %><% end %></th><th>comment</th>
-</tr>
-<%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>
-</table>
-
