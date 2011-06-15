@@ -395,12 +395,12 @@ class BaseItem < ActiveRecord::Base
                        public_last_published_by(supplier)
                      else
                        public_last_published
-                     end.map { |bi| bi.id }.compact
+                     end.to_ids.compact
         private_ids = if supplier
                         private_last_published_by(supplier)
                       else
                         private_last_published
-                      end.map { |bi| bi.id }.compact
+                      end.to_ids.compact
         this_receiver_ids = Receiver.where(:user_id => current_user.id).map { |r| r.base_item_id }
         this_receiver_private_ids = this_receiver_ids & private_ids
         ids = (public_ids | this_receiver_private_ids).compact.uniq
@@ -466,9 +466,9 @@ class BaseItem < ActiveRecord::Base
   def self.retailer_items_ids(retailer)
      #FIXME
      # BI опубликованные, но не приватные
-     public_ids = public_last_published.map { |bi| bi.id }
+     public_ids = public_last_published.to_ids
      # BI опубликованные, приватные
-     private_ids = private_last_published.map { |bi| bi.id }
+     private_ids = private_last_published.to_ids
      # BI для текущего receiver
      this_receiver_ids = Receiver.where(:user_id => retailer.id).map { |r| r.base_item_id }
      # BI попавшие в подписку и помеченные как accepted

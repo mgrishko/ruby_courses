@@ -178,6 +178,7 @@ class BaseItemsController < ApplicationController
     redirect_to base_items_url
   end
 
+  # Create a draft version of base_item
   def draft
     @base_item = current_user.base_items.find params[:id]
     if @base_item.published?
@@ -191,19 +192,13 @@ class BaseItemsController < ApplicationController
       roots = @base_item.packaging_items.roots
       roots.each  do |root|
     	  pi = n.packaging_items.new(root.attributes)
-      	pi.user = current_user
-      	pi.base_item_id = n.id
-      	pi.save
-
+    	  pi_attributes ={:user_id => current_user.id, :base_item_id => n.id}
+        pi.update_attributes(pi_attributes)
       	#old new
       	map_id[root.id] = pi.id
-
       	root.descendants.each do |d|
       	  pi = n.packaging_items.new(d.attributes)
-      	  pi.user = current_user
-      	  pi.base_item_id = n.id
-      	  pi.parent_id = map_id[d.parent_id]
-      	  pi.save!
+      	  pi.update_attributes(pi_attributes.merge({:parent_id => map_id[parent_id]}))
       	  map_id[d.id] = pi.id
       	end
 
@@ -212,12 +207,12 @@ class BaseItemsController < ApplicationController
       @base_item.receivers.each do |r|
       	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
       end
-
       #end
       #redirect_to :action => "show", :id => n.id
       redirect_to base_item_path(n)
     end
   end
+
   def accept
     @base_item = current_user.base_items.find params[:id]
     @base_item.accept!

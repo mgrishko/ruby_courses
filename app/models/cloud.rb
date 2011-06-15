@@ -28,13 +28,15 @@ class Cloud < ActiveRecord::Base
     # BI для текущего receiver
     this_receiver_ids = Receiver.where(:user_id => retailer.id ).map{|r| r.base_item_id}
     result = []
+    tags = retailer.tags
     if supplier or all_suppliers
       #/suppliers/1 = ok
       #BI получение и приватных и принадлежащих пользователю как ресиверу
       this_receiver_private_ids = this_receiver_ids & private_ids
       # BI и приватные данного пользователя, и опубликованные неприватные
       ids = (public_ids | this_receiver_private_ids).compact.uniq
-      Tag.all.each do |tag|
+
+      tags.each do |tag|
         count = 0
         cl = nil
         tag.clouds.where(:user_id => retailer.id).each do |cloud|
@@ -60,7 +62,7 @@ class Cloud < ActiveRecord::Base
       # BI  - приватные данного пользователя и опубликованные неприватные и помеченные как accepted
       this_receiver_private_ids = this_receiver_ids & private_ids & accepted_ids
       ids = (public_ids & accepted_ids) | this_receiver_private_ids
-      Tag.all.each do |tag|
+      tags.each do |tag|
         count = 0
         cl = nil
         tag.clouds.where(:user_id => retailer.id).each do |cloud|

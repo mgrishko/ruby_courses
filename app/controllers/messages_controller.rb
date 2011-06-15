@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
       # сортировка по убыванию даты
       #FIXME: сомневаюсь в правильности последовательности.
       active_subscriptions = current_user.subscriptions.active.where(:specific => true)
-      suppliers = active_subscriptions.map{|s| s.supplier}.map{|s| s.id}
+      suppliers = active_subscriptions.map{|s| s.supplier}.to_ids
       public_suppliers_base_items = BaseItem.published.where(:user_id => suppliers, :private=> false).to_ids
       private_suppliers_base_items = BaseItem.published.where(:user_id => suppliers, :private=> true).to_ids
       this_receiver_ids = Receiver.where(:user_id => current_user.id ).map{|r| r.base_item_id}
