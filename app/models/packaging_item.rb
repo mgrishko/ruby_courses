@@ -59,7 +59,7 @@ class PackagingItem < ActiveRecord::Base
 
   def check_gtin
     errors.add(:gtin, "Уже существует") if PackagingItem.joins(:base_item).where("base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin).count() > 0 # versions
-    errors.add(:gtin, "Уже существует") if PackagingItem.where("base_item_id=? and id != '?' and gtin = ?", self.base_item_id, self.id, self.gtin).count() > 0 # same PI tree
+    errors.add(:gtin, "Уже существует") if PackagingItem.where("base_item_id=? and id != ? and gtin = ?", self.base_item_id, self.id, self.gtin).count() > 0 # same PI tree
     errors.add(:gtin, "Уже существует") if BaseItem.where(:user_id => self.user_id, :gtin => self.gtin, :status => 'published').count() > 0 # bi
     errors.add(:gtin, "Уже существует") if self.gtin.to_s == self.base_item.gtin.to_s
   end
@@ -67,7 +67,9 @@ class PackagingItem < ActiveRecord::Base
   def gross_weight_validation
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
-    errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}") if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
+    if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
+      errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}")
+    end
   end
 
   validate :package_volume_validation
@@ -76,7 +78,9 @@ class PackagingItem < ActiveRecord::Base
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
     volume = width * height * depth if width && height && depth
     parent_volume = parent_item.width * parent_item.height * parent_item.depth
-    errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}") if items_number && volume && volume < parent_volume * items_number
+    if items_number && volume && volume < parent_volume * items_number
+      errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}")
+    end
   end
 
   validate :children_dependencies
@@ -85,10 +89,10 @@ class PackagingItem < ActiveRecord::Base
     volume = (height||0)*(depth||0)*(width||0)
     children.each do |child|
       if child.number_of_next_lower_item*brutto > child.gross_weight
-	errors.add_to_base("Gross Weight is more than child gross weight")
+      	errors.add_to_base("Gross Weight is more than child gross weight")
       end
       if child.number_of_next_lower_item*volume > child.height*child.depth*child.width
-	errors.add_to_base("Volume is more than child volume")
+	      errors.add_to_base("Volume is more than child volume")
       end
     end
   end
@@ -116,20 +120,25 @@ class PackagingItem < ActiveRecord::Base
   end
 
   # methods calculate_* for view (highlighting)
-  def calculate_quanity
-    "<span class='d'>#{number_of_next_lower_item}</span> <span class='t'>уп. внутри</span> <span class='d'>#{number_of_bi_items}</span> <span class='t'>ед.</span>".html_safe
+  def calculate_quantity
+    "#{number_of_next_lower_item},#{number_of_bi_items}"
   end
 
   def calculate_pallet
-    "<span class='d'>#{quantity_of_layers_per_pallet}</span> <span class='t'>слоев, по</span> <span class='d'>#{quantity_of_trade_items_per_pallet_layer}</span> <span class='t'>уп. </span><span class='d'>#{stacking_factor}</span> <span class='t'>стекинг</span>".html_safe
+    "#{quantity_of_layers_per_pallet},#{quantity_of_trade_items_per_pallet_layer},#{stacking_factor}"
   end
 
   def calculate_weights
-    "<span class='d'>#{gross_weight}</span> <span class='t'>г. брутто,</span> <span class='d'>#{base_item.net_weight* number_of_bi_items}</span> <span class='t'>г. нетто</span>".html_safe
+    "#{gross_weight},#{net_weight}"
+
   end
 
-  def calculate_dimmensions
-    "<span class='d'>#{height}</span> <span class='t'>x</span> <span class='d'>#{width}</span> <span class='t'>x</span> <span class='d'>#{depth}</span> <span class='t'>(В x Д x Ш)</span>".html_safe
+  def calculate_dimensions
+    "#{height}x#{width}x#{depth}"
+  end
+
+  def net_weight
+    base_item.net_weight* number_of_bi_items
   end
 
   def first?

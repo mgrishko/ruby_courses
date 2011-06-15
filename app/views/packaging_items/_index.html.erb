@@ -7,8 +7,8 @@
 <h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
 <p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
 <p><span class='d'>1</span> <span class='t'>уп. внутри,</span> <span class='d'>1</span> <span class='t'>ед.</span></p>
-<p <%= highlight(:calculate_dimmensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_dimmensions -%></p>
-<p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_weights %></p>
+<p <%= highlight(:calculate_dimensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_dimensions @base_item -%></p>
+<p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_weights @base_item %></p>
 <% unless @view_only || @base_item.published? %>
 <%= link_to 'править', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
 <p>

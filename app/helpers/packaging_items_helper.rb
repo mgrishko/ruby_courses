@@ -29,5 +29,22 @@ module PackagingItemsHelper
 
     result.html_safe
   end
+
+  # Depicts the quantity of packagingItem
+  def calculate_quantity pi
+    content_tag(:span, pi.number_of_next_lower_item, :class => 'd')+" "+
+    content_tag(:span, 'уп. внутри', :class => 't')+" "+
+    content_tag(:span, pi.number_of_bi_items, :class => 'd')+" "+
+    content_tag(:span, 'ед.', :class => 't')
+  end
+  # Depicts the pallete  of packagingItem
+  def calculate_pallet pi
+    content_tag(:span, pi.quantity_of_layers_per_pallet, :class => 'd')+" "+
+    content_tag(:span, 'слоев, по', :class => 't')+" "+
+    content_tag(:span, pi.quantity_of_trade_items_per_pallet_layer, :class => 'd')+" "+
+    content_tag(:span, 'уп. ', :class => 't')
+    content_tag(:span, pi.stacking_factor, :class => 'd')+" "+
+    content_tag(:span, 'стекинг', :class => 't')
+  end
 end
 

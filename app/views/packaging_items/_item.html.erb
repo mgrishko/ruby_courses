@@ -3,10 +3,10 @@
 <div class="pi <%= "highlight" if @accepted_base_item && !accepted_packaging_item -%> <%= "pl" if item.pallet? %>">
 <h3 <%= highlight(:gtin, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.gtin %></h3>
 <p <%= highlight(:packaging_type, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.packaging_type %></p>
-<p <%= highlight(:calculate_quanity, item, accepted_packaging_item) if accepted_packaging_item -%>><%= item.calculate_quanity %></p>
-<% if item.pallet? %><p><%= item.calculate_pallet %></p><% end %>
-<p <%= highlight(:calculate_dimmensions, item, accepted_packaging_item) if accepted_packaging_item -%>><%= item.calculate_dimmensions -%></p>
-<p <%= highlight(:calculate_weights, item, accepted_packaging_item) if accepted_packaging_item -%>><%= item.calculate_weights %></p>
+<p <%= highlight(:calculate_quantity, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_quantity item %></p>
+<% if item.pallet? %><p><%= calculate_pallet item %></p><% end %>
+<p <%= highlight(:calculate_dimensions, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_dimensions(item) -%></p>
+<p <%= highlight(:calculate_weights, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_weights(item) %></p>
 <% unless @view_only || @base_item.published? %>
 <%#= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
 <%= link_to 'править',  edit_base_item_packaging_item_path(@base_item, item),{ :method => :get, :remote => true} %>

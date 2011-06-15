@@ -321,12 +321,12 @@ class BaseItem < ActiveRecord::Base
     vats.detect { |u| vat == u[1] }[0]
   end
 
-  def calculate_dimmensions
-    "<span class='d'>#{height}</span> <span class='t'>x</span> <span class='d'>#{width}</span> <span class='t'>x</span> <span class='d'>#{depth}</span> <span class='t'>(В x Д x Ш)</span>".html_safe
+  def calculate_dimensions
+    "#{height}x#{width}x#{depth}"
   end
 
   def calculate_weights
-    "<span class='d'>#{gross_weight}</span> <span class='t'>г. брутто,</span> <span class='d'>#{net_weight}</span> <span class='t'>г. нетто</span>".html_safe
+    "#{gross_weight},#{net_weight}"
   end
 
   def has_forest?
