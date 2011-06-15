@@ -56,8 +56,7 @@ class SubscriptionResult < ActiveRecord::Base
   end
 
   def get_description
-    "<div class='fleft sr-status sr-#{self.status}' title='#{self.status_for_title}'></div><div class='fleft'>&nbsp;#{self.base_item.item_description}</div>".html_safe
-
+    self.base_item.item_description
   end
 
 end
