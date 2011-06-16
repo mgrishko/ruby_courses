@@ -14,7 +14,7 @@ gem 'pg', :require => 'pg'
 gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
-gem 'rails3-jquery-autocomplete', :git => 'https://github.com:pavel-so/rails3-jquery-autocomplete.git'
+gem 'rails3-jquery-autocomplete', :git => 'https://github.com/pavel-so/rails3-jquery-autocomplete.git'
 
 group :development, :test do
   gem "headless"
