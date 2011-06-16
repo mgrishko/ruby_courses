@@ -69,7 +69,7 @@ module Terbium
 
     def type
       @options[:type] = :association if association?
-      @options[:type] || swallow_nil{column.type}
+      @options[:type] || swallow_nil{column.class}
     end
 
     def column
@@ -86,3 +86,4 @@ module Terbium
 
   end
 end
+
