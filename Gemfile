@@ -17,6 +17,7 @@ gem 'jquery-rails'
 
 
 group :development, :test do
+  gem "headless"
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'cucumber'
