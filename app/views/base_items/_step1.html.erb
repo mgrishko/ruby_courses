@@ -46,16 +46,13 @@ Content uom
 </tr>
 <tr class="val">
 <td>
-<%= f.text_field :brand %>
-<%#= text_field_with_auto_complete :base_item, :brand, {}, :after_update_element => "function (e,v){ brand = v.innerHTML; $j(\"#base_item_brand\").change();}" %>
+<%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path %>
 </td>
 <td>
-<%= f.text_field :subbrand %>
-<%#= text_field_with_auto_complete :base_item, :subbrand, :after_update_element => "function (e,v){ subbrand = v.innerHTML; $j(\"#base_item_subbrand\").change();}"  %>
+<%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path %>
 </td>
 <td>
-<%= f.text_field :functional %>
-<%#= text_field_with_auto_complete :base_item, :functional, :after_update_element => "function (e,v){ functional = v.innerHTML; $j(\"#base_item_functional\").change();}"  %>
+<%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path %>
 </td>
 <td>
 <%= f.text_field :content %>
@@ -71,8 +68,7 @@ Item Description
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= f.text_field :item_description,:class => "w100 classifier_input" %>
-<%#= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
+<%= f.autocomplete_field :item_description, autocomplete_base_item_item_description_base_items_path, :class => "w100 classifier_input" %>
 </td>
 </tr>
 <tr class="info">
@@ -113,20 +109,11 @@ Country of origin
 	    padding:0;
 	  }*/
 	</style>
-	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
-	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%#= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
-		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
-	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-	}"}) -%>
+	<%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path,:update_elements => { :manufacturer_name => '#base_item_manufacturer_name'}%>
+
 </td>
 <td>
-	<%= f.text_field :manufacturer_name, :autocomplete => "off" %>
-	<div id = "base_item_manufacturer_name_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%#= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
-		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
-	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-	}"}) -%>
+	<%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path,:update_elements => { :manufacturer_gln => '#base_item_manufacturer_gln'}%>
 </td>
 <td>
 	<div id="country_input">
