@@ -11,19 +11,12 @@ gem 'jrails'
 gem 'jquery-rails'
 gem 'rmagick', :require => 'RMagick'
 gem 'pg', :require => 'pg'
-source 'http://gemcutter.org'
 gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
 
-source 'http://gems.github.com'
-gem 'thoughtbot-shoulda', :require => 'shoulda'
 
 group :development, :test do
-  source 'http://gems.github.com'
-  gem 'database_cleaner'
-  gem 'thoughtbot-factory_girl', :require => false
-  source 'http://rubygems.org'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'cucumber'
@@ -33,5 +26,9 @@ group :development, :test do
   gem 'rspec', '1.3.2', :require => 'spec'
   gem 'annotate'
   gem 'pickle'
+  gem 'test-unit'
+  source 'http://gems.github.com'
+  gem 'database_cleaner'
+  gem 'thoughtbot-factory_girl', :require => false
 end
 
