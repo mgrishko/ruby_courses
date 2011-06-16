@@ -17,6 +17,7 @@ gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', :git => 'git@github.com:pavel-so/rails3-jquery-autocomplete.git'
 
 group :development, :test do
+  gem "headless"
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'cucumber'
