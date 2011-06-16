@@ -11,7 +11,6 @@ Environment setup:
 
   $ gem install bundler
   $ bundle install
-
   $ cp config/database.yml.example config/database.yml
 
 Edit your database.yml. Fill it with dbname and user credentials.
