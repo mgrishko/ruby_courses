@@ -1,3 +1,4 @@
+# encoding = utf-8
 module PackagingItemsHelper
   def recursive_tree_output set, options = {}, &block
     prev_level = set.first.level_cache - 1 if set.present?

@@ -1,3 +1,4 @@
+# encoding = utf-8
 module Terbium
   module CoreExt
     module ActionView
@@ -76,3 +77,4 @@ module Terbium
     end
   end
 end
+

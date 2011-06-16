@@ -1,3 +1,4 @@
+# encoding = utf-8
 module BaseItemsHelper
   # if need highlighting returns highlight class
   def highlight attr, new_obj, old_obj=nil, show_title=true
