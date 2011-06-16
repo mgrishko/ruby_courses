@@ -48,13 +48,7 @@ class Item < ActiveRecord::Base
 
   def subscribers
     sns = self.user.subscribers #subscriptions
-    @subscribers = Array.new();
-    for s in sns do
-      if (s.specific && s.find_in_details(self.id)) || (!s.specific)
-	@subscribers.push(s.retailer)
-      end
-    end
-    @subscribers
+    sns.collect {|s| s.retailer if (s.specific && s.find_in_details(self.id)) || (!s.specific)}.compact
   end
 
   def image_url suffix=nil
