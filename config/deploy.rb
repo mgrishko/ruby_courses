@@ -1,9 +1,11 @@
-set :branch, 'rails3'
-dpath = "/var/www/projects/datapool"
+set :application, "aaa"
+set :repository, "file://."
 # Важно!
 # Если развертка будет происходить из локального репозитория,
 # тогда нужно закомментировать следующую сроку:
-set :repository,  "git@git.assembla.com:webforms2.git"
+#set :repository,  "git@git.assembla.com:webforms2.git"
+set :branch, 'rails3'
+dpath = "/var/www/projects/datapool"
 set :user, "demo"
 set :password, "Sfer5C"
 ssh_options[:forward_agent] = true
@@ -41,6 +43,7 @@ namespace :deploy do
 
   task :bundle_install do
     run "cd #{release_path} && rvmsudo bundle install "
+    sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2011.03/bin/ *"
   end
 
   task :start do ; end

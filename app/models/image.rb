@@ -13,7 +13,7 @@ class Image < ActiveRecord::Base
 
   has_one :event, :as => :content, :dependent => :destroy
   belongs_to :base_item
-
+  before_destroy :delete_file
   def resize(data, width, height, scale, fill, name)
     image = data.clone
     original_width = image.columns.to_i
@@ -57,7 +57,7 @@ class Image < ActiveRecord::Base
   end
 
 protected
-  def before_destroy
+  def delete_file
     for image_parameter in IMAGE_PARAMETERS do
       if File.exist?("#{RAILS_ROOT}/public/#{self.id}#{image_parameter.name}.jpg")
 	File.delete("#{RAILS_ROOT}/public/#{self.id}#{image_parameter.name}.jpg")

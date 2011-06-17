@@ -15,8 +15,8 @@ class Item < ActiveRecord::Base
   has_one :event, :as => :content
   has_many :base_items
   belongs_to :user
-  has_many :comments , :conditions => '#{Comment.table_name}.root_id is null', :order => "id desc"
-  has_many :item_comments, :class_name => 'Comment', :foreign_key => :item_id,:conditions => '#{Comment.table_name}.root_id is null', :order => "id desc"
+  has_many :comments , :conditions => "#{Comment.table_name}.root_id is null", :order => "id desc"
+  has_many :item_comments, :class_name => 'Comment', :foreign_key => :item_id,:conditions => "#{Comment.table_name}.root_id is null", :order => "id desc"
   has_many :tags, :through => :clouds
   has_many :clouds
   has_many :base_items

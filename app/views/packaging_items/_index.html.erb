@@ -21,7 +21,7 @@
 </div>
 </td>
 <td>
-<% recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
+<%= recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
   <div class="item" id="<%= dom_id item %>_item">
     <%= render :partial => 'packaging_items/item', :object => item %>
   </div>
@@ -29,7 +29,7 @@
 </td>
 </tr>
 </table>
-<% javascript_tag do %>
+<%= javascript_tag do %>
   $j('#items li').each(function(element) {
     if (!$j(this).find('ul')[0]) {
       var ul = "<ul></ul>"
