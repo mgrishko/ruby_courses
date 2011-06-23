@@ -70,14 +70,14 @@ class User < ActiveRecord::Base
   end
 
   def my_retailer_info(user_id)
-    if self.retailers.where(:retailer_id =>  user_id).any?
+    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
       return "Отписаться"
     else
       return "Подписаться"
     end
   end
   def my_retailer_flag(user_id)
-    if self.retailers.where(:retailer_id =>  user_id).any?
+    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
       return true
     else
       return nil

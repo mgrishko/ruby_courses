@@ -37,11 +37,11 @@ Feature: Data export(single bi)
     And I go to the base_item page
     And I press "Экспорт"
     Then I should see "Получить данные в формах ритейлеров"
-    And element "Экспортировать" should be disabled
+    And element "#export_one" should be disabled
 
   Scenario: supplier should not see export button/or button should be disabled when editing base_item
     When I logged in as "supplier"
     And I go to the base_item page
-    And I press "Править"
-    Then element "#show_export_form" should be disabled
+    And I press "Правка"
+    Then I should not see "Экспорт"
 
