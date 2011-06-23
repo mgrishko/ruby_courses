@@ -23,6 +23,7 @@ Webforms::Application.routes.draw do
       get 'reject'
       put 'published'
       put 'draft'
+      post 'export'
     end
     collection do
       get :autocomplete_base_item_brand
@@ -55,11 +56,11 @@ Webforms::Application.routes.draw do
   root :to => 'base_items#index'
 
   match  'main/classifier' =>     'main#classifier', :as => :classifier
-  match   'main/subgroups/:id' =>  'main#subgroups', :as => :subgroups
-  match  'main/categories/:id' => 'main#categories', :as => :countries
+  match   'main/subgroups/*id' =>  'main#subgroups', :as => :subgroups
+  match  'main/categories/*id' => 'main#categories', :as => :countries
   match   'main/countries' =>      'main#countries', :as => :countries
   match       'main/cases' =>          'main#cases', :as => :cases
-  match    'main/show_man/:id' =>   'main#show_man', :as => :show_man
+  match    'main/show_man/*id' =>   'main#show_man', :as => :show_man
 
 
   match '/subscriptions/status' => 'subscription#status'

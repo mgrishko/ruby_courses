@@ -70,14 +70,14 @@ class User < ActiveRecord::Base
   end
 
   def my_retailer_info(user_id)
-    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
+    if self.retailers.where(:retailer_id =>  user_id).any?
       return "Отписаться"
     else
       return "Подписаться"
     end
   end
   def my_retailer_flag(user_id)
-    if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
+    if self.retailers.where(:retailer_id =>  user_id).any?
       return true
     else
       return nil
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def has_usual_subscription? item
-    self.subscriptions.usual.active.where(:supplier_id => item.user_id).count() > 0
+    self.subscriptions.usual.active.where(:supplier_id => item.user_id).any?
   end
 end
 

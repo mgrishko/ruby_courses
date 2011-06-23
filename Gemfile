@@ -15,7 +15,10 @@ gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', :git => 'https://github.com/pavel-so/rails3-jquery-autocomplete.git'
-
+gem 'xml2xls',:path => "vendor/gems/xml2xls-0.1.0"
+gem 'spreadsheet'
+gem 'rubyzip'
+gem 'ruby-xslt'
 group :development, :test do
   gem "headless"
   gem 'capybara'
@@ -28,6 +31,7 @@ group :development, :test do
   gem 'annotate'
   gem 'pickle'
   gem 'test-unit'
+  gem 'rails-erd'
   source 'http://gems.github.com'
   gem 'database_cleaner'
   gem 'thoughtbot-factory_girl', :require => false

@@ -38,6 +38,16 @@ Then /^should be visible "([^"]*)"$/ do |id|
   assert element.visible?
 end
 
+Then /^should be visible "([^"]*)"$/ do |id|
+  element = find_by_id(id)
+  assert element.visible?
+end
+Then /^element "([^"]*)" should be disabled$/ do |selector|
+  element = find(selector)
+  assert element.disabled?
+end
+
+
 Then /^I should see new image$/ do
   img = @base_item.item.image_url
   assert find_by_id('item_image')["src"] =~ /#{img}$/

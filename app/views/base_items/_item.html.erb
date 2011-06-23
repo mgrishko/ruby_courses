@@ -3,10 +3,17 @@
   <div class="fright">
     <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
     <%= f.submit "Правка", :class => "button" %>
-  <% end %>
+    <% end %>
+    <%= button_to 'Экспорт', "javascript:void(0)" ,:class => "button",:id => 'show_export_form'%>
   </div>
 <% end %>
+<% if @view_only and !@base_item.draft? %>
+  <div class="fright">
+    <%= button_to 'Экспорт', "javascript:void(0)" ,:class => "button",:id => 'show_export_form'%>
+  </div>
+<%end%>
 <h2>Основные данные</h2>
+
 <div id="step1">
 <!--base-->
 <%= render :partial => "base" %>
@@ -21,4 +28,40 @@
   <%= link_to 'править',  edit_base_item_path(@base_item), {:id => 'edit_base_item_link', :remote => true,:method => :get} %>
 <% end %>
 </div>
+
+<div id="export_form_wrapper" style="display:none">
+  <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'export', :id => @base_item),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
+    <div id="export_form_fields"></div>
+    <%= f.submit "Экспортировать", :class => "button",:id =>'export_one' ,  :disabled => "disabled"%>
+  <%end%>
+</div>
+<script>
+$j("#show_export_form").click(function(){
+    $j("#export_form_fields").load("/main/export_form",function(){
+
+    var container = $j('#export_form_wrapper');
+    container.dialog({
+        modal: true,
+        title: "Получить данные в формах ритейлеров",
+        width: 400
+    })
+    .find("form").submit(function() {
+        container.dialog("close");
+
+    });
+    $j('.xls_templates').change(function(){
+        tmp = false;
+        $j('.xls_templates').each(function(){ tmp = tmp || $j(this).is(':checked'); });
+        if(tmp){
+          $j('#export_one').attr('disabled',false);
+        }else{
+          $j('#export_one').attr('disabled',true);
+
+        }
+
+    });
+
+});
+});
+</script>
 

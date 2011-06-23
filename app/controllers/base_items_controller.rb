@@ -242,13 +242,31 @@ class BaseItemsController < ApplicationController
     end
   end
 
+  #export single base_item
+  #TODO: possible exception handling
+  def export
+    @base_item = BaseItem.find(params[:id])
+    @forms = params[:forms]
+    @name = @base_item.gtin
+    @prefix = "#{Rails.root}/tmp/xls/"
+    @t = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
+    Zip::ZipOutputStream.open(@t.path) do |zos|
+      @forms.each do |f|
+        xls = generate_xls(@base_item, f, @name)
+        xls.each_with_index do |xls_file,index|
+          zos.put_next_entry("#{@name}_#{index}_#{f}.xls")
+          zos.puts File.read(xls_file.path)
+        end
+      end
+    end
+    send_file @t.path, :filename => "#{@name}.zip"
+  end
 
   private
 
-  def generate_attachment
-    f = File.new("#{RECORDS_OUT_DIR}/#{@base_item.id}.xml", 'w')
-    f.write(render_to_string :template => 'base_items/attachment.xml', :layout => false)
-    f.close
+  def generate_xls(bi, template, name)
+    str = render_to_string :template => 'base_items/attachment.xml', :layout => false
+    xls = Xml2xls::convert(str, template, name)
   end
 
 end

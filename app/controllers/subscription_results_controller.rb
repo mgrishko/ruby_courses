@@ -9,6 +9,12 @@ class SubscriptionResultsController < ApplicationController
     @subscription = Subscription.first(:conditions => {:id => params[:id], :retailer_id => current_user.id})
   end
 
+
+  def update
+    update_one
+  end
+
+
   def update_one
     @subscription_result = SubscriptionResult.find(params[:id])
     if @subscription_result.subscription.retailer_id = current_user.id

@@ -126,19 +126,22 @@ class PackagingItem < ActiveRecord::Base
     "#{number_of_next_lower_item},#{number_of_bi_items}"
   end
 
+  #actually used to compare previous and new versions values. and highlight if changed
   def calculate_pallet
     "#{quantity_of_layers_per_pallet},#{quantity_of_trade_items_per_pallet_layer},#{stacking_factor}"
   end
 
+  #actually used to compare previous and new versions values.  and highlight if changed
   def calculate_weights
     "#{gross_weight},#{net_weight}"
-
   end
 
+  #actually used to compare previous and new versions values.  and highlight if changed
   def calculate_dimensions
     "#{height}x#{width}x#{depth}"
   end
 
+  # calculates net_weight for PackagingItem based on base_item.net_weight and quantity of pi
   def net_weight
     base_item.net_weight* number_of_bi_items
   end

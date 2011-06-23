@@ -16,3 +16,5 @@ class Array
   end
 end
 
+EXPORT_FORMS = ['7continent', 'auchan', 'general', 'globus', 'lenta']
+

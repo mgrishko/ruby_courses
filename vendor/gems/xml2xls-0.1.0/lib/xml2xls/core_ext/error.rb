@@ -1,0 +1,2 @@
+class OurParserError < StandardError  
+end

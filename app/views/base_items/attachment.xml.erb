@@ -20,17 +20,17 @@
           <fnf_fnd_ru:TargetMarketCountryCode>RU</fnf_fnd_ru:TargetMarketCountryCode>
           <fnf_fnd_ru:SectorCode>FNF</fnf_fnd_ru:SectorCode>
           <fnf_fnd_ru:FnFRelevantPartOfProfile>FNF</fnf_fnd_ru:FnFRelevantPartOfProfile>
-          <fnf_fnd_ru:ActionRequest><%= @base_item.published.empty? ? 'ADD' : 'CHN' %></fnf_fnd_ru:ActionRequest>
+          <fnf_fnd_ru:ActionRequest><%= @base_item.status == 'published' ? 'ADD' : 'CHN' %></fnf_fnd_ru:ActionRequest>
           <fnf_fnd_ru:BaseUnit>BI</fnf_fnd_ru:BaseUnit>
           <fnf_fnd_ru:NonPublicTradeItem>Y</fnf_fnd_ru:NonPublicTradeItem>
           <fnf_fnd_ru:NonPublicGLNList>4607154959985</fnf_fnd_ru:NonPublicGLNList>
           <fnf_fnd_ru:NumberOfBaseUnitContained>1</fnf_fnd_ru:NumberOfBaseUnitContained>
           <fnf_fnd_ru:ItemNameLongML>
-            <fnf_fnd_ru:ItemNameLongML language="RU"><%= @base_item.name %></fnf_fnd_ru:ItemNameLongML>
+            <fnf_fnd_ru:ItemNameLongML language="RU"><%= @base_item.item_description %></fnf_fnd_ru:ItemNameLongML>
           </fnf_fnd_ru:ItemNameLongML>
           <fnf_fnd_ru:ItemName>
-            <fnf_fnd_ru:ItemName language="EN"><%= @base_item.item_name_long_en %></fnf_fnd_ru:ItemName>
-            <fnf_fnd_ru:ItemName language="RU"><%= @base_item.item_name_long_ru %></fnf_fnd_ru:ItemName>
+            <fnf_fnd_ru:ItemName language="EN"><%= @base_item.item_description %></fnf_fnd_ru:ItemName>
+            <fnf_fnd_ru:ItemName language="RU"><%= @base_item.item_description %></fnf_fnd_ru:ItemName>
           </fnf_fnd_ru:ItemName>
           <fnf_fnd_ru:DespatchUnit><%= @base_item.despatch_unit.to_char %></fnf_fnd_ru:DespatchUnit>
           <fnf_fnd_ru:InvoiceUnit><%= @base_item.invoice_unit.to_char %></fnf_fnd_ru:InvoiceUnit>
@@ -51,7 +51,7 @@
             <fnf_fnd_ru:BrandNameML language="RU">Test</fnf_fnd_ru:BrandNameML>
           </fnf_fnd_ru:BrandNameML>
           <fnf_fnd_ru:PLUDescriptionML>
-            <fnf_fnd_ru:PLUDescriptionML language="RU"><%= @base_item.plu_description %></fnf_fnd_ru:PLUDescriptionML>
+            <fnf_fnd_ru:PLUDescriptionML language="RU"><%= @base_item.item_description %></fnf_fnd_ru:PLUDescriptionML>
           </fnf_fnd_ru:PLUDescriptionML>
           <fnf_fnd_ru:GPC><%= @base_item.gpc_code %></fnf_fnd_ru:GPC>
           <fnf_fnd_ru:PricingOnTheProduct>N</fnf_fnd_ru:PricingOnTheProduct>
@@ -124,3 +124,4 @@
     </fnf_fnd_ru:Item>
   </sinfos:Items>
 </sinfos:TradeItemMessage>
+

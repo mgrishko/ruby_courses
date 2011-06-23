@@ -20,3 +20,12 @@ end
 When /(?:|I ) press Enter in "(.+)"$/ do |field|
   find_field(field).native.send_key(:enter)
 end
+Then /^I should receive file "([^"]*)"$/ do |file|
+  puts (page.send(response_headers)).inspect
+  result = page.response_headers['Content-Type'].should == "application/octet-stream"
+  if result
+    result = page.response_headers['Content-Disposition'].should =~ /#{file}/
+  end
+  result
+end
+

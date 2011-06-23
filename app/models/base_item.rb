@@ -369,7 +369,7 @@ class BaseItem < ActiveRecord::Base
   end
 
 
-  # Get receivers list for exact user( )
+  # Get receivers list for exact user(supplier)
   def self.get_receivers current_user #only for suppliers-
     published_ids = private_last_published_by(current_user).map { |bi| bi.id }
     Receiver.joins(:user).select('users.id, users.name, count(*) as q').where(:receivers => {:base_item_id => published_ids}).group("users.name, users.id")
@@ -444,7 +444,7 @@ class BaseItem < ActiveRecord::Base
         base_items = retailer.clouds.where(:tag_id => options[:tag]).map{|cloud| cloud.item.last_bi.first}
         base_items = base_items.sort{|a,b| b.created_at <=> a.created_at}
       else
-        if conditions
+        if conditions #if any filtering conditions are passed
           source = options[:user_id] ? supplier.base_items : BaseItem
           base_items = source.where(conditions).order("created_at desc").last_published
         else

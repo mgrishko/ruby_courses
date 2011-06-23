@@ -8,6 +8,10 @@ class MainController < ApplicationController
     end
   end
 
+  def export_form
+    @export_forms = EXPORT_FORMS
+  end
+
   def subgroups
     @subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
   end

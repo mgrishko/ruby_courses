@@ -7,6 +7,8 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
+    when /the base_item with gtin "(.*)" page/
+      base_item_path(BaseItem.where(:gtin => $1).first)
     when /the base_item\s?page/
       base_item_path(BaseItem.first)
     when /the home\s?page/
