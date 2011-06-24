@@ -929,3 +929,13 @@ margin-top: 2em;
 	background-color: #ffb;
 }
 
+#export_form_fields li{
+  padding: 10px;
+  list-style:none;
+  border-bottom: 1px solid #D8D9DC;
+}
+
+#export_form_fields li:hover{
+  background-color:  #E9EBF0;
+}
+

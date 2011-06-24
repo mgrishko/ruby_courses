@@ -75,7 +75,7 @@
   <%= form_for BaseItem.new, :url => url_for(:controller => "base_items", :action => 'export_multiple'),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
     <div id="export_form_fields"></div>
     <input type='hidden' name='base_items' id='base_items_ids'/>
-    <%= submit_tag "Экспортировать", :class => "button",:id =>'export_button' ,  :disabled => "disabled"%>
+    <%= submit_tag "Экспортировать", :class => "button fright",:id =>'export_button' ,  :disabled => "disabled"%>
   <%end%>
 </div>
 
