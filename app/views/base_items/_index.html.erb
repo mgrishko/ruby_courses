@@ -49,12 +49,15 @@
 </div>
 <!--/filters-->
 <!--data-->
+
 <div class="data">
+<%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
 <% @base_items.each do |base_item| %>
 	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
   <div class="bi <%= "private" if base_item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
     <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
     <div class="bi-content">
+      <div class="fright"><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
       <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
       <div class="usual"><%= base_item.item_description %></div>
       <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
@@ -62,8 +65,72 @@
     </div>
   </div>
 <% end %>
+<%end%>
+<%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>&nbsp;
+<%= link_to 'Export to xls', 'javascript:void(0)', :id => 'show_export_form' if @base_items.any? %>
 
-<%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>
 </div>
+
+<div id="export_form_wrapper" style="display:none">
+  <%= form_for BaseItem.new, :url => url_for(:controller => "base_items", :action => 'export_multiple'),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
+    <div id="export_form_fields"></div>
+    <input type='hidden' name='base_items' id='base_items_ids'/>
+    <%= submit_tag "Экспортировать", :class => "button",:id =>'export_button' ,  :disabled => "disabled"%>
+  <%end%>
+</div>
+
+<script>
+var any_base_item_checked = false;
+$j('.base_item_checkbox').each(function(){ any_base_item_checked = any_base_item_checked || $j(this).is(':checked'); });
+
+$j('.base_item_checkbox').change(function(){
+  var tmp = false;
+  $j('.base_item_checkbox').each(function(){ tmp = tmp || $j(this).is(':checked'); });
+  any_base_item_checked = tmp;
+});
+
+$j('.base_item_checkbox').click(function(event){event.stopPropagation();})
+
+$j("#show_export_form").click(function(){
+    if(any_base_item_checked){
+      // preload template names and show dialog window
+      $j("#export_form_fields").load("/main/export_form",function(){
+        var container = $j('#export_form_wrapper');
+        container.dialog({
+            modal: true,
+            title: "Получить данные в формах ритейлеров",
+            width: 400
+        })
+        .find("form").submit(function() {
+            container.dialog("close");
+        });
+
+        // validate if any export form is choosen
+        $j('.xls_templates').change(function(){
+          tmp = false;
+          $j('.xls_templates').each(function(){ tmp = tmp || $j(this).is(':checked'); });
+          if(tmp)
+            $j('#export_button').attr('disabled',false);
+          else
+            $j('#export_button').attr('disabled',true);
+        });
+        //collect base_item ids which were checked for export
+        $j('#export_button').click(function(){
+          var inputs = $j('#base_items_form :input');
+          var values = {'base_items[]': ''};
+          inputs.each(function() {
+              if ($j(this).attr('checked')=='checked')
+                values[this.name] += $j(this).val() +',';
+          });
+          $j('#base_items_ids').val(values['base_items[]'])
+        });
+      });
+    } else {
+      if('<%= Rails.env%>' != 'cucumber')
+        alert('Сначала отметьте хотя бы один товар.');
+    };
+});
+</script>
+
 <!--/data-->
 

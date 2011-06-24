@@ -37,8 +37,8 @@
 </div>
 <script>
 $j("#show_export_form").click(function(){
+    // preload template names and show dialog window
     $j("#export_form_fields").load("/main/export_form",function(){
-
     var container = $j('#export_form_wrapper');
     container.dialog({
         modal: true,
@@ -49,19 +49,16 @@ $j("#show_export_form").click(function(){
         container.dialog("close");
 
     });
+    // validate if any export form is choosen
     $j('.xls_templates').change(function(){
         tmp = false;
         $j('.xls_templates').each(function(){ tmp = tmp || $j(this).is(':checked'); });
-        if(tmp){
+        if(tmp)
           $j('#export_one').attr('disabled',false);
-        }else{
+        else
           $j('#export_one').attr('disabled',true);
-
-        }
-
     });
-
-});
+  });
 });
 </script>
 

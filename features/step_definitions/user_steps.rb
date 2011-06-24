@@ -29,3 +29,7 @@ Then /^I should receive file "([^"]*)"$/ do |file|
   result
 end
 
+When /(?:|I ) confirm action$/ do
+  page.evaluate_script('window.confirm = function() { return true; }')
+end
+

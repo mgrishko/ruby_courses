@@ -247,9 +247,10 @@ class BaseItemsController < ApplicationController
   def export
     @base_item = BaseItem.find(params[:id])
     @forms = params[:forms]
-    @name = @base_item.gtin
     @prefix = "#{Rails.root}/tmp/xls/"
     @t = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
+    @name = @base_item.gtin
+
     Zip::ZipOutputStream.open(@t.path) do |zos|
       @forms.each do |f|
         xls = generate_xls(@base_item, f, @name)
@@ -262,9 +263,35 @@ class BaseItemsController < ApplicationController
     send_file @t.path, :filename => "#{@name}.zip"
   end
 
+  #export single base_item
+  #TODO: possible exception handling
+  def export_multiple
+    ids = params['base_items'][0..-1].split(',')
+    @base_items = BaseItem.find(ids)
+    @forms = params[:forms]
+    @name =""
+    @prefix = "#{Rails.root}/tmp/xls/"
+    @t = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
+    Zip::ZipOutputStream.open(@t.path) do |zos|
+      @base_items.each do |base_item|
+        name = base_item.gtin
+        @name += "#{name}_"
+        @forms.each do |f|
+          xls = generate_xls(base_item, f, name)
+          xls.each_with_index do |xls_file,index|
+            zos.put_next_entry("#{name}_#{index}_#{f}.xls")
+            zos.puts File.read(xls_file.path)
+          end
+        end
+      end
+    end
+    send_file @t.path, :filename => "#{@name}.zip"
+  end
+
   private
 
   def generate_xls(bi, template, name)
+    @base_item = bi
     str = render_to_string :template => 'base_items/attachment.xml', :layout => false
     xls = Xml2xls::convert(str, template, name)
   end
