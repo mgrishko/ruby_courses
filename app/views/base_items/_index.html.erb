@@ -72,10 +72,10 @@
 </div>
 
 <div id="export_form_wrapper" style="display:none">
-  <%= form_for BaseItem.new, :url => url_for(:controller => "base_items", :action => 'export_multiple'),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
+  <%= form_for BaseItem.new, :url => export_base_items_path,:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
     <div id="export_form_fields"></div>
     <input type='hidden' name='base_items' id='base_items_ids'/>
-    <%= submit_tag "Экспортировать", :class => "button fright",:id =>'export_button' ,  :disabled => "disabled"%>
+    <%= submit_tag "Экспортировать", :class => "button fright",:id =>'export_button' ,  :disabled => true%>
   <%end%>
 </div>
 

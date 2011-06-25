@@ -1,3 +1,5 @@
+require 'zip/zip'
+require 'zip/zipfilesystem'
 class BaseItemsController < ApplicationController
   before_filter :require_user
   autocomplete :base_item, :brand, :full => true, :uniq => true
@@ -242,53 +244,45 @@ class BaseItemsController < ApplicationController
     end
   end
 
-  #export single base_item
+
+  #export base_item or base_items
   #TODO: possible exception handling
   def export
-    @base_item = BaseItem.find(params[:id])
-    @forms = params[:forms]
-    @prefix = "#{Rails.root}/tmp/xls/"
-    @t = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
-    @name = @base_item.gtin
-
-    Zip::ZipOutputStream.open(@t.path) do |zos|
-      @forms.each do |f|
-        xls = generate_xls(@base_item, f, @name)
-        xls.each_with_index do |xls_file,index|
-          zos.put_next_entry("#{@name}_#{index}_#{f}.xls")
-          zos.puts File.read(xls_file.path)
-        end
-      end
-    end
-    send_file @t.path, :filename => "#{@name}.zip"
-  end
-
-  #export single base_item
-  #TODO: possible exception handling
-  def export_multiple
-    ids = params['base_items'][0..-1].split(',')
-    @base_items = BaseItem.find(ids)
+    files ={}
+    ids =  params['base_items'] ? params['base_items'][0..-1].split(',') : params[:id]
+    @base_items = BaseItem.where(:id => ids)
     @forms = params[:forms]
     @name =""
     @prefix = "#{Rails.root}/tmp/xls/"
-    @t = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
-    Zip::ZipOutputStream.open(@t.path) do |zos|
-      @base_items.each do |base_item|
-        name = base_item.gtin
-        @name += "#{name}_"
-        @forms.each do |f|
-          xls = generate_xls(base_item, f, name)
-          xls.each_with_index do |xls_file,index|
-            zos.put_next_entry("#{name}_#{index}_#{f}.xls")
-            zos.puts File.read(xls_file.path)
-          end
+    @base_items.each do |base_item|
+      name = base_item.gtin
+      @name += "#{name}_"
+      @forms.each do |f|
+        xls = generate_xls(base_item, f, name)
+        xls.each_with_index do |xls_file,index|
+          files["#{name}_#{index}_#{f}.xls"] = xls_file
         end
       end
     end
-    send_file @t.path, :filename => "#{@name}.zip"
+    if files.count == 1
+      send_file files.first[1].path, :filename => files.first[0]
+    else
+      tmp = package_to_zip(files)
+      send_file tmp.path, :filename => "#{@name}.zip"
+    end
   end
 
   private
+  def package_to_zip(files)
+    tmp = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
+    Zip::ZipOutputStream.open(tmp.path) do |zos|
+      files.each do |name, content|
+        zos.put_next_entry(name)
+        zos.puts File.read(content.path)
+      end
+    end
+    tmp
+  end
 
   def generate_xls(bi, template, name)
     @base_item = bi

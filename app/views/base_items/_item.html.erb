@@ -30,9 +30,9 @@
 </div>
 
 <div id="export_form_wrapper" style="display:none">
-  <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'export', :id => @base_item),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
+  <%= form_for @base_item, :url =>  export_base_item_path(@base_item),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
     <div id="export_form_fields"></div>
-    <%= f.submit "Экспортировать", :class => "button fright",:id =>'export_one' ,  :disabled => "disabled"%>
+    <%= f.submit "Экспортировать", :class => "button fright",:id =>'export_one' ,  :disabled => true%>
   <%end%>
 </div>
 <script>

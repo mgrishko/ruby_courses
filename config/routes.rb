@@ -26,7 +26,7 @@ Webforms::Application.routes.draw do
       post 'export'
     end
     collection do
-      post 'export_multiple'
+      post 'export'
       get :autocomplete_base_item_brand
       get :autocomplete_base_item_subbrand
       get :autocomplete_base_item_functional
