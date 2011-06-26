@@ -32,6 +32,7 @@ users.each do |user|
 end
 puts "ok"
 
+=begin
 items = [
   {:id => 1,
   :user_id => 1
@@ -209,7 +210,7 @@ pis.each do |pi|
   #@packaging_item.save
 
   p = PackagingItem.new(:id => id, :base_item_id => base_item_id, :parent_id => parent_id, :gtin => gtin, :item_name_long_ru => item_name_long_ru, :created_at => created_at, :updated_at => updated_at, :user_id => user_id, :number_of_next_lower_item => number_of_next_lower_item, :number_of_bi_items => number_of_bi_items, :despatch_unit => despatch_unit, :invoice_unit => invoice_unit, :order_unit => order_unit, :consumer_unit => consumer_unit, :gross_weight => gross_weight, :packaging_type => packaging_type, :height => height, :depth => depth, :width => width, :published => published, :rgt => rgt, :lft => lft, :level_cache => level_cache)
-  if (p.parent_id == 0) 
+  if (p.parent_id == 0)
     p.parent_id = nil
   end
   p.id = id
@@ -393,7 +394,7 @@ id: 8
 base_item_id: 3
 parent_id: 7
 gtin: 4660000860286
-item_name_long_ru: Чай Брукбонд 
+item_name_long_ru: Чай Брукбонд
 created_at: 2011-03-27 12:42:24
 updated_at: 2011-03-27 12:42:24
 user_id: 2

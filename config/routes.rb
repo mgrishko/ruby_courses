@@ -19,14 +19,14 @@ Webforms::Application.routes.draw do
 
   resources :base_items do
     member do
-      get 'accept'
-      get 'reject'
-      put 'published'
-      put 'draft'
-      post 'export'
+      get :accept
+      get :reject
+      put :published
+      put :draft
+      post :export
     end
     collection do
-      post 'export'
+      post :export
       get :autocomplete_base_item_brand
       get :autocomplete_base_item_subbrand
       get :autocomplete_base_item_functional
@@ -37,7 +37,7 @@ Webforms::Application.routes.draw do
 
     resources :packaging_items do
       member do
-        get 'new_sub'
+        get :new_sub
       end
     end
   end
@@ -45,7 +45,7 @@ Webforms::Application.routes.draw do
   resources :user_attributes
   resources :comments do
     collection do
-      get 'reply'
+      get :reply
     end
   end
   resources :receivers

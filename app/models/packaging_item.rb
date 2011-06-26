@@ -116,7 +116,6 @@ class PackagingItem < ActiveRecord::Base
   end
 
   def set_number_of_bi_items
-    puts "set_number_of_bi_items"
     self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item
     #self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
@@ -143,7 +142,7 @@ class PackagingItem < ActiveRecord::Base
 
   # calculates net_weight for PackagingItem based on base_item.net_weight and quantity of pi
   def net_weight
-    base_item.net_weight* number_of_bi_items
+    base_item.net_weight.to_i* number_of_bi_items
   end
 
   def first?
