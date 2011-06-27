@@ -67,21 +67,29 @@ class PackagingItem < ActiveRecord::Base
   end
 
   def gross_weight_validation
+
+
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
-    if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
-      errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}")
+    if items_number && gross_weight && (gross_weight.to_f < (0.96*parent_item.gross_weight * items_number ).to_f)
+      errors.add('gross_weight', "must be greater or equal #{(0.96*parent_item.gross_weight * items_number)}")
     end
   end
 
   validate :package_volume_validation
   def package_volume_validation
+#    parent_item = parent || base_item
+#    items_number = parent ? number_of_next_lower_item : number_of_bi_items
+#    volume = width * height * depth if width && height && depth
+#    parent_volume = parent_item.width * parent_item.height * parent_item.depth
+#    if items_number && volume && volume < parent_volume * items_number
+#      errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}")
+#    end
     parent_item = parent || base_item
-    items_number = parent ? number_of_next_lower_item : number_of_bi_items
     volume = width * height * depth if width && height && depth
     parent_volume = parent_item.width * parent_item.height * parent_item.depth
-    if items_number && volume && volume < parent_volume * items_number
-      errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}")
+    if volume and (volume < parent_volume)
+      errors.add_to_base("Volume of package must be greater or equal #{parent_volume}")
     end
   end
 
