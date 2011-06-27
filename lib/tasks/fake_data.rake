@@ -7,7 +7,8 @@ UOMS = { 'кг'=>'KGM',
           'л' => 'LTR',
           'шт' => 'PCE',
           'г' => 'GRM',
-          'мл' => 'MLT'  }
+          'мл' => 'MLT',
+          'м' => 'MTR'  }
 ############################################
 #read structure data
 ############################################
@@ -19,14 +20,16 @@ UOMS = { 'кг'=>'KGM',
       begin
         header = fsource.readline
         while (line = fsource.readline)
-          row = line.split('|')
-          @rows[row[0]] = row
-          if row[35].any? and row[35]!='4300'
-            @bis_map[row[35]] ||= {'child'=> nil, 'parent' => nil}
-            @bis_map[row[35]]['parent'] ||=[]
-            @bis_map[row[35]]['parent'] << row[0]
+          if line.size > 2
+            row = line.split('|')
+            @rows[row[0]] = row
+            if row[35].any? and row[35]!='4300'
+              @bis_map[row[35]] ||= {'child'=> nil, 'parent' => nil}
+              @bis_map[row[35]]['parent'] ||=[]
+              @bis_map[row[35]]['parent'] << row[0]
+            end
+            @bis_map[row[0]] ||= {'child'=> nil, 'parent' => nil} unless row[35] == '4300'
           end
-          @bis_map[row[0]] ||= {'child'=> nil, 'parent' => nil}
         end
       rescue EOFError
         fsource.close
@@ -101,6 +104,7 @@ UOMS = { 'кг'=>'KGM',
           item.functional = data[2]
           item.brand = data[4]
           item.subbrand = data[5]
+          image_id = data[0]
           #item.variant = data[6]
           item.content = data[7].gsub(',','.').to_f
           item.content_uom =  UOMS[data[8].strip]
@@ -118,11 +122,45 @@ UOMS = { 'кг'=>'KGM',
           item.gpc_code = data[26]
           item.country_of_origin_code = "RU"
           item.packaging_type = data[28][0..2]
-          item.gross_weight = data[16]
-          item.net_weight = @netweight[k] ? @netweight[k] : data[16]
+          item.gross_weight = data[16] if data[16]
+          item.net_weight = @netweight[k] if @netweight[k]
           item.height = data[29]
           item.width = data[33]
           item.depth = data[31]
+          unless item.save
+#            puts parent.inspect
+#            puts item.inspect
+#            puts item.errors.full_messages
+          end
+          ################################
+          # add images
+          ###############################
+          images = Dir.glob(File.join(Rails.root,'data', 'images', '*.jpg'))
+          images << Dir.glob(File.join(Rails.root,'data', 'images', '*.JPG'))
+          images = images.flatten
+          index = images.index{|x| x.split('/')[-1].split(/[^\d]{1}/)[0] == image_id}
+          if index
+          path = images[index]
+
+          image = File.open(path,'r')
+          @original = OriginalImage.new(image)
+
+          if @original.test_and_prepare?
+            @image = Image.new()
+            @image.item_id = item.item_id
+            @image.base_item_id = item.id
+            @image.save
+            for image_parameter in Webforms::IMAGE_PARAMETERS do
+            	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
+            	else
+            	  # sth wrong
+            	end
+            end
+          else
+            # wrong picture
+          end
+  #        puts image_id
+          end
         else
           item = if parent.kind_of? BaseItem
                    parent.packaging_items.new(:user_id => parent.user_id)
@@ -134,18 +172,28 @@ UOMS = { 'кг'=>'KGM',
           data = @rows[k]
           item.number_of_next_lower_item = data[36]
           item.packaging_type = data[28][0..2]
-          item.height = data[29].any? ? data[29] : parent.height * item.number_of_next_lower_item
-          item.width = data[33].any? ? data[33] : parent.width * item.number_of_next_lower_item
-          item.depth = data[31].any? ? data[31] : parent.depth * item.number_of_next_lower_item
-          item.gross_weight = data[16].any? ? data[16] : parent.gross_weight * item.number_of_next_lower_item
+          item.height = data[29].any? ? data[29] : data[41]
+          item.width = data[33]
+          item.depth = data[31]
+          items_number = item.parent ? item.number_of_next_lower_item : item.number_of_bi_items
+          #puts (0.96 * parent.gross_weight.to_i * items_number.to_i)
+          gw = if 0.96 * parent.gross_weight.to_i * items_number.to_i > data[16].to_i
+                  #puts parent.gross_weight.to_i * items_number.to_i
+                  parent.gross_weight.to_i * items_number.to_i
+                else
+                  data[16].to_i
+                end
+          item.gross_weight = gw
           item.quantity_of_layers_per_pallet = data[40]
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
-        end
         unless item.save
-            puts item.inspect
-            puts item.errors.full_messages
+#            puts parent.inspect
+#            puts item.inspect
+#            puts item.errors.full_messages
         end
+        end
+
 
         if @bis_map[k]['parent']
           @bis_map[k]['parent'].each do |p|
@@ -162,15 +210,18 @@ UOMS = { 'кг'=>'KGM',
           end
         end
       end
+      parents= []
 
-      counter = 0
-      items.each do |item|
-        #puts item
-        k = @bis_map.keys[counter % @bis_map.keys.count]
-        counter +=1
-        v = @bis_map[k]
-        unless v['child']
-          create_hierarchy(k, item)
+      @bis_map.each{|k,v| parents << k unless v['child']}
+      items.each_with_index do |item,counter|
+        if counter < parents.count
+          k = parents[counter]
+          v = @bis_map[k]
+          unless v['child']
+            create_hierarchy(k, item)
+          end
+        else
+          break
         end
       end
 
