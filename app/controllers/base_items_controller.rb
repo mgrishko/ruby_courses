@@ -197,15 +197,16 @@ class BaseItemsController < ApplicationController
       n.save
       map_id = {}
       roots = @base_item.packaging_items.roots
-      roots.each  do |root|
+      roots.reverse.each  do |root|
     	  pi = n.packaging_items.new(root.attributes)
     	  pi_attributes ={:user_id => current_user.id, :base_item_id => n.id}
         pi.update_attributes(pi_attributes)
       	#old new
       	map_id[root.id] = pi.id
+
       	root.descendants.each do |d|
       	  pi = n.packaging_items.new(d.attributes)
-      	  pi.update_attributes(pi_attributes.merge({:parent_id => map_id[parent_id]}))
+      	  pi.update_attributes!(pi_attributes.merge({:parent_id => map_id[d.parent_id]}))
       	  map_id[d.id] = pi.id
       	end
 

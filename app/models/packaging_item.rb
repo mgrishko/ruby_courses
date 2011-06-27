@@ -33,7 +33,7 @@
 #
 
 class PackagingItem < ActiveRecord::Base
-  acts_as_nested_set :scope => :base_item
+  acts_as_nested_set :scope => :base_item, :depth_column => 'level_cache'
   default_scope :order => 'lft'
 
   belongs_to :base_item
@@ -67,8 +67,6 @@ class PackagingItem < ActiveRecord::Base
   end
 
   def gross_weight_validation
-
-
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
     if items_number && gross_weight && (gross_weight.to_f < (0.96*parent_item.gross_weight * items_number ).to_f)
@@ -120,7 +118,7 @@ class PackagingItem < ActiveRecord::Base
   #end
 
   def set_level_cache
-    update_attribute(:level_cache, level)
+    update_attributes(:level_cache => level)
   end
 
   def set_number_of_bi_items
