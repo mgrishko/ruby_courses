@@ -61,8 +61,8 @@ class BaseItem < ActiveRecord::Base
   scope :published_by, lambda { |user| user.base_items.published }
 
   # Последние опубликованные BI. в терминологии - актуальные версии.
-  scope :last_published, lambda { Item.all.map { |item| item.last_bi.first }.compact }
-  scope :last_published_by, lambda { |user| user.items.map { |item| item.last_bi.first }.compact }
+  scope :last_published, lambda { where :id => BaseItem.select('max(id) as id').published.group('item_id') }
+  scope :last_published_by, lambda { |user| where(:id =>  user.base_items.select('max(id) as id').published.group('item_id'))}
 
   scope :private_last_published, lambda { where(:private => true).last_published }
   scope :public_last_published, lambda { where(:private => false).last_published }
@@ -484,7 +484,7 @@ class BaseItem < ActiveRecord::Base
     conditions = ["brand = ?", options[:brand]] if options[:brand]
     conditions = ["manufacturer_name = ?", options[:manufacturer_name]] if options[:manufacturer_name]
     conditions = ["functional = ?", options[:functional]] if options[:functional]
-    conditions = ["mix like ?", '%'+options[:search]+'%'] if options[:search]
+    conditions = ["mix ilike ?", '%'+options[:search]+'%'] if options[:search]
     conditions
   end
 
