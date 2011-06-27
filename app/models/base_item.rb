@@ -61,8 +61,8 @@ class BaseItem < ActiveRecord::Base
   scope :published_by, lambda { |user| user.base_items.published }
 
   # Последние опубликованные BI. в терминологии - актуальные версии.
-  scope :last_published, lambda { Item.all.map { |item| item.base_items.published.last }.compact }
-  scope :last_published_by, lambda { |user| user.items.map { |item| item.base_items.published.last }.compact }
+  scope :last_published, lambda { Item.all.map { |item| item.last_bi.first }.compact }
+  scope :last_published_by, lambda { |user| user.items.map { |item| item.last_bi.first }.compact }
 
   scope :private_last_published, lambda { where(:private => true).last_published }
   scope :public_last_published, lambda { where(:private => false).last_published }
@@ -412,7 +412,7 @@ class BaseItem < ActiveRecord::Base
     else #/base_items/
       ids = last_published_by(current_user)
     end
-    select("#{field_name}, count(*) as q").where(:id => ids).group(field_name)
+    select("#{field_name}, count(*) as q").where(:id => ids).group(field_name).order('q DESC').limit(10)
   end
 
   # Forms a paginated collection of base_items with according filtration

@@ -133,10 +133,10 @@ class BaseItemsController < ApplicationController
     if params[:step]
       @base_item.next_step
       if @base_item.update_attributes(params[:base_item])
-	@base_item.draft!
-	return render 'update_step2'
+	      @base_item.draft!
+      	return render 'update_step2'
       else
-	return render 'edit_step2'
+	      return render 'edit_step2'
       end
     end
     BaseItem.transaction do
