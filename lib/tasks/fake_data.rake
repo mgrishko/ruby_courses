@@ -1,7 +1,7 @@
 namespace :db do
   namespace :seed do
     task :fake_data => :environment do
-      i = 0
+      @i = 0
 
 UOMS = { 'кг'=>'KGM',
           'л' => 'LTR',
@@ -86,9 +86,10 @@ UOMS = { 'кг'=>'KGM',
 
       def create_hierarchy(k,  data, parent = nil)
         unless parent
-          puts "======"
-          puts k
-          user = User.where(:role => 'supplier').first
+   #       puts "======"
+   #       puts k
+          user = User.where(:role => 'supplier')[@i % 2]
+          @i+=1
           i = Item.new(:user_id => user.id)
           i.save
           item = BaseItem.new()
@@ -170,6 +171,7 @@ UOMS = { 'кг'=>'KGM',
                  end
           item.gtin = k
           data = @rows[k]
+
           item.number_of_next_lower_item = data[36]
           item.packaging_type = data[28][0..2]
           item.height = data[29].any? ? data[29] : data[41]
@@ -187,11 +189,19 @@ UOMS = { 'кг'=>'KGM',
           item.quantity_of_layers_per_pallet = data[40]
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
+          if k == '7702018958627'
+            puts data.inspect
+            puts item.inspect
+          end
         unless item.save
 #            puts parent.inspect
 #            puts item.inspect
 #            puts item.errors.full_messages
         end
+         if k == '7702018958627'
+            puts item.inspect
+            puts item.errors.full_messages
+          end
         end
 
 
