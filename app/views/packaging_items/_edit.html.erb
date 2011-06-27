@@ -4,7 +4,7 @@
   <p>
     <div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
     <div class="fright min">
-			<%= button_to 'Отмена', base_item_packaging_item_path(@base_item, @packaging_item), {:method => :get, :remote => true}%>
+			<%= button_to 'Отмена', 'javascript:void(0)', :onclick  => "cancelEditButton('#{base_item_packaging_item_path(@base_item, @packaging_item)}');return false;"%>
 		</div>
   </p>
 <% end %>

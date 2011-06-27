@@ -54,6 +54,7 @@ $j("#cases_select_0").click(function(){
 <%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> <span class='t'>г. брутто,</span> <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> <span class='t'>г. нетто</span>
 </p>
 <div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
-    <div class="fright min" style="margin-right: 25px;"><%= button_to 'Отмена', base_item_path(@base_item, :step => 2),{:method => :get, :remote => true} %></div>
+    <div class="fright min" style="margin-right: 25px;">
+    <%= button_to 'Отмена','javascript:void(0)', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %></div>
 <% end %>
 
