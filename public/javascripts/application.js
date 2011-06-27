@@ -7,6 +7,10 @@ var packageMeWithSub = function(bi_id,iid){
   $j.getScript('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', function() {});
   return false;
 };
+var cancelEditButton = function(path){
+  $j.getScript(path, function() {});
+  return false;
+};
 
 var cancelPackageMeWithSub = function(bi_id){
   $j.getScript('/base_items/'+bi_id+'/packaging_items/', function() {});
