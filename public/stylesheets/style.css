@@ -418,7 +418,7 @@ table.results th {
 
 .data {
   float: left;
-  width: 84%;
+  width: 83%;
 }
 #new_tag, #new_receiver_form, #new_receiver_form_list {
   display: none;

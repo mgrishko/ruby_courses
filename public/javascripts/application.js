@@ -193,7 +193,7 @@ function findCountryPos(obj) {
   }
   return {x:curleft, y:curtop};
 }
-
+/*
 function classifierSelect(li){
   var lis = $j("li", "#groups");
   if (!lis[0]) return;
@@ -201,28 +201,12 @@ function classifierSelect(li){
   $j(li).addClass("ac_over");
 }
 
-function selectCountry(li){
-  var lis = $j("li", "#countries_results");
-  if (!lis[0]) return;
-  lis.removeClass("ac_liselected");
-  $j(li).addClass("ac_liselected");
-  selected_li = lis[active];
-}
-
-function selectCountryItem(li){
-  var li = $j("li.ac_liselected", "#countries_results")[0];
-  if (li){
-    $j("#country_link").html(li.innerHTML);
-    $j("#country_value").val(li.innerHTML);
-    hideCountriesNow();
-  }
-}
 
 function selectClassifierGroup(li){
   $j("#categories").html("");
   var lis = $j("li", "#groups");
-  lis.removeClass("ac_liselected");
-  $j(li).addClass("ac_liselected");
+//  lis.removeClass("ac_liselected");
+//  $j(li).addClass("ac_liselected");
   requestSubgroupsData($j(li).attr("id"));
 }
 
@@ -248,7 +232,7 @@ function selectClassifierItem(li){
     hideClassifierNow();
   }
 }
-
+*/
 function requestCategoriesData(q){
   var data = null;
   $j.get("/main/categories/" + q, function(data) {

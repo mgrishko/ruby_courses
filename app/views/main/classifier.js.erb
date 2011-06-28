@@ -1,7 +1,4 @@
-$j('#hidden_div').show();
-$j("#groups").html("<%= escape_javascript (render :file => 'main/groups') %>");
-var pos = $j("#classifier_input").offset();
-$j("#classifier").css({
-	top: (pos.top - 65) + "px",
-	left: (pos.left + $j("#classifier_input").width() * 0.4) + "px"
-}).show();
+$j("#groups").prepend("<%= escape_javascript (render :file => 'main/groups') %>");
+$j('#categories').html("");
+$j('#subgroups').html("");
+
