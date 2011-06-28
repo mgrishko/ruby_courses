@@ -9,5 +9,4 @@ config/database.yml
 .idea
 public/data
 /Gemfile.lock
-data/images
 
