@@ -35,9 +35,9 @@ UOMS = { 'кг'=>'KGM',
         fsource.close
       end
 ############################################
-#read description data
+#read netweight data
 ############################################
-      fsource =File.open(File.join(Rails.root,'data', "price.csv"),'r')
+      fsource =File.open(File.join(Rails.root,'data', "netweight.csv"),'r')
       @netweight = {}
       begin
         header = fsource.readline
@@ -56,6 +56,21 @@ UOMS = { 'кг'=>'KGM',
         fsource.close
       end
 ############################################
+#read images
+############################################
+      @imgs = []
+          images = []
+          ['*.jpg','*.JPG','*.gif','*.GIF','*.png','*.PNG'].each do |ext|
+            images << Dir.glob(File.join(Rails.root,'data', 'images', ext))
+          end
+          images = images.flatten
+          images.each{|x|
+            id= x.split('/')[-1].split(/[^\d]{1}/)[0];
+            @imgs << id if id and id.any?
+          }
+
+
+############################################
 #read description data
 ############################################
       fsource =File.open(File.join(Rails.root,'data', "price.csv"),'r')
@@ -64,7 +79,7 @@ UOMS = { 'кг'=>'KGM',
         header = fsource.readline
         while  (line = fsource.readline)
           row = line.split('|')
-          items << row if line.length > 2
+          items << row if line.length > 2 and @imgs.include? row[0]
         end
       rescue EOFError
         fsource.close
@@ -84,11 +99,19 @@ UOMS = { 'кг'=>'KGM',
         path
       end
 
+      @counter = 0
+      @q_items = [200,100,70,50,40]
+      @q_count = 0
       def create_hierarchy(k,  data, parent = nil)
         unless parent
-   #       puts "======"
-   #       puts k
-          user = User.where(:role => 'supplier')[@i % 2]
+
+          @counter += 1
+          if @counter <= @q_items[@q_count]
+            @counter = 0
+            @q_items +=1
+          end
+          user = User.where(:role => 'supplier')[@q_count]
+
           @i+=1
           i = Item.new(:user_id => user.id)
           i.save
@@ -136,9 +159,13 @@ UOMS = { 'кг'=>'KGM',
           ################################
           # add images
           ###############################
-          images = Dir.glob(File.join(Rails.root,'data', 'images', '*.jpg'))
-          images << Dir.glob(File.join(Rails.root,'data', 'images', '*.JPG'))
+          images = []
+          ['*.jpg','*.JPG','*.gif','*.GIF','*.png','*.PNG'].each do |ext|
+            images << Dir.glob(File.join(Rails.root,'data', 'images', ext))
+          end
           images = images.flatten
+
+
           index = images.index{|x| x.split('/')[-1].split(/[^\d]{1}/)[0] == image_id}
           if index
           path = images[index]
@@ -189,19 +216,11 @@ UOMS = { 'кг'=>'KGM',
           item.quantity_of_layers_per_pallet = data[40]
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
-          if k == '7702018958627'
-            puts data.inspect
-            puts item.inspect
-          end
         unless item.save
 #            puts parent.inspect
 #            puts item.inspect
 #            puts item.errors.full_messages
         end
-         if k == '7702018958627'
-            puts item.inspect
-            puts item.errors.full_messages
-          end
         end
 
 
