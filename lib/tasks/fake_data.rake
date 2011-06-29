@@ -59,15 +59,15 @@ UOMS = { 'кг'=>'KGM',
 #read images
 ############################################
       @imgs = []
-          images = []
-          ['*.jpg','*.JPG','*.gif','*.GIF','*.png','*.PNG'].each do |ext|
-            images << Dir.glob(File.join(Rails.root,'data', 'images', ext))
-          end
-          images = images.flatten
-          images.each{|x|
-            id= x.split('/')[-1].split(/[^\d]{1}/)[0];
-            @imgs << id if id and id.any?
-          }
+      images = []
+      ['*.jpg','*.JPG','*.gif','*.GIF','*.png','*.PNG'].each do |ext|
+        images << Dir.glob(File.join(Rails.root,'data', 'images', ext))
+      end
+      images = images.flatten
+      images.each{|x|
+        id= x.split('/')[-1].split(/[^\d]{1}/)[0];
+        @imgs << id if id and id.any?
+      }
 
 
 ############################################
@@ -106,9 +106,9 @@ UOMS = { 'кг'=>'KGM',
         unless parent
 
           @counter += 1
-          if @counter <= @q_items[@q_count]
+          if @counter > @q_items[@q_count]
             @counter = 0
-            @q_items +=1
+            @q_count += 1
           end
           user = User.where(:role => 'supplier')[@q_count]
 
