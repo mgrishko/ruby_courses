@@ -286,9 +286,6 @@ class BaseItemsController < ApplicationController
   def generate_xls(bis, template, name)
     @base_items = bis
     str = render_to_string :template => 'base_items/attachment.xml', :layout => false
-    f = File.open('test.xml', 'w')
-    f.puts str
-    f.close
     xls = Xml2xls::convert(str, template, name)
   end
 
