@@ -168,6 +168,7 @@ h3 {
 
 li.pack {
   background: url(/images/lbg.png) left top repeat-y;
+  width:1%;
 }
 
 ul.items li>ul
@@ -218,7 +219,7 @@ ul.items li.new .item
 ul.items li .item .arrow
 {
   position: absolute;
-  left: -45px;
+  left: -40px;
   top: 20px;
   line-height: 20px;
   height: 144px;
@@ -227,10 +228,22 @@ ul.items li .item .arrow
   font-size: 20pt;
   background: url(/images/arrow.png);
 }
-
+ul.items li .item .line
+{
+  position: absolute;
+  left: -32px;
+  top: -38px;
+  line-height: 20px;
+  height: 232px;
+  width: 29px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:999;
+  background: url(/images/lbg.png);
+}
 ul.items li .item .single-arrow {
   position: absolute;
-  left: -45px;
+  left: -40px;
   top: 20px;
   line-height: 20px;
   height: 144px;
@@ -894,48 +907,68 @@ margin-top: 2em;
 
 
 
-.ui-autocomplete { position: absolute; cursor: default; background: white; border: 1px solid black}
+/*
+ * jQuery UI Autocomplete 1.8.14
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	border: 1px solid #40b5eb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 0 0 5px #808080;
+	background: #fff;
+}
+
+/* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/*
+ * jQuery UI Menu 1.8.14
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
 .ui-menu {
 	list-style:none;
-	padding: 2px;
+	padding: 0;
 	margin: 0;
 	display:block;
 	float: left;
-	font-size: 150%;
+	overflow: hidden;
 }
 .ui-menu .ui-menu {
 	margin-top: -3px;
 }
 .ui-menu .ui-menu-item {
 	margin:0;
-	padding: 0;
+
 	zoom: 1;
 	float: left;
 	clear: left;
 	width: 100%;
 }
 .ui-menu .ui-menu-item a {
+  color: black;
 	text-decoration:none;
-	color: black;
 	display:block;
-	padding:.2em .4em;
+	padding: 1px 4px 2px;
+	font-size: 12px;
 	line-height:1.5;
 	zoom:1;
 }
 .ui-menu .ui-menu-item a.ui-state-hover,
 .ui-menu .ui-menu-item a.ui-state-active {
-	font-weight: normal;
-	background-color: #ffb;
-}
-
-#export_form_fields li{
-  padding: 10px;
-  list-style:none;
-  border-bottom: 1px solid #D8D9DC;
-}
-
-#export_form_fields li:hover{
-  background-color:  #E9EBF0;
+	background: #ebf3f7;
 }
 

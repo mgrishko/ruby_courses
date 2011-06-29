@@ -3,18 +3,19 @@
   <% if item.root? %>
     <% if @base_item.packaging_items.first == item %>
       <% if @base_item.has_forest? %>
-	<div class="arrow"></div>
+        <div class="arrow"></div>
       <% else %>
-	<div class="single-arrow"></div>
+      	<div class="single-arrow"></div>
       <% end %>
     <% else %>
+        <div class="line"></div>
     <% end %>
   <% else %>
     <% if item.first? %>
       <% if item.last? %>
-	<div class="single-arrow"></div>
+      	<div class="single-arrow"></div>
       <% else %>
-	<div class="arrow"></div>
+      	<div class="arrow"></div>
       <% end %>
     <% else %>
       <!--<div class="arrow"></div>-->
@@ -26,3 +27,4 @@
   <% end %>
 <% end %>
 <!--/arrow logic-->
+
