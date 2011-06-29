@@ -33,9 +33,7 @@ Feature: Subscription Result generation
     And I fill in "base_item_manufacturer_name" with "Some manufacturer name"
     And I select "10 %" from "base_item_vat"
     And I fill in "base_item_minimum_durability_from_arrival" with "1"
-    And I click element "#base_item_country"
-    And I click element "#CN"
-    And I follow "country_select"
+    And I fill in "base_item_country" with "China"
     And I fill in "base_item_gpc_name" with "Artists Accessories"
     And I press "Дальше"
     And I wait for 1 second
