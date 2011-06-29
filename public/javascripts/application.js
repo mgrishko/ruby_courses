@@ -319,8 +319,8 @@ function requestManData(q){
 
 function receiveManData(data) {
   if (data) {
-    $j("li", ".cases_results").removeClass("ac_loading");
-    $j(".cases_man").html(data);
+    $j(".pic-cont").html(data.split('<br>')[0]);
+    $j(".remark").html(data.split('<br>')[1]);
   }
 };
 

@@ -4,26 +4,56 @@
   	<%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
 	</p>
 	<p>
-		<div id="cases_input_<%= @packaging_item.id -%>" class="input input_div"> 
-  		<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type" %>
-		</div>
+		<div id="cases_input_<%= @packaging_item.id -%>">
+		<div class="drop-down-cont pad-l-5 zi-5">
+	  	<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
+	  	<div class="drop-down pic" >
+	  		<div class="blue-tarr"></div>
+	  		<div class="drop-down-list-cont" style ="width:400px;">
+	  			<div id="cases_results_<%= @packaging_item.id -%>" style="width:100%" class="drop-down-list first pt-cases">
+	  			</div>
+	  			<div class="pic-cont" style="height:100%">
+	  				<img src="/images/rails.png" width="141" height="131" alt="" />
+	  			</div>
+	  		</div>
+	  		<div class="remark">
+	  			Пояснения к полю<br /><br /><br />
+	  		</div>
+	  		<a class="choose-btn pt-choose-btn" href="#"></a>
+	  	</div>
+	  </div>
+	</div>
 	</p>
-	<input type="hidden" id="cases_value">
-	<div id="cases_<%= @packaging_item.id -%>" class="cases_results cases" style="display:none;">
-  	<div class='corner'></div>
-  	<a href="#" id="cases_close_<%= @packaging_item.id -%>" class="close"></a>
-  	<div id="cases_results_<%= @packaging_item.id -%>" class="inline results_ul">
-  </div>
-  <div class="cases_man">
-  </div>
-  <div style="width:100%; position: relative; float: right;" class="inline">
-    <hr>
-    <a id="cases_select_<%= @packaging_item.id -%>" class="ok_button" href="#"></a>
-  </div>
-</div>
+<div class="dd-overlay"></div>
 
 <script type="text/javascript">
-	
+	$j('.dd-input').focus(function(e){
+	  $j('.remark').html("");
+    $j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_px=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
+		$j('.drop-down').css('visibility','hidden');
+		$j('.dd-overlay').css('display','block');
+		$j(this).parent().find('.drop-down').css('visibility','visible');
+	});
+	$j('.choose-btn').click(function(){
+		$j('.drop-down').css('visibility','hidden');
+		$j('.dd-overlay').css('display', 'none');
+		return false;
+	})
+ 	$j('.dd-overlay').click(function(){
+  		$j('.drop-down').css('visibility','hidden');
+  		$j('.dd-overlay').css('display', 'none');
+	});
+	$j(".pt-choose-btn").click(function(){
+    $j('.pt-cases ul li a').each( function(){
+      if ($j(this).parent().hasClass('selected')){
+        $j('#packaging_item_packaging_type').val($j(this).html());
+     	 	$j('.drop-down').css('visibility','hidden');
+    	 	$j('.dd-overlay').css('display', 'none');
+       	return false;
+      }
+    });
+  });
+/*
 	$j('#packaging_item_packaging_type').click(function(){
 	  //packaging_item_335_item
 	  //packaging_item_new_336
@@ -58,13 +88,8 @@
 	  check_pallete($j('#packaging_item_packaging_type'));
 	  return false;
 	})
+	*/
 </script>
-
-<!--
-<p>
-  <%#= f.label :item_name_long_ru %>
-  <%#= f.text_field :item_name_long_ru %>
-</p>-->
 
 <p>
 <% if @packaging_item.leaf? || !@packaging_item.id %>
@@ -76,17 +101,7 @@
 <p class="pallet <%= "hide" unless @packaging_item.pallet? %>">
 <%=f.text_field :quantity_of_layers_per_pallet, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Layers Per Pallet"%><span class='t'>слоев, по</span> <%=f.text_field :quantity_of_trade_items_per_pallet_layer, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Trade Items Per Pallet Layer" %><span class='t'>уп.</span> <%=f.text_field :stacking_factor, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Stacking Factor"%> <span class='t'>стекинг</span>
 </p>
-<!--
-<p>
-  <%#= f.check_box :despatch_unit %>
-  <%#= f.label :despatch_unit, 'DU' %>
-  <%#= f.check_box :invoice_unit %>
-  <%#= f.label :invoice_unit, 'IU' %>
-  <%#= f.check_box :order_unit %>
-  <%#= f.label :order_unit, 'OU' %>
-  <%#= f.check_box :consumer_unit %>
-  <%#= f.label :consumer_unit, 'CU' %>
-</p>-->
+
 <p>
 <%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'>(В x Д x Ш)</span>
 </p>
@@ -94,3 +109,4 @@
 <%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%><span class='t'>г. брутто</span>
 </p>
 </div>
+

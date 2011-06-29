@@ -181,7 +181,7 @@ ul.items ul>li, ul.items>li
 {
   list-style: none;
   //padding-bottom: 20px;
-  overflow: hidden;
+//  overflow: hidden;
   padding-left: 30px;
 }
 
@@ -547,7 +547,7 @@ tr.val td select {
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
   min-height: 30px;
   padding: 5px;
-  z-index: 1000000;
+  z-index: 999;
 	background-color: #fff;
 }
 
