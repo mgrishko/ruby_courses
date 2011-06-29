@@ -1,10 +1,10 @@
 module WebformsValidations
 
-  def validates_number_length_of attribute, max_length, *step
-    if step
-      validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true, :if => step
+  def validates_number_length_of attribute, max_length, options={}
+    if options[:step]
+      validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true, :allow_nil => options[:allow_nil], :if => options[:step]
     else
-      validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true
+      validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true, :allow_nil => options[:allow_nil]
     end
   end
 
@@ -15,7 +15,7 @@ module WebformsValidations
       validates_length_of attribute, :is => 13
     end
   end
-  
+
   def validates_gtin *attr_names
     configuration = {
       :on => :save,
@@ -42,3 +42,4 @@ module WebformsValidations
   end
 
 end
+

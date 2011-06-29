@@ -119,14 +119,14 @@ class BaseItem < ActiveRecord::Base
 
   validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999, :if => :first_step?
 
-  validates_number_length_of :gross_weight, 7, :last_step?
-  validates_number_length_of :net_weight, 7, :last_step?
+  validates_number_length_of :gross_weight, 7,{:step => :last_step?}
+  validates_number_length_of :net_weight, 7, {:allow_nil=> true,:step => :last_step?}
 
-  validates_number_length_of :height, 5, :last_step?
-  validates_number_length_of :depth, 5, :last_step?
-  validates_number_length_of :width, 5, :last_step?
-  validates_number_length_of :internal_item_id, 20, :first_step?
-  validates_number_length_of :minimum_durability_from_arrival, 4, :first_step?
+  validates_number_length_of :height, 5, {:step => :last_step?}
+  validates_number_length_of :depth, 5, {:step => :last_step?}
+  validates_number_length_of :width, 5, {:step => :last_step?}
+  validates_number_length_of :internal_item_id, 20, {:step => :first_step?}
+  validates_number_length_of :minimum_durability_from_arrival, 4, {:step => :first_step?}
 
   validates_presence_of :vat, :if => :first_step?
   validates_presence_of :content_uom, :if => :first_step?
