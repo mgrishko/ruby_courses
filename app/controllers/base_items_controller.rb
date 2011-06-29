@@ -255,16 +255,14 @@ class BaseItemsController < ApplicationController
     @forms = params[:forms]
     @name =""
     @prefix = "#{Rails.root}/tmp/xls/"
-    @base_items.each do |base_item|
-      name = base_item.gtin
-      @name += "#{name}_"
+      @name += "#{ Time.now.strftime("%m%d%Y_%H%M")}_"
       @forms.each do |f|
-        xls = generate_xls(base_item, f, name)
+        xls = generate_xls(@base_items, f, @name)
         xls.each_with_index do |xls_file,index|
-          files["#{name}_#{index}_#{f}.xls"] = xls_file
+          files["#{@name}_#{index}_#{f}.xls"] = xls_file
         end
       end
-    end
+
     if files.count == 1
       send_file files.first[1].path, :filename => files.first[0]
     else
@@ -285,9 +283,12 @@ class BaseItemsController < ApplicationController
     tmp
   end
 
-  def generate_xls(bi, template, name)
-    @base_item = bi
+  def generate_xls(bis, template, name)
+    @base_items = bis
     str = render_to_string :template => 'base_items/attachment.xml', :layout => false
+    f = File.open('test.xml', 'w')
+    f.puts str
+    f.close
     xls = Xml2xls::convert(str, template, name)
   end
 
