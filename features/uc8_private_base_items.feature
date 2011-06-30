@@ -48,6 +48,7 @@ Feature:  Some Base Items can be private
     And I logged in as "supplier"
     And I go to the base_item page
     When I press "base_item_submit"
+    And I wait for 2 seconds
     And I follow "edit_base_item_link"
     And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
     And I wait for 1 second

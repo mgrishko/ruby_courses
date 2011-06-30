@@ -27,5 +27,8 @@ module BaseItemsHelper
     content_tag(:span, item.net_weight, :class => 'd')+" "+
     content_tag(:span, 'г. нетто', :class => 't')
   end
+  def shorten_label(lbl, length)
+    lbl.mb_chars.length > length+3 ? lbl.mb_chars[0..length]+"..." : lbl
+  end
 end
 

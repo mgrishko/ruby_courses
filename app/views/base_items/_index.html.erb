@@ -28,21 +28,21 @@
 <div>
 <strong>Бренды</strong>
 <% @brands.each do |b| %>
-  <%= selected_wrapper "<a href='?brand=#{CGI::escape b.brand}' class='filter'>#{b.brand}</a> (#{b.q})", params[:brand].to_s == b.brand.to_s %>
+  <%= selected_wrapper "<a href='?brand=#{CGI::escape b.brand}' class='filter'>#{shorten_label b.brand, 22 }</a> (#{b.q})", params[:brand].to_s == b.brand.to_s %>
 <% end %>
 </div>
 <br/>
 <div>
 <strong>Производители</strong>
 <% @manufacturers.each do |m| %>
-  <%= selected_wrapper "<a href='?manufacturer_name=#{CGI::escape m.manufacturer_name}' class='filter'>#{m.manufacturer_name}</a> (#{m.q})", params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>
+  <%= selected_wrapper "<a href='?manufacturer_name=#{CGI::escape m.manufacturer_name}' class='filter'>#{shorten_label m.manufacturer_name, 22}</a> (#{m.q})", params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>
 <% end %>
 </div>
 <br/>
 <div>
 <strong>Functional</strong>
 <% @functionals.each do |f| %>
-  <%= selected_wrapper "<a href='?functional=#{CGI::escape f.functional}' class='filter'>#{f.functional}</a> (#{f.q})", params[:functional].to_s == f.functional.to_s %>
+  <%= selected_wrapper "<a href='?functional=#{CGI::escape f.functional}' class='filter'>#{shorten_label f.functional, 22}</a> (#{f.q})", params[:functional].to_s == f.functional.to_s %>
 <% end %>
 </div>
 
