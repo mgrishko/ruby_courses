@@ -1,7 +1,6 @@
 namespace :db do
   namespace :seed do
     task :fake_data => :environment do
-      @i = 0
 
 UOMS = { 'кг'=>'KGM',
           'л' => 'LTR',
@@ -68,8 +67,6 @@ UOMS = { 'кг'=>'KGM',
         id= x.split('/')[-1].split(/[^\d]{1}/)[0];
         @imgs << id if id and id.any?
       }
-
-
 ############################################
 #read description data
 ############################################
@@ -100,11 +97,11 @@ UOMS = { 'кг'=>'KGM',
       end
 
       @counter = 0
-      @q_items = [200,100,70,50,40]
+      @q_items = [400,200,100,80,86]
       @q_count = 0
       def create_hierarchy(k,  data, parent = nil)
         unless parent
-
+          puts "======"
           @counter += 1
           if @counter > @q_items[@q_count]
             @counter = 0
@@ -112,7 +109,7 @@ UOMS = { 'кг'=>'KGM',
           end
           user = User.where(:role => 'supplier')[@q_count]
 
-          @i+=1
+
           i = Item.new(:user_id => user.id)
           i.save
           item = BaseItem.new()
@@ -125,7 +122,7 @@ UOMS = { 'кг'=>'KGM',
           #from price.csv
           ##################
           item.item_description = data[1]
-          item.functional = data[2]
+          item.functional = data[2].mb_chars.length > 35 ? data[2].mb_chars[0..34] : data[2]
           item.brand = data[4]
           item.subbrand = data[5]
           image_id = data[0]
@@ -152,9 +149,9 @@ UOMS = { 'кг'=>'KGM',
           item.width = data[33]
           item.depth = data[31]
           unless item.save
-#            puts parent.inspect
-#            puts item.inspect
-#            puts item.errors.full_messages
+            puts parent.inspect
+            puts item.inspect
+            puts item.errors.full_messages
           end
           ################################
           # add images
@@ -204,10 +201,10 @@ UOMS = { 'кг'=>'KGM',
           item.height = data[29].any? ? data[29] : data[41]
           item.width = data[33]
           item.depth = data[31]
-          items_number = item.parent ? item.number_of_next_lower_item : item.number_of_bi_items
+          items_number = item.number_of_next_lower_item
+          items_number ||= item.number_of_bi_items
           #puts (0.96 * parent.gross_weight.to_i * items_number.to_i)
-          gw = if 0.96 * parent.gross_weight.to_i * items_number.to_i > data[16].to_i
-                  #puts parent.gross_weight.to_i * items_number.to_i
+          gw = if parent.gross_weight.to_i * items_number.to_i > data[16].to_i
                   parent.gross_weight.to_i * items_number.to_i
                 else
                   data[16].to_i
@@ -217,9 +214,9 @@ UOMS = { 'кг'=>'KGM',
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
         unless item.save
-#            puts parent.inspect
-#            puts item.inspect
-#            puts item.errors.full_messages
+            puts parent.inspect
+            puts item.inspect
+            puts item.errors.full_messages
         end
         end
 
@@ -241,6 +238,8 @@ UOMS = { 'кг'=>'KGM',
       end
       parents= []
 
+      puts items.length
+      sleep 5
       @bis_map.each{|k,v| parents << k unless v['child']}
       items.each_with_index do |item,counter|
         if counter < parents.count
