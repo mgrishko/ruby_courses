@@ -169,5 +169,15 @@ class PackagingItem < ActiveRecord::Base
       #item.update_attribute(:number_of_bi_items, item.self_and_ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item })
     #end if number_of_next_lower_item_changed?
   #end
+
+  def self.get_base_width(pi)
+    if pi.children.any?
+      c = 0
+      pi.children.each{|child|c+=get_base_width(child)}
+      c
+    else
+      1
+    end
+  end
 end
 
