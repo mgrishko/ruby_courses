@@ -8,7 +8,8 @@ module SubscriptionResultsHelper
         comment.content
       end
     else
-      '&nbsp;'
+      '&nbsp;'.html_safe
     end
   end
 end
+
