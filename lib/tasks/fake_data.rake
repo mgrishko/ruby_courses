@@ -253,6 +253,20 @@ UOMS = { 'кг'=>'KGM',
         end
       end
 
+      tag = Tag.new(:name => 'complex', :kind => 1)
+      tag.save
+      Item.all.each{|item|
+        bi = item.base_items.last
+        if bi.packaging_items.count > 4
+          cl = Cloud.new
+          cl.user_id = bi.user_id
+          cl.item_id = item.id
+          cl.tag_id = tag.id
+          cl.save
+        end
+      }
+
+
     end
   end
 end
