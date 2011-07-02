@@ -14,7 +14,6 @@ Feature: Subscription Accepting
     And I have a base_item with gtin "1234567"
     When I go to the base_item page
     And I press "Правка"
-    And I wait for 2 seconds
     And I follow "править" within "#base_item"
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "Применить"
@@ -36,7 +35,6 @@ Feature: Subscription Accepting
     And I have a base_item with gtin "1234567"
     When I go to the base_item page
     And I press "Правка"
-    And I wait for 2 seconds
     And I follow "править" within "#base_item"
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "Применить"

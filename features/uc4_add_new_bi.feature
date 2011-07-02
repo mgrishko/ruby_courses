@@ -32,7 +32,7 @@ Feature: Add new Base Item
     And I fill in "base_item_gpc_name" with "Artists Accessories"
     And I wait for 1 second
     And I press "Дальше"
-    And I wait for 1 second
+    And I wait for 2 seconds
     And I fill in "base_item_packaging_type" with "AM"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"

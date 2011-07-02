@@ -20,7 +20,6 @@ Feature: Supplier publishes base_item
     And I have a base_item
     When I go to the base_item page
     And I press "Правка"
-    And I wait for 2 seconds
     And I follow "править" within "#base_item"
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "Применить"
