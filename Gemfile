@@ -15,12 +15,13 @@ gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', :git => 'https://github.com/pavel-so/rails3-jquery-autocomplete.git'
-gem 'xml2xls',:path => "vendor/gems/xml2xls-0.2.0"
+gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.0'
 gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'
+gem 'exception_notification', :git => 'http://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 group :development, :test do
-  gem "headless"
+  gem 'headless'
   gem 'capybara'
   gem 'parseexcel'
   gem 'selenium-webdriver'
