@@ -74,11 +74,11 @@
   <% @base_items.each do |base_item| %>
     <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
     <div class='tile-item <%= "private" if base_item.private %>' style="float:left;width:200px;" onclick="document.location='<%= base_item_path(path_params) %>'">
+      <div class='img''>
       <img src="<%= base_item.item.image_url ? base_item.item.image_url : '/images/item_image.jpg'%>" alt="Item Image"/>
+      </div>
       <div><%=shorten_label(base_item.item_description, 50) %></div>
       <div><span class="normal"><%= base_item.gtin %></span></div>
-      <div> <span class="light"><%= base_item.user.name %></span></div>
-      <div><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
     </div>
   <%end%>
   <%end%>
@@ -86,7 +86,7 @@
 <%end%>
 <div style="clear:both">
 <%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>&nbsp;
-<%= link_to 'Export to xls', 'javascript:void(0)', :id => 'show_export_form' if @base_items.any? %>
+<%= link_to 'Export to xls', 'javascript:void(0)', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile'%>
 </div>
 </div>
 

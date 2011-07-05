@@ -1000,7 +1000,7 @@ margin-top: 2em;
  .tile-item{
   	float:left;
 	  width:150px;
-	  height:280px;
+	  height:235px;
 	  font-weight:700;
 	  padding:18px 14px 0px 14px;
 	  text-align:center;
@@ -1012,20 +1012,22 @@ margin-top: 2em;
   .tile-item:hover{
   	float:left;
 	  width:150px;
-	  height:280px;
+	  height:235px;
 	  font-weight:700;
 	  padding:18px 14px 0px 14px;
 	  text-align:center;
 	  margin:5px;
 	  background:#eee
 	}
-	.tile-item img {
-	  border:1px solid #7f8082;
+	.tile-item .img {
+//	  border:1px solid #7f8082;
 	  background:#fff;
 	  margin-bottom:10px;
+	  margin-left:20px;
 	  text-align:center;
 	  width:163px;
-	  height:163px;
+    height:163px;
+    overflow:hidden;
   }
 /* endof tiled design*/
 
