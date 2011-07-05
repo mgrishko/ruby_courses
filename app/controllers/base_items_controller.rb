@@ -10,7 +10,7 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :manufacturer_name, :full => true,:extra_data => [:manufacturer_gln], :uniq => true
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
-
+    BaseItem.per_page = 12
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],

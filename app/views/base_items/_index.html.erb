@@ -8,7 +8,7 @@
 <br/>
 <h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>
 <!--filters-->
-<div class="filters">
+<div class="filters" >
 <% if current_user.supplier? %>
 <div>
 <strong>Получатели</strong>
@@ -49,26 +49,45 @@
 </div>
 <!--/filters-->
 <!--data-->
-
+<div align='right'>Вид: <%= link_to_if (params[:view]!='list' and params[:view].present?) , "Список", url_for(:view=>'list')%>
+          <%= link_to_if params[:view]!='tile', "Плитка", url_for(:view=>'tile')%></div>
 <div class="data">
-<%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
-<% @base_items.each do |base_item| %>
-	<% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-  <div class="bi <%= "private" if base_item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
-    <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
-    <div class="bi-content">
-      <div class="fright"><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
-      <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
-      <div class="usual"><%= base_item.item_description %></div>
-      <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
-      <div class="light"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
+<% if params[:view].nil? or params[:view]=='list'%>
+  <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
+    <% @base_items.each do |base_item| %>
+      <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+      <div class="bi <%= "private" if base_item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
+        <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
+        <div class="bi-content">
+          <div class="fright"><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
+          <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
+          <div class="usual"><%= base_item.item_description %></div>
+          <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
+          <div class="light"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
+        </div>
+      </div>
+    <% end %>
+  <%end%>
+<%else%>
+  <div  style="width:750px;clear:both; padding-left:50px">
+  <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
+  <% @base_items.each do |base_item| %>
+    <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+    <div class='tile-item <%= "private" if base_item.private %>' style="float:left;width:200px;" onclick="document.location='<%= base_item_path(path_params) %>'">
+      <img src="<%= base_item.item.image_url ? base_item.item.image_url : '/images/item_image.jpg'%>" alt="Item Image"/>
+      <div><%=shorten_label(base_item.item_description, 50) %></div>
+      <div><span class="normal"><%= base_item.gtin %></span></div>
+      <div> <span class="light"><%= base_item.user.name %></span></div>
+      <div><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
     </div>
+  <%end%>
+  <%end%>
   </div>
-<% end %>
 <%end%>
+<div style="clear:both">
 <%= link_to 'New base_item', new_base_item_path if current_user.supplier?%>&nbsp;
 <%= link_to 'Export to xls', 'javascript:void(0)', :id => 'show_export_form' if @base_items.any? %>
-
+</div>
 </div>
 
 <div id="export_form_wrapper" style="display:none">

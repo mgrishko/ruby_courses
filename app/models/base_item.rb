@@ -69,7 +69,6 @@ class BaseItem < ActiveRecord::Base
 
   scope :private_last_published_by, lambda { |user| where(:private => true).last_published_by(user) }
   scope :public_last_published_by, lambda { |user| where(:private => false).last_published_by(user) }
-
   def current_step
     @current_step || steps.first
   end
@@ -460,7 +459,7 @@ class BaseItem < ActiveRecord::Base
         end
       end
     end
-    base_items.paginate :page => options[:page], :per_page => 10
+    base_items.paginate :page => options[:page], :per_page => self.per_page
   end
 
   protected

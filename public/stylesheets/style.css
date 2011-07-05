@@ -996,3 +996,36 @@ margin-top: 2em;
   background-color:  #E9EBF0;
 }
 
+/* tiled design*/
+ .tile-item{
+  	float:left;
+	  width:150px;
+	  height:280px;
+	  font-weight:700;
+	  padding:18px 14px 0px 14px;
+	  text-align:center;
+	  margin:5px;
+	}
+	.private {
+    border-top: 4px dotted #999;
+  }
+  .tile-item:hover{
+  	float:left;
+	  width:150px;
+	  height:280px;
+	  font-weight:700;
+	  padding:18px 14px 0px 14px;
+	  text-align:center;
+	  margin:5px;
+	  background:#eee
+	}
+	.tile-item img {
+	  border:1px solid #7f8082;
+	  background:#fff;
+	  margin-bottom:10px;
+	  text-align:center;
+	  width:163px;
+	  height:163px;
+  }
+/* endof tiled design*/
+
