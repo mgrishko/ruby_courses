@@ -115,6 +115,12 @@ IMAGE_PARAMETERS = [
     'height'  => 50,
     'scale'   => true,
     'fill'    => true
+  }, {
+    'name'    => 'tile', # small
+    'width'   => 163,
+    'height'  => 163,
+    'scale'   => false,
+    'fill'    => false
   }
 ]
 end
