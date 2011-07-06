@@ -1,6 +1,7 @@
 # encoding = utf-8
 class SubscriptionController < ApplicationController
   before_filter :require_user
+  respond_to :html,:js,:json
 
   def index
     @base_items = BaseItem.paginate :page => params[:page], :per_page => 10, :joins => "left join users on users.id = base_items.user_id left join subscriptions on users.id = subscriptions.supplier_id",
@@ -44,6 +45,48 @@ class SubscriptionController < ApplicationController
       end
 
       render :json => json
+    end
+  end
+  def by_gtin
+    if params[:gtins]
+      gtins = params[:gtins].gsub(' ','').split(',').map{|gtin| gtin.strip()}
+      @gtins = []
+      gtins.each do |gtin|
+        errors = "Неверно введен штрих-код" if gtin.scan(/[^\d]/).any?
+        @gtins << {:bi => BaseItem.where(:user_id => params[:id],:gtin => gtin).last , :errors => errors, :gtin => gtin}
+      end
+      respond_with(@base_items)
+    end
+    if params[:base_items]
+      @base_items = BaseItem.where(:id => params[:base_items])
+      @base_items.each do |bi|
+        @item = bi.item
+        @subscription = Subscription.find(:first, :conditions => {:supplier_id => @item.user.id, :retailer_id => current_user.id})
+        if @subscription
+          #need check
+          if @subscription.canceled?
+            @subscription.active!
+          end
+        else
+          #need create
+          @subscription = Subscription.create(:supplier_id => @item.user.id, :retailer_id => current_user.id)
+        end
+        SubscriptionDetails.delete_all(:subscription_id => @subscription.id, :item_id => @item.id)
+        @sd = SubscriptionDetails.new(:subscription_id => @subscription.id, :item_id => @item.id)
+        @sd.save
+        @subscription.specific = true
+        @subscription.save
+
+        # Comment this for turn-off grouping of base items changes in subscription result
+        @subscription.subscription_results.each do |sr|
+          sr.delete if sr.base_item.gtin == bi.gtin && sr.status == 'new'
+        end
+
+        @subscription.subscription_results << SubscriptionResult.new(
+            :base_item_id => bi.id, :subscription_id => @subscription.id
+        )
+        Event.log(current_user, @subscription)
+      end
     end
   end
 

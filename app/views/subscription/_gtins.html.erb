@@ -1,0 +1,12 @@
+<%= form_for :subscription, :url => {:action => 'by_gtin', :controller => :subscription,:id=>params[:id]},:html=>{:id => 'subscribe_by_gtin'} do |f| %>
+  <%= render :partial => 'gtin',:collection => @gtins %>
+  <%= f.submit 'Подписаться' , :id => 'subscribe_by_gtin_btn'%>
+<%end %>
+
+<script>
+  $j('#subscribe_by_gtin').submit(function(){
+      if( $j('.gtin-error').length > 0 || $j('.gtin-nil').length >0 )
+      return false;
+  });
+</script>
+

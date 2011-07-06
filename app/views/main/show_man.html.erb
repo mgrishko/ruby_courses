@@ -1,2 +1,3 @@
-<%= !!@case[:img] ? image_tag(@case[:img]) : "" %> <br>
+<%=  image_tag(@case[:img]) if @case[:img].present? %> <br>
 <%= @case[:description] %>
+

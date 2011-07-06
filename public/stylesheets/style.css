@@ -1022,6 +1022,9 @@ margin-top: 2em;
 	  margin:5px;
 	  background:#eee
 	}
+	.bi:hover{
+	  background:#eee
+	}
 	.tile-item .img {
 //	  border:1px solid #7f8082;
 	  background:#fff;

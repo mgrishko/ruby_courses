@@ -16,12 +16,14 @@ UOMS = { 'кг'=>'KGM',
 
       @rows = {}
       @bis_map = {}
+      @mnfc={}
       begin
         header = fsource.readline
         while (line = fsource.readline)
           if line.size > 2
             row = line.split('|')
             @rows[row[0]] = row
+            @mnfc[row[13]]=0
             if row[35].any? and row[35]!='4300'
               @bis_map[row[35]] ||= {'child'=> nil, 'parent' => nil}
               @bis_map[row[35]]['parent'] ||=[]
@@ -33,6 +35,13 @@ UOMS = { 'кг'=>'KGM',
       rescue EOFError
         fsource.close
       end
+      new_names =%w{Unilever Henkel Coca-Cola Procter&Gamble Valio Mars Ferrero Pepsico Bacardi Campina Danone Haribo Dr.Oetker GSK SCA Schweppes Nestle Sunbird Sancor Rothschild}
+
+      @mnfc.keys.each_with_index{|k, i|
+        @mnfc[k] =new_names[i % new_names.count]
+      }
+
+
 ############################################
 #read netweight data
 ############################################
@@ -97,7 +106,7 @@ UOMS = { 'кг'=>'KGM',
       end
 
       @counter = 0
-      @q_items = [400,200,100,80,86]
+      @q_items = [800,300,100,80,86]
       @q_count = 0
       def create_hierarchy(k,  data, parent = nil)
         unless parent
@@ -137,7 +146,7 @@ UOMS = { 'кг'=>'KGM',
           item.consumer_unit = data[11] == 'Y'
 
           item.manufacturer_gln = data[12]
-          item.manufacturer_name = data[13].any? ? data[13] : "test "
+          item.manufacturer_name = data[13].any? ? @mnfc[data[13]] : "Unknown"
 
           item.vat = '59'
           item.gpc_code = data[26]

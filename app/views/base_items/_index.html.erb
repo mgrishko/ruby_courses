@@ -75,7 +75,7 @@
     <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
     <div class='tile-item <%= "private" if base_item.private %>' style="" onclick="document.location='<%= base_item_path(path_params) %>'">
       <div class='img''>
-      <img src="<%= base_item.item.image_url ? base_item.item.image_url : '/images/item_image.jpg'%>" alt="Item Image"/>
+      <img src="<%= base_item.item.image_url ? base_item.item.image_url('tile') : '/images/item_image.jpg'%>" alt="Item Image"/>
       </div>
       <div><%=shorten_label(base_item.item_description, 27) %></div>
       <div><b><%= base_item.gtin %></b></div>

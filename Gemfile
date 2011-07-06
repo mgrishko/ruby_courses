@@ -1,7 +1,6 @@
 
 source 'http://rubygems.org'
 gem 'rails', '3.0.7'
-
 gem 'authlogic', '3.0.3'
 gem 'aasm', :require => 'aasm'
 gem 'responds_to_parent',:git => 'https://github.com/kennon/responds_to_parent.git'
@@ -15,7 +14,7 @@ gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', :git => 'https://github.com/pavel-so/rails3-jquery-autocomplete.git'
-gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.0'
+gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.2'
 gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'

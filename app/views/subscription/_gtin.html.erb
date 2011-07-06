@@ -1,0 +1,37 @@
+<div class="bi" id="gtin-<%=gtin[:gtin]%>">
+<%if gtin[:bi].nil?%>
+    <%if gtin[:errors]%>
+        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div class="bi-content gtin-error">
+          <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" ,:class=>'fright' %>
+          <div><span class="normal"><%= gtin[:gtin] %></span> </div>
+          <div class="usual"><%= gtin[:errors] %></div>
+        </div>
+    <%else%>
+        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div class="bi-content gtin-nil">
+          <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')"  ,:class=>'fright'%>
+          <div><span class="normal"><%= gtin[:gtin] %></span></div>
+          <div class="usual">Record with such gtin is not found</div>
+        </div>
+    <%end%>
+<%else%>
+  <%base_item = gtin[:bi]%>
+        <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
+        <div class="bi-content">
+          <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')"  ,:class=>'fright'%>
+          <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
+          <div class="usual"><%= base_item.item_description %></div>
+        </div>
+    <%= hidden_field_tag 'base_items[]', base_item.id %>
+
+<%end%>
+
+<%#= link_to_function 'Редактировать',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')"  %>
+</div>
+<script>
+  var removeGtin=function(gtin){
+    $j("#gtin-"+gtin).remove()
+  };
+</script>
+

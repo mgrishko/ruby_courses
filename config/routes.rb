@@ -63,6 +63,7 @@ Webforms::Application.routes.draw do
   match       'main/cases' =>          'main#cases', :as => :cases
   match    'main/show_man/*id' =>   'main#show_man', :as => :show_man
 
+  match '/subscriptions/by_gtin/:id' => 'subscription#by_gtin'
 
   match '/subscriptions/status' => 'subscription#status'
   match '/subscriptions/instantstatus' => 'subscription#instantstatus'
