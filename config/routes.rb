@@ -64,7 +64,7 @@ Webforms::Application.routes.draw do
   match    'main/show_man/*id' =>   'main#show_man', :as => :show_man
 
   match '/subscriptions/by_gtin/:id' => 'subscription#by_gtin'
-
+  match '/subscriptions/get_single_gtin/:id' => 'subscription#get_single_gtin'
   match '/subscriptions/status' => 'subscription#status'
   match '/subscriptions/instantstatus' => 'subscription#instantstatus'
 

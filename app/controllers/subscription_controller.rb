@@ -89,7 +89,12 @@ class SubscriptionController < ApplicationController
       end
     end
   end
-
+  def get_single_gtin
+    gtin = params[:gtin]
+    errors = "Неверно введен штрих-код" if gtin.scan(/[^\d]/).any?
+    @gtin = {:bi => BaseItem.where(:user_id => params[:id],:gtin => gtin).last , :errors => errors, :gtin => gtin}
+    render :partial => 'gtin',:locals => { :gtin => @gtin }
+  end
   def by_item_id
     @item = Item.find(params[:item_id])
     @base_item = @item.last_bi.first
