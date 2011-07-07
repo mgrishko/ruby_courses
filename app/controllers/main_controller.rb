@@ -92,7 +92,9 @@ class MainController < ApplicationController
     hash[45] = "The process of enclosing all or part of an item with layers of flexible wrapping material (e.g., for an individually packed ice cream). Does not include items which are shrink-wrapped or vacuum-packed "
     id = BaseItem.packaging_types.find{|i|i[:code]==params[:id]}[:id]
     @case = {:id => id, :description => hash[id]}
-    @case[:img] = "pi/#{id}.jpg"
+    if File.exists?(File.join(Rails.root,'pi',"#{id}.jpg"))
+      @case[:img] = "pi/#{id}.jpg"
+    end
   end
 
 end

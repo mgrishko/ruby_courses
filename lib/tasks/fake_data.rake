@@ -249,17 +249,20 @@ UOMS = { 'кг'=>'KGM',
 
       puts items.length
       sleep 5
-      @bis_map.each{|k,v| parents << k unless v['child']}
-      items.each_with_index do |item,counter|
-        if counter < parents.count
-          k = parents[counter]
-          v = @bis_map[k]
-          unless v['child']
-            create_hierarchy(k, item)
-          end
-        else
-          break
-        end
+      begin
+       @bis_map.each{|k,v| parents << k unless v['child']}
+       items.each_with_index do |item,counter|
+         if counter < parents.count
+           k = parents[counter]
+           v = @bis_map[k]
+           unless v['child']
+             create_hierarchy(k, item)
+           end
+         else
+           break
+         end
+       end
+      rescue
       end
 
       tag = Tag.new(:name => 'complex', :kind => 1)
@@ -273,9 +276,8 @@ UOMS = { 'кг'=>'KGM',
           cl.tag_id = tag.id
           cl.save
         end
-      }
-
-
+      }.count
+      BaseItem.all.each{|bi|bi.update_mix_field;bi.save}
     end
   end
 end
