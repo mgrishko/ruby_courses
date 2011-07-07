@@ -49,8 +49,8 @@
 </div>
 <!--/filters-->
 <!--data-->
-<div align='right'>Вид: <%= link_to_if (params[:view]!='list' and params[:view].present?) , "Список", url_for(:view=>'list')%>
-          <%= link_to_if params[:view]!='tile', "Плитка", url_for(:view=>'tile')%></div>
+<div align='right'>Вид: <%= link_to_if (params[:view]!='list' and params[:view].present?) , "Список", url_for(params.merge :view => 'list') %>
+          <%= link_to_if params[:view]!='tile', "Плитка", url_for(params.merge(:view => 'tile'))%></div>
 <div class="data">
 <% if params[:view].nil? or params[:view]=='list'%>
   <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
