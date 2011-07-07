@@ -92,9 +92,7 @@ class MainController < ApplicationController
     hash[45] = "The process of enclosing all or part of an item with layers of flexible wrapping material (e.g., for an individually packed ice cream). Does not include items which are shrink-wrapped or vacuum-packed "
     id = BaseItem.packaging_types.find{|i|i[:code]==params[:id]}[:id]
     @case = {:id => id, :description => hash[id]}
-    if [5, 12, 17, 18, 25, 28, 33, 35, 38, 45].include?(id)
-      @case[:img] = "pi/#{id}.png"
-    end
+    @case[:img] = "pi/#{id}.jpg"
   end
 
 end
