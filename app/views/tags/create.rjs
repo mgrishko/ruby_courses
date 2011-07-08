@@ -1,2 +1,0 @@
-page.replace_html "tags", :partial => 'tags'
-page[:tag_name].value = ''

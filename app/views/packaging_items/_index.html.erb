@@ -6,21 +6,22 @@
 <div class="pi" id="first_pi">
 <h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
 <p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
-<p><span class='d'>1</span> <span class='t'><%= t 'pi.packages_inside' %>,</span> <span class='d'>1</span> <span class='t'><%= t 'pi.items' %></span></p>
-<p <%= highlight(:calculate_dimmensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_dimmensions -%></p>
-<p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= @base_item.calculate_weights %></p>
+<p><span class='d'>1</span> <span class='t'><%= t 'pi.packages_inside' %></span> <span class='d'>1</span> <span class='t'><%= t 'pi.items' %></span></p>
+<p <%= highlight(:calculate_dimensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_dimensions @base_item -%></p>
+<p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_weights @base_item %></p>
 <% unless @view_only || @base_item.published? %>
-<%= link_to_remote t('main.edit'), :url => edit_base_item_path(@base_item)+"?step=2", :method => :get %>
+<%= link_to t('main.edit'), edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
 <p>
 &nbsp;
 </p>
 <div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;"><a onclick="new Ajax.Request('/base_items/<%= @base_item.id %>/packaging_items/new', {asynchronous:true, evalScripts:true, method:'get'}); return false;" href="#"><%= t 'pi.pack' %></a></div>
+<div class="fright" style="margin-right: 25px;">
+  <%= link_to t('pi.pack'),"#", :onclick => "packageMe(#{@base_item.id})" %>
 <% end %>
 </div>
 </td>
 <td>
-<% recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
+<%= recursive_tree_output @packaging_items, :class => 'items', :id => 'items' do |item| %>
   <div class="item" id="<%= dom_id item %>_item">
     <%= render :partial => 'packaging_items/item', :object => item %>
   </div>
@@ -28,26 +29,24 @@
 </td>
 </tr>
 </table>
-<% javascript_tag do %>
-  $$('#items li').each(function(element) {
-    if (!element.select('ul')[0]) {
-      var ul = new Element('ul');
-      element.appendChild(ul);
+<%= javascript_tag do %>
+  $j('#items li').each(function(element) {
+    if (!$j(this).find('ul')[0]) {
+      var ul = "<ul></ul>"
+      $j(this).append(ul);
     }
   });
   <% unless @view_only || @base_item.published? %>
-  $$('#items ul').each(function(element) {
-    var id = element.up('li').id.gsub(/packaging_item_/, '');
-    var li = new Element('li', { className: 'pack new', id: 'packaging_item_new_' + id  });
-    li.update('<div class="item" style="display:none"></div>')
-    //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/' + id + '/new_sub\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#"><%= t 'pi.pack' %></a></div>');
-    element.appendChild(li);
+  var li = "<li class='pack new' id='packaging_item_new'></li>";
+  $j(li).appendTo('#items');
+  $j('#items ul').each(function(element) {
+    var id = $j(this).parent().attr('id').replace(/packaging_item_/, '');
+    var element = "<li class='pack new' id='packaging_item_new_" + id +"'><div class='item' style='display:none'></div></li>";
+    $j(this).append(element);
   });
-  var li = new Element('li', { className: 'pack new', id: 'packaging_item_new' });
-  //li.update('<div class="item"><a onclick="new Ajax.Request(\'/base_items/<%= @base_item.id %>/packaging_items/new\', {asynchronous:true, evalScripts:true, method:\'get\'}); return false;" href="#">упаковать1</a></div>');
-  $('items').appendChild(li);
   <% end %>
-  setHeights();
+ // setHeights();
 <% end %>
 <div class="clear"></div>
 </div>
+

@@ -1,20 +1,22 @@
 class ImagesController < ApplicationController
   before_filter :require_user
   before_filter :find_item
-  
+
   def upload
     @original = OriginalImage.new(params[:image])
+
     if @original.test_and_prepare?
       @image = Image.new()
       @image.item_id = @item.id
       @image.base_item_id = params[:base_item_id]
       @image.save
       Event.log(current_user,@image)
-      for image_parameter in IMAGE_PARAMETERS do
-	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
-	else
-	  # sth wrong
-	end
+      #Create a new image from source according to Image_Parameters(small, medium, large)
+      for image_parameter in Webforms::IMAGE_PARAMETERS do
+      	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
+      	else
+      	  # sth wrong
+      	end
       end
     else
       # wrong picture
@@ -27,7 +29,7 @@ class ImagesController < ApplicationController
       end
     end
   end
-  
+
   private
 
   def find_item
@@ -35,3 +37,4 @@ class ImagesController < ApplicationController
   end
 
 end
+

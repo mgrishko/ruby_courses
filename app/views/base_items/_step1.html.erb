@@ -6,7 +6,7 @@ var functional = "";
 var content = "";
 var content_uom ="";
 </script>
-<div id="step1" style="background: #FFF">
+<div id="step1" style="background: #FFF" >
 <table>
 <tr class="info">
 <td>
@@ -15,6 +15,9 @@ var content_uom ="";
 <td>
 <%= t 'item.internal_item_id' %>
 </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="val">
 <td>
@@ -43,16 +46,16 @@ var content_uom ="";
 </tr>
 <tr class="val">
 <td>
-<%= text_field_with_auto_complete :base_item, :brand, {}, :after_update_element => "function (e,v){ brand = v.innerHTML; $j(\"#base_item_brand\").change();}" %>
+ <%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :subbrand, :after_update_element => "function (e,v){ subbrand = v.innerHTML; $j(\"#base_item_subbrand\").change();}"  %>
+ <%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path %>
 </td>
 <td>
-<%= text_field_with_auto_complete :base_item, :functional, :after_update_element => "function (e,v){ functional = v.innerHTML; $j(\"#base_item_functional\").change();}"  %>
+ <%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path %>
 </td>
 <td>
-<%=f.text_field :content %>
+ <%= f.text_field :content %>
 </td>
 <td>
   <%= f.select :content_uom, [nil] + @base_item.content_uoms %>
@@ -65,7 +68,7 @@ var content_uom ="";
 </tr>
 <tr class="val">
 <td colspan="4">
-<%= text_field_with_auto_complete :base_item, :item_description, :class => "w100" %>
+<%= f.autocomplete_field :item_description, autocomplete_base_item_item_description_base_items_path, :class => "w100 classifier_input" %>
 </td>
 </tr>
 <tr class="info">
@@ -81,50 +84,32 @@ var content_uom ="";
 </tr>
 <tr class="val">
 <td>
-	<style type="text/css">
-	  div.manufacturer_auto_complete {
-	    width: 500px !important;
-	    background: #fff;
-	  }
-	  div.manufacturer_auto_complete ul {
-	    border:1px solid #888;
-	    margin:0;
-	    padding:0;
-	    width:100%;
-	    list-style-type:none;
-	  }
-	  div.manufacturer_auto_complete ul li {
-	    margin:0;
-	    padding:3px;
-	  }
-	  div.manufacturer_auto_complete ul li.selected {
-	    background-color: #ffb;
-	  }
-	  div.manufacturer_auto_complete ul strong.highlight {
-	    color: #800; 
-	    margin:0;
-	    padding:0;
-	  }
-	</style>
-	<%= f.text_field :manufacturer_gln, :autocomplete => "off" %>
-	<div id = "base_item_manufacturer_gln_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%= auto_complete_field("base_item_manufacturer_gln", { :url => auto_complete_for_base_item_manufacturer_gln_base_items_path, :select => "value", :after_update_element => "function (e,v) {
-		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
-	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-	}"}) -%>
+	<%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path,:update_elements => { :manufacturer_name => '#base_item_manufacturer_name'}%>
+
 </td>
 <td>
-	<%= f.text_field :manufacturer_name, :autocomplete => "off" %>
-	<div id = "base_item_manufacturer_name_auto_complete" class = "manufacturer_auto_complete"></div>
-	<%= auto_complete_field("base_item_manufacturer_name", { :url => auto_complete_for_base_item_manufacturer_name_base_items_path, :select => "value", :after_update_element => "function (e,v) {
-		$('base_item_manufacturer_gln').value = v.getElementsByClassName('autocomplete_manufacturer_gln')[0].innerHTML;
-	  $('base_item_manufacturer_name').value = v.getElementsByClassName('autocomplete_manufacturer_name')[0].innerHTML;
-	}"}) -%>
+	<%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path,:update_elements => { :manufacturer_gln => '#base_item_manufacturer_gln'}%>
 </td>
 <td>
-	<div id="country_input">
-		<%= f.text_field :country %>
-	</div>
+  <div id="country_input">
+	  <div class="drop-down-cont zi-1">
+      <%= f.text_field :country, :class => 'dd-input'%>
+	  	<div class="drop-down">
+	  		<div class="blue-tarr"></div>
+	  		<div class="drop-down-list-cont">
+	  			<div class="drop-down-list first" style="white-space:nowrap;">
+	  				<ul>
+              <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
+	  				</ul>
+	  			</div>
+	  		</div>
+	  					<div class="remark">
+				Пояснения к полю<br /><br /><br />
+			</div>
+	  		<a id='country_select_btn' class="choose-btn" href="#"></a>
+	  	</div>
+	  </div>
+  </div>
 </td>
 </tr>
 <tr class="info">
@@ -134,9 +119,28 @@ var content_uom ="";
 </tr>
 <tr class="val">
 <td colspan="3">
-	<div id="classifier_input">
-		<%= f.text_field :gpc_name, :class => "w100 classifier_input" %>
-	</div>
+<div id="classifier_input">
+  <div class="dd-overlay"></div>
+	  <div class="drop-down-cont zi-2">
+		  <%= f.text_field :gpc_name, :class => "w100 dd-input" %>
+  		<div class="drop-down">
+	  		<div class="blue-tarr"></div>
+	  		<div class="drop-down-list-cont" style ="width:783px;" >
+	  		 	<div id='groups' class="drop-down-list first" style="width:260px">
+	  			</div>
+	  		  <div id='subgroups' class="drop-down-list" style="width:260px">
+	  			</div>
+	  			<div  id='categories' class="drop-down-list" style="width:260px">
+	  			</div>
+	  		</div>
+	  	<div class="remark">
+				Пояснения к полю<br /><br /><br />
+			</div>
+			  <a id='gpc_select_btn' class="choose-btn" href="javascript:void(0)"></a>
+  		</div>
+	  </div>
+  </div>
+</div>
 </td>
 </tr>
 <tr class="info">
@@ -152,43 +156,38 @@ Shelf life period
   <%= f.select :vat, @base_item.vats %>
 </td>
 <td>
-<%=f.text_field :minimum_durability_from_arrival%>
+  <%=f.text_field :minimum_durability_from_arrival%>
 </td>
 </tr>
 </table>
-
-<input type="hidden" id="country_value">
-<br>
-<div id="countries" class="country_results countries" style="display:none;">
-  <div class='corner'></div>
-  <a href="#" id="countries_close" class="close"></a>
-  <div id="countries_results" class="inline results_ul">
-		<ul>
-		  <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
-		</ul>
-  </div>
-  <div style="width:100%; position: relative; float: right;" class="inline">
-    <hr>
-    <a id="country_select" class="ok_button" href="#"></a>
-  </div>
-</div>
-
-<input type="hidden" id="classifier_value">
-<div id="classifier" class="gpc_results classifier" style="display:none">
-  <div class='corner'></div>
-  <a href="#" id="classifier_close" class="close"></a>
-  <div id="groups" class="inline results_ul">
-  </div>
-  <div id="subgroups" class="inline results_ul">
-  </div>
-  <div id="categories" class="inline results_ul">
-  </div>
-  <div style="width:100%; position: relative; text-align: right;" class="inline">
-    <hr>
-    <a id="classifier_select" class="ok_button" href="#"></a>
-  </div>
-</div>
+<div class="dd-overlay"></div>
+<%= javascript_include_tag  'dropdowns' %>
 <script type="text/javascript">
+	$j("#country_select_btn").click(function(){
+    $j('#country_input .drop-down-list ul li a').each( function(){
+      if ($j(this).parent().hasClass('selected')){
+        $j('#base_item_country').val($j(this).html());
+     		$j('.drop-down').css('visibility','hidden');
+    		$j('.dd-overlay').css('display', 'none');
+    		return false;
+    		}
+    });
+  });
+  $j('#base_item_gpc_name').click(function(){
+    $j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
+	});
+
+	$j("#gpc_select_btn").click(function(){
+    $j('#categories ul li a').each( function(){
+      if ($j(this).parent().hasClass('selected')){
+        $j('#base_item_gpc_name').val($j(this).html());
+     	 	$j('.drop-down').css('visibility','hidden');
+    	 	$j('.dd-overlay').css('display', 'none');
+       	return false;
+      }
+    });
+  });
+/*
 	$j('#base_item_gpc_name').click(function(){
 		$j('#classifier').show();
 		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); return false;
@@ -209,21 +208,11 @@ Shelf life period
 		}).show();
 		return false;
 	});
-	$j("#countries_close").click(function(){
-	  hideCountriesNow();
-	});
-	$j("#country_select").click(function(){
-	  selectCountryItem();
-		$j('#base_item_country').val($j("#country_value").val());
-	});
 
-	$j("li", "#countries").click(function(){
-	  selectCountry(this);
-	});
 
 	$j('#base_item_gpc_name').click(function(){
 		$j('#classifier').show();
-		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'}); 
+		$j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
 		return false;
 	});
   $j("#classifier_close").click(function(){
@@ -234,8 +223,8 @@ Shelf life period
 		$j('#base_item_gpc_name').val($j("#classifier_value").val());
   });
 
-
-	
+*/
+/*
 	$j("#base_item_brand").change(function() {
 		if(!is_description_touched){
 			brand = $j("#base_item_brand").val();
@@ -271,29 +260,31 @@ Shelf life period
 	$j("#base_item_item_description").change(function() {
 		is_description_touched = true;
 	});
-	
+
 	function PrepareDescriptionString(){
 		var string = ""
 		if (brand != "") {string = brand}
-		
+
 		if (subbrand != "") {
 			string += ' ' + subbrand;
 		}else {return string;}
-		
+
 		if (functional != ""){
 			string += ' ' + functional;
 		}else {return string;}
-		
+
 		if (content != ""){
 			string += ' ' + content;
 		}else {return string;}
-		
+
 		if (content_uom != ""){
 			string += ' ' + content_uom;
 		}else {return string;}
-		
+
 		return string;
 		}
+		*/
 </script>
 </div>
 <div id='hidden_div' style="display: none"></div>
+

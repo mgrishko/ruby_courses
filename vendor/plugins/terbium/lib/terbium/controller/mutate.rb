@@ -22,6 +22,10 @@ module Terbium
           extend ClassMethods
 
           helper_method :model_name, :boolean_fields, :resource_session
+
+          rescue_from ActionView::MissingTemplate do |exception|
+            render "terbium/#{exception.path.split('/').last}"
+          end
         end
 
         def terbium_admin?
@@ -47,14 +51,6 @@ module Terbium
           session[:resources][name] = {} unless session[:resources][name]
           session[:resources][name][:boolean] = {} unless session[:resources][name][:boolean]
           session[:resources][name]
-        end
-
-        def render_action action
-          result = "terbium/#{action}.html.erb"
-          view_paths.each do |path|
-            result = File.join(route_prefix, controller_name, "#{action}.html.erb") if File.exists?(File.join(path, route_prefix, controller_name, "#{action}.html.erb"))
-          end
-          render result
         end
 
         def process_filters

@@ -5,7 +5,7 @@
       <%= link_to t(:choosing), '#', :ajax => resources_path("associated_#{field}_choosing") %>
     </li>
     <li class="notab">
-      <% form_tag '#', :class => 'associated_search', :ajax => current_path do %>
+      <%= form_tag '#', :class => 'associated_search', :ajax => current_path do %>
         <%= text_field_tag :query, resource_session[:query] %>
         <%= submit_tag 'Search' %>
         <% if resource_session[:query].present? %>

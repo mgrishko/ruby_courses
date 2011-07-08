@@ -1,6 +1,3 @@
-class Country < ActiveRecord::Base
-end
-
 # == Schema Information
 #
 # Table name: countries
@@ -11,4 +8,7 @@ end
 #  created_at  :datetime
 #  updated_at  :datetime
 #
+
+class Country < ActiveRecord::Base
+end
 

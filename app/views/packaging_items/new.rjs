@@ -1,4 +1,0 @@
-pi_id = @packaging_item.parent ? "packaging_item_new_#{@packaging_item.parent.id}" : 'packaging_item_new'
-
-page.replace_html pi_id, :partial => 'new'
-page[pi_id].scroll_to

@@ -5,5 +5,8 @@ tmp/*
 config/database.yml
 .rvmrc
 *.swp
+*.swo
 .idea
 public/data
+/Gemfile.lock
+

@@ -1,0 +1,10 @@
+<ul>
+<% @export_forms.each do |f| %>
+  <li>
+  <%= check_box_tag "forms[]", f, checked = false, :id => f ,:class => 'xls_templates'%>&nbsp;
+  <%= f %>
+
+  </li>
+<%end%>
+</ul>
+

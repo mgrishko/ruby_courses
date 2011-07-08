@@ -1,27 +1,32 @@
+# encoding = utf-8
 class MainController < ApplicationController
   layout false
   def classifier
     @groups = Gpc.all :select => "DISTINCT(gpcs.segment_description)", :order => 'segment_description'
-    respond_to do |format| 
+    respond_to do |format|
       format.js
     end
   end
-  
+
+  def export_form
+    @export_forms = EXPORT_FORMS
+  end
+
   def subgroups
     @subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
   end
-  
+
   def categories
     @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
   end
-  
+
   def countries
     @countries = Country.all :order => 'description'
-    respond_to do |format| 
+    respond_to do |format|
       format.js
     end
   end
-  
+
   def cases
     @id = if PackagingItem.find_by_id(params[:packagin_item_id])
       PackagingItem.find(params[:packagin_item_id]).id
@@ -33,11 +38,11 @@ class MainController < ApplicationController
       end
     end
     @results = params[:hide_px] ? BaseItem.packaging_types.delete_if{|i|i[:code]=='PX'} : BaseItem.packaging_types
-    respond_to do |format| 
+    respond_to do |format|
       format.js
     end
   end
-  
+
   def show_man
     hash = {}
     hash[1] = "A gas-tight, pressure-resistant container with a valve and propellant.  When the valve is opened, propellant forces the product from the container in a fine or coarse spray pattern or stream.  (e.g., a spray can dispensing paint, furniture polish, etc, under pressure).  It does not include atomizers, because atomizers do not rely on a pressurised container to propel product from the container. "
@@ -87,9 +92,10 @@ class MainController < ApplicationController
     hash[45] = "The process of enclosing all or part of an item with layers of flexible wrapping material (e.g., for an individually packed ice cream). Does not include items which are shrink-wrapped or vacuum-packed "
     id = BaseItem.packaging_types.find{|i|i[:code]==params[:id]}[:id]
     @case = {:id => id, :description => hash[id]}
-    if [5, 12, 17, 18, 25, 28, 33, 35, 38, 45].include?(id)
-      @case[:img] = "pi/#{id}.png"
-    end
+#    if File.exists?(File.join(Rails.root,'pi',"#{id}.jpg"))
+      @case[:img] = "pi/#{id}.jpg"
+#    end
   end
-  
+
 end
+

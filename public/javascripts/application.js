@@ -1,5 +1,30 @@
+// функции "упаковать"
+var packageMe = function(bi_id){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
+  return false;
+};
+var packageMeWithSub = function(bi_id,iid){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', function() {});
+  return false;
+};
+var cancelEditButton = function(path){
+  $j.getScript(path, function() {});
+  return false;
+};
+
+var cancelPackageMeWithSub = function(bi_id){
+  $j.getScript('/base_items/'+bi_id+'/packaging_items/', function() {});
+  return false;
+};
+
+var acceptOrCancelSR =function(sr, action, event){
+  event.stopPropagation();
+  $j.getScript('/subscription_results/update_one/'+sr+'?'+action+'=yes', function() {});
+  return false;
+};
+
 function setHeights() {
-  $$('#items .item').each(function(element){
+  $j('#items .item').each(function(element){
     element.setStyle({minHeight: ''});
   });
   /*$$('#items .item').each(function(element){
@@ -9,9 +34,9 @@ function setHeights() {
   });*/
 }
 
-Event.observe(window, 'load', setHeights);
+//Event.observe(window, 'load', setHeights);
 
-Ajax.Responders.register({onComplete: setHeights});
+//Ajax.Responders.register({onComplete: setHeights});
 
 //
 var _GT = {};
@@ -33,8 +58,7 @@ function showTab(tab) {
   $j("#tab-"+tab).show();
   return false;
 }
-$j(function() {
-  $j("#tab-1").show();
+$(function(){
   $j("#search-form-input").blur(function() {
     $j(this).css('color', '#CCC');
     if ((this.value == '') || (this.value == 'Поиск')) {
@@ -63,7 +87,6 @@ $j(function() {
   function() {
     $j(this).removeClass("hovered");
   });
-  
   $j(".cm").hover(function() {
     $j(this).find(".actions").show();
   },
@@ -71,18 +94,12 @@ $j(function() {
     $j(this).find(".actions").hide();
   });
   hovers();
-  $j('body').click(function(e){
-  e.stopPropagation();
-  //DO SOMETHING
-  });
   return false;
 });
-
 function hovers() {
   bi_hover(); //base_items
   cm_hover(); //comments
 }
-
 function bi_hover() {
   $j(".bi").hover(function() {
     $j(this).addClass("hovered");
@@ -100,6 +117,8 @@ function cm_hover() {
   });
 }
 
+// further undone
+
 function subscription(event, that, supplier_id) {
   event.stopPropagation();
   $j.post('/subscriptions/status', {id: supplier_id}, function(data) {
@@ -116,6 +135,16 @@ function subscription(event, that, supplier_id) {
   }, "json");
   return false;
 }
+//$j(function() {
+// $j("#tab-1").show();
+
+//  $j('body').click(function(e){
+//  e.stopPropagation();
+//  //DO SOMETHING
+//  });
+//  return false;
+//});
+
 function instantSubscription(that, supplier_id) {
   $j.post('/subscriptions/instantstatus', {id: supplier_id}, function(data) {
     if (data.error) {
@@ -138,12 +167,13 @@ function check_pallete(emitter) {
   }
 }
 
+// Function to submit receivers when private = true
 function submitReceiver(suffix) {
   if (!suffix) {
     suffix = '';
   }
   $j("#receiver_gln").val($j("#new_receiver_input"+suffix).val());
-  document.getElementById("new_receiver").onsubmit();
+  $j("#new_receiver").submit();
   return false;
 }
 
@@ -163,7 +193,7 @@ function findCountryPos(obj) {
   }
   return {x:curleft, y:curtop};
 }
-
+/*
 function classifierSelect(li){
   var lis = $j("li", "#groups");
   if (!lis[0]) return;
@@ -171,28 +201,12 @@ function classifierSelect(li){
   $j(li).addClass("ac_over");
 }
 
-function selectCountry(li){
-  var lis = $j("li", "#countries_results");
-  if (!lis[0]) return;
-  lis.removeClass("ac_liselected");
-  $j(li).addClass("ac_liselected");
-  selected_li = lis[active];
-}
-
-function selectCountryItem(li){
-  var li = $j("li.ac_liselected", "#countries_results")[0];
-  if (li){
-    $j("#country_link").html(li.innerHTML);
-    $j("#country_value").val(li.innerHTML);
-    hideCountriesNow();
-  }
-}
 
 function selectClassifierGroup(li){
   $j("#categories").html("");
   var lis = $j("li", "#groups");
-  lis.removeClass("ac_liselected");
-  $j(li).addClass("ac_liselected");
+//  lis.removeClass("ac_liselected");
+//  $j(li).addClass("ac_liselected");
   requestSubgroupsData($j(li).attr("id"));
 }
 
@@ -218,7 +232,7 @@ function selectClassifierItem(li){
     hideClassifierNow();
   }
 }
-
+*/
 function requestCategoriesData(q){
   var data = null;
   $j.get("/main/categories/" + q, function(data) {
@@ -305,7 +319,8 @@ function requestManData(q){
 
 function receiveManData(data) {
   if (data) {
-    $j("li", ".cases_results").removeClass("ac_loading");
-    $j(".cases_man").html(data);
+    $j(".pic-cont").html(data.split('<br>')[0]);
+    $j(".remark").html(data.split('<br>')[1]);
   }
 };
+

@@ -1,0 +1,40 @@
+<div class="bi gtin-subscription" id="gtin-<%=gtin[:gtin]%>">
+<%if gtin[:bi].nil?%>
+    <%if gtin[:errors]%>
+        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content gtin-error">
+          <div class='fright'>
+            <%= link_to_function 'Редактировать',"editGtin('#{gtin[:gtin]}')"%> |
+            <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
+          </div>
+          <div><span class="normal"><%= gtin[:gtin] %></span> </div>
+          <div class="usual"><%= gtin[:errors] %></div>
+        </div>
+    <%else%>
+        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content gtin-nil">
+          <div class='fright'>
+            <%= link_to_function 'Редактировать',"editGtin('#{gtin[:gtin]}')"%> |
+            <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
+          </div>
+          <div><span class="normal"><%= gtin[:gtin] %></span></div>
+          <div class="usual">Record with such gtin is not found</div>
+        </div>
+    <%end%>
+<%else%>
+  <%base_item = gtin[:bi]%>
+        <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content">
+          <div class='fright'>
+            <%= link_to_function 'Редактировать',"if (confirm('Вы уверены?')) editGtin('#{gtin[:gtin]}')"%> |
+            <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
+          </div>
+          <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
+          <div class="usual"><%= base_item.item_description %></div>
+        </div>
+        <%= hidden_field_tag 'base_items[]', base_item.id %>
+
+<%end%>
+
+</div>
+

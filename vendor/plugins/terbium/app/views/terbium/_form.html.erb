@@ -8,7 +8,7 @@
        @fields = controller.update_fields || controller.form_fields
      end %>
 <% @fields.each do |field| -%>
-  <li><%= f.terbium_field field %></li>
+  <li><%= raw f.terbium_field field %></li>
 <% end -%>
 </ul>
 

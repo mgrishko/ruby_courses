@@ -1,4 +1,4 @@
-class AssociatedLinkRenderer < WillPaginate::LinkRenderer
+class AssociatedLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
 
 protected
 

@@ -1,5 +1,39 @@
+# encoding = utf-8
+
+# == Schema Information
+#
+# Table name: packaging_items
+#
+#  id                                       :integer(4)      not null, primary key
+#  base_item_id                             :integer(4)
+#  parent_id                                :integer(4)
+#  gtin                                     :string(255)
+#  item_name_long_ru                        :string(255)
+#  created_at                               :datetime
+#  updated_at                               :datetime
+#  user_id                                  :integer(4)
+#  number_of_next_lower_item                :integer(4)
+#  number_of_bi_items                       :integer(4)
+#  despatch_unit                            :boolean(1)      default(FALSE)
+#  invoice_unit                             :boolean(1)      default(FALSE)
+#  order_unit                               :boolean(1)      default(FALSE)
+#  consumer_unit                            :boolean(1)      default(FALSE)
+#  gross_weight                             :integer(4)
+#  packaging_type                           :string(255)
+#  height                                   :integer(4)
+#  depth                                    :integer(4)
+#  width                                    :integer(4)
+#  published                                :boolean(1)      default(FALSE)
+#  rgt                                      :integer(4)
+#  lft                                      :integer(4)
+#  level_cache                              :integer(4)      default(0)
+#  quantity_of_layers_per_pallet            :integer(4)      default(1)
+#  quantity_of_trade_items_per_pallet_layer :integer(4)      default(1)
+#  stacking_factor                          :integer(4)      default(1)
+#
+
 class PackagingItem < ActiveRecord::Base
-  acts_as_nested_set :scope => :base_item
+  acts_as_nested_set :scope => :base_item, :depth_column => 'level_cache'
   default_scope :order => 'lft'
 
   belongs_to :base_item
@@ -8,7 +42,7 @@ class PackagingItem < ActiveRecord::Base
   #validates_presence_of :gtin
   #validates_gtin :gtin
   #validates_uniqueness_of :gtin, :scope => :user_id
-  
+
   validate :check_gtin
 
   validates_number_length_of :number_of_next_lower_item, 6
@@ -24,39 +58,49 @@ class PackagingItem < ActiveRecord::Base
   validates_numericality_of :stacking_factor, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?
 
   validates_length_of :item_name_long_ru, :maximum => 35, :allow_nil => true
-  
+
   def check_gtin
-    errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin], :joins => :base_item) > 0 # versions
-    errors.add(:gtin, "Уже существует") if PackagingItem.count(:conditions => ["base_item_id=? and id != '?' and gtin = ?", self.base_item_id, self.id, self.gtin]) > 0 # same PI tree
-    errors.add(:gtin, "Уже существует") if BaseItem.count(:conditions => ["user_id = ? and gtin = ? and status = 'published'", self.user_id, self.gtin]) > 0 # bi
+    errors.add(:gtin, "Уже существует") if PackagingItem.joins(:base_item).where("base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin).count() > 0 # versions
+    errors.add(:gtin, "Уже существует") if PackagingItem.where("base_item_id=? and id != ? and gtin = ?", self.base_item_id, self.id, self.gtin).count() > 0 # same PI tree
+    errors.add(:gtin, "Уже существует") if BaseItem.where(:user_id => self.user_id, :gtin => self.gtin, :status => 'published').count() > 0 # bi
     errors.add(:gtin, "Уже существует") if self.gtin.to_s == self.base_item.gtin.to_s
   end
-  
+
   def gross_weight_validation
     parent_item = parent || base_item
     items_number = parent ? number_of_next_lower_item : number_of_bi_items
-    errors.add('gross_weight', "must be greater or equal #{parent_item.gross_weight * items_number}") if items_number && gross_weight && gross_weight < parent_item.gross_weight * items_number
+    if items_number && gross_weight && (gross_weight.to_f < (0.96*parent_item.gross_weight * items_number ).to_f)
+      errors.add('gross_weight', "must be greater or equal #{(0.96*parent_item.gross_weight * items_number)}")
+    end
   end
-  
+
   validate :package_volume_validation
   def package_volume_validation
+#    parent_item = parent || base_item
+#    items_number = parent ? number_of_next_lower_item : number_of_bi_items
+#    volume = width * height * depth if width && height && depth
+#    parent_volume = parent_item.width * parent_item.height * parent_item.depth
+#    if items_number && volume && volume < parent_volume * items_number
+#      errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}")
+#    end
     parent_item = parent || base_item
-    items_number = parent ? number_of_next_lower_item : number_of_bi_items
     volume = width * height * depth if width && height && depth
     parent_volume = parent_item.width * parent_item.height * parent_item.depth
-    errors.add_to_base("Volume of package must be greater or equal #{parent_volume * items_number}") if items_number && volume && volume < parent_volume * items_number
+    if volume and (volume < parent_volume)
+      errors.add_to_base("Volume of package must be greater or equal #{parent_volume}")
+    end
   end
-  
+
   validate :children_dependencies
   def children_dependencies
     brutto = gross_weight||0
     volume = (height||0)*(depth||0)*(width||0)
     children.each do |child|
       if child.number_of_next_lower_item*brutto > child.gross_weight
-	errors.add_to_base("Gross Weight is more than child gross weight")
+      	errors.add_to_base("Gross Weight is more than child gross weight")
       end
       if child.number_of_next_lower_item*volume > child.height*child.depth*child.width
-	errors.add_to_base("Volume is more than child volume")
+	      errors.add_to_base("Volume is more than child volume")
       end
     end
   end
@@ -74,32 +118,39 @@ class PackagingItem < ActiveRecord::Base
   #end
 
   def set_level_cache
-    update_attribute(:level_cache, level)
+    update_attributes(:level_cache => level)
   end
 
   def set_number_of_bi_items
-    puts "set_number_of_bi_items"
     self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item
     #self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
 
-  # methods calculate_* for view (highlighting) 
-  def calculate_quanity
-    "<span class='d'>#{number_of_next_lower_item}</span> <span class='t'>уп. внутри</span> <span class='d'>#{number_of_bi_items}</span> <span class='t'>ед.</span>"
+  # methods calculate_* for view (highlighting)
+  def calculate_quantity
+    "#{number_of_next_lower_item},#{number_of_bi_items}"
   end
-  
+
+  #actually used to compare previous and new versions values. and highlight if changed
   def calculate_pallet
-    "<span class='d'>#{quantity_of_layers_per_pallet}</span> <span class='t'>слоев, по</span> <span class='d'>#{quantity_of_trade_items_per_pallet_layer}</span> <span class='t'>уп. </span><span class='d'>#{stacking_factor}</span> <span class='t'>стекинг</span>"
+    "#{quantity_of_layers_per_pallet},#{quantity_of_trade_items_per_pallet_layer},#{stacking_factor}"
   end
-  
+
+  #actually used to compare previous and new versions values.  and highlight if changed
   def calculate_weights
-    "<span class='d'>#{gross_weight}</span> <span class='t'>г. брутто,</span> <span class='d'>#{base_item.net_weight* number_of_bi_items}</span> <span class='t'>г. нетто</span>"
+    "#{gross_weight},#{net_weight}"
   end
-  
-  def calculate_dimmensions
-    "<span class='d'>#{height}</span> <span class='t'>x</span> <span class='d'>#{width}</span> <span class='t'>x</span> <span class='d'>#{depth}</span> <span class='t'>(В x Д x Ш)</span>"
+
+  #actually used to compare previous and new versions values.  and highlight if changed
+  def calculate_dimensions
+    "#{height}x#{width}x#{depth}"
   end
-  
+
+  # calculates net_weight for PackagingItem based on base_item.net_weight and quantity of pi
+  def net_weight
+    base_item.net_weight.to_i* number_of_bi_items
+  end
+
   def first?
     parent.nil? or parent.lft==self.lft-1
   end
@@ -107,7 +158,7 @@ class PackagingItem < ActiveRecord::Base
   def last?
     parent.nil? or parent.rgt==self.rgt+1
   end
-  
+
   def pallet?
     packaging_type == 'PX'
   end
@@ -118,34 +169,15 @@ class PackagingItem < ActiveRecord::Base
       #item.update_attribute(:number_of_bi_items, item.self_and_ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item })
     #end if number_of_next_lower_item_changed?
   #end
-end
 
-# == Schema Information
-#
-# Table name: packaging_items
-#
-#  id                        :integer(4)      not null, primary key
-#  base_item_id              :integer(4)
-#  parent_id                 :integer(4)
-#  gtin                      :string(255)
-#  item_name_long_ru         :string(255)
-#  created_at                :datetime
-#  updated_at                :datetime
-#  user_id                   :integer(4)
-#  number_of_next_lower_item :integer(4)
-#  number_of_bi_items        :integer(4)
-#  despatch_unit             :boolean(1)      default(FALSE)
-#  invoice_unit              :boolean(1)      default(FALSE)
-#  order_unit                :boolean(1)      default(FALSE)
-#  consumer_unit             :boolean(1)      default(FALSE)
-#  gross_weight              :integer(4)
-#  packaging_type            :string(255)
-#  height                    :integer(4)
-#  depth                     :integer(4)
-#  width                     :integer(4)
-#  published                 :boolean(1)      default(FALSE)
-#  rgt                       :integer(4)
-#  lft                       :integer(4)
-#  level_cache               :integer(4)      default(0)
-#
+  def self.get_base_width(pi)
+    if pi.children.any?
+      c = 0
+      pi.children.each{|child|c+=get_base_width(child)}
+      c
+    else
+      1
+    end
+  end
+end
 

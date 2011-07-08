@@ -1,15 +1,2 @@
-$j('#hidden_div').show();
 $j("#cases_results_<%= @id -%>").html("<%= escape_javascript (render :file => 'main/results') %>");
-var pos = $j("#cases_input_<%= @id -%>").offset();
-<% if @id == 0 %>
-//$j("#cases_0").css({
-//	top: (pos.top - 15) + "px",
-//	left: (pos.left + $j("#cases_input_0").width() * 0.7) + "px"
-//}).show();
-$j("#cases_").show();
-<% else -%>
-//$j("#cases_<%= @id -%>").css({
-//	top: "50px",
-//	left: "50px"}).show();
-$j("#cases_<%= @id -%>").show();
-<% end -%>
+

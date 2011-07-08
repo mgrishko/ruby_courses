@@ -1,24 +1,67 @@
 users = [
    {:id => 1,
-    :gln => 1234,
+    :gln => 10001,
     :password => '1234',
     :password_confirmation => '1234',
     :is_admin => 1,
-    :name => 'Продуктовая Компания',
+    :name => 'Поставщик №1',
     :role => 'supplier'},
    {:id => 2,
-     :gln => 5678,
+     :gln => 10002,
      :password => '1234',
      :password_confirmation => '1234',
      :is_admin => 1,
-     :name => 'Напитки',
+     :name => 'Красный Октябрь',
      :role => 'supplier'},
    {:id => 3,
-    :gln => 4321,
+    :gln => 10003,
     :password => '1234',
     :password_confirmation => '1234',
     :is_admin => 1,
-    :name => 'Море Вкуса',
+    :name => 'Крафт Фудс',
+    :role => 'supplier'},
+   {:id => 4,
+    :gln => 10004,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :is_admin => 1,
+    :name => 'Центрпоставка',
+    :role => 'supplier'},
+#retailers
+   {:id => 5,
+     :gln => 20001,
+     :password => '1234',
+     :password_confirmation => '1234',
+     :is_admin => 1,
+     :name => 'Азбука Вкуса',
+     :role => 'retailer'},
+   {:id => 6,
+    :gln => 20002,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :is_admin => 1,
+    :name => 'Х5',
+    :role => 'retailer'},
+   {:id => 7,
+    :gln => 20003,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :is_admin => 1,
+    :name => 'Лента',
+    :role => 'retailer'},
+   {:id => 8,
+     :gln => 20004,
+     :password => '1234',
+     :password_confirmation => '1234',
+     :is_admin => 1,
+     :name => 'Глобус',
+     :role => 'retailer'},
+   {:id => 9,
+    :gln => 20005,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :is_admin => 1,
+    :name => 'Седьмой континент',
     :role => 'retailer'},
 ]
 puts "Making #{users.size} users"
@@ -32,6 +75,7 @@ users.each do |user|
 end
 puts "ok"
 
+=begin
 items = [
   {:id => 1,
   :user_id => 1
@@ -209,7 +253,7 @@ pis.each do |pi|
   #@packaging_item.save
 
   p = PackagingItem.new(:id => id, :base_item_id => base_item_id, :parent_id => parent_id, :gtin => gtin, :item_name_long_ru => item_name_long_ru, :created_at => created_at, :updated_at => updated_at, :user_id => user_id, :number_of_next_lower_item => number_of_next_lower_item, :number_of_bi_items => number_of_bi_items, :despatch_unit => despatch_unit, :invoice_unit => invoice_unit, :order_unit => order_unit, :consumer_unit => consumer_unit, :gross_weight => gross_weight, :packaging_type => packaging_type, :height => height, :depth => depth, :width => width, :published => published, :rgt => rgt, :lft => lft, :level_cache => level_cache)
-  if (p.parent_id == 0) 
+  if (p.parent_id == 0)
     p.parent_id = nil
   end
   p.id = id
@@ -393,7 +437,7 @@ id: 8
 base_item_id: 3
 parent_id: 7
 gtin: 4660000860286
-item_name_long_ru: Чай Брукбонд 
+item_name_long_ru: Чай Брукбонд
 created_at: 2011-03-27 12:42:24
 updated_at: 2011-03-27 12:42:24
 user_id: 2

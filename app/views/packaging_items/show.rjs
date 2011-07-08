@@ -1,2 +1,0 @@
-page.replace_html "#{dom_id(@packaging_item)}_item", :partial => 'item', :object => @packaging_item
-page["#{dom_id(@packaging_item)}_item"].scroll_to

@@ -1,0 +1,5 @@
+page.replace_html "tags", :partial => 'tags'
+page['new_tag'].hide
+page['add_tag_link'].show
+page[:tag_name].value = ''
+

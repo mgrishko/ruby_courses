@@ -1,3 +1,4 @@
+# encoding = utf-8
 module Terbium
   module CoreExt
     module ActionView
@@ -9,19 +10,10 @@ module Terbium
         end
 
         def admined_controllers &block
-          admined_controllers_list.each do |c|
+          Rails.application.routes.admined_controllers(route_prefix).each do |c|
             c = c.controller_name
             block.call(c.humanize, send("#{route_prefix}_#{c}_path".to_sym)) if respond_to?("#{route_prefix}_#{c}_path".to_sym)
           end
-        end
-
-        def admined_controllers_list
-          ActionController::Routing::Routes.routes.find_all do |r|
-            r.segments[1].class == ActionController::Routing::StaticSegment && r.segments[1].value == route_prefix
-          end.map { |r| r.requirements[:controller] }.uniq.map do |c|
-            controller = "#{c}_controller".camelize.constantize rescue nil
-            controller if controller && controller.terbium_admin?
-          end.compact
         end
 
         def render_field record, field
@@ -85,3 +77,4 @@ module Terbium
     end
   end
 end
+

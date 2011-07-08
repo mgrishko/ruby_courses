@@ -1,21 +1,22 @@
 <ul>
 	<% @subgroups.each do |k,v| %>
-		<li id="<%= k -%>"><span style="color: grey; font-weight: bolder;"><%= k -%></span></li>
-  	<%= render :partial => "subgroup", :collection => v.map(&:description).uniq %>
+  	<div class="drop-down-list-in">
+			<h3><%= k -%></h3>
+			<ul>
+	      <%= render :partial => "subgroup", :collection => v.map(&:description).uniq %>
+			</ul>
+	  </div>
 	<% end %>
 </ul>
-
 <script type="text/javascript">
-$j("li", "#subgroups").hover(
-  function(){
-    classifierSelect(this);
-  },
-  function(){
-    $j(this).removeClass("ac_over");
-  }
-).click(function(){
-  selectClassifierSubgroup(this);
-  $j(this).addClass("ac_loading");
-}
-);
+	$j('.drop-down-list ul li a').click(function(){
+		$j(this).parent().parent().find('li').removeClass('selected');
+		$j(this).parent().parent().parent().find('li').removeClass('selected');
+//    $j(this).addClass("ac_loading");
+		$j(this).parent().addClass('selected');
+    $j("#categories").html("");
+    requestCategoriesData($j(this).parent().attr("id"));
+		return false;
+	});
 </script>
+

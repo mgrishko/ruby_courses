@@ -24,6 +24,9 @@
 <% for u in @users do %>
 <div class="bi <% if u.my_retailer_flag(current_user.id) %>subscribed<% end %>" id="bi-<%= u.id %>" onclick="document.location='<%= supplier_path(u) %>'">
   <div class="bi-right"><button id="bs-<%= u.id %>" onclick="return subscription(event, this, '<%= u.id %>')"><%= u.my_retailer_info(current_user.id) %></button></div>
+  <div class="bi-right">
+    <button onclick="event.stopPropagation();document.location='/subscriptions/by_gtin/<%= u.id %>';">Подписка по gtin</button>
+  </div>&nbsp;
   <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
   <div class="bi-content">
     <div><span class="normal"><%= u.gln %></span> <span class="light"><%= link_to u.name, supplier_path(u) %></div>
@@ -36,3 +39,4 @@
 <% end %>
 </div>
 <%= will_paginate @users %>
+

@@ -1,0 +1,40 @@
+<%= form_for :subscription, :url => {:action => 'by_gtin', :controller => :subscription,:id=>params[:id]},:html=>{:id => 'subscribe_by_gtin'} do |f| %>
+  <%= render :partial => 'gtin',:collection => @gtins %>
+  <%= f.submit 'Подписаться' , :id => 'subscribe_by_gtin_btn'%>
+<%end %>
+
+<script>
+  $j('#subscribe_by_gtin').submit(function(){
+      if( $j('.gtin-error').length > 0 || $j('.gtin-nil').length >0 )
+      return false;
+  });
+</script>
+<style>
+  .gtin-error{color: red}
+  .gtin-nil{color: grey}
+  .gtin-subscription{cursor:auto;}
+</style>
+<script>
+  var removeGtin=function(gtin){
+    $j("#gtin-"+gtin).remove()
+  };
+  var tmp ={};
+  var editGtin=function(gtin){
+    var input = '<input id="input-'+gtin+'" type = "text" name="gtin" value="'+gtin+'" />';
+    var apply = '<a href="javascript:void(0)" id="apply-'+gtin+'">Применить</a>';
+    var refuse = '<a href="javascript:void(0)" id="refuse-'+gtin+'">Отмена</a>';
+    tmp[gtin] = $j("#bi-content-"+gtin).html();
+    $j("#bi-content-"+gtin).html(input+apply+' '+refuse);
+    $j("#refuse-"+gtin).click(function(){
+        $j("#bi-content-"+gtin).html(tmp[gtin]);
+    });
+    $j("#apply-"+gtin).click(function(){
+
+        $j.get('/subscriptions/get_single_gtin/'+<%=params[:id]%>,'gtin='+$j("#input-"+gtin).val(),
+          function(data){
+            $j("#gtin-"+gtin).replaceWith(data);
+          });
+    });
+  };
+</script>
+

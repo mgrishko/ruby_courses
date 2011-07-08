@@ -1,13 +1,20 @@
+require 'zip/zip'
+require 'zip/zipfilesystem'
 class BaseItemsController < ApplicationController
   before_filter :require_user
-
+  autocomplete :base_item, :brand, :full => true, :uniq => true
+  autocomplete :base_item, :subbrand, :full => true, :uniq => true
+  autocomplete :base_item, :functional, :full => true, :uniq => true
+  autocomplete :base_item, :item_description, :full => true, :uniq => true
+  autocomplete :base_item, :manufacturer_gln, :full => true,:extra_data => [:manufacturer_name], :uniq => true
+  autocomplete :base_item, :manufacturer_name, :full => true,:extra_data => [:manufacturer_gln], :uniq => true
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
-
+    BaseItem.per_page = 12
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
                                           :manufacturer_name => params[:manufacturer_name],
                                           :functional => params[:functional],
-                                          :brand => params[:brand], 
+                                          :brand => params[:brand],
                                           :tag => params[:tag],
 					  :receiver => params[:receiver],
 					  :search => params[:search],
@@ -46,7 +53,7 @@ class BaseItemsController < ApplicationController
     end
     session[:base_item_params] = {}
     session.delete :base_item_step if session[:base_item_step]
-    @base_item = BaseItem.new(session[:base_item_params])  
+    @base_item = BaseItem.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
 
     #if params[:base].nil?
@@ -83,7 +90,7 @@ class BaseItemsController < ApplicationController
     @base_item = current_user.base_items.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
     if @base_item.valid?
-      if params[:back_button]  
+      if params[:back_button]
 	      @base_item.previous_step
       elsif @base_item.last_step?
 	      if @base_item.all_valid?
@@ -104,7 +111,7 @@ class BaseItemsController < ApplicationController
       end
       session[:base_item_step] = @base_item.current_step
     end
-    render 'new' 
+    render 'new'
     #@base_item = current_user.base_items.new(params[:base_item])
 
     #generate_attachment
@@ -126,10 +133,10 @@ class BaseItemsController < ApplicationController
     if params[:step]
       @base_item.next_step
       if @base_item.update_attributes(params[:base_item])
-	@base_item.draft!
-	return render 'update_step2'
+	      @base_item.draft!
+      	return render 'update_step2'
       else
-	return render 'edit_step2'
+	      return render 'edit_step2'
       end
     end
     BaseItem.transaction do
@@ -166,7 +173,7 @@ class BaseItemsController < ApplicationController
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
-      
+
       if @base_item.has_difference_between_old?
 	@base_item.publish!
 	@base_item.item.change! if @base_item.item.add?
@@ -178,6 +185,7 @@ class BaseItemsController < ApplicationController
     redirect_to base_items_url
   end
 
+  # Create a draft version of base_item
   def draft
     @base_item = current_user.base_items.find params[:id]
     if @base_item.published?
@@ -186,39 +194,33 @@ class BaseItemsController < ApplicationController
       n.created_at = n.updated_at = nil
       n.state = 'change' #not new. This is version
       return render :text => n.errors.full_messages unless n.draft!
-      #n.save
-      
+      n.save
       map_id = {}
-      
-      roots = @base_item.packaging_items.find_all{|pi| pi.parent_id == nil}
-      roots.each  do |root|
-	pi = n.packaging_items.new(root.attributes)
-	pi.user = current_user
-	pi.save
+      roots = @base_item.packaging_items.roots
+      roots.reverse.each  do |root|
+    	  pi = n.packaging_items.new(root.attributes)
+    	  pi_attributes ={:user_id => current_user.id, :base_item_id => n.id}
+        pi.update_attributes(pi_attributes)
+      	#old new
+      	map_id[root.id] = pi.id
 
-	#old new
-	map_id[root.id] = pi.id
+      	root.descendants.each do |d|
+      	  pi = n.packaging_items.new(d.attributes)
+      	  pi.update_attributes!(pi_attributes.merge({:parent_id => map_id[d.parent_id]}))
+      	  map_id[d.id] = pi.id
+      	end
 
-	root.descendants.each do |d|
-	  pi = n.packaging_items.new(d.attributes)
-	  pi.user = current_user
-	  pi.parent_id = map_id[d.parent_id]
-	  pi.save
-
-	  map_id[d.id] = pi.id
-	end
       end
-
       # receivers list
       @base_item.receivers.each do |r|
-	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
+      	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
       end
-
       #end
       #redirect_to :action => "show", :id => n.id
       redirect_to base_item_path(n)
     end
   end
+
   def accept
     @base_item = current_user.base_items.find params[:id]
     @base_item.accept!
@@ -238,52 +240,54 @@ class BaseItemsController < ApplicationController
 
   def classifier
     #@groups = Group.find(:all)
-    respond_to do |format| 
+    respond_to do |format|
       format.js
     end
   end
-  
-  #def auto_complete_for_base_item_gpc_name
-  #  @gpcs = Gpc.find(:all, :conditions => ["LOWER(name) LIKE ?", "%#{params[:base_item][:gpc_name].downcase}%"])
-  #  render :inline => "<%= auto_complete_result(@gpcs, 'name') %>"
-  #end
-  
-  def auto_complete_for_base_item_brand
-    @base_items = BaseItem.find(:all, :conditions => ["LOWER(brand) LIKE ?", "%#{params[:base_item][:brand].downcase}%"])
-    render :inline => "<%= auto_complete_result(@base_items, 'brand') %>"
-  end
-  
-  def auto_complete_for_base_item_subbrand
-    @base_items = BaseItem.find(:all, :conditions => ["LOWER(subbrand) LIKE ?", "%#{params[:base_item][:subbrand].downcase}%"])
-    render :inline => "<%= auto_complete_result(@base_items, 'subbrand') %>"
-  end
-  
-  def auto_complete_for_base_item_functional
-    @base_items = BaseItem.find(:all, :conditions => ["LOWER(functional) LIKE ?", "%#{params[:base_item][:functional].downcase}%"])
-    render :inline => "<%= auto_complete_result(@base_items, 'functional') %>"
-  end
-  
-  def auto_complete_for_base_item_item_description
-    @base_items = BaseItem.find(:all, :conditions => ["LOWER(item_description) LIKE ?", "%#{params[:base_item][:item_description].downcase}%"])
-    render :inline => "<%= auto_complete_result(@base_items, 'item_description') %>"
-  end
-  
-  def auto_complete_for_base_item_manufacturer_gln
-     @base_items = BaseItem.find(:all, :conditions => ["manufacturer_gln LIKE ?", "%#{params[:base_item][:manufacturer_gln]}%"])
-     render :partial => 'autocomplete_manufacturer'
-  end
-  
-  def auto_complete_for_base_item_manufacturer_name
-     @base_items = BaseItem.find(:all, :conditions => ["LOWER(manufacturer_name) LIKE ?", "%#{params[:base_item][:manufacturer_name].downcase}%"])
-     render :partial => 'autocomplete_manufacturer'
+
+
+  #export base_item or base_items
+  #TODO: possible exception handling
+  def export
+    files ={}
+    ids =  params['base_items'] ? params['base_items'][0..-1].split(',') : params[:id]
+    @base_items = BaseItem.where(:id => ids)
+    @forms = params[:forms]
+    @name =""
+    @prefix = "#{Rails.root}/tmp/xls/"
+      @name += "#{ Time.now.strftime("%m%d%Y_%H%M")}_"
+      @forms.each do |f|
+        xls = generate_xls(@base_items, f, @name)
+        xls.each_with_index do |xls_file,index|
+          files["#{@name}_#{index}_#{f}.xls"] = xls_file
+        end
+      end
+
+    if files.count == 1
+      send_file files.first[1].path, :filename => files.first[0]
+    else
+      tmp = package_to_zip(files)
+      send_file tmp.path, :filename => "#{@name}.zip"
+    end
   end
 
   private
+  def package_to_zip(files)
+    tmp = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
+    Zip::ZipOutputStream.open(tmp.path) do |zos|
+      files.each do |name, content|
+        zos.put_next_entry(name)
+        zos.puts File.read(content.path)
+      end
+    end
+    tmp
+  end
 
-  def generate_attachment
-    f = File.new("#{RECORDS_OUT_DIR}/#{@base_item.id}.xml", 'w')
-    f.write(render_to_string :template => 'base_items/attachment.xml', :layout => false)
-    f.close
+  def generate_xls(bis, template, name)
+    @base_items = bis
+    str = render_to_string :template => 'base_items/attachment.xml', :layout => false
+    xls = Xml2xls::convert(str, template, name)
   end
 
 end
+

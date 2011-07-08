@@ -1,29 +1,21 @@
 login: &login
- adapter: sqlite3
- timeout: 5000
- 
-# MySQL.  Versions 4.1 and 5.0 are recommended.
-#
-#
-# Be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
-development:
- <<: *login
- database: db/dev.sqlite3
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
- <<: *login
- database: db/test.sqlite3
+  adapter: postgresql
+  username: user      # use login here
+  password: password # use password here
+  host: localhost
 
 production:
-  adapter: mysql
-  database: m2by3
-  username: m2by
-  password: some_password
-  host: localhost
-  port: 0
-  encoding: utf8
-  collation: utf8_general_ci
+  database: webforms_prod
+  <<: *login
+
+development:
+  database: webforms_dev
+  <<: *login
+
+test: &test
+  database: webforms_test
+  <<: *login
+
+cucumber:
+  <<: *test
+

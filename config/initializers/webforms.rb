@@ -9,3 +9,12 @@ Kernel.class_eval do
     nil
   end
 end
+
+class Array
+  def to_ids
+    map{|obj| obj.id}
+  end
+end
+
+EXPORT_FORMS = ['7continent', 'auchan', 'general', 'globus', 'lenta']
+

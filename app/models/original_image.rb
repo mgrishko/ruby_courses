@@ -1,10 +1,10 @@
 class OriginalImage
-  
+
   def initialize(picture)
     @data	    = picture.read
     @raw	    = ''
   end
-  
+
   def raw=(raw)
     @raw = raw
   end

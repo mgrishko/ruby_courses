@@ -3,15 +3,11 @@
 </ul>
 
 <script type="text/javascript">
-$j("li", "#categories").hover(
-  function(){
-    classifierSelect(this);
-  },
-  function(){
-    $j(this).removeClass("ac_over");
-  }
-).click(function(){
-  selectClassifierCategory(this);
-}
-);
+	$j('.drop-down-list ul li a').click(function(){
+		$j(this).parent().parent().find('li').removeClass('selected');
+		$j(this).parent().parent().parent().find('li').removeClass('selected');
+		$j(this).parent().addClass('selected');
+		return false;
+	});
 </script>
+

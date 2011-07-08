@@ -1,12 +1,26 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id          :integer(4)      not null, primary key
+#  retailer_id :integer(4)
+#  supplier_id :integer(4)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  status      :string(255)
+#  details     :string(255)
+#  specific    :boolean(1)      default(FALSE), not null
+#
+
 class Subscription < ActiveRecord::Base
   include AASM
-  
+
   has_one :event, :as => :content
 
   belongs_to :retailer, :class_name => 'User', :foreign_key => 'retailer_id'
   belongs_to :supplier, :class_name => 'User', :foreign_key => 'supplier_id'
   has_many :subscription_results
-  has_many :subscription_details
+  has_many :subscription_details, :class_name => "SubscriptionDetails"
 
   aasm_column :status
   aasm_initial_state :active
@@ -20,7 +34,10 @@ class Subscription < ActiveRecord::Base
   aasm_event :active do
     transitions :to => :active, :from => :canceled
   end
-  
+
+  scope :active, where(:status => 'active')
+  scope :usual, where(:specific => false)
+  scope :specific, where(:specific => true)
   def get_url(current_user)
     if current_user.retailer?
       "/suppliers/"
@@ -45,33 +62,27 @@ class Subscription < ActiveRecord::Base
   end
 
   def new_items_count
-    Subscription.count_by_sql <<-SQL
-      SELECT COUNT(*) FROM subscription_results 
-        JOIN base_items ON subscription_results.base_item_id = base_items.id
-        JOIN items ON base_items.item_id = items.id
-      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') = 1
-        AND subscription_results.status = 'new'
-    SQL
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("base_items.id")
+    published_ids = published.map{|bi| bi.id if bi.count.to_i == 1}.compact
+    subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
+
+  #FIXME: needs refactoring
   def changed_items_count
-    Subscription.count_by_sql <<-SQL
-      SELECT COUNT(*) FROM subscription_results 
-        JOIN base_items ON subscription_results.base_item_id = base_items.id
-        JOIN items ON base_items.item_id = items.id
-      WHERE subscription_id=#{id} AND (SELECT count(*) FROM base_items WHERE item_id=items.id AND status='published') > 1
-        AND subscription_results.status = 'new'
-    SQL
+    published = BaseItem.published.select("base_items.id, count(*) as count").group("base_items.id")
+    published_ids = published.map{|bi| bi.id if bi.count.to_i > 1}.compact
+    subscription_results.where(:base_item_id => published_ids,:status => 'new').count()
   end
 
   def find_in_details id
-    SubscriptionDetails.find(:first, :conditions => {:subscription_id => self.id, :item_id => id})
+    self.subscription_details.where(:item_id => id).first
     #if details.to_s != ''
     #  return details.split(',').include? id.to_s
     #else
     #  return false
     #end
   end
-  
+
   #def self.present_and_find_in_details details, id # will be drop soon
   #  if details.to_s != ''
   #    return details.split(',').include? id.to_s
@@ -80,16 +91,4 @@ class Subscription < ActiveRecord::Base
   #  end
   #end
 end
-
-# == Schema Information
-#
-# Table name: subscriptions
-#
-#  id          :integer(4)      not null, primary key
-#  retailer_id :integer(4)
-#  supplier_id :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  status      :string(255)
-#
 

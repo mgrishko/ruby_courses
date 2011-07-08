@@ -1,7 +1,7 @@
 <div class="item">
 <div class="single-arrow"></div>
 
-<% remote_form_for(@packaging_item, :url => base_item_packaging_items_path(@base_item)) do |f| %>
+<%= form_for @packaging_item, :url => base_item_packaging_items_path(@base_item), :remote => true do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.hidden_field :parent_id %>
   <p>
@@ -9,8 +9,9 @@
     <%= f.submit t('pi.pack') %>
   </div>
   <div class="fright min">
-    <%= button_to_remote t('main.cancel'), :url => base_item_packaging_items_path(@base_item), :method => :get %>
+  <%= button_to t('main.cancel'), 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;"} %>
   </div>
   </p>
 <% end %>
 </div>
+

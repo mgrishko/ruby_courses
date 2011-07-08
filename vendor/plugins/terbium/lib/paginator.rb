@@ -28,7 +28,7 @@ module Paginator
     end
   end
 
-  class LinkRenderer < WillPaginate::LinkRenderer
+  class LinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
     def to_html
       html = ''
       js = <<-CODE

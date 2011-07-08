@@ -168,6 +168,7 @@ h3 {
 
 li.pack {
   background: url(/images/lbg.png) left top repeat-y;
+  width:1%;
 }
 
 ul.items li>ul
@@ -181,7 +182,7 @@ ul.items ul>li, ul.items>li
 {
   list-style: none;
   //padding-bottom: 20px;
-  overflow: hidden;
+//  overflow: hidden;
   padding-left: 30px;
 }
 
@@ -218,19 +219,45 @@ ul.items li.new .item
 ul.items li .item .arrow
 {
   position: absolute;
-  left: -45px;
+  left: -40px;
   top: 20px;
   line-height: 20px;
-  height: 144px;
+  height: 172px;
   width: 40px;
   margin-top: -25px;
   font-size: 20pt;
+  z-index:999;
   background: url(/images/arrow.png);
 }
-
+ul.items li .item .line-n
+{
+  position: absolute;
+  left: -32px;
+  top: -38px;
+  line-height: 20px;
+  height: 232px;
+  width: 29px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:999;
+  background: url(/images/lbg.png);
+}
+ul.items li .item .line-down
+{
+  position: absolute;
+  left: -32px;
+  top: 192px;
+  line-height: 20px;
+/*  height: 183px;*/
+  width: 29px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:998;
+  background: url(/images/lbg.png);
+}
 ul.items li .item .single-arrow {
   position: absolute;
-  left: -45px;
+  left: -40px;
   top: 20px;
   line-height: 20px;
   height: 144px;
@@ -418,7 +445,7 @@ table.results th {
 
 .data {
   float: left;
-  width: 85%;
+  width: 83%;
 }
 #new_tag, #new_receiver_form, #new_receiver_form_list {
   display: none;
@@ -547,7 +574,7 @@ tr.val td select {
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
   min-height: 30px;
   padding: 5px;
-  z-index: 1000000;
+  z-index: 999;
 	background-color: #fff;
 }
 
@@ -593,9 +620,9 @@ tr.val td select {
   background: url(/images/ok_button.png) center no-repeat;
 }
 
-.close{  
+.close{
   display: block;
-  position: absolute;  
+  position: absolute;
   right: 5px;
   top: 5px;
   width: 16px;
@@ -789,7 +816,7 @@ table.standart td, table.standart th {
 .part-left {
   background: transparent;
   padding: 1em 0.5em;
- 
+
 }
 .part-right {
   background: #fff;
@@ -891,3 +918,121 @@ margin-top: 2em;
 .event-image {
   background-color: #5d0093;
 }
+
+
+
+/*
+ * jQuery UI Autocomplete 1.8.14
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	border: 1px solid #40b5eb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 0 0 5px #808080;
+	background: #fff;
+}
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/*
+ * jQuery UI Menu 1.8.14
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.ui-menu {
+	list-style:none;
+	padding: 0;
+	margin: 0;
+	display:block;
+	float: left;
+	overflow: hidden;
+}
+.ui-menu .ui-menu {
+	margin-top: -3px;
+}
+.ui-menu .ui-menu-item {
+	margin:0;
+
+	zoom: 1;
+	float: left;
+	clear: left;
+	width: 100%;
+}
+.ui-menu .ui-menu-item a {
+  color: black;
+	text-decoration:none;
+	display:block;
+	padding: 1px 4px 2px;
+	font-size: 12px;
+	line-height:1.5;
+	zoom:1;
+}
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+	background: #ebf3f7;
+}
+
+#export_form_fields li{
+  padding: 10px;
+  list-style:none;
+  border-bottom: 1px solid #D8D9DC;
+}
+
+#export_form_fields li:hover{
+  background-color:  #E9EBF0;
+}
+
+/* tiled design*/
+ .tile-item{
+  	float:left;
+	  width:160px;
+	  height:235px;
+	  font-weight:700;
+	  padding:18px 14px 0px 14px;
+	  text-align:center;
+	  margin:5px;
+	  float:left;
+	  color:#555;
+
+	}
+	.private {
+    border-top: 4px dotted #999;
+  }
+  .tile-item:hover{
+  	float:left;
+	  width:160px;
+	  height:235px;
+	  font-weight:700;
+	  padding:18px 14px 0px 14px;
+	  text-align:center;
+	  margin:5px;
+	  background:#eee
+	}
+	.bi:hover{
+	  background:#eee
+	}
+	.tile-item .img {
+//	  border:1px solid #7f8082;
+	  background:#fff;
+	  margin-bottom:10px;
+	  text-align:center;
+	  width:163px;
+    height:163px;
+    overflow:hidden;
+  }
+/* endof tiled design*/
+

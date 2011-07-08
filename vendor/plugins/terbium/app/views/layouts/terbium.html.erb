@@ -19,7 +19,7 @@
       <div class="logo"><a href="/admin">Terbium</a></div>
       <ul class="navigation">
         <% admined_controllers do |title, path| %>
-          <li<%= current_path(:translation => false).include?(path.gsub(/_(#{I18n.available_locales.join('|')})\/?$/, '')) ? ' class="selected"' : '' %>><%= link_to title, path %></li>
+          <li<%= raw(current_path(:translation => false).include?(path.gsub(/_(#{I18n.available_locales.join('|')})\/?$/, '')) ? ' class="selected"' : '') %>><%= link_to title, path %></li>
         <% end %>
       </ul>
       <div class="logout">

@@ -1,7 +1,7 @@
 <div class="clear"></div>
 <h2><%= t 'item.base' %></h2>
 <div>
-<% remote_form_for(@base_item) do |f| %>
+<%= form_for @base_item, :remote => true do |f| %>
 <%= f.error_messages %>
 <!--
 <div style="min-width: 240px; float: left;">
@@ -23,4 +23,5 @@
 </div>
 <div class="clear"></div>
 
-<%= link_to_remote t('main.cancel'), :url => @base_item, :method => :get %>
+<%= link_to t('main.cancel'), @base_item, {:method => :get, :remote => true} %>
+
