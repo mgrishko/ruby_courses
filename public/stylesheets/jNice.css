@@ -1,0 +1,70 @@
+
+/* -------------
+ * Inputs
+ * ------------- */
+.jNiceInputWrapper {
+	background: transparent url(/jquery/jnice/elements/input.gif) no-repeat left top;
+	float:left;
+}
+
+.jNiceInputInner {
+	background: transparent url(/jquery/jnice/elements/input.gif) no-repeat right top;
+	padding: 2px 4px 2px 0;
+	margin: 0 0 0 4px;
+}
+
+.jNiceInputInner input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#404040;
+	line-height: 17px;
+	height: 17px;
+	*line-height: 15px; IE Hacks
+	*height: 15px; IE Hacks
+	vertical-align:middle;padding:0;margin:0;background:none;border:none;outline:none;
+}
+
+.jNiceInputWrapper_hover { background-position: left bottom; }
+.jNiceInputWrapper_hover .jNiceInputInner { background-position: right bottom; }
+
+
+ /*-------------
+ * Radios
+ * ------------- */
+.jRadioWrapper { float: left; z-index: 2; }
+.jNiceRadio {
+	background: url(/images/newdesign/rb.png) no-repeat;
+	height: 10px;
+	width: 10px;
+	position:absolute;left:0px;top:0px;cursor:pointer;vertical-align:middle;
+}
+
+
+/* -------------
+ * Checkboxes
+ * ------------- */
+.jNiceCheckbox {
+	background: url(/images/newdesign/rb.png) no-repeat;
+	height: 10px;
+	width: 10px;
+	position:absolute;left:0px;top:0px;z-index:2;cursor:pointer;
+}
+
+/* -------------
+ * Checked - Used for both Radio and Checkbox
+ * ------------- */
+.jNiceChecked { background: url(/images/newdesign/rb-checked.png) no-repeat;}
+
+
+
+.jNiceWrapper iframe {position:absolute;z-index:1;width:100%;left:0px;top:0px;}
+
+
+
+
+.jNiceFocus { border: dotted 1px #666666; }
+
+.jNiceHidden {opacity:0;z-index:-1;position:relative;}
+.jNiceWrapper {position:relative;vertical-align:top;}
+.jNiceWrapper input {outline:none;moz-outline:none;}
+

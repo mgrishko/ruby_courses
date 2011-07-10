@@ -1,0 +1,12 @@
+.subscribed {
+  background: url(/images/newdesign/icon-stat-2.png) 2px no-repeat;
+  background-position:3% 85%;
+}
+.sort-btn a {
+	display:inline-block;
+	border-left:none;
+	padding:0 0 0 7px;
+	margin-right:7px;
+	color:#747473;
+}
+

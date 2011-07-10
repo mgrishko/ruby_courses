@@ -1,33 +1,23 @@
-<div id="base_item">
-<% unless @view_only || @base_item.draft? %>
-  <div class="fright">
-    <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
-    <%= f.submit "Правка", :class => "button" %>
-    <% end %>
-    <%= button_to 'Экспорт', "javascript:void(0)" ,:class => "button",:id => 'show_export_form'%>
-  </div>
-<% end %>
-<% if @view_only and !@base_item.draft? %>
-  <div class="fright">
-    <%= button_to 'Экспорт', "javascript:void(0)" ,:class => "button",:id => 'show_export_form'%>
-  </div>
-<%end%>
-<h2>Основные данные</h2>
+      <div class="item-description" id="base_item">
+        <div id="step1">
+          <%= render :partial => "base" %>
+        </div>
+          <% if @base_item.published? && current_user.retailer? %>
+            <div id="retailer_attributes">
+              <%= render :partial => "/retailer_attributes/retailer_attribute", :locals => {:item => @base_item.item} %>
+            </div>
+          <% end %>
 
-<div id="step1">
-<!--base-->
-<%= render :partial => "base" %>
-<!--/base-->
-<% if @base_item.published? && current_user.retailer? %>
-  <div id="retailer_attributes">
-  <%= render :partial => "/retailer_attributes/retailer_attribute", :locals => {:item => @base_item.item} %>
-  </div>
-<% end %>
-</div>
-<% unless @view_only || @base_item.published? %>
-  <%= link_to t('item.edit'),  edit_base_item_path(@base_item), {:id => 'edit_base_item_link', :remote => true,:method => :get} %>
-<% end %>
-</div>
+
+          <% unless @view_only || @base_item.published? %>
+            <%= link_to t('item.edit'),  edit_base_item_path(@base_item), {:id => 'edit_base_item_link', :remote => true,:method => :get} %>
+          <% end %>
+          <div class="clr"></div>
+          <br/>
+      </div>
+
+
+
 
 <div id="export_form_wrapper" style="display:none">
   <%= form_for @base_item, :url =>  export_base_item_path(@base_item),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
@@ -36,7 +26,7 @@
   <%end%>
 </div>
 <script>
-$j("#show_export_form").click(function(){
+$j(".show_export_form").click(function(){
     // preload template names and show dialog window
     $j("#export_form_fields").load("/main/export_form",function(){
     var container = $j('#export_form_wrapper');

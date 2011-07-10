@@ -1,21 +1,18 @@
-<div class="header">
   <% if current_user.id %>
-  <div class="fleft">
-  <% if @content_for_leftmenu %><%#if content_for? (:leftmenu) for rails 3 %>
-  <%= yield :leftmenu %>
-  <% else %>
-  <% if current_user.supplier? %><%= link_to t('menu.my_items'), :controller => 'base_items' %> | <% end %>
-  <% if current_user.retailer? %><%= link_to t('menu.inbox'), :controller => 'subscription_results' %> | <% end %>
-  <%= link_to t('menu.messages'), :controller => 'messages' %> |
-  <% if current_user.supplier? %><%= link_to t('menu.statuses'), :controller => 'statuses' %> | <% end %>
-  <% if current_user.retailer? %><%= link_to t('menu.received_items'), :controller => 'retailer_items' %> | <% end %>
-  <% if current_user.retailer? %><%= link_to t('menu.suppliers'), :controller => 'suppliers' %> | <% end %>
-  <%= link_to t('menu.events'), :controller => 'events' %>
-  <% end %>
+  <div class="search">
+    <form method="GET" action="" id="search-form">
+      <input id="search-form-input" class="search-inp" type="text" name="search" value="<% if params[:search].to_s == '' %>Поиск<% else %><%=h params[:search] %><% end %>"/>
+      <a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
+      <input type="submit" class="search-btn" value="&nbsp;" />
+    </form>
+    <div class="clr"></div>
   </div>
-  <div class="fright">
-    <%= current_user.name %> | <%= link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout) %>
+  <div class="right">
+    <%= link_to current_user.name, '#' %>
+    <a href="#" class="set">Настройки</a>
+    <%= link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout) %>
   </div>
-  <div class="clear"></div>
+  <div class="company">«<%= current_user.name %>» <%= current_user.gln %></div>
+  <div class="clr"></div>
   <% end %>
-</div>
+

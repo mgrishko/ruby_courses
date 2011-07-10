@@ -127,9 +127,9 @@ function subscription(event, that, supplier_id) {
     } else {
       $j(that).html(data.text);
       if (data.flag) {
-	$j('#bi-'+supplier_id).addClass('subscribed');
+	      $j('#bi-'+supplier_id).addClass('subscribed');
       } else {
-	$j('#bi-'+supplier_id).removeClass('subscribed');
+	      $j('#bi-'+supplier_id).removeClass('subscribed');
       }
     }
   }, "json");

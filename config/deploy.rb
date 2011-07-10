@@ -5,7 +5,7 @@ set :repository, "file://."
 # тогда нужно закомментировать следующую сроку:
 #set :repository,  "git@git.assembla.com:webforms2.git"
 set :branch, 'rails3'
-dpath = "/var/www/projects/datapool"
+dpath = "/var/www/projects/getmasterdata"
 set :user, "demo"
 set :password, "Sfer5C"
 ssh_options[:forward_agent] = true

@@ -1,6 +1,15 @@
-<h1><%= t 'sr.inbox' %></h1>
-<br/>
-<table class="results">
+<div id='left-side'>
+  <div class="top-box">
+  </div>
+  <%= render '/nav' %>
+
+</div>
+<!--/filters-->
+<!--data-->
+<div id="middle-side">
+  <div class="wrap">
+    <div class="address"><a href="#"><%= t 'sr.inbox' %></a></div>
+   <table class="results">
 <tr>
   <td><%= t 'user.gln' %></td><td><%= t 'user.name' %></td><td><%= t 'sr.date' %></td><td><%= t 'sr.new' %></td><td><%= t 'sr.changed' %></td>
 </tr>
@@ -24,3 +33,7 @@
 </tr>
 <% end %>
 </table>
+    </div>
+  </div>
+</div>
+

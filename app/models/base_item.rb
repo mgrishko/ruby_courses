@@ -307,7 +307,7 @@ class BaseItem < ActiveRecord::Base
 
   # methods calculate_* for view (highlighting)
   def calculate_content
-    content_uoms.detect { |u| content_uom == u[1] }[0]
+    "#{content} #{content_uoms.detect do |u| content_uom == u[1]; end[0]}"
   end
 
   def calculate_country

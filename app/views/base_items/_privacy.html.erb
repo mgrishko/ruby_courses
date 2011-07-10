@@ -12,3 +12,77 @@
   <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.receivers} %>
   </div>
 <% end %>
+
+<div class="who-can-see">
+						<span class="block-title">Кто может видеть этот товар?</span>
+
+						<form class="jNice" action="">
+							<table class="rb-privacy" cellpadding="0" cellspacing="0" border="0">
+								<tr>
+									<td width="18"><input type="radio" name="rb-wcs" id="rb-all" /></td>
+									<td><label for="rb-all">все</label></td>
+								</tr>
+								<tr>
+									<td><input type="radio" name="rb-wcs" id="rb-i" /></td>
+									<td><label for="rb-i">только я</label></td>
+								</tr>
+								<tr>
+									<td>
+										<input type="radio" name="rb-wcs" id="rb-companies" class="rb-companies" />
+									</td>
+									<td><label for="rb-companies">я, и ещё эти компании:</label></td>
+								</tr>
+							</table>
+ <script type="text/javascript">
+	$j('.rb-privacy').click(function(){
+		if($j('#rb-companies').siblings('.jNiceRadio').hasClass('jNiceChecked'))
+		{
+			$j('.companies').css('visibility','visible');
+		}
+		else
+		{
+			$j('.companies').css('visibility','hidden');
+		}
+	});
+</script>
+							<div class="companies">
+								<div class="choosed-items">
+									<span class="drop-down-link-choosed" href="#">Выбранный пункт</span>
+									<a class="minus-btn" href="#"></a>
+									<span class="drop-down-link-choosed" href="#">Выбранный пункт</span>
+									<a class="minus-btn" href="#"></a>
+								</div>
+								<div class="drop-down-cont zi-2">
+
+									<a class="drop-down-link companies-choise" href="#"><span class="drop-down-link-in">Выберите...</span></a>
+
+									<a class="plus-btn" href="#"></a>
+									<a class="minus-btn" href="#"></a>
+									<div class="drop-down">
+										<div class="blue-tarr"></div>
+										<div class="drop-down-list-cont">
+											<div class="drop-down-list first">
+												<ul>
+													<li><a href="#">Gable-Top</a></li>
+													<li><a href="#">Brick</a></li>
+													<li><a href="#">Case</a></li>
+													<li><a href="#">Carton</a></li>
+													<li><a href="#">Wrapper</a></li>
+													<li><a href="#">Multi-pack</a></li>
+													<li><a href="#">Pouch</a></li>
+													<li><a href="#">Not Packed</a></li>
+													<li><a href="#">Packed, unspecified dfcdddddddddd</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="remark">
+											Пояснения к полю<br /><br /><br />
+										</div>
+										<a class="choose-btn" href="#"></a>
+									</div>
+								</div>
+							</div>
+							<div class="clr"></div>
+						</form>
+					</div>
+

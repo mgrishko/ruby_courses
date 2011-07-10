@@ -18,7 +18,7 @@
 <%= link_to t('main.cancel'), base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'), :method => :delete, :remote => true} if item.leaf? %></div>
 <% unless item.pallet? %>
 <div class="fright">
-  <%= link_to "<%= t('pi.pack') %>","javascript:void(0)", :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>
+  <%= link_to t('pi.pack') ,"javascript:void(0)", :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>
 </div>
 <% end %>
 </small>

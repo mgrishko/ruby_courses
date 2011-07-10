@@ -1,156 +1,308 @@
-<div class="fright">
-<form method="GET" action="" id="search-form">
-<input id="search-form-input" type="text" name="search" value="<% if params[:search].to_s == '' %><%= t 'main.search' %><% else %><%=h params[:search] %><% end %>"/>
-<a href="?"><div id="search-clear" class="<% if params[:search].to_s != '' %>search-clear-active<% else %>search-clear-inactive<% end %>"></div></a>
-</form>
-<div style="clear:both; text-align:center;"><%= html_pager @base_items %></div>
-</div>
-<br/>
-<!--<h2>Listing <%= defined?(retailer) ? 'retailer' : 'base' -%> items</h2>-->
-<h2><%= t 'main.base_items' %></h2>
 <!--filters-->
-<div class="filters" >
-<% if current_user.supplier? %>
-<div>
-<strong><%= t 'main.receivers' %></strong>
-<% @receivers.each do |r| %>
-  <%= selected_wrapper "<a href='?receiver=#{r.id}' class='filter'>#{r.name}</a> (#{r.q})", params[:receiver].to_s == r.id.to_s %>
-<% end %>
-</div>
-<br/>
-<% end %>
-<div>
-<strong><%= t 'main.tags' %></strong>
-<% @clouds.each do |c| %>
-    <%= selected_wrapper "<a href='?tag=#{c.tag.id}' class='filter'>#{c.tag.name}</a> (#{c[:q]}#{c.q})", params[:tag].to_s == c.tag_id.to_s %>
-<% end %>
-</div>
-<br/>
-<div>
-<strong><%= t 'main.brands' %></strong>
-<% @brands.each do |b| %>
-  <%= selected_wrapper "<a href='?brand=#{CGI::escape b.brand}' class='filter'>#{shorten_label b.brand, 22 }</a> (#{b.q})", params[:brand].to_s == b.brand.to_s %>
-<% end %>
-</div>
-<br/>
-<div>
-<strong><%= t 'main.manufacturers' %></strong>
-<% @manufacturers.each do |m| %>
-  <%= selected_wrapper "<a href='?manufacturer_name=#{CGI::escape m.manufacturer_name}' class='filter'>#{shorten_label m.manufacturer_name, 22}</a> (#{m.q})", params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>
-<% end %>
-</div>
-<br/>
-<div>
-<strong><%= t 'main.functional' %></strong>
-<% @functionals.each do |f| %>
-  <%= selected_wrapper "<a href='?functional=#{CGI::escape f.functional}' class='filter'>#{shorten_label f.functional, 22}</a> (#{f.q})", params[:functional].to_s == f.functional.to_s %>
-<% end %>
-</div>
+<div id='left-side'>
+  <div class="top-box">
+  </div>
+  <%= link_to 'Добавить товар', new_base_item_path, :class=>"add-product" if current_user.supplier? %>
+  <%= render '/nav' %>
+  <% if current_user.supplier? %>
 
+      <div class='cat'>
+        <ul>
+          <li><a href='#'><%= t 'main.receivers' %></a>
+          <ul>
+            <% @receivers.each do |r| %>
+                <%= selected_wrapper "<a href='?receiver=#{r.id}' >#{r.name} (#{r.q})</a>", params[:receiver].to_s == r.id.to_s %>
+            <% end %>
+          </ul>
+          </li>
+      </div>
+  <% end %>
+  <div class='cat'>
+    <ul>
+      <li><a href='#'><%= t 'main.tags' %></a>
+      <ul>
+        <% @clouds.each do |c| %>
+            <%= selected_wrapper "<a href='?tag=#{c.tag.id}' >#{c.tag.name} (#{c[:q]}#{c.q})</a>", params[:tag].to_s == c.tag_id.to_s %>
+        <% end %>
+      </ul>
+      </li>
+  </div>
+  <div class='cat'>
+    <ul>
+      <li><a href='#'><%= t 'main.brands' %></a>
+      <ul>
+        <% @brands.each do |b| %>
+            <%= selected_wrapper "<a href='?brand=#{CGI::escape b.brand}'>#{shorten_label b.brand, 15 } (#{b.q})</a>", params[:brand].to_s == b.brand.to_s %>
+        <% end %>
+      </ul>
+      </li>
+  </div>
+
+  <div class='cat'>
+    <ul>
+      <li><a href='#'><%= t 'main.manufacturers' %></a>
+      <ul>
+        <% @manufacturers.each do |m| %>
+            <%= selected_wrapper "<a href='?manufacturer_name=#{CGI::escape m.manufacturer_name}' >#{shorten_label m.manufacturer_name, 15} (#{m.q})</a>", params[:manufacturer_name].to_s == m.manufacturer_name.to_s %>
+        <% end %>
+      </ul>
+      </li>
+  </div>
+
+  <div class='cat'>
+    <ul>
+      <li><a href='#'><%= t 'main.functional' %></a>
+      <ul>
+        <% @functionals.each do |f| %>
+            <%= selected_wrapper "<a href='?functional=#{CGI::escape f.functional}' >#{shorten_label f.functional, 15} (#{f.q})</a>", params[:functional].to_s == f.functional.to_s %>
+        <% end %>
+      </ul>
+      </li>
+  </div>
 </div>
 <!--/filters-->
 <!--data-->
-<div align='right'>Вид: <%= link_to_if (params[:view]!='list' and params[:view].present?) , "Список", url_for(params.merge :view => 'list') %>
-          <%= link_to_if params[:view]!='tile', "Плитка", url_for(params.merge(:view => 'tile'))%></div>
-<div class="data">
-<% if params[:view].nil? or params[:view]=='list'%>
-  <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
-    <% @base_items.each do |base_item| %>
-      <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-      <div class="bi <%= "private" if base_item.private %>" onclick="document.location='<%= base_item_path(path_params) %>'">
-        <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
-        <div class="bi-content">
-          <div class="fright"><%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}" ,:class => 'base_item_checkbox'%></div>
-          <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
-          <div class="usual"><%= base_item.item_description %></div>
-          <div class="light"><%= base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).collect{|c| c.tag.name}.join(', ') %></div>
-          <div class="light"><%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></div>
-        </div>
+<div id="middle-side">
+  <div class="wrap">
+
+
+     <% if @supplier %>
+      <div class="address"><a href="/profiles/<%= @supplier.id %>"><%= @supplier.gln %> <%= @supplier.name %></a></div>
+      <%else%>
+    <div class="address"><a href="#"><%= t 'main.base_items' %></a></div>
+     <% end %>
+    <% id = "goods-list-short" if (params[:view].nil? or params[:view]=='list')
+       id ||="goods-list-as-picture" if params[:view]=='tile'
+       id ||="goods-list-detailed" if params[:view]=='detailed'
+     %>
+    <div id="<%= id %>">
+      <div class="sort-btn">
+        <%= link_to 'Export to xls', 'javascript:void(0)', :class=>'export', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile' %>
+        <%= link_to_if (params[:view]!='list' and params[:view].present?), "Кратко", url_for(params.merge :view => 'list'), :class=>'kr' %> |
+        <%= link_to_if params[:view]!='tile', "Плитка", url_for(params.merge(:view => 'tile')) %> |
+        <%= link_to_if params[:view]!='detailed', "Развернуто", url_for(params.merge(:view => 'detailed')) %>
+        <div class="clr"></div>
       </div>
-    <% end %>
-  <%end%>
-<%else%>
-  <div  style="width:800px;clear:both; padding-left:35px">
-  <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
-  <% @base_items.each do |base_item| %>
-    <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-    <div class='tile-item <%= "private" if base_item.private %>' style="" onclick="document.location='<%= base_item_path(path_params) %>'">
-      <div class='img''>
-      <img src="<%= base_item.item.image_url ? base_item.item.image_url('tile') : '/images/item_image.jpg'%>" alt="Item Image"/>
+      <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
+      <% if params[:view].nil? or params[:view]=='list' %>
+          <div class="short-wrap">
+
+                <% @base_items.each do |base_item| %>
+                    <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+                    <div class="item">
+                    <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
+                      <div class="img">
+                        <img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
+                      <div class="desc">
+                        <div style="float:right">
+                          <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
+                        </div>
+                        <p>
+                          <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> <%= shorten_label base_item.item_description, 27 %>
+                          <% if base_item.private %>
+                              <span class="adres">Private</span>
+                          <% end %>
+                        </p>
+                        <p class="adres">Status: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></p>
+                      </div>
+                      <div class="stat"><span class="stat-3"></span></div>
+                      <div class="clr"></div>
+                    </div>
+                <% end %>
+
+          </div>
+      <% else %>
+        <% if params[:view]=='detailed'%>
+           <div class="detailed-wrap">
+                <% @base_items.each do |base_item| %>
+                    <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+                    <div class="item">
+                    <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
+                        <div class="top">
+                            <div class="bottom">
+                              <div style="float:right">
+                                <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
+                              </div>
+                            <div class="img"><img src="<%= base_item.item.image_url('tile') %>" alt="" /></div>
+                            <div class="desc">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <th class="one">Item Description</th>
+                                        <th>Intenal item id</th>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <p><%= base_item.item_description %></p>
+                                        <p><%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %></p>
+                                      </td>
+                                      <td><%= base_item.item_id %></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                             <p class="btns">
+                                             <% base_item.item.clouds.find(:all, :conditions =>{:user_id => current_user.id, :item_id => base_item.item.id}).each do |c| %>
+                                                <a class="btn" href='?tag=#{c.tag.id}' ><span><%= c.tag.name%></span></a>
+                                             <%end%>
+                                             </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clr"></div>
+                            <div class="det">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr class="th">
+                                    <td>Brand</td>
+                                    <td>Subbrand</td>
+                                    <td>Functional</td>
+                                    <td>Content</td>
+                                  </tr>
+                                  <tr>
+                                    <td><%= base_item.brand %></td>
+                                    <td><%= base_item.subbrand %></td>
+                                    <td><%= base_item.functional %></td>
+                                    <td><%= base_item.content %> <%= base_item.content_uom %></td>
+                                  </tr>
+                                  <tr class="th">
+                                    <td colspan="2">Manufacturer GLN</td>
+                                    <td>Manufacturer name</td>
+                                    <td>Country of origin</td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2"><%= base_item.manufacturer_gln %></td>
+                                    <td><%= base_item.manufacturer_name %></td>
+                                    <td><%= base_item.country %></td>
+                                  </tr>
+                                  <tr class="th">
+                                    <td colspan="4">Gpc code</td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="4"><%= base_item.gpc_code %> : <%= base_item.gpc_name %></td>
+                                  </tr>
+                                  <tr class="th">
+                                    <td>Vat</td>
+                                    <td colspan="3">Shelf life period</td>
+                                  </tr>
+                                  <tr>
+                                    <td><%= base_item.vat %></td>
+                                    <td colspan="3"><%= base_item.minimum_durability_from_arrival %></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <div class="pablic">Опубликовано: <%= base_item.updated_at.strftime("%d/%m/%Y") %></div>
+                            </div>
+                        </div>
+                        </div>
+                   <%end%>
+
+           </div>
+        <%else%>
+          <div id="as-wrap">
+                <% @base_items.each do |base_item| %>
+                    <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
+                    <div class="item">
+                    <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
+                      <div class="img type2"><img src="<%= base_item.item.image_url('tile') %>" alt="Item Image"/></div>
+                      <div class="desc">
+                        <p><%= shorten_label base_item.item_description, 27 %></p>
+
+                        <p><%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> </p>
+                        <% if base_item.private %>
+                            <span class="adres">Private</span>
+                        <% end %>
+                        <!--                    <a class="btn" href="#"><span>Новинка</span></a>-->
+                      </div>
+                      <div class="stat"><span class="stat-3"></span></div>
+                      <div class="clr"></div>
+                    </div>
+                <% end %>
+            <% end %>
+          </div>
+      <% end %>
+      <%end%>
+      <div class="page">
+        <%= html_pager @base_items %>
+        <div class="clr"></div>
       </div>
-      <div><%=shorten_label(base_item.item_description, 27) %></div>
-      <div><b><%= base_item.gtin %></b></div>
+      <div class="clr"></div>
+      <br/>
+
     </div>
-  <%end%>
-  <%end%>
   </div>
-<%end%>
-<div style="clear:both">
-<%= link_to t('item.new_base_item'), new_base_item_path if current_user.supplier?%>&nbsp;
-<%= link_to 'Export to xls', 'javascript:void(0)', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile'%>
-</div>
 </div>
 
 <div id="export_form_wrapper" style="display:none">
-  <%= form_for BaseItem.new, :url => export_base_items_path,:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
-    <div id="export_form_fields"></div>
-    <input type='hidden' name='base_items' id='base_items_ids'/>
-    <%= submit_tag "Экспортировать", :class => "button fright",:id =>'export_button' ,  :disabled => true%>
-  <%end%>
+  <%= form_for BaseItem.new, :url => export_base_items_path, :html=> {:id => 'base_item_export_form', :method => "POST"} do |f| %>
+      <div id="export_form_fields"></div>
+      <input type='hidden' name='base_items' id='base_items_ids'/>
+      <%= submit_tag "Экспортировать", :class => "button fright", :id =>'export_button', :disabled => true %>
+  <% end %>
 </div>
+<div class="pp-overlay"></div>
 
 <script>
-var any_base_item_checked = false;
-$j('.base_item_checkbox').each(function(){ any_base_item_checked = any_base_item_checked || $j(this).is(':checked'); });
+    $j('.art').click(function(ev){
+      ev.stopPropagation();
+    });
+    var any_base_item_checked = false;
+    $j('.base_item_checkbox').each(function() {
+        any_base_item_checked = any_base_item_checked || $j(this).is(':checked');
+    });
 
-$j('.base_item_checkbox').change(function(){
-  var tmp = false;
-  $j('.base_item_checkbox').each(function(){ tmp = tmp || $j(this).is(':checked'); });
-  any_base_item_checked = tmp;
-});
-
-$j('.base_item_checkbox').click(function(event){event.stopPropagation();})
-
-$j("#show_export_form").click(function(){
-    if(any_base_item_checked){
-      // preload template names and show dialog window
-      $j("#export_form_fields").load("/main/export_form",function(){
-        var container = $j('#export_form_wrapper');
-        container.dialog({
-            modal: true,
-            title: "Получить данные в формах ритейлеров",
-            width: 400
-        })
-        .find("form").submit(function() {
-            container.dialog("close");
+    $j('.base_item_checkbox').change(function() {
+        var tmp = false;
+        $j('.base_item_checkbox').each(function() {
+            tmp = tmp || $j(this).is(':checked');
         });
+        any_base_item_checked = tmp;
+    });
 
-        // validate if any export form is choosen
-        $j('.xls_templates').change(function(){
-          tmp = false;
-          $j('.xls_templates').each(function(){ tmp = tmp || $j(this).is(':checked'); });
-          if(tmp)
-            $j('#export_button').attr('disabled',false);
-          else
-            $j('#export_button').attr('disabled',true);
-        });
-        //collect base_item ids which were checked for export
-        $j('#export_button').click(function(){
-          var inputs = $j('#base_items_form :input');
-          var values = {'base_items[]': ''};
-          inputs.each(function() {
-              if ($j(this).attr('checked')=='checked')
-                values[this.name] += $j(this).val() +',';
-          });
-          $j('#base_items_ids').val(values['base_items[]'])
-        });
-      });
-    } else {
-      if('<%= Rails.env%>' != 'cucumber')
-        alert('Сначала отметьте хотя бы один товар.');
-    };
-});
+    $j('.base_item_checkbox').click(function(event) {
+        event.stopPropagation();
+    })
+
+    $j("#show_export_form").click(function() {
+        if (any_base_item_checked) {
+            // preload template names and show dialog window
+            $j("#export_form_fields").load("/main/export_form", function() {
+                var container = $j('#export_form_wrapper');
+                container.dialog({
+                    modal: true,
+                    title: "Получить данные в формах ритейлеров",
+                    width: 400
+                })
+                        .find("form").submit(function() {
+                    container.dialog("close");
+                });
+
+                // validate if any export form is choosen
+                $j('.xls_templates').change(function() {
+                    tmp = false;
+                    $j('.xls_templates').each(function() {
+                        tmp = tmp || $j(this).is(':checked');
+                    });
+                    if (tmp)
+                        $j('#export_button').attr('disabled', false);
+                    else
+                        $j('#export_button').attr('disabled', true);
+                });
+                //collect base_item ids which were checked for export
+                $j('#export_button').click(function() {
+                    var inputs = $j('#base_items_form :input');
+                    var values = {'base_items[]': ''};
+                    inputs.each(function() {
+                        if ($j(this).attr('checked') == 'checked')
+                            values[this.name] += $j(this).val() + ',';
+                    });
+                    $j('#base_items_ids').val(values['base_items[]'])
+                });
+            });
+        } else {
+            if ('<%= Rails.env%>' != 'cucumber')
+                alert('Сначала отметьте хотя бы один товар.');
+        }
+        ;
+    });
 </script>
-
 <!--/data-->
 
