@@ -4,8 +4,9 @@ set :repository, "file://."
 # Если развертка будет происходить из локального репозитория,
 # тогда нужно закомментировать следующую сроку:
 #set :repository,  "git@git.assembla.com:webforms2.git"
-set :branch, 'rails3'
+set :branch, 'newdesign'
 dpath = "/var/www/projects/getmasterdata"
+
 set :user, "demo"
 set :password, "Sfer5C"
 ssh_options[:forward_agent] = true
