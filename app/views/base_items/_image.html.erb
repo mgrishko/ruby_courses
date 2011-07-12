@@ -1,4 +1,10 @@
-<a id="iil" href="<% if @base_item.id %><%= @base_item.item.image_url('big') %><% else %>/images/item_image.jpg<% end %>" title=""><img id="item_image" src="<% if @base_item.id %><%= @base_item.item.image_url %><% else %>/images/item_image.jpg<% end %>" alt="Item Image"/>
+<% if  @base_item.id and @base_item.item.image_url('big').any? %>
+  <a id='iil' href="<%= @base_item.item.image_url('big') %>" title="">
+    <img id="item_image" src="<%= @base_item.item.image_url %>" alt="Item Image"/>
+  </a>
+<%else%>
+  <img id="item_image" src="/images/item_image.jpg" style="width:163px;height:163px" alt="Item Image"/>
+<%end%>
 <% unless @view_only %>
 <% if @base_item.id %>
 <div id="upload">
@@ -23,3 +29,4 @@
 </script>
 
 <% end %>
+
