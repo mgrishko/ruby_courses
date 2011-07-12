@@ -1,24 +1,24 @@
-<% content_for :head do %>
-  <%= javascript_include_tag 'classifier' %>
-<% end %>
 
-<%= link_to 'Back', base_items_path %>
+<div id="left-side">
+  <%= render :partial => "image" %>
+</div>
 
-<table valign="top" class="item-content">
-<tr>
-<td valign="top" style="width: 200px">
-<%= render :partial => "image" %>
-</td>
-<td valign="top" style="background: #fff; padding: 0;">
-<%= form_for(@base_item) do |f| %>
-<%= f.error_messages %>
-<%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>
-<%= render :partial => "base" if @base_item.current_step == 'step2' %>
-<%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step2' %>
-<%= f.submit t('main.back'), :name => "back_button", :class => "button" unless @base_item.first_step? %></p>
-<%= f.submit t('main.next'), :class => "button" %>
-<% end %>
-</td>
-</tr>
-</table>
+<div id="middle-side">
+  <div class="wrap">
+    <div class="w760">
+      <div class="address">
+        <a href="/base_items/">Список товаров</a><a href="#" class="last">Добавить товар</a>
+      </div>
+      <%= form_for(@base_item) do |f| %>
+        <%= f.error_messages %>
+        <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>
+        <%= render :partial => "base" if @base_item.current_step == 'step2' %>
+        <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step2' %>
+        <%= f.submit t('main.back'), :name => "back_button", :class => "button" unless @base_item.first_step? %></p>
+        <%= f.submit t('main.next'), :class => "button" %>
+      <% end %>
+      <div class="dd-overlay"></div>
+    </div>
+  </div>
+</div>
 

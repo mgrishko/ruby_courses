@@ -1,40 +1,42 @@
-<div class="bi gtin-subscription" id="gtin-<%=gtin[:gtin]%>">
+<div class="item gtin-subscription" id="gtin-<%=gtin[:gtin]%>">
 <%if gtin[:bi].nil?%>
     <%if gtin[:errors]%>
-        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
-        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content gtin-error">
-          <div class='fright'>
+        <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content gtin-error">
+          <div style='float:right'>
             <%= link_to_function 'Редактировать',"editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
           </div>
-          <div><span class="normal"><%= gtin[:gtin] %></span> </div>
-          <div class="usual"><%= gtin[:errors] %></div>
+          <span class="art"><%= gtin[:gtin] %></span>
+          <p class='gtin-error'><%= gtin[:errors] %></p>
         </div>
     <%else%>
-        <div class="bi-image"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
-        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content gtin-nil">
-          <div class='fright'>
+        <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content gtin-nil">
+          <div style='float:right'>
             <%= link_to_function 'Редактировать',"editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
           </div>
-          <div><span class="normal"><%= gtin[:gtin] %></span></div>
-          <div class="usual">Record with such gtin is not found</div>
+          <span class="art"><%= gtin[:gtin] %></span>
+          <p class='gtin-nil'>Record with such gtin is not found</p>
         </div>
     <%end%>
 <%else%>
+
   <%base_item = gtin[:bi]%>
-        <div class="bi-image"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
-        <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content">
-          <div class='fright'>
+        <%= hidden_field_tag 'base_items[]', base_item.id %>
+        <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
+        <div class="img"><img src="<%= base_item.item.image_url('small') %>" width="50px" alt="Item Image"/></div>
+        <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content">
+          <div style='float:right'>
             <%= link_to_function 'Редактировать',"if (confirm('Вы уверены?')) editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function 'Удалить',"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
           </div>
-          <div><span class="normal"><%= base_item.gtin %></span> <span class="light"><%= base_item.user.name %></span></div>
-          <div class="usual"><%= base_item.item_description %></div>
+          <%= link_to base_item.gtin, base_item_path(base_item),:class=>'art'  %>
+          <p > <%= shorten_label base_item.item_description, 35 %></p>
         </div>
-        <%= hidden_field_tag 'base_items[]', base_item.id %>
-
 <%end%>
-
+<div class="stat"><span class="stat-3"></span></div>
+<div class="clr"></div>
 </div>
 

@@ -8,14 +8,7 @@
     </script>
 <% end %>
 
-<% if @subscription_result && @subscription_result.new? %>
-    <%= render :partial => 'subscription_results/actions', :locals => {:result => @subscription_result} %>
-<% else %>
-    <% if params[:view] %>
-        <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
-        <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
-    <% end %>
-<% end %>
+
 
 <div id="left-side">
   <%= render :partial => "image" %>
@@ -38,6 +31,15 @@
         <a href="/base_items/">Список товаров</a><a href="#" class="last">Товар</a>
       </div>
       <div class="blue-btns bb">
+        <% if @subscription_result && @subscription_result.new? %>
+          <%= render :partial => 'subscription_results/actions', :locals => {:result => @subscription_result} %>
+        <% else %>
+          <% if params[:view] %>
+            <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
+            <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
+          <% end %>
+        <% end %>
+
         <% unless @view_only || @base_item.draft? %>
               <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
                   <%= link_to content_tag(:span,'Edit', :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn", :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()" %>
@@ -47,6 +49,7 @@
         <% if @view_only and !@base_item.draft? %>
               <%= link_to content_tag(:span,'Export', :class => "show_export_form"), "javascript:void(0)", :class => "blue-btn show_export_form" %>
         <% end %>
+
       </div>
       <%= render :partial => 'item' %>
       <div class="logistics main">

@@ -305,6 +305,11 @@ class BaseItem < ActiveRecord::Base
     Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
+  #for autocompletion
+  def manufacturer
+    "#{self.manufacturer_gln} : #{self.manufacturer_name}"
+  end
+
   # methods calculate_* for view (highlighting)
   def calculate_content
     "#{content} #{content_uoms.detect do |u| content_uom == u[1]; end[0]}"
@@ -316,6 +321,9 @@ class BaseItem < ActiveRecord::Base
 
   def calculate_gpc
     "#{gpc.code} : #{gpc.name}"
+  end
+  def calculate_uom
+    content_uoms.detect { |u| content_uom == u[1] }[0]
   end
 
   def calculate_vat

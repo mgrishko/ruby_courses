@@ -9,4 +9,16 @@
 	margin-right:7px;
 	color:#747473;
 }
+.submit-btn {
+	border:1px solid #8FA3C4;
+	border-bottom:1px solid #312378;
+	cursor:pointer;
+	font-size:11px;
+	background:#3B5A9A;
+	margin:7px 5px;
+	padding:0px 18px;
+	line-height:18px;
+	color:#fff;
+	height:18px;
+}
 

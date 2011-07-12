@@ -418,7 +418,7 @@ ol, ul {
 	top:28px;
 }
 #content #middle-side #retailers .item .col span {
-	background: url("/images/newdesign/retailer-col-left.png") no-repeat left top;
+	background: url("/images/newdesign/retailer-col-left.png") repeat left top;
 	display:inline-block;
 	height:16px;
 }

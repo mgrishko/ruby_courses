@@ -34,14 +34,13 @@
     <td width="90">
       <div class="drop-down-cont units pad-l-5 zi-1 ">
         <%= f.hidden_field :content_uom, :class => "w100 dd-input" %>
-        <a class="drop-down-link" href="#">шт.</a>
-
+        <a class="drop-down-link" href="#"><%= ( @base_item.content_uom) ?  @base_item.content_uom : 'Select' %></a>
         <div class="drop-down">
           <div class="blue-tarr"></div>
           <div class="drop-down-list-cont">
             <div class="drop-down-list first">
               <ul>
-                <% ([nil] + @base_item.content_uoms).each do |uom| %>
+                <% (@base_item.content_uoms).each do |uom| %>
                     <li><a href="#"><%= uom[0] if uom %></a></li>
                 <% end %>
               </ul>
@@ -102,7 +101,7 @@
         <div class="dd-overlay"></div>
         <div class="drop-down-cont zi-3">
           <%= f.hidden_field :gpc_name, :class => "w100 dd-input" %>
-          <a class="drop-down-link" id='base_item_gpc_name_link' href="#"><%= @base_item.gpc_name.any? ? @base_item.gpc_name : 'Select' %></a>
+          <a class="drop-down-link" id='base_item_gpc_name_link' href="#"><%= @base_item.gpc_name ? @base_item.gpc_name : 'Select' %></a>
 
           <div class="drop-down">
             <div class="blue-tarr"></div>
@@ -132,7 +131,7 @@
     <td>
       <div class="drop-down-cont vat zi-4 ">
         <%= f.hidden_field :vat, :class => "w100 dd-input" %>
-        <a class="drop-down-link" href="#"><%= @base_item.calculate_vat %></a>
+        <a class="drop-down-link" href="#"><%= @base_item.id ? @base_item.calculate_vat : 'Select'%></a>
 
         <div class="drop-down">
           <div class="blue-tarr"></div>
@@ -166,12 +165,16 @@
     <%@base_item.vats.each do |p|%>
     vats['<%= p[0]%>'] = '<%= p[1]%>';
     <%end%>
-    var is_description_touched = false;
-    var brand = "";
-    var subbrand = "";
-    var functional = "";
-    var content = "";
-    var content_uom = "";
+
+
+    $j('#base_item_manufacturer_gln').bind('railsAutocomplete.select', function(event,ui){
+      $j('#base_item_manufacturer_gln').val(this.value.split(' : ')[0]);
+    });
+
+    $j('#base_item_manufacturer_name').bind('railsAutocomplete.select', function(event,ui){
+      $j('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
+    });
+
     $j("#country_select_btn").click(function() {
         $j('#country_input .drop-down-list ul li a').each(function() {
             if ($j(this).parent().hasClass('selected')) {
@@ -198,42 +201,64 @@
         });
     });
 
-    /*
-     $j("#base_item_brand").change(function() {
-     if(!is_description_touched){
-     brand = $j("#base_item_brand").val();
-     $j("#base_item_item_description").val(PrepareDescriptionString());
-     }
-     });
-     $j("#base_item_subbrand").change(function() {
+var is_description_touched = false;
+var brand = "";
+var subbrand = "";
+var functional = "";
+var content = "";
+var content_uom ="";
 
-     if(!is_description_touched){
-     subbrand = $j("#base_item_subbrand").val();
-     $j("#base_item_item_description").val(PrepareDescriptionString());
-     }
-     });
-     $j("#base_item_functional").change(function() {
-     if(!is_description_touched){
-     functional = $j("#base_item_functional").val();
-     $j("#base_item_item_description").val(PrepareDescriptionString());
-     }
-     });
-     $j("#base_item_content").change(function() {
-     if(!is_description_touched){
-     content = $j("#base_item_content").val();
-     $j("#base_item_item_description").val(PrepareDescriptionString());
-     }
-     });
-     $j("#base_item_content_uom").change(function() {
-     if(!is_description_touched){
-     content_uom = $j("#base_item_content_uom :selected").text();
-     $j("#base_item_item_description").val(PrepareDescriptionString());
-     }
-     });
+var fbrand = function(){
+  if(!is_description_touched){
+  	brand = $j("#base_item_brand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+var fsubbrand = function(){
+  if(!is_description_touched){
+  	subbrand = $j("#base_item_subbrand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
 
-     $j("#base_item_item_description").focus(function() {
-     is_description_touched = true;
-     });
+var ffunctional = function(){
+  if(!is_description_touched){
+  	functional = $j("#base_item_subbrand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+
+var fcontent = function(){
+  if(!is_description_touched){
+  	content = $j("#base_item_content").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+var fcontent_uom = function(){
+  if(!is_description_touched){
+  	content_uom = $j("#base_item_content_uom").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+
+  $j("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){fbrand();});
+	$j("#base_item_brand").change(function(){fbrand()});
+
+  $j("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){fsubbrand();});
+	$j("#base_item_subbrand").change(function(){fsubbrand()});
+
+  $j("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){ffunctional();});
+	$j("#base_item_functional").change(function(){ffunctional()});
+
+  $j("#base_item_content").bind('railsAutocomplete.select', function(event,ui){fcontent();});
+	$j("#base_item_content").change(function(){fcontent()});
+
+  $j("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){fcontent_uom();});
+	$j("#base_item_content_uom").change(function(){fcontent_uom()});
+
 
      function PrepareDescriptionString(){
      var string = ""
@@ -257,7 +282,7 @@
 
      return string;
      }
-     */
+
 </script>
 
 <div id='hidden_div' style="display: none"></div>

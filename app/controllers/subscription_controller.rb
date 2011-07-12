@@ -49,6 +49,7 @@ class SubscriptionController < ApplicationController
     end
   end
   def by_gtin
+    @supplier = User.find(params[:id])
     if params[:gtins]
       gtins = params[:gtins].gsub(' ','').split(',').map{|gtin| gtin.strip()}
       @gtins = []
