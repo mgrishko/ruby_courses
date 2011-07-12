@@ -1,11 +1,4 @@
-<script>
-var is_description_touched = false;
-var brand = "";
-var subbrand = "";
-var functional = "";
-var content = "";
-var content_uom ="";
-</script>
+
 <div id="step1" style="background: #FFF" >
 <table>
 <tr class="info">
@@ -170,6 +163,7 @@ Shelf life period
   $j('#base_item_manufacturer_name').bind('railsAutocomplete.select', function(event,ui){
     $j('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
   });
+
 	$j("#country_select_btn").click(function(){
     $j('#country_input .drop-down-list ul li a').each( function(){
       if ($j(this).parent().hasClass('selected')){
@@ -231,40 +225,68 @@ Shelf life period
   });
 
 */
-/*
-	$j("#base_item_brand").change(function() {
-		if(!is_description_touched){
-			brand = $j("#base_item_brand").val();
-			$j("#base_item_item_description").val(PrepareDescriptionString());
-			}
-	});
-	$j("#base_item_subbrand").change(function() {
 
-		if(!is_description_touched){
-			subbrand = $j("#base_item_subbrand").val();
-			$j("#base_item_item_description").val(PrepareDescriptionString());
-			}
-	});
-	$j("#base_item_functional").change(function() {
-		if(!is_description_touched){
-			functional = $j("#base_item_functional").val();
-			$j("#base_item_item_description").val(PrepareDescriptionString());
-			}
-	});
-	$j("#base_item_content").change(function() {
-		if(!is_description_touched){
-			content = $j("#base_item_content").val();
-			$j("#base_item_item_description").val(PrepareDescriptionString());
-			}
-	});
-	$j("#base_item_content_uom").change(function() {
-		if(!is_description_touched){
-			content_uom = $j("#base_item_content_uom :selected").text();
-			$j("#base_item_item_description").val(PrepareDescriptionString());
-			}
-	});
+var is_description_touched = false;
+var brand = "";
+var subbrand = "";
+var functional = "";
+var content = "";
+var content_uom ="";
+
+var fbrand = function(){
+  if(!is_description_touched){
+  	brand = $j("#base_item_brand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+var fsubbrand = function(){
+  if(!is_description_touched){
+  	subbrand = $j("#base_item_subbrand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+var ffunctional = function(){
+  if(!is_description_touched){
+  	functional = $j("#base_item_subbrand").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+
+var fcontent = function(){
+  if(!is_description_touched){
+  	content = $j("#base_item_content").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+var fcontent_uom = function(){
+  if(!is_description_touched){
+  	content_uom = $j("#base_item_content_uom").val();
+		$j("#base_item_item_description").val(PrepareDescriptionString());
+	}
+};
+
+
+  $j("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){fbrand();});
+	$j("#base_item_brand").change(function(){fbrand()});
+
+  $j("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){fsubbrand();});
+	$j("#base_item_subbrand").change(function(){fsubbrand()});
+
+  $j("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){ffunctional();});
+	$j("#base_item_functional").change(function(){ffunctional()});
+
+  $j("#base_item_content").bind('railsAutocomplete.select', function(event,ui){fcontent();});
+	$j("#base_item_content").change(function(){fcontent()});
+
+  $j("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){fcontent_uom();});
+	$j("#base_item_content_uom").change(function(){fcontent_uom()});
+
 
 	$j("#base_item_item_description").change(function() {
+	  alert(/t/);
 		is_description_touched = true;
 	});
 
@@ -290,7 +312,6 @@ Shelf life period
 
 		return string;
 		}
-		*/
 </script>
 </div>
 <div id='hidden_div' style="display: none"></div>
