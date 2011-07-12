@@ -69,6 +69,7 @@ class BaseItem < ActiveRecord::Base
 
   scope :private_last_published_by, lambda { |user| where(:private => true).last_published_by(user) }
   scope :public_last_published_by, lambda { |user| where(:private => false).last_published_by(user) }
+
   def current_step
     @current_step || steps.first
   end
@@ -305,6 +306,9 @@ class BaseItem < ActiveRecord::Base
     Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
+  def manufacturer
+    "#{self.manufacturer_gln} : #{self.manufacturer_name}"
+  end
   # methods calculate_* for view (highlighting)
   def calculate_content
     content_uoms.detect { |u| content_uom == u[1] }[0]

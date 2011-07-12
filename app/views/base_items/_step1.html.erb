@@ -90,6 +90,7 @@ Country of origin
 <td>
 	<%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path,:update_elements => { :manufacturer_gln => '#base_item_manufacturer_gln'}%>
 </td>
+
 <td>
   <div id="country_input">
 	  <div class="drop-down-cont zi-1">
@@ -163,6 +164,12 @@ Shelf life period
 <div class="dd-overlay"></div>
 <%= javascript_include_tag  'dropdowns' %>
 <script type="text/javascript">
+  $j('#base_item_manufacturer_gln').bind('railsAutocomplete.select', function(event,ui){
+    $j('#base_item_manufacturer_gln').val(this.value.split(' : ')[0]);
+  });
+  $j('#base_item_manufacturer_name').bind('railsAutocomplete.select', function(event,ui){
+    $j('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
+  });
 	$j("#country_select_btn").click(function(){
     $j('#country_input .drop-down-list ul li a').each( function(){
       if ($j(this).parent().hasClass('selected')){
