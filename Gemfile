@@ -18,7 +18,7 @@ gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.2'
 #gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'
-gem 'exception_notification', :git => 'http://github.com/rails/exception_notification.git', :require => 'exception_notifier'
+gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 group :development, :test do
   gem 'headless'
   gem 'capybara'
