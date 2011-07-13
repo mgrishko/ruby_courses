@@ -1,1 +1,2 @@
-page.replace_html "results", :partial => 'results'
+page.replace_html 'middle-side', :partial => 'results'
+

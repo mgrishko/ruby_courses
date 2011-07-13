@@ -418,7 +418,7 @@ ol, ul {
 	top:28px;
 }
 #content #middle-side #retailers .item .col span {
-	background: url("/images/newdesign/retailer-col-left.png") repeat left top;
+	background: url("/images/newdesign/retailer-col-left.png") no-repeat left top;
 	display:inline-block;
 	height:16px;
 }
@@ -1439,7 +1439,6 @@ tr.th td {
 .item-description table.edited td{
 	padding: 0 0 16px 6px;
 }
-
 .item-description.edited-2 .th td{
 	padding: 0 0 3px 6px;
 	font-size: 9px;
@@ -1448,7 +1447,6 @@ tr.th td {
 	padding: 0 0 16px 6px;
 	font-size: 13px;
 }
-
 .item-description table td{
 	padding: 0 0 16px 0;
 	vertical-align: top;
@@ -1472,7 +1470,6 @@ tr.th td {
 	position: relative;
 	top: 2px;
 }
-
 .item-description table .drop-down-cont.vat{
 	padding-left: 6px;
 }
@@ -1546,7 +1543,6 @@ tr.th td {
 .drop-down-link-cont{
 
 }
-
 .drop-down-link-choosed{
 	float: left;
 	display: block;
@@ -1570,7 +1566,6 @@ tr.th td {
 	left: -20px;
 	z-index: 10000;
 }
-
 .or{
 	padding: 0 19px;
 	position: relative;
@@ -1579,5 +1574,107 @@ tr.th td {
 .blue-btns .cancel{
 	position: relative;
 	top: 4px;
+}
+
+#content #middle-side #products {
+	width:768px;
+	padding:0 0 0 0;
+}
+#content #middle-side #products .item {
+	border-bottom:1px solid #f1f2f2;
+	border-top:1px solid #c8c9c9;
+	position:relative;
+	text-align:left;
+	overflow: hidden;
+	padding: 9px 7px 9px 18px;
+}
+#content #middle-side #products .item.refused{
+	background: #e6e6e6;
+}
+#content #middle-side #products .item.refused span.art, .item.refused .product-name, .item.refused .date, .item.refused .changes, .item.refused span{
+	color: #afafaf;
+}
+#content #middle-side #products .item .img {
+	float:left;
+	margin: 0 9px 0 0;
+}
+#content #middle-side #products .item .img img{
+	border: 1px solid #c0c0c0;
+}
+#content #middle-side #products .item-center{
+	overflow: hidden;
+	position: relative;
+	color: #888886;
+	line-height: 1.4em;
+}
+
+#content #middle-side #products .item-center span.art {
+	color:#075182;
+	font-weight: bold;
+}
+.product-name{
+	color: #000;
+}
+.new-label{
+	position: absolute;
+	left: 424px;
+	top: 20px;
+}
+#content #middle-side #products .item-right{
+	float: right;
+}
+#content #middle-side #products .item-right .date{
+	color: #b4b4b4;
+	font-size: 11px;
+	display: block;
+	padding: 0 0 7px 0;
+	float: right;
+}
+#content #middle-side #products .item-right .close-btn{
+	background: url(/images/newdesign/close-btn.jpg) no-repeat;
+	width: 22px;
+	height: 20px;
+	display: block;
+	float: left;
+}
+#content #middle-side #products .item-right .refuse{
+	color: #747473;
+	text-decoration: underline;
+	font-weight: bold;
+}
+#content #middle-side #products .item-right .accepted{
+	font-weight: bold;
+	color: #7596bc;
+}
+#content #middle-side #products .item-right .refuse:hover{
+	text-decoration: none;
+}
+#content #middle-side #products .item-right .item-right-btns{
+	clear: right;
+	overflow: hidden;
+	text-align: right;
+}
+#content #middle-side #products .item-right .item-right-btns .or{
+	position: static;
+	padding: 0 13px;
+}
+.white-btn{
+	border-top: 1px solid #d0d0d0;
+	border-left: 1px solid #e4e4e4;
+	border-right: 1px solid #b7b7b6;
+	border-bottom: 1px solid #a3a3a2;
+	display: block;
+
+}
+.white-btn span{
+	background: #fff url(/images/newdesign/white-btn-bg.jpg) left bottom repeat-x;
+	border-left: 1px solid #eeeeee;
+	border-top: 1px solid #eeeeee;
+	border-right: 1px solid #c1c1c0;
+	border-bottom: 1px solid #a7a7a6;
+	display: block;
+	padding: 2px 13px;
+	font-weight: bold;
+	color: #60605e;
 }
 

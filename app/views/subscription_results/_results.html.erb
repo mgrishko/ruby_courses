@@ -1,6 +1,21 @@
+<div id="middle-side">
+        <div class="wrap">
+            <div class="address"><a href="/subscription_results/" class="last">Входящие товары</a><a href="#"><%= @subscription.supplier.gln %> <%= @subscription.supplier.name %></a></div>
+            <div id="products">
+            	<div class="blue-btns bb">
 <% if @subscription.subscription_results.detect {|r| r.new?} %>
-  <%= link_to t('sr.accept_all'), url_for(:controller => "subscription_results", :action => "update_all")+"?accept=yes&subscription_id=#{@subscription.id}",{:method => "POST", :confirm =>  t('sr.confirm_accept_all'),:remote => true } %>
-  <%= link_to t('sr.cancel_all'), url_for(:controller => "subscription_results", :action => "update_all")+"?cancel=yes&subscription_id=#{@subscription.id}", {:method => "POST", :confirm => t('sr.confirm_cancel_all'), :remote => true } %>
-<% end %>
-<%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>
+  <% link_to url_for(:controller => "subscription_results", :action => "update_all")+"?accept=yes&subscription_id=#{@subscription.id}",{:method => "POST",:class=>'blue-btn', :confirm =>  t('sr.confirm_accept_all'),:remote => true }  do %>
+    <span><%= t('sr.accept_all') %></span>
+  <%end%>
+
+  <% link_to  url_for(:controller => "subscription_results", :action => "update_all")+"?cancel=yes&subscription_id=#{@subscription.id}", {:method => "POST",:class=>'blue-btn', :confirm => t('sr.confirm_cancel_all'), :remote => true } do%>
+    <span><%= t('sr.cancel_all') %></span>
+    <%end%>
+  <% end %>
+              </div>
+                <%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>
+
+            </div>
+         </div>
+</div>
 
