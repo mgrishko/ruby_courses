@@ -21,9 +21,9 @@ gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 group :development, :test do
   gem 'headless'
-  gem 'capybara'
+  gem 'capybara','0.4.1.2'
   gem 'parseexcel'
-  gem 'selenium-webdriver','0.2.1'
+  gem 'selenium-webdriver'#,'0.2.1'
   gem 'cucumber'
   gem 'cucumber-rails', '0.3.2', :require => false
   gem 'spork'
