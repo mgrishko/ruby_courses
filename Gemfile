@@ -23,7 +23,7 @@ group :development, :test do
   gem 'headless'
   gem 'capybara'
   gem 'parseexcel'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver','0.2.1'
   gem 'cucumber'
   gem 'cucumber-rails', '0.3.2', :require => false
   gem 'spork'
