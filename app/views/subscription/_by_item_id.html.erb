@@ -3,6 +3,7 @@
 <% else %>
 <%= form_for :subscription, :url => {:action => 'by_item_id', :controller => :subscription}, :remote => true do |f| %>
 <input type="hidden" name="item_id" value="<%= @base_item.item.id %>"/>
-<input type="submit" value="<%= get_value_by_item_id (@base_item.item) %>" name="do"/>
+<input type="submit" class='submit-btn' value="<%= get_value_by_item_id (@base_item.item) %>" name="do"/>
 <% end %>
 <% end %>
+

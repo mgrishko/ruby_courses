@@ -9,19 +9,15 @@
 		<% unless result.accepted? -%>
 			<td>
 				<%= form_for(result) do |f| %>
-					<%= f.submit t('sr.accept'), :name => 'accept' %>
+					<%= f.submit t('sr.accept'),:class=>'submit-btn', :name => 'accept' %>
 				<% end %>
 			</td>
 			<td>
 				<%= form_for(result) do |f| %>
-					<%= f.submit t('sr.cancel'), :name => 'cancel' %>
+					<%= f.submit t('sr.cancel'),:class=>'submit-btn', :name => 'cancel' %>
 				<% end %>
 			</td>
 		<% end -%>
 	</tr>
 </table>
-<<<<<<< HEAD
-=======
-
->>>>>>> rails3
 
