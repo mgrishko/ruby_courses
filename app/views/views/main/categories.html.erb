@@ -1,0 +1,13 @@
+<ul>
+  <%= render :partial => "category", :collection => @categories %>
+</ul>
+
+<script type="text/javascript">
+	$j('.drop-down-list ul li a').click(function(){
+		$j(this).parent().parent().find('li').removeClass('selected');
+		$j(this).parent().parent().parent().find('li').removeClass('selected');
+		$j(this).parent().addClass('selected');
+		return false;
+	});
+</script>
+

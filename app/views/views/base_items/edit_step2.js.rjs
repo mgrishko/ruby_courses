@@ -1,0 +1,1 @@
+page.replace_html "first_pi", :partial => 'edit_step2'

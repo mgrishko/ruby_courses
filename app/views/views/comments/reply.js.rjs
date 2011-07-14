@@ -1,0 +1,2 @@
+page.replace_html "cr-#{@r.id}", :partial => 'comment_form'
+

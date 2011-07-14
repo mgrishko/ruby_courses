@@ -1,0 +1,11 @@
+<%= form_for Comment.new, :remote => true do |f|%>
+<%= f.hidden_field :item_id, :value => @base_item.item.id %>
+<%= f.hidden_field :base_item_id, :value => @base_item.id %>
+<%= f.hidden_field :root_id, :value => @r.id %>
+<%= f.hidden_field :parent_id, :value => @p.id if @p %>
+<%= f.hidden_field :message_info, :value => @message_info if @message_info %>
+<%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area", :style => "background: #FFF;", :id => "comment_reply" %><br/>
+<%= f.submit t('main.reply'), :name => "new", :class => "button", :style => "width: auto;", :id => 'reply_submit' %>
+<%= f.submit t('main.cancel'), :name=> "cancel", :class => "button", :style => "width: auto;", :onclick => "$j('#cr-#{@r.id}').html(''); return false;" %>
+<% end %>
+

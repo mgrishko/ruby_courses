@@ -1,0 +1,18 @@
+<ul>
+  <%= render :partial => "group", :collection => @groups %>
+</ul>
+
+<script type="text/javascript">
+	$j('.drop-down-list ul li a').click(function(){
+		$j(this).parent().parent().find('li').removeClass('selected');
+		$j(this).parent().parent().parent().find('li').removeClass('selected');
+//    $j(this).addClass("ac_loading");
+		$j(this).parent().addClass('selected');
+    $j("#categories").html("");
+    requestSubgroupsData($j(this).parent().attr("id"));
+		return false;
+	});
+
+
+</script>
+

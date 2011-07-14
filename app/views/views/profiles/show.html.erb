@@ -1,0 +1,18 @@
+<h1><%= t 'user.title' %></h1>
+<h2><%= t 'user.name' %></h2>
+<p><%= @user.name %></p>
+<h2><%= t 'user.gln' %></h2>
+<p><%= @user.gln %></p>
+<% if @user.description.to_s.length > 0 %>
+<h2><%= t 'user.description' %></h2>
+<p><%=h @user.description %></p>
+<% end %>
+<% if @user.contacts.to_s.length > 0 %>
+<h2><% t 'user.contacts' %></h2>
+<p><%=h @user.contacts %></p>
+<% end %>
+<% if current_user.retailer? %>
+  <%= render :partial => "/user_attributes/user_attributes" %>
+  <%= render :partial => "tags/clouds" %>
+  <%= render :partial => "add_tag" %>
+<% end %>

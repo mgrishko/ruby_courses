@@ -1,0 +1,14 @@
+<div class="clear"></div>
+<h2><%= t 'item.base' %></h2>
+<div class="item-description" id="step1">
+  <%= form_for @base_item, :remote => true do |f| %>
+    <%= f.error_messages %>
+      <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
+      <p>
+        <%= f.submit t('main.apply'), :class=> "", :style=>'color:white' %>
+      </p>
+      <p><%= f.submit t('main.back'), :class => "", :name => "back_button", :style=>'color:white' unless @base_item.first_step? %></p>
+      <%= link_to t('main.cancel'), @base_item, {:method => :get, :remote => true } %>
+  <% end %>
+</div>
+

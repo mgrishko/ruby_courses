@@ -1,0 +1,22 @@
+<ul>
+	<% @subgroups.each do |k,v| %>
+  	<div class="drop-down-list-in">
+			<h3><%= k -%></h3>
+			<ul>
+	      <%= render :partial => "subgroup", :collection => v.map(&:description).uniq %>
+			</ul>
+	  </div>
+	<% end %>
+</ul>
+<script type="text/javascript">
+	$j('.drop-down-list ul li a').click(function(){
+		$j(this).parent().parent().find('li').removeClass('selected');
+		$j(this).parent().parent().parent().find('li').removeClass('selected');
+//    $j(this).addClass("ac_loading");
+		$j(this).parent().addClass('selected');
+    $j("#categories").html("");
+    requestCategoriesData($j(this).parent().attr("id"));
+		return false;
+	});
+</script>
+

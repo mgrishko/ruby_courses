@@ -1,0 +1,1 @@
+page.replace_html "user_attributes", :partial => 'user_attributes'
