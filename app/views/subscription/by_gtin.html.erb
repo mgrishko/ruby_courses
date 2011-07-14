@@ -14,10 +14,8 @@
                 <div class="add-notes">
                     <h4><%= t 'main.add' %> </h4>
                     <%= form_for :subscription, :url => {:action => 'by_gtin', :controller => :subscription,:id=>params[:id]}, :remote => true do |f| %>
-                      <%= f.text_area :gtins %>
-                      <%= f.submit t('main.apply'), :class => 'submit-add' %>
-                        <%#<textarea name="gtins"></textarea>%>
-                        <%#<input type="submit" class='submit-add' value="Принять" name="do"/>%>
+                      <%= text_area_tag :gtins %>
+                      <%= submit_tag t('main.apply'), :class => 'submit-add' %>
                     <% end %>
                 </div>
             </div>
