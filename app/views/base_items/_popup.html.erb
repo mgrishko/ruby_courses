@@ -5,8 +5,8 @@
                     			<div class="top-description">
                     				<table cellpadding="0" cellspacing="0" border="0">
                     					<tr>
-                    						<th>Item Description</th>
-                    						<th>Internal item Id</th>
+                    						<th><%= t 'item.description' %></th>
+                    						<th><%= t 'item.internal_item_id' %></th>
                     					</tr>
                     					<tr>
                     						<td><%= base_item.item_description %></td>
@@ -19,7 +19,7 @@
                     			</div>
                           <% if current_user.supplier? %>
                     			<div class="subscribers">
-                    				<span>Подписчики (<%= base_item.item.subscribers.count %>):</span>
+                    				<span><%= t 'main.subscribers' %> (<%= base_item.item.subscribers.count %>):</span>
                     				      <%= base_item.item.subscribers.map{|s| s.name}.join(', ') %>
                     			</div>
                     			<%end%>

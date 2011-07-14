@@ -69,6 +69,7 @@ class BaseItem < ActiveRecord::Base
 
   scope :private_last_published_by, lambda { |user| where(:private => true).last_published_by(user) }
   scope :public_last_published_by, lambda { |user| where(:private => false).last_published_by(user) }
+
   def current_step
     @current_step || steps.first
   end
@@ -305,14 +306,12 @@ class BaseItem < ActiveRecord::Base
     Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
-  #for autocompletion
   def manufacturer
     "#{self.manufacturer_gln} : #{self.manufacturer_name}"
   end
-
   # methods calculate_* for view (highlighting)
   def calculate_content
-    "#{content} #{content_uoms.detect do |u| content_uom == u[1]; end[0]}"
+    content_uoms.detect { |u| content_uom == u[1] }[0]
   end
 
   def calculate_country
@@ -321,9 +320,6 @@ class BaseItem < ActiveRecord::Base
 
   def calculate_gpc
     "#{gpc.code} : #{gpc.name}"
-  end
-  def calculate_uom
-    content_uoms.detect { |u| content_uom == u[1] }[0]
   end
 
   def calculate_vat
@@ -474,9 +470,9 @@ class BaseItem < ActiveRecord::Base
   # Returns IDS of items accepted by retailer for /retailer_items/ page
   def self.retailer_items_ids(retailer)
     # BI опубликованные, но не приватные
-    public_ids = public_last_published.to_ids
+    public_ids = where(:private => false).published.to_ids
     # BI опубликованные, приватные
-    private_ids = private_last_published.to_ids
+    private_ids = where(:private => true).published.to_ids
     # BI для текущего receiver
     this_receiver_ids = Receiver.where(:user_id => retailer.id).map { |r| r.base_item_id }
     # BI попавшие в подписку и помеченные как accepted

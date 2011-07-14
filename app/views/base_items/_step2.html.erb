@@ -62,10 +62,10 @@ $j("#cases_select_0").click(function(){
 </p>
 -->
 <p>
-<%=f.text_field :height, :style => 'width: 25px; border: 0;' %>x<%=f.text_field :width, :style => 'width: 25px;border:0' %>x<%=f.text_field :depth, :style => 'width: 25px;border:0' %> (В x Д x Ш)
+<%=f.text_field :height, :style => 'width: 25px; border: 0;' %>x<%=f.text_field :width, :style => 'width: 25px;border:0' %>x<%=f.text_field :depth, :style => 'width: 25px;border:0' %> <%= t 'pi.size' %>
 </p>
 <p>
-<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> г. брутто, <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> г. нетто
+<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> <%= t 'pi.gross_weight' %>, <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> <%= t 'pi.net_weight' %>
 </p>
 </div>
 </div>

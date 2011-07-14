@@ -23,7 +23,7 @@
 <% end %>
 </div>
 <div style="clear: both; margin-left: 2em;"><% if ((comment.item.user_id == current_user.id) && (comment.user_id != current_user.id)) || ((comment.item.user_id != current_user.id) && (comment.user_id == current_user.id)) %>
-<%= link_to "Комментировать", url_for(:controller => "comments",
+<%= link_to t('comment.comment'), url_for(:controller => "comments",
                                       :action => "reply",
                                       "comment[item_id]" => comment.item.id,
                                       "comment[base_item_id]" => comment.base_item.id,

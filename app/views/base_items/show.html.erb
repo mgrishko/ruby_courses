@@ -28,7 +28,9 @@
     <div class="dd-overlay"></div>
     <div class="w760">
       <div class="address">
-        <a href="/base_items/">Список товаров</a><a href="#" class="last">Товар</a>
+        <%#<a href="/base_items/">Список товаров</a><a href="#" class="last">Товар</a>%>
+        <%= link_to t('main.base_items'), "/base_items"%>
+        <%= link_to t('main.item'), "#", :class => "last"%>
       </div>
       <div class="blue-btns bb">
         <% if @subscription_result && @subscription_result.new? %>
@@ -42,12 +44,12 @@
 
         <% unless @view_only || @base_item.draft? %>
               <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
-                  <%= link_to content_tag(:span,'Edit', :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn", :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()" %>
+                  <%= link_to content_tag(:span, I18n.t('main.edit'), :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn", :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()" %>
               <% end %>
-              <%= link_to  content_tag(:span,'Export', :class => "show_export_form"), "javascript:void(0)", :class => "blue-btn show_export_form" %>
+              <%= link_to  content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "javascript:void(0)", :class => "blue-btn show_export_form" %>
         <% end %>
         <% if @view_only and !@base_item.draft? %>
-              <%= link_to content_tag(:span,'Export', :class => "show_export_form"), "javascript:void(0)", :class => "blue-btn show_export_form" %>
+              <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "javascript:void(0)", :class => "blue-btn show_export_form" %>
         <% end %>
 
       </div>

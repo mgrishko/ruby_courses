@@ -16,7 +16,7 @@
 	  			</div>
 	  		</div>
 	  		<div class="remark">
-	  			Пояснения к полю<br /><br /><br />
+	  			<%= t 'main.annotations' %><br /><br /><br />
 	  		</div>
 	  		<a class="choose-btn pt-choose-btn" href="#"></a>
 	  	</div>
@@ -81,13 +81,13 @@ $j("#cases_select_0").click(function(){
 */
 </script>
 <p>
-<%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'>(В x Д x Ш)</span>
+<%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'><%= t 'pi.size' %></span>
 </p>
 <p>
-<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> <span class='t'>г. брутто,</span> <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> <span class='t'>г. нетто</span>
+<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> <span class='t'><%= t 'pi.gross_weight' %></span> <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> <span class='t'><%= t 'pi.net_weight' %></span>
 </p>
-<div class="fleft"><%= f.submit "Обновить", :style=>"width: auto;"%></div>
+<div class="fleft"><%= f.submit t('main.update'), :style=>"width: auto;"%></div>
     <div class="fright min" style="margin-right: 25px;">
-    <%= button_to 'Отмена','javascript:void(0)', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %></div>
+    <%= button_to t('main.cancel'),'javascript:void(0)', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %></div>
 <% end %>
 

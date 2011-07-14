@@ -1,38 +1,38 @@
         <table class="edited" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr class="th">
-            <td>GTIN</td>
-            <td colspan="4">Internal item Id</td>
+            <td><%= t 'item.gtin' %></td>
+            <td colspan="4"><%= t 'item.internal_item_id' %></td>
           </tr>
           <tr>
             <td class="w183" ><%= @base_item.gtin %></td>
             <td colspan="4"><%=@base_item.internal_item_id%></td>
           </tr>
           <tr class="th">
-            <td>Brand (70)</td>
-            <td>Subbrand (70)</td>
-            <td>Functional (35)</td>
-            <td>Variant (35)</td>
-            <td>Content</td>
+            <td><%= t 'item.brand' %> (70)</td>
+            <td><%= t 'item.subbrand' %> (70)</td>
+            <td><%= t 'item.functional' %> (35)</td>
+            <td><%= t 'item.variant' %> (35)</td>
+            <td><%= t 'item.content' %></td>
           </tr>
           <tr>
             <td><%= @base_item.brand %></td>
             <td class="w172"><%= @base_item.subbrand %></td>
             <td class="w132"><%= @base_item.functional %></td>
-            <td class="w132">отсутствует</td>
+            <td class="w132"><%= t 'item.missing' %></td>
             <td width="90">
               <%= @base_item.calculate_content %>
             </td>
           </tr>
           <tr class="th">
-            <td colspan="5">Item description (178)</td>
+            <td colspan="5"><%= t 'item.description' %> (178)</td>
           </tr>
           <tr>
             <td colspan="5"><%= @base_item.item_description %></td>
           </tr>
           <tr class="th">
-            <td>Manufacturer GLN</td>
-            <td>Manufacturer name</td>
-            <td colspan="3">Country of origin</td>
+            <td><%= t 'item.manufacturer_gln' %> GLN</td>
+            <td><%= t 'item.manufacturer_name' %></td>
+            <td colspan="3"><%= t 'item.country_of_origin' %></td>
           </tr>
           <tr>
             <td><%= @base_item.manufacturer_gln %></td>
@@ -40,7 +40,7 @@
             <td colspan="3"><%= @base_item.calculate_country %></td>
           </tr>
           <tr class="th">
-            <td colspan="5">Gpc code</td>
+            <td colspan="5"><%= t 'item.gpc_code' %></td>
           </tr>
           <tr>
             <td colspan="5">
@@ -48,8 +48,8 @@
             </td>
           </tr>
           <tr class="th">
-            <td>Vat</td>
-            <td colspan="4">Shelf life period
+            <td><%= t 'item.vat' %></td>
+            <td colspan="4"><%= t 'item.shelf_life_period' %>
             </td>
           </tr>
           <tr>

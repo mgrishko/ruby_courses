@@ -32,16 +32,16 @@
                     <div class="img"><img src="./images/newdesign/retailer-img-1.jpg" alt="" /></div>
                     <div class="desc">
                         <%= link_to user.name, supplier_path(user), :class => 'title' %>
-                        <div class="contact">адрес</div>
+                        <div class="contact"><%= t 'main.address' %></div>
                         <div class="btns">
                           <% user.user_tags.where(:author_id => current_user.id ).each do |c| %>
                             <a class="btn" href='?tag=#{c.tag.id}' ><span><%= c.tag.name%></span></a>
                           <%end%>
                         </div>
-                        <div class="date">Последнее обновление: <%= user.fresh_base_items %></div>
-                        <div class="col">Товаров: <span><b><%= user.base_items.last_published.count%></b></span></div>
+                        <div class="date"><%= t 'supplier.last_update' %>: <%= user.fresh_base_items %></div>
+                        <div class="col"><%= t 'main.items' %>: <span><b><%= user.base_items.last_published.count%></b></span></div>
                         <p class='sort-btn' style='text-align:left'>
-                          <%= link_to 'Подписка по gtin', "/subscriptions/by_gtin/#{user.id}", {:class=>"export", :onclick=>"event.stopPropagation();"} %>
+                          <%= link_to t('subscription.subscribe_gtin'), "/subscriptions/by_gtin/#{user.id}", {:class=>"export", :onclick=>"event.stopPropagation();"} %>
                           <%= link_to user.my_retailer_info(current_user.id),"javascript:void(0)", {:class=>"export",:id => "bs-#{user.id}",:onclick=>"return subscription(event, this, '#{user.id}')"}%>
                         </p>
                     </div>

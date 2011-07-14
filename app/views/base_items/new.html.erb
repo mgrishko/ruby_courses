@@ -7,7 +7,8 @@
   <div class="wrap">
     <div class="w760">
       <div class="address">
-        <a href="/base_items/">Список товаров</a><a href="#" class="last">Добавить товар</a>
+        <%= link_to t('main.base_items'), "/base_items"%>
+        <%= link_to t('item.add_item'), "#", :class => "last"%>
       </div>
       <%= form_for(@base_item) do |f| %>
         <%= f.error_messages %>

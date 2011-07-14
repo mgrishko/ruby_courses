@@ -2,7 +2,7 @@
 <div id='left-side'>
   <div class="top-box">
   </div>
-  <%= link_to 'Добавить товар', new_base_item_path, :class=>"add-product" if current_user.supplier? %>
+  <%= link_to t('item.add_item'), new_base_item_path, :class=>"add-product" if current_user.supplier? %>
   <%= render '/nav' %>
   <% if current_user.supplier? %>
 
@@ -77,10 +77,10 @@
      %>
     <div id="<%= id %>">
       <div class="sort-btn">
-        <%= link_to 'Export to xls', 'javascript:void(0)', :class=>'export', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile' %>
-        <%= link_to_if (params[:view]!='list' and params[:view].present?), "Кратко", url_for(params.merge :view => 'list'), :class=>'kr' %> |
-        <%= link_to_if params[:view]!='tile', "Плитка", url_for(params.merge(:view => 'tile')) %> |
-        <%= link_to_if params[:view]!='detailed', "Развернуто", url_for(params.merge(:view => 'detailed')) %>
+        <%= link_to t('item.export_to_xls'), 'javascript:void(0)', :class=>'export', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile' %>
+        <%= link_to_if (params[:view]!='list' and params[:view].present?), t('main.short'), url_for(params.merge :view => 'list'), :class=>'kr' %> |
+        <%= link_to_if params[:view]!='tile', t('main.tile'), url_for(params.merge(:view => 'tile')) %> |
+        <%= link_to_if params[:view]!='detailed', t('main.detailed'), url_for(params.merge(:view => 'detailed')) %>
         <div class="clr"></div>
       </div>
       <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
@@ -100,10 +100,10 @@
                         <p>
                           <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> <%= shorten_label base_item.item_description, 27 %>
                           <% if base_item.private %>
-                              <span class="adres">Private</span>
+                              <span class="adres"><%= t 'item.private' %>span>
                           <% end %>
                         </p>
-                        <p class="adres">Status: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></p>
+                        <p class="adres"><%= t 'menu.status' %>: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></p>
                       </div>
                       <div class="stat"><span class="stat-3"></span></div>
                       <div class="clr"></div>
@@ -127,8 +127,8 @@
                             <div class="desc">
                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
-                                        <th class="one">Item Description</th>
-                                        <th>Intenal item id</th>
+                                        <th class="one"><%= t 'item.description' %></th>
+                                        <th><%= t 'item.internal_item_id' %></th>
                                     </tr>
                                     <tr>
                                       <td>
@@ -152,10 +152,10 @@
                             <div class="det">
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                   <tr class="th">
-                                    <td>Brand</td>
-                                    <td>Subbrand</td>
-                                    <td>Functional</td>
-                                    <td>Content</td>
+                                    <td><%= t 'item.brand' %></td>
+                                    <td><%= t 'item.subbrand' %></td>
+                                    <td><%= t 'item.functional' %></td>
+                                    <td><%= t 'item.content' %></td>
                                   </tr>
                                   <tr>
                                     <td><%= base_item.brand %></td>
@@ -164,9 +164,9 @@
                                     <td><%= base_item.content %> <%= base_item.content_uom %></td>
                                   </tr>
                                   <tr class="th">
-                                    <td colspan="2">Manufacturer GLN</td>
-                                    <td>Manufacturer name</td>
-                                    <td>Country of origin</td>
+                                    <td colspan="2"><%= t 'item.manufacturer_gln' %></td>
+                                    <td><%= t 'item.manufacturer_name' %> name</td>
+                                    <td><%= t 'item.country_of_origin' %></td>
                                   </tr>
                                   <tr>
                                     <td colspan="2"><%= base_item.manufacturer_gln %></td>
@@ -174,14 +174,14 @@
                                     <td><%= base_item.country %></td>
                                   </tr>
                                   <tr class="th">
-                                    <td colspan="4">Gpc code</td>
+                                    <td colspan="4"><%= t 'item.gpc_code' %></td>
                                   </tr>
                                   <tr>
                                     <td colspan="4"><%= base_item.gpc_code %> : <%= base_item.gpc_name %></td>
                                   </tr>
                                   <tr class="th">
-                                    <td>Vat</td>
-                                    <td colspan="3">Shelf life period</td>
+                                    <td><%= t 'item.vat' %></td>
+                                    <td colspan="3"><%= t('item.shelf_life_period') %></td>
                                   </tr>
                                   <tr>
                                     <td><%= base_item.vat %></td>
@@ -189,7 +189,7 @@
                                   </tr>
                                 </table>
                             </div>
-                            <div class="pablic">Опубликовано: <%= base_item.updated_at.strftime("%d/%m/%Y") %></div>
+                            <div class="pablic"><%= t('main.publish') +': '+ base_item.updated_at.strftime("%d/%m/%Y") %></div>
                             </div>
                         </div>
                         </div>
@@ -208,7 +208,7 @@
 
                         <p><%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> </p>
                         <% if base_item.private %>
-                            <span class="adres">Private</span>
+                            <span class="adres"><%= t 'item.private' %></span>
                         <% end %>
                         <!--                    <a class="btn" href="#"><span>Новинка</span></a>-->
                       </div>
@@ -235,7 +235,7 @@
   <%= form_for BaseItem.new, :url => export_base_items_path, :html=> {:id => 'base_item_export_form', :method => "POST"} do |f| %>
       <div id="export_form_fields"></div>
       <input type='hidden' name='base_items' id='base_items_ids'/>
-      <%= submit_tag "Экспортировать", :class => "button fright", :id =>'export_button', :disabled => true %>
+      <%= submit_tag t('main.export'), :class => "button fright", :id =>'export_button', :disabled => true %>
   <% end %>
 </div>
 <div class="pp-overlay"></div>

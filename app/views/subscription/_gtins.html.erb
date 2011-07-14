@@ -1,10 +1,10 @@
 <%= form_for :subscription, :url => {:action => 'by_gtin', :controller => :subscription,:id=>params[:id]},:html=>{:id => 'subscribe_by_gtin'} do |f| %>
   <%= render :partial => 'gtin',:collection => @gtins %>
-  <%= f.submit 'Подписаться' ,:class=>'submit-btn', :id => 'subscribe_by_gtin_btn'%>
+  <%= f.submit t('subscription.subscribe') ,:class=>'submit-add', :id => 'subscribe_by_gtin_btn'%>
 <%end %>
 <style>
   .gtin-error{color: red}
-  .gtin-nil{color: orange}
+  .gtin-nil{color: grey}
   .gtin-subscription{cursor:auto;}
 </style>
 <script>
@@ -21,7 +21,7 @@
     var apply = '<a href="javascript:void(0)" id="apply-'+gtin+'">Применить</a>';
     var refuse = '<a href="javascript:void(0)" id="refuse-'+gtin+'">Отмена</a>';
     tmp[gtin] = $j("#bi-content-"+gtin).html();
-    $j("#bi-content-"+gtin).html(input+' '+apply+' | '+refuse);
+    $j("#bi-content-"+gtin).html(input+apply+' '+refuse);
     $j("#refuse-"+gtin).click(function(){
         $j("#bi-content-"+gtin).html(tmp[gtin]);
     });
