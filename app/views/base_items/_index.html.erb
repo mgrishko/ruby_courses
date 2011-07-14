@@ -181,7 +181,7 @@
                                   </tr>
                                   <tr class="th">
                                     <td><%= t 'item.vat' %></td>
-                                    <td colspan="3"><%= t 'item.shelf_life_period' %></td>
+                                    <td colspan="3"><%= t('item.shelf_life_period') %></td>
                                   </tr>
                                   <tr>
                                     <td><%= base_item.vat %></td>
@@ -189,7 +189,7 @@
                                   </tr>
                                 </table>
                             </div>
-                            <div class="pablic"><%= t 'main.publish', base_item.updated_at.strftime("%d/%m/%Y") %></div>
+                            <div class="pablic"><%= t('main.publish') +': '+ base_item.updated_at.strftime("%d/%m/%Y") %></div>
                             </div>
                         </div>
                         </div>
