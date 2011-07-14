@@ -470,9 +470,9 @@ class BaseItem < ActiveRecord::Base
   # Returns IDS of items accepted by retailer for /retailer_items/ page
   def self.retailer_items_ids(retailer)
     # BI опубликованные, но не приватные
-    public_ids = public_last_published.to_ids
+    public_ids = where(:private => false).published.to_ids
     # BI опубликованные, приватные
-    private_ids = private_last_published.to_ids
+    private_ids = where(:private => true).published.to_ids
     # BI для текущего receiver
     this_receiver_ids = Receiver.where(:user_id => retailer.id).map { |r| r.base_item_id }
     # BI попавшие в подписку и помеченные как accepted
