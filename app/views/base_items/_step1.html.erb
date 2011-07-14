@@ -157,6 +157,20 @@ Shelf life period
 <div class="dd-overlay"></div>
 <%= javascript_include_tag  'dropdowns' %>
 <script type="text/javascript">
+    var uoms_names = {};
+    <%@base_item.content_uoms.each do |p|%>
+      uoms_names['<%= p[1]%>'] = '<%= p[0]%>';
+    <%end%>
+
+    var uoms = {};
+    <%@base_item.content_uoms.each do |p|%>
+    uoms['<%= p[0]%>'] = '<%= p[1]%>';
+    <%end%>
+    var vats = {};
+    <%@base_item.vats.each do |p|%>
+    vats['<%= p[0]%>'] = '<%= p[1]%>';
+    <%end%>
+
   $j('#base_item_manufacturer_gln').bind('railsAutocomplete.select', function(event,ui){
     $j('#base_item_manufacturer_gln').val(this.value.split(' : ')[0]);
   });
@@ -226,63 +240,24 @@ Shelf life period
 
 */
 
-var is_description_touched = false;
-var brand = "";
-var subbrand = "";
-var functional = "";
-var content = "";
-var content_uom ="";
-
-var fbrand = function(){
-  if(!is_description_touched){
-  	brand = $j("#base_item_brand").val();
-		$j("#base_item_item_description").val(PrepareDescriptionString());
-	}
-};
-var fsubbrand = function(){
-  if(!is_description_touched){
-  	subbrand = $j("#base_item_subbrand").val();
-		$j("#base_item_item_description").val(PrepareDescriptionString());
-	}
-};
-
-var ffunctional = function(){
-  if(!is_description_touched){
-  	functional = $j("#base_item_subbrand").val();
-		$j("#base_item_item_description").val(PrepareDescriptionString());
-	}
-};
+<% if params[:action]=='new' %>
+  var is_description_touched = false;
 
 
-var fcontent = function(){
-  if(!is_description_touched){
-  	content = $j("#base_item_content").val();
-		$j("#base_item_item_description").val(PrepareDescriptionString());
-	}
-};
+  $j("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$j("#base_item_brand").change(function(){PrepareDescriptionString()});
 
-var fcontent_uom = function(){
-  if(!is_description_touched){
-  	content_uom = $j("#base_item_content_uom").val();
-		$j("#base_item_item_description").val(PrepareDescriptionString());
-	}
-};
+  $j("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$j("#base_item_subbrand").change(function(){PrepareDescriptionString()});
 
+  $j("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$j("#base_item_functional").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){fbrand();});
-	$j("#base_item_brand").change(function(){fbrand()});
+  $j("#base_item_content").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$j("#base_item_content").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){fsubbrand();});
-	$j("#base_item_subbrand").change(function(){fsubbrand()});
-
-  $j("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){ffunctional();});
-	$j("#base_item_functional").change(function(){ffunctional()});
-
-  $j("#base_item_content").bind('railsAutocomplete.select', function(event,ui){fcontent();});
-	$j("#base_item_content").change(function(){fcontent()});
-
-  $j("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){fcontent_uom();});
-	$j("#base_item_content_uom").change(function(){fcontent_uom()});
+  $j("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$j("#base_item_content_uom").change(function(){PrepareDescriptionString()});
 
 
 	$j("#base_item_item_description").change(function() {
@@ -290,27 +265,23 @@ var fcontent_uom = function(){
 	});
 
 	function PrepareDescriptionString(){
-		var string = ""
-		if (brand != "") {string = brand}
-
-		if (subbrand != "") {
-			string += ' ' + subbrand;
-		}else {return string;}
-
-		if (functional != ""){
-			string += ' ' + functional;
-		}else {return string;}
-
-		if (content != ""){
-			string += ' ' + content;
-		}else {return string;}
-
-		if (content_uom != ""){
-			string += ' ' + content_uom;
-		}else {return string;}
-
-		return string;
+    if (!is_description_touched){
+		  var string = ""
+        string += $j("#base_item_brand").val();
+        string += " ";
+      	string += $j("#base_item_subbrand").val();
+        string += " ";
+      	string += $j("#base_item_functional").val();
+        string += " ";
+       	string += $j("#base_item_content").val();
+        if ($j("#base_item_content_uom").val()){
+          string += " ";
+        	string += uoms_names[$j("#base_item_content_uom").val()];
+        	}
+     		$j("#base_item_item_description").val(string);
+      }
 		}
+<% end %>
 </script>
 </div>
 <div id='hidden_div' style="display: none"></div>
