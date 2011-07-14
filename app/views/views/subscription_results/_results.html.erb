@@ -1,6 +1,0 @@
-<% if @subscription.subscription_results.detect {|r| r.new?} %>
-  <%= link_to t('sr.accept_all'), url_for(:controller => "subscription_results", :action => "update_all")+"?accept=yes&subscription_id=#{@subscription.id}",{:method => "POST", :confirm =>  t('sr.confirm_accept_all'),:remote => true } %>
-  <%= link_to t('sr.cancel_all'), url_for(:controller => "subscription_results", :action => "update_all")+"?cancel=yes&subscription_id=#{@subscription.id}", {:method => "POST", :confirm => t('sr.confirm_cancel_all'), :remote => true } %>
-<% end %>
-<%= render :partial => 'result', :collection => @subscription.subscription_results.reverse %>
-

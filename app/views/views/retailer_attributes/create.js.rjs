@@ -1,1 +1,0 @@
-page.replace_html "retailer_attributes", :partial => 'retailer_attribute', :locals => {:item => @item}

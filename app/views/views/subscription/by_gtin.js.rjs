@@ -1,5 +1,0 @@
-page[:gtin_results].html("")
-if @gtins.any?
-  page.insert_html :top, :gtin_results, :partial => 'gtins'#,:collection => @gtins
-end
-

@@ -1,1 +1,0 @@
-page.replace "sr-#{@subscription_result.id}", :partial => 'result', :object => @subscription_result

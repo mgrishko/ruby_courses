@@ -1,4 +1,0 @@
-<% @clouds.each do |c| %>
-  <div><p class="btn"><span><%=c.tag.name%> <%= link_to '', tag_url(:id => c, :kind => c.tag.kind), {:method => :delete, :remote => true,:class=>'remove'}%></span></p></div>
-<% end %>
-
