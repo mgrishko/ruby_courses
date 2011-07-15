@@ -44,7 +44,7 @@
   		$j('.dd-overlay').css('display', 'none');
 	});
 	$j(".pt-choose-btn").click(function(){
-    $j('.pt-cases ul li a').each( function(){
+    $j(this).parent().find('.pt-cases ul li a').each( function(){
       if ($j(this).parent().hasClass('selected')){
         $j('#base_item_packaging_type').val($j(this).html());
      	 	$j('.drop-down').css('visibility','hidden');
