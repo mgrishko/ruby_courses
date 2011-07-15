@@ -8,14 +8,18 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :item_description, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :manufacturer_gln, :full => true,
                 :extra_data => [:manufacturer_name],
-                :uniq => true,
                 :use_limit => true,
-                :display_value => :manufacturer
+                :display_value => :manufacturer do
+                    {:where =>{:user_id =>  current_user.id}}
+                end
   autocomplete :base_item, :manufacturer_name, :full => true,
                 :extra_data => [:manufacturer_gln],
-                :uniq => true,
                 :use_limit => true,
-                :display_value => :manufacturer
+                :display_value => :manufacturer do
+                    {:where =>{:user_id =>  current_user.id}}
+                end
+
+
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
     BaseItem.per_page = 12
