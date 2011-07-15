@@ -1,5 +1,6 @@
-
 source 'http://rubygems.org'
+source 'http://gems.github.com'
+
 gem 'rails', '3.0.7'
 gem 'authlogic', '3.0.3'
 gem 'aasm', :require => 'aasm'
@@ -20,21 +21,20 @@ gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 group :development, :test do
-  gem 'headless'
+  gem 'ZenTest'
+  gem 'annotate'
   gem 'capybara', '0.4.1.2'
-  gem 'parseexcel'
-  gem 'selenium-webdriver'
   gem 'cucumber'
   gem 'cucumber-rails', '0.3.2', :require => false
-  gem 'spork'
-  gem 'rspec-rails', '1.3.4', :require => false
-  gem 'rspec', '1.3.2', :require => 'spec'
-  gem 'annotate'
-  gem 'pickle'
-  gem 'test-unit'
-  gem 'rails-erd'
-  source 'http://gems.github.com'
   gem 'database_cleaner'
+  gem 'headless'
+  gem 'parseexcel'
+  gem 'pickle'
+  gem 'rails-erd'
+  gem 'rspec', '1.3.2', :require => 'spec'
+  gem 'rspec-rails', '1.3.4', :require => false
+  gem 'selenium-webdriver', '0.2.2'
+  gem 'spork'
+  gem 'test-unit'
   gem 'thoughtbot-factory_girl', :require => false
 end
-
