@@ -21,17 +21,17 @@ class Image < ActiveRecord::Base
     image.strip!
     if scale
       if fill
-	image.resize_to_fill!(width, height)
+    image.resize_to_fill!(width, height)
       else
-	image.resize_to_fit!(width, height)
+    image.resize_to_fit!(width, height)
       end
     else
       if (original_height > height) or (original_width > width)
-	if fill
-	  image.resize_to_fill!(width, height)
-	else
-	  image.resize_to_fit!(width, height)
-	end
+    if fill
+      image.resize_to_fill!(width, height)
+    else
+      image.resize_to_fit!(width, height)
+    end
       end
     end
 
@@ -60,9 +60,8 @@ protected
   def delete_file
     for image_parameter in IMAGE_PARAMETERS do
       if File.exist?("#{RAILS_ROOT}/public/#{self.id}#{image_parameter.name}.jpg")
-	File.delete("#{RAILS_ROOT}/public/#{self.id}#{image_parameter.name}.jpg")
+        File.delete("#{RAILS_ROOT}/public/#{self.id}#{image_parameter.name}.jpg")
       end
     end
   end
 end
-
