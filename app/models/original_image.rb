@@ -1,8 +1,8 @@
 class OriginalImage
 
   def initialize(picture)
-    @data	    = picture.read
-    @raw	    = ''
+    @data = picture.read
+    @raw  = ''
   end
 
   def raw=(raw)
@@ -24,9 +24,9 @@ class OriginalImage
       return false
     else
       if /png|jpg|jpeg|gif/i =~ @raw.format
-	return true
+    return true
       else
-	return false
+    return false
       end
     end
   end
