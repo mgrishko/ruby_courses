@@ -1,5 +1,5 @@
-<div id="middle-side">
-  <div class="wrap">
+<div id="middle-side" style="width:100%;">
+  <div style="padding:30px 20px 20px 30px" >
     <div class="address">
       <h1><%= t 'event.title' %></h1>
       <% od = @events.first.created_at.to_s(:event) if @events.length > 0 %>
@@ -7,7 +7,7 @@
     </div>
     <div class="sort-btn">
     </div>
-    <div id="products">
+    <div id="products" width="100%">
         <% @events.each do |e| %>
         <% cd = e.created_at.to_s(:event) %>
         <% if cd != od %>
@@ -29,3 +29,4 @@
     </div>
   </div>
 </div>
+
