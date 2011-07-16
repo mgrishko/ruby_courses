@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   def index
     if current_user.supplier?
 
-      user_events =current_user.events
+      user_events = current_user.events
 
       comments = current_user.item_comments.to_ids
       comment_events = Event.comments.where(:content_id => comments)

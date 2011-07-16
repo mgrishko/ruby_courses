@@ -1,5 +1,6 @@
 # encoding = utf-8
 class UserSessionsController < ApplicationController
+
   before_filter :require_no_user, :only => [:show, :create]
   before_filter :require_user, :only => [:destroy]
 

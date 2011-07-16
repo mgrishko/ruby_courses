@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
       return "Подписаться"
     end
   end
+
   def my_retailer_flag(user_id)
     if self.retailers.find(:first, :conditions => ['retailer_id=?', user_id])
       return true

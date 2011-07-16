@@ -24,14 +24,13 @@ class SuppliersController < ApplicationController
     end
 
     @base_items = BaseItem.get_base_items :user_id => (@supplier ? @supplier.id : nil),
-					  :brand => params[:brand],
-					  :manufacturer_name => params[:manufacturer_name],
-					  :functional => params[:functional],
-					  :tag => params[:tag],
-					  :retailer_id => current_user.id,
-					  :search => params[:search],
-					  :page => params[:page]
-
+      :brand => params[:brand],
+      :manufacturer_name => params[:manufacturer_name],
+      :functional => params[:functional],
+      :tag => params[:tag],
+      :retailer_id => current_user.id,
+      :search => params[:search],
+      :page => params[:page]
   end
 end
 

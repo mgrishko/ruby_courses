@@ -7,7 +7,7 @@ class ReceiversController < ApplicationController
     if @user && @base_item
       @receiver = Receiver.find(:first, :conditions => {:base_item_id => @base_item.id, :user_id => @user.id})
       unless @receiver
-	@receiver = Receiver.create(:base_item => @base_item, :user => @user)
+        @receiver = Receiver.create(:base_item => @base_item, :user => @user)
       end
     end
     @receivers = Receiver.find(:all, :conditions => {:base_item_id => @base_item.id})

@@ -8,8 +8,8 @@ class TagsController < ApplicationController
       #@tag = Tag.find(:first, :conditions => ["clouds.user_id=? and tags.name=?", current_user, params[:tag][:name]])
       @tag = Tag.where(:name => params[:tag][:name], :kind => 1).first
       unless @tag
-	@tag = Tag.new(:name => params[:tag][:name], :kind => 1)
-	@tag.save
+        @tag = Tag.new(:name => params[:tag][:name], :kind => 1)
+        @tag.save
       end
       @cloud = Cloud.new(:user => current_user, :item => @item, :tag => @tag)
       @cloud.save
@@ -19,8 +19,8 @@ class TagsController < ApplicationController
       @user = User.find(params[:tag][:user_id])
       @tag = Tag.where(:name => params[:tag][:name], :kind => 2).firsts
       unless @tag
-	@tag = Tag.new(:name => params[:tag][:name], :kind => 2)
-	@tag.save
+        @tag = Tag.new(:name => params[:tag][:name], :kind => 2)
+        @tag.save
       end
       @cloud = UserTag.new(:author_id => current_user.id, :user_id => @user.id, :tag_id => @tag.id)
       @cloud.save
