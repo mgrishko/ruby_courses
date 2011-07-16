@@ -135,7 +135,7 @@ UOMS = { 'кг'=>'KGM',
           item.brand = data[4]
           item.subbrand = data[5]
           image_id = data[0]
-          #item.variant = data[6]
+          item.variant = data[6]
           item.content = data[7].gsub(',','.').to_f
           item.content_uom =  UOMS[data[8].strip]
           #################
