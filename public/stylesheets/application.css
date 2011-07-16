@@ -22,3 +22,10 @@
 	height:18px;
 }
 
+.page a.prev-dis {
+	background: url("/images/newdesign/page-prev-n.png") no-repeat 0 0;
+}
+.page a.prev {
+	background: url("/images/newdesign/page-prev.png") no-repeat 0 0;
+}
+
