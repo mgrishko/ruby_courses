@@ -1,7 +1,7 @@
 <div id="middle-side">
   <div class="wrap">
     <div class="address">
-      <h2><%= t 'event.title' %></h2>
+      <h1><%= t 'event.title' %></h1>
       <% od = @events.first.created_at.to_s(:event) if @events.length > 0 %>
       <%= "<span class='event-date'>#{od}</span>".html_safe if od %>
     </div>
@@ -18,12 +18,14 @@
         <% end %>
       <div class="item">
         <div class="event-<%= e.content_type.downcase %>"><%= e.content_type %></div>
-        <div class="desc"><%= event_url(current_user,e) %></div>
+        <div class="fleft"><%= event_url(current_user,e) %></div>
         <div class="item-right"><%= e.user.name %></div>
         <div class="clear"></div>
       </div>
         <% end %>
-        <%= html_pager(@events) %>
+        <div class="page">
+          <%= html_pager(@events) %>
+        </div>
     </div>
   </div>
 </div>

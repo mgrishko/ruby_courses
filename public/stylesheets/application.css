@@ -24,26 +24,21 @@
 
 /*for event log*/
 .sr-status {
-  width: 16px;
-  height: 16px;
-  /*background: url(/images/lights.png) 0 0;*/
+  width: 10px;
+  height: 10px;
 }
 .sr-accepted {
-  background: url(/images/newdesign/icon-stat-2.png)
-  /*background-position: 0 -32px;*/
+  background: url(/images/newdesign/icon-stat-2.png) no-repeat;
 }
 .sr-none {
-  background: url(/images/newdesign/icon-stat-5.png)
-  /*background-position: 0 -48px;*/
+  background: url(/images/newdesign/icon-stat-5.png) no-repeat;
 }
 
 .sr-canceled {
-  background: url(/images/newdesign/icon-stat-4.png)
-  /*background-position: 0 0;*/
+  background: url(/images/newdesign/icon-stat-4.png) no-repeat;
 }
 .sr-new {
-  background: url(/images/newdesign/icon-stat-3.png)
-  /*background-position: 0 -16px;*/
+  background: url(/images/newdesign/icon-stat-3.png) no-repeat;
 }
 
 .event-date {
@@ -56,7 +51,7 @@
   float: right;
 }
 .event-comment, .event-subscriptionresult, .event-subscription, .event-retailerattribute, .event-baseitem, .event-image {
-  min-width: 100px;
+  min-width: 130px;
   text-align: center;
   float: left;
   font-size: 12px;
