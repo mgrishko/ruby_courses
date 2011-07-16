@@ -5,6 +5,7 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :brand, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :subbrand, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :functional, :full => true, :uniq => true, :use_limit => true
+  autocomplete :base_item, :variant, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :item_description, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :manufacturer_gln, :full => true,
                 :extra_data => [:manufacturer_name],

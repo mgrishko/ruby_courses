@@ -15,8 +15,9 @@
     <td><%= t 'item.brand' %> (70)</td>
     <td><%= t 'item.subbrand' %> (70)</td>
     <td><%= t 'item.functional' %> (35)</td>
+    <td><%= t 'item.variant' %> (35)</td>
     <td><%= t 'item.content' %></td>
-    <td><%= t 'item.uom' %></td>
+
   </tr>
   <tr>
     <td>
@@ -28,10 +29,12 @@
     <td>
       <%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path, :class=>'w132' %>
     </td>
-    <td width="90">
-      <%= f.text_field :content, :class=>'w40' %>
+    <td>
+      <%= f.autocomplete_field :variant, autocomplete_base_item_variant_base_items_path, :class=>'w132' %>
     </td>
     <td width="90">
+      <%= f.text_field :content, :class=>'w40' %>
+
       <div class="drop-down-cont units pad-l-5 zi-1 ">
         <%= f.hidden_field :content_uom, :class => "w100 dd-input" %>
         <a class="drop-down-link" href="#"><%= ( @base_item.content_uom) ?  @base_item.content_uom : 'Select' %></a>

@@ -30,6 +30,7 @@ Webforms::Application.routes.draw do
       get :autocomplete_base_item_brand
       get :autocomplete_base_item_subbrand
       get :autocomplete_base_item_functional
+      get :autocomplete_base_item_variant
       get :autocomplete_base_item_item_description
       get :autocomplete_base_item_manufacturer_gln
       get :autocomplete_base_item_manufacturer_name
