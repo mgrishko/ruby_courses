@@ -21,13 +21,13 @@ UOMS = { 'кг'=>'KGM',
       @bis_map = {}
       @mnfc={}
       begin
-        header = fsource.readline
-        while (line = fsource.readline)
+        header = fsource.readline.chomp
+        while (line = fsource.readline.chomp)
           if line.size > 2
             row = line.split('|')
             @rows[row[0]] = row
             @mnfc[row[13]]=0
-            if row[35].any? and row[35]!='4300'
+            if row[35].present? and row[35]!='4300'
               @bis_map[row[35]] ||= {'child'=> nil, 'parent' => nil}
               @bis_map[row[35]]['parent'] ||=[]
               @bis_map[row[35]]['parent'] << row[0]
@@ -51,17 +51,17 @@ UOMS = { 'кг'=>'KGM',
       fsource =File.open(File.join(Rails.root,'data', "netweight.csv"),'r')
       @netweight = {}
       begin
-        header = fsource.readline
-        while  (line = fsource.readline)
-          row = line.split('|')
+        header = fsource.readline.chomp
+        while  (line = fsource.readline.chomp)
+          row = line.split(',')
           if row[3] and row[3].any?
-          case row[3].strip
-          when 'KGM'
-            netweight[row[0]] = row[2].to_f*1000 if line.length > 2
-          when 'GRM'
-            netweight[row[0]] = row[2].to_f if line.length > 2
+            case row[3].strip
+            when 'KGM'
+              @netweight[row[0]] = row[2].to_f*1000 if line.length > 2
+            when 'GRM'
+              @netweight[row[0]] = row[2].to_f if line.length > 2
+            end
           end
-        end
         end
       rescue EOFError
         fsource.close
@@ -79,14 +79,15 @@ UOMS = { 'кг'=>'KGM',
         id= x.split('/')[-1].split(/[^\d]{1}/)[0];
         @imgs << id if id and id.any?
       }
+      puts "No images found" if @imgs.blank?
 ############################################
 #read description data
 ############################################
-      fsource =File.open(File.join(Rails.root,'data', "price.csv"),'r')
+      fsource = File.open(File.join(Rails.root,'data', "price.csv"),'r')
       items = []
       begin
-        header = fsource.readline
-        while  (line = fsource.readline)
+        header = fsource.readline.chomp
+        while (line = fsource.readline.chomp)
           row = line.split('|')
           items << row if line.length > 2 and @imgs.include? row[0]
         end
@@ -111,6 +112,7 @@ UOMS = { 'кг'=>'KGM',
       @counter = 0
       @q_items = [800,300,100,80,86]
       @q_count = 0
+
       def create_hierarchy(k,  data, parent = nil)
         unless parent
           puts "======"
@@ -239,7 +241,7 @@ UOMS = { 'кг'=>'KGM',
           end
         end
 
-      end
+      end # def create_hierarchy
 
       @bis_map.each do |k,v|
         if v['parent'] and v['parent'].any?
