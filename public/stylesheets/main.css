@@ -13,7 +13,8 @@ body {
 	font-family:Arial;
 	font-size:12px;
 	color:#4a4a48;
-	background:#fff url("/images/newdesign/wrap-bg.png") repeat-x 0 0;
+	/*background:#fff url("/images/newdesign/wrap-bg.png") repeat-x 0 0;*/
+	background:#fff url("/images/newdesign/wrap-bg-2.jpg") repeat-x 0 0;
 	position:relative;
 	height:100%;
 	}
@@ -69,22 +70,50 @@ ol, ul {
 	padding:0 22px;
 }
 #header {
-	height:37px;
+	height:31px;
 	width:980px;
 	position:relative;
-	background: url("/images/newdesign/header-bg.png") no-repeat 179px bottom;
-	z-index: 98;
+	z-index: 99;
+}
+#top-menu{
+	height:31px;
+}
+#top-menu li{
+	float: left;
+	border-right: 1px solid #bfc0bf;
+}
+#top-menu li.first{
+	border-left: 1px solid #939492;
+}
+#top-menu li.first a{
+	border-left: 1px solid #bfc0bf;
+}
+#top-menu li a{
+	float: left;
+	height:24px;
+	padding: 7px 20px 0;
+	display: block;
+	color: #d7d7d7;
+	font-size: 12px;
+	border-right: 1px solid #939492;
+}
+#top-menu li a:hover{
+	color: #ffffff;
+	background: #b3b3b3;
+}
+#top-menu li a.cur{
+	color: #ffffff;
+	background: #b3b3b3;
 }
 #header .search {
-	position:absolute;
-	width:350px;
-	height:22px;
-	left:190px;
-	top:11px;
+	float: right;
+	padding: 4px 14px 0 0;
+	height: 21px;
+
 }
 #header .search .search-inp {
 	float:left;
-	width:310px;
+	width: 300px;
 	height:16px;
 	border:0px;
 	line-height:16px;
@@ -103,28 +132,25 @@ ol, ul {
 	position:absolute;
 	text-align:right;
 	padding:3px 0px;
-	width:350px;
 	height:16px;
 	right:15px;
-	top:11px;
+	top:31px;
+	z-index: 5;
 }
-#header .right a {
-	display:inline-block;
+#header .right a, #header .right span{
 	text-decoration:none;
-	padding:0 0 0 25px;
 	line-height:16px;
-	color:#fff;
+	color:#808080;
+	margin: 0 0 0 18px;
+	font-size: 10px;
+
 }
 #header .right a.set {
-	background: url("/images/newdesign/header-a-set.png") no-repeat right 6px;
-	padding:0 12px 0 25px;
+	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat right 6px;
+	padding: 0 12px 0 0;
 }
 #header .company {
-	position:absolute;
-	text-align:right;
-	top:42px;
-	right:15px;
-	height:14px;
+	color:#808080;
 }
 
 #content {
@@ -132,7 +158,7 @@ ol, ul {
 	min-height:500px;
 	position:relative;
 	padding:0px 0 0 0;
-	z-index: 99;
+	z-index: 98;
 }
 #content #left-side {
 	float:left;
@@ -332,7 +358,7 @@ ol, ul {
 }
 
 #content .address {
-	padding:15px 0 10px 0px;
+	padding:23px 0 10px 0px;
 }
 #content .address a {
 	font-size:18px;

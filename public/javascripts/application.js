@@ -61,14 +61,14 @@ function showTab(tab) {
 $(function(){
   $j("#search-form-input").blur(function() {
     $j(this).css('color', '#CCC');
-    if ((this.value == '') || (this.value == 'Поиск')) {
-      this.value = 'Поиск'
+    if ((this.value == '') || (this.value == 'Search')) {
+      this.value = 'Search'
       $j("#search-clear").addClass('search-clear-inactive');
     }
   });
   $j("#search-form-input").focus(function() {
     $j(this).css('color', '#000');
-    if (this.value == 'Поиск') {
+    if (this.value == 'Search') {
       this.value = '';
     }
   });
