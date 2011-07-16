@@ -16,7 +16,7 @@
         <% end %>
         <% if current_user.retailer? %>
           <li class='first'><%= link_to t('menu.inbox'), subscription_results_path, {:class=>"#{'cur' if params[:controller]=='subscription_results'}"} %> </li>
-          <li><%= link_to t('menu.received_items'), retailer_items_path, {:class=>"#{'cur' if params[:controller]=='retailer_items'}"} %> </li>
+          <li><%= link_to t('menu.received_items'), {:controller => 'retailer_items'}, {:class=>"#{'cur' if params[:controller]=='retailer_items'}"} %> </li>
           <li><%= link_to t('menu.suppliers'), suppliers_path, {:class=>"#{'cur' if params[:controller]=='suppliers'}"} %> </li>
         <% end %>
         <li>  <%= link_to t('menu.messages'), {:controller => 'messages'}, {:class=>"#{'cur' if params[:controller]=='messages'}"} %> </li>
