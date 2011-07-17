@@ -20,6 +20,7 @@ gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.2'
 gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
+gem 'russian', :git => "git://github.com/dima4p/russian.git"
 
 group :development, :test do
   gem 'ZenTest'

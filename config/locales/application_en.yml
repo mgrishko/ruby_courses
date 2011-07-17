@@ -1,7 +1,12 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
+--- 
 en:
+  errors: 
+    template:
+      body: "There were problems with the following fields:"
+      header:
+        one:    "1 error prohibited this %{model} from being saved"
+        other:  "%{count} errors prohibited this %{model} from being saved"
+      # The variable :count is also available
   main: # The main phrases
     search: 'Search'
     settings: 'Settings'

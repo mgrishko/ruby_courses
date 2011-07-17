@@ -1,0 +1,190 @@
+--- 
+ru: 
+  comment: 
+    comment: Comment=TODO
+  edit: 
+    base_item: "Editing base item=TODO"
+    revert_to_published: "Revert to published=TODO"
+  errors: 
+    dynamic_format: "%{message}=TODO"
+  event: 
+    title: "Event Log=TODO"
+  filter: 
+    remove: "Remove filter=TODO"
+  form: 
+    main_date: "Main Date=TODO"
+    minimum_durability_from_arrival: min_durability=TODO
+    plu_description: "plu description=TODO"
+  image: 
+    change: "Change Image=TODO"
+    upload: Upload=TODO
+  item: 
+    add_item: "Add item=TODO"
+    back: "Back to the items=TODO"
+    base: "Base data=TODO"
+    brand: Brand=TODO
+    content: Content=TODO
+    content_uom: "Content uom=TODO"
+    country_of_origin: "Country of origin=TODO"
+    country_of_origin_code: country_of_origin_code=TODO
+    date_of_the_newest: "Date of the newest=TODO"
+    description: "Item Description=TODO"
+    edit: Edit=TODO
+    export_to_xls: "Export to xls=TODO"
+    functional: Functional=TODO
+    gpc_code: "GPC Code=TODO"
+    gpc_name: "GPC Name=TODO"
+    gtin: gtin=TODO
+    internal_item_id: "Internal item id=TODO"
+    manufacturer_gln: "Manufacturer GLN=TODO"
+    manufacturer_name: "Manufacturer name=TODO"
+    missing: missing=TODO
+    name_en: "item name long en=TODO"
+    name_ru: "item name long ru=TODO"
+    new_base_item: "New Base Item=TODO"
+    new_packaging_item: "New packaging_item=TODO"
+    privacy: Privacy=TODO
+    private: Private=TODO
+    shelf_life_period: "Shelf life period=TODO"
+    subbrand: Subbrand=TODO
+    uom: UOMs=TODO
+    variant: Variant=TODO
+    vat: Vat=TODO
+    versions: Versions=TODO
+  login: 
+    logged_in: "Successful login=TODO"
+    logged_out: "Successful logout=TODO"
+    reqiure_no_user: "Please logout to access this page=TODO"
+    require_admin: "Only admin has access to this page=TODO"
+    require_user: "Please login to access this page=TODO"
+  main: 
+    add: Add=TODO
+    address: address=TODO
+    annotations: "Пояснения к полю=TODO"
+    apply: Apply=TODO
+    back: Back=TODO
+    base_items: "Base Items=TODO"
+    brands: Brands=TODO
+    cancel: Cancel=TODO
+    confirm: "Are you sure?=TODO"
+    create: Create=TODO
+    days: days=TODO
+    delete: Delete=TODO
+    detailed: Detailed=TODO
+    edit: Edit=TODO
+    export: Export=TODO
+    functional: Functional=TODO
+    home: Home=TODO
+    item: Item=TODO
+    item_quantity: "Items quantity=TODO"
+    items: Items=TODO
+    logistic: Logistic=TODO
+    manufacturers: Manufacturers=TODO
+    name: Name=TODO
+    next: Next=TODO
+    products: Products=TODO
+    publish: Publish=TODO
+    receivers: Receivers=TODO
+    reply: Reply=TODO
+    results: Results=TODO
+    save: Save=TODO
+    search: Search=TODO
+    select: Select=TODO
+    settings: Settings=TODO
+    short: Short=TODO
+    show: Show=TODO
+    status: Status=TODO
+    subscribers: Subscribers=TODO
+    tags: Tags=TODO
+    tile: Tile=TODO
+    title: Datapool=TODO
+    update: Update=TODO
+  menu: 
+    events: Events=TODO
+    inbox: Inbox=TODO
+    log_off: "Log off=TODO"
+    messages: Messages=TODO
+    my_items: "My Items=TODO"
+    received_items: "Received Items=TODO"
+    status: Status=TODO
+    statuses: Statuses=TODO
+    suppliers: Suppliers=TODO
+  message: 
+    title: Messages=TODO
+  pager: 
+    from: from=TODO
+    newest: "The Newest=TODO"
+    next: Next=TODO
+    oldest: "The Oldest=TODO"
+    previous: Newer=TODO
+  pi: 
+    gross_weight: "gross weight=TODO"
+    items: items=TODO
+    net_weight: "net weight=TODO"
+    pack: pack=TODO
+    packages_inside: "packages inside=TODO"
+    packaging_type: "Packaging Type=TODO"
+    size: "H x L x W=TODO"
+  privacy: 
+    all: all=TODO
+    brick: Brick=TODO
+    carton: Carton=TODO
+    case: Case=TODO
+    choose: Choose=TODO
+    gable_top: Gable-Top=TODO
+    i_and_companies: "I and these companies=TODO"
+    just_i: "just I=TODO"
+    multi_pack: Multi-pack=TODO
+    not_packed: "Not Packed=TODO"
+    packed: "Packed, unspecified dfcdddddddddd=TODO"
+    pouch: Pouch=TODO
+    selected: Selected=TODO
+    who_can_see: "Who can see item?=TODO"
+    wrapper: Wrapper=TODO
+  ra: 
+    add: "Add Data=TODO"
+    article_id: "Retailer Article Id=TODO"
+    classification: "Retailer Classification=TODO"
+    comment: "Retailer Comment=TODO"
+    item_description: "Retailer Item Description=TODO"
+  receivers: 
+    add: Add=TODO
+    add_receiver_from_list: "Add receiver from list=TODO"
+  sr: 
+    accept: Accept=TODO
+    accept_all: "Accept All=TODO"
+    cancel: Cancel=TODO
+    cancel_all: "Cancel All=TODO"
+    changed: changed=TODO
+    confirm_accept_all: "Are you sure want to accept all results?=TODO"
+    confirm_cancel_all: "Are you sure want to cancel all results?=TODO"
+    date: date=TODO
+    inbox: Inbox=TODO
+    new: new=TODO
+    not_send: "Data was not sent=TODO"
+  status: 
+    items_subscribers: Items\Subscribers=TODO
+    title: "Subscription Results Statuses=TODO"
+  subscription: 
+    have_subscription: "You have subscription for all items of=TODO"
+    not_found: "Record with such gtin is not found=TODO"
+    record_code: "Record code=TODO"
+    status: "Subscribe status=TODO"
+    subscribe: Subscribe=TODO
+    subscribe_gtin: "Подписка по GTIN=TODO"
+    unsubscribe: Unsubscribe=TODO
+  supplier: 
+    last_update: "Last update=TODO"
+    title: Suppliers=TODO
+  tag: 
+    add: "Add tag=TODO"
+    title: Tags=TODO
+  user: 
+    contacts: Contacts=TODO
+    description: Description=TODO
+    gln: GLN=TODO
+    login: Login=TODO
+    name: "Company Name=TODO"
+    password: Password=TODO
+    remember_me: "Remember me=TODO"
+    title: Company=TODO
