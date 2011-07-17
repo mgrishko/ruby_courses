@@ -27,6 +27,9 @@
         <%= link_to current_user.name, '#', :class=> 'company' %>
         <%= link_to t('main.settings'), '#', :class=> 'set name''#'%>
         <%= link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout) %>
+        <% for locale in @other_locales %>
+          <%= link_to locale[:locale], locale, :class=> "locale_#{locale}" %>
+        <% end %>
     </div>
     <div class="clr"></div>
   <% end %>
