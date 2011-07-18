@@ -23,6 +23,10 @@
 }
 
 /*for event log*/
+#event {
+  padding: 30px 20px 20px 30px;
+}
+
 .sr-status {
   width: 10px;
   height: 10px;
@@ -83,7 +87,7 @@
 }
 .page a.next-dis {
 	background: url("/images/newdesign/page-next-n.png") no-repeat 0 0;
-}
+
 .page a.prev {
 	background: url("/images/newdesign/page-prev.png") no-repeat 0 0;
 }
@@ -91,4 +95,5 @@
 #goods-list-short {
 	padding: 0px;
 }
+
 

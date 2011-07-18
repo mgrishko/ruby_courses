@@ -1,5 +1,5 @@
 <div id="middle-side" style="width:100%;">
-  <div style="padding:30px 20px 20px 30px" >
+  <div id="event">
     <div class="address">
       <h1><%= t 'event.title' %></h1>
       <% od = @events.first.created_at.to_s(:event) if @events.length > 0 %>
@@ -23,10 +23,9 @@
         <div class="clear"></div>
       </div>
         <% end %>
-        <div class="page">
-          <%= html_pager(@events) %>
-        </div>
+      <div class="page">
+        <%= html_pager(@events) %>
+      </div>
     </div>
   </div>
 </div>
-

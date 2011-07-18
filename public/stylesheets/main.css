@@ -1704,3 +1704,26 @@ tr.th td {
 	color: #60605e;
 }
 
+.cm-child {
+  clear: both;
+  min-height: 50px;
+  padding: 15px 20px;
+  padding-left: 4em;
+}
+
+.normal {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+}
+
+.wrap-messages {
+  border: 1px solid #ececec;
+}
+
+#messages {
+  padding: 30px 20px 20px 30px;
+}
