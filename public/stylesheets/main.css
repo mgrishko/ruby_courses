@@ -669,11 +669,12 @@ ol, ul {
 	width:43px;
 }
 #profile-news .item .desc {
-	float:left;
+        /*float:left;*/
 	width:595px;
 	color:#353535;
 	font-weight:500;
 	line-height:16px;
+        margin: 0 0 20px 0;
 }
 #profile-news .staffs-wrap .item .desc {
 	width:452px;
@@ -1707,7 +1708,7 @@ tr.th td {
 .cm-child {
   clear: both;
   min-height: 60px;
-  padding: 15px 20px;
+  padding: 15px 20px 0 0;
   padding-left: 4em;
 }
 
