@@ -4,12 +4,13 @@
   <% unless @view_only %>
     <% if @base_item.private && @base_item.published? %>
   <h2><%= t 'item.privacy' %></h2>
-      <%= t 'main.receivers'%>: <%= @base_item.receivers.collect {|r| r.user.name }.join(", ") %>
+  <span class="block-title">
+      <%= t 'main.receivers'%>:
+      </span>
       <div class="choosed-items">
                 <% if @base_item.receivers %>
                   <% @base_item.receivers.each do |r| %>
      									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
-                      <%= link_to '', receiver_url(:id => r), {:method => :delete, :remote => true,:class=>'minus-btn'} %>
                   <% end %>
                 <% end %>
    		</div>
@@ -43,13 +44,14 @@
   var showHideCompanies = function(){
     if($j('#rb-companies').siblings('.jNiceRadio').hasClass('jNiceChecked'))
 		{
-			$j('.companies').css('visibility','visible');
+			$j('.companies').css('display','inline');
+   		$j('.companies').css('visibility','visible');
 			$j('#base_item_private').val('true');
 
 		}
 		else
 		{
-			$j('.companies').css('visibility','hidden');
+			$j('.companies').css('display','none');
 			$j('#base_item_private').val('false');
 		}
   };

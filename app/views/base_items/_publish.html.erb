@@ -1,10 +1,10 @@
 <% if @base_item.draft? %>
-<%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id) do |f| %>
+<%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id),:html=>{:style=>'margin-left:20px'} do |f| %>
 <% if @base_item.item.user.id == current_user.id %>
   <%= f.fields_for @base_item.comments.new do |c| %>
     <%= c.hidden_field 'item_id', :value => @base_item.item.id %>
     <%= c.hidden_field 'base_item_id', :value => @base_item.id %>
-    <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
+    <%= c.text_area :content, :rows => 4, :cols => "30", :class => "comment-area", :style => 'width:680px' %><br/>
     <input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.private %>"/>
   <% end %>
 <% end %>

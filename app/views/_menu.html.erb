@@ -1,6 +1,6 @@
   <% if current_user.id %>
 	<div class="search">
-	  <form action="#" method="post">
+	  <form action="/base_items/" method="GET">
       <input id="search-form-input" class="search-inp" type="text" name="search" value="<% if params[:search].to_s == '' %><%= t 'main.search' %><% else %><%=h params[:search] %><% end %>"/>
 			<input type="submit" class="search-btn" value="&nbsp;" />
 	  </form>
