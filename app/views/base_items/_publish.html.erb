@@ -8,8 +8,8 @@
     <input id="base_item_private" type="hidden" name="base_item[private]" value="<%= @base_item.private %>"/>
   <% end %>
 <% end %>
-<%= f.submit t('main.publish'), :class => "button" %>
-<%= f.submit t('main.cancel'), :name => "cancel", :class => "button" %>
+<%= f.submit t('main.publish'), :class => "submit-btn" %>
+<%= f.submit t('main.cancel'), :name => "cancel", :class => "submit-btn" %>
 <% end %>
 
 <%= form_for Receiver.new, :remote => true do |f| %>
