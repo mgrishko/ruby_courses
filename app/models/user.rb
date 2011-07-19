@@ -10,9 +10,8 @@
 #  persistence_token :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
-#  is_admin          :boolean(1)
 #  name              :string(255)
-#  role              :string(255)
+#  roles_mask        :integer(4)
 #  description       :text
 #  contacts          :text
 #
@@ -38,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
   validates_uniqueness_of :gln
+
   acts_as_authentic do |a|
     a.validate_login_field = false
     a.validate_password_field = true
@@ -48,6 +48,17 @@ class User < ActiveRecord::Base
     a.disable_perishable_token_maintenance  true
     a.crypto_provider Authlogic::CryptoProviders::MD5
   end
+
+  ROLES = %w[admin retailer local_supplier global_supplier]
+
+  scope :retailers,
+    where("roles_mask & #{2**ROLES.index('retailer')} != 0")
+  scope :local_suppliers,
+    where("roles_mask & #{2**ROLES.index('local_supplier')} != 0")
+  scope :global_suppliers,
+    where("roles_mask & #{2**ROLES.index('global_supplier')} != 0")
+  scope :suppliers,
+    where("roles_mask & #{2**ROLES.index('global_supplier') | 2**ROLES.index('local_supplier')} != 0")
 
   def fresh_base_items
     if self.base_items.count > 0
@@ -85,12 +96,30 @@ class User < ActiveRecord::Base
     end
   end
 
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum if roles
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def is?(role)
+    roles.include?(role.to_s)
+  end
+
   def supplier?
-    self.role == 'supplier'
+    (%w[local_supplier global_supplier] & roles).any?
   end
 
   def retailer?
-    self.role == 'retailer'
+    roles.include? 'retailer'
+  end
+
+  def is_admin?
+    is? 'admin'
   end
 
   def has_usual_subscription? item

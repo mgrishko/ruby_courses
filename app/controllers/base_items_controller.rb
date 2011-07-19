@@ -57,7 +57,7 @@ class BaseItemsController < ApplicationController
     end
     ####
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
@@ -84,7 +84,7 @@ class BaseItemsController < ApplicationController
       @base_item.next_step
       render 'edit_step2'
     end
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
   #def published
