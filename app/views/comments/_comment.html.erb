@@ -26,7 +26,7 @@
           (c.get_root.user_id == current_user.id) or
           (c.user_id == current_user.id) or
           (!!c.parent_id && (c.get_parent.user_id == current_user.id)) %>
-    <div class="cm-child">
+    <div class="cm-child <%= cycle('odd', 'even') %>">
       <div class="img">
         <img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/>
       </div>

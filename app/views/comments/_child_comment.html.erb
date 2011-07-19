@@ -1,8 +1,9 @@
-<div class="cm-child">
+<%#need fix: if you add new comment, odd & even don't depend from parent odd & even comment%>
+<div class="cm-child <%= cycle('odd', 'even') %>">
   <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
   <div class="desc">
-    <div>
-      <span class="author <%= "red" if @comment.item.user_id != @comment.user_id %>"><%= @comment.user.name %></span>
+    <div class="author">
+      <span class="normal <%= "red" if @comment.item.user_id != @comment.user_id %>"><%= @comment.user.name %></span>
     </div>
   <div class="text"><%= @comment.content %></div>
   <div class="date"><%= @comment.created_at.to_s(:cmnt) %></div>

@@ -1706,14 +1706,22 @@ tr.th td {
 
 .cm-child {
   clear: both;
-  min-height: 50px;
+  min-height: 60px;
   padding: 15px 20px;
   padding-left: 4em;
+}
+
+.odd {
+  background: #eeeeee;
+}
+
+.even {
 }
 
 .normal {
   font-size: 120%;
   font-weight: bold;
+  color: #3B5A9A;
 }
 
 .red {
@@ -1725,5 +1733,5 @@ tr.th td {
 }
 
 #messages {
-  padding: 30px 20px 20px 30px;
+  padding: 30px 20px 30px 20px;
 }
