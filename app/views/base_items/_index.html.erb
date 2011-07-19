@@ -73,7 +73,7 @@
   <%= form_for BaseItem.new, :html => {:id => 'base_items_form'} do |f| %>
   <% @base_items.each do |base_item| %>
     <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
-    <div class='tile-item <%= "private" if base_item.private %>' style="" onclick="document.location='<%= base_item_path(path_params) %>'">
+    <div class='tile-item <%#= "private" if base_item.private %>' style="" onclick="document.location='<%= base_item_path(path_params) %>'">
       <div class='img''>
       <img src="<%= base_item.item.image_url ? base_item.item.image_url('tile') : '/images/item_image.jpg'%>" alt="Item Image"/>
       </div>
