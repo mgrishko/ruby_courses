@@ -9,30 +9,31 @@
 <div id="middle-side">
   <div class="wrap">
     <div class="address"><a href="#"><%= t 'sr.inbox' %></a></div>
-   <table class="results">
-<tr>
-  <td><%= t 'user.gln' %></td><td><%= t 'user.name' %></td><td><%= t 'sr.date' %></td><td><%= t 'sr.new' %></td><td><%= t 'sr.changed' %></td>
-</tr>
-<% @results.each do |r| %>
-<tr>
-	<td>
-		<%= link_to r[0].supplier.gln, subscription_result_path(r[0]) %>
-	</td>
-	<td>
-		<%= link_to r[0].supplier.name, subscription_result_path(r[0]) %>
-	</td>
-	<td>
-		<%= link_to r[1].sort_by(&:updated_at).first.updated_at, subscription_result_path(r[0]) %>
-	</td>
-	<td>
-		<%= link_to r[0].new_items_count, subscription_result_path(r[0]) %>
-	</td>
-	<td>
-		<%= link_to r[0].changed_items_count, subscription_result_path(r[0]) %>
-	</td>
-</tr>
-<% end %>
-</table>
+    <div id="goods-list-short">
+       <div class="short-wrap">
+                <% @results.each do |r| %>
+                    <div class="item">
+                      <div class="img">
+                        <img src='/images/item_image_small.jpg' />
+                      </div>
+                      <div class="desc">
+                        <p>
+                          <%= link_to r[0].supplier.gln, subscription_result_path(r[0]),:class=>'art'  %> <%= r[0].supplier.name %>
+                          <span class='adres fright'>
+                          <%= t 'sr.new_or_changed_items' %>: <b class='col'><%= r[0].new_items_count + r[0].changed_items_count %></b>
+                          </span>
+                        </p>
+                        <p class="adres">
+                          <%= t('sr.updated')%>: <%=r[1].sort_by(&:updated_at).first.updated_at.to_s(:short)%>
+                        </p>
+                      </div>
+                      <div class="stat"><span class="stat-3"></span></div>
+                      <div class="clr"></div>
+                    </div>
+                <% end %>
+
+          </div>
+    </div>
     </div>
   </div>
 </div>

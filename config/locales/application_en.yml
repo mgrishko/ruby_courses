@@ -135,6 +135,8 @@ en:
     date: 'date'
     new: 'new'
     changed: 'changed'
+    updated: 'Updated'
+    new_or_changed_items: 'New or changed items'
 
   comment:
     title: 'Comments'

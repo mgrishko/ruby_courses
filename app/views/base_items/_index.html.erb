@@ -100,7 +100,7 @@
                         <p>
                           <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> <%= shorten_label base_item.item_description, 27 %>
                           <% if base_item.private %>
-                              <span class="adres"><%= t 'item.private' %>span>
+                              <span class="adres"><%= t 'item.private' %></span>
                           <% end %>
                         </p>
                         <p class="adres"><%= t 'menu.status' %>: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></p>
