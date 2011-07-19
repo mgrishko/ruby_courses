@@ -20,7 +20,7 @@
                         <p>
                           <%= link_to r[0].supplier.gln, subscription_result_path(r[0]),:class=>'art'  %> <%= r[0].supplier.name %>
                           <span class='adres fright'>
-                          <%= t 'sr.new_or_changed_items' %>: <b class='col'><%= r[0].new_items_count + r[0].changed_items_count %></b>
+                          <%= t 'sr.new_or_changed_items' %>: <b class='quantity'><%= r[0].new_items_count + r[0].changed_items_count %></b>
                           </span>
                         </p>
                         <p class="adres">

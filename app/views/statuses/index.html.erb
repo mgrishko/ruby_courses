@@ -32,7 +32,7 @@
                   <tr class="top">
                     <th class="one-title">&nbsp;</th>
                     <% @users.each_with_index do |u,i| %>
-                      <th <%= "class='grey'" if i % 2 > 0 %>><div><%= u.name %></div><span></span></th>
+                      <th <%= "class='grey'" if i % 2 > 0 %>><div><%= u.name %></div></th>
                     <% end %>
                   </tr>
                   <% for bi in @base_items do %>

@@ -471,13 +471,24 @@ ol, ul {
 	border-bottom:1px solid #C6C6C6;
 }
 #statuses tr.top th {
-	vertical-align:bottom;
+	vertical-align:middle;
 	font:11px Verdana,Arial,Helvetica, sans-serif;
-	-o-transform-origin: 10px 10px;
-	text-align:center;
+	/*-o-transform-origin: 10px 10px;*/
+	text-align: right;
 	height:105px;
 	width:25px;
 	padding:0px;
+
+
+}
+#statuses tr.top th div{
+		-moz-transform: rotate(270deg);
+	    -webkit-transform: rotate(270deg);
+	    -o-transform: rotate(270deg);
+	    writing-mode: tb-rl;
+	    text-align: left;
+	    margin: 0 -40px 0;
+	    padding: 0 0 40px 25px;
 }
 #statuses tr.top th.one-title {
 	width:275px;
@@ -1742,3 +1753,4 @@ tr.th td {
   margin-top: 2em;
   padding: 30px 20px 30px 20px;
 }
+
