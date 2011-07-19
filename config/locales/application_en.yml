@@ -1,6 +1,6 @@
---- 
+---
 en:
-  errors: 
+  errors:
     template:
       body: "There were problems with the following fields:"
       header:
@@ -139,6 +139,7 @@ en:
   comment:
     title: 'Comments'
     add: 'Add Comment'
+    comment: 'Comment' #Комментировать###############
 
   event: # Events page
     title: 'Event Log'
@@ -219,7 +220,4 @@ en:
   edit:
     base_item: 'Editing base item'
     revert_to_published: 'Revert to published'
-
-  comment:
-    comment: 'Comment' #Комментировать###############
 

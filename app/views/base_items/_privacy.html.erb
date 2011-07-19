@@ -1,13 +1,13 @@
 
 
 <div class="who-can-see">
-  <h2><%= t 'item.privacy' %></h2>
   <% unless @view_only %>
     <% if @base_item.private && @base_item.published? %>
+  <h2><%= t 'item.privacy' %></h2>
       <%= t 'main.receivers'%>: <%= @base_item.receivers.collect {|r| r.user.name }.join(", ") %>
       <div class="choosed-items">
-                <% if receivers %>
-                  <% receivers.each do |r| %>
+                <% if @base_item.receivers %>
+                  <% @base_item.receivers.each do |r| %>
      									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
                       <%= link_to '', receiver_url(:id => r), {:method => :delete, :remote => true,:class=>'minus-btn'} %>
                   <% end %>
@@ -16,6 +16,7 @@
     <% end %>
   <% end %>
 <% if @base_item.draft? %>
+  <h2><%= t 'item.privacy' %></h2>
 						<span class="block-title"><%= t 'privacy.who_can_see' %></span>
 						<form class="jNice" action="">
 							<table class="rb-privacy" cellpadding="0" cellspacing="0" border="0">
