@@ -33,8 +33,7 @@ group :development, :test do
   gem 'parseexcel'
   gem 'pickle'
   gem 'rails-erd'
-  gem 'rspec', '1.3.2', :require => 'spec'
-  gem 'rspec-rails', '1.3.4', :require => false
+  gem 'rspec-rails', '~> 2.4'
   gem 'selenium-webdriver', '0.2.2'
   gem 'spork'
   gem 'test-unit'
