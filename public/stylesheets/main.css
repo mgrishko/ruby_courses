@@ -1514,7 +1514,7 @@ tr.th td {
 	padding: 0 0 0 6px;
 }
 .who-can-see{
-	border-bottom: 2px solid #cfd0d0;
+	/*border-bottom: 2px solid #cfd0d0;*/
 	padding: 12px 0;
 }
 .who-can-see table{
@@ -1733,5 +1733,11 @@ tr.th td {
 }
 
 #messages {
+  padding: 30px 20px 30px 20px;
+}
+
+#comments {
+  border-top: 2px solid #CFD0D0;
+  margin-top: 2em;
   padding: 30px 20px 30px 20px;
 }

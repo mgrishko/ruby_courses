@@ -57,9 +57,9 @@
       <div class="logistics main">
         <%= render 'packaging_items/index' %>
         <%= render :partial => 'privacy' %>
-        <%= render 'comments/comments' %>
         <%= render :partial => 'publish' %>
       </div>
+      <%= render 'comments/comments' %>
 
       <% unless @view_only %>
             <% content_for :leftmenu do %>

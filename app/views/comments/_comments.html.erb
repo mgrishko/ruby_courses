@@ -1,14 +1,16 @@
-<h2><%= t 'comment.title' %></h2>
-<% if @base_item.published? %>
-<%= form_for Comment.new, :remote => true do |f|%>
-<%= f.hidden_field :item_id, :value => @base_item.item.id %>
-<%= f.hidden_field :base_item_id, :value => @base_item.id %>
-<%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
-<%= f.submit t('comment.add'), :name => "new", :class => "button", :style => "width: auto;" %>
-<% end %>
-<% end %>
-<div>
-<div id="comments">
-<%= render :partial => 'comments/comment', :collection =>  @base_item.item.comments %>
+<div id="profile-news">
+  <div class="add-notes">
+    <h2><%= t 'comment.title' %></h2>
+    <% if @base_item.published? %>
+      <%= form_for Comment.new, :remote => true do |f|%>
+        <%= f.hidden_field :item_id, :value => @base_item.item.id %>
+        <%= f.hidden_field :base_item_id, :value => @base_item.id %>
+        <%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area" %><br/>
+        <%= f.submit t('comment.add'), :name => "new", :class => "submit-add", :style => "width: auto;" %>
+      <% end %>
+    <% end %>
+    <div id="comments">
+      <%= render :partial => 'comments/comment', :collection =>  @base_item.item.comments %>
+    </div>
+  </div>
 </div>
-
