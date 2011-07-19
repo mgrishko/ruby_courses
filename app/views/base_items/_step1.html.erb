@@ -191,7 +191,7 @@
     		}
     });
   });
-  $j('#base_item_gpc_name').click(function(){
+  $j('#base_item_gpc_name_link').click(function(){
     $j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
 	});
 
