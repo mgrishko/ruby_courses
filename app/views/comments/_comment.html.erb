@@ -27,7 +27,12 @@
           (c.get_root.user_id == current_user.id) or
           (c.user_id == current_user.id) or
           (!!c.parent_id && (c.get_parent.user_id == current_user.id)) %>
-    <div class="cm-child <%= cycle('odd', 'even') %>">
+    <div class="cm-child">
+      <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+          $j('div.cm-child:nth-child(odd)').addClass('odd');
+        })
+      </script>
       <div class="img">
         <img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/>
       </div>

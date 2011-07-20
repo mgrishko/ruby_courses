@@ -1317,7 +1317,7 @@ tr.th td {
 	height: 20px;
 }
 .logistics.main{
-	border-bottom: 2px solid #cfd0d0;
+	/*border-bottom: 2px solid #cfd0d0;*/
 }
 .logistics.main h3{
 	padding-bottom: 15px;
