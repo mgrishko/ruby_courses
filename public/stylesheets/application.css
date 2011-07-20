@@ -2,9 +2,7 @@
 /* Logistics */
 
 
-#packaging_items{
-  overflow:scroll;
-}
+
 
 li.pack {
   background: url(/images/lbg.png) left top repeat-y;
@@ -150,7 +148,7 @@ ul.items li.new .item ul
 #first_pi {
   padding-top: 37px;
 }
-.pi input
+.pi input[type='text']
 {
   width: 150px;
   margin: 3px;

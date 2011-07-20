@@ -1,8 +1,7 @@
 <%= form_for @base_item, :remote => true do |f| %>
 <input type="hidden" name="step" value="2"/>
 <%= f.error_messages %>
-<h3><%= @base_item.gtin %></h3>
-<p>
+<h3 style='margin-bottom:-10px'><%= @base_item.gtin %></h3>
 	<div id="cases_input_0">
 		<div class="drop-down-cont pad-l-5 zi-5">
 	  	<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
@@ -22,9 +21,8 @@
 	  	</div>
 	  </div>
 	</div>
-</p>
-</div>
 
+</div>
 <div class="dd-overlay"></div>
 <script type="text/javascript">
 	$j('.dd-input').focus(function(e){
@@ -53,32 +51,6 @@
       }
     });
   });
-/*
-$j('#base_item_packaging_type').click(function(){
-	var offset = $j('#cases_input_0').offset();
-	offset.left +=30;
-	offset.top -=65;
-
-	$j('#cases_0').show();
-	$j('#cases_0').css({
-	  left: offset.left+"px",
-	  top: offset.top+"px"
-	});
-	return false;
-})
-$j("#cases_close_0").click(function(){
-  $j("#cases_0").hide();
-  $j('#hidden_div').hide();
-	return false;
-})
-$j("#cases_select_0").click(function(){
-	var li = $j("li.ac_liselected", ".cases_results")[0];
-	$j("#cases_input_0 input").val($j(li).attr("id"));
-	$j("#cases_0").hide();
-  $j('#hidden_div').hide();
-  return false;
-})
-*/
 </script>
 <p>
 <%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'><%= t 'pi.size' %></span>
@@ -87,9 +59,9 @@ $j("#cases_select_0").click(function(){
 <%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%> <span class='t'><%= t 'pi.gross_weight' %></span> <%=f.text_field :net_weight, :style=>"width: 25px; border: 0;" %> <span class='t'><%= t 'pi.net_weight' %></span>
 </p>
 
-<div class="fleft"><%= f.submit t('main.update'), :style=>"width: auto;"%></div>
-    <div class="fright min" style="margin-right: 25px;">
-    <%= button_to t('main.cancel'),'javascript:void(0)', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %></div>
-
+<div class="fleft">
+  <%= f.submit t('main.update'), :class=>'submit-btn'%>
+</div>
+<%= button_to t('main.cancel'),'javascript:void(0)',:class=>'submit-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %>
 <% end %>
 
