@@ -1,5 +1,4 @@
-<%#need fix: if you add new comment, odd & even don't depend from parent odd & even comment%>
-<div class="cm-child <%= cycle('odd', 'even') %>">
+<div class="cm-child">
   <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
   <div class="desc">
     <div class="author">
@@ -7,8 +6,10 @@
     </div>
   <div class="text"><%= @comment.content %></div>
   <div class="date"><%= @comment.created_at.to_s(:cmnt) %></div>
-  <div class="light actions">&nbsp;<% if @comment.user_id != current_user.id %>
-  <%#= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id, "comment[parent_id]"=>c.id } %><% end %></div>
+    <div class="light actions">&nbsp;<% if @comment.user_id != current_user.id %>
+        <%#= link_to_remote "reply", :url => {:controller => "comments", :action => "reply", "comment[item_id]" => comment.item.id, "comment[base_item_id]" => @base_item.id, "comment[root_id]" => comment.id, "comment[parent_id]"=>c.id } %>
+      <% end %>
+    </div>
   </div>
 </div>
 

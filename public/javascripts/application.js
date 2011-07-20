@@ -324,3 +324,6 @@ function receiveManData(data) {
   }
 };
 
+//$(document).ready(function() {
+  //$j('div.cm-child:nth-child(odd)').addClass('odd');
+//})
