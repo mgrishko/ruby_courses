@@ -12,6 +12,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render_404(exception)
+  end
+
+  def render_404(exception = nil)
+    if exception
+      logger.info "ApplicationController@#{__LINE__} Rendering 404 with exception: #{exception.message}"
+    end
+
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/404_#{I18n.locale}.html", :status => :not_found, :layout => false }
+      format.xml  { head :not_found }
+      format.any  { head :not_found }
+    end
+  end
+
   private
 
   def set_locale
