@@ -9,9 +9,9 @@ end
 
 Given /^I logged in as "([^"]*)"$/ do |role|
   visit login_path
-  fill_in('Gln', :with => @users[role].gln)
-  fill_in('Password', :with => @users[role].password)
-  click_button('Login')
+  fill_in('user_session_gln', :with => @users[role].gln)
+  fill_in('user_session_password', :with => @users[role].password)
+  click_button('user_session_submit')
 end
 
 Given /^I have a base_item$/ do
@@ -30,7 +30,7 @@ end
 
 When /^I attach the test image to "([^"]*)"$/ do |field|
   path = File.join(Rails.root, 'spec', 'images', "test.jpg")
-  attach_file("image", path)
+  attach_file(field, path)
 end
 
 Then /^should be visible "([^"]*)"$/ do |id|
@@ -48,7 +48,7 @@ Then /^element "([^"]*)" should be disabled$/ do |selector|
 end
 
 Then /^I should see new image$/ do
-  img = @base_item.item.image_url
+  img = @base_item.item.image_url('tile')
   assert find_by_id('item_image')["src"] =~ /#{img}$/
 end
 
@@ -66,5 +66,12 @@ end
 
 When /^I click element "([^"]*)"$/ do |id|
   find(id).click
+end
+
+
+When /^(?:|I )fill in hidden_field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
+  with_scope(selector) do
+    page.evaluate_script("alert(/t/);$j('##{field}').val('#{value}');alert(/k/);")
+  end
 end
 

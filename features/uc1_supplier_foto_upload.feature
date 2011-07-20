@@ -10,9 +10,9 @@ Feature: Supplier foto upload feature
     And I logged in as "supplier"
     And I have a base_item
     When I go to the base_item page
-    And I follow "Сменить изображение"
-    And I attach the test image to "image"
-    And I press "Загрузить"
+    And I follow "link_upload"
+    And I attach the test image to "image_file_field"
+    And I press "image_submit"
     And I go to the base_item page
     And I wait for 1 seconds
     And I should see new image

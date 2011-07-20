@@ -98,7 +98,7 @@ class BaseItemsController < ApplicationController
       return redirect_to :action => 'index'
     end
     #/only
-
+    session[:base_item_params] = {}
     session[:base_item_params].deep_merge!(params[:base_item]) if params[:base_item]
     @base_item = current_user.base_items.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]

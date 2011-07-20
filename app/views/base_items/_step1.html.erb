@@ -181,6 +181,14 @@
     $j('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
   });
 
+	$j('.drop-down-cont.units .drop-down-list ul li a').click(function(){
+		$j('.drop-down-cont.units').find('.drop-down-link').text($j(this).text());
+		$j('#base_item_content_uom').val(uoms[$j(this).text()]);
+		PrepareDescriptionString();
+		$j('.drop-down').css('visibility','hidden');
+		$j('.dd-overlay').css('display', 'none');
+		return false;
+	});
 
 	$j("#country_select_btn").click(function(){
     $j('#country_input .drop-down-list ul li a').each( function(){
@@ -199,6 +207,7 @@
 	$j("#gpc_select_btn").click(function(){
     $j('#categories ul li a').each( function(){
       if ($j(this).parent().hasClass('selected')){
+        $j('#base_item_gpc_name_link').html($j(this).html());
         $j('#base_item_gpc_name').val($j(this).html());
      	 	$j('.drop-down').css('visibility','hidden');
     	 	$j('.dd-overlay').css('display', 'none');

@@ -20,11 +20,12 @@
 #15. Не увидел комментарий Первого Ритейлера
 #16. Не увидел комментарий Поставщика
 @javascript
-Feature:  Supplier can reply 
+
+Feature:  Supplier can reply
   In order to reply for comments
   As a supplier
   I want reply
-  
+
   Background:
     Given "supplier" has gln "1234" and password "1234"
     And "supplier" has a base_item
@@ -38,7 +39,7 @@ Feature:  Supplier can reply
     And I press "comment_submit"
     When I logged in as "supplier"
     And I go to the base_item page
-    And I follow "Комментировать"
+    And I follow "show_comment_form"
     And I fill in "comment_reply" with "Reply for the Personal Comment"
     And I press "reply_submit"
     Then I should see "My Personal Comment" within "#comments"
@@ -47,3 +48,4 @@ Feature:  Supplier can reply
     And I go with "?view=true" to the base_item page
     Then I should not see "Another comment" within "#comments"
     Then I should not see "Reply for the Personal Comment"
+

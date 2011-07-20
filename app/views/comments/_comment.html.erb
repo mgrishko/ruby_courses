@@ -59,7 +59,7 @@
                                               "comment[base_item_id]" => comment.base_item.id,
                                               "comment[root_id]" => comment.id,
                                               "comment[message_info]" => @message_info),
-                                              {:remote => true} %>
+                                              {:remote => true, :id=>'show_comment_form'} %>
       <% end %>
     </div>
     <div id="cr-<%= comment.id %>" style="margin-left: 2em;"></div>
