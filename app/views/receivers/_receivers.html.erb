@@ -2,7 +2,9 @@
                 <% if receivers %>
                   <% receivers.each do |r| %>
      									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
+                      <% if can? :destroy, r %>
                       <%= link_to '', receiver_url(:id => r), {:method => :delete, :remote => true,:class=>'minus-btn'} %>
+                  <% end %>
                   <% end %>
                 <% end %>
 								</div>

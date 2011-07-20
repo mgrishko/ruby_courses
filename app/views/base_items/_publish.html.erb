@@ -12,9 +12,11 @@
 <%= f.submit t('main.cancel'), :name => "cancel", :class => "submit-btn" %>
 <% end %>
 
-<%= form_for Receiver.new, :remote => true do |f| %>
-<input type="hidden" id="receiver_base_item_id" name="receiver[base_item_id]" value="<%= @base_item.id %>"/>
-<input type="hidden" id="receiver_gln" name="receiver[gln]" />
+<% if can? :create, Reciever %>
+  <%= form_for Receiver.new, :remote => true do |f| %>
+  <input type="hidden" id="receiver_base_item_id" name="receiver[base_item_id]" value="<%= @base_item.id %>"/>
+  <input type="hidden" id="receiver_gln" name="receiver[gln]" />
+  <% end %>
 <% end %>
 <% end %>
 

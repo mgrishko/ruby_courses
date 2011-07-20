@@ -4,7 +4,7 @@
   </div>
   <%= link_to t('item.add_item'), new_base_item_path, :class=>"add-product",:id=>'new_base_item_link' if current_user.supplier? %>
   <%= render '/nav' %>
-  <% if current_user.supplier? %>
+  <% if can? :index, Receiver %>
 
       <div class='cat'>
         <ul>

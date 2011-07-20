@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_filter :require_user
 
   def index
+    return render_404 unless can? :read, Comment
     comments = []
     if current_user.supplier?
       comments = current_user.item_comments.where("comments.user_id != ?", current_user.id).order("id DESC")

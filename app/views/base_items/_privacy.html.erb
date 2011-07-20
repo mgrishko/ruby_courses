@@ -8,7 +8,7 @@
       <%= t 'main.receivers'%>:
       </span>
       <div class="choosed-items">
-                <% if @base_item.receivers %>
+                <% if @base_item.receivers and can? :index, Receiver %>
                   <% @base_item.receivers.each do |r| %>
      									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
                   <% end %>
@@ -34,9 +34,11 @@
 									<td><label for="rb-companies"><%= t 'privacy.i_and_companies: ' %></label></td>
 								</tr>
 							</table>
+							<% if can? :index, Receiver %>
 							<div class="companies" id="receivers">
                 <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.receivers} %>
               </div>
+              <% end %>
 							<div class="clr"></div>
             </form>
 					</div>

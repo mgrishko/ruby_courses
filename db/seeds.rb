@@ -23,6 +23,12 @@ users = [
     :password_confirmation => '1234',
     :name => 'Центрпоставка',
     :roles => ['admin', 'global_supplier']},
+   {:id => 10,
+    :gln => 10005,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :name => 'Центрпоставка local',
+    :roles => ['local_supplier']},
 #retailers
    {:id => 5,
     :gln => 20001,
