@@ -10,12 +10,12 @@ Feature: Retailer subscribes
     And I have a base_item
     When I logged in as "retailer"
     And go to the suppliers page
-    And press "Подписаться"
+    And I follow "Подписаться"
     And I wait for 1 second
     Then a subscription should exist with retailer_id: 2, supplier_id: 1, status: "active"
     When I logged in as "supplier"
     And I go to the base_items page
-    And I click element ".bi"
+    And I click element ".item"
     Then I should see "Retailer"
 
   Scenario: Unsubscribe
@@ -26,7 +26,7 @@ Feature: Retailer subscribes
       | 2 | 1 | active |
     When I logged in as "retailer"
     And go to the suppliers page
-    And press "Отписаться"
+    And follow "Отписаться"
     And I wait for 1 second
     Then a subscription should not exist with retailer_id: 2, supplier_id: 1, status: "active"
     Then a subscription should exist with retailer_id: 2, supplier_id: 1, status: "canceled"

@@ -64,14 +64,16 @@ When /^I wait for (\d+) second(?:|s)$/ do |time|
   sleep time.to_i
 end
 
-When /^I click element "([^"]*)"$/ do |id|
-  find(id).click
+When /^I click element "([^"]*)"(?: within "([^"]*)")?$/ do |id,selector|
+  with_scope(selector) do
+    find(id).click
+  end
 end
 
 
 When /^(?:|I )fill in hidden_field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    page.evaluate_script("alert(/t/);$j('##{field}').val('#{value}');alert(/k/);")
+    page.execute_script("$j('##{field}').val('#{value}');")
   end
 end
 

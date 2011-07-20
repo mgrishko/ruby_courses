@@ -42,7 +42,7 @@
                         <div class="col"><%= t 'main.items' %>: <span><b><%= user.base_items.last_published.count%></b></span></div>
                         <p class='sort-btn' style='text-align:left'>
                           <%= link_to t('subscription.subscribe_gtin'), "/subscriptions/by_gtin/#{user.id}", {:class=>"export", :onclick=>"event.stopPropagation();"} %>
-                          <%= link_to user.my_retailer_info(current_user.id),"javascript:void(0)", {:class=>"export",:id => "bs-#{user.id}",:onclick=>"return subscription(event, this, '#{user.id}')"}%>
+                          <%= link_to user.my_retailer_info(current_user.id),"javascript:void(0)", {:class=>"export subscribe",:id => "bs-#{user.id}",:onclick=>"return subscription(event, this, '#{user.id}')"}%>
                         </p>
                     </div>
 
