@@ -1,6 +1,6 @@
 
 
-
+=begin
 Factory.define :country do |f|
   f.description ''
   f.code 'RU'
@@ -60,4 +60,6 @@ Factory.define :base_item do |f|
   f.item_id  1
   f.net_weight 1
 end
+
+=end
 

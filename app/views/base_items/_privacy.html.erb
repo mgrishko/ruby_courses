@@ -1,14 +1,64 @@
-<% unless @view_only %>
-  <% if @base_item.private && @base_item.published? %>
-    <h2>Приватность</h2>
-    Получатели: <%= @base_item.receivers.collect {|r| r.user.name }.join(", ") %>
+
+
+<div class="who-can-see">
+  <% unless @view_only %>
+    <% if @base_item.private && @base_item.published? %>
+  <h2><%= t 'item.privacy' %></h2>
+  <span class="block-title">
+      <%= t 'main.receivers'%>:
+      </span>
+      <div class="choosed-items">
+                <% if @base_item.receivers %>
+                  <% @base_item.receivers.each do |r| %>
+     									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
+                  <% end %>
+                <% end %>
+   		</div>
+    <% end %>
   <% end %>
+<% if @base_item.draft? %>
+  <h2><%= t 'item.privacy' %></h2>
+						<span class="block-title"><%= t 'privacy.who_can_see' %></span>
+						<form class="jNice" action="">
+							<table class="rb-privacy" cellpadding="0" cellspacing="0" border="0">
+								<tr>
+									<td width="18">
+									  <input type="radio" name="rb-wcs" id="rb-all"  <%= "checked='checked'" unless @base_item.private %>/>
+									 </td>
+									<td><label for="rb-all"><%= t 'privacy.all' %></label></td>
+								</tr>
+								<tr>
+									<td>
+										<input type="radio" name="rb-wcs" id="rb-companies" class="rb-companies" <%= "checked='checked'" if @base_item.private %>/>
+									</td>
+									<td><label for="rb-companies"><%= t 'privacy.i_and_companies: ' %></label></td>
+								</tr>
+							</table>
+							<div class="companies" id="receivers">
+                <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.receivers} %>
+              </div>
+							<div class="clr"></div>
+            </form>
+					</div>
+<script type="text/javascript">
+  var showHideCompanies = function(){
+    if($j('#rb-companies').siblings('.jNiceRadio').hasClass('jNiceChecked'))
+		{
+			$j('.companies').css('display','inline');
+   		$j('.companies').css('visibility','visible');
+			$j('#base_item_private').val('true');
+
+		}
+		else
+		{
+			$j('.companies').css('display','none');
+			$j('#base_item_private').val('false');
+		}
+  };
+  $j(document).ready(function(){showHideCompanies()});
+	$j('.rb-privacy').click(function(){
+	  showHideCompanies();
+	});
+</script>
 <% end %>
 
-<% if @base_item.draft? %>
-  <h2>Приватность</h2>
-  <input type="checkbox" class="checkbox" name="base_item[private]" <%= "checked='checked'" if @base_item.private %> onchange="$j('#base_item_private').val(this.checked);"/>Приватно<br/>
-  <div id="receivers">
-  <%= render :partial => "receivers/receivers", :locals => {:receivers => @base_item.receivers} %>
-  </div>
-<% end %>

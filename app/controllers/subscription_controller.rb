@@ -34,6 +34,7 @@ class SubscriptionController < ApplicationController
         @supplier = User.find(params[:id])
         @supplier.all_fresh_base_items.each do |bi|
           # Comment this for turn-off grouping of base items changes in subscription result
+          # FIXME :optimize database request
           @subscription.subscription_results.each do |sr|
             sr.delete if sr.base_item.gtin == bi.gtin && sr.status == 'new'
           end
@@ -48,6 +49,7 @@ class SubscriptionController < ApplicationController
     end
   end
   def by_gtin
+    @supplier = User.find(params[:id])
     if params[:gtins]
       gtins = params[:gtins].gsub(' ','').split(',').map{|gtin| gtin.strip()}
       @gtins = []

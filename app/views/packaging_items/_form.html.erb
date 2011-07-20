@@ -1,22 +1,22 @@
 <div class="pi <%= "pl" if @packaging_item.pallet? %>" id="pi_new">
 	<%= f.error_messages %>
 	<p>
-  	<%= f.text_field :gtin, :style => "border: 0", :title=> "GTIN" %>
+  	<%= f.text_field :gtin, :style => "border: 0", :title=> t('item.gtin') %>
 	</p>
 	<p>
 		<div id="cases_input_<%= @packaging_item.id -%>">
 		<div class="drop-down-cont pad-l-5 zi-5">
-	  	<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
+	  	<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>t('pi.packaging_type'),:class=>'dd-input' %>
 	  	<div class="drop-down pic" >
 	  		<div class="blue-tarr"></div>
 	  		<div class="drop-down-list-cont" style ="width:400px;">
 	  			<div id="cases_results_<%= @packaging_item.id -%>" style="width:100%" class="drop-down-list first pt-cases">
 	  			</div>
-	  			<div class="pic-cont" style="height:100%;overflow:hidden">
+    			<div class="pic-cont" style="height:100%;">
 	  			</div>
 	  		</div>
 	  		<div class="remark">
-	  			Пояснения к полю<br /><br /><br />
+	  			<%= t 'main.annotations' %><br /><br /><br />
 	  		</div>
 	  		<a class="choose-btn pt-choose-btn-<%= @packaging_item.id -%>" href="#"></a>
 	  	</div>
@@ -52,42 +52,6 @@
       }
     });
   });
-/*
-	$j('#packaging_item_packaging_type').click(function(){
-	  //packaging_item_335_item
-	  //packaging_item_new_336
-	  <% if @packaging_item.id %>
-	    var offset = $j('#cases_input_<%= @packaging_item.id -%>').offset();
-	    offset.left +=50;
-	    offset.top -=10;
-	  <% else %>
-	    var offset = $j('#cases_input_').offset();
-	    offset.left +=50;
-	    offset.top -=10;
-	  <% end %>
-		$j.ajax({data:'packagin_item_id=<%= @packaging_item.id -%><%= "&hide_px=true" if @packaging_item.children.count > 0 -%>', dataType:'script', type:'post', url:'/main/cases'});
-		$j('#cases_<%= @packaging_item.id -%>').appendTo("body");
-		$j('#cases_<%= @packaging_item.id -%>').css({
-		  left: offset.left+"px",
-		  top: offset.top+"px"
-		});
-		$j('#cases_<%= @packaging_item.id -%>').show();
-		return false;
-	})
-	$j("#cases_close_<%= @packaging_item.id -%>").click(function(){
-	  $j("#cases_<%= @packaging_item.id -%>").hide();
-	  $j('#hidden_div').hide();
-		return false;
-	})
-	$j("#cases_select_<%= @packaging_item.id -%>").click(function(){
-		var li = $j("li.ac_liselected", ".cases_results")[0];
-		$j("#cases_input_<%= @packaging_item.id -%> input").val($j(li).attr("id"));
-		$j("#cases_<%= @packaging_item.id -%>").hide();
-	  $j('#hidden_div').hide();
-	  check_pallete($j('#packaging_item_packaging_type'));
-	  return false;
-	})
-	*/
 </script>
 
 <p>
@@ -95,17 +59,17 @@
 <%=f.text_field :number_of_next_lower_item, :size => 4, :maxlength => 6, :style => "width: 43px; border: 0;", :title=> "Number of Next Lower Item"%>
 <% else %>
 <%= @packaging_item.number_of_next_lower_item %>
-<% end %><span class='t'>уп. внутри</span>
+<% end %><span class='t'><%= t 'pi.packages_inside' %></span>
 </p>
 <p class="pallet <%= "hide" unless @packaging_item.pallet? %>">
 <%=f.text_field :quantity_of_layers_per_pallet, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Layers Per Pallet"%><span class='t'>слоев, по</span> <%=f.text_field :quantity_of_trade_items_per_pallet_layer, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Quantity Of Trade Items Per Pallet Layer" %><span class='t'>уп.</span> <%=f.text_field :stacking_factor, :size => 2, :maxlength => 2, :style => "width: 15px; border: 0;", :title=> "Stacking Factor"%> <span class='t'>стекинг</span>
 </p>
 
 <p>
-<%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'>(В x Д x Ш)</span>
+  <%=f.text_field :height, :style => 'width: 25px; border: 0;' %><span class='t'>x</span><%=f.text_field :width, :style => 'width: 25px;border:0' %><span class='t'>x</span><%=f.text_field :depth, :style => 'width: 25px;border:0' %> <span class='t'><%= t 'pi.size' %></span>
 </p>
 <p>
-<%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%><span class='t'>г. брутто</span>
+  <%=f.text_field :gross_weight, :style=> "width: 25px;border: 0;"%><span class='t'><%= t 'pi.gross_weight' %></span>
 </p>
 </div>
 

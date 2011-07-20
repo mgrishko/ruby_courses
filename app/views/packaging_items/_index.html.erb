@@ -1,22 +1,22 @@
 <div id="packaging_items">
-<h2>Логистика</h2>
+<h2><%= t 'main.logistic' %></h2>
 <table style="background: #FFF">
 <tr>
 <td valign="top" style="vertical-align: top;">
 <div class="pi" id="first_pi">
 <h3 <%= highlight(:gtin, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.gtin %></h3>
 <p <%= highlight(:packaging_type, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= h @base_item.packaging_type %></p>
-<p><span class='d'>1</span> <span class='t'>уп. внутри,</span> <span class='d'>1</span> <span class='t'>ед.</span></p>
+<p><span class='d'>1</span> <span class='t'><%= t 'pi.packages_inside' %></span> <span class='d'>1</span> <span class='t'><%= t 'pi.items' %></span></p>
 <p <%= highlight(:calculate_dimensions, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_dimensions @base_item -%></p>
 <p <%= highlight(:calculate_weights, @base_item, @accepted_base_item) if @accepted_base_item -%>><%= calculate_weights @base_item %></p>
 <% unless @view_only || @base_item.published? %>
-<%= link_to 'править', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
+<%= link_to t('main.edit'), edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
 <p>
 &nbsp;
 </p>
 <div class="fleft"></div>
 <div class="fright" style="margin-right: 25px;">
-  <%= link_to "упаковать","javascript:void(0)", :onclick => "packageMe(#{@base_item.id})" %>
+  <%= link_to t('pi.pack'),"javascript:void(0)", :onclick => "packageMe(#{@base_item.id})" %>
 <% end %>
 </div>
 </td>

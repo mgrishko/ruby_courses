@@ -1,29 +1,29 @@
 <%= f.error_messages %>
 <div id="tab-1" class="tab">
-<h2>Основные данные</h2><hr/>
+<h2><%= t 'form.main_date' %></h2><hr/>
 <table>
 <tr>
 <td>
-  <%= f.label :gtin %><br />
+  <%= f.label t('item.gtin') %><br />
   <%= f.text_field :gtin %>
 </td>
 
 <td>
-internal item id<br />
+<%= t 'item.internal_item_id' %><br />
 <%=f.text_field :internal_item_id%>
 </td>
 </tr>
 <tr>
 <td>
-  <%= f.label :name %><br />
+  <%= f.label t('main.name') %><br />
   <%= f.text_field :name %>
 </td>
 <td>
-item name long ru<br />
+<%= t 'item.name_ru' %><br />
 <%=f.text_field :item_name_long_ru%>
 </td>
 <td>
-item name long en<br />
+<%= t 'item.name_en' %><br />
 <%=f.text_field :item_name_long_en%>
 </td>
 </tr>
@@ -41,65 +41,65 @@ item name long en<br />
 </tr>
 <tr>
 <td>
-manufacturer name<br />
+<%= t 'item.manufacturer_name' %><br />
 <%=f.text_field :manufacturer_name%>
 </td>
 <td>
-manufacturer gln<br />
+<%= t 'item.manufacturer_gln' %><br />
 <%=f.text_field :manufacturer_gln%>
 </td>
 <td>
-<%= f.label :country_of_origin_code %><br/>
+<%= f.label t('item.country_of_origin_code') %><br/>
 <%= f.select :country_of_origin_code, @base_item.countries %>
 </td>
 </tr>
 <tr>
 <td>
-content<br />
+<%= t 'item.content' %><br />
 <%=f.text_field :content%>
 </td>
 <td>
-  <%= f.label :content_uom %><br/>
+  <%= f.label t('item.content_uoms') %><br/>
   <%= f.select :content_uom, @base_item.content_uoms %>
 </td>
 </tr>
 <tr>
 <td colspan="3">
-<%= f.label :gpc_name %><br/>
+<%= f.label t('item.gpc_name') %><br/>
 <%= text_field_with_auto_complete :base_item, :gpc_name %>
 </td>
 </tr>
 <tr>
 <td>
-  <%= f.label :vat%><br/>
+  <%= f.label t('item.vat')%><br/>
   <%= f.select :vat, @base_item.vats %>
 </td>
 <td>
-minimum durability from arrival<br />
+<%= t 'form.min_durability' %><br />
 <%=f.text_field :minimum_durability_from_arrival%>
 </td>
 </tr>
 <tr>
 <td>
-plu description<br />
+<%= t 'form.plu_description' %><br />
 <%=f.text_field :plu_description%>
 </td>
 </tr>
 </table>
-<button onclick="return showTab(2);">Продолжить</button>
+<button onclick="return showTab(2);"><%= t 'main.next' %></button>
 </div>
 <div class="tab" id="tab-2">
-<h2>Логистика</h2><hr/>
+<h2><%= t 'main.logistic' %></h2><hr/>
 <table>
 <tr>
 <td>
-gross weight<br />
+<%= t 'pi.gross_weight' %><br />
 <%=f.text_field :gross_weight%>
 </td>
 </tr>
 <tr>
 <td>
-  <%= f.label :packaging_type %>
+  <%= f.label t('pi.packaging_type') %>
   <%= f.select :packaging_type, @base_item.packaging_types %>
 </td>
 </tr>
@@ -107,10 +107,10 @@ gross weight<br />
 <td>
 <%=f.text_field :height, :style => 'width: 43px;' %>x<%=f.text_field :width, :style => 'width: 43px;' %>x<%=f.text_field :depth, :style => 'width: 43px;' %>
 </td
-<td>H x W x D</td>
+<td><%= t 'pi.size' %></td>
 </tr>
 </table>
-<button onclick="return showTab(1);">Назад</button>
+<button onclick="return showTab(1);"><%= t 'main.back' %></button>
 
-<%= f.submit "Create" %>
+<%= f.submit t('main.create') %>
 </div>

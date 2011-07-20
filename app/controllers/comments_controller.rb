@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
       format.js
     end
   end
-  
+
   def reply
     @item = Item.find(params[:comment][:item_id])
     @base_item = BaseItem.find(params[:comment][:base_item_id])

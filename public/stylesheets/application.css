@@ -1,0 +1,325 @@
+
+/* Logistics */
+
+
+#packaging_items{
+  overflow:scroll;
+}
+
+li.pack {
+  background: url(/images/lbg.png) left top repeat-y;
+  width:1%;
+}
+
+ul.items li>ul
+{
+  margin-left: 238px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+ul.items ul>li, ul.items>li
+{
+  list-style: none;
+  //padding-bottom: 20px;
+//  overflow: hidden;
+  padding-left: 40px;
+}
+
+ul.items li .item
+{
+  float: left;
+  width: 200px;
+  //background: #dfeef3;
+  //border: 1px solid #666;
+  position: relative;
+  padding: 5px;
+  padding-top: 20px;
+padding-right:30px;
+}
+
+ul.items li .item p
+{
+  margin-bottom: 3px;
+}
+
+ul.items li:last-child
+{
+  margin-bottom: 0;
+}
+
+ul.items li.new .item
+{
+  border: none;
+  //height: 30px;
+  //width: 70px;
+  background: transparent;
+}
+
+ul.items li .item .arrow
+{
+  position: absolute;
+  left: -40px;
+  top: 20px;
+  line-height: 20px;
+  height: 172px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:999;
+  background: url(/images/arrow.png);
+}
+ul.items li .item .line-n
+{
+  position: absolute;
+  left: -32px;
+  top: -38px;
+  line-height: 20px;
+  height: 232px;
+  width: 29px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:999;
+  background: url(/images/lbg.png);
+}
+ul.items li .item .line-down
+{
+  position: absolute;
+  left: -32px;
+  top: 192px;
+  line-height: 20px;
+/*  height: 183px;*/
+  width: 29px;
+  margin-top: -25px;
+  font-size: 20pt;
+  z-index:998;
+  background: url(/images/lbg.png);
+}
+ul.items li .item .single-arrow {
+  position: absolute;
+  left: -40px;
+  top: 20px;
+  line-height: 20px;
+  height: 144px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/single-arrow.png);
+}
+
+ul.items li .item .last-arrow {
+  position: absolute;
+  left: -45px;
+  top: 180px;
+  line-height: 20px;
+  height: 144px;
+  width: 40px;
+  margin-top: -25px;
+  font-size: 20pt;
+  background: url(/images/last-arrow.png) ;
+}
+
+li.new {
+  background: none;
+}
+ul.items li.new .item ul
+{
+  margin: 0;
+
+}
+.pi {
+  background:url(/images/box.gif) no-repeat 0 bottom;
+  width:213px;
+  min-height:138px;
+  padding-top:18px;
+  padding-left:10px;
+}
+
+.pl {
+
+  background:url(/images/pallet.gif) no-repeat 0 bottom;
+  min-height: 168px;
+}
+.pallet {
+  font-size: 85%;
+}
+
+.pi p{
+	margin-bottom:3px;
+}
+#first_pi {
+  padding-top: 37px;
+}
+.pi input
+{
+  width: 150px;
+  margin: 3px;
+  margin-top: 0px;
+	background: #f2f2f2;
+	border: 1px solid #e8e9e9;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+
+
+
+.fleft {
+  float: left;
+}
+.fright {
+  float: right;
+	color:#596979;
+}
+.clear {
+  clear: both;
+}
+
+.error_field {
+  background-color: #ff9090;
+}
+
+
+
+
+
+.hide {
+  display: none;
+}
+.subscribed {
+  background: #daffb5;
+}
+
+.none{
+  color: #000;
+  text-decoration: none;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+.d {
+  font-weight: bold;
+}
+.t {
+  color: #999;
+  font-size: 95%;
+}
+
+
+
+
+
+.subscribed {
+  background: url(/images/newdesign/icon-stat-2.png) 2px no-repeat;
+  background-position:3% 85%;
+}
+.sort-btn a {
+	display:inline-block;
+	border-left:none;
+	padding:0 0 0 7px;
+	margin-right:7px;
+	color:#747473;
+}
+.submit-btn {
+	border:1px solid #8FA3C4;
+	border-bottom:1px solid #312378;
+	cursor:pointer;
+	font-size:11px;
+	background:#3B5A9A;
+	margin:7px 5px;
+	padding:0px 18px;
+	line-height:18px;
+	color:#fff;
+	height:18px;
+}
+
+.quantity
+{
+  color: white;
+	background: grey;
+	border: 1px solid grey;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+/*for event log*/
+
+#event {
+  padding: 30px 20px 20px 30px;
+}
+
+.sr-status {
+  width: 10px;
+  height: 10px;
+}
+.sr-accepted {
+  background: url(/images/newdesign/icon-stat-2.png) no-repeat;
+}
+.sr-none {
+  background: url(/images/newdesign/icon-stat-5.png) no-repeat;
+}
+
+.sr-canceled {
+  background: url(/images/newdesign/icon-stat-4.png) no-repeat;
+}
+.sr-new {
+  background: url(/images/newdesign/icon-stat-3.png) no-repeat;
+}
+
+.event-date {
+  color: #555;
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+  padding-left: 2em;
+}
+.event-author {
+  float: right;
+}
+.event-comment, .event-subscriptionresult, .event-subscription, .event-retailerattribute, .event-baseitem, .event-image {
+  min-width: 130px;
+  text-align: center;
+  float: left;
+  font-size: 12px;
+  color: #FFF;
+  margin-right: 1em;
+}
+
+.event-comment {
+  background-color: #007c14;
+}
+.event-subscriptionresult {
+  background-color: #008dab;
+}
+.event-subscription {
+  background-color: #ab00a9;
+}
+.event-retailerattribute {
+  background-color: #d76f00;
+}
+.event-baseitem {
+  background-color: #003b8c;
+}
+.event-image {
+  background-color: #5d0093;
+}
+
+.page a.prev-dis {
+	background: url("/images/newdesign/page-prev-n.png") no-repeat 0 0;
+}
+.page a.next-dis {
+	background: url("/images/newdesign/page-next-n.png") no-repeat 0 0;
+
+.page a.prev {
+	background: url("/images/newdesign/page-prev.png") no-repeat 0 0;
+}
+
+#goods-list-short {
+	padding: 0px;
+}
+
+.pic-cont{
+  overflow:hidden;
+}
+

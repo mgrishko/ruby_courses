@@ -13,19 +13,24 @@ class ImagesController < ApplicationController
       Event.log(current_user,@image)
       #Create a new image from source according to Image_Parameters(small, medium, large)
       for image_parameter in Webforms::IMAGE_PARAMETERS do
-      	if @image.resize(@original.raw, image_parameter['width'], image_parameter['height'], image_parameter['scale'], image_parameter['fill'], image_parameter['name'])
-      	else
-      	  # sth wrong
-      	end
+        if @image.resize(@original.raw,
+                         image_parameter['width'],
+                         image_parameter['height'],
+                         image_parameter['scale'],
+                         image_parameter['fill'],
+                         image_parameter['name'])
+        else
+          # sth wrong
+        end
       end
     else
       # wrong picture
     end
     responds_to_parent do
       render :update do |page|
-	page << "$j('#link_upload').show(); $j('#form_upload').hide();"
-	page << "$j('#item_image').attr('src','#{@item.image_url}')" if @image
-	page << "$j('#iil').attr('href', '#{@item.image_url('big')}')" if @image
+        page << "$j('#link_upload').show(); $j('#form_upload').hide();"
+        page << "$j('#item_image').attr('src','#{@item.image_url}')" if @image
+        page << "$j('#iil').attr('href', '#{@item.image_url('big')}')" if @image
       end
     end
   end

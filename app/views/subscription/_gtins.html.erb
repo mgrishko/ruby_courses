@@ -1,20 +1,17 @@
 <%= form_for :subscription, :url => {:action => 'by_gtin', :controller => :subscription,:id=>params[:id]},:html=>{:id => 'subscribe_by_gtin'} do |f| %>
   <%= render :partial => 'gtin',:collection => @gtins %>
-  <%= f.submit 'Подписаться' , :id => 'subscribe_by_gtin_btn'%>
+  <%= f.submit t('subscription.subscribe') ,:class=>'submit-add', :id => 'subscribe_by_gtin_btn'%>
 <%end %>
-
-<script>
-  $j('#subscribe_by_gtin').submit(function(){
-      if( $j('.gtin-error').length > 0 || $j('.gtin-nil').length >0 )
-      return false;
-  });
-</script>
 <style>
   .gtin-error{color: red}
   .gtin-nil{color: grey}
   .gtin-subscription{cursor:auto;}
 </style>
 <script>
+  $j('#subscribe_by_gtin').submit(function(){
+      if( $j('.gtin-error').length > 0 || $j('.gtin-nil').length >0 )
+      return false;
+  });
   var removeGtin=function(gtin){
     $j("#gtin-"+gtin).remove()
   };

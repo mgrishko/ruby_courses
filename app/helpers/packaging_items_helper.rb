@@ -1,6 +1,6 @@
 # encoding = utf-8
 module PackagingItemsHelper
-  def recursive_tree_output set, options = {}, &block
+  def recursive_tree_output(set, options = {}, &block)
     prev_level = set.first.level_cache - 1 if set.present?
     result = ''
     result << "<ul #{ ("class='" +options[:class]+"'") if options[:class]} #{ ("id='"+options[:id]+"'") if options[:id]}>\n".html_safe  unless options[:without_root]
@@ -32,14 +32,15 @@ module PackagingItemsHelper
   end
 
   # Depicts the quantity of packagingItem
-  def calculate_quantity pi
+  def calculate_quantity(pi)
     content_tag(:span, pi.number_of_next_lower_item, :class => 'd')+" "+
     content_tag(:span, 'уп. внутри', :class => 't')+" "+
     content_tag(:span, pi.number_of_bi_items, :class => 'd')+" "+
     content_tag(:span, 'ед.', :class => 't')
   end
+
   # Depicts the pallete  of packagingItem
-  def calculate_pallet pi
+  def calculate_pallet(pi)
     content_tag(:span, pi.quantity_of_layers_per_pallet, :class => 'd')+" "+
     content_tag(:span, 'слоев, по', :class => 't')+" "+
     content_tag(:span, pi.quantity_of_trade_items_per_pallet_layer, :class => 'd')+" "+

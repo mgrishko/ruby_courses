@@ -20,6 +20,9 @@ gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.2'
 gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
+gem 'russian', :git => "git://github.com/dima4p/russian.git"
+
+
 group :development, :test do
   gem 'ZenTest'
   gem 'annotate'
@@ -31,11 +34,15 @@ group :development, :test do
   gem 'parseexcel'
   gem 'pickle'
   gem 'rails-erd'
-  gem 'rspec', '1.3.2', :require => 'spec'
-  gem 'rspec-rails', '1.3.4', :require => false
+  gem 'rspec-rails', '~> 2.4'
+
   gem 'selenium-webdriver', '0.2.2'
   gem 'spork'
   gem 'test-unit'
   gem 'thoughtbot-factory_girl', :require => false
+end
+
+group :development do
+  gem 'translations_sync'
 end
 

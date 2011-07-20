@@ -1,6 +1,8 @@
 # encoding = utf-8
 class MainController < ApplicationController
+
   layout false
+
   def classifier
     @groups = Gpc.all :select => "DISTINCT(gpcs.segment_description)", :order => 'segment_description'
     respond_to do |format|
@@ -32,9 +34,9 @@ class MainController < ApplicationController
       PackagingItem.find(params[:packagin_item_id]).id
     else
       if params[:packagin_item_id].to_s == '0'
-	0
+        0
       else
-	''
+        ''
       end
     end
     @results = params[:hide_px] ? BaseItem.packaging_types.delete_if{|i|i[:code]=='PX'} : BaseItem.packaging_types

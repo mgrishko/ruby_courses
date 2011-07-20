@@ -1,0 +1,225 @@
+---
+en:
+  errors:
+    template:
+      body: "There were problems with the following fields:"
+      header:
+        one:    "1 error prohibited this %{model} from being saved"
+        other:  "%{count} errors prohibited this %{model} from being saved"
+      # The variable :count is also available
+  main: # The main phrases
+    search: 'Search'
+    settings: 'Settings'
+    address: 'address'
+    title: 'Datapool'
+    apply: 'Apply'
+    add: 'Add'
+    results: 'Results'
+    back: 'Back'
+    home: 'Home'
+    next: 'Next'
+    cancel: 'Cancel'
+    update: 'Update'
+    create: 'Create'
+    search: 'Search'
+    edit: 'Edit'
+    delete: 'Delete'
+    save: 'Save'
+    show: 'Show'
+    confirm: 'Are you sure?'
+    receivers: 'Receivers'
+    status: 'Status'
+    subscribers: 'Subscribers'
+    tags: 'Tags'
+    brands: 'Brands'
+    products: 'Products'
+    manufacturers: 'Manufacturers'
+    functional: 'Functional'
+    publish: 'Publish'
+    export: 'Export' #########################
+    reply: 'Reply'
+    base_items: 'Base Items'
+    items: 'Items'
+    item: 'Item'
+    name: 'Name'
+    logistic: 'Logistic'
+    subscribers: 'Subscribers' ###############
+    select: 'Select'
+    item_quantity: 'Items quantity' # Количество товаров
+    annotations: 'Пояснения к полю' ##############################################################
+    days: 'days'
+    short: 'Short' #Кратко########
+    tile: 'Tile' #Плитка#######
+    detailed: 'Detailed' #Развернуто############
+
+  login:
+    require_user: 'Please login to access this page'
+    reqiure_no_user: 'Please logout to access this page'
+    require_admin: 'Only admin has access to this page'
+    logged_in: 'Successful login' # Успешно вошли
+    logged_out: 'Successful logout' # Успешно вышли
+
+
+  filter:
+    remove: 'Remove filter'
+
+  pager: # html_pager
+    from: 'from'
+    previous: 'Newer'
+    next: 'Next'
+    newest: 'The Newest'
+    oldest: 'The Oldest'
+
+  item: # Item, Base Item
+    add_item: 'Add item' ##Добавить товар#################
+    edit: 'Edit'
+    gtin: 'gtin'
+    internal_item_id: 'Internal item id'
+    brand: 'Brand'
+    subbrand: 'Subbrand'
+    functional: 'Functional'
+    content: 'Content'
+    variant: 'Variant'
+    missing: 'missing' #отсутствует###################
+    content_uom: 'Content uom'
+    description: 'Item Description'
+    manufacturer_gln: 'Manufacturer GLN'
+    manufacturer_name: 'Manufacturer name'
+    country_of_origin: 'Country of origin'
+    country_of_origin_code: 'country_of_origin_code'
+    gpc_code: 'GPC Code'
+    gpc_name: 'GPC Name'
+    uom: 'UOMs'
+    vat: 'Vat'
+    shelf_life_period: 'Shelf life period'
+    base: 'Base data'
+    privacy: 'Privacy'
+    private: 'Private'
+    back: 'Back to the items'  # Вернуться к списку товаров
+    versions: 'Versions'
+    new_base_item: 'New Base Item'
+    date_of_the_newest: 'Date of the newest' # Дата самого свежего
+    name_ru: 'item name long ru'
+    name_en: 'item name long en'
+    new_packaging_item: 'New packaging_item'
+    export_to_xls: 'Export to xls'
+
+
+  pi: # Packaging Item
+    pack: 'pack'
+    packages_inside: 'packages inside' #уп. внутри
+    packaging_type: 'Packaging Type'
+    items: 'items' #ед.
+    size: 'H x L x W' # (В x Д x Ш)
+    gross_weight: 'gross weight'
+    net_weight: 'net weight'
+
+  subscription:
+    have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары
+    status: 'Subscribe status'
+    subscribe: 'Subscribe' # Подписаться
+    unsubscribe: 'Unsubscribe' # Отписаться
+    not_found: 'Record with such gtin is not found'
+    subscribe_gtin: 'Подписка по GTIN' ####################
+    record_code: 'Record code'
+
+  sr: # Subscription Result
+    not_send: 'Data was not sent' #Данные не отправлялись
+    accept: 'Accept' # Акцептовать
+    accept_all: 'Accept All' # Акцептовать все
+    confirm_accept_all: 'Are you sure want to accept all results?' # Вы точно хотите акцептовать все результаты?
+    cancel: 'Cancel' # Отменить
+    cancel_all: 'Cancel All' # Отменить все
+    confirm_cancel_all: 'Are you sure want to cancel all results?' # Вы точно хотите отменить все результаты?
+    inbox: 'Inbox'
+    date: 'date'
+    new: 'new'
+    changed: 'changed'
+    updated: 'Updated'
+    new_or_changed_items: 'New or changed items'
+
+  comment:
+    title: 'Comments'
+    add: 'Add Comment'
+    comment: 'Comment' #Комментировать###############
+
+  event: # Events page
+    title: 'Event Log'
+
+  user: # Profile
+    login: 'Login'
+    password: 'Password'
+    remember_me: 'Remember me'
+    title: 'Company'
+    name: 'Company Name'
+    gln: 'GLN'
+    description: 'Description'
+    contacts: 'Contacts'
+
+  menu: # Top menu
+    my_items: 'My Items' #My Items
+    inbox: 'Inbox' #Inbox
+    messages: 'Messages' #Messages
+    status: 'Status'
+    statuses: 'Statuses' #Statuses
+    received_items: 'Received Items' #Received Items
+    suppliers: 'Suppliers'
+    events: 'Events'
+    log_off: 'Log off'
+
+  message: # Messages screen
+    title: 'Messages'
+
+  image: # Item image
+    change: 'Change Image'
+    upload: 'Upload'
+
+  tag: # Tags
+    title: 'Tags'
+    add: 'Add tag'
+
+  receivers: # Receivers in Base Item
+    add: 'Add'
+    add_receiver_from_list: 'Add receiver from list'
+
+  ra: #Retailer Attributes
+    article_id: 'Retailer Article Id'
+    classification: 'Retailer Classification'
+    item_description: 'Retailer Item Description'
+    comment: 'Retailer Comment'
+    add: 'Add Data' # Добавить данные###############
+
+  status:
+    title: 'Subscription Results Statuses' # Статусы результатов подписки
+    items_subscribers: 'Items\Subscribers' # Товары\Подписчики
+
+  supplier:
+    title: 'Suppliers'
+    last_update: 'Last update' #Последнее обновление########
+
+  form:
+    main_date: 'Main Date' #Основные данные################
+    minimum_durability_from_arrival: 'min_durability'
+    plu_description: 'plu description'
+
+  privacy:
+    who_can_see: 'Who can see item?' #Кто может видеть этот товар######
+    all: 'all' #все##############
+    just_i: 'just I' #только я#########
+    i_and_companies: 'I and these companies' #я, и ещё эти компании:####
+    selected: 'Selected' #Выбранный пункт#####################
+    choose: 'Choose' #Выберите...###
+    gable_top: 'Gable-Top'
+    brick: 'Brick'
+    case: 'Case'
+    carton: 'Carton'
+    wrapper: 'Wrapper'
+    multi_pack: 'Multi-pack'
+    pouch: 'Pouch'
+    not_packed: 'Not Packed'
+    packed: 'Packed, unspecified dfcdddddddddd'
+
+  edit:
+    base_item: 'Editing base item'
+    revert_to_published: 'Revert to published'
+

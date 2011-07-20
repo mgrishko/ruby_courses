@@ -7,6 +7,7 @@ module EventsHelper
     end
     content_tag(:a, content, :title => event.content.get_title, :href => event.content.get_url(current_user))
   end
+
   def sr_description sr
     content_tag(:div, nil, :class => "fleft sr-status sr-#{sr.status}",:title => "#{sr.status_for_title}")+
     content_tag(:div, "&nbsp;".html_safe + sr.get_description,:class => 'fleft')

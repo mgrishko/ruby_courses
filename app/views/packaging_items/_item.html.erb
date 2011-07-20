@@ -9,16 +9,16 @@
 <p <%= highlight(:calculate_weights, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_weights(item) %></p>
 <% unless @view_only || @base_item.published? %>
 <%#= link_to_remote 'править', :url => edit_base_item_packaging_item_path(@base_item, item), :method => :get if item.leaf? %>
-<%= link_to 'править',  edit_base_item_packaging_item_path(@base_item, item),{ :method => :get, :remote => true} %>
+<%= link_to t('main.edit'),  edit_base_item_packaging_item_path(@base_item, item),{ :method => :get, :remote => true} %>
 <% end %>
 </div>
 <% unless @view_only || @base_item.published? %>
 <p><small>
 <div class="fleft">
-<%= link_to 'отменить', base_item_packaging_item_path(@base_item, item), {:confirm => 'Are you sure?', :method => :delete, :remote => true} if item.leaf? %></div>
+<%= link_to t('main.cancel'), base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'), :method => :delete, :remote => true} if item.leaf? %></div>
 <% unless item.pallet? %>
 <div class="fright">
-  <%= link_to "упаковать","javascript:void(0)", :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>
+  <%= link_to t('pi.pack') ,"javascript:void(0)", :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>
 </div>
 <% end %>
 </small>

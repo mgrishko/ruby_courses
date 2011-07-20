@@ -125,3 +125,5 @@ IMAGE_PARAMETERS = [
 ]
 end
 
+RTL_LANGS = [:ar, :dv, :fa, :ha, :he, :ps, :ur, :yi]
+

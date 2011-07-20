@@ -1,0 +1,101 @@
+                    		<div class="preview-popup">
+                    			<div class="preview-larr"></div>
+                    			<a class="preview-close" href="#"></a>
+                    			<img class="preview-pic" src="<%= base_item.item.image_url('tile') %>" width="113" height="113" alt="" />
+                    			<div class="top-description">
+                    				<table cellpadding="0" cellspacing="0" border="0">
+                    					<tr>
+                    						<th><%= t 'item.description' %></th>
+                    						<th><%= t 'item.internal_item_id' %></th>
+                    					</tr>
+                    					<tr>
+                    						<td><%= base_item.item_description %></td>
+                    						<td><%= base_item.item_id %></td>
+                    					</tr>
+                    					<tr>
+                    						<td colspan="2" class="product-num"><%= base_item.gtin %></td>
+                    					</tr>
+                    				</table>
+                    			</div>
+                          <% if current_user.supplier? %>
+                    			<div class="subscribers">
+                    				<span><%= t 'main.subscribers' %> (<%= base_item.item.subscribers.count %>):</span>
+                    				      <%= base_item.item.subscribers.map{|s| s.name}.join(', ') %>
+                    			</div>
+                    			<%end%>
+                    <!--			<div class="logistics">
+                    				<h3>Логистика</h3>
+                    				<div class="logistics-item">
+                    					<div class="logistics-item-in-1">
+                    						<span class="logistics-item-title">Aqua Minerale 0.33L</span><br />
+                    						<span class="item-qnt">1 бутылка</span>
+                    					</div>
+                    					<div class="logistics-item-in-2">
+                    						<img src="/images/newdesign/bottle-img.jpg" width="50" height="44" alt="" />
+                    					</div>
+                    					<div class="logistics-item-in-4">
+                    						<div class="consumer-unit">
+                    							<img src="/images/newdesign/icon-consumer-unit.jpg" width="23" height="12" alt="" />
+                    						</div>
+                    						<div class="delivery-unit">
+
+                    						</div>
+                    					</div>
+                    				</div>
+
+                    				<div class="logistics-item">
+                    					<div class="logistics-item-in-1">
+                    						<span class="logistics-item-title">6 бутылок в замотке</span><br />
+                    						<span class="item-qnt">6 бутылок</span>
+                    					</div>
+                    					<div class="logistics-item-in-2">
+                    						<img src="/images/newdesign/bottles-img.jpg" width="50" height="44" alt="" />
+                    					</div>
+                    					<div class="logistics-item-in-4">
+                    						<div class="consumer-unit">
+
+                    						</div>
+                    						<div class="delivery-unit">
+                    							<img src="/images/newdesign/icon-delivery-unit.jpg" width="23" height="12" alt="" />
+                    						</div>
+                    					</div>
+                    				</div>
+
+                    				<div class="logistics-item">
+                    					<div class="logistics-item-in-1">
+                    						<span class="logistics-item-title">4 замотки в коробке</span><br />
+                    						<span class="item-qnt">24 бутылки</span>
+                    					</div>
+                    					<div class="logistics-item-in-2">
+                    						<img src="/images/newdesign/box-img.jpg" width="50" height="45" alt="" />
+                    					</div>
+                    					<div class="logistics-item-in-4">
+                    						<div class="consumer-unit">
+
+                    						</div>
+                    						<div class="delivery-unit">
+                    							<img src="/images/newdesign/icon-delivery-unit.jpg" width="23" height="12" alt="" />
+                    						</div>
+                    					</div>
+                    				</div>
+
+                    				<div class="logistics-item">
+                    					<div class="logistics-item-in-1">
+                    						<span class="logistics-item-title">12 коробок на паллете</span><br />
+                    						<span class="item-qnt">288 бутылок</span>
+                    					</div>
+                    					<div class="logistics-item-in-2">
+                    						<img src="/images/newdesign/pallet-img.jpg" width="50" height="48" alt="" />
+                    					</div>
+                    					<div class="logistics-item-in-4">
+                    						<div class="consumer-unit">
+
+                    						</div>
+                    						<div class="delivery-unit">
+                    							<img src="/images/newdesign/icon-delivery-unit.jpg" width="23" height="12" alt="" />
+                    						</div>
+                    					</div>
+                    				</div>
+                    			</div>-->
+                    		</div>
+

@@ -1,4 +1,4 @@
-<h1>New packaging_item</h1>
+<h1><%= t 'item.new_packaging_item' %></h1>
 
 <%= form_for(@packaging_item, :url => base_item_packaging_items_path(@base_item) ) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
@@ -6,7 +6,7 @@
   <%= f.hidden_field :parent_id %>
 
   <p>
-    <%= f.submit "Create" %>
+    <%= f.submit t('main.create') %>
   </p>
 <% end %>
 

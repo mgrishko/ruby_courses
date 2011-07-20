@@ -6,10 +6,10 @@
   <%= f.hidden_field :parent_id %>
   <p>
   <div class="fleft min">
-    <%= f.submit "Упаковать" %>
+    <%= f.submit t('pi.pack') %>
   </div>
   <div class="fright min">
-  <%= button_to 'Отмена', 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;"} %>
+  <%= button_to t('main.cancel'), 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;"} %>
   </div>
   </p>
 <% end %>

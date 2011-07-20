@@ -1,6 +1,4 @@
 <% @clouds.each do |c| %>
-<div><span class="tag-box" onmouseover="$j(this).find('.tag-del').css('visibility','visible')" onmouseout="$j(this).find('.tag-del').css('visibility','hidden')">
-<span class="tag-del">
-<%= link_to 'x', tag_url(:id => c, :kind => c.tag.kind), {:method => :delete, :remote => true}%></span><span class="tag"><%= c.tag.name %></span></span></div>
+  <div><p class="btn"><span><%=c.tag.name%> <%= link_to '', tag_url(:id => c, :kind => c.tag.kind), {:method => :delete, :remote => true,:class=>'remove'}%></span></p></div>
 <% end %>
 

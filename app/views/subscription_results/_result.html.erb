@@ -1,22 +1,26 @@
-<div class="bi" id="sr-<%= result.id %>" onclick="document.location='<%= base_item_path(result.base_item, :view => true, :subscription_result_id => result.id) %>'">
-  <div class="bi-image"><img src="<%= result.base_item.item.image_url('small') %>" width="50px" alt="Supplier Image"/></div>
-  <div class="bi-content">
-    <div><span class="normal"><%= result.base_item.gtin %></span> <span class="light"><%= result.base_item.user.name %></span></div>
-    <div class="usual"><%= result.base_item.item_description %></div>
-    <div class="light mini"><%= result.base_item.item.not_new? ? '' : 'new' %></div>
-    <div class="light"><%= truncated_comment(result.base_item) %></div>
-    <div style="float: left" class="light"><%= humanize_date(result.base_item.updated_at) %>&nbsp;</div>
-    <% if result.new? %>
-      <div style="float:left;" class="light">
-	<%= link_to('Акцептовать', "javascript:void(0)", { :onclick => "acceptOrCancelSR(#{result.id},'accept',event)"}) %>
-      </div>
-      <div style="float:left;" class="light">
-	&nbsp;<%= link_to('Отменить', "javascript:void(0)", { :onclick => "acceptOrCancelSR(#{result.id},'cancel',event)"}) %>
-      </div>
-    <% else %>
-      <div class="light">&nbsp;<%= result.status %></div>
-    <% end %>
-    <div class="clear"></div>
-  </div>
-</div>
+            	<div class="item <%= 'refused' if result.canceled?%>" id="sr-<%= result.id %>">
+            		<div class="item-right">
+            			<span class="date"><%= humanize_date(result.base_item.updated_at) %></span>
+            			<div class="item-right-btns">
+            			    <% if result.new? %>
+              			<% link_to("javascript:void(0)", {:class=>'blue-btn', :onclick => "acceptOrCancelSR(#{result.id},'accept',event)"}) do %>
+              			  <span><%= t('sr.accept')%></span>
+              			<%end%>
+                    <%= link_to('', "javascript:void(0)", {:class=>'close-btn', :onclick => "acceptOrCancelSR(#{result.id},'cancel',event)"}) %>
+                    <%else%>
+                     <span class="accepted"><%= result.status %></span>
+                    <%end%>
+            			</div>
+            		</div>
+            		<!--<img class="new-label" src="/images/newdesign/new-label.png" width="93" height="28" alt="" />-->
+            		<div class="img">
+            			<img src="<%= result.base_item.item.image_url('small') %>" width="50px" alt="Supplier Image"/>
+            		</div>
+            		<div class="item-center">
+            		  <%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id), :class=>'art'%>
+                  <span><%= result.base_item.user.name %></span><br />
+            			<span class="product-name"><%= result.base_item.item_description %></span><br />
+            			<span class="changes"><%= result.status %></span>
+            		</div>
+            	</div>
 

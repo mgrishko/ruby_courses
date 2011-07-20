@@ -1,16 +1,26 @@
 <% unless @view_only %>
-    <div style="margin-top: 1em;"><strong>Подписчики</strong></div>
+        <div class="left-side-subscribers bb">
+        		<span class="block-title"><%= t 'main.subscribers' %> (<%= @base_item.item.subscribers.count %>)</span>
     <% if @base_item.item.subscribers.count > 0 %>
       <% for u in @base_item.item.subscribers do %>
-      <% sr = u.subscription_results.find_by_base_item_id(@base_item.id) if @base_item.published? %>
-      <div class="cm" style="padding: 2px 0 5px 2px; min-height: 1em; background: none;">
-      <div class="">
-      <div class="fleft"><span class="normal"><%= u.name %></span></div><div class="fright"><% if @base_item.published? %><div class="sr-status sr-<%=(sr ? sr.status : 'none')%>" title="<%= (sr ? sr.status_for_title : 'Данные не отправлялись' )%>"></div><% end %></div>
-      <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
-      <div class="clear light" style="font-size: 0.9em;"><%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %></div>
-      </div>
-      </div>
+        <div class="subscriber">
+          <% sr = u.subscription_results.find_by_base_item_id(@base_item.id) if @base_item.published? %>
+          <% if @base_item.published? %>
+              <% ind = %w{filler multi accepted new canceled}%>
+        			<span class="subscriber-name stat-<%=(sr ? ind.index(sr.status) : '-')%>" title="<%= (sr ? sr.status_for_title : t('sr.not_send') )%>"><%= u.name %></span><br />
+          <%else%>
+         			<span class="subscriber-name"><%= u.name %></span><br />
+          <% end %>
+          <% ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item.id})||RetailerAttribute.new %>
+        	<span class="subscriber-address">
+          	<%= "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0 %><%= ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0 %><%= ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0 %>
+        	</span>
+        </div>
       <% end %>
-
     <% end %>
+          </div>
+
+
+
 <% end %>
+

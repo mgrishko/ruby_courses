@@ -1,21 +1,66 @@
-<% if receivers %>
-<% receivers.each do |r| %>
-<span class="tag-box" onmouseover="$j(this).find('.tag-del').css('visibility','visible')" onmouseout="$j(this).find('.tag-del').css('visibility','hidden')"><span class="tag-del"><%= link_to 'x', receiver_url(:id => r), {:method => :delete, :remote => true} %></span><span class="tag"><%= r.user.gln %>/<%= r.user.name %></span></span>
-<% end %>
-<% end %>
-<div id="add_receiver_link"><!--<a href="#" onclick="$j('#add_receiver_link').hide(); $j('#new_receiver_form').show();return false;">Добавить получателя используя GLN</a>--><a id="add_receivers_from_list" href="#" onclick="$j('#add_receiver_link').hide(); $j('#new_receiver_form_list').show();return false;">Добавить получателя из списка</a></div>
-  <div id="new_receiver_form">
-    <input type="text" id="new_receiver_input"/><button onclick="return submitReceiver();"/>Поиск по GLN</button>
-    <a href="#" onclick="$j('#new_receiver_form').hide();$j('#add_receiver_link').show();return false;">Отмена</a>
-  </div>
-  <div id="new_receiver_form_list">
-    <select id="new_receiver_input2">
-      <% @retailers.each do |r| %>
-        <option value="<%= r.gln %>"><%=h r.name %></option>
-      <% end %>
-    </select>
-    <button id="submit_receiver_button" onclick="return submitReceiver('2');">Добавить</button>
-    <a href="#" onclick="$j('#new_receiver_form_list').hide();$j('#add_receiver_link').show();return false;">Отмена</a>
-  </div>
-</div>
+                <div class="choosed-items">
+                <% if receivers %>
+                  <% receivers.each do |r| %>
+     									<span class="drop-down-link-choosed" href="#"><%= r.user.gln %>/<%= r.user.name %></span>
+                      <%= link_to '', receiver_url(:id => r), {:method => :delete, :remote => true,:class=>'minus-btn'} %>
+                  <% end %>
+                <% end %>
+								</div>
+								<div class="drop-down-cont zi-2">
+									<a class="drop-down-link companies-choise" style="border-bottom:none" href="#">
+  									<span class="drop-down-link-in" id='retailer_label'><%= t 'privacy.choose' %></span>
+    								<%= hidden_field_tag 'new_receiver_input2' %>
+  								</a>
+									<a class="plus-btn" onclick="return submitReceiver('2')" href="#"></a>
+									<div class="drop-down">
+										<div class="blue-tarr"></div>
+										<div class="drop-down-list-cont">
+											<div class="drop-down-list first" id="retailers_list">
+												<ul>
+  									      <% @retailers.each do |r| %>
+  													<li><%= link_to "#{h r.name}", ""%></li>
+                          <% end %>
+												</ul>
+											</div>
+										</div>
+										<div class="remark">
+											<%= t 'main.annotations' %><br /><br /><br />
+										</div>
+										<a class="choose-btn" id="retailer_select_btn" href="javascript:void(0)"></a>
+									</div>
+								</div>
+								<div class='dd-overlay'></div>
+								<script>
+								  var receivers={}
+								  <% @retailers.each do |r|%>
+								      receivers['<%= h r.name %>'] = <%=r.gln%>;
+								  <% end %>
+									$j('.drop-down-link').click(function(){
+            	    	$j('.drop-down').css('visibility','hidden');
+                 		$j('.dd-overlay').css('display','block');
+                		$j(this).parent().find('.drop-down').css('visibility','visible');
+                		return false;
+                  });
+
+                  $j('.drop-down-list ul li a').click(function(){
+		                  $j(this).parent().parent().find('li').removeClass('selected');
+                  		$j(this).parent().parent().parent().find('li').removeClass('selected');
+                    	$j(this).parent().addClass('selected');
+                      return false;
+                	});
+
+              		$j('#retailer_select_btn').click(function(){
+
+                		$j('#retailers_list ul li a').each(function(){
+                        if ($j(this).parent().hasClass('selected')){
+                          var value=$j(this).html()
+                          $j('#retailer_label').html(value);
+                          $j('#new_receiver_input2').val(receivers[value])
+                       	 	$j('.drop-down').css('visibility','hidden');
+                      	 	$j('.dd-overlay').css('display', 'none');
+                         	return false;
+                        }
+                		});
+                	});
+ 							</script>
 

@@ -1,27 +1,14 @@
 <div class="clear"></div>
-<h2>Основные данные</h2>
-<div>
-<%= form_for @base_item, :remote => true do |f| %>
-<%= f.error_messages %>
-<!--
-<div style="min-width: 240px; float: left;">
-<%= render :partial => "image" %>
-<%= render :partial => "clouds" %>
-</div>-->
-<div style="min-width: 600px; float: left">
-<%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
-<p>
-<%#=check_box_tag :publish%>
-<%#=label_tag :publish, "Publish record ?"%>
-</p>
-<p>
-<%= f.submit "Применить", :class=> "button" %>
-</p>
-<p><%= f.submit "Назад", :class => "button", :name => "back_button" unless @base_item.first_step? %></p>
+<h2><%= t 'item.base' %></h2>
+<div class="item-description" id="step1">
+  <%= form_for @base_item, :remote => true do |f| %>
+    <%= f.error_messages %>
+      <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
+      <p>
+        <%= f.submit t('main.apply'), :class=> "submit-btn", :style=>'color:white' %>
+        <%= f.submit t('main.back'), :class => "submit-btn", :name => "back_button", :style=>'color:white' unless @base_item.first_step? %>
+         <%= link_to t('main.cancel'), @base_item, {:method => :get, :remote => true } %>
+      </p>
+  <% end %>
 </div>
-<% end %>
-</div>
-<div class="clear"></div>
-
-<%= link_to 'отмена', @base_item, {:method => :get, :remote => true} %>
 

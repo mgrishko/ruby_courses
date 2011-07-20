@@ -2,21 +2,21 @@
 <div style="margin:0 auto;width:300px">
   <%= f.error_messages %>
   <p>
-    <%= f.label :gln %><br />
+    <%= f.label t('user.gln') %><br />
     <%= f.text_field :gln %>
   </p>
 
   <p>
-    <%= f.label :password %><br />
+    <%= f.label t('user.password') %><br />
     <%= f.password_field :password %>
   </p>
 
   <p>
+    <%= f.label t('user.remember_me') %>
     <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
   </p>
 
-  <%= f.submit "Login" %>
+  <%= f.submit t('user.login'), :class=>'submit-btn' %>
 
 </div>
 <% end %>

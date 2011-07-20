@@ -5,32 +5,32 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :brand, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :subbrand, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :functional, :full => true, :uniq => true, :use_limit => true
+  autocomplete :base_item, :variant, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :item_description, :full => true, :uniq => true, :use_limit => true
   autocomplete :base_item, :manufacturer_gln, :full => true,
-                :extra_data => [:manufacturer_name],
-                :use_limit => true,
-                :display_value => :manufacturer do
-                    {:where =>{:user_id =>  current_user.id}}
-                end
+               :extra_data => [:manufacturer_name],
+               :use_limit => true,
+               :display_value => :manufacturer do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
   autocomplete :base_item, :manufacturer_name, :full => true,
-                :extra_data => [:manufacturer_gln],
-                :use_limit => true,
-                :display_value => :manufacturer do
-                    {:where =>{:user_id =>  current_user.id}}
-                end
-
+               :extra_data => [:manufacturer_gln],
+               :use_limit => true,
+               :display_value => :manufacturer do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
 
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
     BaseItem.per_page = 12
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
-                                          :manufacturer_name => params[:manufacturer_name],
-                                          :functional => params[:functional],
-                                          :brand => params[:brand],
-                                          :tag => params[:tag],
-					  :receiver => params[:receiver],
-					  :search => params[:search],
-					  :page => params[:page]
+      :manufacturer_name => params[:manufacturer_name],
+      :functional => params[:functional],
+      :brand => params[:brand],
+      :tag => params[:tag],
+      :receiver => params[:receiver],
+      :search => params[:search],
+      :page => params[:page]
     get_bi_filters current_user
   end
 
@@ -41,9 +41,10 @@ class BaseItemsController < ApplicationController
       @packaging_items = @base_item.packaging_items
       @subscription_result = SubscriptionResult.find(params[:subscription_result_id]) if params[:subscription_result_id]
       if current_user.retailer? && @subscription_result
-        @accepted_base_item = BaseItem.all(:conditions => ["item_id = ? AND sr.status = 'accepted' AND base_items.id < ? AND base_items.status = 'published'", @base_item.item_id,@base_item.id],
-                                            :joins => 'JOIN subscription_results sr ON base_items.id = sr.base_item_id',
-                                            :order => 'base_items.id DESC').first
+        @accepted_base_item = BaseItem.all(
+          :conditions => ["item_id = ? AND sr.status = 'accepted' AND base_items.id < ? AND base_items.status = 'published'", @base_item.item_id,@base_item.id],
+          :joins => 'JOIN subscription_results sr ON base_items.id = sr.base_item_id',
+          :order => 'base_items.id DESC').first
       end
     else
       @base_item = current_user.base_items.find(params[:id])
@@ -55,7 +56,7 @@ class BaseItemsController < ApplicationController
     end
     ####
     @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
   end
 
@@ -82,7 +83,7 @@ class BaseItemsController < ApplicationController
       @base_item.next_step
       render 'edit_step2'
     end
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
   #def published
@@ -103,23 +104,23 @@ class BaseItemsController < ApplicationController
     @base_item.current_step = session[:base_item_step]
     if @base_item.valid?
       if params[:back_button]
-	      @base_item.previous_step
+        @base_item.previous_step
       elsif @base_item.last_step?
-	      if @base_item.all_valid?
-		@base_item.state = 'add' #new status of bi
-	        i = current_user.items.new()
-	        i.base_items << @base_item
-	        i.save
-	        session[:base_item_step] = session[:base_item_params] = nil
-	        if params[:publish] && @base_item.publish!
-	          flash[:notice] = 'BaseItem was successfully created and sent'
-	        else
-	          flash[:notice] = 'BaseItem was successfully created.'
-	        end
-	        return redirect_to(@base_item)
-	      end
+        if @base_item.all_valid?
+          @base_item.state = 'add' #new status of bi
+          i = current_user.items.new()
+          i.base_items << @base_item
+          i.save
+          session[:base_item_step] = session[:base_item_params] = nil
+          if params[:publish] && @base_item.publish!
+            flash[:notice] = 'BaseItem was successfully created and sent'
+          else
+            flash[:notice] = 'BaseItem was successfully created.'
+          end
+          return redirect_to(@base_item)
+        end
       else
-	      @base_item.next_step
+        @base_item.next_step
       end
       session[:base_item_step] = @base_item.current_step
     end
@@ -145,10 +146,10 @@ class BaseItemsController < ApplicationController
     if params[:step]
       @base_item.next_step
       if @base_item.update_attributes(params[:base_item])
-	      @base_item.draft!
-      	return render 'update_step2'
+        @base_item.draft!
+        return render 'update_step2'
       else
-	      return render 'edit_step2'
+        return render 'edit_step2'
       end
     end
     BaseItem.transaction do
@@ -187,11 +188,11 @@ class BaseItemsController < ApplicationController
       end
 
       if @base_item.has_difference_between_old?
-	@base_item.publish!
-	@base_item.item.change! if @base_item.item.add?
-	# add new event into log
-	Event.log(current_user, @base_item)
-	# /log
+        @base_item.publish!
+        @base_item.item.change! if @base_item.item.add?
+        # add new event into log
+        Event.log(current_user, @base_item)
+        # /log
       end
     end
     redirect_to base_items_url
@@ -202,34 +203,34 @@ class BaseItemsController < ApplicationController
     @base_item = current_user.base_items.find params[:id]
     if @base_item.published?
       #make new base_item.tree
-      n = BaseItem.new(@base_item.attributes)
-      n.created_at = n.updated_at = nil
-      n.state = 'change' #not new. This is version
-      return render :text => n.errors.full_messages unless n.draft!
-      n.save
+      new_base_item = BaseItem.new(@base_item.attributes)
+      new_base_item.created_at = new_base_item.updated_at = nil
+      new_base_item.state = 'change' #not new. This is version
+      return render :text => new_base_item.errors.full_messages unless new_base_item.draft!
+      new_base_item.save
       map_id = {}
       roots = @base_item.packaging_items.roots
       roots.reverse.each  do |root|
-    	  pi = n.packaging_items.new(root.attributes)
-    	  pi_attributes ={:user_id => current_user.id, :base_item_id => n.id}
+        pi = new_base_item.packaging_items.new(root.attributes)
+        pi_attributes ={:user_id => current_user.id, :base_item_id => new_base_item.id}
         pi.update_attributes(pi_attributes)
-      	#old new
-      	map_id[root.id] = pi.id
+        #old new
+        map_id[root.id] = pi.id
 
-      	root.descendants.each do |d|
-      	  pi = n.packaging_items.new(d.attributes)
-      	  pi.update_attributes!(pi_attributes.merge({:parent_id => map_id[d.parent_id]}))
-      	  map_id[d.id] = pi.id
-      	end
+        root.descendants.each do |d|
+          pi = new_base_item.packaging_items.new(d.attributes)
+          pi.update_attributes!(pi_attributes.merge({:parent_id => map_id[d.parent_id]}))
+          map_id[d.id] = pi.id
+        end
 
       end
       # receivers list
       @base_item.receivers.each do |r|
-      	Receiver.create(:base_item_id => n.id, :user_id => r.user_id)
+        Receiver.create(:base_item_id => new_base_item.id, :user_id => r.user_id)
       end
       #end
-      #redirect_to :action => "show", :id => n.id
-      redirect_to base_item_path(n)
+      #redirect_to :action => "show", :id => new_base_item.id
+      redirect_to base_item_path(new_base_item)
     end
   end
 
@@ -294,7 +295,6 @@ class BaseItemsController < ApplicationController
     end
     tmp
   end
-
   def generate_xls(bis, template, name)
     @base_items = bis
     str = render_to_string :template => 'base_items/attachment.xml', :layout => false

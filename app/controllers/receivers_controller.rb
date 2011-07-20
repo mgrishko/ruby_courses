@@ -7,11 +7,11 @@ class ReceiversController < ApplicationController
     if @user && @base_item
       @receiver = Receiver.find(:first, :conditions => {:base_item_id => @base_item.id, :user_id => @user.id})
       unless @receiver
-	@receiver = Receiver.create(:base_item => @base_item, :user => @user)
+        @receiver = Receiver.create(:base_item => @base_item, :user => @user)
       end
     end
     @receivers = Receiver.find(:all, :conditions => {:base_item_id => @base_item.id})
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
   def destroy
@@ -21,7 +21,7 @@ class ReceiversController < ApplicationController
       @receiver.destroy
     end
     @receivers = Receiver.find(:all, :conditions => {:base_item_id => @base_item.id})
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
 end

@@ -37,9 +37,9 @@ module ApplicationHelper
 
   def selected_wrapper content, condition=nil
     if condition  # logical true
-      "<div class='selected'>#{content}<div class='fright'><a href='?' title='Remove this filter'>x</a></div></div>".html_safe
+      "<li class='act'><div style='float:right'><a href='?' title='#{t 'filter.remove'}'>x</a></div>#{content}</li>".html_safe
     else
-      "<div>#{content}</div>".html_safe
+      "<li>#{content}</li>".html_safe
     end
   end
 
@@ -53,19 +53,26 @@ module ApplicationHelper
     i1 = (pc.current_page-1)*pc.per_page+1 # interval 1
     i2 = i1 + pc.count - 1
     i1 = 0 if pc.count == 0
-    pager = "#{i1} - #{i2} из #{pc.total_entries}"
+    pager = "<span>#{i1} - #{i2} #{t 'pager.from'} #{pc.total_entries}</span>"
+#    if pc.current_page > 2
+#      pager =pager+ " <a href='#{current_url(p.merge(pn => 1))}'>#{t 'pager.newest'}</a> "
+#    end
+
     if pc.current_page > 1
-      pager = " <a href='#{current_url(p.merge(pn => pc.current_page-1))}'>Пред.</a> "+pager
-    end
-    if pc.current_page > 2
-      pager = " <a href='#{current_url(p.merge(pn => 1))}'>Самые новые</a> "+pager
+      pager = pager + " <a class='prev' href='#{current_url(p.merge(pn => pc.current_page-1))}'></a> "
+    else
+      pager = pager + " <a class='prev-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
     end
     if pc.current_page < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(pn => pc.current_page+1))}'>След.</a> "
+      pager = pager + " <a class='next' href='#{current_url(p.merge(pn => pc.current_page+1))}'></a> "
+    else
+      pager = pager + " <a class='next-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
     end
-    if (pc.current_page+1) < pc.total_pages
-      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>Самые старые</a> "
-    end
+
+#    if (pc.current_page+1) < pc.total_pages
+#      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>#{t 'pager.oldest'}</a> "
+#    end
+
     pager.html_safe
   end
 end
