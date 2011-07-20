@@ -8,7 +8,6 @@ end
 
 Factory.define :user do |f|
   f.password  ''
-  f.role ''
 end
 
 Factory.define :supplier, :parent => :user do |f|
@@ -16,7 +15,7 @@ Factory.define :supplier, :parent => :user do |f|
   f.password  '1234'
   f.name "Supplier"
   f.password_confirmation '1234'
-  f.role 'supplier'
+  f.roles ['global_supplier']
 end
 
 Factory.define :retailer, :parent => :user do |f|
@@ -24,7 +23,7 @@ Factory.define :retailer, :parent => :user do |f|
   f.password  '1234'
   f.name "Retailer"
   f.password_confirmation '1234'
-  f.role 'retailer'
+  f.roles ['retailer']
 end
 
 Factory.define :another_retailer, :parent => :user do |f|
@@ -32,7 +31,7 @@ Factory.define :another_retailer, :parent => :user do |f|
   f.password '1234'
   f.name "Another Retailer"
   f.password_confirmation '1234'
-  f.role 'retailer'
+  f.roles ['retailer']
 end
 
 Factory.define :gpc do |f|

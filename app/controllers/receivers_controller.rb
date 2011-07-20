@@ -11,7 +11,7 @@ class ReceiversController < ApplicationController
       end
     end
     @receivers = Receiver.find(:all, :conditions => {:base_item_id => @base_item.id})
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
   def destroy
@@ -21,7 +21,7 @@ class ReceiversController < ApplicationController
       @receiver.destroy
     end
     @receivers = Receiver.find(:all, :conditions => {:base_item_id => @base_item.id})
-    @retailers = User.find(:all, :conditions => {:role => 'retailer'})
+    @retailers = User.retailers
   end
 
 end

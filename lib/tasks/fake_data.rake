@@ -121,7 +121,7 @@ UOMS = { 'кг'=>'KGM',
             @counter = 0
             @q_count += 1
           end
-          user = User.where(:role => 'supplier')[@q_count]
+          user = User.suppliers[@q_count]
 
 
           i = Item.new(:user_id => user.id)
