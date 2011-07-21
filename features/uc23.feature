@@ -1,4 +1,5 @@
 @javascript
+@wip
 Feature: Data export(single bi)
   In order to test data to xls export
   As a user
