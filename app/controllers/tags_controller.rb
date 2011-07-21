@@ -17,7 +17,7 @@ class TagsController < ApplicationController
       @clouds = current_user.clouds.where(:item_id => @item.id)
     else # tags for users
       @user = User.find(params[:tag][:user_id])
-      @tag = Tag.where(:name => params[:tag][:name], :kind => 2).firsts
+      @tag = Tag.where(:name => params[:tag][:name], :kind => 2).first
       unless @tag
         @tag = Tag.new(:name => params[:tag][:name], :kind => 2)
         @tag.save
