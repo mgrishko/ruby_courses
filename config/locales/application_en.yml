@@ -51,6 +51,7 @@ en:
     short: 'Short' #Кратко########
     tile: 'Tile' #Плитка#######
     detailed: 'Detailed' #Развернуто############
+    information: 'Main information' #Основная информация
 
   login:
     require_user: 'Please login to access this page'

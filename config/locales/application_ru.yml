@@ -1,24 +1,24 @@
---- 
-ru: 
-  comment: 
+---
+ru:
+  comment:
     comment: Comment=TODO
-  edit: 
+  edit:
     base_item: "Editing base item=TODO"
     revert_to_published: "Revert to published=TODO"
-  errors: 
+  errors:
     dynamic_format: "%{message}=TODO"
-  event: 
+  event:
     title: "Event Log=TODO"
-  filter: 
+  filter:
     remove: "Remove filter=TODO"
-  form: 
+  form:
     main_date: "Main Date=TODO"
     minimum_durability_from_arrival: min_durability=TODO
     plu_description: "plu description=TODO"
-  image: 
+  image:
     change: "Change Image=TODO"
     upload: Upload=TODO
-  item: 
+  item:
     add_item: "Add item=TODO"
     back: "Back to the items=TODO"
     base: "Base data=TODO"
@@ -51,13 +51,13 @@ ru:
     variant: Variant=TODO
     vat: Vat=TODO
     versions: Versions=TODO
-  login: 
+  login:
     logged_in: "Successful login=TODO"
     logged_out: "Successful logout=TODO"
     reqiure_no_user: "Please logout to access this page=TODO"
     require_admin: "Only admin has access to this page=TODO"
     require_user: "Please login to access this page=TODO"
-  main: 
+  main:
     add: Add=TODO
     address: address=TODO
     annotations: "Пояснения к полю=TODO"
@@ -99,7 +99,8 @@ ru:
     tile: Tile=TODO
     title: Datapool=TODO
     update: Update=TODO
-  menu: 
+    information: "Main information=TODO"
+  menu:
     events: Events=TODO
     inbox: Inbox=TODO
     log_off: "Log off=TODO"
@@ -109,15 +110,15 @@ ru:
     status: Status=TODO
     statuses: Statuses=TODO
     suppliers: Suppliers=TODO
-  message: 
+  message:
     title: Messages=TODO
-  pager: 
+  pager:
     from: from=TODO
     newest: "The Newest=TODO"
     next: Next=TODO
     oldest: "The Oldest=TODO"
     previous: Newer=TODO
-  pi: 
+  pi:
     gross_weight: "gross weight=TODO"
     items: items=TODO
     net_weight: "net weight=TODO"
@@ -125,7 +126,7 @@ ru:
     packages_inside: "packages inside=TODO"
     packaging_type: "Packaging Type=TODO"
     size: "H x L x W=TODO"
-  privacy: 
+  privacy:
     all: all=TODO
     brick: Brick=TODO
     carton: Carton=TODO
@@ -141,16 +142,16 @@ ru:
     selected: Selected=TODO
     who_can_see: "Who can see item?=TODO"
     wrapper: Wrapper=TODO
-  ra: 
+  ra:
     add: "Add Data=TODO"
     article_id: "Retailer Article Id=TODO"
     classification: "Retailer Classification=TODO"
     comment: "Retailer Comment=TODO"
     item_description: "Retailer Item Description=TODO"
-  receivers: 
+  receivers:
     add: Add=TODO
     add_receiver_from_list: "Add receiver from list=TODO"
-  sr: 
+  sr:
     accept: Accept=TODO
     accept_all: "Accept All=TODO"
     cancel: Cancel=TODO
@@ -162,10 +163,10 @@ ru:
     inbox: Inbox=TODO
     new: new=TODO
     not_send: "Data was not sent=TODO"
-  status: 
+  status:
     items_subscribers: Items\Subscribers=TODO
     title: "Subscription Results Statuses=TODO"
-  subscription: 
+  subscription:
     have_subscription: "You have subscription for all items of=TODO"
     not_found: "Record with such gtin is not found=TODO"
     record_code: "Record code=TODO"
@@ -173,13 +174,13 @@ ru:
     subscribe: Subscribe=TODO
     subscribe_gtin: "Подписка по GTIN=TODO"
     unsubscribe: Unsubscribe=TODO
-  supplier: 
+  supplier:
     last_update: "Last update=TODO"
     title: Suppliers=TODO
-  tag: 
+  tag:
     add: "Add tag=TODO"
     title: Tags=TODO
-  user: 
+  user:
     contacts: Contacts=TODO
     description: Description=TODO
     gln: GLN=TODO
