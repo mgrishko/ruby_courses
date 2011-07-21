@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Subscription Accepting
   In order to test subscription aceptance by retailer
   As a retailer
@@ -24,7 +23,7 @@ Feature: Subscription Accepting
     When I logged in as "retailer"
     And I go to the subscription_results page
     And I follow "1234"
-    And I click element ".close-btn" within "item-right-btns"
+    And I click element ".close-btn" within ".item-right-btns"
     And I go to the retailer_items page
     Then I should not see "1234567"
 
@@ -46,7 +45,7 @@ Feature: Subscription Accepting
     When I logged in as "retailer"
     And I go to the subscription_results page
     And I follow "1234"
-    And I click element ".blue-btn" within "item-right-btns"
+    And I click element ".blue-btn" within ".item-right-btns"
 
     And I go to the retailer_items page
     Then I should see "1234567"

@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Add new Base Item
   In order to test adding new Base Items
   As a supplier
@@ -32,7 +31,7 @@ Feature: Add new Base Item
     And I fill in "base_item_country" with "China"
     And I fill in hidden_field "base_item_gpc_name" with "Artists Accessories"
     And I wait for 1 second
-    And I press "base_item_submit"
+    And I press "next_button"
     And I wait for 2 seconds
     And I fill in "base_item_packaging_type" with "AM"
     And I fill in "base_item_height" with "1"
@@ -41,7 +40,7 @@ Feature: Add new Base Item
     And I fill in "base_item_gross_weight" with "1"
     And I fill in "base_item_net_weight" with "1"
     And I wait for 1 second
-    And I press "base_item_submit"
+    And I press "next_button"
     And I wait for 1 second
     And I press "base_item_submit" within ".logistics"
     Then 1 base_items should exist

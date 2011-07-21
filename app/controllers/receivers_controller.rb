@@ -1,10 +1,10 @@
 class ReceiversController < ApplicationController
   before_filter :require_user
-  load_and_authorize_resource
+#  load_and_authorize_resource
 
   def create
     @base_item = current_user.base_items.find(params[:receiver][:base_item_id])
-    @user = User.find_by_gln(params[:receiver][:gln])
+    @user = User.find_by_gln(params[:gln])
     if @user && @base_item
       @receiver = Receiver.find(:first, :conditions => {:base_item_id => @base_item.id, :user_id => @user.id})
       unless @receiver
@@ -16,6 +16,7 @@ class ReceiversController < ApplicationController
   end
 
   def destroy
+    @receiver = Receiver.find(params[:id])
     @base_item = @receiver.base_item
     if @base_item.item.user_id == current_user.id
       @receiver.destroy
@@ -25,3 +26,4 @@ class ReceiversController < ApplicationController
   end
 
 end
+
