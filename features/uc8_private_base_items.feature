@@ -26,6 +26,7 @@
 #19. НЕ видит измененные данные товара
 #
 @javascript
+@wip
 Feature:  Some Base Items can be private
   In order to make private Base Items
   As a retailer can do private data for suppliers
@@ -41,31 +42,36 @@ Feature:  Some Base Items can be private
   Scenario: Supplier with Base Item and Retailers
     Given I logged in as "retailer"
     And go to the suppliers page
-    And press "Подписаться"
+    And I click element ".subscribe"
     And I logged in as "another_retailer"
     And go to the suppliers page
-    And press "Подписаться"
+    And I click element ".subscribe"
     And I logged in as "supplier"
     And I go to the base_item page
-    When I press "base_item_submit"
+    And I follow "edit_base_item_btn"
     And I follow "edit_base_item_link"
-    And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
+    And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaY"
+    And I wait for 1 seconds
+    And I press "base_item_submit" within "#step1"
+    And I click element ".rb-companies"
+    And I click element "#retailer_label"
+    And I wait for 1 seconds
+    And I follow "Retailer"
+    And I follow "retailer_select_btn"
+    And I fill in hidden_field "receiver_gln" with "4321"
+    And I click element ".plus-btn"
     And I wait for 1 second
-    And I press "Применить"
-    And I check "base_item[private]"
-    And I follow "add_receivers_from_list"
-    And I select "Retailer" from "new_receiver_input2"
-    And I press "submit_receiver_button"
-    And I wait for 1 second
-    And I press "Опубликовать"
+    And I press "base_item_submit" within ".logistics"
     Then I logged in as "retailer"
     And go to the subscription_results page
     And I wait for 1 second
-    And I follow "Supplier"
+    And I follow "1234"
     And I wait for 1 second
-    And I should see "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
+    And I should see "uUi56fgewKJwexmeaY"
     And I logged in as "another_retailer"
     And go to the subscription_results page
-    And I follow "Supplier"
-    And I should not see "uUi56fgewKJwexmeaYkdewnbxw67Zjedwe"
+
+    And I wait for 10 seconds
+    And I follow "1234"
+    And I should not see "uUi56fgewKJwexmeaY"
 
