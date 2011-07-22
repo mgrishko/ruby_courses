@@ -28,27 +28,18 @@
     <div id="profile-info">
       <div class="info-wrap">
         <h3 class="title"><%= t 'main.information' %></h3>
-        <%#<table width='100%' border='0' cellspacing='0' cellpadding='0'>%>
-          <%#<tbody>%>
-            <%#<tr>%>
-              <%#<td><span>Основана:</span></td>%>
-            <%#</tr>%>
-          <%#</tbody>%>
-        <%#</table>%>
-        <div id="user_description">
-          Основана в 1980 году
-          <% if @user.description.to_s.length > 0 %>
-          <h2><%= t 'user.description' %></h2>
-          <p><%=h @user.description %></p>
-          <% end %>
-        </div>
-        <div id="user_contacts">
-          Москва, черняшский переулок, д.7
-          <% if @user.contacts.to_s.length > 0 %>
-          <h2><% t 'user.contacts' %></h2>
-          <p><%=h @user.contacts %></p>
-          <% end %>
-        </div>
+        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
+          <tbody>
+            <tr>
+              <td><span><%= t 'user.description' %>:</span></td>
+              <td><%= h @user.description %></td>
+            </tr>
+            <tr>
+              <td><span><%= t 'user.contacts' %></span></td>
+              <td><%= h @user.contacts %></td>
+            </tr>
+          </tbody>
+        </table>
         <% if current_user.retailer? %>
           <%= render :partial => "/user_attributes/user_attributes" %>
         <% end %>
