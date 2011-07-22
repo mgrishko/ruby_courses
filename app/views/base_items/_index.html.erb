@@ -63,7 +63,7 @@
 <!--/filters-->
 <!--data-->
 <div id="middle-side">
-  <div class="wrap">
+  <div class="wrap" style='position:relative;'>
 
 
      <% if @supplier %>
@@ -113,7 +113,7 @@
           </div>
       <% else %>
         <% if params[:view]=='detailed'%>
-           <div class="detailed-wrap">
+           <div class="detailed-wrap" style="margin-bottom: 30px;">
                 <% @base_items.each do |base_item| %>
                     <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
                     <div class="item">
@@ -222,7 +222,7 @@
           </div>
       <% end %>
       <%end%>
-      <div class="page">
+      <div class="page" style='position:absolute; bottom:0;'>
         <%= html_pager @base_items %>
         <div class="clr"></div>
       </div>
