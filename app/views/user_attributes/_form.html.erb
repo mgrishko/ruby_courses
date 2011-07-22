@@ -1,10 +1,12 @@
 <%= form_for(@user_attributes, :url=>new_user_attribute_path, :remote => true) do |f| %>
-<%= f.hidden_field :user_id %>
-<h3><%= t 'comment.title' %></h3>
-<%= f.text_area :comment, :rows => 3 %>
-<h3>Id</h3>
-<%= f.text_field :inner_id %>
-<br/>
-<%= f.submit t('main.save'), :class => "submit" %><br/>
-<%= button_to t('main.cancel'), url_for(:controller => "user_attributes", :action => "show", "user_attributes[user_id]" => @user.id), {:method => :get, :class => "button", :remote => true} %>
+  <%= f.hidden_field :user_id %>
+  <h3><%= t 'comment.title' %></h3>
+  <%= f.text_area :comment, :rows => 3 %>
+  <h3>Id</h3>
+  <%= f.text_field :inner_id %>
+  <br/>
+  <%= f.submit t('main.save'), :class => "submit" %><br/>
+  <%= button_to t('main.cancel'), url_for(:controller => "user_attributes",
+                                          :action => "show", "user_attributes[user_id]" => @user.id),
+                                          {:method => :get, :class => "button", :remote => true} %>
 <% end %>
