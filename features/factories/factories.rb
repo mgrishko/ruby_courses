@@ -11,7 +11,7 @@ Factory.define :user do |f|
 end
 
 Factory.define :supplier, :parent => :user do |f|
- # f.gln '1234'
+  f.gln '1234'
   f.password  '1234'
   f.name "Supplier"
   f.password_confirmation '1234'
@@ -19,7 +19,7 @@ Factory.define :supplier, :parent => :user do |f|
 end
 
 Factory.define :retailer, :parent => :user do |f|
- # f.gln '4321'
+  f.gln '4321'
   f.password  '1234'
   f.name "Retailer"
   f.password_confirmation '1234'
@@ -47,6 +47,7 @@ end
 Factory.define :subscription_result do |f|
   f.association :subscription
 end
+
 Factory.define :base_item do |f|
   f.gtin  '4607085440385'
   f.item_description 'Nescafe Classic'
@@ -62,7 +63,7 @@ Factory.define :base_item do |f|
   f.gross_weight '1'
   f.vat '57'
   f.gpc Factory(:gpc)# '10000115'
-  f.user_id Factory(:supplier).id
+  f.association :user, :factory => :supplier
   f.country_of_origin_code Factory(:country).code
   f.minimum_durability_from_arrival '10'
   f.packaging_type 'CX'

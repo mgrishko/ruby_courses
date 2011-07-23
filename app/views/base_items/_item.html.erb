@@ -26,6 +26,7 @@
   <%end%>
 </div>
 <script>
+
 $j(".show_export_form").click(function(){
     // preload template names and show dialog window
     $j("#export_form_fields").load("/main/export_form",function(){
@@ -49,6 +50,7 @@ $j(".show_export_form").click(function(){
           $j('#export_one').attr('disabled',true);
     });
   });
+  return false;
 });
 </script>
 
