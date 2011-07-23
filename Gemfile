@@ -25,18 +25,30 @@ gem 'cancan'
 
 
 group :development, :test do
-  gem 'ZenTest'
+  if RUBY_PLATFORM =~ /win32/
+    gem 'rb-fchange'
+    gem 'rb-notifu'
+  elsif RUBY_PLATFORM =~ /linux/
+    gem 'rb-inotify'
+    gem 'libnotify'
+  elsif RUBY_PLATFORM =~ /darwin/
+    gem 'rb-fsevent'
+    gem 'growl'
+  end
+
   gem 'annotate'
   gem 'capybara', '0.4.1.2'
   gem 'cucumber'
   gem 'cucumber-rails', '0.3.2', :require => false
   gem 'database_cleaner'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
   gem 'headless'
   gem 'parseexcel'
   gem 'pickle'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 2.4'
-
   gem 'selenium-webdriver', '0.2.2'
   gem 'spork'
   gem 'test-unit'
