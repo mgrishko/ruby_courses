@@ -59,7 +59,7 @@ Feature:  Some Base Items can be private
     And I follow "retailer_select_btn"
     And I fill in hidden_field "receiver_gln" with "4321"
     And I click element ".plus-btn"
-    And I wait for 1 second
+    And I wait for 5 seconds
     And I press "base_item_submit" within ".logistics"
     Then I logged in as "retailer"
     And go to the subscription_results page
