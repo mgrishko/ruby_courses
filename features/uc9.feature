@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Subscription Result generation
   In order to test subscription result generation
   As a supplier
@@ -29,6 +28,7 @@ Feature: Subscription Result generation
     And I fill in "base_item_functional" with "1"
     And I fill in "base_item_content" with "1"
     And I fill in hidden_field "base_item_content_uom" with "LTR"
+    And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaY"
     And I fill in "base_item_manufacturer_gln" with "87987687"
     And I fill in "base_item_manufacturer_name" with "Some manufacturer name"
     And I fill in hidden_field "base_item_vat" with "57"
@@ -68,6 +68,7 @@ Feature: Subscription Result generation
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "base_item_submit" within "#step1"
     And I press "base_item_submit" within ".logistics"
+    And I logged in as "retailer"
     And I go to the subscription_results page
     Then I should see "1234"
     When I follow "1234"

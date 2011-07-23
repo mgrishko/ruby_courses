@@ -9,7 +9,7 @@ Feature: Subscription Accepting
     Given "retailer" has gln "4321" and password "1234"
     And the following subscriptions exist
       |status|retailer_id|supplier_id|
-      |active| 3 | 2 |
+      |active| 2 | 1 |
     And I logged in as "supplier"
     And I have a base_item with gtin "1234567"
 
@@ -19,7 +19,6 @@ Feature: Subscription Accepting
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "base_item_submit" within "#step1"
     And I press "base_item_submit" within ".logistics"
-
     When I logged in as "retailer"
     And I go to the subscription_results page
     And I follow "1234"

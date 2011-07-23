@@ -24,6 +24,7 @@ Feature: Add new Base Item
     And I fill in "base_item_functional" with "1"
     And I fill in "base_item_content" with "1"
     And I fill in hidden_field "base_item_content_uom" with "LTR"
+    And I fill in "base_item_item_description" with "uUi56fgewKJwexmeaY"
     And I fill in "base_item_manufacturer_gln" with "87987687"
     And I fill in "base_item_manufacturer_name" with "Some manufacturer name"
     And I fill in hidden_field "base_item_vat" with "57"

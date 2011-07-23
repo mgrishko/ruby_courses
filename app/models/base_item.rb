@@ -200,9 +200,10 @@ class BaseItem < ActiveRecord::Base
         next unless s.find_in_details(self.item.id)
       end
       # Comment this for turn-off grouping of base items changes in subscription result
-      s.subscription_results.each do |sr|
-        sr.delete if sr.base_item.gtin == self.gtin && sr.status == 'new'
-      end
+      # Commented to meet 8 and 9 use-cases..
+      #    s.subscription_results.each do |sr|
+      #      sr.delete if sr.base_item.gtin == self.gtin && sr.status == 'new'
+      #    end
       # private condition
       if self.private
         s.subscription_results << SubscriptionResult.new(:base_item_id => self.id) if self.receivers.detect { |r| r.user_id == s.retailer_id }

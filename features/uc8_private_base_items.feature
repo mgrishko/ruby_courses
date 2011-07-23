@@ -26,7 +26,6 @@
 #19. НЕ видит измененные данные товара
 #
 @javascript
-@wip
 Feature:  Some Base Items can be private
   In order to make private Base Items
   As a retailer can do private data for suppliers
@@ -71,7 +70,7 @@ Feature:  Some Base Items can be private
     And I logged in as "another_retailer"
     And go to the subscription_results page
 
-    And I wait for 10 seconds
+    And I wait for 1 seconds
     And I follow "1234"
     And I should not see "uUi56fgewKJwexmeaY"
 
