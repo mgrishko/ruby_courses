@@ -36,7 +36,7 @@ Feature: Data export(single bi)
     When I logged in as "supplier"
     And I go to the base_item page
     And I follow "export_link"
-        And I wait for 1 second
+    And I wait for 1 second
     Then should be visible "export_form_wrapper"
     And element "#export_one" should be disabled
 
