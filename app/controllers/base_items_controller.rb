@@ -258,6 +258,8 @@ class BaseItemsController < ApplicationController
       #end
       #redirect_to :action => "show", :id => new_base_item.id
       redirect_to base_item_path(new_base_item)
+    else
+      render :nothing => true
     end
   end
 
