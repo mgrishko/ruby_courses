@@ -25,7 +25,7 @@ class UserAttributesController < ApplicationController
 
   def edit
     @user_attributes = UserAttributes.find(:first, :conditions => {:user_id => @user.id, :author_id => current_user.id})
-    render :new
+    #render :new
   end
 
   def update

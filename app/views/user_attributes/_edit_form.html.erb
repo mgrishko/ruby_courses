@@ -1,6 +1,7 @@
+
 <div id="profile-news">
   <div class="add-notes">
-    <%= form_for(@user_attributes, :url => user_attributes_path, :remote => true) do |f| %>
+    <%= form_for(@user_attributes, :remote => true) do |f| %>
       <%= f.hidden_field :user_id %>
       <h3><%= t 'comment.title' %></h3>
       <%= f.text_area :comment, :rows => 3 %>
