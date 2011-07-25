@@ -37,15 +37,16 @@
             <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
           <% end %>
         <% end %>
-
-        <% if @view_only and !@base_item.draft? %>
-              <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' %>
-        <% else %>
+        <% unless @base_item.draft? %>
+          <% if @view_only%>
+                <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' %>
+          <% else %>
               <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
                   <%= link_to content_tag(:span, I18n.t('main.edit'), :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn",:id=>'edit_base_item_btn', :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()" %>
               <% end %>
               <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' %>
-        <% end %>
+          <% end %>
+        <%end%>
 
       </div>
       <%= render :partial => 'item' %>

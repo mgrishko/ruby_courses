@@ -4,8 +4,7 @@
   </div>
   <%= link_to t('item.add_item'), new_base_item_path, :class=>"add-product",:id=>'new_base_item_link' if current_user.supplier? %>
   <%= render '/nav' %>
-  <% if can? :index, Receiver %>
-
+  <% if can? :index, Receiver  and @receivers %>
       <div class='cat'>
         <ul>
           <li><a href='#'><%= t 'main.receivers' %></a>

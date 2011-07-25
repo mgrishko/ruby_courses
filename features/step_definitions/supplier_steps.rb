@@ -33,9 +33,17 @@ When /^I attach the test image to "([^"]*)"$/ do |field|
   attach_file(field, path)
 end
 
-Then /^should be visible "([^"]*)"$/ do |id|
-  element = find_by_id(id)
-  assert element.visible?
+Then /^should not be visible "([^"]*)"$/ do |id|
+  element = nil
+  begin
+    element = find_by_id(id)
+  rescue
+  end
+  if element.present?
+    assert !element.visible?
+  else
+    assert true
+  end
 end
 
 Then /^should be visible "([^"]*)"$/ do |id|
