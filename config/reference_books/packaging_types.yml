@@ -258,7 +258,7 @@
 #  :name: Bag in Box
 #  :id: 5
 #- :code: NEW
-#  :name: Banded package
+#  :name: :Banded package
 #  :id: 6
 #- :code: BA
 #  :name: Barrel
@@ -308,7 +308,7 @@
 #- :code: DN
 #  :name: Dispenser
 #  :id: 22
-#- :code: EN
+#- :code: EShrinkwrappedN
 #  :name: Envelope
 #  :id: 23
 #- :code: NEW

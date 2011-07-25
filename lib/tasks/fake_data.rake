@@ -16,6 +16,7 @@ UOMS = { 'кг'=>'KGM',
 ############################################
 
       fsource =File.open(File.join(Rails.root,'data', "data3.csv"),'r')
+      #fsource = File.open("#{Rails.root}/data/data3.csv")
 
       @rows = {}
       @bis_map = {}

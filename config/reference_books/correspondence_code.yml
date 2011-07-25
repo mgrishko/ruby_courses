@@ -1,0 +1,80 @@
+:en:
+  PUE: PU #Tray packed in plastic
+  BX: BX
+  APE: NEW #Aluminium packed
+  NE: NEW #Unpacked
+  TU: TU
+  CBL: NEW #Container bottle like
+  BO: BO
+  IB: NEW #Package, display, cardboard
+  TB: TB
+  DPE: NEW #Display package
+  BE: NEW #Bundle
+  DR: NEW #Drum
+  IC: NEW #Package, display, plastic
+  AE: AE
+  SW: SW
+  BME: NEW #Blister pack
+  DS: NEW #Tray, one layer no cover, plastic
+  PU: PU
+  PK: NEW #Package
+  CS: CS
+  FPE: NEW #Foil packed
+  BG: BG
+  UVQ: NEW #Wrapped in plastic sheet
+  PA: NEW #Packet
+  CT: CT
+  CU: CU
+  NU: NEW #Net, tube, plastic
+  DV: NEW #Tray, two layers no cover, plastic tray
+  DA: NEW #Crate, multiple layer, plastic
+  BJ: BJ
+  JR: JR
+  EC: NEW #Bag, plastic
+  CA: NEW #Can, rectangular
+  EN: EShrinkwrappedN #Envelope
+  PLP: NEW #Peel pack
+  FP: NEW #Filmpack
+  SH: NEW #Sachet
+  WRP: NEW #Wrapper
+  CX: NEW #Can, cylindrical
+:ru:
+  PUE: PU #Tray packed in plastic
+  BX: BX
+  APE: NEW #Aluminium packed
+  NE: NEW #Unpacked
+  TU: TU
+  CBL: NEW #Container bottle like
+  BO: BO
+  IB: NEW #Package, display, cardboard
+  TB: TB
+  DPE: NEW #Display package
+  BE: NEW #Bundle
+  DR: NEW #Drum
+  IC: NEW #Package, display, plastic
+  AE: AE
+  SW: SW
+  BME: NEW #Blister pack
+  DS: NEW #Tray, one layer no cover, plastic
+  PU: PU
+  PK: NEW #Package
+  CS: CS
+  FPE: NEW #Foil packed
+  BG: BG
+  UVQ: NEW #Wrapped in plastic sheet
+  PA: NEW #Packet
+  CT: CT
+  CU: CU
+  NU: NEW #Net, tube, plastic
+  DV: NEW #Tray, two layers no cover, plastic tray
+  DA: NEW #Crate, multiple layer, plastic
+  BJ: BJ
+  JR: JR
+  EC: NEW #Bag, plastic
+  CA: NEW #Can, rectangular
+  EN: EShrinkwrappedN #Envelope
+  PLP: NEW #Peel pack
+  FP: NEW #Filmpack
+  SH: NEW #Sachet
+  WRP: NEW #Wrapper
+  CX: NEW #Can, cylindrical
