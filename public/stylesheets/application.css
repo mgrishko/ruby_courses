@@ -220,7 +220,7 @@ ul.items li.new .item ul
 	margin-right:7px;
 	color:#747473;
 }
-.submit-btn {
+.submit-btn, .submit-btn2 {
 	border:1px solid #8FA3C4;
 	border-bottom:1px solid #312378;
 	cursor:pointer;
@@ -232,7 +232,9 @@ ul.items li.new .item ul
 	color:#fff;
 	height:18px;
 }
-
+.submit-btn2 {
+        float: right;
+}
 .quantity
 {
   color: white;
