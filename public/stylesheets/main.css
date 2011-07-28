@@ -922,6 +922,7 @@ ol, ul {
 	text-align:center;
 	margin:0px 0px 40px 0px;
 	position: relative;
+	height: 220px;
 
 
 	display: -moz-inline-stack;
