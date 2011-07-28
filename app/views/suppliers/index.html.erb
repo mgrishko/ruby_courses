@@ -35,9 +35,7 @@
                         <div class="contact"><%= t 'main.address' %></div>
                         <div class="btns">
                           <% user.user_tags.where(:author_id => current_user.id ).each do |c| %>
-                            <%= link_to '?tag=#{c.tag.id}%>', :class => 'btn' do %>
-                              <span><%= c.tag.name%></span>
-                            <%end%>
+                            <a class="btn" href='?tag=<%= c.tag.id%>' ><span><%= c.tag.name%></span></a>
                           <%end%>
                         </div>
                         <div class="date"><%= t 'supplier.last_update' %>: <%= user.fresh_base_items %></div>
