@@ -444,12 +444,18 @@ ol, ul {
 	top:28px;
 }
 #content #middle-side #retailers .item .col span {
-	background: url("/images/newdesign/retailer-col-left.png") no-repeat left top;
+	//background: url("/images/newdesign/retailer-col-left.png") no-repeat left top;
 	display:inline-block;
 	height:16px;
+		background: #777;
+	border: 1px solid #e8e9e9;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
 }
+
 #content #middle-side #retailers .item .col span b {
-	background: url("/images/newdesign/retailer-col-right.png") no-repeat right top;
+//	background: url("/images/newdesign/retailer-col-right.png") no-repeat right top;
 	text-align:center;
 	font-size:12px;
 	font-weight:700;
