@@ -235,6 +235,9 @@ ul.items li.new .item ul
 .submit-btn2 {
         float: right;
 }
+a:hover.submit-btn2 {
+        color: white;
+}
 .quantity
 {
   color: white;
