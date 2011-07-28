@@ -3,7 +3,6 @@ class Admin::BaseItemsController < Terbium::Controller::Base
 
   index do
     field :gtin
-    field :name
     field :status
     field 'user.gln'
     field 'gpc.name'
@@ -12,12 +11,9 @@ class Admin::BaseItemsController < Terbium::Controller::Base
 
   form do
     field :gtin
-    field :name
     field :status
     field :user, :fields => [:gln]
     field :internal_item_id
-    field :item_name_long_ru
-    field :item_name_long_en
     field :despatch_unit
     field :invoice_unit
     field :order_unit
@@ -27,7 +23,6 @@ class Admin::BaseItemsController < Terbium::Controller::Base
     field :content_uom
     field :gross_weight
     field :vat
-    field :plu_description
     field :gpc, :fields => [:code, :name]
     field :country_of_origin, :fields => [:code, :description]
     field :minimum_durability_from_arrival

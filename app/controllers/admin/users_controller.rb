@@ -4,7 +4,7 @@ class Admin::UsersController < Terbium::Controller::Base
   index do
     field :gln
     field :name
-    field :is_admin
+    field :roles
   end
 
   form do
@@ -12,7 +12,7 @@ class Admin::UsersController < Terbium::Controller::Base
     field :name
     field :password
     field :password_confirmation
-    field :is_admin
+    field :roles, :fields=>[]
   end
 
 end
