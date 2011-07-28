@@ -17,7 +17,7 @@
   	  		<div class="remark">
       			<%= t 'main.annotations' %><br /><br /><br />
   	  		</div>
-  	  		<a class="submit-btn2 pt-choose-btn" href="#"><%= I18n.t('main.apply') %></a>
+  	  		<a class="submit-btn2 pt-choose-btn" href="javascript:void(0)"><%= I18n.t('main.apply') %></a>
   	  	</div>
   	  </div>
   	</div>
@@ -31,6 +31,7 @@
 		$j('.drop-down').css('visibility','hidden');
 		$j('.dd-overlay').css('display','block');
 		$j(this).parent().find('.drop-down').css('visibility','visible');
+		return false;
 	});
 	$j('.choose-btn').click(function(){
 		$j('.drop-down').css('visibility','hidden');
@@ -50,6 +51,7 @@
        	return false;
       }
     });
+    return false;
   });
 </script>
 <p>

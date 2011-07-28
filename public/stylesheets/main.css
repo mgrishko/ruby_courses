@@ -1610,7 +1610,7 @@ tr.th td {
 	padding-left: 20px;
 	position: relative;
 	left: -20px;
-	z-index: 10000;
+	z-index: 1000;
 }
 .or{
 	padding: 0 19px;
