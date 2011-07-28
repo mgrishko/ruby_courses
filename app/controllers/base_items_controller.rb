@@ -2,19 +2,43 @@ require 'zip/zip'
 require 'zip/zipfilesystem'
 class BaseItemsController < ApplicationController
   before_filter :require_user
-  autocomplete :base_item, :brand, :full => true, :uniq => true, :use_limit => true
-  autocomplete :base_item, :subbrand, :full => true, :uniq => true, :use_limit => true
-  autocomplete :base_item, :functional, :full => true, :uniq => true, :use_limit => true
-  autocomplete :base_item, :variant, :full => true, :uniq => true, :use_limit => true
-  autocomplete :base_item, :item_description, :full => true, :uniq => true, :use_limit => true
+
+  #Autocompletion fields
+  autocomplete :base_item, :brand, :full => true, 
+               :uniq => true, 
+               :use_limit => false do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
+  autocomplete :base_item, :subbrand, :full => true, 
+               :uniq => true, 
+               :use_limit => false do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
+  autocomplete :base_item, :functional, :full => true, 
+               :uniq => true, 
+               :use_limit => false do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
+  autocomplete :base_item, :variant, :full => true, 
+               :uniq => true, 
+               :use_limit => false do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
+  autocomplete :base_item, :item_description, :full => true, 
+               :uniq => true, 
+               :use_limit => false do
+                 {:where =>{:user_id =>  current_user.id}}
+               end
   autocomplete :base_item, :manufacturer_gln, :full => true,
                :extra_data => [:manufacturer_name],
+               :uniq => true, 
                :use_limit => true,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id}}
                end
   autocomplete :base_item, :manufacturer_name, :full => true,
                :extra_data => [:manufacturer_gln],
+               :uniq => true, 
                :use_limit => true,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id}}

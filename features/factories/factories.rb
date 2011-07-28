@@ -18,6 +18,14 @@ Factory.define :supplier, :parent => :user do |f|
   f.roles ['global_supplier']
 end
 
+Factory.define :another_supplier, :parent => :user do |f|
+  f.gln '12345'
+  f.password  '1234'
+  f.name "Another Supplier"
+  f.password_confirmation '1234'
+  f.roles ['global_supplier']
+end
+
 Factory.define :retailer, :parent => :user do |f|
   f.gln '4321'
   f.password  '1234'
