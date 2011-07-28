@@ -8,6 +8,8 @@ class SubscriptionController < ApplicationController
                                     :conditions => ["subscriptions.retailer_id = ?", current_user.id], :order => "subscriptions.supplier_id"
   end
 
+  #FIXME: процесс подписки очень долгий, если у поставщика много товаров, 
+  # потомучто для каждого товара создается subscription_result
   def status
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id})

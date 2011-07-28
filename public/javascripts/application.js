@@ -119,8 +119,9 @@ function cm_hover() {
 
 // further undone
 
+/* Subscription page */
 function subscription(event, that, supplier_id) {
-  event.stopPropagation();
+  event.stopPropagation(); 
   $j.post('/subscriptions/status', {id: supplier_id}, function(data) {
     if (data.error) {
       alert(data.error);
@@ -132,9 +133,21 @@ function subscription(event, that, supplier_id) {
 	      $j('#bi-'+supplier_id).removeClass('subscribed');
       }
     }
+    $j(that).parent().parent().find('.loader').remove();
   }, "json");
   return false;
 }
+
+$(document).ready(function(){
+  $j('.export.subscribe').click(function(event){
+    id = $j(this).attr('id').split('-')[1];
+    $j(this).parent().before("<img src='/images/autocomplete_indicator.gif' class='fright loader'/>");
+    subscription(event, this, id);
+    return false;
+  });
+});
+
+/* END Subscription page */
 //$j(function() {
 // $j("#tab-1").show();
 
