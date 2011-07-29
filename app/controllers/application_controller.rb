@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    if require_user.nil? && !current_user.roles.include?('admin')
+    if require_user.nil? && !current_user.is_admin?
       flash[:notice] = "Только администратор имеет право доступа к этой странице"
       redirect_to :controller => :user_sessions, :action => :login
       redirect_to root_url

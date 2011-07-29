@@ -50,6 +50,10 @@
                     	$j(this).parent().addClass('selected');
                       return false;
                 	});
+ 	                $j('.dd-overlay').click(function(){
+  	              	$j('.drop-down').css('visibility','hidden');
+  	              	$j('.dd-overlay').css('display', 'none');
+	                });
 
               		$j('#retailer_select_btn').click(function(){
 

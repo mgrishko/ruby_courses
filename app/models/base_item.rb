@@ -194,6 +194,8 @@ class BaseItem < ActiveRecord::Base
     end
   end
 
+  # Action fired when the base_item is being published
+  # Transfers the subscription_results to new version
   def make_subscription_result
     self.item.user.subscribers.each do |s|
       if s.specific
@@ -469,6 +471,7 @@ class BaseItem < ActiveRecord::Base
 
   protected
   # Returns IDS of items accepted by retailer for /retailer_items/ page
+  # FIXME: optimize request
   def self.retailer_items_ids(retailer)
     # BI опубликованные, но не приватные
     public_ids = where(:private => false).published.to_ids
@@ -484,6 +487,8 @@ class BaseItem < ActiveRecord::Base
   end
 
   # Build search conditions for #get_base_items method
+  # Allows only one condition per request.
+  # Maybe we should merge them together.
   def self.build_conditions options={}
     conditions = ["brand = ?", options[:brand]] if options[:brand]
     conditions = ["manufacturer_name = ?", options[:manufacturer_name]] if options[:manufacturer_name]
