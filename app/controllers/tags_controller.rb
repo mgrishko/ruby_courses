@@ -1,6 +1,11 @@
 class TagsController < ApplicationController
   before_filter :require_user
-
+  autocomplete :tag, :name, :full => true, 
+               :uniq => true,
+               :joins => :clouds,
+               :use_limit => false do
+                 {:where => {:clouds => {:user_id =>  current_user.id}}}
+               end
   def create
     if params[:tag][:item_id] # tags for items
       @item = Item.find(params[:tag][:item_id])

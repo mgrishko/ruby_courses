@@ -50,7 +50,11 @@ Webforms::Application.routes.draw do
     end
   end
   resources :receivers
-  resources :tags
+  resources :tags do
+    collection do
+      get :autocomplete_tag_name
+    end
+  end
   resources :subscription_results
   resources :subscription
   resources :suppliers

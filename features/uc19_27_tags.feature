@@ -62,11 +62,24 @@ Feature:  Users can add tags
     And 3 clouds should exist
     And 2 tags should exist
 
-
-
-
-
-     
+  Scenario: User tags autocompletion
+    Given I logged in as "supplier"
+    And I go to the base_item page
+    And I follow "add_tag_link" 
+    And I fill in "tag_name" with "tag-1"
+    When I press Enter in "tag_name"
+    Then I should see "tag-1" within "#tags"
+    Given I logged in as "retailer"
+    And I go with "?view=true" to the base_item page
+    And I follow "add_tag_link"
+    And I fill in "tag_name" with "tag-2"
+    When I press Enter in "tag_name"
+    And I wait for 1 second
+    And I follow "add_tag_link"
+    And I fill in "tag_name" with "tag"
+    Then I should see "tag-2"
+    And I should not see "tag-1"
+    
 
 
 
