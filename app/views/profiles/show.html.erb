@@ -19,11 +19,7 @@
 <div id="middle-side">
   <div class="wrap">
     <div class="address">
-      <h1><%= t 'user.title' %></h1>
-      <h2><%= t 'user.name' %></h2>
-      <p><%= @user.name %></p>
-      <h2><%= t 'user.gln' %></h2>
-      <p><%= @user.gln %></p>
+      <a href='#'><%= t 'user.title' %></a>
     </div>
     <div id="profile-info">
       <div class="info-wrap">
@@ -31,15 +27,16 @@
         <table width='100%' border='0' cellspacing='0' cellpadding='0'>
           <tbody>
             <tr>
-              <td><span><%= t 'user.description' %>:</span></td>
-              <td><%= @user.description %></td>
+              <td><span><%= t 'user.name' %>:</span></td>
+              <td><%= @user.name %></td>
             </tr>
             <tr>
-              <td><span><%= t 'user.contacts' %></span></td>
-              <td><%= @user.contacts %></td>
+              <td><span><%= t 'user.gln' %>:</span></td>
+              <td><%= @user.gln %></td>
             </tr>
           </tbody>
         </table>
+        </br>
         <% if current_user.retailer? %>
           <%= render :partial => "/user_attributes/user_attributes" %>
         <% end %>

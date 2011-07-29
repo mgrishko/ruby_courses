@@ -21,6 +21,7 @@ class Item < ActiveRecord::Base
   has_many :clouds
   has_many :retailer_attributes
   has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :foreign_key => :item_id
+  #has_many :images
 
   aasm_column :status
   aasm_initial_state :add
@@ -52,8 +53,15 @@ class Item < ActiveRecord::Base
 
   def image_url suffix=nil
     image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
-    return "/data/#{image.id}#{suffix.to_s}.jpg" if image
-    "/images/item_image#{suffix.to_s}.jpg"
+    #return "/data/#{image.id}#{suffix.to_s}.jpg" if image
+    image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi/#{alt_image_id}.jpg"
+    #"/images/item_image#{suffix.to_s}.jpg"
+  end
+
+  #if image no given
+  def alt_image_id
+    base_item = BaseItem.find(self.id)
+    BaseItem.packaging_types.find{|pt| pt[:name] == base_item.packaging_type}[:id]
   end
 
 end
