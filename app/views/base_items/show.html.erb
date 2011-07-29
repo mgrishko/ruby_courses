@@ -24,7 +24,11 @@
     <div class="dd-overlay"></div>
     <div class="w760">
       <div class="address">
-        <%#<a href="/base_items/">Список товаров</a><a href="#" class="last">Товар</a>%>
+        <% if @subscription_result && @subscription_result.new? %>
+          <%= link_to("#{@subscription_result.subscription.supplier.name}(#{@subscription_result.subscription.supplier.gln})" , url_for(:controller=>'profile', :id => @subscription_result.subscription.supplier ))%>
+        <%else%>
+          <%= link_to("#{@base_item.item.user.name}(#{@base_item.item.user.gln})" , url_for(:controller=>'profile', :id => @base_item.user )) if params[:view]%>
+        <%end%>
         <%= link_to t('main.base_items'), "/base_items"%>
         <%= link_to t('main.item'), "#", :class => "last"%>
       </div>
@@ -33,13 +37,13 @@
           <%= render :partial => 'subscription_results/actions', :locals => {:result => @subscription_result} %>
         <% else %>
           <% if params[:view] %>
-            <%= @base_item.item.user.gln %> <%= @base_item.item.user.name %>
-            <div id="by_item_id"><%= render :partial => 'subscription/by_item_id' %></div>
+            <div id="by_item_id" style="float:left"><%= render :partial => 'subscription/by_item_id' %></div>
           <% end %>
         <% end %>
+
         <% unless @base_item.draft? %>
           <% if @view_only%>
-                <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' %>
+                <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form",:style=>"margin-top:7px;", :id => 'export_link' %>
           <% else %>
               <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
                   <%= link_to content_tag(:span, I18n.t('main.edit'), :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn",:id=>'edit_base_item_btn', :onclick=>"$j('#edit_base_item_#{@base_item.id}').submit()" %>
@@ -62,8 +66,6 @@
                 <%= link_to t('item.back'), base_items_path %>
             <% end %>
       <% end %>
-
-      <%= render :partial => 'subscription_results/actions', :locals => {:result => @subscription_result} if @subscription_result && @subscription_result.new? %>
 
     </div>
   </div>

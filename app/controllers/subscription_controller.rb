@@ -103,7 +103,7 @@ class SubscriptionController < ApplicationController
     @item = Item.find(params[:item_id])
     @base_item = @item.last_bi.first
     @subscription = Subscription.find(:first, :conditions => {:supplier_id => @item.user.id, :retailer_id => current_user.id})
-    if params[:do] == 'Отписаться'
+    if params[:do] == 'unsubscribe'
       if @subscription
         # new block
         SubscriptionDetails.delete_all(:subscription_id => @subscription.id, :item_id => @item.id)

@@ -1,23 +1,9 @@
-<table>
-	<tr>
-		<td>
-			<%= result.subscription.supplier.gln -%>
-		</td>
-		<td>
-			<%= result.subscription.supplier.name -%>
-		</td>
-		<% unless result.accepted? -%>
-			<td>
-				<%= form_for(result) do |f| %>
-					<%= f.submit t('sr.accept'),:class=>'submit-btn', :name => 'accept' %>
-				<% end %>
-			</td>
-			<td>
-				<%= form_for(result) do |f| %>
-					<%= f.submit t('sr.cancel'),:class=>'submit-btn', :name => 'cancel' %>
-				<% end %>
-			</td>
-		<% end -%>
-	</tr>
-</table>
+<% unless result.accepted? -%>
+		<%= form_for(result, :html=>{:style=>"float:left"}) do |f| %>
+			<%= f.submit t('sr.accept'),:class=>'submit-btn', :name => 'accept' %>
+		<% end %>
+		<%= form_for(result, :html=>{:style=>"float:left;margin-right:5px"}) do |f| %>
+			<%= f.submit t('sr.cancel'),:class=>'submit-btn', :name => 'cancel' %>
+		<% end %>
+<% end -%>
 

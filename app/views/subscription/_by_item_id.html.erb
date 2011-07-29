@@ -1,9 +1,10 @@
 <% if current_user.has_usual_subscription? @base_item.item %>
   <div><%= t 'subscription.have_subscription' %> "<%= @base_item.item.user.name %>".</div>
 <% else %>
-<%= form_for :subscription, :url => {:action => 'by_item_id', :controller => :subscription}, :remote => true do |f| %>
-<input type="hidden" name="item_id" value="<%= @base_item.item.id %>"/>
-<%= f.submit get_value_by_item_id(@base_item.item), :class=>'submit-btn',:id=>'subscribe_by_id_btn' %>
-<% end %>
+  <%= form_for :subscription, :url => {:action => 'by_item_id', :controller => :subscription}, :remote => true do |f| %>
+    <input type="hidden" name="item_id" value="<%= @base_item.item.id %>"/>
+    <input type="hidden" name="do" value="<%= get_action_by_item_id(@base_item.item) %>"/>
+    <%= f.submit get_value_by_item_id(@base_item.item), :class=>'submit-btn',:id=>'subscribe_by_id_btn' %>
+  <% end %>
 <% end %>
 
