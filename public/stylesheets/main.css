@@ -898,6 +898,7 @@ ol, ul {
 	display:inline-block;
 	margin:0 0px 3px 3px;
 	height:15px;
+	float:left;
 }
 #goods-list-short .item a.btn span {
 	background: url("/images/newdesign/btn-right.png") no-repeat right top;

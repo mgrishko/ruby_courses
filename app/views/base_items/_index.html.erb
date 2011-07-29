@@ -102,7 +102,16 @@
                               <span class="adres"><%= t 'item.private' %></span>
                           <% end %>
                         </p>
-                        <p class="adres"><%= t 'menu.status' %>: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %></p>
+                      
+                        <p class="adres">
+                          <div class="tags-wrapper">
+                          <% base_item.item.clouds.where(:user_id=> current_user.id).each do |cloud| %>
+                            <%= link_to content_tag(:span, cloud.tag.name), base_items_path(:tag=>cloud.tag.id), :class=>'btn' %>
+                          <%end%>
+                          </div>                          
+                        <%= t 'menu.status' %>: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %>
+                        </p>
+                        
                       </div>
                       <div class="stat"><span class="stat-3"></span></div>
                       <div class="clr"></div>
@@ -242,6 +251,7 @@
 <div class="pp-overlay"></div>
 
 <script>
+    $j('.btn').click(function(e){e.stopPropagation();});
     $j('.art').click(function(ev){
       ev.stopPropagation();
     });
