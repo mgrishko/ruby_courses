@@ -53,9 +53,8 @@ class Item < ActiveRecord::Base
 
   def image_url suffix=nil
     image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
-    #return "/data/#{image.id}#{suffix.to_s}.jpg" if image
-    image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi/#{alt_image_id}.jpg"
-    #"/images/item_image#{suffix.to_s}.jpg"
+    return "/data/#{image.id}#{suffix.to_s}.jpg" if image
+    "/images/item_image#{suffix.to_s}.jpg"
   end
 
   #if image no given
