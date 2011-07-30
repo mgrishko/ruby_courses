@@ -15,15 +15,13 @@ gem 'nested_set'
 gem 'jrails'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', :git => 'https://github.com/pavel-so/rails3-jquery-autocomplete.git'
-gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.2'
+gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.5'
 #gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
-
-
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
     gem 'rb-fchange'
@@ -58,4 +56,7 @@ end
 group :development do
   gem 'translations_sync'
 end
+
+source 'http://gemcutter.org'
+gem 'uservoice'
 
