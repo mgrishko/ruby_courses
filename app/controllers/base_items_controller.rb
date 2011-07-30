@@ -46,7 +46,10 @@ class BaseItemsController < ApplicationController
 
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
-    BaseItem.per_page = 12
+    number = 50 if params[:view].nil? || params[:view] == 'list'  
+    number = 48 if params[:view] == 'tile'
+    number ||= 12
+    BaseItem.per_page = number
     @base_items = BaseItem.get_base_items :user_id => current_user.id,
       :manufacturer_name => params[:manufacturer_name],
       :functional => params[:functional],

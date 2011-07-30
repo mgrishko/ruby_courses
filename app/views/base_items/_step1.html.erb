@@ -6,10 +6,10 @@
   </tr>
   <tr>
     <td>
-      <%= f.text_field :gtin, :class=>'w183' %>
+      <%= f.text_field :gtin, :class=>'w156' %>
     </td>
     <td colspan="4">
-      <%= f.text_field :internal_item_id, :class=>'w172' %>
+      <%= f.text_field :internal_item_id, :class=>'w156' %>
     </td>
   </tr>
   <tr class="th">
@@ -21,10 +21,10 @@
   </tr>
   <tr>
     <td>
-      <%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path, :class=>'w183' %>
+      <%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path, :class=>'w156' %>
     </td>
     <td>
-      <%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path, :class=>'w172' %>
+      <%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path, :class=>'w156' %>
     </td>
     <td>
       <%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path, :class=>'w132' %>
@@ -32,12 +32,12 @@
     <td>
       <%= f.autocomplete_field :variant, autocomplete_base_item_variant_base_items_path, :class=>'w132' %>
     </td>
-    <td width="90">
-      <%= f.text_field :content, :class=>'w40' %>
+    <td width="155px" height="20px">
+      <%= f.text_field :content, :class=>'w40', :style=>'float:left'%>
 
-      <div class="drop-down-cont units pad-l-5 zi-1 ">
+      <div class="drop-down-cont units pad-l-5 zi-1 " >
         <%= f.hidden_field :content_uom, :class => "w100 dd-input" %>
-        <a class="drop-down-link" href="#"><%= ( @base_item.content_uom) ?  @base_item.content_uom : 'Select' %></a>
+        <a class="drop-down-link" href="#"><%= ( @base_item.content_uom) ?  @base_item.calculate_content : 'Select' %></a>
         <div class="drop-down">
           <div class="blue-tarr"></div>
           <div class="drop-down-list-cont">
@@ -68,10 +68,10 @@
   </tr>
   <tr>
     <td>
-      <%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path, :class=>'w183', :update_elements => {:manufacturer_name => '#base_item_manufacturer_name'} %>
+      <%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path, :class=>'w156', :update_elements => {:manufacturer_name => '#base_item_manufacturer_name'} %>
     </td>
     <td>
-      <%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path, :class=>'w172', :update_elements => {:manufacturer_gln => '#base_item_manufacturer_gln'} %>
+      <%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path, :class=>'w156', :update_elements => {:manufacturer_gln => '#base_item_manufacturer_gln'} %>
     </td>
     <td colspan="3">
       <div id="country_input">
@@ -80,7 +80,7 @@
           <div class="drop-down">
             <div class="blue-tarr"></div>
             <div class="drop-down-list-cont">
-              <div class="drop-down-list first" style="white-space:nowrap;">
+              <div class="drop-down-list first" style="white-space:nowrap;height:250px">
                 <ul>
                   <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
                 </ul>

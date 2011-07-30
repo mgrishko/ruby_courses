@@ -1,9 +1,12 @@
 #goods-list-short .tags-wrapper{
-  float:right;
   height:17px;
-  width:270px;
   overflow:hidden;
   padding-top:3px;
+  padding-left: 10px;
+}
+
+.w156{
+  width:150px;
 }
 
 

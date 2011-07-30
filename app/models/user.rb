@@ -73,8 +73,8 @@ class User < ActiveRecord::Base
     base_items.where(:status => 'published').order('id DESC')
   end
 
-  def all_fresh_base_items_paginate page
-    BaseItem.last_published_by(self).reverse.paginate :page => page, :per_page => 10
+  def all_fresh_base_items_paginate page, options = {:per_page => 10}
+    BaseItem.last_published_by(self).reverse.paginate :page => page, :per_page => options[:per_page]
   end
 
   def count_fresh_base_items

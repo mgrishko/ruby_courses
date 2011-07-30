@@ -1,27 +1,3 @@
-<!--<h2><%= t 'status.title' %></h2>
-<table class="standart">
-<tr>
-  <td><%= t 'status.items_subscribers' %></td>
-<% for u in @users do %>
-<td><%= u.name %></td>
-<% end %>
-<td rowspan="<%=@base_items.count + 1 %>"><%= t 'main.subscribers' %><%= html_pager(@users, 'page_users') %></td>
-</tr>
-<% for bi in @base_items do %>
-<tr>
-<td><%= bi.item_description %></td>
-<% for u in @users do %>
-<% sr = u.subscription_results.find_by_base_item_id(bi.id) if bi.published? %>
-<td><div class="sr-status sr-<%=(sr ? sr.status : 'none')%>" title="<%= (sr ? sr.status_for_title : t('sr.not_send') )%>"></div></td>
-<% end %>
-</tr>
-<% end %>
-<tr>
-  <td colspan="<%=@users.count + 1 %>"><%= t 'main.items' %>: <%= html_pager(@base_items) %></td>
-</tr>
-</table>
--->
-
     <div id="full-side">
 
             <div class="address"><%= link_to t('main.home'), "#"%><%= link_to t('subscription.status'), '#'%></div>

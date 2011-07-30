@@ -817,7 +817,7 @@ ol, ul {
 	padding:0 0 15px 0px;
 }
 .short-wrap {
-	width:495px;
+	width:755px; 
 	padding:0 0 20px 0px;
 	border-top:1px solid #C9C9C9;
 }
@@ -858,17 +858,23 @@ ol, ul {
 
 
 #goods-list-short .item {
+	border: 1px solid #fff;
 	border-top:1px solid #F1F1F1;
 	border-bottom:1px solid #D5D5D5;
+	
 	padding:10px 0px 10px 10px;
 	position:relative;
 	height:35px;
-	width:485px;
+	width:745px;
 }
 #goods-list-short .item:hover {
-	background: url("/images/newdesign/goods-list-short-bg.png") no-repeat 0 0;
-	border-top:1px solid #fff;
-	border-bottom:1px solid #fff;
+	border: 1px solid #3a5a98;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background: #ebeff2;
+	/*border-top:1px solid #fff;
+	border-bottom:1px solid #fff;*/
 }
 #goods-list-short .item .img {
 	float:left;
@@ -881,7 +887,7 @@ ol, ul {
 }
 #goods-list-short .item .desc {
 	float:left;
-	width:430px;
+	width:690px;
 	color:#353535;
 	font-weight:500;
 	line-height:16px;
@@ -898,7 +904,7 @@ ol, ul {
 	display:inline-block;
 	margin:0 0px 3px 3px;
 	height:15px;
-	float:left;
+//	float: right;
 }
 #goods-list-short .item a.btn span {
 	background: url("/images/newdesign/btn-right.png") no-repeat right top;
@@ -1705,6 +1711,21 @@ tr.th td {
 	position: static;
 	padding: 0 13px;
 }
+
+
+#content #middle-side.no-right-border {
+	float:left;
+	width:798px;
+	border:1px solid #c7c7c7;
+	border-right: 0;
+	border-top:0px;
+}
+
+#content #middle-side.no-right-border .wrap{
+	border-right: 0;
+}
+
+
 .white-btn{
 	border-top: 1px solid #d0d0d0;
 	border-left: 1px solid #e4e4e4;
