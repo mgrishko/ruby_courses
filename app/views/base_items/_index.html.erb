@@ -109,7 +109,7 @@
                         </div>
                           <div class="tags-wrapper">
                           <% base_item.item.clouds.where(:user_id=> current_user.id).each do |cloud| %>
-                            <%= link_to content_tag(:span, cloud.tag.name), base_items_path(:tag=>cloud.tag.id), :class=>'btn' %>
+                            <%= link_to content_tag(:span, cloud.tag.name), '#', :class=>'btn' %>
                           <%end%>
                           </div> 
                         </p>                        
@@ -252,7 +252,6 @@
 <div class="pp-overlay"></div>
 
 <script>
-    $j('.btn').click(function(e){e.stopPropagation();});
     $j('.art').click(function(ev){
       ev.stopPropagation();
     });
