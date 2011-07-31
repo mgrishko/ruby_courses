@@ -91,7 +91,7 @@
                     <div class="item">
                     <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
                       <div class="img">
-                        <img src="<%= base_item.item.alt_image_id('small') %>" width="50px" alt="Item Image"/></div>
+                        <img src="<%= base_item.item.alt_image_url('small') %>" width="50px" alt="Item Image"/></div>
                       <div class="desc">
                         <div style="float:right">
                           <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
@@ -132,7 +132,7 @@
                               <div style="float:right">
                                 <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
                               </div>
-                            <div class="img"><img src="<%= base_item.item.alt_image_id('tile')  %>" alt="" /></div>
+                            <div class="img"><img src="<%= base_item.item.alt_image_url('tile')  %>" alt="" /></div>
                             <div class="desc">
                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
@@ -213,7 +213,7 @@
                     <% path_params = defined?(retailer) ? {:id => base_item.id, :view => true} : base_item %>
                     <div class="item">
                     <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
-                      <div class="img type2"><img src="<%= base_item.item.alt_image_id('tile') %>"  alt="Item Image"/></div>
+                      <div class="img type2"><img src="<%= base_item.item.alt_image_url('tile') %>"  alt="Item Image"/></div>
                       <div class="desc">
                         <p><%= shorten_label base_item.item_description, 27 %></p>
 

@@ -17,7 +17,7 @@ Feature: Supplier shouldn't see other suppliers data
     When I go to the base_item page
     And I follow "edit_base_item_btn"
     And I follow "edit_base_item_link" within "#base_item"
-    
+
 
   Scenario: Should see only own fields
     When I fill in "l" for "base_item_brand"
@@ -27,7 +27,7 @@ Feature: Supplier shouldn't see other suppliers data
     When I fill in "o" for "base_item_subbrand"
     And I wait for 3 second
     Then I should see "explorer"
-    And I should not see "frontier"  
+    And I should not see "frontier"
     When I fill in "l" for "base_item_variant"
     And I wait for 3 second
     Then I should see "lemon"
@@ -35,17 +35,17 @@ Feature: Supplier shouldn't see other suppliers data
     When I fill in "j" for "base_item_functional"
     And I wait for 3 second
     Then I should see "juice"
-    And I should not see "jeans"  
+    And I should not see "jeans"
     When I fill in "a" for "base_item_item_description"
     And I wait for 3 second
     Then I should see "coca-cola juise lemon"
-    And I should not see "wrangler jeans blue"  
+    And I should not see "wrangler jeans blue"
     When I fill in "l" for "base_item_manufacturer_name"
     And I wait for 3 second
     Then I should see "Coca-cola Ltd."
-    And I should not see "Wrangler Inc."  
+    And I should not see "Wrangler Inc."
     When I fill in "1" for "base_item_manufacturer_gln"
     And I wait for 3 second
     Then I should see "12345679"
-    And I should not see "97654321"    
- 
+    And I should not see "97654321"
+

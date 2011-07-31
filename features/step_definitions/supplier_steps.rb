@@ -56,7 +56,7 @@ Then /^element "([^"]*)" should be disabled$/ do |selector|
 end
 
 Then /^I should see new image$/ do
-  img = @base_item.item.image_url('tile')
+  img = @base_item.item.alt_image_url('tile')
   assert find_by_id('item_image')["src"] =~ /#{img}$/
 end
 

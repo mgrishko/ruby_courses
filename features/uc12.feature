@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Subscription Result shoud not duplicate
   In order to test subscription result generation without duplication
   As a supplier and retailer
@@ -39,7 +38,7 @@ Feature: Subscription Result shoud not duplicate
     And I wait for 1 second
     And I press "next_button"
     And I wait for 2 seconds
-    And I fill in "base_item_packaging_type" with "AM"
+    And I fill in "base_item_packaging_type" with "BX"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"

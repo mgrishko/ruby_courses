@@ -8,6 +8,7 @@ config/database.yml
 *.swo
 .idea
 public/data
+!public/data/images/pi_new
 /Gemfile.lock
 data/images
 
