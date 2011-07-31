@@ -73,7 +73,7 @@ ol, ul {
 	height:31px;
 	width:980px;
 	position:relative;
-	z-index: 50;
+	z-index: 99;
 }
 #top-menu{
 	height:31px;
@@ -815,7 +815,7 @@ ol, ul {
 
 
 #goods-list-short {
-	padding:0 0 15px 0px;
+	padding:35px 0 15px 0px;
 }
 .short-wrap {
 	width:755px; 
@@ -924,7 +924,9 @@ ol, ul {
 	background: url("/images/newdesign/btn-right-h.png") no-repeat right top;
 }
 
-#goods-list-as-picture {}
+#goods-list-as-picture {
+padding-top:34px;
+}
 #goods-list-as-picture .as-wrap {
 
 }
