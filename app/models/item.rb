@@ -58,9 +58,11 @@ class Item < ActiveRecord::Base
   end
 
   #if image no given
-  def alt_image_id
+  def alt_image_id(suffix = nil)
+    image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
     base_item = BaseItem.find(self.id)
-    BaseItem.packaging_types.find{|pt| pt[:name] == base_item.packaging_type}[:id]
+    img_id = BaseItem.packaging_types.find{|pt| pt[:name] == base_item.packaging_type}[:id]
+    image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi/#{img_id}.jpg"
   end
 
 end
