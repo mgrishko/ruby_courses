@@ -1,4 +1,10 @@
 // функции "упаковать"
+$(document).ready(function(){
+  $j('#goods-list-short .item').click(function(){
+    
+  document.location=$j('#goods-list-short .item').find('.art').attr('href');
+  });
+});
 var packageMe = function(bi_id){
   $j.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
   return false;

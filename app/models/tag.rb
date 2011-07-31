@@ -12,6 +12,6 @@
 class Tag < ActiveRecord::Base
   has_many :items, :through => :clouds
   has_many :clouds
-  validate :name, :presence => true, :length => { :within => 1..50 }
+  validate :name, :presence => true, :length => { :within => 1..15 }
 end
 

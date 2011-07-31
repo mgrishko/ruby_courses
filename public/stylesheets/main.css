@@ -73,7 +73,7 @@ ol, ul {
 	height:31px;
 	width:980px;
 	position:relative;
-	z-index: 99;
+	z-index: 50;
 }
 #top-menu{
 	height:31px;
@@ -109,6 +109,7 @@ ol, ul {
 	float: right;
 	padding: 4px 14px 0 0;
 	height: 21px;
+	z-index:0;
 
 }
 #header .search .search-inp {
@@ -286,12 +287,12 @@ ol, ul {
 #content #left-side .cat li a:hover {}
 #content #left-side .cat li.act a, #content #left-side .cat li a:hover {
 	background:#d6dbeb;
-	font-weight:700;
+//  font-weight:700;
 	border-top:1px solid #e0e4f0;
 }
 #content #left-side .cat li ul li.act a, #content #left-side .cat li ul li a:hover {
 	background:#d6dbeb;
-	font-weight:700;
+//	font-weight:700;
 	border-top:1px solid #e0e4f0;
 }
 #content #left-side .cat li ul {
