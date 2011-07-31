@@ -12,10 +12,23 @@
       </div>
       <%= form_for(@base_item) do |f| %>
         <%= f.error_messages %>
+        <div class="item-description" id="base_item">
         <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>
-        <%= render :partial => "base" if @base_item.current_step == 'step2' %>
-        <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step2' %>
-        <%= f.submit t('main.back'), :name => "back_button", :class => "submit-btn fleft" unless @base_item.first_step? %></p>
+          <div class="clr"></div>
+          <br/>
+        </div>
+        <%if @base_item.current_step == 'step2'%>
+        <div class="item-description" id="base_item">
+          <%= render :partial => "base"%>
+          <div class="clr"></div>
+          <br/>
+        </div>
+          <div class="logistics main">
+            <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f }  %>
+          </div>
+
+        <%end%>
+        <%= f.submit t('main.back'), :name => "back_button", :class => "submit-btn fleft" unless @base_item.first_step? %>
         <%= f.submit t('main.next'), :class => "submit-btn", :id=>'next_button' %>
       <% end %>
       <div class="dd-overlay"></div>
