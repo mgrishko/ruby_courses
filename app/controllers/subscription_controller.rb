@@ -8,24 +8,24 @@ class SubscriptionController < ApplicationController
                                     :conditions => ["subscriptions.retailer_id = ?", current_user.id], :order => "subscriptions.supplier_id"
   end
 
-  #FIXME: процесс подписки очень долгий, если у поставщика много товаров, 
+  #FIXME: процесс подписки очень долгий, если у поставщика много товаров,
   # потомучто для каждого товара создается subscription_result
   def status
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id})
-      json = {'error' => 'Ошибка'}
+      json = {'error' => t('main.error')}
       if @subscription
         if @subscription.active?
           @subscription.cancel!
-          json = {'text' => 'Подписаться', 'flag' => false}
+          json = {'text' => t('subscription.subscribe'), 'flag' => false}
         else
           @subscription.active!
-          json = {'text' => 'Отписаться', 'flag' => true}
+          json = {'text' => t('subscription.unsubscribe'), 'flag' => true}
         end
       else
         @subscription = Subscription.new(:supplier_id => params[:id], :retailer_id => current_user.id)
         if @subscription.save
-          json = {'text' => 'Отписаться', 'flag' => true}
+          json = {'text' => t('subscription.unsubscribe'), 'flag' => true}
         end
       end
 
@@ -56,7 +56,7 @@ class SubscriptionController < ApplicationController
       gtins = params[:gtins].gsub(' ','').split(',').map{|gtin| gtin.strip()}
       @gtins = []
       gtins.each do |gtin|
-        errors = "Неверно введен штрих-код" if gtin.scan(/[^\d]/).any?
+        errors = t('item.incorrect') if gtin.scan(/[^\d]/).any?
         @gtins << {:bi => BaseItem.where(:user_id => params[:id],:gtin => gtin).last , :errors => errors, :gtin => gtin}
       end
       respond_with(@base_items)
@@ -95,7 +95,7 @@ class SubscriptionController < ApplicationController
   end
   def get_single_gtin
     gtin = params[:gtin]
-    errors = "Неверно введен штрих-код" if gtin.scan(/[^\d]/).any?
+    errors = t('item.incorrect') if gtin.scan(/[^\d]/).any?
     @gtin = {:bi => BaseItem.where(:user_id => params[:id],:gtin => gtin).last , :errors => errors, :gtin => gtin}
     render :partial => 'gtin',:locals => { :gtin => @gtin }
   end
@@ -150,12 +150,12 @@ class SubscriptionController < ApplicationController
 
 
   def instantstatus # unneccessary now
-    json = {'error' => 'Ошибка'}
+    json = {'error' => t('main.error')}
     if request.post? and params[:id]
       @subscription = Subscription.find(:first, :conditions => {:supplier_id => params[:id], :retailer_id => current_user.id});
       if @subscription
         if @subscription.active?
-          json = {'error' => 'У Вас уже есть подписка'}
+          json = {'error' => t('item.have_subscription')}
           return render :json => json
         else
           @subscription.active!
@@ -168,7 +168,7 @@ class SubscriptionController < ApplicationController
       @supplier.all_fresh_base_items.each do |bi|
         @subscription.subscription_results << SubscriptionResult.new(:base_item_id => bi.id, :subscription_id => @subscription_id)
       end
-      json = {'text' => 'Недоступно', 'flag' => true}
+      json = {'text' => t('main.not_available'), 'flag' => true}
     end
     render :json => json
   end

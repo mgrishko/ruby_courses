@@ -4,41 +4,41 @@ class BaseItemsController < ApplicationController
   before_filter :require_user
 
   #Autocompletion fields
-  autocomplete :base_item, :brand, :full => true, 
-               :uniq => true, 
+  autocomplete :base_item, :brand, :full => true,
+               :uniq => true,
                :use_limit => false do
                  {:where =>{:user_id =>  current_user.id}}
                end
-  autocomplete :base_item, :subbrand, :full => true, 
-               :uniq => true, 
+  autocomplete :base_item, :subbrand, :full => true,
+               :uniq => true,
                :use_limit => false do
                  {:where =>{:user_id =>  current_user.id}}
                end
-  autocomplete :base_item, :functional, :full => true, 
-               :uniq => true, 
+  autocomplete :base_item, :functional, :full => true,
+               :uniq => true,
                :use_limit => false do
                  {:where =>{:user_id =>  current_user.id}}
                end
-  autocomplete :base_item, :variant, :full => true, 
-               :uniq => true, 
+  autocomplete :base_item, :variant, :full => true,
+               :uniq => true,
                :use_limit => false do
                  {:where =>{:user_id =>  current_user.id}}
                end
-  autocomplete :base_item, :item_description, :full => true, 
-               :uniq => true, 
+  autocomplete :base_item, :item_description, :full => true,
+               :uniq => true,
                :use_limit => false do
                  {:where =>{:user_id =>  current_user.id}}
                end
   autocomplete :base_item, :manufacturer_gln, :full => true,
                :extra_data => [:manufacturer_name],
-               :uniq => true, 
+               :uniq => true,
                :use_limit => true,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id}}
                end
   autocomplete :base_item, :manufacturer_name, :full => true,
                :extra_data => [:manufacturer_gln],
-               :uniq => true, 
+               :uniq => true,
                :use_limit => true,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id}}
@@ -46,7 +46,7 @@ class BaseItemsController < ApplicationController
 
   def index
     redirect_to :controller => "subscription_results" if current_user.retailer?
-    number = 50 if params[:view].nil? || params[:view] == 'list'  
+    number = 50 if params[:view].nil? || params[:view] == 'list'
     number = 48 if params[:view] == 'tile'
     number ||= 12
     BaseItem.per_page = number
@@ -140,9 +140,9 @@ class BaseItemsController < ApplicationController
           i.save
           session[:base_item_step] = session[:base_item_params] = nil
           if params[:publish] && @base_item.publish!
-            flash[:notice] = 'BaseItem was successfully created and sent'
+            flash[:notice] = t('flash.created_sent')
           else
-            flash[:notice] = 'BaseItem was successfully created.'
+            flash[:notice] = t('flash.created')
           end
           return redirect_to(@base_item)
         end

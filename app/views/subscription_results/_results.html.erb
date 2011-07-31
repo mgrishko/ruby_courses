@@ -1,6 +1,6 @@
 <div id="middle-side">
         <div class="wrap">
-            <div class="address"><a href="/subscription_results/" class="last">Входящие товары</a><a href="#"><%= @subscription.supplier.gln %> <%= @subscription.supplier.name %></a></div>
+            <div class="address"><a href="/subscription_results/" class="last"><%= t('item.input_items') %></a><a href="#"><%= @subscription.supplier.gln %> <%= @subscription.supplier.name %></a></div>
             <div id="products">
             	<div class="blue-btns bb">
 <% if @subscription.subscription_results.detect {|r| r.new?} %>
