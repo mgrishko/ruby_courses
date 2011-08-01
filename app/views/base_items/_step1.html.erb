@@ -36,7 +36,7 @@
 
       <div class="drop-down-cont units pad-l-5 zi-1 " >
         <%= f.hidden_field :content_uom, :class => "w100 dd-input" %>
-        <a class="drop-down-link" href="#"><%= ( @base_item.content_uom) ?  @base_item.calculate_content : 'Select' %></a>
+        <a class="drop-down-link" href="#"><%= ( @base_item.content_uom.present? ) ?  @base_item.calculate_content : 'Select' %></a>
         <div class="drop-down">
           <div class="blue-tarr"></div>
           <div class="drop-down-list-cont">
