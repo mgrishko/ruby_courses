@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
   has_many :clouds
   has_many :retailer_attributes
   has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :foreign_key => :item_id
-  #has_many :images
+  has_many :images
 
   aasm_column :status
   aasm_initial_state :add

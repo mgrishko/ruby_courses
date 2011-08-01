@@ -47,7 +47,7 @@ class BaseItem < ActiveRecord::Base
   has_many :packaging_items, :dependent => :destroy
   has_many :receivers
   has_many :comments
-  #has_many :images
+  has_many :images
   belongs_to :user
   belongs_to :item
   belongs_to :country_of_origin, :class_name => 'Country', :primary_key => :code, :foreign_key => :country_of_origin_code

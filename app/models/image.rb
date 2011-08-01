@@ -13,7 +13,7 @@ class Image < ActiveRecord::Base
 
   has_one :event, :as => :content, :dependent => :destroy
   belongs_to :base_item
-  #belongs_to :item
+  belongs_to :item
   before_destroy :delete_file
   def resize(data, width, height, scale, fill, name)
     image = data.clone
