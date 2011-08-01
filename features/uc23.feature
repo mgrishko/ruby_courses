@@ -30,6 +30,7 @@ Feature: Data export(single bi)
     Then should be visible "export_form_wrapper"
     And I check "7continent"
     And I press "export_one"
+    # Then I should receive file ".zip"
 #    Then I should receive file
 
   Scenario: get single base_item export as supplier
