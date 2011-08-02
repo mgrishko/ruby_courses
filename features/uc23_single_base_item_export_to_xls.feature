@@ -17,6 +17,7 @@ Feature: Data export(single bi)
     When I logged in as "retailer"
     And I go with "?view=true" to the base_item page
     And I follow "export_link"
+    And I wait for 1 second
     Then should be visible "export_form_wrapper"
     And I check "7continent"
     And I press "export_one"
