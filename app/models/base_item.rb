@@ -477,11 +477,15 @@ class BaseItem < ActiveRecord::Base
     base_items.paginate :page => options[:page], :per_page => self.per_page
   end
 
-  def alt_image_url(suffix = nil)
+  def image_url(suffix = nil)
     image = Image.find(:first, :conditions => {:base_item_id => self.id}, :order => "id desc")
-    base_item = BaseItem.find(self.id)
-    img_id = BaseItem.packaging_types.find{|pt| pt[:code] == base_item.packaging_type}[:id]
-    image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi_new/#{img_id}.jpg"
+    if image
+      "/data/#{image.id}#{suffix.to_s}.jpg"
+    else
+      base_item = BaseItem.find(self.id)
+      img_id = BaseItem.packaging_types.find{|pt| pt[:code] == base_item.packaging_type}[:id]
+      "/images/pi_new/#{img_id}.jpg"
+    end
   rescue NoMethodError
     "/images/item_image#{suffix.to_s}.jpg"
   end

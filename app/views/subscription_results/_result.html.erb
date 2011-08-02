@@ -14,7 +14,7 @@
             		</div>
             		<!--<img class="new-label" src="/images/newdesign/new-label.png" width="93" height="28" alt="" />-->
             		<div class="img">
-            			<img id='img' src="<%= result.base_item.alt_image_url('small') %>" width="50px" alt="Supplier Image"/>
+            			<img id='img' src="<%= result.base_item.image_url('small') %>" width="50px" alt="Supplier Image"/>
             		</div>
             		<div class="item-center">
             		  <%= link_to result.base_item.gtin, base_item_path(result.base_item, :view => true, :subscription_result_id => result.id), :class=>'art'%>

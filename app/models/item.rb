@@ -52,8 +52,18 @@ class Item < ActiveRecord::Base
   end
 
   def image_url(suffix = nil)
-    image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
-    return "/data/#{image.id}#{suffix.to_s}.jpg" if image
+    #image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
+    #return "/data/#{image.id}#{suffix.to_s}.jpg" if image
+    #"/images/item_image#{suffix.to_s}.jpg"
+    image = Image.find(:first, :conditions => {:base_item_id => self.id}, :order => "id desc")
+    if image
+      "/data/#{image.id}#{suffix.to_s}.jpg"
+    else
+      base_item = BaseItem.find(self.id)
+      img_id = BaseItem.packaging_types.find{|pt| pt[:code] == base_item.packaging_type}[:id]
+      "/images/pi_new/#{img_id}.jpg"
+    end
+  rescue NoMethodError
     "/images/item_image#{suffix.to_s}.jpg"
   end
 
