@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Data export(multiple bi)
   In order to test data to xls export
   As a user
@@ -37,6 +36,7 @@ Feature: Data export(multiple bi)
     And I go to the retailer_items page
     And I check "base_items[]"
     And I follow "show_export_form"
+    And I wait for 1 second
     Then should be visible "export_form_wrapper"
     And I check "7continent"
     And I press "export_button"
@@ -47,6 +47,7 @@ Feature: Data export(multiple bi)
     And I go to the base_items page
     And I check "base_items[]"
     And I follow "show_export_form"
+    And I wait for 1 second
     Then should be visible "export_form_wrapper"
     And I check "7continent"
     And I press "export_button"
@@ -56,6 +57,7 @@ Feature: Data export(multiple bi)
     When I logged in as "supplier"
     And I go to the base_items page
     And I follow "show_export_form"
+    And I wait for 1 second
     Then should not be visible "export_button"
 
   Scenario: when no form checked
@@ -63,6 +65,7 @@ Feature: Data export(multiple bi)
     And I go to the base_items page
     And I check "base_items[]"
     And I follow "show_export_form"
+    And I wait for 1 second
     Then should be visible "export_form_wrapper"
     And element "#export_button" should be disabled
 
