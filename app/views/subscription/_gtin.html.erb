@@ -24,7 +24,7 @@
 <%else%>
   <%base_item = gtin[:bi]%>
         <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
-        <div class="img"><img src="<%= base_item.item.alt_image_url('small') %>" width="50px" alt="Item Image"/></div>
+        <div class="img"><img id='img' src="<%= base_item.alt_image_url('small') %>" width="50px" alt="Item Image"/></div>
         <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content">
           <div style='float:right'>
             <%= link_to_function t('main.edit'),"if (confirm(#{I18n.t('main.confirm')})) editGtin('#{gtin[:gtin]}')"%> |

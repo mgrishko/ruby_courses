@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_filter :require_user
-  before_filter :find_item
+  before_filter :find_base_item
 
   def upload
     @original = OriginalImage.new(params[:image])
@@ -29,16 +29,16 @@ class ImagesController < ApplicationController
     responds_to_parent do
       render :update do |page|
         page << "$j('#link_upload').show(); $j('#form_upload').hide();"
-        page << "$j('#item_image').attr('src','#{@item.alt_image_url}')" if @image
-        page << "$j('#iil').attr('href', '#{@item.alt_image_url('big')}')" if @image
+        page << "$j('#item_image').attr('src','#{@base_item.alt_image_url}')" if @image
+        page << "$j('#iil').attr('href', '#{@base_item.alt_image_url('big')}')" if @image
       end
     end
   end
 
   private
 
-  def find_item
-    @item = current_user.items.find(params[:item_id])
+  def find_base_item
+    @base_item = current_user.items.find(params[:base_item_id])
   end
 
 end
