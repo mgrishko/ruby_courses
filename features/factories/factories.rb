@@ -74,7 +74,7 @@ Factory.define :base_item do |f|
   f.association :user, :factory => :supplier
   f.country_of_origin_code Factory(:country).code
   f.minimum_durability_from_arrival '10'
-  f.packaging_type 'CX'
+  f.packaging_type 'CN'
   f.height '1'
   f.depth '1'
   f.width '1'

@@ -4,7 +4,7 @@ namespace :db do
   namespace :seed do
     desc "Fill the database with the fake data"
     task :fake_data => :environment do
-
+PTypes = REF_BOOKS["correspondence_code"][:en]
 UOMS = { 'кг'=>'KGM',
           'л' => 'LTR',
           'шт' => 'PCE',
@@ -158,7 +158,7 @@ UOMS = { 'кг'=>'KGM',
           item.vat = '59'
           item.gpc_code = data[26]
           item.country_of_origin_code = "RU"
-          item.packaging_type = data[28][0..2]
+          item.packaging_type = PTypes[data[28][0..2].strip] ? PTypes[data[28][0..2].strip] : "PK"
           item.gross_weight = data[16] if data[16]
           item.net_weight = @netweight[k] if @netweight[k]
           item.height = data[29]
@@ -213,7 +213,7 @@ UOMS = { 'кг'=>'KGM',
           data = @rows[k]
 
           item.number_of_next_lower_item = data[36]
-          item.packaging_type = data[28][0..2]
+          item.packaging_type = PTypes[data[28][0..2].strip] ? PTypes[data[28][0..2].strip] : "PK"
           item.height = data[29].any? ? data[29] : data[41]
           item.width = data[33]
           item.depth = data[31]

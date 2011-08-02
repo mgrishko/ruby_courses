@@ -51,20 +51,4 @@ class Item < ActiveRecord::Base
     sns.collect {|s| s.retailer if (s.specific && s.find_in_details(self.id)) || (!s.specific)}.compact
   end
 
-  #def image_url suffix=nil
-    #image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
-    #return "/data/#{image.id}#{suffix.to_s}.jpg" if image
-    #"/images/item_image#{suffix.to_s}.jpg"
-  #end
-
-  #if image no given
-  #def alt_image_url(suffix = nil)
-    #image = Image.find(:first, :conditions => {:item_id => self.id}, :order => "id desc")
-    #base_item = BaseItem.find(self.id)
-    #img_id = BaseItem.packaging_types.find{|pt| pt[:name] == base_item.packaging_type}[:id]
-    #image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi_new/#{img_id}.jpg"
-  #rescue NoMethodError
-    #"/images/item_image#{suffix.to_s}.jpg"
-  #end
-
 end

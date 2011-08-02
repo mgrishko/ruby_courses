@@ -46,7 +46,7 @@
 	$j(".pt-choose-btn").click(function(){
     $j(this).parent().find('.pt-cases ul li a').each( function(){
       if ($j(this).parent().hasClass('selected')){
-        $j('#base_item_packaging_type').val($j(this).html());
+        $j('#base_item_packaging_type').val($j(this).parent().attr('id'));
      	 	$j('.drop-down').css('visibility','hidden');
     	 	$j('.dd-overlay').css('display', 'none');
        	return false;

@@ -8,7 +8,9 @@
 .w156{
   width:150px;
 }
-
+.pt-cases{
+  height:200px;
+}
 
 /* Logistics */
 
@@ -27,13 +29,14 @@ ul.items li>ul
   position: relative;
 }
 
-ul.items ul>li, ul.items>li
+ul.items ul li, ul.items li
 {
   list-style: none;
   //padding-bottom: 20px;
 //  overflow: hidden;
   padding-left: 40px;
 }
+
 
 ul.items li .item
 {
@@ -46,7 +49,6 @@ ul.items li .item
   padding-top: 20px;
 padding-right:30px;
 }
-
 ul.items li .item p
 {
   margin-bottom: 3px;

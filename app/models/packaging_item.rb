@@ -126,6 +126,12 @@ class PackagingItem < ActiveRecord::Base
     #self.number_of_bi_items = ancestors.inject(1) { |product, pi| product * pi.number_of_next_lower_item } * number_of_next_lower_item if number_of_next_lower_item && number_of_next_lower_item_changed?
   end
 
+
+  def calculate_packaging_type
+    pt = BaseItem.packaging_types.detect{|pt| pt[:code]== packaging_type}
+    pt.present? ? pt[:name] : packaging_type
+  end
+  
   # methods calculate_* for view (highlighting)
   def calculate_quantity
     "#{number_of_next_lower_item},#{number_of_bi_items}"
