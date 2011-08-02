@@ -314,7 +314,7 @@ class BaseItem < ActiveRecord::Base
   def manufacturer
     "#{self.manufacturer_gln} : #{self.manufacturer_name}"
   end
-  
+
   # methods calculate_* for view (highlighting)
   def calculate_packaging_type
     pt = BaseItem.packaging_types.detect{|pt| pt[:code]== packaging_type}
@@ -480,7 +480,7 @@ class BaseItem < ActiveRecord::Base
   def alt_image_url(suffix = nil)
     image = Image.find(:first, :conditions => {:base_item_id => self.id}, :order => "id desc")
     base_item = BaseItem.find(self.id)
-    img_id = BaseItem.packaging_types.find{|pt| pt[:name] == base_item.packaging_type}[:id]
+    img_id = BaseItem.packaging_types.find{|pt| pt[:code] == base_item.packaging_type}[:id]
     image ? "/data/#{image.id}#{suffix.to_s}.jpg" : "/images/pi_new/#{img_id}.jpg"
   rescue NoMethodError
     "/images/item_image#{suffix.to_s}.jpg"
