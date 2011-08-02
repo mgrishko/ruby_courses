@@ -298,6 +298,7 @@ class BaseItem < ActiveRecord::Base
     REF_BOOKS['vats'][I18n.locale]
   end
 
+
   def content_uoms
     REF_BOOKS['content_uoms'][I18n.locale]
   end
@@ -313,7 +314,13 @@ class BaseItem < ActiveRecord::Base
   def manufacturer
     "#{self.manufacturer_gln} : #{self.manufacturer_name}"
   end
+  
   # methods calculate_* for view (highlighting)
+  def calculate_packaging_type
+    pt = BaseItem.packaging_types.detect{|pt| pt[:code]== packaging_type}
+    pt.present? ? pt[:name] : packaging_type
+  end
+
   def calculate_content
     content_uoms.detect { |u| content_uom == u[1] }[0]
   end

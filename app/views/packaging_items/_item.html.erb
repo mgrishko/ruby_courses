@@ -2,7 +2,7 @@
 <%= render :partial => "packaging_items/arrow", :locals => {:item => item} %>
 <div class="pi <%= "highlight" if @accepted_base_item && !accepted_packaging_item -%> <%= "pl" if item.pallet? %>">
 <h3 <%= highlight(:gtin, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.gtin %></h3>
-<p <%= highlight(:packaging_type, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.packaging_type %></p>
+<p <%= highlight(:packaging_type, item, accepted_packaging_item) if accepted_packaging_item -%>><%= h item.calculate_packaging_type %></p>
 <p <%= highlight(:calculate_quantity, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_quantity item %></p>
 <% if item.pallet? %><p><%= calculate_pallet item %></p><% end %>
 <p <%= highlight(:calculate_dimensions, item, accepted_packaging_item) if accepted_packaging_item -%>><%= calculate_dimensions(item) -%></p>
