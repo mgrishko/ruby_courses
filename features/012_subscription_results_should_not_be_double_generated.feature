@@ -1,4 +1,5 @@
 @javascript
+@wip
 Feature: Subscription Result shoud not duplicate
   In order to test subscription result generation without duplication
   As a supplier and retailer

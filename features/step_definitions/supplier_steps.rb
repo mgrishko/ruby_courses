@@ -61,8 +61,8 @@ Then /^I should see new image$/ do
 end
 
 Then /^I should see appropriate image$/ do
-  @base_items.each do |base_item|
-    img = @base_item.image_url('tile')
+  BaseItem.all.each do |base_item|
+    img = base_item.image_url('tile')
     assert find_by_id('img')["src"] =~ /#{img}$/
   end
 end

@@ -51,9 +51,9 @@ Feature: Corresponding test image should show when original image not upload
     And I press "base_item_submit" within ".logistics"
     And I go to the base_items page
     And I wait for 1 second
-    Then I should see appropriate image
+    And I should see appropriate image
 
-    When I logged in as "retailer"
-    And I go to the subscription_results page
-    Then I should see appropriate image
+    #When I logged in as "retailer"
+    #And I go to the subscription_results page
+    #And I should see appropriate image
 
