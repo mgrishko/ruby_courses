@@ -27,6 +27,11 @@ a.drop-down-link{
 .drop-down.hint{
 	left: 0;
 }
+.drop-down.hint2{
+	padding: 5px;
+	top: auto;
+	bottom: 35px;
+}
 .drop-down.dd-red{
 	border: 1px solid #d75764;
 	border-radius: 5px;
@@ -49,6 +54,18 @@ a.drop-down-link{
 	position: absolute;
 	top: -7px;
 	left: 21px;
+}
+.hint2 .blue-barr{
+	background: url(/images/newdesign/blue-barr.png) no-repeat;
+
+	width: 12px;
+	height: 7px;
+	position: absolute;
+	bottom: -6px;
+	left: 21px;	
+}
+.cont-dd-input{
+	position: relative;
 }
 .red-tarr{
 	background: url(/images/newdesign/red-tarr.png) no-repeat;

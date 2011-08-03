@@ -109,7 +109,15 @@ en:
     name_en: 'item name long en'
     new_packaging_item: 'New packaging_item'
     export_to_xls: 'Export to xls'
-
+    internal_item_id_hint: 'internal item id hint here'
+    gtin_hint: 'gtin hint here'
+    brand_hint: 'brand hint here'
+    subbrand_hint: 'subbrand hint here'
+    variant_hint: 'variant hint here'
+    functional_hint: 'functional hint here'
+    manufacturer_gln_hint: 'manufacturer gln hint here'
+    manufacturer_name_hint: 'manufacturer name hint here'
+    item_description_hint: 'item descripton hint here'
 
   pi: # Packaging Item
     pack: 'pack'

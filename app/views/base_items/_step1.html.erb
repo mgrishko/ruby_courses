@@ -5,10 +5,22 @@
   </tr>
   <tr>
     <td>
-      <%= f.text_field :gtin, :class=>'w156' %>
+        <div class="cont-dd-input">
+      <%= f.text_field :gtin, :class=>'w156 dd-input' %>
+      										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.gtin_hint')%>
+										</div>
+									</div>
     </td>
     <td colspan="4">
-      <%= f.text_field :internal_item_id, :class=>'w156' %>
+        <div class="cont-dd-input">
+      <%= f.text_field :internal_item_id, :class=>'w156 dd-input' %>
+      										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.internal_item_id_hint')%>
+										</div>
+									</div>
     </td>
   </tr>
   <tr class="th">
@@ -20,20 +32,49 @@
   </tr>
   <tr>
     <td>
-      <%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path, :class=>'w156' %>
+    <div class="cont-dd-input">
+      <%= f.autocomplete_field :brand, autocomplete_base_item_brand_base_items_path, :class=>'w156 dd-input' %>
+										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.brand_hint')%>
+										</div>
+									</div>
     </td>
     <td>
-      <%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path, :class=>'w156' %>
+        <div class="cont-dd-input">
+      <%= f.autocomplete_field :subbrand, autocomplete_base_item_subbrand_base_items_path, :class=>'w156 dd-input' %>
+										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.subbrand_hint')%>
+										</div>
+									</div>
     </td>
     <td>
-      <%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path, :class=>'w132' %>
+            <div class="cont-dd-input">
+      <%= f.autocomplete_field :functional, autocomplete_base_item_functional_base_items_path, :class=>'w132 dd-input' %>
+      										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.functional_hint')%>
+										</div>
+									</div>
     </td>
     <td>
-      <%= f.autocomplete_field :variant, autocomplete_base_item_variant_base_items_path, :class=>'w132' %>
+                <div class="cont-dd-input">
+      <%= f.autocomplete_field :variant, autocomplete_base_item_variant_base_items_path, :class=>'w132 dd-input' %>
+            										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.variant_hint')%>
+										</div>
+									</div>
     </td>
     <td width="155px" height="20px">
-      <%= f.text_field :content, :class=>'w40', :style=>'float:left'%>
-
+                    <div class="cont-dd-input">
+      <%= f.text_field :content, :class=>'w40 dd-input', :style=>'float:left'%>
+            										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.content_hint')%>
+										</div>
+									</div>
       <div class="drop-down-cont units pad-l-5 zi-1 " >
         <%= f.hidden_field :content_uom, :class => "w100 dd-input" %>
         <a class="drop-down-link" href="#"><%= ( @base_item.content_uom.present? ) ?  @base_item.calculate_content : 'Select' %></a>
@@ -57,7 +98,13 @@
   </tr>
   <tr>
     <td colspan="5">
-      <%= f.autocomplete_field :item_description, autocomplete_base_item_item_description_base_items_path, :class => "w759" %>
+                      <div class="cont-dd-input">
+      <%= f.autocomplete_field :item_description, autocomplete_base_item_item_description_base_items_path, :class => "w759 dd-input" %>
+            										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.item_description_hint')%>
+										</div>
+									</div>
     </td>
   </tr>
   <tr class="th">
@@ -67,10 +114,22 @@
   </tr>
   <tr>
     <td>
-      <%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path, :class=>'w156', :update_elements => {:manufacturer_name => '#base_item_manufacturer_name'} %>
+                          <div class="cont-dd-input">
+      <%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path, :class=>'w156 dd-input', :update_elements => {:manufacturer_name => '#base_item_manufacturer_name'} %>
+                  										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.manufacturer_gln_hint')%>
+										</div>
+									</div>
     </td>
     <td>
-      <%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path, :class=>'w156', :update_elements => {:manufacturer_gln => '#base_item_manufacturer_gln'} %>
+                          <div class="cont-dd-input">
+      <%= f.autocomplete_field :manufacturer_name, autocomplete_base_item_manufacturer_name_base_items_path, :class=>'w156 dd-input', :update_elements => {:manufacturer_gln => '#base_item_manufacturer_gln'} %>
+                  										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.manufacturer_name_hint')%>
+										</div>
+									</div>
     </td>
     <td colspan="3">
       <div id="country_input">
@@ -150,7 +209,13 @@
       </div>
     </td>
     <td colspan="4">
-      <%= f.text_field :minimum_durability_from_arrival, :class=>'w50' %>
+                    <div class="cont-dd-input">
+      <%= f.text_field :minimum_durability_from_arrival, :class=>'w50 dd-input' %>
+                        										<div class="drop-down hint2">
+											<div class="blue-barr"></div>
+											<%= t('item.minimum_durability_from_arrival_hint')%>
+										</div>
+									</div>
       <span class="days"><%= t 'main.days' %></span>
     </td>
   </tr>

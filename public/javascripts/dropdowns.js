@@ -15,6 +15,7 @@ $j('document').ready(function(){
 		$j('.drop-down').css('visibility','hidden');
 		$j('.dd-overlay').css('display','block');
 		$j(this).parent().find('.drop-down').css('visibility','visible');
+		$j(this).parent().css('z-index','2002');
 	})
 
 	$j(document).keyup(function(event){
@@ -22,12 +23,14 @@ $j('document').ready(function(){
  		{
   			$j('.drop-down').css('visibility','hidden');
   			$j('.dd-overlay').css('display', 'none');
+  			$j('.cont-dd-input').css('z-index', '1');
  		}
 	});
 
  	$j('.dd-overlay').click(function(){
   		$j('.drop-down').css('visibility','hidden');
   		$j('.dd-overlay').css('display', 'none');
+  		$j('.cont-dd-input').css('z-index', '1');
 	});
 
 	$j('.drop-down-list ul li a').click(function(){
