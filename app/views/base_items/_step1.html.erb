@@ -134,11 +134,11 @@
     <td colspan="3">
       <div id="country_input">
         <div class="drop-down-cont zi-2">
-          <%= f.text_field :country, :class => 'dd-input w132' %>
+          <%= f.text_field :country, :class => 'dd-input w132', :onkeyup => 'setCountrySelection(this)' %>
           <div class="drop-down">
             <div class="blue-tarr"></div>
             <div class="drop-down-list-cont">
-              <div class="drop-down-list first" style="white-space:nowrap;height:250px">
+              <div class="drop-down-list first" style="white-space:nowrap;height:250px" id='countries_div'>
                 <ul>
                   <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
                 </ul>
@@ -223,6 +223,18 @@
 <div class="dd-overlay"></div>
 <%= javascript_include_tag 'dropdowns' %>
 <script type="text/javascript">
+    var setCountrySelection = function(obj){
+      var input=$j(obj).val().toLowerCase();
+      $j(obj).parent().find('ul li').each(function(){
+        var country = $j(this).find('a').html().toLowerCase();
+        if (country.indexOf(input) == 0){
+          $j('#countries_div').scrollTo( $j(this), 600);
+          if (country == input)
+            $j(this).addClass('selected');
+          return false;
+        }        
+      });
+    };
     var uoms_names = {};
     <%@base_item.content_uoms.each do |p|%>
       uoms_names['<%= p[1]%>'] = '<%= p[0]%>';
