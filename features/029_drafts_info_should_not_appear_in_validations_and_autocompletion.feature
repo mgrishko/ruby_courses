@@ -1,4 +1,5 @@
 @javascript
+@wip
 Feature: Supplier shouldn't see data from drafts in validations or autocompletion
   In order to test drafts data filtration
   As a supplier
