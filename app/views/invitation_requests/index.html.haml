@@ -8,11 +8,18 @@
       %a{:href => "#"}
         = t 'invitation.invitations'
     #goods-list-short
+      .sort-btn
+        = link_to_if (params[:view]!='new' and params[:view].present?), t('new'), url_for(params.merge :view => 'new'), :class=>'kr'
+        |
+        = link_to_if params[:view]!='declined', t('declined'), url_for(params.merge(:view => 'declined'))
+        |
+        = link_to_if params[:view]!='invited', t('invited'), url_for(params.merge(:view => 'invited')) 
+        .clr
       .short-wrap
         - @invitation_requests.each do |ir|
           .item{:id => "request-#{ir.id}" }
             .desc
-              .fright{:id => 'buttons-#{ir.id}'}
+              .fright{:id => "buttons-#{ir.id}"}
                 -if ir.status == 'new'
                   = link_to content_tag(:span, t('invitation.invite')),invite_invitation_request_path(ir), {:class => 'blue-btn', :remote => true, :method=>'GET'}
                   = link_to content_tag(:span, t('invitation.decline')),decline_invitation_request_path(ir),{ :class => 'blue-btn', :remote => true, :method=>'GET' }

@@ -38,7 +38,7 @@ class InvitationRequestsController < ApplicationController
   end
   
   def decline
-    @invitation_request = InvitationRequest.new(params[:id])    
+    @invitation_request = InvitationRequest.find(params[:id])    
     begin
       Notification.decline_invitation_request_email(@invitation_request).deliver    
       @invitation_request.decline!
@@ -48,17 +48,19 @@ class InvitationRequestsController < ApplicationController
   end
   
   def invite
-    @invitation_request = InvitationRequest.new(params[:id])    
+    @invitation_request = InvitationRequest.find(params[:id])    
     #TODO code to invite user call generate new user with params from invitation
     attrs = @invitation_request.attributes.delete(:company_name)
-    @user = User.generate_for_invite(@invitation_request.attributes)
+    @user = User.generate_for_invite(attrs)
     if @user.save
       begin
         Notification.accept_invitation_request_email(@user).deliver    
         @invitation_request.invite!
-      rescue
+      rescue Exception => e
+        render :text => '' and return
       end
     else
+      render :text => '' and return
     end    
     respond_with(@invitation_request)
   end
