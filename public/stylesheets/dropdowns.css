@@ -62,7 +62,7 @@ a.drop-down-link{
 	height: 7px;
 	position: absolute;
 	bottom: -6px;
-	left: 21px;	
+	left: 21px;
 }
 .cont-dd-input{
 	position: relative;
@@ -83,7 +83,7 @@ a.drop-down-link{
 	float: left;
 	overflow-y: scroll;
 	border-left: 1px solid #40b5eb;
-	height: 132px;
+	height: 265px;
 	min-width: 88px;
 }
 .drop-down-list ul{
