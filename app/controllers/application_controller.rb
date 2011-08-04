@@ -170,6 +170,25 @@ class ApplicationController < ActionController::Base
     @manufacturers = BaseItem.get_manufacturers user, supplier, all_suppliers
     @functionals = BaseItem.get_functionals user, supplier, all_suppliers
   end
+  
+  def browser_modern?
+        result  = request.env['HTTP_USER_AGENT']
+        browser_compatible = false
+        if result =~ /Safari/
+          unless result =~ /Chrome/
+            version = result.split('Version/')[1].split(' ').first.split('.').first
+            browser_compatible = version.to_i > 3
+          else
+            version = result.split('Chrome/')[1].split(' ').first.split('.').first
+            browser_compatible =  version.to_i > 8
+          end
+        elsif result =~ /Firefox/
+          version = result.split('Firefox/')[1].split('.').first
+          browser_compatible =  version.to_i > 2
+        end
+        @supported_browser = browser_compatible
+  end
+
 end
 
 class TrueClass

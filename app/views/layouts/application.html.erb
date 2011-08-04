@@ -35,12 +35,24 @@
     <% end %>
   </head>
   <body>
+
   <div id="wrap">
     <div id="header">
       <%= render 'layouts/menu' %>
     </div>
 
     <div id="content">
+  <%if @supported_browser%>
+    <div class='warning'>
+      You use unsupported browser. Please use <a href='#'> Mozilla Firefox</a>(>=3), <a href='#'>Google Chrome</a>(>=9) or Safari(>=4)
+    </div>    
+  <%end%>
+    <div class='warning' id='js-warning'>
+      You should have javascript enabled.
+    </div>    
+      <script>
+        document.getElementById('js-warning').style.display = 'none';
+      </script>
       <%= yield %>
     </div>
 
