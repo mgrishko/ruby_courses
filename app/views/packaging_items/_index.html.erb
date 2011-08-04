@@ -30,19 +30,19 @@
 </tr>
 </table>
 <%= javascript_tag do %>
-  $j('#items li').each(function(element) {
-    if (!$j(this).find('ul')[0]) {
+  $('#items li').each(function(element) {
+    if (!$(this).find('ul')[0]) {
       var ul = "<ul></ul>"
-      $j(this).append(ul);
+      $(this).append(ul);
     }
   });
   <% unless @view_only || @base_item.published? %>
   var li = "<li class='pack new' id='packaging_item_new'></li>";
-  $j(li).appendTo('#items');
-  $j('#items ul').each(function(element) {
-    var id = $j(this).parent().attr('id').replace(/packaging_item_/, '');
+  $(li).appendTo('#items');
+  $('#items ul').each(function(element) {
+    var id = $(this).parent().attr('id').replace(/packaging_item_/, '');
     var element = "<li class='pack new' id='packaging_item_new_" + id +"'><div class='item' style='display:none'></div></li>";
-    $j(this).append(element);
+    $(this).append(element);
   });
   <% end %>
  // setHeights();

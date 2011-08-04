@@ -3,16 +3,16 @@
 </ul>
 
 <script type="text/javascript">
-$j("li", "#countries").hover(
+$("li", "#countries").hover(
   function(){
     countrySelect(this);
   },
   function(){
-    $j(this).removeClass("ac_over");
+    $(this).removeClass("ac_over");
   }
 ).click(function(){
   selectCountry(this);
-  $j(this).addClass("ac_loading");
+  $(this).addClass("ac_loading");
 }
 );
 </script>

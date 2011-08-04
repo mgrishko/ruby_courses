@@ -9,14 +9,14 @@
 <% unless @view_only %>
   <% if @base_item.id %>
     <div id="upload">
-      <a id="link_upload" href="#" onclick="$j('#link_upload').hide(); $j('#form_upload').show(); return false;"><%= t 'image.change' %></a>
+      <a id="link_upload" href="#" onclick="$('#link_upload').hide(); $('#form_upload').show(); return false;"><%= t 'image.change' %></a>
       <form id="form_upload" target="frame" action="/images/upload" enctype="multipart/form-data" method="POST" style="display:none;">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
         <input type="hidden" name="item_id" value="<%= @base_item.item.id %>"/>
         <input type="hidden" name="base_item_id" value="<%= @base_item.id %>"/>
         <input type="file" id="image_file_field" name="image" size="5"/>
         <input type="submit" id="image_submit" value="<%= t 'image.upload' %>" class="submit-btn"/>
-        <input type="button" value="<%= t 'main.cancel' %>" onclick="$j('#link_upload').show(); $j('#form_upload').hide(); return false;" class="submit-btn"/>
+        <input type="button" value="<%= t 'main.cancel' %>" onclick="$('#link_upload').show(); $('#form_upload').hide(); return false;" class="submit-btn"/>
       </form>
       <iframe id='frame' name="frame" style="display:none;"></iframe>
     </div>

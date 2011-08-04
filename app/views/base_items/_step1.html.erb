@@ -224,13 +224,13 @@
 <%= javascript_include_tag 'dropdowns' %>
 <script type="text/javascript">
     var setCountrySelection = function(obj){
-      var input=$j(obj).val().toLowerCase();
-      $j(obj).parent().find('ul li').each(function(){
-        var country = $j(this).find('a').html().toLowerCase();
+      var input=$(obj).val().toLowerCase();
+      $(obj).parent().find('ul li').each(function(){
+        var country = $(this).find('a').html().toLowerCase();
         if (country.indexOf(input) == 0){
-          $j('#countries_div').scrollTo( $j(this), 600);
+          $('#countries_div').scrollTo( $(this), 600);
           if (country == input)
-            $j(this).addClass('selected');
+            $(this).addClass('selected');
           return false;
         }        
       });
@@ -249,43 +249,43 @@
     vats['<%= p[0]%>'] = '<%= p[1]%>';
     <%end%>
 
-  $j('#base_item_manufacturer_gln').bind('railsAutocomplete.select', function(event,ui){
-    $j('#base_item_manufacturer_gln').val(this.value.split(' : ')[0]);
+  $('#base_item_manufacturer_gln').bind('railsAutocomplete.select', function(event,ui){
+    $('#base_item_manufacturer_gln').val(this.value.split(' : ')[0]);
   });
-  $j('#base_item_manufacturer_name').bind('railsAutocomplete.select', function(event,ui){
-    $j('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
+  $('#base_item_manufacturer_name').bind('railsAutocomplete.select', function(event,ui){
+    $('#base_item_manufacturer_name').val(this.value.split(' : ')[1]);
   });
 
-	$j('.drop-down-cont.units .drop-down-list ul li a').click(function(){
-		$j('.drop-down-cont.units').find('.drop-down-link').text($j(this).text());
-		$j('#base_item_content_uom').val(uoms[$j(this).text()]);
+	$('.drop-down-cont.units .drop-down-list ul li a').click(function(){
+		$('.drop-down-cont.units').find('.drop-down-link').text($(this).text());
+		$('#base_item_content_uom').val(uoms[$(this).text()]);
 		PrepareDescriptionString();
-		$j('.drop-down').css('visibility','hidden');
-		$j('.dd-overlay').css('display', 'none');
+		$('.drop-down').css('visibility','hidden');
+		$('.dd-overlay').css('display', 'none');
 		return false;
 	});
 
-	$j("#country_select_btn").click(function(){
-    $j('#country_input .drop-down-list ul li a').each( function(){
-      if ($j(this).parent().hasClass('selected')){
-        $j('#base_item_country').val($j(this).html());
-     		$j('.drop-down').css('visibility','hidden');
-    		$j('.dd-overlay').css('display', 'none');
+	$("#country_select_btn").click(function(){
+    $('#country_input .drop-down-list ul li a').each( function(){
+      if ($(this).parent().hasClass('selected')){
+        $('#base_item_country').val($(this).html());
+     		$('.drop-down').css('visibility','hidden');
+    		$('.dd-overlay').css('display', 'none');
     		return false;
     		}
     });
   });
-  $j('#base_item_gpc_name_link').click(function(){
-    $j.ajax({data:$j.param($j(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
+  $('#base_item_gpc_name_link').click(function(){
+    $.ajax({data:$.param($(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
 	});
 
-	$j("#gpc_select_btn").click(function(){
-    $j('#categories ul li a').each( function(){
-      if ($j(this).parent().hasClass('selected')){
-        $j('#base_item_gpc_name_link').html($j(this).html());
-        $j('#base_item_gpc_name').val($j(this).html());
-     	 	$j('.drop-down').css('visibility','hidden');
-    	 	$j('.dd-overlay').css('display', 'none');
+	$("#gpc_select_btn").click(function(){
+    $('#categories ul li a').each( function(){
+      if ($(this).parent().hasClass('selected')){
+        $('#base_item_gpc_name_link').html($(this).html());
+        $('#base_item_gpc_name').val($(this).html());
+     	 	$('.drop-down').css('visibility','hidden');
+    	 	$('.dd-overlay').css('display', 'none');
        	return false;
       }
     });
@@ -296,41 +296,41 @@
   var is_description_touched = false;
 
 
-  $j("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
-	$j("#base_item_brand").change(function(){PrepareDescriptionString()});
+  $("#base_item_brand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$("#base_item_brand").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
-	$j("#base_item_subbrand").change(function(){PrepareDescriptionString()});
+  $("#base_item_subbrand").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$("#base_item_subbrand").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
-	$j("#base_item_functional").change(function(){PrepareDescriptionString()});
+  $("#base_item_functional").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$("#base_item_functional").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_content").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
-	$j("#base_item_content").change(function(){PrepareDescriptionString()});
+  $("#base_item_content").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$("#base_item_content").change(function(){PrepareDescriptionString()});
 
-  $j("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
-	$j("#base_item_content_uom").change(function(){PrepareDescriptionString()});
+  $("#base_item_content_uom").bind('railsAutocomplete.select', function(event,ui){PrepareDescriptionString();});
+	$("#base_item_content_uom").change(function(){PrepareDescriptionString()});
 
 
-	$j("#base_item_item_description").change(function() {
+	$("#base_item_item_description").change(function() {
 		is_description_touched = true;
 	});
 
 	function PrepareDescriptionString(){
     if (!is_description_touched){
 		  var string = ""
-        string += $j("#base_item_brand").val();
+        string += $("#base_item_brand").val();
         string += " ";
-      	string += $j("#base_item_subbrand").val();
+      	string += $("#base_item_subbrand").val();
         string += " ";
-      	string += $j("#base_item_functional").val();
+      	string += $("#base_item_functional").val();
         string += " ";
-       	string += $j("#base_item_content").val();
-        if ($j("#base_item_content_uom").val()){
+       	string += $("#base_item_content").val();
+        if ($("#base_item_content_uom").val()){
           string += " ";
-        	string += uoms_names[$j("#base_item_content_uom").val()];
+        	string += uoms_names[$("#base_item_content_uom").val()];
         	}
-     		$j("#base_item_item_description").val(string);
+     		$("#base_item_item_description").val(string);
       }
 		}
 <% end %>

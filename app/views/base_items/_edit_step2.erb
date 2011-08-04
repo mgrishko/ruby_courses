@@ -25,29 +25,29 @@
 </div>
 <div class="dd-overlay"></div>
 <script type="text/javascript">
-	$j('.dd-input').focus(function(e){
-	  $j('.remark').html("");
-  	$j.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
-		$j('.drop-down').css('visibility','hidden');
-		$j('.dd-overlay').css('display','block');
-		$j(this).parent().find('.drop-down').css('visibility','visible');
+	$('.dd-input').focus(function(e){
+	  $('.remark').html("");
+  	$.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
+		$('.drop-down').css('visibility','hidden');
+		$('.dd-overlay').css('display','block');
+		$(this).parent().find('.drop-down').css('visibility','visible');
 		return false;
 	});
-	$j('.choose-btn').click(function(){
-		$j('.drop-down').css('visibility','hidden');
-		$j('.dd-overlay').css('display', 'none');
+	$('.choose-btn').click(function(){
+		$('.drop-down').css('visibility','hidden');
+		$('.dd-overlay').css('display', 'none');
 		return false;
 	})
- 	$j('.dd-overlay').click(function(){
-  		$j('.drop-down').css('visibility','hidden');
-  		$j('.dd-overlay').css('display', 'none');
+ 	$('.dd-overlay').click(function(){
+  		$('.drop-down').css('visibility','hidden');
+  		$('.dd-overlay').css('display', 'none');
 	});
-	$j(".pt-choose-btn").click(function(){
-    $j(this).parent().find('.pt-cases ul li a').each( function(){
-      if ($j(this).parent().hasClass('selected')){
-        $j('#base_item_packaging_type').val($j(this).parent().attr('id'));
-     	 	$j('.drop-down').css('visibility','hidden');
-    	 	$j('.dd-overlay').css('display', 'none');
+	$(".pt-choose-btn").click(function(){
+    $(this).parent().find('.pt-cases ul li a').each( function(){
+      if ($(this).parent().hasClass('selected')){
+        $('#base_item_packaging_type').val($(this).parent().attr('id'));
+     	 	$('.drop-down').css('visibility','hidden');
+    	 	$('.dd-overlay').css('display', 'none');
        	return false;
       }
     });

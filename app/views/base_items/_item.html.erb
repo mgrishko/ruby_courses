@@ -27,10 +27,10 @@
 </div>
 <script>
 
-$j(".show_export_form").click(function(){
+$(".show_export_form").click(function(){
     // preload template names and show dialog window
-    $j("#export_form_fields").load("/main/export_form",function(){
-    var container = $j('#export_form_wrapper');
+    $("#export_form_fields").load("/main/export_form",function(){
+    var container = $('#export_form_wrapper');
     container.dialog({
         modal: true,
         title: "Получить данные в формах ритейлеров",
@@ -41,13 +41,13 @@ $j(".show_export_form").click(function(){
 
     });
     // validate if any export form is choosen
-    $j('.xls_templates').change(function(){
+    $('.xls_templates').change(function(){
         tmp = false;
-        $j('.xls_templates').each(function(){ tmp = tmp || $j(this).is(':checked'); });
+        $('.xls_templates').each(function(){ tmp = tmp || $(this).is(':checked'); });
         if(tmp)
-          $j('#export_one').attr('disabled',false);
+          $('#export_one').attr('disabled',false);
         else
-          $j('#export_one').attr('disabled',true);
+          $('#export_one').attr('disabled',true);
     });
   });
   return false;

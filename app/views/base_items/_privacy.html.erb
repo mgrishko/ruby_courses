@@ -44,21 +44,21 @@
 					</div>
 <script type="text/javascript">
   var showHideCompanies = function(){
-    if($j('#rb-companies').siblings('.jNiceRadio').hasClass('jNiceChecked'))
+    if($('#rb-companies').siblings('.jNiceRadio').hasClass('jNiceChecked'))
 		{
-			$j('.companies').css('display','inline');
-   		$j('.companies').css('visibility','visible');
-			$j('#base_item_private').val('true');
+			$('.companies').css('display','inline');
+   		$('.companies').css('visibility','visible');
+			$('#base_item_private').val('true');
 
 		}
 		else
 		{
-			$j('.companies').css('display','none');
-			$j('#base_item_private').val('false');
+			$('.companies').css('display','none');
+			$('#base_item_private').val('false');
 		}
   };
-  $j(document).ready(function(){showHideCompanies()});
-	$j('.rb-privacy').click(function(){
+  $(document).ready(function(){showHideCompanies()});
+	$('.rb-privacy').click(function(){
 	  showHideCompanies();
 	});
 </script>

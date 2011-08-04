@@ -37,33 +37,33 @@
 								  <% @retailers.each do |r|%>
 								      receivers['<%= h r.name %>'] = <%=r.gln%>;
 								  <% end %>
-									$j('.drop-down-link').click(function(){
-            	    	$j('.drop-down').css('visibility','hidden');
-                 		$j('.dd-overlay').css('display','block');
-                		$j(this).parent().find('.drop-down').css('visibility','visible');
+									$('.drop-down-link').click(function(){
+            	    	$('.drop-down').css('visibility','hidden');
+                 		$('.dd-overlay').css('display','block');
+                		$(this).parent().find('.drop-down').css('visibility','visible');
                 		return false;
                   });
 
-                  $j('.drop-down-list ul li a').click(function(){
-		                  $j(this).parent().parent().find('li').removeClass('selected');
-                  		$j(this).parent().parent().parent().find('li').removeClass('selected');
-                    	$j(this).parent().addClass('selected');
+                  $('.drop-down-list ul li a').click(function(){
+		                  $(this).parent().parent().find('li').removeClass('selected');
+                  		$(this).parent().parent().parent().find('li').removeClass('selected');
+                    	$(this).parent().addClass('selected');
                       return false;
                 	});
- 	                $j('.dd-overlay').click(function(){
-  	              	$j('.drop-down').css('visibility','hidden');
-  	              	$j('.dd-overlay').css('display', 'none');
+ 	                $('.dd-overlay').click(function(){
+  	              	$('.drop-down').css('visibility','hidden');
+  	              	$('.dd-overlay').css('display', 'none');
 	                });
 
-              		$j('#retailer_select_btn').click(function(){
+              		$('#retailer_select_btn').click(function(){
 
-                		$j('#retailers_list ul li a').each(function(){
-                        if ($j(this).parent().hasClass('selected')){
-                          var value=$j(this).html()
-                          $j('#retailer_label').html(value);
-                          $j('#new_receiver_input2').val(receivers[value])
-                       	 	$j('.drop-down').css('visibility','hidden');
-                      	 	$j('.dd-overlay').css('display', 'none');
+                		$('#retailers_list ul li a').each(function(){
+                        if ($(this).parent().hasClass('selected')){
+                          var value=$(this).html()
+                          $('#retailer_label').html(value);
+                          $('#new_receiver_input2').val(receivers[value])
+                       	 	$('.drop-down').css('visibility','hidden');
+                      	 	$('.dd-overlay').css('display', 'none');
                          	return false;
                         }
                 		});

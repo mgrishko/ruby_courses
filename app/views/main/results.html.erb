@@ -3,24 +3,24 @@
 </ul>
 
 <script type="text/javascript">
-  $j(document).ready(function(){
-    $j('.pt-cases').each(function(){
-      var val = $j(this).parent().parent().parent().find('.dd-input').val();
-      $j(this).find('ul li').each(function(){
-        if ($j(this).attr('id') == val){
-          $j(this).addClass('selected');
+  $(document).ready(function(){
+    $('.pt-cases').each(function(){
+      var val = $(this).parent().parent().parent().find('.dd-input').val();
+      $(this).find('ul li').each(function(){
+        if ($(this).attr('id') == val){
+          $(this).addClass('selected');
     	  	requestManData(val);
-    	  	$j('.pt-cases').scrollTo("li.selected",600)
+    	  	$('.pt-cases').scrollTo("li.selected",600)
    	    }    	  
       });      
     });        
 	});    
 
-	  $j('.drop-down-list ul li a').click(function(){
-	  	$j(this).parent().parent().find('li').removeClass('selected');
-	  	$j(this).parent().parent().parent().find('li').removeClass('selected');
-	  	$j(this).parent().addClass('selected');
-	  	requestManData($j(this).parent().attr("id"));
+	  $('.drop-down-list ul li a').click(function(){
+	  	$(this).parent().parent().find('li').removeClass('selected');
+	  	$(this).parent().parent().parent().find('li').removeClass('selected');
+	  	$(this).parent().addClass('selected');
+	  	requestManData($(this).parent().attr("id"));
 	  	return false;
 	  });
 	

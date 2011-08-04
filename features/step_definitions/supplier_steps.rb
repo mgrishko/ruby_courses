@@ -90,7 +90,7 @@ end
 
 When /^(?:|I )fill in hidden_field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    page.execute_script("$j('##{field}').val('#{value}');")
+    page.execute_script("$('##{field}').val('#{value}');")
   end
 end
 

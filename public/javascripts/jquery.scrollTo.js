@@ -36,59 +36,59 @@
  * @return {jQuery} Returns the same jQuery object, for chaining.
  *
  * @desc Scroll to a fixed position
- * @example $j('div').scrollTo( 340 );
+ * @example $('div').scrollTo( 340 );
  *
  * @desc Scroll relatively to the actual position
- * @example $j('div').scrollTo( '+=340px', { axis:'y' } );
+ * @example $('div').scrollTo( '+=340px', { axis:'y' } );
  *
  * @dec Scroll using a selector (relative to the scrolled element)
- * @example $j('div').scrollTo( 'p.paragraph:eq(2)', 500, { easing:'swing', queue:true, axis:'xy' } );
+ * @example $('div').scrollTo( 'p.paragraph:eq(2)', 500, { easing:'swing', queue:true, axis:'xy' } );
  *
  * @ Scroll to a DOM element (same for jQuery object)
  * @example var second_child = document.getElementById('container').firstChild.nextSibling;
- *			$j('#container').scrollTo( second_child, { duration:500, axis:'x', onAfter:function(){
+ *			$('#container').scrollTo( second_child, { duration:500, axis:'x', onAfter:function(){
  *				alert('scrolled!!');																   
  *			}});
  *
  * @desc Scroll on both axes, to different values
- * @example $j('div').scrollTo( { top: 300, left:'+=200' }, { axis:'xy', offset:-20 } );
+ * @example $('div').scrollTo( { top: 300, left:'+=200' }, { axis:'xy', offset:-20 } );
  */
-;(function( $j ){
+;(function( $ ){
 	
-	var $jscrollTo = $j.scrollTo = function( target, duration, settings ){
-		$j(window).scrollTo( target, duration, settings );
+	var $scrollTo = $.scrollTo = function( target, duration, settings ){
+		$(window).scrollTo( target, duration, settings );
 	};
 
-	$jscrollTo.defaults = {
+	$scrollTo.defaults = {
 		axis:'xy',
-		duration: parseFloat($j.fn.jquery) >= 1.3 ? 0 : 1
+		duration: parseFloat($.fn.jquery) >= 1.3 ? 0 : 1
 	};
 
 	// Returns the element that needs to be animated to scroll the window.
 	// Kept for backwards compatibility (specially for localScroll & serialScroll)
-	$jscrollTo.window = function( scope ){
-		return $j(window)._scrollable();
+	$scrollTo.window = function( scope ){
+		return $(window)._scrollable();
 	};
 
 	// Hack, hack, hack :)
 	// Returns the real elements to scroll (supports window/iframes, documents and regular nodes)
-	$j.fn._scrollable = function(){
+	$.fn._scrollable = function(){
 		return this.map(function(){
 			var elem = this,
-				isWin = !elem.nodeName || $j.inArray( elem.nodeName.toLowerCase(), ['iframe','#document','html','body'] ) != -1;
+				isWin = !elem.nodeName || $.inArray( elem.nodeName.toLowerCase(), ['iframe','#document','html','body'] ) != -1;
 
 				if( !isWin )
 					return elem;
 
 			var doc = (elem.contentWindow || elem).document || elem.ownerDocument || elem;
 			
-			return $j.browser.safari || doc.compatMode == 'BackCompat' ?
+			return $.browser.safari || doc.compatMode == 'BackCompat' ?
 				doc.body : 
 				doc.documentElement;
 		});
 	};
 
-	$j.fn.scrollTo = function( target, duration, settings ){
+	$.fn.scrollTo = function( target, duration, settings ){
 		if( typeof duration == 'object' ){
 			settings = duration;
 			duration = 0;
@@ -99,7 +99,7 @@
 		if( target == 'max' )
 			target = 9e9;
 			
-		settings = $j.extend( {}, $jscrollTo.defaults, settings );
+		settings = $.extend( {}, $scrollTo.defaults, settings );
 		// Speed is still recognized for backwards compatibility
 		duration = duration || settings.speed || settings.duration;
 		// Make sure the settings are given right
@@ -113,36 +113,36 @@
 
 		return this._scrollable().each(function(){
 			var elem = this,
-				$jelem = $j(elem),
+				$elem = $(elem),
 				targ = target, toff, attr = {},
-				win = $jelem.is('html,body');
+				win = $elem.is('html,body');
 
 			switch( typeof targ ){
 				// A number will pass the regex
 				case 'number':
 				case 'string':
-					if( /^([+-]=)?\d+(\.\d+)?(px|%)?$j/.test(targ) ){
+					if( /^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(targ) ){
 						targ = both( targ );
 						// We are done
 						break;
 					}
 					// Relative selector, no break!
-					targ = $j(targ,this);
+					targ = $(targ,this);
 				case 'object':
 					// DOMElement / jQuery
 					if( targ.is || targ.style )
 						// Get the real position of the target 
-						toff = (targ = $j(targ)).offset();
+						toff = (targ = $(targ)).offset();
 			}
-			$j.each( settings.axis.split(''), function( i, axis ){
+			$.each( settings.axis.split(''), function( i, axis ){
 				var Pos	= axis == 'x' ? 'Left' : 'Top',
 					pos = Pos.toLowerCase(),
 					key = 'scroll' + Pos,
 					old = elem[key],
-					max = $jscrollTo.max(elem, axis);
+					max = $scrollTo.max(elem, axis);
 
 				if( toff ){// jQuery / DOMElement
-					attr[key] = toff[pos] + ( win ? 0 : old - $jelem.offset()[pos] );
+					attr[key] = toff[pos] + ( win ? 0 : old - $elem.offset()[pos] );
 
 					// If it's a dom element, reduce the margin
 					if( settings.margin ){
@@ -164,7 +164,7 @@
 				}
 
 				// Number or 'number'
-				if( /^\d+$j/.test(attr[key]) )
+				if( /^\d+$/.test(attr[key]) )
 					// Check the limits
 					attr[key] = attr[key] <= 0 ? 0 : Math.min( attr[key], max );
 
@@ -182,7 +182,7 @@
 			animate( settings.onAfter );			
 
 			function animate( callback ){
-				$jelem.animate( attr, duration, settings.easing, callback && function(){
+				$elem.animate( attr, duration, settings.easing, callback && function(){
 					callback.call(this, target, settings);
 				});
 			};
@@ -192,12 +192,12 @@
 	
 	// Max scrolling position, works on quirks mode
 	// It only fails (not too badly) on IE, quirks mode.
-	$jscrollTo.max = function( elem, axis ){
+	$scrollTo.max = function( elem, axis ){
 		var Dim = axis == 'x' ? 'Width' : 'Height',
 			scroll = 'scroll'+Dim;
 		
-		if( !$j(elem).is('html,body') )
-			return elem[scroll] - $j(elem)[Dim.toLowerCase()]();
+		if( !$(elem).is('html,body') )
+			return elem[scroll] - $(elem)[Dim.toLowerCase()]();
 		
 		var size = 'client' + Dim,
 			html = elem.ownerDocument.documentElement,

@@ -6,6 +6,6 @@
 <%= f.hidden_field :message_info, :value => @message_info if @message_info %>
 <%= f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area", :style => "background: #FFF;", :id => "comment_reply" %><br/>
 <%= f.submit t('main.reply'), :name => "new", :class => "submit-add", :style => "width: auto;", :id => 'reply_submit' %>
-<%= f.submit t('main.cancel'), :name=> "cancel", :class => "submit-add", :style => "width: auto;", :onclick => "$j('#cr-#{@r.id}').html(''); return false;" %>
+<%= f.submit t('main.cancel'), :name=> "cancel", :class => "submit-add", :style => "width: auto;", :onclick => "$('#cr-#{@r.id}').html(''); return false;" %>
 <% end %>
 

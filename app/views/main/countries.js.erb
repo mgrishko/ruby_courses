@@ -1,7 +1,7 @@
-$j('#hidden_div').show();
-$j("#countries_results").html("<%= escape_javascript (render :file => 'main/_countries.html.erb') %>");
-var pos = $j("#country_input").offset();
-$j("#countries").css({
+$('#hidden_div').show();
+$("#countries_results").html("<%= escape_javascript (render :file => 'main/_countries.html.erb') %>");
+var pos = $("#country_input").offset();
+$("#countries").css({
 	top: (pos.top - 15) + "px",
-	left: (pos.left + $j("#country_input").width() * 0.7) + "px"
+	left: (pos.left + $("#country_input").width() * 0.7) + "px"
 }).show();

@@ -14,8 +14,8 @@
 *       <input type="text" data-autocomplete="/url/to/autocomplete" id_element="#id_field">
 */
 
-$j(document).ready(function(){
-  $j('input[data-autocomplete]').railsAutocomplete();
+$(document).ready(function(){
+  $('input[data-autocomplete]').railsAutocomplete();
 });
 
 (function(jQuery)
@@ -41,7 +41,7 @@ $j(document).ready(function(){
   jQuery.railsAutocomplete.fn.extend = jQuery.railsAutocomplete.extend = jQuery.extend;
   jQuery.railsAutocomplete.fn.extend({
     init: function(e) {
-      e.delimiter = $j(e).attr('data-delimiter') || null;
+      e.delimiter = $(e).attr('data-delimiter') || null;
       function split( val ) {
         return val.split( e.delimiter );
       }
@@ -49,15 +49,15 @@ $j(document).ready(function(){
         return split( term ).pop().replace(/^\s+/,"");
       }
 
-      $j(e).autocomplete({
+      $(e).autocomplete({
         source: function( request, response ) {
-          $j.getJSON( $j(e).attr('data-autocomplete'), {
+          $.getJSON( $(e).attr('data-autocomplete'), {
             term: extractLast( request.term )
           }, function() {
-            $j(arguments[0]).each(function(i, el) {
+            $(arguments[0]).each(function(i, el) {
               var obj = {};
               obj[el.id] = el;
-              $j(e).data(obj);
+              $(e).data(obj);
             });
             response.apply(null, arguments);
           });
@@ -85,25 +85,25 @@ $j(document).ready(function(){
             this.value = terms.join( e.delimiter );
           } else {
             this.value = terms.join("");
-            if ($j(this).attr('id_element')) {
-              $j($j(this).attr('id_element')).val(ui.item.id);
+            if ($(this).attr('id_element')) {
+              $($(this).attr('id_element')).val(ui.item.id);
             }
-            if ($j(this).attr('data-update-elements')) {
-              var data = $j(this).data(ui.item.id.toString());
-              var update_elements = $j.parseJSON($j(this).attr("data-update-elements"));
+            if ($(this).attr('data-update-elements')) {
+              var data = $(this).data(ui.item.id.toString());
+              var update_elements = $.parseJSON($(this).attr("data-update-elements"));
               for (var key in update_elements) {
-                $j(update_elements[key]).val(data[key]);
+                $(update_elements[key]).val(data[key]);
               }
             }
           }
           var remember_string = this.value;
-          $j(this).bind('keyup.clearId', function(){
-            if($j(this).val().trim() != remember_string.trim()){
-              $j($j(this).attr('id_element')).val("");
-              $j(this).unbind('keyup.clearId');
+          $(this).bind('keyup.clearId', function(){
+            if($(this).val().trim() != remember_string.trim()){
+              $($(this).attr('id_element')).val("");
+              $(this).unbind('keyup.clearId');
             }
           });
-          $j(this).trigger('railsAutocomplete.select');
+          $(this).trigger('railsAutocomplete.select');
 
           return false;
         }

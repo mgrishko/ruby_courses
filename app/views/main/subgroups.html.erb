@@ -9,13 +9,13 @@
 	<% end %>
 </ul>
 <script type="text/javascript">
-	$j('.drop-down-list ul li a').click(function(){
-		$j(this).parent().parent().find('li').removeClass('selected');
-		$j(this).parent().parent().parent().find('li').removeClass('selected');
-//    $j(this).addClass("ac_loading");
-		$j(this).parent().addClass('selected');
-    $j("#categories").html("");
-    requestCategoriesData($j(this).parent().attr("id"));
+	$('.drop-down-list ul li a').click(function(){
+		$(this).parent().parent().find('li').removeClass('selected');
+		$(this).parent().parent().parent().find('li').removeClass('selected');
+//    $(this).addClass("ac_loading");
+		$(this).parent().addClass('selected');
+    $("#categories").html("");
+    requestCategoriesData($(this).parent().attr("id"));
 		return false;
 	});
 </script>

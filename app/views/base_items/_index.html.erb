@@ -252,31 +252,37 @@
 <div class="pp-overlay"></div>
 
 <script>
-    $j('.art').click(function(ev){
+$(document).ready(function(){
+  $('#goods-list-short .item').click(function(){    
+  document.location=$('#goods-list-short .item').find('.art').attr('href');
+  });
+});
+
+    $('.art').click(function(ev){
       ev.stopPropagation();
     });
     var any_base_item_checked = false;
-    $j('.base_item_checkbox').each(function() {
-        any_base_item_checked = any_base_item_checked || $j(this).is(':checked');
+    $('.base_item_checkbox').each(function() {
+        any_base_item_checked = any_base_item_checked || $(this).is(':checked');
     });
 
-    $j('.base_item_checkbox').change(function() {
+    $('.base_item_checkbox').change(function() {
         var tmp = false;
-        $j('.base_item_checkbox').each(function() {
-            tmp = tmp || $j(this).is(':checked');
+        $('.base_item_checkbox').each(function() {
+            tmp = tmp || $(this).is(':checked');
         });
         any_base_item_checked = tmp;
     });
 
-    $j('.base_item_checkbox').click(function(event) {
+    $('.base_item_checkbox').click(function(event) {
         event.stopPropagation();
     })
 
-    $j("#show_export_form").click(function() {
+    $("#show_export_form").click(function() {
         if (any_base_item_checked) {
             // preload template names and show dialog window
-            $j("#export_form_fields").load("/main/export_form", function() {
-                var container = $j('#export_form_wrapper');
+            $("#export_form_fields").load("/main/export_form", function() {
+                var container = $('#export_form_wrapper');
                 container.dialog({
                     modal: true,
                     title: "Получить данные в формах ритейлеров",
@@ -287,25 +293,25 @@
                 });
 
                 // validate if any export form is choosen
-                $j('.xls_templates').change(function() {
+                $('.xls_templates').change(function() {
                     tmp = false;
-                    $j('.xls_templates').each(function() {
-                        tmp = tmp || $j(this).is(':checked');
+                    $('.xls_templates').each(function() {
+                        tmp = tmp || $(this).is(':checked');
                     });
                     if (tmp)
-                        $j('#export_button').attr('disabled', false);
+                        $('#export_button').attr('disabled', false);
                     else
-                        $j('#export_button').attr('disabled', true);
+                        $('#export_button').attr('disabled', true);
                 });
                 //collect base_item ids which were checked for export
-                $j('#export_button').click(function() {
-                    var inputs = $j('#base_items_form :input');
+                $('#export_button').click(function() {
+                    var inputs = $('#base_items_form :input');
                     var values = {'base_items[]': ''};
                     inputs.each(function() {
-                        if ($j(this).attr('checked') == 'checked')
-                            values[this.name] += $j(this).val() + ',';
+                        if ($(this).attr('checked') == 'checked')
+                            values[this.name] += $(this).val() + ',';
                     });
-                    $j('#base_items_ids').val(values['base_items[]'])
+                    $('#base_items_ids').val(values['base_items[]'])
                 });
             });
         } else {
