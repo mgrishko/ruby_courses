@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
  
   def self.generate_for_invite(args={})
     user = User.new(args)
-    user.gln = User.maximum(:gln)+10
+    user.gln = User.maximum(:gln)+1
     user.password=Digest::MD5.hexdigest(DateTime.now.hash.to_s+rand(10000000).to_s)[0..8]
     user.password_confirmation = user.password
     user

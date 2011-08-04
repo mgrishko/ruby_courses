@@ -50,8 +50,9 @@ class InvitationRequestsController < ApplicationController
   def invite
     @invitation_request = InvitationRequest.find(params[:id])    
     #TODO code to invite user call generate new user with params from invitation
-    attrs = @invitation_request.attributes.delete(:company_name)
-    @user = User.generate_for_invite(attrs)
+    prms = @invitation_request.attributes
+    %w{company_name status notes}.each{|col|    prms.delete(col)}
+    @user = User.generate_for_invite(prms)
     if @user.save
       begin
         Notification.accept_invitation_request_email(@user).deliver    

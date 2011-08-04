@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
         preferred_language
       end
     @text_direction = RTL_LANGS.include?(I18n.locale) ? 'rtl' : 'ltr'
-    logger.info "ApplicationController@#{__LINE__}#set_locale locale is #{I18n.locale.inspect} user is #{(!current_user || current_user.new_record?) ? '_guest_' : (current_user.name + "(#{current_user.id})")}"
+    logger.info "ApplicationController@#{__LINE__}#set_locale locale is #{I18n.locale.inspect} user is #{(!current_user || current_user.new_record?) ? '_guest_' : ("#{current_user.name}" + "(#{current_user.id})")}"
     @other_locales = []
     if request.get?
       query_parameters = params.dup
