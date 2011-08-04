@@ -818,7 +818,7 @@ ol, ul {
 	padding:35px 0 15px 0px;
 }
 .short-wrap {
-	width:755px; 
+	width:755px;
 	padding:0 0 20px 0px;
 	border-top:1px solid #C9C9C9;
 }
@@ -862,7 +862,7 @@ ol, ul {
 	border: 1px solid #fff;
 	border-top:1px solid #F1F1F1;
 	border-bottom:1px solid #D5D5D5;
-	
+
 	padding:10px 0px 10px 10px;
 	position:relative;
 	height:35px;
@@ -1184,7 +1184,7 @@ tr.th td {
 	width: 395px;
 	position: absolute;
 	top: -105px;
-	left: 368px;
+	left: 320px;
 	background: #f5f6f8;
 	box-shadow: 3px 3px 4px #808080;
 	z-index: 2001;
