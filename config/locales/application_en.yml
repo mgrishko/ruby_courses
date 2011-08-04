@@ -63,7 +63,6 @@ en:
     logged_in: 'Successful login' # Успешно вошли
     logged_out: 'Successful logout' # Успешно вышли
 
-
   filter:
     remove: 'Remove filter'
 
@@ -243,4 +242,16 @@ en:
     account_admin: 'Only Admin has access to this page' #"Только администратор имеет право доступа к этой странице"
     created_sent: 'BaseItem was successfully created and sent'
     created: 'BaseItem was successfully created.'
-
+    
+  invitation:
+    request_invitation: 'Request Invitation'
+    back: 'Back'
+    company_name: 'Company Name'
+    name: 'Name'
+    email: 'Email'
+    notes: 'Notes'
+    request_your_invitation: 'Request Your Invitation'
+    invitations: 'Invitation Requests'
+    invite: 'Invite'
+    decline: 'Decline'
+    role: 'Desired role'

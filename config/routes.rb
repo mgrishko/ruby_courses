@@ -1,4 +1,5 @@
 Webforms::Application.routes.draw do
+
   namespace :admin do
     resources :users do
       resources :base_items
@@ -43,6 +44,13 @@ Webforms::Application.routes.draw do
     end
   end
   resources :retailer_attributes
+  resources :invitation_requests do
+    member do
+      get :invite
+      get :decline
+    end
+  end
+  
   resources :user_attributes
   resources :comments do
     collection do

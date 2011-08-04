@@ -1,0 +1,3 @@
+page["buttons-#{@invitation_request}"].html = @invitation_request.status
+page["request-#{@invitation_request}"].addClass('bg-rose')
+page.alert(1)

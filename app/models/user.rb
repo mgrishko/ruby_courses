@@ -37,8 +37,13 @@ class User < ActiveRecord::Base
   has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
   validates_uniqueness_of :gln
-
+  validates :email, 
+            :allow_nil => true,
+            :uniqueness => true,
+            :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+            
   acts_as_authentic do |a|
+    a.validate_email_field = false
     a.validate_login_field = false
     a.validate_password_field = true
     a.validates_uniqueness_of_login_field_options = {
@@ -50,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
 
-  ROLES = %w[admin retailer local_supplier global_supplier]
+  ROLES = %w[retailer local_supplier global_supplier admin]
 
   scope :retailers,
     where("roles_mask & #{2**ROLES.index('retailer')} != 0")
@@ -126,5 +131,12 @@ class User < ActiveRecord::Base
   def has_usual_subscription? item
     self.subscriptions.usual.active.where(:supplier_id => item.user_id).any?
   end
+ 
+  def self.generate_for_invite(args={})
+    user = User.new(args)
+    user.gln = User.maximum(:gln)+10
+    user.password=Digest::MD5.hexdigest(DateTime.now.hash.to_s+rand(10000000).to_s)[0..8]
+    user
+  end  
 end
 

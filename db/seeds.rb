@@ -69,6 +69,7 @@ users.each do |user|
   u = User.new(user)
   u.id = user[:id]
   u.save
+  puts u.errors
   puts "#{u.gln}/#{u.password}"
 end
 puts "ok"

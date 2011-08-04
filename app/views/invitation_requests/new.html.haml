@@ -1,0 +1,29 @@
+%div{:style=> 'margin:0 auto;width:300px'}
+  %h1 
+    =t('invitation.request_your_invitation')
+  -form_for @invitation_request do |f|
+    = f.error_messages
+    %p
+      =f.label t('invitation.company_name')
+      =f.text_field :company_name
+    %p
+      =f.label t('invitation.name')
+      =f.text_field :name
+    %p
+      =f.label t('invitation.email')
+      =f.text_field :email
+    %p  
+      =f.label t('invitation.notes')
+      =f.text_area :notes,:rows=>15,:cols=>40
+      
+    %p  
+      =f.label t('invitation.role')
+      %p
+        -InvitationRequest::ROLES.each do |role|
+          =radio_button_tag 'roles[]', role
+          =f.label role
+          %br
+    %p
+      =f.submit t('invitation.request_invitation'), :class=> 'submit-btn'
+      =link_to  t('invitation.back'), login_path
+

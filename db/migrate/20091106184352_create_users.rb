@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :gln
       t.string :pw_hash
       t.string :persistence_token
+      t.string :email
 
       t.timestamps
     end
