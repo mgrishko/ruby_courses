@@ -41,6 +41,7 @@ class InvitationRequest < ActiveRecord::Base
             :presence => true, 
             :length => { :within => 1..50 }
   validates :notes,
+            :allow_nil => true,
             :length => { :within => 1..140 }
             
   ROLES = %w[retailer local_supplier global_supplier]

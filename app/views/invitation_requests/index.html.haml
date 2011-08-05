@@ -7,7 +7,12 @@
     .address
       %a{:href => "#"}
         = t 'invitation.invitations'
-    #goods-list-short
+    #goods-list-short    
+      =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#new_user").show()'
+      #add_user_wrapper
+        = render :partial => 'form'
+          
+
       .sort-btn
         = link_to_if (params[:view]!='new' and params[:view].present?), t('new'), url_for(params.merge :view => 'new'), :class=>'kr'
         |

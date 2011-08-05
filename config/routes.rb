@@ -47,7 +47,10 @@ Webforms::Application.routes.draw do
   resources :invitation_requests do
     member do
       get :invite
-      get :decline
+      get :decline      
+    end
+    collection do
+      post :add_user
     end
   end
   

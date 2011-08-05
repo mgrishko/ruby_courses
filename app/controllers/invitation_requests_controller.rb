@@ -14,6 +14,7 @@ class InvitationRequestsController < ApplicationController
         {:status => 'new'}
       end
     @invitation_requests = InvitationRequest.where(condition).order('created_at DESC')
+    @user = User.new()
     respond_with(@invitation_requests)
   end
 
@@ -64,5 +65,18 @@ class InvitationRequestsController < ApplicationController
       render :text => '' and return
     end    
     respond_with(@invitation_request)
+  end
+  
+  def add_user
+    prms = params[:user]
+   # %w{company_name}.each{|col|    prms.delete(col)}
+    @user = User.generate_for_invite(prms)
+    if @user.save
+      begin
+        Notification.accept_invitation_request_email(@user).deliver    
+      rescue Exception => e
+        render :text => '' and return
+      end    
+    end 
   end
 end
