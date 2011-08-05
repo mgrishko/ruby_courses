@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe User do
 
+  fixtures :all
+
   def mock_notifier
     (@notifier ||= mock_model('DummyNotifier').as_null_object).tap do |notifier|
        notifier.stub :deliver => true
@@ -27,15 +29,15 @@ describe User do
     end
 
     it 'should respond to :suppliers' do
-      User.suppliers.should == []
+      User.suppliers.should == [User.find_by_gln(10001), User.find_by_gln(10002)]
     end
 
     it 'should respond to :local_suppliers' do
-      User.local_suppliers.should == []
+      User.local_suppliers.should == [User.find_by_gln(10002)]
     end
 
     it 'should respond to :global_suppliers' do
-      User.global_suppliers.should == []
+      User.global_suppliers.should == [User.find_by_gln(10001)]
     end
   end
 

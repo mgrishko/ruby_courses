@@ -1,0 +1,12 @@
+# password: "secret"
+u10001:
+  gln: 10001
+  pw_hash: <%= Authlogic::CryptoProviders::MD5.encrypt("1234") %>
+  name: 'Поставщик №1'
+  roles_mask: 9
+
+u10002:
+  gln: 10002
+  pw_hash: <%= Authlogic::CryptoProviders::MD5.encrypt("1234") %>
+  name: 'Красный Октябрь'
+  roles_mask: 5
