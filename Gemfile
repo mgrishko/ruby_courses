@@ -23,6 +23,7 @@ gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
+gem 'globalize3'
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
     gem 'rb-fchange'

@@ -1,17 +1,5 @@
 # encoding = utf-8
 
-# == Schema Information
-#
-# Table name: subscription_results
-#
-#  id              :integer(4)      not null, primary key
-#  subscription_id :integer(4)      not null
-#  base_item_id    :integer(4)      not null
-#  status          :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#
-
 class SubscriptionResult < ActiveRecord::Base
   include AASM
 
@@ -62,4 +50,17 @@ class SubscriptionResult < ActiveRecord::Base
   end
 
 end
+
+
+# == Schema Information
+#
+# Table name: subscription_results
+#
+#  id              :integer         not null, primary key
+#  subscription_id :integer         not null
+#  base_item_id    :integer         not null
+#  status          :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
 

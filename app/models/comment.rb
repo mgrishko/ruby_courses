@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: comments
-#
-#  id           :integer(4)      not null, primary key
-#  user_id      :integer(4)      not null
-#  item_id      :integer(4)      not null
-#  content      :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  base_item_id :integer(4)      not null
-#  parent_id    :integer(4)
-#  root_id      :integer(4)
-#  replies      :integer(4)      default(0), not null
-#
-
 class Comment < ActiveRecord::Base
 
   has_one :event, :as => :content
@@ -61,4 +45,21 @@ class Comment < ActiveRecord::Base
     self.base_item.item_description
   end
 end
+
+
+# == Schema Information
+#
+# Table name: comments
+#
+#  id           :integer         not null, primary key
+#  user_id      :integer         not null
+#  item_id      :integer         not null
+#  content      :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  base_item_id :integer         default(0), not null
+#  parent_id    :integer
+#  root_id      :integer
+#  replies      :integer         default(0), not null
+#
 

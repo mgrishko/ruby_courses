@@ -1,37 +1,5 @@
 # encoding = utf-8
 
-# == Schema Information
-#
-# Table name: packaging_items
-#
-#  id                                       :integer(4)      not null, primary key
-#  base_item_id                             :integer(4)
-#  parent_id                                :integer(4)
-#  gtin                                     :string(255)
-#  item_name_long_ru                        :string(255)
-#  created_at                               :datetime
-#  updated_at                               :datetime
-#  user_id                                  :integer(4)
-#  number_of_next_lower_item                :integer(4)
-#  number_of_bi_items                       :integer(4)
-#  despatch_unit                            :boolean(1)      default(FALSE)
-#  invoice_unit                             :boolean(1)      default(FALSE)
-#  order_unit                               :boolean(1)      default(FALSE)
-#  consumer_unit                            :boolean(1)      default(FALSE)
-#  gross_weight                             :integer(4)
-#  packaging_type                           :string(255)
-#  height                                   :integer(4)
-#  depth                                    :integer(4)
-#  width                                    :integer(4)
-#  published                                :boolean(1)      default(FALSE)
-#  rgt                                      :integer(4)
-#  lft                                      :integer(4)
-#  level_cache                              :integer(4)      default(0)
-#  quantity_of_layers_per_pallet            :integer(4)      default(1)
-#  quantity_of_trade_items_per_pallet_layer :integer(4)      default(1)
-#  stacking_factor                          :integer(4)      default(1)
-#
-
 class PackagingItem < ActiveRecord::Base
   acts_as_nested_set :scope => :base_item, :depth_column => 'level_cache'
   default_scope :order => 'lft'
@@ -186,4 +154,37 @@ class PackagingItem < ActiveRecord::Base
     end
   end
 end
+
+
+# == Schema Information
+#
+# Table name: packaging_items
+#
+#  id                                       :integer         not null, primary key
+#  base_item_id                             :integer
+#  parent_id                                :integer
+#  gtin                                     :string(255)
+#  item_name_long_ru                        :string(255)
+#  created_at                               :datetime
+#  updated_at                               :datetime
+#  user_id                                  :integer
+#  number_of_next_lower_item                :integer
+#  number_of_bi_items                       :integer
+#  despatch_unit                            :boolean         default(FALSE)
+#  invoice_unit                             :boolean         default(FALSE)
+#  order_unit                               :boolean         default(FALSE)
+#  consumer_unit                            :boolean         default(FALSE)
+#  gross_weight                             :integer
+#  packaging_type                           :string(255)
+#  height                                   :integer
+#  depth                                    :integer
+#  width                                    :integer
+#  published                                :boolean         default(FALSE)
+#  rgt                                      :integer
+#  lft                                      :integer
+#  level_cache                              :integer         default(0)
+#  quantity_of_layers_per_pallet            :integer         default(1)
+#  quantity_of_trade_items_per_pallet_layer :integer         default(1)
+#  stacking_factor                          :integer         default(1)
+#
 

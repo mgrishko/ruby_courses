@@ -1,21 +1,5 @@
 # encoding = utf-8
 
-# == Schema Information
-#
-# Table name: users
-#
-#  id                :integer(4)      not null, primary key
-#  gln               :integer(4)
-#  pw_hash           :string(255)
-#  persistence_token :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  name              :string(255)
-#  roles_mask        :integer(4)
-#  description       :text
-#  contacts          :text
-#
-
 class User < ActiveRecord::Base
   has_many :items
   has_many :base_items
@@ -140,4 +124,22 @@ class User < ActiveRecord::Base
     user
   end  
 end
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                :integer         not null, primary key
+#  gln               :integer
+#  pw_hash           :string(255)
+#  persistence_token :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  name              :string(255)
+#  description       :text
+#  contacts          :text
+#  roles_mask        :integer
+#  email             :string(255)
+#
 

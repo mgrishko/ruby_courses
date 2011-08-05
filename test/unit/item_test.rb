@@ -6,3 +6,15 @@ class ItemTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: items
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer         not null
+#  created_at :datetime
+#  updated_at :datetime
+#  status     :string(255)     default(""), not null
+#
+
