@@ -1,11 +1,3 @@
-class UserTag < ActiveRecord::Base
-  belongs_to :tag
-  belongs_to :user
-  #belongs_to :author
-  validates_presence_of :tag_id
-end
-
-
 # == Schema Information
 #
 # Table name: user_tags
@@ -17,4 +9,13 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+class UserTag < ActiveRecord::Base
+  belongs_to :tag
+  belongs_to :user
+  #belongs_to :author
+  validates_presence_of :tag_id
+end
+
+
 

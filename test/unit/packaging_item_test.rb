@@ -33,35 +33,3 @@ class PackagingItemTest < ActiveSupport::TestCase
 
 end
 
-# == Schema Information
-#
-# Table name: packaging_items
-#
-#  id                                       :integer         not null, primary key
-#  base_item_id                             :integer
-#  parent_id                                :integer
-#  gtin                                     :string(255)
-#  item_name_long_ru                        :string(255)
-#  created_at                               :datetime
-#  updated_at                               :datetime
-#  user_id                                  :integer
-#  number_of_next_lower_item                :integer
-#  number_of_bi_items                       :integer
-#  despatch_unit                            :boolean         default(FALSE)
-#  invoice_unit                             :boolean         default(FALSE)
-#  order_unit                               :boolean         default(FALSE)
-#  consumer_unit                            :boolean         default(FALSE)
-#  gross_weight                             :integer
-#  packaging_type                           :string(255)
-#  height                                   :integer
-#  depth                                    :integer
-#  width                                    :integer
-#  published                                :boolean         default(FALSE)
-#  rgt                                      :integer
-#  lft                                      :integer
-#  level_cache                              :integer         default(0)
-#  quantity_of_layers_per_pallet            :integer         default(1)
-#  quantity_of_trade_items_per_pallet_layer :integer         default(1)
-#  stacking_factor                          :integer         default(1)
-#
-

@@ -1,7 +1,3 @@
-class UserAttributes < ActiveRecord::Base
-end
-
-
 # == Schema Information
 #
 # Table name: user_attributes
@@ -14,4 +10,9 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+class UserAttributes < ActiveRecord::Base
+end
+
+
 

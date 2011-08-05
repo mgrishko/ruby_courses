@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id           :integer         not null, primary key
+#  item_id      :integer         not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  base_item_id :integer
+#
+
 class Image < ActiveRecord::Base
 
   has_one :event, :as => :content, :dependent => :destroy
@@ -56,14 +67,4 @@ protected
   end
 end
 
-# == Schema Information
-#
-# Table name: images
-#
-#  id           :integer         not null, primary key
-#  item_id      :integer         not null
-#  created_at   :datetime
-#  updated_at   :datetime
-#  base_item_id :integer
-#
 

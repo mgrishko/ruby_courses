@@ -1,7 +1,3 @@
-class SubscriptionDetails < ActiveRecord::Base
-end
-
-
 # == Schema Information
 #
 # Table name: subscription_details
@@ -12,4 +8,9 @@ end
 #  created_at      :datetime
 #  updated_at      :datetime
 #
+
+class SubscriptionDetails < ActiveRecord::Base
+end
+
+
 

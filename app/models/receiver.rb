@@ -1,9 +1,3 @@
-class Receiver < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :base_item
-end
-
-
 # == Schema Information
 #
 # Table name: receivers
@@ -14,4 +8,11 @@ end
 #  created_at   :datetime
 #  updated_at   :datetime
 #
+
+class Receiver < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :base_item
+end
+
+
 

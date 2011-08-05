@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: invitation_requests
+#
+#  id           :integer         not null, primary key
+#  email        :string(255)
+#  name         :string(255)
+#  company_name :string(255)
+#  notes        :text
+#  status       :string(255)
+#  roles_mask   :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class InvitationRequest < ActiveRecord::Base
   include AASM
   aasm_column :status
@@ -41,18 +56,4 @@ class InvitationRequest < ActiveRecord::Base
   end
 end
 
-# == Schema Information
-#
-# Table name: invitation_requests
-#
-#  id           :integer         not null, primary key
-#  email        :string(255)
-#  name         :string(255)
-#  company_name :string(255)
-#  notes        :text
-#  status       :string(255)
-#  roles_mask   :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#
 

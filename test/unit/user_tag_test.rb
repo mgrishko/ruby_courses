@@ -7,15 +7,3 @@ class UserTagTest < ActiveSupport::TestCase
   end
 end
 
-# == Schema Information
-#
-# Table name: user_tags
-#
-#  id         :integer         not null, primary key
-#  tag_id     :integer         not null
-#  user_id    :integer         not null
-#  author_id  :integer         not null
-#  created_at :datetime
-#  updated_at :datetime
-#
-

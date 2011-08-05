@@ -1,10 +1,3 @@
-class Tag < ActiveRecord::Base
-  has_many :items, :through => :clouds
-  has_many :clouds
-  validate :name, :presence => true, :length => { :within => 1..15 }
-end
-
-
 # == Schema Information
 #
 # Table name: tags
@@ -15,4 +8,12 @@ end
 #  updated_at :datetime
 #  kind       :integer         default(1), not null
 #
+
+class Tag < ActiveRecord::Base
+  has_many :items, :through => :clouds
+  has_many :clouds
+  validate :name, :presence => true, :length => { :within => 1..15 }
+end
+
+
 
