@@ -44,36 +44,38 @@ module ApplicationHelper
   end
 
   def html_pager(pc, pn=nil) #pager_collection, pager_name
-    pn = 'page' unless pn
-    p = params.clone
-    p.delete('action')
-    p.delete('controller')
-    p.delete('source')
-    p.delete('id')
-    i1 = (pc.current_page-1)*pc.per_page+1 # interval 1
-    i2 = i1 + pc.count - 1
-    i1 = 0 if pc.count == 0
-    pager = "<span>#{i1} - #{i2} #{t 'pager.from'} #{pc.total_entries}</span>"
+    if pc.total_pages > 1
+     pn = 'page' unless pn
+     p = params.clone
+     p.delete('action')
+     p.delete('controller')
+     p.delete('source')
+     p.delete('id')
+     i1 = (pc.current_page-1)*pc.per_page+1 # interval 1
+     i2 = i1 + pc.count - 1
+     i1 = 0 if pc.count == 0
+     pager = "<span>#{i1} - #{i2} #{t 'pager.from'} #{pc.total_entries}</span>"
 #    if pc.current_page > 2
 #      pager =pager+ " <a href='#{current_url(p.merge(pn => 1))}'>#{t 'pager.newest'}</a> "
 #    end
 
-    if pc.current_page > 1
-      pager = pager + " <a class='prev' href='#{current_url(p.merge(pn => pc.current_page-1))}'></a> "
-    else
-      pager = pager + " <a class='prev-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
-    end
-    if pc.current_page < pc.total_pages
-      pager = pager + " <a class='next' href='#{current_url(p.merge(pn => pc.current_page+1))}'></a> "
-    else
-      pager = pager + " <a class='next-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
-    end
+     if pc.current_page > 1
+       pager = pager + " <a class='prev' href='#{current_url(p.merge(pn => pc.current_page-1))}'></a> "
+     else
+       pager = pager + " <a class='prev-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
+     end
+     if pc.current_page < pc.total_pages
+       pager = pager + " <a class='next' href='#{current_url(p.merge(pn => pc.current_page+1))}'></a> "
+     else
+       pager = pager + " <a class='next-dis' href='javascript:void(0)' no-repeat 0 0;'></a> "
+     end
 
 #    if (pc.current_page+1) < pc.total_pages
 #      pager = pager + " <a href='#{current_url(p.merge(pn => pc.total_pages))}'>#{t 'pager.oldest'}</a> "
 #    end
 
-    pager.html_safe
+     pager.html_safe
+    end
   end
 end
 
