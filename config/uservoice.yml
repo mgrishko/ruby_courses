@@ -1,0 +1,15 @@
+uservoice_options:
+  # required
+  key: getmasterdata
+  host: getmasterdata.uservoice.com
+  forum: 128873
+  # optional
+  showTab: true
+  alignment: left
+  background_color: "#f00"
+  text_color: white
+  hover_color: "#06C"
+  lang: en
+
+uservoice_api:
+  api_key: 92205a47af50540dbd25f2fd8ff8c65f
