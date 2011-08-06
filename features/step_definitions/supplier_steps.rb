@@ -18,14 +18,14 @@ Given /^I have a base_item$/ do
   gpc = Factory(:gpc, :code => '10000115', :name => 'Some Name')
   item = Item.create(:user_id => @users['supplier'].id)
   country = Factory(:country, :code => 'RU', :description => '')
-  @base_item = Factory(:base_item, :user_id=>@users['supplier'].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc_code=> gpc.code)
+  @base_item = Factory(:base_item, :user_id=>@users['supplier'].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc => gpc)
 end
 
 Given /^I have a base_item with gtin "([^"]*)"$/ do |gtin|
   gpc = Factory(:gpc, :code => '10000115', :name => 'Some Name')
   item = Item.create(:user_id => @users['supplier'].id)
   country = Factory(:country, :code => 'RU', :description => '')
-  @base_item = Factory(:base_item, :gtin=>gtin, :user_id=>@users['supplier'].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc_code=> gpc.code)
+  @base_item = Factory(:base_item, :gtin=>gtin, :user_id=>@users['supplier'].id, :item_id => item.id, :country_of_origin_code => country.code, :gpc => gpc)
 end
 
 When /^I attach the test image to "([^"]*)"$/ do |field|
