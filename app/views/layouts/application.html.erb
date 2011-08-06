@@ -42,7 +42,7 @@
     </div>
 
     <div id="content">
-  <%if @supported_browser%>
+  <%if !@supported_browser%>
     <div class='warning'>
       You use unsupported browser. Please use <a href='#'> Mozilla Firefox</a>(>=3), <a href='#'>Google Chrome</a>(>=9) or Safari(>=4)
     </div>    
