@@ -1215,10 +1215,19 @@ tr.th td {
 	right: 10px;
 	top: 10px;
 }
+#img-container{
+        float: left;
+        width: 180px;
+	margin: 25px 8px 0 8px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+}
 .preview-pic{
-	border: 1px solid #bfbfbf;
-	margin: 0 0 0 8px;
-	float: left;
+        vertical-align: middle;
+	/*border: 1px solid #bfbfbf;*/
+	/*margin: 0 0 0 8px;*/
+	/*float: left;*/
 }
 .top-description{
 	margin: 25px 0 34px 0;
