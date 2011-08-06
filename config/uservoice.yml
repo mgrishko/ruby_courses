@@ -2,7 +2,7 @@ uservoice_options:
   # required
   key: getmasterdata
   host: getmasterdata.uservoice.com
-  forum: 128873
+  forum: 128773
   # optional
   showTab: true
   alignment: left
