@@ -1,5 +1,5 @@
 <h3><%= h @base_item.gtin %></h3>
-<p><%= h @base_item.packaging_type %></p>
+<p><%= h @base_item.packaging_name %></p>
 <p><span class='d'>1</span> <span class='t'><%=t 'item.packages_inside'%>,</span> <span class='d'>1</span> <span class='t'><%= t 'item.items' %></span></p>
 <p><span class='d'><%= h @base_item.height %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.width %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.depth %></span> <span class='t'><%= t 'pi.size' %></span></p>
 <p><span class='d'><%= @base_item.gross_weight %></span> <span class='t'><%= t 'pi.gross_weight' %></span> <span class='d'><%= @base_item.net_weight %></span> <span class='t'><%= t 'pi.new_weight' %></span></p>

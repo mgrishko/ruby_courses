@@ -6,7 +6,7 @@
   <p>
     <div id="cases_input_0">
   		<div class="drop-down-cont pad-l-5 zi-5">
-  	  	<%= f.text_field :packaging_type, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
+  	  	<%= f.text_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
   	  	<div class="drop-down pic">
   	  		<div class="blue-tarr"></div>
   	  		<div class="drop-down-list-cont" style ="width:400px;">
@@ -46,7 +46,7 @@
 	$(".pt-choose-btn").click(function(){
     $(this).parent().find('.pt-cases ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
-        $('#base_item_packaging_type').val($(this).parent().attr('id'));
+        $('#base_item_packaging_name').val($(this).html());
      	 	$('.drop-down').css('visibility','hidden');
     	 	$('.dd-overlay').css('display', 'none');
        	return false;

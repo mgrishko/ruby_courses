@@ -48,7 +48,7 @@ Feature: Supplier shouldn't see data from drafts in validations or autocompletio
     And I wait for 1 second
     And I press "next_button"
     And I wait for 1 seconds
-    And I fill in "base_item_packaging_type" with "BX"
+    And I fill in "base_item_packaging_name" with "Box"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"

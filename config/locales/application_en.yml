@@ -210,7 +210,7 @@ en:
     title: 'Suppliers'
     last_update: 'Last update' #Последнее обновление########
 
-0  form:
+  form:
     main_date: 'Main Date' #Основные данные################
     minimum_durability_from_arrival: 'min_durability'
     plu_description: 'plu description'

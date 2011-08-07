@@ -56,9 +56,8 @@ class BaseItem < ActiveRecord::Base
   has_many :subscription_results
   has_many :base_item_subscription_results, :class_name => 'SubscriptionResult', :foreign_key => :base_item_id
   before_save :update_mix_field # data for search
-
   attr_writer :current_step
-
+  attr_accessor :packaging_name
   scope :published, where(:status => 'published')
   scope :published_by, lambda { |user| user.base_items.published }
 
@@ -491,6 +490,15 @@ class BaseItem < ActiveRecord::Base
     "/images/item_image#{suffix.to_s}.jpg"
   end
 
+  #hide packaging code from user and show name instead
+  def packaging_name= value
+    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code]
+    @packaging_name = value
+  end
+  def packaging_name    
+    BaseItem.packaging_types.detect{|pt| pt[:code] == packaging_type}[:name] if packaging_type.present?
+  end
+  
   protected
   # Returns IDS of items accepted by retailer for /retailer_items/ page
   # FIXME: optimize request
@@ -518,6 +526,7 @@ class BaseItem < ActiveRecord::Base
     conditions = ["mix ilike ?", '%'+options[:search]+'%'] if options[:search]
     conditions
   end
+  
 
 end
 

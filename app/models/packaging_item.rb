@@ -38,11 +38,10 @@ class PackagingItem < ActiveRecord::Base
 
   belongs_to :base_item
   belongs_to :user
-
+  attr_accessor :packaging_name
   #validates_presence_of :gtin
   #validates_gtin :gtin
   #validates_uniqueness_of :gtin, :scope => :user_id
-
   validate :check_gtin
 
   validates_number_length_of :number_of_next_lower_item, 6
@@ -184,6 +183,16 @@ class PackagingItem < ActiveRecord::Base
     else
       1
     end
+  end
+  
+  #hide packaging code from user and show name instead
+  def packaging_name= value
+    @packaging_name = value
+    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code]
+  end
+  
+  def packaging_name    
+    BaseItem.packaging_types.detect{|pt| pt[:code] == packaging_type}[:name] if packaging_type.present?
   end
 end
 
