@@ -56,6 +56,8 @@ class InvitationRequestsController < ApplicationController
     @user = User.generate_for_invite(prms)
     if @user.save
       begin
+        fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
+        fdl.run
         Notification.accept_invitation_request_email(@user).deliver    
         @invitation_request.invite!
       rescue Exception => e
@@ -72,12 +74,14 @@ class InvitationRequestsController < ApplicationController
    # %w{company_name}.each{|col|    prms.delete(col)}
     @user = User.generate_for_invite(prms)
     if @user.save
-      begin
+    #  begin
+        fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
+        fdl.run
         Notification.accept_invitation_request_email(@user).deliver    
         @user = User.new
-      rescue Exception => e
-        render :text => '' and return
-      end    
+    #  rescue Exception => e
+    #    render :text => '' and return
+    #  end    
     end 
   end
 end
