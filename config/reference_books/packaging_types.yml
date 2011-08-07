@@ -43,7 +43,7 @@
   :name: Box
   :description: "A non-specific term used to refer to a rigid, three-dimensional container with closed faces that completely enclose its contents and may be made out of any material. Even though some boxes might be reused or become resealed they could also be disposable depending on the product hierarchy. "
   :id: 11
-- :code: NEW
+- :code: BRK
   :name: Brick
   :description: "A rectangular-shaped, stackable package designed primarily for liquids such as juice or milk "
   :id: 12
@@ -59,7 +59,7 @@
   :name: Can
   :description: "A metallic and generally cylindrical container of unspecified size which can be used for items of consumer and institutional sizes. "
   :id: 15
-- :code: NEW
+- :code: CRD
   :name: Card
   :description: "A flat package to which the product is hung or attached for display. "
   :id: 16
@@ -91,11 +91,11 @@
   :name: Envelope
   :description: "A predominantly flat container of flexible material having only two faces, and joined at three edges to form an enclosure.  The non-joined edge provides a filling opening, which may later be closed by a gummed or adhesive flap, heat seal, tie string, metal clasp, or other methods.  "
   :id: 23
-- :code: NEW
+- :code: FIC
   :name: Flexible Intermediate Bulk Container
   :description: "A non-rigid container used for transport and storage of fluids and other bulk materials. The construction of the IBC container and the materials used are chosen depending on the application.   "
   :id: 24
-- :code: NEW
+- :code: GBT
   :name: Gable top
   :description: "A rectangular-shaped, non-stackable package designed primarily for liquids such as juice or milk "
   :id: 25
@@ -151,11 +151,11 @@
   :name: Shrinkwrapped
   :description: "In packaging, a plastic film around an item or group of items which is heated causing the film to shrink, securing the unit integrity. The use of shrunken film to tightly wrap a package or a unit load in order to bind, protect and immobilize it for further handling or shipping. "
   :id: 38
-- :code: NEW
+- :code: SLE
   :name: Sleeve
   :description: "A non-rigid container usually made of paper, cardboard or plastic, that is open- ended and is slid over the contents for protection or presentation. "
   :id: 39
-- :code: NEW
+- :code: STW
   :name: Stretchwrapped
   :description: "In packaging, a high-tensile plastic film, stretched and wrapped repeatedly around an item or group of items to secure and maintain unit integrity.  The use of stretch film to tightly wrap a package or a unit load in order to bind, protect and immobilize it for further handling or shipping. "
   :id: 40
@@ -202,7 +202,7 @@
   :description: "Bag-In-Box or BIB is a type of container for the storage and transportation of liquids. It consists of a strong bladder, usually made of aluminium PET film or other plastics seated inside a corrugated fibreboard box. The box and internal bag can be fused together. In most cases there is nozzle or valve fixed to the bag. The nozzle can be connected easily to a dispensing installation or the valve allows for convenient dispensing. "
   :id: 5
 - :code: BPK
-  :name: Banded package
+  :name: :Banded package
   :description: "Something used to bind, tie, or encircle the item or its packaging to secure and maintain unit integrity. "
   :id: 6
 - :code: BA
@@ -225,7 +225,7 @@
   :name: Box
   :description: "A non-specific term used to refer to a rigid, three-dimensional container with closed faces that completely enclose its contents and may be made out of any material. Even though some boxes might be reused or become resealed they could also be disposable depending on the product hierarchy. "
   :id: 11
-- :code: NEW
+- :code: BRK
   :name: Brick
   :description: "A rectangular-shaped, stackable package designed primarily for liquids such as juice or milk "
   :id: 12
@@ -241,7 +241,7 @@
   :name: Can
   :description: "A metallic and generally cylindrical container of unspecified size which can be used for items of consumer and institutional sizes. "
   :id: 15
-- :code: NEW
+- :code: CRD
   :name: Card
   :description: "A flat package to which the product is hung or attached for display. "
   :id: 16
@@ -273,11 +273,11 @@
   :name: Envelope
   :description: "A predominantly flat container of flexible material having only two faces, and joined at three edges to form an enclosure.  The non-joined edge provides a filling opening, which may later be closed by a gummed or adhesive flap, heat seal, tie string, metal clasp, or other methods.  "
   :id: 23
-- :code: NEW
+- :code: FIC
   :name: Flexible Intermediate Bulk Container
   :description: "A non-rigid container used for transport and storage of fluids and other bulk materials. The construction of the IBC container and the materials used are chosen depending on the application.   "
   :id: 24
-- :code: NEW
+- :code: GBT
   :name: Gable top
   :description: "A rectangular-shaped, non-stackable package designed primarily for liquids such as juice or milk "
   :id: 25
@@ -333,11 +333,11 @@
   :name: Shrinkwrapped
   :description: "In packaging, a plastic film around an item or group of items which is heated causing the film to shrink, securing the unit integrity. The use of shrunken film to tightly wrap a package or a unit load in order to bind, protect and immobilize it for further handling or shipping. "
   :id: 38
-- :code: NEW
+- :code: SLE
   :name: Sleeve
   :description: "A non-rigid container usually made of paper, cardboard or plastic, that is open- ended and is slid over the contents for protection or presentation. "
   :id: 39
-- :code: NEW
+- :code: STW
   :name: Stretchwrapped
   :description: "In packaging, a high-tensile plastic film, stretched and wrapped repeatedly around an item or group of items to secure and maintain unit integrity.  The use of stretch film to tightly wrap a package or a unit load in order to bind, protect and immobilize it for further handling or shipping. "
   :id: 40
