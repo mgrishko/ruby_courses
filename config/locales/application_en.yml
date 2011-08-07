@@ -168,6 +168,8 @@ en:
     gln: 'GLN'
     description: 'Description'
     contacts: 'Contacts'
+    apply: 'Save'
+    back: 'Back'
 
   menu: # Top menu
     my_items: 'My Items' #My Items

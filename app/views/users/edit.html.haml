@@ -1,0 +1,48 @@
+#left-side
+  .cat
+
+#middle-side
+  .wrap
+    .address
+      %a
+        = @user.gln    
+    #profile-info
+      .info-wrap
+        %h3{:class=>'title'} 
+          Main Information
+        = form_for @user do |f|
+          = f.error_messages
+          %table{:cellspacing => 0, :cellpadding => 0}
+            %tr
+              %td
+                %span
+                  = t('user.namе')
+              %td
+                = f.text_field :name
+            %tr
+              %td
+                %span
+                  = t('user.email')
+              %td
+                = f.text_field :email
+            %tr
+              %td
+                %span
+                  = t('user.language')
+              %td
+                = f.select :name, I18n.available_locales
+            %tr
+              %td
+                %span
+                  = t('user.password')
+              %td
+                = f.password_field :password
+            %tr
+              %td
+                %span
+                  = t('user.password_confirmation')
+              %td
+                = f.password_field :password_confirmation
+                                                
+          = f.submit t('user.apply') , :class => 'submit-btn'
+          = link_to t('user.back'), @user

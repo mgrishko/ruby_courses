@@ -8,7 +8,7 @@ class Ability
 #       can :read, :all
       can :manage, UserSession
       can :create, User if user.new_record?
-      can [:show, :update], User, :id => user.id
+      can [:show,:edit, :update], User, :id => user.id
 
       # Comment
       can :read, Comment if user.is? :retailer or user.is? :global_supplier

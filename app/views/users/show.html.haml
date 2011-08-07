@@ -1,0 +1,32 @@
+#left-side
+  .cat
+
+#middle-side
+  .wrap
+    .address
+      %a
+        = @user.gln    
+    #profile-info
+      .info-wrap
+        %h3{:class=>'title'} 
+          Main Information
+        %table{:cellspacing => 0, :cellpadding => 0}
+          %tr
+            %td
+              %span
+                = t('user.namе')
+            %td
+              = @user.name
+          %tr
+            %td
+              %span
+                = t('user.email')
+            %td
+              = @user.email
+          %tr
+            %td
+              %span
+                = t('user.language')
+            %td
+              = @user.name
+        =link_to t('user.edit'), edit_user_path(@user)
