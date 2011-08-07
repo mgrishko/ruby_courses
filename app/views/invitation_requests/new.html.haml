@@ -19,10 +19,10 @@
     %p  
       =f.label t('invitation.role')
       %p
-        -InvitationRequest::ROLES.each do |role|
-          =radio_button_tag 'roles[]', role
-          =f.label role
-          %br
+        -#InvitationRequest::ROLES.each do |role|
+        =radio_button_tag 'roles[]', 'local_supplier', :checked=>true
+        =f.label 'local_supplier'
+        %br
     %p
       =f.submit t('invitation.request_invitation'), :class=> 'submit-btn'
       =link_to  t('invitation.back'), login_path

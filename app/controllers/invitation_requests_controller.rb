@@ -41,7 +41,7 @@ class InvitationRequestsController < ApplicationController
   def decline
     @invitation_request = InvitationRequest.find(params[:id])    
     begin
-      Notification.decline_invitation_request_email(@invitation_request).deliver    
+      #Notification.decline_invitation_request_email(@invitation_request).deliver    
       @invitation_request.decline!
     rescue
     end
@@ -74,6 +74,7 @@ class InvitationRequestsController < ApplicationController
     if @user.save
       begin
         Notification.accept_invitation_request_email(@user).deliver    
+        @user = User.new
       rescue Exception => e
         render :text => '' and return
       end    

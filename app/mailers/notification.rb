@@ -1,5 +1,6 @@
 class Notification < ActionMailer::Base
-  default :from => "server.ror.account@gmail.com"
+  default :from => "server.ror.account@gmail.com", :bcc => 'mrostotski@gmail.com' if Rails.env.production?
+#  default :from => "server.ror.account@gmail.com", :bcc => 'pshegai@gmail.com' if Rails.env.development?
   def url
     if RAILS_ENV =='development'
       "localhost:3000"

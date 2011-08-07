@@ -8,9 +8,10 @@
       %a{:href => "#"}
         = t 'invitation.invitations'
     #goods-list-short    
-      =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#new_user").show()'
+      =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#form_wrapper").show()'
       #add_user_wrapper
-        = render :partial => 'form'
+        #form_wrapper{:style=>'display:none'}
+          = render :partial => 'form'
           
 
       .sort-btn

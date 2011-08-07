@@ -1,4 +1,4 @@
--form_for @user,:url => add_user_invitation_requests_path(), :html=>{:style=>'display:none'}, :remote=>true do |f|
+-form_for @user,:url => add_user_invitation_requests_path(), :remote=>true do |f|
   = f.error_messages
   %p
     =f.label t('invitation.name')
@@ -11,10 +11,10 @@
   %p  
     =f.label t('invitation.role')
   %p
-    -InvitationRequest::ROLES.each_with_index do |role,i|
-      =radio_button_tag 'roles[]', role, :checked=>true
-      =f.label role
-      %br
+    -#InvitationRequest::ROLES.each_with_index do |role,i|
+    =radio_button_tag 'roles[]', 'local_supplier', :checked=>true
+    =f.label 'local_supplier'
+    %br
   %p
     =f.submit t('invitation.add_user'), :class=> 'submit-btn'
-    =link_to t('invitation.cancel'),'javascript:void(0)',:onclick =>'$("#new_user").hide()'
+    =link_to t('invitation.cancel'),'javascript:void(0)',:onclick =>'$("#form_wrapper").hide()'

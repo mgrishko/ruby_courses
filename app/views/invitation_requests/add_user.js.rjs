@@ -1,8 +1,8 @@
 page[:add_user_wrapper].html(render :partial =>'form')
 if @user.valid? 
-  page[:new_user].hide()
+  page[:form_wrapper].hide()
   page[:add_user_wrapper].prepend "Successfully added. Credentials sent to #{@user.email}"
 else
-  page[:new_user].show()
+  page[:form_wrapper].show()
 end
 
