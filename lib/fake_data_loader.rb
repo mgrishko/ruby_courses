@@ -1,5 +1,5 @@
 class FakeDataLoader 
-  def initialize(options = {})
+  def initialize(options = nil)
     @ptypes = REF_BOOKS["correspondence_code"][:en]
     @uoms = { 'кг'=>'KGM',
           'л' => 'LTR',
