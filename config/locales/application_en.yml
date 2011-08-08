@@ -164,12 +164,16 @@ en:
     password: 'Password'
     remember_me: 'Remember me'
     title: 'Company'
-    name: 'Company Name'
+    company_name: 'Company Name'    
+    name: 'Name'
     gln: 'GLN'
     description: 'Description'
     contacts: 'Contacts'
     apply: 'Save'
     back: 'Back'
+    website: 'Website'
+    change_password: 'Change password'
+    locale: 'Locale'
 
   menu: # Top menu
     my_items: 'My Items' #My Items

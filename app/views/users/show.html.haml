@@ -20,13 +20,31 @@
           %tr
             %td
               %span
+                = t('user.company_name')
+            %td
+              = @user.company_name              
+          %tr
+            %td
+              %span
+                = t('user.contacts')
+            %td
+              = @user.contacts
+          %tr
+            %td
+              %span
                 = t('user.email')
             %td
               = @user.email
           %tr
             %td
               %span
+                = t('user.website')
+            %td
+              = @user.website
+          %tr
+            %td
+              %span
                 = t('user.language')
             %td
-              = @user.name
+              = @user.locale
         =link_to t('user.edit'), edit_user_path(@user)

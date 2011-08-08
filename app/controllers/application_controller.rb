@@ -36,8 +36,11 @@ class ApplicationController < ActionController::Base
           I18n.available_locales.include? params[:locale].to_sym
         params[:locale]
       elsif session[:locale] and
-          I18n.available_locales.include? session[:locale].to_sym
+        I18n.available_locales.include? session[:locale].to_sym
         session[:locale]
+      elsif current_user and current_user.locale and
+        I18n.available_locales.include? current_user.locale.to_sym
+        current_user.locale
       else
         preferred_language
       end

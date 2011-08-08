@@ -28,9 +28,30 @@
             %tr
               %td
                 %span
-                  = t('user.language')
+                  = t('user.company_name')
               %td
-                = f.select :name, I18n.available_locales
+                = f.text_field :company_name
+            %tr
+              %td
+                %span
+                  = t('user.locale')
+              %td
+                = f.select :locale, I18n.available_locales,:include_blank =>true
+            %tr
+              %td
+                %span
+                  = t('user.contacts')
+              %td
+                = f.text_area :contacts, :rows=>5
+            %tr
+              %td
+                %span
+                  = t('user.website')
+              %td
+                = f.text_field :website
+          %h3{:class=>'title'} 
+            = t('change_password')
+          %table{:cellspacing => 0, :cellpadding => 0}
             %tr
               %td
                 %span
@@ -43,6 +64,7 @@
                   = t('user.password_confirmation')
               %td
                 = f.password_field :password_confirmation
-                                                
+          %br
+          %br
           = f.submit t('user.apply') , :class => 'submit-btn'
-          = link_to t('user.back'), @user
+          = link_to t('user.back'), @user 
