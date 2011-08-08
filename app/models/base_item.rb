@@ -225,7 +225,7 @@ class BaseItem < ActiveRecord::Base
     end
   end
 
-  def has_difference_between_old?
+  def differs_with_old?
     old_bi = self.item.last_bi.first
     return true unless old_bi
     # 1. bi_attributes

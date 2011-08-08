@@ -150,6 +150,8 @@ class BaseItemsController < ApplicationController
         @base_item.next_step
       end
       session[:base_item_step] = @base_item.current_step
+    else
+      logger.info "BaseItemsController#create@#{__LINE__} validation failed:\n#{@base_item.errors.inspect}"
     end
     render 'new'
     #@base_item = current_user.base_items.new(params[:base_item])
@@ -176,6 +178,7 @@ class BaseItemsController < ApplicationController
         @base_item.draft!
         return render 'update_step2'
       else
+        logger.info "BaseItemsController#update@#{__LINE__} validation failed:\n#{@base_item.errors.inspect}"
         return render 'edit_step2'
       end
     end
@@ -188,6 +191,7 @@ class BaseItemsController < ApplicationController
           format.js
         end
       else
+        logger.info "BaseItemsController#update@#{__LINE__} validation failed:\n#{@base_item.errors.inspect}"
         render 'edit'
       end
     end
@@ -207,14 +211,16 @@ class BaseItemsController < ApplicationController
       @base_item.destroy
     else
       #@base_item.item.update_attributes(:private => params[:base_item][:private])
-      @base_item.update_attributes(:private => params[:base_item][:private])
+      unless @base_item.update_attributes(:private => params[:base_item][:private])
+        logger.info "BaseItemsController#published@#{__LINE__} validation failed:\n#{@base_item.errors.inspect}"
+      end
 
 
       unless params[:base_item][:comment][:content].blank?
         current_user.comments.create params[:base_item][:comment]
       end
 
-      if @base_item.has_difference_between_old?
+      if @base_item.differs_with_old?
         @base_item.publish!
         @base_item.item.change! if @base_item.item.add?
         # add new event into log
