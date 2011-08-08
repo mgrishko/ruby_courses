@@ -21,7 +21,7 @@ describe User do
   describe 'class' do
     it 'should have ROLES ' do
       User::ROLES.should ==
-        %w[retailer local_supplier global_supplier admin]
+        %w[admin retailer local_supplier global_supplier]
     end
 
     it 'should respond to :retailers' do
@@ -49,7 +49,7 @@ describe User do
     user = User.create(@valid_attrs)
     user.roles.should == []
     user.roles = %w[retailer admin]
-    user.roles.should == %w[retailer admin]
+    user.roles.should == %w[admin retailer]
     user.is?(:admin).should == true
     user.is?('local_supplier').should == false
   end

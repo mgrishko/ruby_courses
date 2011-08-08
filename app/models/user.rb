@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
 
-  ROLES = %w[retailer local_supplier global_supplier admin]
+  ROLES = %w[admin retailer local_supplier global_supplier]
 
   scope :retailers,
     where("roles_mask & #{2**ROLES.index('retailer')} != 0")
