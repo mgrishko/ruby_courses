@@ -34,6 +34,7 @@ class PackagingItemsController < ApplicationController
         format.js { @packaging_items = @base_item.packaging_items }
       end
     else
+      logger.info "PackagingItemsController#create:#{__LINE__} validation failed:\n#{@packaging_items.errors.inspect}"
       render 'new'
     end
   end
@@ -47,6 +48,7 @@ class PackagingItemsController < ApplicationController
         format.js { @packaging_items = @base_item.packaging_items }
       end
     else
+      logger.info "PackagingItemsController#update:#{__LINE__} validation failed:\n#{@packaging_items.errors.inspect}"
       render 'edit'
     end
   end
