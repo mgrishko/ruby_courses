@@ -1,5 +1,3 @@
-require 'parseexcel'
-
 class FakeDataLoader
   def initialize(options = nil)
     @ptypes = REF_BOOKS["correspondence_code"][:en]

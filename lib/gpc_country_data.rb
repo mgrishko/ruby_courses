@@ -1,6 +1,8 @@
 require 'parseexcel'
 class GpcCountryData
   def initialize
+  end
+  def run
     country
     gpc
   end
