@@ -14,8 +14,3 @@ development:
 test:
   <<: *default
   enabled: false
-
-cucumber:
-  <<: *default
-  enabled: false
-
