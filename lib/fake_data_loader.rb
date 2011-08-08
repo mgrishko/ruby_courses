@@ -1,4 +1,6 @@
-class FakeDataLoader 
+require 'parseexcel'
+
+class FakeDataLoader
   def initialize(options = nil)
     @ptypes = REF_BOOKS["correspondence_code"][:en]
     @uoms = { 'кг'=>'KGM',
@@ -7,14 +9,14 @@ class FakeDataLoader
           'г' => 'GRM',
           'мл' => 'MLT',
           'м' => 'MTR'  }
-         
+
 
     @users = User.suppliers
     @q_items = [800,300,100,80,86]
     @counter = 0
     @q_count = 0
-    if options      
-      @users = [User.find(options[:user_id])]      
+    if options
+      @users = [User.find(options[:user_id])]
       @q_items = [options[:number_of_items]]
     end
 
@@ -23,7 +25,7 @@ class FakeDataLoader
     read_images
     read_description_data
   end
-        
+
 ############################################
 #read structure data
 ############################################
@@ -113,7 +115,7 @@ class FakeDataLoader
         end
       rescue EOFError
         fsource.close
-      end      
+      end
   end
 ############################################
 #make changes here
@@ -261,7 +263,7 @@ class FakeDataLoader
         end
       end # def create_hierarchy
 
-  
+
   def run
 
       @bis_map.each do |k,v|
@@ -305,6 +307,6 @@ class FakeDataLoader
         end
       }.count
       BaseItem.all.each{|bi|bi.update_mix_field;bi.save}
-    
-  end   
+
+  end
 end
