@@ -5,18 +5,18 @@ GIT
     russian (0.2.8.pre2)
 
 GIT
+  remote: git://github.com/pavel-so/rails3-jquery-autocomplete.git
+  revision: e13b249de09cfc319dc494fc4d6df5771191fdf1
+  specs:
+    rails3-jquery-autocomplete (0.7.5.1)
+      rails (~> 3.0)
+      yajl-ruby
+
+GIT
   remote: https://github.com/kennon/responds_to_parent.git
   revision: ee8a8b08d8254ed1ffd98e55a65cb3ae63c621ad
   specs:
     responds_to_parent (1.0.20091013)
-
-GIT
-  remote: https://github.com/pavel-so/rails3-jquery-autocomplete.git
-  revision: c9731675320e80be473c69149df3066383e32c62
-  specs:
-    rails3-jquery-autocomplete (0.7.5)
-      rails (~> 3.0)
-      yajl-ruby
 
 GIT
   remote: https://github.com/rails/exception_notification.git
@@ -231,7 +231,7 @@ DEPENDENCIES
   pickle
   rails (= 3.0.7)
   rails-erd
-  rails3-jquery-autocomplete!
+  rails3-jquery-autocomplete (= 0.7.5.1)!
   rb-inotify
   responds_to_parent!
   rmagick
