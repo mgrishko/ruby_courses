@@ -52,7 +52,7 @@ class InvitationRequestsController < ApplicationController
     @invitation_request = InvitationRequest.find(params[:id])    
     #TODO code to invite user call generate new user with params from invitation
     prms = @invitation_request.attributes
-    %w{company_name status notes}.each{|col|    prms.delete(col)}
+    %w{status notes}.each{|col|    prms.delete(col)}
     @user = User.generate_for_invite(prms)
     if @user.save
       begin
