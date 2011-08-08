@@ -1,0 +1,6 @@
+drinks:
+  name: Some Name
+  code: 10000115
+  segment_description: Food/Beverage/Tobacco
+  description: Coffee/Tea/Substitutes
+  group: "Beverages"

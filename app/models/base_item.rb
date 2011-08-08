@@ -43,6 +43,52 @@
 class BaseItem < ActiveRecord::Base
   include AASM
 
+  #validates_associated :gpc
+  #validates_associated :country_of_origin
+
+  validate :check_gtin # TODO
+
+  validates :user_id, :presence => true
+  validates :item_id, :presence => true
+  validates :gtin, :presence => true
+  #validates_gtin :gtin, :if => :first_step?
+  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?
+  validates :brand, :length => 1..70
+  validates :subbrand, :length =>  { :maximum => 70 }, :allow_nil => true
+  validates :functional, :length => 1..35
+  #validates_gln :manufacturer_gln, :first_step?
+  validates :manufacturer_name, :length => 1..35
+  validates :content,
+      :numericality => {:greater_than => 0,
+                        :less_than_or_equal_to => 999999.999}
+  validates_number_length_of :internal_item_id, 20
+  validates_number_length_of :minimum_durability_from_arrival, 4
+  validates :vat, :presence => true, :numericality => true
+  validates :content_uom,
+      :presence => true, :length => { :maximum => 3 }
+  validates :gpc_code, :presence => true, :numericality => true
+  validates :gpc_name,
+      :presence => true #, TODO I can not fix the database_cleaner problem
+#       :inclusion => { :in => Gpc.all.map(&:name) }
+  validates :country_of_origin_code,
+      :presence => true, :length => { :maximum => 2 }
+  validates :item_description,
+      :presence => true, :length => { :maximum => 178 }
+  validates :manufacturer_gln,
+      :presence => true, :length => { :maximum => 13 }
+
+  # Only last step validations
+  validates_number_length_of :gross_weight,
+      7, :step => :last_step?
+  validates_number_length_of :net_weight,
+      7, :allow_nil=> true, :step => :last_step?
+  validates_number_length_of :height, 5, :step => :last_step?
+  validates_number_length_of :depth, 5, :step => :last_step?
+  validates_number_length_of :width, 5, :step => :last_step?
+  validates :packaging_type,
+      :presence => true, :length => { :maximum => 3 },
+      :if => :last_step?
+
   has_one :event, :as => :content
 
   has_many :packaging_items, :dependent => :destroy
@@ -70,74 +116,6 @@ class BaseItem < ActiveRecord::Base
 
   scope :private_last_published_by, lambda { |user| where(:private => true).last_published_by(user) }
   scope :public_last_published_by, lambda { |user| where(:private => false).last_published_by(user) }
-
-  def current_step
-    @current_step || steps.first
-  end
-
-  def steps
-    %w[step1 step2]
-  end
-
-  def next_step
-    self.current_step = steps[steps.index(current_step)+1]
-  end
-
-  def previous_step
-    self.current_step = steps[steps.index(current_step)-1]
-  end
-
-  def first_step?
-    current_step == steps.first
-  end
-
-  def last_step?
-    current_step == steps.last
-  end
-
-  def all_valid?
-    steps.all? do |step|
-      self.current_step = step
-      valid?
-    end
-  end
-
-  #validates_associated :gpc
-  #validates_associated :country_of_origin
-
-  validate :check_gtin
-
-  validates_presence_of :gtin, :if => :first_step?
-  #validates_gtin :gtin, :if => :first_step?
-  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?
-
-  validates_length_of :brand, :within => 1..70, :if => :first_step?
-  validates_length_of :functional, :within => 1..35, :if => :first_step?
-
-  #validates_gln :manufacturer_gln, :first_step?
-
-  validates_length_of :manufacturer_name, :within => 1..35, :if => :first_step?
-
-  validates_numericality_of :content, :greater_than => 0, :less_than_or_equal_to => 999999.999, :if => :first_step?
-
-  validates_number_length_of :gross_weight, 7,{:step => :last_step?}
-  validates_number_length_of :net_weight, 7, {:allow_nil=> true,:step => :last_step?}
-
-  validates_number_length_of :height, 5, {:step => :last_step?}
-  validates_number_length_of :depth, 5, {:step => :last_step?}
-  validates_number_length_of :width, 5, {:step => :last_step?}
-  validates_number_length_of :internal_item_id, 20, {:step => :first_step?}
-  validates_number_length_of :minimum_durability_from_arrival, 4, {:step => :first_step?}
-
-  validates_presence_of :vat, :if => :first_step?
-  validates_presence_of :content_uom, :if => :first_step?
-  validates_presence_of :packaging_type, :if => :last_step?
-  validates_presence_of :gpc_code, :if => :first_step?
-  validates_presence_of :gpc_name, :if => :first_step?
-  validates_presence_of :country_of_origin_code, :if => :first_step?
-
-  validates_presence_of :item_description, :if => :first_step?
-  validates_presence_of :manufacturer_gln
 
   aasm_column :status
 
@@ -174,6 +152,37 @@ class BaseItem < ActiveRecord::Base
   #aasm_event :reject do
   #  transitions :to => :rejected, :from => [:pending]
   #end
+
+  def current_step
+    @current_step || steps.first
+  end
+
+  def steps
+    %w[step1 step2]
+  end
+
+  def next_step
+    self.current_step = steps[steps.index(current_step)+1]
+  end
+
+  def previous_step
+    self.current_step = steps[steps.index(current_step)-1]
+  end
+
+  def first_step?
+    current_step == steps.first
+  end
+
+  def last_step?
+    current_step == steps.last
+  end
+
+  def all_valid?
+    steps.all? do |step|
+      self.current_step = step
+      valid?
+    end
+  end
 
   def send_request
     BaseItemMailer.deliver_approve_email(self)
