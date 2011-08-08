@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
+source 'http://gemcutter.org'
 
 gem 'rails', '3.0.7'
 gem 'authlogic', '3.0.3'
@@ -24,6 +25,8 @@ gem 'exception_notification', :git => 'https://github.com/rails/exception_notifi
 gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
 gem 'globalize3'
+gem 'uservoice'
+
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
     gem 'rb-fchange'
@@ -58,7 +61,3 @@ end
 group :development do
   gem 'translations_sync'
 end
-
-source 'http://gemcutter.org'
-gem 'uservoice'
-
