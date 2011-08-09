@@ -48,5 +48,10 @@ module PackagingItemsHelper
     content_tag(:span, pi.stacking_factor, :class => 'd')+" "+
     content_tag(:span, 'стекинг', :class => 't')
   end
+
+  def pi_image_tag(item, options ={})
+     id = BaseItem.packaging_types.find{|i|i[:code]==item.packaging_type}[:id]
+     image_tag "pi_new/#{id}.jpg", options
+  end
 end
 

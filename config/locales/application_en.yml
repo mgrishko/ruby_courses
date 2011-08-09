@@ -126,6 +126,9 @@ en:
     size: 'H x L x W' # (В x Д x Ш)
     gross_weight: 'gross weight'
     net_weight: 'net weight'
+    height: 'Height'
+    width: 'Width'
+    depth: 'Depth'
 
   subscription:
     have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары
@@ -164,7 +167,7 @@ en:
     password: 'Password'
     remember_me: 'Remember me'
     title: 'Company'
-    company_name: 'Company Name'    
+    company_name: 'Company Name'
     name: 'Name'
     gln: 'GLN'
     description: 'Description'
@@ -248,7 +251,7 @@ en:
     account_admin: 'Only Admin has access to this page' #"Только администратор имеет право доступа к этой странице"
     created_sent: 'BaseItem was successfully created and sent'
     created: 'BaseItem was successfully created.'
-    
+
   invitation:
     request_invitation: 'Request Invitation'
     back: 'Back'
@@ -262,8 +265,9 @@ en:
     decline: 'Decline'
     role: 'Desired role'
     add_user: 'Add User'
-  
+
   warning:
     javascript_should_be_enabled: 'You should have javascript enabled.'
     unsupported_browser: 'You are using unsupported browser.'
     please_use: 'Please use'
+
