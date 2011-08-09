@@ -31,19 +31,19 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = params[:locale] = session[:locale] =
-      if params[:locale] and
-          I18n.available_locales.include? params[:locale].to_sym
-        params[:locale]
-      elsif session[:locale] and
-        I18n.available_locales.include? session[:locale].to_sym
-        session[:locale]
-      elsif current_user and current_user.locale and
+    if current_user && params[:locale] && current_user.locale != params[:locale]
+      current_user.update_attribute(:locale ,params[:locale])
+    end
+
+    I18n.locale = 
+      if current_user and current_user.locale and
         I18n.available_locales.include? current_user.locale.to_sym
         current_user.locale
       else
         preferred_language
       end
+      
+      
     @text_direction = RTL_LANGS.include?(I18n.locale) ? 'rtl' : 'ltr'
     logger.info "ApplicationController@#{__LINE__}#set_locale locale is #{I18n.locale.inspect} user is #{(!current_user || current_user.new_record?) ? '_guest_' : ("#{current_user.name}" + "(#{current_user.id})")}"
     @other_locales = []
