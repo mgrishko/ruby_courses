@@ -3,7 +3,7 @@
             			<span class="date"><%= humanize_date(result.base_item.updated_at) %></span>
             			<div class="item-right-btns">
             			    <% if result.new? %>
-              			<% link_to("javascript:void(0)", {:class=>'blue-btn', :onclick => "acceptOrCancelSR(#{result.id},'accept',event)"}) do %>
+              			<%= link_to("javascript:void(0)", {:class=>'blue-btn', :onclick => "acceptOrCancelSR(#{result.id},'accept',event)"}) do %>
               			  <span><%= t('sr.accept')%></span>
               			<%end%>
                     <%= link_to('', "javascript:void(0)", {:class=>'close-btn', :onclick => "acceptOrCancelSR(#{result.id},'cancel',event)"}) %>
