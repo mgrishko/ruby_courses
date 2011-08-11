@@ -3,8 +3,8 @@
   <table style="background: #FFF">
     <tr>
       <td valign="top" style="vertical-align: top;">
-        <div class='pi-cont' >
-          <div class="pi edited" id="first_pi">
+        <div class='pi-cont' id="first_pi">
+          <div class="pi edited">
             <% unless @view_only || @base_item.published? %>
               <div class="edit-delete2">
                 <%= link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>

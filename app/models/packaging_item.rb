@@ -130,7 +130,7 @@ class PackagingItem < ActiveRecord::Base
     pt = BaseItem.packaging_types.detect{|pt| pt[:code]== packaging_type}
     pt.present? ? pt[:name] : packaging_type
   end
-  
+
   # methods calculate_* for view (highlighting)
   def calculate_quantity
     "#{number_of_next_lower_item},#{number_of_bi_items}"
@@ -142,14 +142,14 @@ class PackagingItem < ActiveRecord::Base
   end
 
   #actually used to compare previous and new versions values.  and highlight if changed
-  def calculate_weights
-    "#{gross_weight},#{net_weight}"
-  end
+#  def calculate_weights
+#    "#{gross_weight},#{net_weight}"
+#  end
 
   #actually used to compare previous and new versions values.  and highlight if changed
-  def calculate_dimensions
-    "#{height}x#{width}x#{depth}"
-  end
+ # def calculate_dimensions
+ #   "#{height}x#{width}x#{depth}"
+ # end
 
   # calculates net_weight for PackagingItem based on base_item.net_weight and quantity of pi
   def net_weight
@@ -184,17 +184,15 @@ class PackagingItem < ActiveRecord::Base
       1
     end
   end
-  
+
   #hide packaging code from user and show name instead
   def packaging_name= value
     @packaging_name = value
-    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code]
+    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code] if value.present?
   end
-  
-  def packaging_name    
+
+  def packaging_name
     BaseItem.packaging_types.detect{|pt| pt[:code] == packaging_type}[:name] if packaging_type.present?
   end
 end
-
-
 

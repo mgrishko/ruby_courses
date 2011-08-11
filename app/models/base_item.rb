@@ -346,13 +346,13 @@ class BaseItem < ActiveRecord::Base
     vats.detect { |u| vat == u[1] }[0]
   end
 
-  def calculate_dimensions
-    "#{height}x#{width}x#{depth}"
-  end
+#  def calculate_dimensions
+#    "#{height}x#{width}x#{depth}"
+#  end
 
-  def calculate_weights
-    "#{gross_weight},#{net_weight}"
-  end
+#  def calculate_weights
+#    "#{gross_weight},#{net_weight}"
+#  end
 
   def has_forest?
     if self.packaging_items.count(:conditions => {:parent_id => nil}) > 1
@@ -501,13 +501,13 @@ class BaseItem < ActiveRecord::Base
 
   #hide packaging code from user and show name instead
   def packaging_name= value
-    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code]
+    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code] if value.present?
     @packaging_name = value
   end
-  def packaging_name    
+  def packaging_name
     BaseItem.packaging_types.detect{|pt| pt[:code] == packaging_type}[:name] if packaging_type.present?
   end
-  
+
   protected
   # Returns IDS of items accepted by retailer for /retailer_items/ page
   # FIXME: optimize request
@@ -535,9 +535,7 @@ class BaseItem < ActiveRecord::Base
     conditions = ["mix ilike ?", '%'+options[:search]+'%'] if options[:search]
     conditions
   end
-  
+
 
 end
-
-
 

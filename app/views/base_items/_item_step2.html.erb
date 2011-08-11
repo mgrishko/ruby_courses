@@ -1,16 +1,46 @@
-<h3><%= h @base_item.gtin %></h3>
-<p><%= h @base_item.packaging_name %></p>
-<p><span class='d'>1</span> <span class='t'><%=t 'item.packages_inside'%>,</span> <span class='d'>1</span> <span class='t'><%= t 'item.items' %></span></p>
-<p><span class='d'><%= h @base_item.height %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.width %></span> <span class='t'>x</span> <span class='d'><%=h @base_item.depth %></span> <span class='t'><%= t 'pi.size' %></span></p>
-<p><span class='d'><%= @base_item.gross_weight %></span> <span class='t'><%= t 'pi.gross_weight' %></span> <span class='d'><%= @base_item.net_weight %></span> <span class='t'><%= t 'pi.new_weight' %></span></p>
-<% unless @view_only || @base_item.published? %>
-<%= link_to t('main.edit'), edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true} %>
-<p>
-&nbsp;
-</p>
-<div class="fleft"></div>
-<div class="fright" style="margin-right: 25px;">
-  <%= link_to t('pi.pack'),"javascript:void(0)", :onclick => "packageMe(#{@base_item.id})" %>
-</div>
-<% end %>
+<div class = 'pi edited'>
+            <% unless @view_only || @base_item.published? %>
+              <div class="edit-delete2">
+                <%= link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}  %>
+	    			  </div>
+            <% end %>
+            <%= pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64' %>
+	  			  <span class="logistics-item-title"><strong><%= %></strong><%= h @base_item.calculate_packaging_type%></span>
+	  			  <br/>
+	  			  <span class="logistics-item-title-2"><strong>1</strong> <%= t 'pi.packages_inside' %> <strong>1</strong> <%= t 'pi.items' %></span>
+
+	  			  <table class="input-table-edited" width="116" cellpadding="0" cellspacing="0" border="0">
+						<tbody><tr>
+							<td colspan="2" class="art"><%= h @base_item.gtin %></td>
+						</tr>
+						<tr>
+							<td><%= t('pi.height')%>:</td>
+							<td><%= h @base_item.height %> мм</td>
+						</tr>
+						<tr>
+							<td><%= t('pi.width')%>:</td>
+							<td><%= h @base_item.width %> мм</td>
+						</tr>
+						<tr>
+							<td><%= t('pi.depth')%>:</td>
+							<td><%= h @base_item.depth %> мм</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><%= t('pi.gross_weight')%>:</td>
+							<td><%= h @base_item.gross_weight %> г</td>
+						</tr>
+						<tr>
+							<td><%= t('pi.net_weight')%>:</td>
+							<td><%= h @base_item.net_weight %> г</td>
+						</tr>
+  					</tbody></table>
+					  <img class="u-img" src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt="">
+            <% unless @view_only || @base_item.published? %>
+              <%= link_to content_tag(:span, t('pi.pack')),"javascript:void(0)", :class=> 'blue-btn', :onclick => "packageMe(#{@base_item.id})" %>
+            <% end %>
+        </div>
 

@@ -1,17 +1,16 @@
 <div class="item">
 <div class="single-arrow"></div>
 
+<div class='pi-cont'>
 <%= form_for @packaging_item, :url => base_item_packaging_items_path(@base_item), :remote => true do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.hidden_field :parent_id %>
-  <p>
-  <div class="fleft min">
+  <div align ='center' >
     <%= f.submit t('pi.pack'), :class=> 'submit-btn' %>
-  </div>
-  <div class="fright min">
-  <%= button_to t('main.cancel'), 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;",:class=> 'submit-btn'} %>
-  </div>
-  </p>
+    <%= link_to content_tag(:span, t('main.cancel')), 'javascript:void(0)', {:onclick => "cancelPackageMeWithSub(#{@base_item.id});return false;",:class=> 'blue-btn'} %>
+</div>
+
 <% end %>
+</div>
 </div>
 

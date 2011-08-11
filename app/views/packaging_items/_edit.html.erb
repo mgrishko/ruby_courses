@@ -1,11 +1,11 @@
 <%= render :partial => "packaging_items/arrow", :locals => {:item => @packaging_item} %>
-<%= form_for @packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item), :remote => true do |f| %>
+<div class="pi-cont">
+<%= form_for @packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item), :html=>{:class=> 'jNice'},:remote => true do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
-  <p>
-    <div class="fleft"><%= f.submit t('main.update'),:class=>'submit-btn', :style=>"width: auto;"%></div>
-    <div class="fright min">
-			<%= button_to t('main.cancel'), 'javascript:void(0)', :class=>'submit-btn', :onclick  => "cancelEditButton('#{base_item_packaging_item_path(@base_item, @packaging_item)}');return false;"%>
-		</div>
-  </p>
+<div align='center'>
+  <%= f.submit t('main.update'),:class=>'submit-btn'%>
+  <%= link_to content_tag(:span, t('main.cancel')), 'javascript:void(0)', :class=>'blue-btn', :onclick  => "cancelEditButton('#{base_item_packaging_item_path(@base_item, @packaging_item)}');return false;"%>
+</div>
 <% end %>
+</div>
 

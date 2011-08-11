@@ -1,7 +1,7 @@
 <% accepted_packaging_item = @accepted_base_item.packaging_items.detect{|i|i.gtin == item.gtin} if @accepted_base_item %>
 <%= render :partial => "packaging_items/arrow", :locals => {:item => item} %>
         <div class='pi-cont' >
-          <div class="pi edited" id="first_pi">
+          <div class="pi edited">
             <% unless @view_only || @base_item.published? %>
 
               <div class="edit-delete<%= '2' unless item.leaf? %>">
@@ -43,8 +43,7 @@
 							<td><%= h item.net_weight %> г</td>
 						</tr>
   					</tbody></table>
-					  <img class="u-img" src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt="">
-
+					  <img class="u-img" src="/images/newdesign/icon-delivery-unit-2.jpg" height="23">
             <% unless @view_only || @base_item.published? %>
               <% unless item.pallet? %>
                   <%= link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn', :onclick => "packageMeWithSub(#{@base_item.id},#{item.id})" %>

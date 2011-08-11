@@ -50,7 +50,11 @@ module PackagingItemsHelper
   end
 
   def pi_image_tag(item, options ={})
+    begin
      id = BaseItem.packaging_types.find{|i|i[:code]==item.packaging_type}[:id]
+   rescue
+     id = 31
+   end
      image_tag "pi_new/#{id}.jpg", options
   end
 end

@@ -196,7 +196,7 @@ ol, ul {
 	border-top:0px;
 }
 .resizeable #content #middle-side {
-	margin-left: 180px; 
+	margin-left: 180px;
 	float: none;
 	border:1px solid #c7c7c7;
 	border-top:0px;
@@ -331,12 +331,12 @@ ol, ul {
 #content #left-side .cat li a:hover {}
 #content #left-side .cat li.act a, #content #left-side .cat li a:hover {
 	background:#d6dbeb;
-	font-weight:700;
+	//font-weight:700;
 	border-top:1px solid #e0e4f0;
 }
 #content #left-side .cat li ul li.act a, #content #left-side .cat li ul li a:hover {
 	background:#d6dbeb;
-	font-weight:700;
+	//font-weight:700;
 	border-top:1px solid #e0e4f0;
 }
 #content #left-side .cat li ul {
@@ -862,7 +862,7 @@ ol, ul {
 	padding:35px 0 15px 0px;
 }
 .short-wrap {
-	width:755px; 
+	width:755px;
 	padding:0 0 20px 0px;
 	border-top:1px solid #C9C9C9;
 }
@@ -906,7 +906,7 @@ ol, ul {
 	border: 1px solid #fff;
 	border-top:1px solid #F1F1F1;
 	border-bottom:1px solid #D5D5D5;
-	
+
 	padding:10px 0px 10px 10px;
 	position:relative;
 	height:35px;
@@ -967,8 +967,10 @@ ol, ul {
 #goods-list-short .item:hover a.btn span {
 	background: url("/images/newdesign/btn-right-h.png") no-repeat right top;
 }
+#goods-list-as-picture {
+padding-top:34px;
+}
 
-#goods-list-as-picture {}
 #goods-list-as-picture .as-wrap {
 
 }
@@ -1226,7 +1228,7 @@ tr.th td {
 	width: 395px;
 	position: absolute;
 	top: -105px;
-	left: 368px;
+	left: 320px;
 	background: #f5f6f8;
 	box-shadow: 3px 3px 4px #808080;
 	z-index: 2001;
@@ -1257,10 +1259,19 @@ tr.th td {
 	right: 10px;
 	top: 10px;
 }
+#img-container{
+        float: left;
+        width: 180px;
+	margin: 25px 8px 0 8px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+}
 .preview-pic{
-	border: 1px solid #bfbfbf;
-	margin: 0 0 0 8px;
-	float: left;
+        vertical-align: middle;
+	/*border: 1px solid #bfbfbf;*/
+	/*margin: 0 0 0 8px;*/
+	/*float: left;*/
 }
 .top-description{
 	margin: 25px 0 34px 0;
@@ -1462,6 +1473,7 @@ tr.th td {
 	padding: 20px 0 7px 0;
 }
 .blue-btn{
+  text-align:center;
 	background: #3a5a99;
 	border-left: 1px solid #7990bb;
 	border-top: 1px solid #7990bb;
@@ -1471,7 +1483,7 @@ tr.th td {
 }
 .blue-btn span{
 	border-bottom: 1px solid #223c7b;
-	border-right: 1px solid #223c7b;
+//	border-right: 1px solid #223c7b;
 	display: block;
 	padding: 2px 22px;
 	color: #fff;

@@ -129,6 +129,8 @@ en:
     height: 'Height'
     width: 'Width'
     depth: 'Depth'
+    inside: 'Inside'
+    select: 'Select'
 
   subscription:
     have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары

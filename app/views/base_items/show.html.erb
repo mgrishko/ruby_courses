@@ -54,7 +54,7 @@
 
       </div>
       <%= render :partial => 'item' %>
-      <div class="logistics main minimized">
+      <div class="logistics main <%='minimized' unless @base_item.draft?%>">
         <%= render 'packaging_items/index' %>
         <%= render :partial => 'privacy' %>
         <%= render 'comments/comments' %>
