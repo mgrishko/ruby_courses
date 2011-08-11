@@ -8,6 +8,7 @@ Feature: Administrator can accept and decline request.
     Given invitation_request exists with name: "Some name", company_name: "Some company name", email: "some@email.com", notes: "Some notes", status: "new"
     And "administrator" has gln "1234" and password "1234"
     Given loaded countries and gpcs
+    And I wait for 30 seconds
 
   @javascript
   Scenario: Administrator declines invitation request
