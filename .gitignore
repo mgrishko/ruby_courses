@@ -9,5 +9,5 @@ config/database.yml
 .idea
 public/data
 !public/data/images/pi_new
-data/images
+
 

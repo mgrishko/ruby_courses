@@ -6,7 +6,7 @@ Feature: User has own profile page and can edit it
 
   Background:
     Given "supplier" has gln "1234" and password "1234"
-    And "retailer" has gln "5678" and password "1234" also
+    And "retailer" has gln "5678" and password "1234"
 
   Scenario: Supplier edit user profile
     When I logged in as "supplier"

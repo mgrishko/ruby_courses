@@ -10,6 +10,14 @@ Factory.define :user do |f|
   f.password  ''
 end
 
+Factory.define :administrator, :parent => :user do |f|
+  f.gln '1234'
+  f.password  '1234'
+  f.name "Administrator"
+  f.password_confirmation '1234'
+  f.roles ['admin']
+end
+
 Factory.define :supplier, :parent => :user do |f|
   f.gln '1234'
   f.password  '1234'

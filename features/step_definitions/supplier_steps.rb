@@ -87,7 +87,10 @@ When /^I click element "([^"]*)"(?: within "([^"]*)")?$/ do |id,selector|
   end
 end
 
-
+Given /^loaded countries and gpcs$/ do
+  data = GpcCountryData.new
+  data.run
+end
 When /^(?:|I )fill in hidden_field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
     page.execute_script("$('##{field}').val('#{value}');")

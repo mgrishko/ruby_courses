@@ -22,5 +22,6 @@ Webforms::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
   config.active_support.deprecation = :log
+  config.action_mailer.deliveries = []
 end
 

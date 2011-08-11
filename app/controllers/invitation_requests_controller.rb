@@ -2,7 +2,7 @@ class InvitationRequestsController < ApplicationController
   before_filter :require_admin, :except => [:new, :create, :show]
   respond_to :html, :js
   def index
-  
+
     condition = case params[:view]
       when 'declined'
         {:status => 'declined'}
@@ -19,12 +19,12 @@ class InvitationRequestsController < ApplicationController
   end
 
   def new
-    @invitation_request = InvitationRequest.new    
+    @invitation_request = InvitationRequest.new
     respond_with(@invitation_request)
   end
-  
+
   def create
-    @invitation_request = InvitationRequest.new(params[:invitation_request])   
+    @invitation_request = InvitationRequest.new(params[:invitation_request])
      @invitation_request.roles = params[:roles]
     if @invitation_request.save
       redirect_to @invitation_request, :notice=> "Thank you for your interest."
@@ -32,24 +32,24 @@ class InvitationRequestsController < ApplicationController
       render :action=>"new"
     end
   end
-  
+
   def show
-    @invitation_request = InvitationRequest.new(params[:id])    
+    @invitation_request = InvitationRequest.new(params[:id])
     respond_with(@invitation_request)
   end
-  
+
   def decline
-    @invitation_request = InvitationRequest.find(params[:id])    
+    @invitation_request = InvitationRequest.find(params[:id])
     begin
-      #Notification.decline_invitation_request_email(@invitation_request).deliver    
+      #Notification.decline_invitation_request_email(@invitation_request).deliver
       @invitation_request.decline!
     rescue
     end
     respond_with(@invitation_request)
   end
-  
+
   def invite
-    @invitation_request = InvitationRequest.find(params[:id])    
+    @invitation_request = InvitationRequest.find(params[:id])
     #TODO code to invite user call generate new user with params from invitation
     prms = @invitation_request.attributes
     %w{status notes}.each{|col|    prms.delete(col)}
@@ -58,17 +58,17 @@ class InvitationRequestsController < ApplicationController
       begin
         fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
         fdl.run
-        Notification.accept_invitation_request_email(@user).deliver    
+        Notification.accept_invitation_request_email(@user).deliver
         @invitation_request.invite!
       rescue Exception => e
         render :text => '' and return
       end
     else
       render :text => '' and return
-    end    
+    end
     respond_with(@invitation_request)
   end
-  
+
   def add_user
     prms = params[:user]
    # %w{company_name}.each{|col|    prms.delete(col)}
@@ -77,11 +77,12 @@ class InvitationRequestsController < ApplicationController
     #  begin
         fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
         fdl.run
-        Notification.accept_invitation_request_email(@user).deliver    
+        Notification.accept_invitation_request_email(@user).deliver
         @user = User.new
     #  rescue Exception => e
     #    render :text => '' and return
-    #  end    
-    end 
+    #  end
+    end
   end
 end
+

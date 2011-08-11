@@ -7,19 +7,19 @@
     .address
       %a{:href => "#"}
         = t 'invitation.invitations'
-    #goods-list-short    
-      =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#form_wrapper").show()'
+    #goods-list-short
+      =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#form_wrapper").show()', :id => 'show_add_user_link'
       #add_user_wrapper
         #form_wrapper{:style=>'display:none'}
           = render :partial => 'form'
-          
+
 
       .sort-btn
         = link_to_if (params[:view]!='new' and params[:view].present?), t('new'), url_for(params.merge :view => 'new'), :class=>'kr'
         |
         = link_to_if params[:view]!='declined', t('declined'), url_for(params.merge(:view => 'declined'))
         |
-        = link_to_if params[:view]!='invited', t('invited'), url_for(params.merge(:view => 'invited')) 
+        = link_to_if params[:view]!='invited', t('invited'), url_for(params.merge(:view => 'invited'))
         .clr
       .short-wrap
         - @invitation_requests.each do |ir|
@@ -27,8 +27,8 @@
             .desc
               .fright{:id => "buttons-#{ir.id}"}
                 -if ir.status == 'new'
-                  = link_to content_tag(:span, t('invitation.invite')),invite_invitation_request_path(ir), {:class => 'blue-btn', :remote => true, :method=>'GET'}
-                  = link_to content_tag(:span, t('invitation.decline')),decline_invitation_request_path(ir),{ :class => 'blue-btn', :remote => true, :method=>'GET' }
+                  = link_to content_tag(:span, t('invitation.invite')),invite_invitation_request_path(ir), {:class => 'blue-btn accept', :remote => true, :method=>'GET'}
+                  = link_to content_tag(:span, t('invitation.decline')),decline_invitation_request_path(ir),{ :class => 'blue-btn decline', :remote => true, :method=>'GET' }
                 -else
                   %h3
                     = ir.status
@@ -38,11 +38,11 @@
                 %span
                   = h ir.email
                 %span{:class => 'product-name'}
-                  = h ir.notes  
+                  = h ir.notes
                 %span{:class => 'date'}
                   = humanize_date(ir.updated_at)
               %p
                 %span{:class => 'changes'}
-                  = h ir.status              
+                  = h ir.status
                 = h ir.roles.join(',')
 
