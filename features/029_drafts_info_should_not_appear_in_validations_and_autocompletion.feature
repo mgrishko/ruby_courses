@@ -23,10 +23,10 @@ Feature: Supplier shouldn't see data from drafts in validations or autocompletio
       | RU | Russia |
       | CN | China |
     When I logged in as "supplier"
-    
-    
 
-    
+
+
+
   Scenario: Should not validate gtin within drafts info
     When I go to the base_items page
     And I follow "new_base_item_link"
@@ -48,7 +48,7 @@ Feature: Supplier shouldn't see data from drafts in validations or autocompletio
     And I wait for 1 second
     And I press "next_button"
     And I wait for 1 seconds
-    And I fill in "base_item_packaging_name" with "Box"
+    And I fill in hidden_field "base_item_packaging_name" with "Box"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"
@@ -59,7 +59,7 @@ Feature: Supplier shouldn't see data from drafts in validations or autocompletio
     And I wait for 1 second
     And I press "base_item_submit" within ".logistics"
     Then 3 base_items should exist
-    
+
   Scenario: Should not see data from drafts
     When I go to the base_item with gtin "11234567" page
     And I follow "edit_base_item_btn"
@@ -92,3 +92,4 @@ Feature: Supplier shouldn't see data from drafts in validations or autocompletio
     And I wait for 1 second
     Then I should see "12345679"
     And I should not see "97654321"
+
