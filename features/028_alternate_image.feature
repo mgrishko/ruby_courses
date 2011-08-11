@@ -1,5 +1,4 @@
 @javascript
-@wip
 Feature: Corresponding test image should show when original image not upload
   In order to test what a product have image
   As a supplier and retailer
@@ -39,7 +38,7 @@ Feature: Corresponding test image should show when original image not upload
     And I wait for 1 second
     And I press "next_button"
     And I wait for 2 seconds
-    And I fill in "base_item_packaging_name" with "Box"
+    And I fill in hidden_field "base_item_packaging_name" with "Box"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"
