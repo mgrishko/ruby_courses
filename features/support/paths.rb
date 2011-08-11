@@ -13,6 +13,8 @@ module NavigationHelpers
       base_item_path(BaseItem.first)
     when /the home\s?page/
       '/'
+    when /the user page with "(.*)"/
+      user_path($1)
     when /the events\s?page/
       '/events'
     when /the retailer_items\s?page/

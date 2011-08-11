@@ -179,6 +179,8 @@ en:
     website: 'Website'
     change_password: 'Change password'
     locale: 'Locale'
+    edit: 'Edit'
+    main_information: 'Main Information'
 
   menu: # Top menu
     my_items: 'My Items' #My Items

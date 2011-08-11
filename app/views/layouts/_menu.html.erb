@@ -29,7 +29,7 @@
 	</ul>
     <div class="right">
         <%= link_to current_user.name, '#', :class=> 'company' %>
-        <%= link_to t('main.settings'), user_path(current_user), :class=> 'set name''#'%>
+        <%= link_to t('main.settings'), user_path(current_user),:id=> 'settings_link', :class=> 'set name''#'%>
         <%= link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout) %>
         <% for locale in @other_locales %>
           <%= link_to locale[:locale], locale, :class=> "locale_#{locale}" %>

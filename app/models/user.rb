@@ -38,11 +38,14 @@ class User < ActiveRecord::Base
   has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
   validates_uniqueness_of :gln
-  validates :email, 
+  validates :email,
             :allow_nil => true,
             :uniqueness => true,
             :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-            
+  validates :website,
+            :allow_nil => true,
+            :format => {:with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix}
+
   acts_as_authentic do |a|
     a.validate_email_field = false
     a.validate_login_field = false
@@ -132,15 +135,13 @@ class User < ActiveRecord::Base
   def has_usual_subscription? item
     self.subscriptions.usual.active.where(:supplier_id => item.user_id).any?
   end
- 
+
   def self.generate_for_invite(args={})
     user = User.new(args)
     user.gln = User.maximum(:gln)+1
     user.password=Digest::MD5.hexdigest(DateTime.now.hash.to_s+rand(10000000).to_s)[0..8]
     user.password_confirmation = user.password
     user
-  end  
+  end
 end
-
-
 

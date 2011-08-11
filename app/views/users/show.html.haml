@@ -5,11 +5,11 @@
   .wrap
     .address
       %a
-        = @user.gln    
+        = @user.gln
     #profile-info
       .info-wrap
-        %h3{:class=>'title'} 
-          Main Information
+        %h3{:class=>'title'}
+          = t('user.main_information')
         %table{:cellspacing => 0, :cellpadding => 0}
           %tr
             %td
@@ -22,7 +22,7 @@
               %span
                 = t('user.company_name')
             %td
-              = @user.company_name              
+              = @user.company_name
           %tr
             %td
               %span
@@ -47,4 +47,5 @@
                 = t('user.language')
             %td
               = @user.locale
-        =link_to t('user.edit'), edit_user_path(@user)
+        =link_to t('user.edit'), edit_user_path(@user), :id =>'edit_user_info_link'
+
