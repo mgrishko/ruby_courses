@@ -131,6 +131,9 @@ en:
     depth: 'Depth'
     inside: 'Inside'
     select: 'Select'
+  uom:
+    grm: 'grm'
+    mm: 'mm'
 
   subscription:
     have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары

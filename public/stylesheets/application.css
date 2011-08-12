@@ -173,6 +173,9 @@ ul.items li.new .item ul
 	position: relative;
 
 }
+.logistics td {
+  vertical-align:top;
+}
 .pi:hover{
 /*	border: 1px solid #3a5a98;
 	border-radius: 5px;
@@ -309,7 +312,7 @@ ul.items li.new .item ul
 }
 
 .pi-cont .blue-btn{
-	margin: 1px 0px 4px 19px;
+	margin: 1px 0px 4px 24px;
 
 
 }
@@ -334,6 +337,9 @@ ul.items li.new .item ul
 	height: 160px;
 	z-index: 50;
 }*/
+.logistics .pi-cont{
+  width: 132px;
+}
 .logistics.minimized .pi-cont.min-pi-cont-hover{
 	position: relative;
 	width: 132px;
@@ -374,7 +380,7 @@ ul.items li.new .item ul
 	margin-bottom:3px;
 }
 #first_pi {
-  padding-top: 18px;
+//  padding-top: 18px;
   margin-top: 20px;
 }
 .pi input[type='text']
@@ -449,19 +455,25 @@ ul.items li.new .item ul
 	margin-right:7px;
 	color:#747473;
 }
-.submit-btn, .submit-btn2 {
+.submit-btn, .submit-btn2, .submit-btn3 {
 	border:1px solid #8FA3C4;
 	border-bottom:1px solid #312378;
 	cursor:pointer;
 	font-size:11px;
 	background:#3B5A9A;
-	margin:7px 0px;
+	margin:7px 15px;
 	padding:0px 18px;
 	line-height:18px;
 	color:#fff;
-	width:84px;
+//	width:84px;
 	height:22px;
 }
+
+.submit-btn3 {
+	margin:7px 0px;
+	width:84px;
+}
+
 .submit-btn2 {
         float: right;
 }

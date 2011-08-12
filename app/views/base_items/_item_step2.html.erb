@@ -15,15 +15,15 @@
 						</tr>
 						<tr>
 							<td><%= t('pi.height')%>:</td>
-							<td><%= h @base_item.height %> мм</td>
+							<td><%= h @base_item.height %> <%= t('uom.mm')%></td>
 						</tr>
 						<tr>
 							<td><%= t('pi.width')%>:</td>
-							<td><%= h @base_item.width %> мм</td>
+							<td><%= h @base_item.width %> <%= t('uom.mm')%></td>
 						</tr>
 						<tr>
 							<td><%= t('pi.depth')%>:</td>
-							<td><%= h @base_item.depth %> мм</td>
+							<td><%= h @base_item.depth %> <%= t('uom.mm')%></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
@@ -31,11 +31,11 @@
 						</tr>
 						<tr>
 							<td><%= t('pi.gross_weight')%>:</td>
-							<td><%= h @base_item.gross_weight %> г</td>
+							<td><%= h @base_item.gross_weight %> <%= t('uom.grm')%></td>
 						</tr>
 						<tr>
 							<td><%= t('pi.net_weight')%>:</td>
-							<td><%= h @base_item.net_weight %> г</td>
+							<td><%= h @base_item.net_weight %> <%= t('uom.grm')%></td>
 						</tr>
   					</tbody></table>
 					  <img class="u-img" src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt="">

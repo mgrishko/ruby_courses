@@ -41,19 +41,19 @@
 									<tr>
 										<td><%=t('pi.height')%>:</td>
 										<td>
-										  <%=f.text_field :height, :class => 'w44' %> мм
+										  <%=f.text_field :height, :class => 'w44' %> <%= t('uom.mm')%>
 										</td>
 									</tr>
 									<tr>
 										<td><%=t('pi.width')%>:</td>
 										<td>
-										  <%=f.text_field :width, :class => 'w44' %> мм
+										  <%=f.text_field :width, :class => 'w44' %> <%= t('uom.mm')%>
 										</td>
 									</tr>
 									<tr>
 										<td><%=t('pi.depth')%>:</td>
 										<td>
-										  <%=f.text_field :depth, :class => 'w44' %> мм
+										  <%=f.text_field :depth, :class => 'w44' %> <%= t('uom.mm')%>
 										</td>
 									</tr>
 									<tr>
@@ -61,8 +61,8 @@
 										<td>&nbsp;</td>
 									</tr>
 									<tr>
-										<td><%= t('pi.gross_weight')%>:</td>
-										<td><%=f.text_field :gross_weight, :class=>"w44"%>г</td>
+										<td width="50px"><%= t('pi.gross_weight')%>:</td>
+										<td><%=f.text_field :gross_weight, :class=>"w44"%> <%= t('uom.grm')%></td>
 									</tr>
 	</tbody></table>
 									<table class="rb-table" cellpadding="0" cellspacing="0" border="0">
