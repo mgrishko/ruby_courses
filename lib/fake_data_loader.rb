@@ -134,7 +134,6 @@ class FakeDataLoader
 
       def create_hierarchy(k,  data, parent = nil)
         unless parent
-          puts "======"
           @counter += 1
           if @counter > @q_items[@q_count]
             @counter = 0
@@ -181,11 +180,11 @@ class FakeDataLoader
           item.height = data[29]
           item.width = data[33]
           item.depth = data[31]
-          unless item.save
-            puts parent.inspect
-            puts item.inspect
-            puts item.errors.full_messages
-          end
+         # unless item.save
+         #   puts parent.inspect
+         #   puts item.inspect
+         #   puts item.errors.full_messages
+         # end
           ################################
           # add images
           ###############################
@@ -217,7 +216,7 @@ class FakeDataLoader
           else
             # wrong picture
           end
-  #        puts image_id
+
           end
         else
           item = if parent.kind_of? BaseItem
@@ -246,11 +245,11 @@ class FakeDataLoader
           item.quantity_of_layers_per_pallet = data[40]
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
-        unless item.save
-            puts parent.inspect
-            puts item.inspect
-            puts item.errors.full_messages
-        end
+      #  unless item.save
+      #      puts parent.inspect
+      #      puts item.inspect
+      #      puts item.errors.full_messages
+      #  end
         end
 
 
@@ -273,8 +272,7 @@ class FakeDataLoader
       end
       parents= []
 
-      puts @items.length
-      sleep 5
+
       begin
        @bis_map.each{|k,v| parents << k unless v['child']}
        @items.each_with_index do |item,counter|
@@ -308,3 +306,4 @@ class FakeDataLoader
 
   end
 end
+
