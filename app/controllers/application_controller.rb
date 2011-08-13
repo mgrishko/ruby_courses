@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :link_model_with_auth_user
   before_filter :browser_compatible?
+
   helper_method :current_user_session, :current_user
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -35,15 +36,20 @@ class ApplicationController < ActionController::Base
       current_user.update_attribute(:locale ,params[:locale])
     end
 
-    I18n.locale = 
+    I18n.locale = session[:locale] =
       if current_user and current_user.locale and
-        I18n.available_locales.include? current_user.locale.to_sym
+          I18n.available_locales.include? current_user.locale.to_sym
         current_user.locale
+      elsif params[:locale] and
+          I18n.available_locales.include? params[:locale].to_sym
+        params[:locale]
+      elsif session[:locale] and
+          I18n.available_locales.include? session[:locale].to_sym
+        session[:locale]
       else
         preferred_language
       end
-      
-      
+
     @text_direction = RTL_LANGS.include?(I18n.locale) ? 'rtl' : 'ltr'
     logger.info "ApplicationController@#{__LINE__}#set_locale locale is #{I18n.locale.inspect} user is #{(!current_user || current_user.new_record?) ? '_guest_' : ("#{current_user.name}" + "(#{current_user.id})")}"
     @other_locales = []
@@ -173,7 +179,7 @@ class ApplicationController < ActionController::Base
     @manufacturers = BaseItem.get_manufacturers user, supplier, all_suppliers
     @functionals = BaseItem.get_functionals user, supplier, all_suppliers
   end
-  
+
   def browser_compatible?
     result  = request.env['HTTP_USER_AGENT']
     browser_compatible = false
