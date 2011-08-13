@@ -136,6 +136,11 @@ class User < ActiveRecord::Base
     self.subscriptions.usual.active.where(:supplier_id => item.user_id).any?
   end
 
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    Notification.password_reset_instructions(self).deliver
+  end
+
   def self.generate_for_invite(args={})
     user = User.new(args)
     user.gln = User.maximum(:gln)+1

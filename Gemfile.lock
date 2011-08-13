@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/bmabey/email-spec.git
+  revision: e197a167a3f89cba6848ba144e342537e1cf64ab
+  branch: rails3
+  specs:
+    email_spec (0.6.2)
+
+GIT
   remote: git://github.com/dima4p/russian.git
   revision: e2cb3aa75d24c269a4c5280128c36f43b2acc4b0
   specs:
@@ -110,6 +117,7 @@ GEM
       guard (>= 0.4.0)
     haml (3.1.2)
     headless (0.1.0)
+    hpricot (0.8.4)
     i18n (0.5.0)
     jquery-rails (1.0.12)
       railties (~> 3.0)
@@ -175,12 +183,15 @@ GEM
       rspec (~> 2.6.0)
     ruby-graphviz (0.9.21)
     ruby-xslt (0.9.8)
+    ruby_parser (2.0.6)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     selenium-webdriver (0.2.2)
       childprocess (>= 0.1.9)
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    sexp_processor (3.0.5)
     spork (0.8.5)
     term-ansicolor (1.0.5)
     test-unit (2.3.0)
@@ -215,6 +226,7 @@ DEPENDENCIES
   cucumber-rails (= 0.3.2)
   database_cleaner
   dynamic_form
+  email_spec!
   exception_notification!
   globalize3
   guard
@@ -222,6 +234,7 @@ DEPENDENCIES
   guard-rspec
   haml
   headless
+  hpricot
   jquery-rails
   jrails
   libnotify
@@ -237,6 +250,7 @@ DEPENDENCIES
   rmagick
   rspec-rails (~> 2.4)
   ruby-xslt
+  ruby_parser
   rubyzip
   russian!
   selenium-webdriver (= 0.2.2)

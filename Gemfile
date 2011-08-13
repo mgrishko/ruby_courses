@@ -44,14 +44,19 @@ group :development, :test do
   gem 'cucumber'
   gem 'cucumber-rails', '0.3.2', :require => false
   gem 'database_cleaner'
+  gem 'email_spec',
+      :git=>'git://github.com/bmabey/email-spec.git',
+      :branch=>'rails3'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'headless'
+  gem 'hpricot'
   gem 'parseexcel'
   gem 'pickle'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 2.4'
+  gem 'ruby_parser'
   gem 'selenium-webdriver', '0.2.2'
   gem 'spork'
   gem 'test-unit'

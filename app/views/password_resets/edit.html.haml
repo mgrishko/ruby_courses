@@ -1,0 +1,23 @@
+- title t('.title')
+
+%p
+  = t '.enter_password'
+
+= form_tag password_reset_path, :method => :put do
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = t 'errors.template.header', :model => t('.user'), :count => @user.errors.count
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = label :user, :password
+    %br
+    = password_field_tag :password
+  .field
+    = label :user, :password_confirmation
+    %br
+    = password_field_tag :password_confirmation
+  .actions
+    = submit_tag t '.update'

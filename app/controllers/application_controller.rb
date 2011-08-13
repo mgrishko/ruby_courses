@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery :except => [:status, :instantstatus] # See ActionController::RequestForgeryProtection for details
   before_filter :set_locale
+  before_filter :set_hostname
   before_filter :link_model_with_auth_user
   before_filter :browser_compatible?
 
@@ -32,7 +33,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    if current_user && params[:locale] && current_user.locale != params[:locale]
+    if logged_in? && params[:locale] && current_user.locale != params[:locale]
       current_user.update_attribute(:locale ,params[:locale])
     end
 
@@ -99,7 +100,11 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined?(@current_user)
-    @current_user = current_user_session ? current_user_session.user : User.new
+    @current_user = current_user_session && current_user_session.record || User.new
+  end
+
+  def logged_in?
+    current_user_session && current_user_session.record
   end
 
   def require_user
@@ -130,7 +135,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    session[:return_to] = request.request_uri
+    session[:return_to] = request.fullpath
   end
 
   def redirect_back_or_default(default)
@@ -196,6 +201,15 @@ class ApplicationController < ActionController::Base
      browser_compatible =  version.to_i > 2
     end
     @supported_browser = browser_compatible
+  end
+
+  def set_hostname
+    @hostname = request.host
+    port = request.port
+    @hostname << ":#{port}" if port != 80
+    ActionMailer::Base.default_url_options =
+      {:host => @hostname, :locale => I18n.locale}
+    logger.debug "ApplicationController@#{__LINE__}#set_hostname #{@hostname.inspect}" if logger.debug?
   end
 
 end

@@ -70,6 +70,9 @@ Webforms::Application.routes.draw do
   resources :subscription
   resources :suppliers
 
+  resources :password_resets,
+      :only => [ :new, :create, :edit, :update ]
+
   root :to => 'base_items#index'
 
   match  'main/classifier' =>     'main#classifier', :as => :classifier

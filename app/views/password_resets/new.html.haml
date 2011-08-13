@@ -1,0 +1,10 @@
+- title t('.title')
+
+%p
+  = t '.enter_email'
+
+= form_tag password_resets_path do
+  .field
+    = text_field_tag :email, nil, :size => 40
+  .actions
+    = submit_tag t '.reset'
