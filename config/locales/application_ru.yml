@@ -1,7 +1,9 @@
 ---
 ru:
+  application_name:
+    Getmasterdata
   comment:
-    comment: Comment=TODO
+    comment: Комментировать
   edit:
     base_item: "Editing base item=TODO"
     revert_to_published: "Revert to published=TODO"
@@ -12,17 +14,17 @@ ru:
   filter:
     remove: "Remove filter=TODO"
   form:
-    main_date: "Main Date=TODO"
+    main_date: "Основные данные"
     minimum_durability_from_arrival: min_durability=TODO
     plu_description: "plu description=TODO"
   image:
     change: "Change Image=TODO"
     upload: Upload=TODO
   item:
-    add_item: "Add item=TODO"
-    back: "Back to the items=TODO"
+    add_item: "Добавить товар"
+    back: "Вернуться к списку товаров"
     base: "Base data=TODO"
-    input_items: 'Input items=TODO' #Входящие товары
+    input_items: 'Входящие товары'
     brand: Brand=TODO
     incorrect: 'Неверно введён штрих-код'
     have_subscription: 'У Вас уже есть подписка?'
@@ -30,7 +32,7 @@ ru:
     content_uom: "Content uom=TODO"
     country_of_origin: "Country of origin=TODO"
     country_of_origin_code: country_of_origin_code=TODO
-    date_of_the_newest: "Date of the newest=TODO"
+    date_of_the_newest: "Дата самого свежего (а остальные, что ли, тухлые?=TODO)"
     description: "Item Description=TODO"
     edit: Edit=TODO
     export_to_xls: "Export to xls=TODO"
@@ -41,7 +43,7 @@ ru:
     internal_item_id: "Internal item id=TODO"
     manufacturer_gln: "Manufacturer GLN=TODO"
     manufacturer_name: "Manufacturer name=TODO"
-    missing: missing=TODO
+    missing: отсутствует
     name_en: "item name long en=TODO"
     name_ru: "item name long ru=TODO"
     new_base_item: "New Base Item=TODO"
@@ -55,8 +57,8 @@ ru:
     vat: Vat=TODO
     versions: Versions=TODO
   login:
-    logged_in: "Successful login=TODO"
-    logged_out: "Successful logout=TODO"
+    logged_in: 'Успешно вошли'
+    logged_out: 'Успешно вышли'
     reqiure_no_user: "Please logout to access this page=TODO"
     require_admin: "Only admin has access to this page=TODO"
     require_user: "Please login to access this page=TODO"
@@ -76,13 +78,13 @@ ru:
     not_available: Not_Available=TODO
     change: Change=TODO
     delete: Delete=TODO
-    detailed: Detailed=TODO
+    detailed: Развернуто
     edit: Edit=TODO
     export: Export=TODO
     functional: Functional=TODO
     home: Home=TODO
     item: Item=TODO
-    item_quantity: "Items quantity=TODO"
+    item_quantity: "Количество товаров"
     items: Items=TODO
     logistic: Logistic=TODO
     manufacturers: Manufacturers=TODO
@@ -97,15 +99,15 @@ ru:
     search: Search=TODO
     select: Select=TODO
     settings: Settings=TODO
-    short: Short=TODO
+    short: Кратко
     show: Show=TODO
     status: Status=TODO
     subscribers: Subscribers=TODO
     tags: Tags=TODO
-    tile: Tile=TODO
+    tile: Плитка
     title: Datapool=TODO
     update: Update=TODO
-    information: "Main information=TODO"
+    information: "Основная информация"
   menu:
     events: Events=TODO
     inbox: Inbox=TODO
@@ -126,30 +128,30 @@ ru:
     previous: Newer=TODO
   pi:
     gross_weight: "gross weight=TODO"
-    items: items=TODO
+    items: ед.
     net_weight: "net weight=TODO"
     pack: pack=TODO
-    packages_inside: "packages inside=TODO"
+    packages_inside: "уп. внутри"
     packaging_type: "Packaging Type=TODO"
-    size: "H x L x W=TODO"
+    size: "(В x Д x Ш)"
   privacy:
-    all: all=TODO
+    all: все
     brick: Brick=TODO
     carton: Carton=TODO
     case: Case=TODO
-    choose: Choose=TODO
+    choose: 'Выберите...'
     gable_top: Gable-Top=TODO
-    i_and_companies: "I and these companies=TODO"
-    just_i: "just I=TODO"
+    i_and_companies: "я, и ещё эти компании:"
+    just_i: "только я"
     multi_pack: Multi-pack=TODO
     not_packed: "Not Packed=TODO"
     packed: "Packed, unspecified dfcdddddddddd=TODO"
     pouch: Pouch=TODO
-    selected: Selected=TODO
-    who_can_see: "Who can see item?=TODO"
+    selected: Выбранный пункт
+    who_can_see: "Кто может видеть этот товар?"
     wrapper: Wrapper=TODO
   ra:
-    add: "Add Data=TODO"
+    add: "Добавить данные"
     article_id: "Retailer Article Id=TODO"
     classification: "Retailer Classification=TODO"
     comment: "Retailer Comment=TODO"
@@ -158,30 +160,30 @@ ru:
     add: Add=TODO
     add_receiver_from_list: "Add receiver from list=TODO"
   sr:
-    accept: Accept=TODO
-    accept_all: "Accept All=TODO"
-    cancel: Cancel=TODO
-    cancel_all: "Cancel All=TODO"
+    accept: Акцептовать
+    accept_all: "Акцептовать все"
+    cancel: Отменить
+    cancel_all: "Отменить все"
     changed: changed=TODO
-    confirm_accept_all: "Are you sure want to accept all results?=TODO"
-    confirm_cancel_all: "Are you sure want to cancel all results?=TODO"
+    confirm_accept_all: "Вы точно хотите акцептовать все результаты?"
+    confirm_cancel_all: "Вы точно хотите отменить все результаты?"
     date: date=TODO
     inbox: Inbox=TODO
     new: new=TODO
-    not_send: "Data was not sent=TODO"
+    not_send: "Данные не отправлялись"
   status:
-    items_subscribers: Items\Subscribers=TODO
-    title: "Subscription Results Statuses=TODO"
+    items_subscribers: 'Товары/Подписчики'
+    title: "Статусы результатов подписки"
   subscription:
-    have_subscription: "You have subscription for all items of=TODO"
+    have_subscription: "Вы подписаны на все товары"
     not_found: "Record with such gtin is not found=TODO"
     record_code: "Record code=TODO"
     status: "Subscribe status=TODO"
-    subscribe: Subscribe=TODO
+    subscribe: Подписаться
     subscribe_gtin: "Подписка по GTIN=TODO"
-    unsubscribe: Unsubscribe=TODO
+    unsubscribe: Отписаться
   supplier:
-    last_update: "Last update=TODO"
+    last_update: "Последнее обновление"
     title: Suppliers=TODO
   tag:
     add: "Add tag=TODO"
@@ -197,9 +199,9 @@ ru:
     title: Company=TODO
 
   flash:
-    account_login: 'Please login your account to access this page' #"Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-    account_logout: 'Please logout from your account to access this page' #"Пожалуйста выйдите со своего аккаунта для доступа к этой странице"
-    account_admin: 'Only Admin has access to this page' #"Только администратор имеет право доступа к этой странице"
-    created_sent: 'BaseItem was successfully created and sent'
-    created: 'BaseItem was successfully created.'
+    account_login: "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
+    account_logout: "Пожалуйста выйдите со своего аккаунта для доступа к этой странице"
+    account_admin: "Только администратор имеет право доступа к этой странице"
+    created_sent: 'BaseItem was successfully created and sent=TODO'
+    created: 'BaseItem was successfully created.=TODO'
 

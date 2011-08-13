@@ -1,5 +1,7 @@
 ---
 en:
+  application_name:
+    Getmasterdata
   errors:
     template:
       body: "There were problems with the following fields:"
@@ -39,29 +41,29 @@ en:
     manufacturers: 'Manufacturers'
     functional: 'Functional'
     publish: 'Publish'
-    export: 'Export' #########################
+    export: 'Export'
     reply: 'Reply'
     base_items: 'Base Items'
     items: 'Items'
     item: 'Item'
     name: 'Name'
     logistic: 'Logistic'
-    subscribers: 'Subscribers' ###############
+    subscribers: 'Subscribers'
     select: 'Select'
-    item_quantity: 'Items quantity' # Количество товаров
-    annotations: 'Пояснения к полю' ##############################################################
+    item_quantity: 'Items quantity'
+    annotations: 'Пояснения к полю'
     days: 'days'
-    short: 'Short' #Кратко########
-    tile: 'Tile' #Плитка#######
-    detailed: 'Detailed' #Развернуто############
-    information: 'Main information' #Основная информация
+    short: 'Short'
+    tile: 'Tile'
+    detailed: 'Detailed'
+    information: 'Main information'
 
   login:
     require_user: 'Please login to access this page'
     reqiure_no_user: 'Please logout to access this page'
     require_admin: 'Only admin has access to this page'
-    logged_in: 'Successful login' # Успешно вошли
-    logged_out: 'Successful logout' # Успешно вышли
+    logged_in: 'Successful login'
+    logged_out: 'Successful logout'
 
   filter:
     remove: 'Remove filter'
@@ -74,18 +76,18 @@ en:
     oldest: 'The Oldest'
 
   item: # Item, Base Item
-    add_item: 'Add item' ##Добавить товар#################
+    add_item: 'Add item'
     edit: 'Edit'
-    input_items: 'Input items' #Входящие товары
+    input_items: 'Incoming items'
     gtin: 'gtin'
-    incorrect: 'Entered an incorrect ?GTIN?' #"Неверно введен штрих-код
-    have_subscription: 'You already have subscription?' # у вас уже есть подписка?
+    incorrect: 'Entered an incorrect ?GTIN?'
+    have_subscription: 'You already have subscription?'
     brand: 'Brand'
     subbrand: 'Subbrand'
     functional: 'Functional'
     content: 'Content'
     variant: 'Variant'
-    missing: 'missing' #отсутствует###################
+    missing: 'missing'
     content_uom: 'Content uom'
     description: 'Item Description'
     manufacturer_gln: 'Manufacturer GLN'
@@ -100,10 +102,10 @@ en:
     base: 'Base data'
     privacy: 'Privacy'
     private: 'Private'
-    back: 'Back to the items'  # Вернуться к списку товаров
+    back: 'Back to the list of items'
     versions: 'Versions'
     new_base_item: 'New Base Item'
-    date_of_the_newest: 'Date of the newest' # Дата самого свежего
+    date_of_the_newest: 'Date of the newest'
     name_ru: 'item name long ru'
     name_en: 'item name long en'
     new_packaging_item: 'New packaging_item'
@@ -120,10 +122,10 @@ en:
 
   pi: # Packaging Item
     pack: 'pack'
-    packages_inside: 'packages inside' #уп. внутри
+    packages_inside: 'packages inside'
     packaging_type: 'Packaging Type'
-    items: 'items' #ед.
-    size: 'H x L x W' # (В x Д x Ш)
+    items: 'items'
+    size: 'H x L x W'
     gross_weight: 'gross weight'
     net_weight: 'net weight'
     height: 'Height'
@@ -136,22 +138,22 @@ en:
     mm: 'mm'
 
   subscription:
-    have_subscription: 'You have subscription for all items of' # Вы подписаны на все товары
+    have_subscription: 'You are subscribed to the all items of'
     status: 'Subscribe status'
-    subscribe: 'Subscribe' # Подписаться
-    unsubscribe: 'Unsubscribe' # Отписаться
+    subscribe: 'Subscribe'
+    unsubscribe: 'Unsubscribe'
     not_found: 'Record with such gtin is not found'
-    subscribe_gtin: 'Подписка по GTIN' ####################
+    subscribe_gtin: 'Подписка по GTIN'
     record_code: 'Record code'
 
   sr: # Subscription Result
-    not_send: 'Data was not sent' #Данные не отправлялись
-    accept: 'Accept' # Акцептовать
-    accept_all: 'Accept All' # Акцептовать все
-    confirm_accept_all: 'Are you sure want to accept all results?' # Вы точно хотите акцептовать все результаты?
-    cancel: 'Cancel' # Отменить
-    cancel_all: 'Cancel All' # Отменить все
-    confirm_cancel_all: 'Are you sure want to cancel all results?' # Вы точно хотите отменить все результаты?
+    not_send: 'Data was not sent'
+    accept: 'Accept'
+    accept_all: 'Accept All'
+    confirm_accept_all: 'Are you sure want to accept all the results?'
+    cancel: 'Cancel'
+    cancel_all: 'Cancel All'
+    confirm_cancel_all: 'Are you sure want to cancel all results?'
     inbox: 'Inbox'
     date: 'date'
     new: 'new'
@@ -162,7 +164,7 @@ en:
   comment:
     title: 'Comments'
     add: 'Add Comment'
-    comment: 'Comment' #Комментировать###############
+    comment: 'Comment'
 
   event: # Events page
     title: 'Event Log'
@@ -186,12 +188,12 @@ en:
     main_information: 'Main Information'
 
   menu: # Top menu
-    my_items: 'My Items' #My Items
-    inbox: 'Inbox' #Inbox
-    messages: 'Messages' #Messages
+    my_items: 'My Items'
+    inbox: 'Inbox'
+    messages: 'Messages'
     status: 'Status'
-    statuses: 'Statuses' #Statuses
-    received_items: 'Received Items' #Received Items
+    statuses: 'Statuses'
+    received_items: 'Received Items'
     suppliers: 'Suppliers'
     events: 'Events'
     log_off: 'Log off'
@@ -216,28 +218,28 @@ en:
     classification: 'Retailer Classification'
     item_description: 'Retailer Item Description'
     comment: 'Retailer Comment'
-    add: 'Add Data' # Добавить данные###############
+    add: 'Add Data'
 
   status:
-    title: 'Subscription Results Statuses' # Статусы результатов подписки
-    items_subscribers: 'Items\Subscribers' # Товары\Подписчики
+    title: 'Subscription Results Statuses'
+    items_subscribers: 'Items/Subscribers'
 
   supplier:
     title: 'Suppliers'
-    last_update: 'Last update' #Последнее обновление########
+    last_update: 'Last update'
 
   form:
-    main_date: 'Main Date' #Основные данные################
+    main_date: 'Main Data'
     minimum_durability_from_arrival: 'min_durability'
     plu_description: 'plu description'
 
   privacy:
-    who_can_see: 'Who can see item?' #Кто может видеть этот товар######
-    all: 'all' #все##############
-    just_i: 'just I' #только я#########
-    i_and_companies: 'I and these companies' #я, и ещё эти компании:####
-    selected: 'Selected' #Выбранный пункт#####################
-    choose: 'Choose' #Выберите...###
+    who_can_see: 'Who can see item?'
+    all: 'all'
+    just_i: 'just me'
+    i_and_companies: 'Me and these companies:'
+    selected: 'Selected'
+    choose: 'Choose'
     gable_top: 'Gable-Top'
     brick: 'Brick'
     case: 'Case'
@@ -253,9 +255,9 @@ en:
     revert_to_published: 'Revert to published'
 
   flash:
-    account_login: 'Please login your account to access this page' #"Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-    account_logout: 'Please logout from your account to access this page' #"Пожалуйста выйдите со своего аккаунта для доступа к этой странице"
-    account_admin: 'Only Admin has access to this page' #"Только администратор имеет право доступа к этой странице"
+    account_login: 'Please login into your account to access this page'
+    account_logout: 'Please logout from your account to access this page'
+    account_admin: 'Only Admin has access to this page'
     created_sent: 'BaseItem was successfully created and sent'
     created: 'BaseItem was successfully created.'
 
