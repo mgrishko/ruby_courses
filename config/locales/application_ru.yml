@@ -208,9 +208,9 @@ ru:
     changed: changed=TODO
     confirm_accept_all: "Вы точно хотите акцептовать все результаты?"
     confirm_cancel_all: "Вы точно хотите отменить все результаты?"
-    date: date=TODO
+    date: дата
     inbox: Inbox=TODO
-    new: new=TODO
+    new: новый
     new_or_changed_items: "New or changed items=TODO"
     not_send: "Данные не отправлялись"
     updated: Updated=TODO
@@ -235,6 +235,7 @@ ru:
     grm: grm=TODO
     mm: mm=TODO
   user: 
+    admin: Администратор
     apply: Save=TODO
     back: Back=TODO
     change_password: "Change password=TODO"
@@ -242,13 +243,17 @@ ru:
     contacts: Contacts=TODO
     description: Description=TODO
     edit: Edit=TODO
+    export_allowed: "Экспорт разрещён"
     gln: GLN=TODO
+    global_supplier: "Глбальный поставщик"
+    local_supplier: "Локальный поставщик"
     locale: Locale=TODO
     login: Login=TODO
     main_information: "Main Information=TODO"
     name: "Company Name=TODO"
     password: Password=TODO
     remember_me: "Remember me=TODO"
+    retailer: "Розничный торговец"
     title: Company=TODO
     website: Website=TODO
   warning: 

@@ -21,7 +21,7 @@ describe User do
   describe 'class' do
     it 'should have ROLES ' do
       User::ROLES.should ==
-        %w[admin retailer local_supplier global_supplier]
+        %w[admin retailer local_supplier global_supplier export_allowed]
     end
 
     it 'should respond to :retailers' do

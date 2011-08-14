@@ -233,6 +233,7 @@ en:
     grm: grm
     mm: mm
   user: 
+    admin: Admin
     apply: Save
     back: Back
     change_password: "Change password"
@@ -240,13 +241,17 @@ en:
     contacts: Contacts
     description: Description
     edit: Edit
+    export_allowed: "Export allowed"
     gln: GLN
+    global_supplier: "Global supplier"
+    local_supplier: "Local supplier"
     locale: Locale
     login: Login
     main_information: "Main Information"
     name: Name
     password: Password
     remember_me: "Remember me"
+    retailer: Retailer
     title: Company
     website: Website
   warning: 

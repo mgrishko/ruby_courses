@@ -49,6 +49,7 @@
                   = t('user.website')
               %td
                 = f.text_field :website
+
           %h3{:class=>'title'}
             = t('change_password')
           %table{:cellspacing => 0, :cellpadding => 0}
@@ -64,6 +65,17 @@
                   = t('user.password_confirmation')
               %td
                 = f.password_field :password_confirmation
+
+            - if can? :set_roles, User
+              - for role in User::ROLES
+                %tr
+                  %td
+                    = check_box_tag "user[roles][]", role, @user.roles.include?(role), :id => "user_#{role}"
+                  %td
+                    = f.label role, t("user.#{role}")
+
+          = hidden_field_tag "user[roles][]", ""
+
           %br
           %br
           = f.submit t('user.apply') , :class => 'submit-btn', :id => 'save_user_info'
