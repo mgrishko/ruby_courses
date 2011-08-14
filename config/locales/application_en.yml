@@ -1,282 +1,255 @@
----
-en:
-  application_name:
-    Getmasterdata
-  errors:
-    template:
+--- 
+en: 
+  application_name: Getmasterdata
+  comment: 
+    add: "Add Comment"
+    comment: Comment
+    title: Comments
+  edit: 
+    base_item: "Editing base item"
+    revert_to_published: "Revert to published"
+  errors: 
+    dynamic_format: "%{message}=TODO=TODO"
+    template: 
       body: "There were problems with the following fields:"
-      header:
-        one:    "1 error prohibited this %{model} from being saved"
-        other:  "%{count} errors prohibited this %{model} from being saved"
-      # The variable :count is also available
-  main: # The main phrases
-    search: 'Search'
-    settings: 'Settings'
-    address: 'address'
-    title: 'Datapool'
-    apply: 'Apply'
-    add: 'Add'
-    results: 'Results'
-    back: 'Back'
-    home: 'Home'
-    next: 'Next'
-    cancel: 'Cancel'
-    update: 'Update'
-    create: 'Create'
-    search: 'Search'
-    error: 'Error'
-    edit: 'Edit'
-    delete: 'Delete'
-    not_available: 'Not Avaible'
-    change: 'change'
-    save: 'Save'
-    show: 'Show'
-    confirm: 'Are you sure?'
-    receivers: 'Receivers'
-    status: 'Status'
-    subscribers: 'Subscribers'
-    tags: 'Tags'
-    brands: 'Brands'
-    products: 'Products'
-    manufacturers: 'Manufacturers'
-    functional: 'Functional'
-    publish: 'Publish'
-    export: 'Export'
-    reply: 'Reply'
-    base_items: 'Base Items'
-    items: 'Items'
-    item: 'Item'
-    name: 'Name'
-    logistic: 'Logistic'
-    subscribers: 'Subscribers'
-    select: 'Select'
-    item_quantity: 'Items quantity'
-    annotations: 'Пояснения к полю'
-    days: 'days'
-    short: 'Short'
-    tile: 'Tile'
-    detailed: 'Detailed'
-    information: 'Main information'
-
-  login:
-    require_user: 'Please login to access this page'
-    reqiure_no_user: 'Please logout to access this page'
-    require_admin: 'Only admin has access to this page'
-    logged_in: 'Successful login'
-    logged_out: 'Successful logout'
-
-  filter:
-    remove: 'Remove filter'
-
-  pager: # html_pager
-    from: 'from'
-    previous: 'Newer'
-    next: 'Next'
-    newest: 'The Newest'
-    oldest: 'The Oldest'
-
-  item: # Item, Base Item
-    add_item: 'Add item'
-    edit: 'Edit'
-    input_items: 'Incoming items'
-    gtin: 'gtin'
-    incorrect: 'Entered an incorrect ?GTIN?'
-    have_subscription: 'You already have subscription?'
-    brand: 'Brand'
-    subbrand: 'Subbrand'
-    functional: 'Functional'
-    content: 'Content'
-    variant: 'Variant'
-    missing: 'missing'
-    content_uom: 'Content uom'
-    description: 'Item Description'
-    manufacturer_gln: 'Manufacturer GLN'
-    manufacturer_name: 'Manufacturer name'
-    country_of_origin: 'Country of origin'
-    country_of_origin_code: 'country_of_origin_code'
-    gpc_code: 'GPC Code'
-    gpc_name: 'GPC Name'
-    uom: 'UOMs'
-    vat: 'Vat'
-    shelf_life_period: 'Shelf life period'
-    base: 'Base data'
-    privacy: 'Privacy'
-    private: 'Private'
-    back: 'Back to the list of items'
-    versions: 'Versions'
-    new_base_item: 'New Base Item'
-    date_of_the_newest: 'Date of the newest'
-    name_ru: 'item name long ru'
-    name_en: 'item name long en'
-    new_packaging_item: 'New packaging_item'
-    export_to_xls: 'Export to xls'
-    internal_item_id_hint: 'internal item id hint here'
-    gtin_hint: 'gtin hint here'
-    brand_hint: 'brand hint here'
-    subbrand_hint: 'subbrand hint here'
-    variant_hint: 'variant hint here'
-    functional_hint: 'functional hint here'
-    manufacturer_gln_hint: 'manufacturer gln hint here'
-    manufacturer_name_hint: 'manufacturer name hint here'
-    item_description_hint: 'item descripton hint here'
-
-  pi: # Packaging Item
-    pack: 'pack'
-    packages_inside: 'packages inside'
-    packaging_type: 'Packaging Type'
-    items: 'items'
-    size: 'H x L x W'
-    gross_weight: 'gross weight'
-    net_weight: 'net weight'
-    height: 'Height'
-    width: 'Width'
-    depth: 'Depth'
-    inside: 'Inside'
-    select: 'Select'
-  uom:
-    grm: 'grm'
-    mm: 'mm'
-
-  subscription:
-    have_subscription: 'You are subscribed to the all items of'
-    status: 'Subscribe status'
-    subscribe: 'Subscribe'
-    unsubscribe: 'Unsubscribe'
-    not_found: 'Record with such gtin is not found'
-    subscribe_gtin: 'Подписка по GTIN'
-    record_code: 'Record code'
-
-  sr: # Subscription Result
-    not_send: 'Data was not sent'
-    accept: 'Accept'
-    accept_all: 'Accept All'
-    confirm_accept_all: 'Are you sure want to accept all the results?'
-    cancel: 'Cancel'
-    cancel_all: 'Cancel All'
-    confirm_cancel_all: 'Are you sure want to cancel all results?'
-    inbox: 'Inbox'
-    date: 'date'
-    new: 'new'
-    changed: 'changed'
-    updated: 'Updated'
-    new_or_changed_items: 'New or changed items'
-
-  comment:
-    title: 'Comments'
-    add: 'Add Comment'
-    comment: 'Comment'
-
-  event: # Events page
-    title: 'Event Log'
-
-  user: # Profile
-    login: 'Login'
-    password: 'Password'
-    remember_me: 'Remember me'
-    title: 'Company'
-    company_name: 'Company Name'
-    name: 'Name'
-    gln: 'GLN'
-    description: 'Description'
-    contacts: 'Contacts'
-    apply: 'Save'
-    back: 'Back'
-    website: 'Website'
-    change_password: 'Change password'
-    locale: 'Locale'
-    edit: 'Edit'
-    main_information: 'Main Information'
-
-  menu: # Top menu
-    my_items: 'My Items'
-    inbox: 'Inbox'
-    messages: 'Messages'
-    status: 'Status'
-    statuses: 'Statuses'
-    received_items: 'Received Items'
-    suppliers: 'Suppliers'
-    events: 'Events'
-    log_off: 'Log off'
-
-  message: # Messages screen
-    title: 'Messages'
-
-  image: # Item image
-    change: 'Change Image'
-    upload: 'Upload'
-
-  tag: # Tags
-    title: 'Tags'
-    add: 'Add tag'
-
-  receivers: # Receivers in Base Item
-    add: 'Add'
-    add_receiver_from_list: 'Add receiver from list'
-
-  ra: #Retailer Attributes
-    article_id: 'Retailer Article Id'
-    classification: 'Retailer Classification'
-    item_description: 'Retailer Item Description'
-    comment: 'Retailer Comment'
-    add: 'Add Data'
-
-  status:
-    title: 'Subscription Results Statuses'
-    items_subscribers: 'Items/Subscribers'
-
-  supplier:
-    title: 'Suppliers'
-    last_update: 'Last update'
-
-  form:
-    main_date: 'Main Data'
-    minimum_durability_from_arrival: 'min_durability'
-    plu_description: 'plu description'
-
-  privacy:
-    who_can_see: 'Who can see item?'
-    all: 'all'
-    just_i: 'just me'
-    i_and_companies: 'Me and these companies:'
-    selected: 'Selected'
-    choose: 'Choose'
-    gable_top: 'Gable-Top'
-    brick: 'Brick'
-    case: 'Case'
-    carton: 'Carton'
-    wrapper: 'Wrapper'
-    multi_pack: 'Multi-pack'
-    pouch: 'Pouch'
-    not_packed: 'Not Packed'
-    packed: 'Packed, unspecified dfcdddddddddd'
-
-  edit:
-    base_item: 'Editing base item'
-    revert_to_published: 'Revert to published'
-
-  flash:
-    account_login: 'Please login into your account to access this page'
-    account_logout: 'Please logout from your account to access this page'
-    account_admin: 'Only Admin has access to this page'
-    created_sent: 'BaseItem was successfully created and sent'
-    created: 'BaseItem was successfully created.'
-
-  invitation:
-    request_invitation: 'Request Invitation'
-    back: 'Back'
-    company_name: 'Company Name'
-    name: 'Name'
-    email: 'Email'
-    notes: 'Notes'
-    request_your_invitation: 'Request Your Invitation'
-    invitations: 'Invitation Requests'
-    invite: 'Invite'
-    decline: 'Decline'
-    role: 'Desired role'
-    add_user: 'Add User'
-
-  warning:
-    javascript_should_be_enabled: 'You should have javascript enabled.'
-    unsupported_browser: 'You are using unsupported browser.'
-    please_use: 'Please use'
-
+      header: 
+        one: "1 error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
+  event: 
+    title: "Event Log"
+  filter: 
+    remove: "Remove filter"
+  flash: 
+    account_admin: "Only Admin has access to this page"
+    account_login: "Please login into your account to access this page"
+    account_logout: "Please logout from your account to access this page"
+    created: "BaseItem was successfully created."
+    created_sent: "BaseItem was successfully created and sent"
+  form: 
+    main_date: "Main Data"
+    minimum_durability_from_arrival: min_durability
+    plu_description: "plu description"
+  image: 
+    change: "Change Image"
+    upload: Upload
+  invitation: 
+    add_user: "Add User"
+    back: Back
+    company_name: "Company Name"
+    decline: Decline
+    email: Email
+    invitations: "Invitation Requests"
+    invite: Invite
+    name: Name
+    notes: Notes
+    request_invitation: "Request Invitation"
+    request_your_invitation: "Request Your Invitation"
+    role: "Desired role"
+  item: 
+    add_item: "Add item"
+    back: "Back to the list of items"
+    base: "Base data"
+    brand: Brand
+    brand_hint: "brand hint here"
+    content: Content
+    content_uom: "Content uom"
+    country_of_origin: "Country of origin"
+    country_of_origin_code: country_of_origin_code
+    date_of_the_newest: "Date of the newest"
+    description: "Item Description"
+    edit: Edit
+    export_to_xls: "Export to xls"
+    functional: Functional
+    functional_hint: "functional hint here"
+    gpc_code: "GPC Code"
+    gpc_name: "GPC Name"
+    gtin: gtin
+    gtin_hint: "gtin hint here"
+    have_subscription: "You already have subscription?"
+    incorrect: "Entered an incorrect ?GTIN?"
+    input_items: "Incoming items"
+    internal_item_id: "Internal item id=TODO=TODO"
+    internal_item_id_hint: "internal item id hint here"
+    item_description_hint: "item descripton hint here"
+    manufacturer_gln: "Manufacturer GLN"
+    manufacturer_gln_hint: "manufacturer gln hint here"
+    manufacturer_name: "Manufacturer name"
+    manufacturer_name_hint: "manufacturer name hint here"
+    missing: missing
+    name_en: "item name long en"
+    name_ru: "item name long ru"
+    new_base_item: "New Base Item"
+    new_packaging_item: "New packaging_item"
+    privacy: Privacy
+    private: Private
+    shelf_life_period: "Shelf life period"
+    subbrand: Subbrand
+    subbrand_hint: "subbrand hint here"
+    uom: UOMs
+    variant: Variant
+    variant_hint: "variant hint here"
+    vat: Vat
+    versions: Versions
+  login: 
+    logged_in: "Successful login"
+    logged_out: "Successful logout"
+    reqiure_no_user: "Please logout to access this page"
+    require_admin: "Only admin has access to this page"
+    require_user: "Please login to access this page"
+  main: 
+    add: Add
+    address: address
+    annotations: "Пояснения к полю"
+    apply: Apply
+    back: Back
+    base_items: "Base Items"
+    brands: Brands
+    cancel: Cancel
+    change: change
+    confirm: "Are you sure?"
+    create: Create
+    days: days
+    delete: Delete
+    detailed: Detailed
+    edit: Edit
+    error: Error
+    export: Export
+    functional: Functional
+    home: Home
+    information: "Main information"
+    item: Item
+    item_quantity: "Items quantity"
+    items: Items
+    logistic: Logistic
+    manufacturers: Manufacturers
+    name: Name
+    next: Next
+    not_available: "Not Avaible"
+    products: Products
+    publish: Publish
+    receivers: Receivers
+    reply: Reply
+    results: Results
+    save: Save
+    search: Search
+    select: Select
+    settings: Settings
+    short: Short
+    show: Show
+    status: Status
+    subscribers: Subscribers
+    tags: Tags
+    tile: Tile
+    title: Datapool
+    update: Update
+  menu: 
+    events: Events
+    inbox: Inbox
+    log_off: "Log off"
+    messages: Messages
+    my_items: "My Items"
+    received_items: "Received Items"
+    status: Status
+    statuses: Statuses
+    suppliers: Suppliers
+  message: 
+    title: Messages
+  pager: 
+    from: from
+    newest: "The Newest"
+    next: Next
+    oldest: "The Oldest"
+    previous: Newer
+  pi: 
+    depth: Depth
+    gross_weight: "gross weight"
+    height: Height
+    inside: Inside
+    items: items
+    net_weight: "net weight"
+    pack: pack
+    packages_inside: "packages inside"
+    packaging_type: "Packaging Type"
+    select: Select
+    size: "H x L x W"
+    width: Width
+  privacy: 
+    all: all
+    brick: Brick
+    carton: Carton
+    case: Case
+    choose: Choose
+    gable_top: Gable-Top
+    i_and_companies: "Me and these companies:"
+    just_i: "just me"
+    multi_pack: Multi-pack
+    not_packed: "Not Packed"
+    packed: "Packed, unspecified dfcdddddddddd"
+    pouch: Pouch
+    selected: Selected
+    who_can_see: "Who can see item?"
+    wrapper: Wrapper
+  ra: 
+    add: "Add Data"
+    article_id: "Retailer Article Id"
+    classification: "Retailer Classification"
+    comment: "Retailer Comment"
+    item_description: "Retailer Item Description"
+  receivers: 
+    add: Add
+    add_receiver_from_list: "Add receiver from list"
+  sr: 
+    accept: Accept
+    accept_all: "Accept All"
+    cancel: Cancel
+    cancel_all: "Cancel All"
+    changed: changed
+    confirm_accept_all: "Are you sure want to accept all the results?"
+    confirm_cancel_all: "Are you sure want to cancel all results?"
+    date: date
+    inbox: Inbox
+    new: new
+    new_or_changed_items: "New or changed items"
+    not_send: "Data was not sent"
+    updated: Updated
+  status: 
+    items_subscribers: Items/Subscribers
+    title: "Subscription Results Statuses"
+  subscription: 
+    have_subscription: "You are subscribed to the all items of"
+    not_found: "Record with such gtin is not found"
+    record_code: "Record code"
+    status: "Subscribe status"
+    subscribe: Subscribe
+    subscribe_gtin: "Подписка по GTIN"
+    unsubscribe: Unsubscribe
+  supplier: 
+    last_update: "Last update"
+    title: Suppliers
+  tag: 
+    add: "Add tag"
+    title: Tags
+  uom: 
+    grm: grm
+    mm: mm
+  user: 
+    apply: Save
+    back: Back
+    change_password: "Change password"
+    company_name: "Company Name"
+    contacts: Contacts
+    description: Description
+    edit: Edit
+    gln: GLN
+    locale: Locale
+    login: Login
+    main_information: "Main Information"
+    name: Name
+    password: Password
+    remember_me: "Remember me"
+    title: Company
+    website: Website
+  warning: 
+    javascript_should_be_enabled: "You should have javascript enabled."
+    please_use: "Please use"
+    unsupported_browser: "You are using unsupported browser."
