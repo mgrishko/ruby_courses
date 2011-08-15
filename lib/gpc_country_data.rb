@@ -7,7 +7,7 @@ class GpcCountryData
     gpc
   end
   def country
-    puts 'Filling countries'
+    puts 'Filling countries' unless Rails.env.cucumber?  or Rails.env.test?
     workbook = Spreadsheet::ParseExcel.parse('data/country_codelist_2009-12-05.xls')
     worksheet = workbook.worksheet(0)
     skip = 1
@@ -21,7 +21,7 @@ class GpcCountryData
     end
   end
   def gpc
-    puts 'Filling GPC'
+    puts 'Filling GPC' unless Rails.env.cucumber?  or Rails.env.test?
     workbook = Spreadsheet::ParseExcel.parse('data/gpc_2010-12-01.xls')
     worksheet = workbook.worksheet(0)
     skip = 1

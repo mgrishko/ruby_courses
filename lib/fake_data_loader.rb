@@ -135,6 +135,7 @@ class FakeDataLoader
 
       def create_hierarchy(k,  data, parent = nil)
         unless parent
+          puts "----" if Rails.env.development?
           @counter += 1
           if @counter > @q_items[@q_count]
             @counter = 0
@@ -182,9 +183,11 @@ class FakeDataLoader
           item.width = data[33]
           item.depth = data[31]
           unless item.save
-           # puts parent.inspect
-           # puts item.inspect
-           # puts item.errors.full_messages
+            if Rails.env.development?
+              puts parent.inspect
+              puts item.inspect
+              puts item.errors.full_messages
+            end
           end
           ################################
           # add images
@@ -247,9 +250,11 @@ class FakeDataLoader
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
         unless item.save
-          #  puts parent.inspect
-          #  puts item.inspect
-          #  puts item.errors.full_messages
+          if Rails.env.development?
+            puts parent.inspect
+            puts item.inspect
+            puts item.errors.full_messages
+          end
         end
         end
 
