@@ -41,7 +41,6 @@ class InvitationRequestsController < ApplicationController
   def decline
     @invitation_request = InvitationRequest.find(params[:id])
     begin
-      #Notification.decline_invitation_request_email(@invitation_request).deliver
       @invitation_request.decline!
     rescue
     end
@@ -50,13 +49,14 @@ class InvitationRequestsController < ApplicationController
 
   def invite
     @invitation_request = InvitationRequest.find(params[:id])
-    #TODO code to invite user call generate new user with params from invitation
     prms = @invitation_request.attributes
     %w{status notes}.each{|col|    prms.delete(col)}
     @user = User.generate_for_invite(prms)
     if @user.save
       begin
-        fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
+        fdl = FakeDataLoader.new :user_id => @user.id,
+                                 :number_of_items => 10,
+                                 :images_data_dir => File.join('data','images_for_inv_users')
         fdl.run
         Notification.accept_invitation_request_email(@user).deliver
         @invitation_request.invite!
@@ -71,17 +71,14 @@ class InvitationRequestsController < ApplicationController
 
   def add_user
     prms = params[:user]
-   # %w{company_name}.each{|col|    prms.delete(col)}
     @user = User.generate_for_invite(prms)
     if @user.save
-    #  begin
-        fdl = FakeDataLoader.new :user_id => @user.id, :number_of_items => 10
+        fdl = FakeDataLoader.new :user_id => @user.id,
+                                 :number_of_items => 10,
+                                 :images_data_dir => File.join('data','images_for_inv_users')
         fdl.run
         Notification.accept_invitation_request_email(@user).deliver
         @user = User.new
-    #  rescue Exception => e
-    #    render :text => '' and return
-    #  end
     end
   end
 end

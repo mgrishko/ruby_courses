@@ -8,16 +8,17 @@ class FakeDataLoader
           'мл' => 'MLT',
           'м' => 'MTR'  }
 
-
     @users = User.suppliers
     @q_items = [800,300,100,80,86]
     @counter = 0
     @q_count = 0
     if options
+      @images_data_dir = options[:images_data_dir]
       @users = [User.find(options[:user_id])]
       @q_items = [options[:number_of_items]]
     end
 
+    @images_data_dir ||= File.join('data', 'images')
     read_structure_data
     read_netweight_data
     read_images
@@ -89,7 +90,7 @@ class FakeDataLoader
       @imgs = []
       images = []
       ['*.jpg','*.JPG','*.gif','*.GIF','*.png','*.PNG'].each do |ext|
-        images << Dir.glob(File.join(Rails.root,'data', 'images', ext))
+        images << Dir.glob(File.join(Rails.root,@images_data_dir, ext))
       end
       images = images.flatten
       images.each{|x|
@@ -180,11 +181,11 @@ class FakeDataLoader
           item.height = data[29]
           item.width = data[33]
           item.depth = data[31]
-         # unless item.save
-         #   puts parent.inspect
-         #   puts item.inspect
-         #   puts item.errors.full_messages
-         # end
+          unless item.save
+           # puts parent.inspect
+           # puts item.inspect
+           # puts item.errors.full_messages
+          end
           ################################
           # add images
           ###############################
@@ -245,11 +246,11 @@ class FakeDataLoader
           item.quantity_of_layers_per_pallet = data[40]
           item.quantity_of_trade_items_per_pallet_layer = data[59]
           item.stacking_factor = data[42]
-      #  unless item.save
-      #      puts parent.inspect
-      #      puts item.inspect
-      #      puts item.errors.full_messages
-      #  end
+        unless item.save
+          #  puts parent.inspect
+          #  puts item.inspect
+          #  puts item.errors.full_messages
+        end
         end
 
 
@@ -287,7 +288,7 @@ class FakeDataLoader
          end
        end
     rescue Exception => e
-    #  raise e
+      raise e
       end
     return if @users.count ==1
       tag = Tag.new(:name => 'complex', :kind => 1)
