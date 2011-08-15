@@ -66,3 +66,8 @@ end
 group :development do
   gem 'translations_sync'
 end
+
+group :console do
+  gem 'hirb'
+  gem 'wirble'
+end
