@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     end
 
     I18n.locale = session[:locale] =
-      if current_user and current_user.locale and
+      if current_user.id and current_user.locale.present? and
           I18n.available_locales.include? current_user.locale.to_sym
         current_user.locale
       elsif params[:locale] and
