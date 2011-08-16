@@ -39,7 +39,7 @@ class Image < ActiveRecord::Base
     unless File.exist?("#{RAILS_ROOT}/public/data")
       Dir.mkdir("#{RAILS_ROOT}/public/data")
     end
-    image.write("#{RAILS_ROOT}/public/data/#{self.id}#{name}.jpg")
+    image.opaque('none','white').write("#{RAILS_ROOT}/public/data/#{self.id}#{name}.jpg")
   end
 
   def get_url(current_user)
@@ -66,5 +66,4 @@ protected
     end
   end
 end
-
 
