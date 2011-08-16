@@ -1,0 +1,48 @@
+- if (current_user.id == comment.item.user_id) or
+- ((comment.user_id == current_user.id) or (comment.item.user_id == comment.user_id))
+  .item{:style => "width: 100%"}
+    - if @message_info
+      %div{:style => "font-size: 125%; margin-bottom: 1em;"}
+        %strong
+          - if comment.item
+            - args = current_user.retailer? ? {:view => true} :{}
+            = link_to "#{comment.item.last_bi.first.gtin}, #{comment.item.last_bi.first.item_description}", base_item_path(comment.item.last_bi.first.id, args)
+    .img
+      = image_tag 'item_image_small.jpg', :title => "Supplier Image", :alt => "Supplier Image", :width => "50px"
+    .desc
+      .author
+        %span{:class => "normal #{"red" if comment.item.user_id != comment.user_id}"}= comment.user.name
+      .text= comment.content
+      .date= comment.created_at.to_s(:cmnt)
+    %div{:id => "allch-#{comment.id}"}
+      - for c in comment.get_children do
+        - if (current_user.id == c.item.user_id) or
+        - (c.get_root.user_id == current_user.id) or
+        - (c.user_id == current_user.id) or
+        - (!!c.parent_id && (c.get_parent.user_id == current_user.id))
+          .cm-child
+            %script{:charset => "utf-8", :type => "text/javascript"}
+              $(document).ready(function() {
+              $('div.cm-child:nth-child(odd)').addClass('odd');
+              })
+            .img
+              = image_tag 'item_image_small.jpg', :alt => "Supplier Image", :title => "Supplier Image", :width => "50px"
+            .desc
+              .author
+                %span{:class => "normal #{"red" if c.item.user_id != c.user_id}"}= c.user.name
+              .text= c.content
+              .date= c.created_at.to_s(:cmnt)
+              .light.actions
+                \&nbsp;
+                -# if c.user_id != current_user.id
+    .add-notes
+      %div{:style => "clear: both; margin-left: 2em;"}
+        - if ((comment.item.user_id == current_user.id) && (comment.user_id != current_user.id)) ||
+        - ((comment.item.user_id != current_user.id) && (comment.user_id == current_user.id))
+          = link_to t('comment.comment'),
+            reply_comments_path( :comment => { :item_id => comment.item.id,
+            :base_item_id => comment.base_item.id,
+            :root_id => comment.id,
+            :message_info => @message_info }),
+            :remote => true, :id=>'show_comment_form'
+      %div{:id => "cr-#{comment.id}", :style => "margin-left: 2em;"}
