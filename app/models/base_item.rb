@@ -89,10 +89,16 @@ class BaseItem < ActiveRecord::Base
       :presence => true, :length => { :maximum => 3 },
       :if => :last_step?
 
-  has_one :event, :as => :content
+  before_save :update_mix_field # data for search
 
+  attr_writer :current_step
+  attr_accessor :packaging_name
+
+  has_one :event, :as => :content
   has_many :packaging_items, :dependent => :destroy
   has_many :receivers
+  has_many :dedicated_users,
+      :through => :receivers, :source => :user
   has_many :comments
   has_many :images
   belongs_to :user
@@ -101,21 +107,39 @@ class BaseItem < ActiveRecord::Base
   belongs_to :gpc, :primary_key => :code, :foreign_key => :gpc_code
   has_many :subscription_results
   has_many :base_item_subscription_results, :class_name => 'SubscriptionResult', :foreign_key => :base_item_id
-  before_save :update_mix_field # data for search
-  attr_writer :current_step
-  attr_accessor :packaging_name
+
   scope :published, where(:status => 'published')
+
   scope :published_by, lambda { |user| user.base_items.published }
 
   # Последние опубликованные BI. в терминологии - актуальные версии.
   scope :last_published, lambda { where :id => BaseItem.select('max(id) as id').published.group('item_id') }
+
   scope :last_published_by, lambda { |user| where(:id =>  user.base_items.select('max(id) as id').published.group('item_id'))}
 
   scope :private_last_published, lambda { where(:private => true).last_published }
+
   scope :public_last_published, lambda { where(:private => false).last_published }
 
-  scope :private_last_published_by, lambda { |user| where(:private => true).last_published_by(user) }
+  scope :private_last_published_by, lambda { |user|
+    where(:private => true).last_published_by(user)
+  }
   scope :public_last_published_by, lambda { |user| where(:private => false).last_published_by(user) }
+
+  scope :readably_by, lambda { |user|
+    where(['(select count(*) from receivers where receivers.base_item_id = base_items.id) = 0 or (select count(*) from receivers where receivers.base_item_id = base_items.id and receivers.user_id = ?) > 0', user.id])
+  }
+
+  scope :dedicated_to, lambda { |user|
+    where(['(select count(*) from receivers where receivers.base_item_id = base_items.id and receivers.user_id = ?) > 0', user])
+  }
+
+  scope :tagged_by_user, lambda {|user, tag_id|
+    where [
+      'item_id in (select clouds.item_id from clouds where clouds.user_id = :user_id and clouds.tag_id = :tag_id)',
+      { :user_id => user, :tag_id => tag_id }
+    ]
+  }
 
   aasm_column :status
 
@@ -339,7 +363,7 @@ class BaseItem < ActiveRecord::Base
   end
 
   def calculate_gpc
-    "#{gpc.code} : #{gpc.name}"
+    "#{gpc.code} : #{gpc.name}" rescue ''
   end
 
   def calculate_vat

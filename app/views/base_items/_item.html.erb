@@ -27,6 +27,7 @@
 </div>
 <script>
 
+<% if can? :export, @base_item %>
 $(".show_export_form").click(function(){
     // preload template names and show dialog window
     $("#export_form_fields").load("/main/export_form",function(){
@@ -52,5 +53,11 @@ $(".show_export_form").click(function(){
   });
   return false;
 });
+<% else %>
+$(".show_export_form").click(function(){
+  alert('Update your plan');
+  return false;
+});
+<% end %>
 </script>
 

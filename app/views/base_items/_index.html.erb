@@ -97,7 +97,8 @@
                           <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
                         </div>
                         <p>
-                          <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %> <%= shorten_label base_item.item_description, 100 %>
+                          <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %>
+                          <%= shorten_label base_item.item_description, 100 %>
                           <% if base_item.private %>
                               <span class="adres"><%= t 'item.private' %></span>
                           <% end %>
@@ -105,11 +106,15 @@
 
                         <p class="adres">
                           <div class='fleft'>
-                        <%= t 'menu.status' %>: <%= base_item.item.status %>, <%= base_item.created_at.to_s(:short) %>
+                        <%= t 'menu.status' %>: 
+                        <%= base_item.item.status rescue '' %>, 
+                        <%= base_item.created_at.to_s(:short) %>
                         </div>
                           <div class="tags-wrapper">
+                          <% if base_item.item %>
                           <% base_item.item.clouds.where(:user_id=> current_user.id).each do |cloud| %>
                             <%= link_to content_tag(:span, cloud.tag.name), '#', :class=>'btn' %>
+                          <%end%>
                           <%end%>
                           </div>
                         </p>
@@ -242,6 +247,7 @@
   </div>
 </div>
 
+<% if can? :export, BaseItem %>
 <div id="export_form_wrapper" style="display:none">
   <%= form_for BaseItem.new, :url => export_base_items_path, :html=> {:id => 'base_item_export_form', :method => "POST"} do |f| %>
       <div id="export_form_fields"></div>
@@ -249,6 +255,7 @@
       <%= submit_tag t('main.export'), :class => "button fright", :id =>'export_button', :disabled => true %>
   <% end %>
 </div>
+<% end %>
 <div class="pp-overlay"></div>
 
 <script>

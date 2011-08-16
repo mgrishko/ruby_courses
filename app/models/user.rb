@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   has_many :user_tags
   has_many :tags , :through => :clouds
   has_many :receivers
+  has_many :dedicated_base_items,
+      :through => :receivers, :source => :base_item
   has_many :events
   has_many :item_comments, :class_name => 'Comment', :through => :items
   has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :through => :items
