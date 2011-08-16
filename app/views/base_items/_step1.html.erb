@@ -140,7 +140,7 @@
             <div class="drop-down-list-cont">
               <div class="drop-down-list first" style="white-space:nowrap;height:250px" id='countries_div'>
                 <ul>
-                  <%= render :partial => "main/country", :collection => Country.all(:order => 'description') %>
+                  <%= render :partial => "main/country", :collection => Country.all(:order => 'code') %>
                 </ul>
               </div>
             </div>
@@ -232,7 +232,7 @@
           if (country == input)
             $(this).addClass('selected');
           return false;
-        }        
+        }
       });
     };
     var uoms_names = {};
@@ -268,7 +268,7 @@
 	$("#country_select_btn").click(function(){
     $('#country_input .drop-down-list ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
-        $('#base_item_country').val($(this).html());
+        $('#base_item_country').val($(this).parent().attr('id'));
      		$('.drop-down').css('visibility','hidden');
     		$('.dd-overlay').css('display', 'none');
     		return false;

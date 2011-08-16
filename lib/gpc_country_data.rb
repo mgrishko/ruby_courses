@@ -13,10 +13,11 @@ class GpcCountryData
     skip = 1
     ActiveRecord::Base.transaction do
       worksheet.each(skip) do |row|
-        Country.create(
-          :code => row.at(0).to_s('UTF-8'),
-          :description => row.at(2).to_s('UTF-8')
-        )
+        country = Country.create(:code => row.at(0).to_s('UTF-8'))
+        I18n.locale = :ru
+        country.update_attributes(:description => row.at(1).to_s('UTF-8'))
+        I18n.locale = :en
+        country.update_attributes(:description => row.at(2).to_s('UTF-8'))
       end
     end
   end
@@ -38,4 +39,3 @@ class GpcCountryData
     end
   end
 end
-

@@ -1,8 +1,5 @@
-
-
-
 Factory.define :country do |f|
-  f.description 'Country name'
+  #f.description 'Country name'
   f.code 'RU'
 end
 

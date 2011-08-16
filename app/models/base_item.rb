@@ -291,7 +291,7 @@ class BaseItem < ActiveRecord::Base
   end
 
   def country= name
-    c = Country.first(:conditions => ['description = ?', name])
+    c = Country.where(['code = ?', name]).first
     if c
       self.country_of_origin_code = c.code
     else
@@ -301,6 +301,14 @@ class BaseItem < ActiveRecord::Base
 
   def country
     country_of_origin.try(:description)
+  end
+
+  def calculate_country
+    country_of_origin.description
+  end
+
+  def countries
+    Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
   end
 
   def vats
@@ -316,10 +324,6 @@ class BaseItem < ActiveRecord::Base
     REF_BOOKS['packaging_types'][I18n.locale]
   end
 
-  def countries
-    Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
-  end
-
   def manufacturer
     "#{self.manufacturer_gln} : #{self.manufacturer_name}"
   end
@@ -332,10 +336,6 @@ class BaseItem < ActiveRecord::Base
 
   def calculate_content
     content_uoms.detect { |u| content_uom == u[1] }[0]
-  end
-
-  def calculate_country
-    country_of_origin.description
   end
 
   def calculate_gpc

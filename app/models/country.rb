@@ -10,7 +10,7 @@
 #
 
 class Country < ActiveRecord::Base
-  #translates :description
+  translates :description
 end
 
 

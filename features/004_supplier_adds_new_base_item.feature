@@ -29,7 +29,7 @@ Feature: Add new Base Item
     And I fill in "base_item_manufacturer_name" with "Some manufacturer name"
     And I fill in hidden_field "base_item_vat" with "57"
     And I fill in "base_item_minimum_durability_from_arrival" with "1"
-    And I fill in "base_item_country" with "China"
+    And I fill in "base_item_country" with "CN"
     And I fill in hidden_field "base_item_gpc_name" with "Artists Accessories"
     And I wait for 1 second
     And I press "next_button"
