@@ -1,22 +1,23 @@
 users = [
-   {    :gln => 10001,
+   {:id => 1,
+    :gln => 10001,
     :password => '1234',
     :password_confirmation => '1234',
     :name => 'Поставщик №1',
     :roles => ['admin', 'global_supplier']},
-   {
-     :gln => 10002,
-     :password => '1234',
-     :password_confirmation => '1234',
-     :name => 'Красный Октябрь',
-     :roles => ['admin', 'local_supplier']},
-   {
+   {:id => 2,
+    :gln => 10002,
+    :password => '1234',
+    :password_confirmation => '1234',
+    :name => 'Красный Октябрь',
+    :roles => ['admin', 'local_supplier']},
+   {:id => 3,
     :gln => 10003,
     :password => '1234',
     :password_confirmation => '1234',
     :name => 'Крафт Фудс',
     :roles => ['admin', 'global_supplier']},
-   {
+   {:id => 4,
     :gln => 10004,
     :password => '1234',
     :password_confirmation => '1234',
@@ -29,31 +30,31 @@ users = [
     :name => 'Центрпоставка local',
     :roles => ['local_supplier']},
 #retailers
-   {
+   {:id => 5,
     :gln => 20001,
     :password => '1234',
     :password_confirmation => '1234',
     :name => 'Азбука Вкуса',
     :roles => ['admin', 'retailer']},
-   {
+   {:id => 6,
     :gln => 20002,
     :password => '1234',
     :password_confirmation => '1234',
     :name => 'Х5',
     :roles => ['admin', 'retailer']},
-   {
+   {:id => 7,
     :gln => 20003,
     :password => '1234',
     :password_confirmation => '1234',
     :name => 'Лента',
     :roles => ['admin', 'retailer']},
-   {
+   {:id => 8,
      :gln => 20004,
      :password => '1234',
      :password_confirmation => '1234',
      :name => 'Глобус',
     :roles => ['admin', 'retailer']},
-   {
+   {:id => 9,
     :gln => 20005,
     :password => '1234',
     :password_confirmation => '1234',
@@ -66,11 +67,12 @@ puts "Making #{users.size} users"
 User.delete_all
 users.each do |user|
   u = User.new(user)
-  #u.id = user[:id]
+  u.id = user[:id]
   u.save
   puts u.errors
   puts "#{u.gln}/#{u.password}"
 end
+User.connection.execute 'ALTER SEQUENCE users_id_seq RESTART WITH 11;'
 puts "ok"
 
 =begin
