@@ -25,7 +25,7 @@ gem 'exception_notification', :git => 'https://github.com/rails/exception_notifi
 gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
 gem 'globalize3'
-gem 'uservoice'
+gem 'uservoice', :path => 'vendor/gems/uservoice'
 
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
@@ -71,3 +71,4 @@ group :console do
   gem 'hirb'
   gem 'wirble'
 end
+
