@@ -3,13 +3,9 @@ uservoice_options:
   key: getmasterdata
   host: getmasterdata.uservoice.com
   forum: 128773
-  # optional
-  showTab: true
-  alignment: left
-  background_color: "#f00"
-  text_color: white
-  hover_color: "#06C"
-  lang: en
 
 uservoice_api:
   api_key: 92205a47af50540dbd25f2fd8ff8c65f
+widget:
+  path: widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js
+

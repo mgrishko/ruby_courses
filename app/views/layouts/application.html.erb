@@ -26,15 +26,7 @@
     <![endif]-->
     <% if Rails.env.production? %>
     <!-- user voice -->
-    <%= raw uservoice_config_javascript%>
-    <script type="text/javascript">
-     var uvOptions = {};
-     (function() {
-     var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-     uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js';
-     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-     })();
-    </script> 
+      <%= user_voice_widget %>
     <!-- endof uservoice -->
       <!-- google analitics -->
       <script type="text/javascript">
@@ -61,11 +53,11 @@
   <%if !@supported_browser %>
     <div class='warning'>
       <%= t('warning.unsupported_browser') %> <%= t('warning.please_use') %> <a href='#'>Mozilla Firefox</a>(>=3), <a href='#'>Google Chrome</a>(>=9) or Safari(>=4)
-    </div>    
+    </div>
   <%end%>
     <div class='warning' id='js-warning'>
-      <%= t('warning.javascript_should_be_enabled') %>      
-    </div>    
+      <%= t('warning.javascript_should_be_enabled') %>
+    </div>
       <script>
         document.getElementById('js-warning').style.display = 'none';
       </script>
