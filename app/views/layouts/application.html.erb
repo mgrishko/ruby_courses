@@ -26,10 +26,7 @@
     <![endif]-->
     <% if Rails.env.production? %>
     <!-- user voice -->
-    <%=  raw uservoice_config_javascript(:sso => {:guid => current_user.gln,
-                                                  :email => current_user.email,
-                                                  :locale => session[:locale],
-                                                  :display_name =>current_user.name}) %>
+      <%= user_voice_widget %>
     <!-- endof uservoice -->
       <!-- google analitics -->
       <script type="text/javascript">
