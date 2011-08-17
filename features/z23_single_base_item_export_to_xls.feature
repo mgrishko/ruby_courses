@@ -7,7 +7,6 @@ Feature: Data export(single bi)
   Background:
     Given "supplier" has gln "1234" and password "1234"
     Given "retailer" has gln "4321" and password "1234"
-    Given "another_retailer" has gln "5678" and password "1234"
     And the following subscriptions exist
       |status|retailer_id|supplier_id|
       |active| 3 | 2 |
@@ -23,14 +22,6 @@ Feature: Data export(single bi)
     And I check "7continent"
     And I press "export_one"
 #    Then I should receive file
-
-  Scenario: refused to get single base_item export as another retailer
-    When I logged in as "another_retailer"
-    And I go with "?view=true" to the base_item page
-    And I follow "export_link"
-    And I wait for 1 second
-    Then should not be visible "export_form_wrapper"
-    And I accept the alert
 
   Scenario: get single base_item export as supplier
     When I logged in as "supplier"
