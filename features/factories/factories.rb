@@ -23,7 +23,7 @@ Factory.define :supplier, :parent => :user do |f|
   f.password  '1234'
   f.name "Supplier"
   f.password_confirmation '1234'
-  f.roles ['global_supplier']
+  f.roles %w[global_supplier export_allowed]
 end
 
 Factory.define :another_supplier, :parent => :user do |f|
@@ -39,7 +39,7 @@ Factory.define :retailer, :parent => :user do |f|
   f.password  '1234'
   f.name "Retailer"
   f.password_confirmation '1234'
-  f.roles ['retailer']
+  f.roles %w[retailer export_allowed]
 end
 
 Factory.define :another_retailer, :parent => :user do |f|
