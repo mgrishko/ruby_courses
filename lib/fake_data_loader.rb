@@ -293,7 +293,7 @@ class FakeDataLoader
          end
        end
     rescue Exception => e
-      raise e
+     # raise e
       end
     return if @users.count ==1
       tag = Tag.new(:name => 'complex', :kind => 1)
