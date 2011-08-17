@@ -3,8 +3,12 @@ var packageMe = function(bi_id){
   $.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
   return false;
 };
-var packageMeWithSub = function(bi_id,iid){
-  $.getScript('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', function() {});
+var packageMeWithSub = function(obj,bi_id,iid){
+//  $.getScript('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', function() {});
+  $.get('/base_items/'+bi_id+'/packaging_items/' + iid + '/new_sub/', {},
+    function(data){
+      addLeaf(obj, data)
+    });
   return false;
 };
 var cancelEditButton = function(path){
@@ -121,7 +125,7 @@ function cm_hover() {
 
 /* Subscription page */
 function subscription(event, that, supplier_id) {
-  event.stopPropagation(); 
+  event.stopPropagation();
   $.post('/subscriptions/status', {id: supplier_id}, function(data) {
     if (data.error) {
       alert(data.error);
@@ -340,3 +344,4 @@ function receiveManData(data) {
 //$(document).ready(function() {
   //$('div.cm-child:nth-child(odd)').addClass('odd');
 //})
+

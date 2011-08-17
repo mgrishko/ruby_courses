@@ -17,7 +17,7 @@ class PackagingItemsController < ApplicationController
   def new_sub
     @packaging_item = @base_item.packaging_items.new({ :parent_id => params[:id] })
 
-    render 'new'
+    render :partial => 'new'
   end
 
   def edit

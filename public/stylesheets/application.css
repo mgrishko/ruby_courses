@@ -64,7 +64,7 @@ ul.items li .item
   //background: #dfeef3;
   //border: 1px solid #666;
   position: relative;
-  //padding: 5px;
+  padding: 5px;
   padding-top: 20px;
 padding-right:30px;
 
@@ -160,7 +160,7 @@ ul.items li.new .item ul
 
 }
 
-.logistics .pi {
+.pi {
 	width:122px;
 	min-height:138px;
 	padding: 18px 0 12px 8px;
@@ -168,13 +168,9 @@ ul.items li.new .item ul
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 0 0 10px 0;
 	font-size: 11px;
 	position: relative;
 
-}
-.logistics td {
-  vertical-align:top;
 }
 .pi:hover{
 /*	border: 1px solid #3a5a98;
@@ -258,7 +254,7 @@ ul.items li.new .item ul
 	display: block;
 }
 .pi:hover .u-img{
-	display: none;
+	/*display: none;*/
 }
 .pi .edit-delete{
 	position: absolute;
@@ -272,99 +268,38 @@ ul.items li.new .item ul
 	display: none;
 	z-index: 2;
 }
-.edit-delete a{
-	width: 20px;
-	height: 21px;
-	float: left;
-	display: block;
-}
-.pi:hover .edit-delete2{
-	display: block;
-}
-.pi .edit-delete2{
+.delete-leaf-2{
 	position: absolute;
 	left: 5px;
 	top: 0;
 	width: 21px;
 	height: 21px;
 	margin-top: 5px;
-	background: url(/images/newdesign/edit-delete-btn2.png);
-	overflow: hidden;
+	background: url(/images/newdesign/edit-delete-btn.png) right top no-repeat;
 	display: none;
-	z-index: 2;
+	z-index: 3;
 }
-.edit-delete2 a{
+.pi-cont:hover .delete-leaf-2{
+	display: block;
+}
+.hasChild:hover .delete-leaf-2{
+	display: none;
+}
+.edit-delete a{
 	width: 20px;
 	height: 21px;
 	float: left;
 	display: block;
 }
-.pi .blue-btn{
-	float: none;
-	width: 100px;
-	padding-left: 0;
-	padding-right: 0;
-
-}
-.pi .blue-btn span{
-	float: none;
-	display: inline-block;
-}
-
-.pi-cont .blue-btn{
-	margin: 1px 0px 4px 24px;
-
-
-}
 .pi-cont .blue-btn.cancel span{
 	padding-left: 18px;
 	padding-right: 19px;
 }
-.pi-cont .pi.edited .blue-btn{
-	margin: 0 0 3px 7px;
-	display: none;
-}
-.pi-cont .pi.edited:hover .blue-btn{
-	display: block;
-}
+
 .pi .art{
 	color: #3a5a99;
 	font-size: 11px;
 	font-weight: bold;
-}
-/*
-.logistics.minimized .pi-cont{
-	height: 160px;
-	z-index: 50;
-}*/
-.logistics .pi-cont{
-  width: 132px;
-}
-.logistics.minimized .pi-cont.min-pi-cont-hover{
-	position: relative;
-	width: 132px;
-	z-index: 100;
-}
-/*
-.logistics.minimized .pi-cont .pi{
-	height: 135px;
-	border: 1px solid #fff;
-}
-*/
-.logistics.minimized .pi-cont .pi.min-pi-hover{
-	height: auto;
-	border: 1px solid #3a5a98;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background: #ebeff2;
-	position: absolute;
-	left: 0;
-	top: 0;
-}
-
-.logistics.minimized .pi-cont .pi.min-pi-hover .u-img{
-	display: block;
 }
 
 .pl {
@@ -380,7 +315,7 @@ ul.items li.new .item ul
 	margin-bottom:3px;
 }
 #first_pi {
-//  padding-top: 18px;
+  padding-top: 18px;
   margin-top: 20px;
 }
 .pi input[type='text']
@@ -395,6 +330,73 @@ ul.items li.new .item ul
 .w110{
 	width: 110px;
 }
+
+
+
+
+.tree-cont{
+}
+.pi-cont{
+	width: 130px;
+	float: left;
+	margin: 18px 32px 20px 23px;
+	position: relative;
+}
+.branch{
+	float: left;
+	min-height: 200px;
+}
+.pi-cont.secondChild .bt{
+	height: 16px;
+	border-bottom: 1px dashed #cccccc;
+	position: absolute;
+	top: -35px;
+	left: 0;
+	background: #fff;
+}
+.tree-larr{
+	width: 12px;
+	height: 84px;
+	background: url(/images/newdesign/tree-larr.jpg) left bottom no-repeat;
+	position: absolute;
+	left: -35px;
+	top: -18px;
+}
+.pi-cont.secondChild .tree-larr{
+	display: none;
+}
+.pi-cont.edited:hover .pack-btn{
+	display: block;
+}
+.pack-btn{
+	position: absolute;
+	left: 13px;
+	bottom: 13px;
+	display: none;
+}
+.accept-btn, .cancel-btn{
+	width: 95px;
+	margin: 5px 0 0 17px;
+}
+.pi-cont:hover .full{
+	display: block;
+}
+.full{
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	background: #fff;
+}
+.mini{
+	z-index: 1;
+	position: relative;
+	border: 1px solid #fff;
+	height: 130px;
+}
+
+
 
 
 
@@ -455,25 +457,18 @@ ul.items li.new .item ul
 	margin-right:7px;
 	color:#747473;
 }
-.submit-btn, .submit-btn2, .submit-btn3 {
+.submit-btn, .submit-btn2 {
 	border:1px solid #8FA3C4;
 	border-bottom:1px solid #312378;
 	cursor:pointer;
 	font-size:11px;
 	background:#3B5A9A;
-	margin:7px 15px;
+	margin:7px 5px;
 	padding:0px 18px;
 	line-height:18px;
 	color:#fff;
-//	width:84px;
-	height:22px;
+	height:18px;
 }
-
-.submit-btn3 {
-	margin:7px 0px;
-	width:84px;
-}
-
 .submit-btn2 {
         float: right;
 }

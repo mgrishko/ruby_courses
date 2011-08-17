@@ -31,6 +31,22 @@ module PackagingItemsHelper
     result.html_safe
   end
 
+  def pi_tree(items, options = {}, &block)
+    result = ''
+    result << "<div class='branch'>"
+    items.each_with_index do |item, count|
+      options[:style] = count > 0 ? 'clear:left' : ''
+      options[:class] = count > 0 ? 'secondChild' : ''
+      options[:class] = "hasChild #{options[:class]}" if item.children.any?
+      result << capture(item, options, &block)
+      result << pi_tree(item.children, options, &block) if item.children.any?
+    end
+    result << '</div>'
+
+    result.html_safe
+  end
+
+
   # Depicts the quantity of packagingItem
   def calculate_quantity(pi)
     content_tag(:span, pi.number_of_next_lower_item, :class => 'd')+" "+
