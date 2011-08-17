@@ -10,4 +10,3 @@ config/database.yml
 public/data
 !public/data/images/pi_new
 data/images
-
