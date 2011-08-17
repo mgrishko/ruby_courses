@@ -214,18 +214,6 @@ describe BaseItem do
     object.errors_on(:gpc_code).should be_present
   end
 
-  it 'validates :gpc_name, :presence => true, :inclusion => { :in => Gpc.all }' do
-    object = BaseItem.new(@valid_attrs.merge :gpc_name => nil)
-    object.should_not be_valid
-    object.errors_on(:gpc_name).should be_present
-    object = BaseItem.new(@valid_attrs.merge :gpc_name => '')
-    object.should_not be_valid
-    object.errors_on(:gpc_name).should be_present
-    object = BaseItem.new(@valid_attrs.merge :gpc_name => 'a')
-    object.should_not be_valid
-    object.errors_on(:gpc_name).should be_present
-  end
-
   it 'validates :country_of_origin_code, :presence => true, :length => { :maximum => 2 }' do
     object = BaseItem.new(@valid_attrs.merge :country_of_origin_code => nil)
     object.should_not be_valid

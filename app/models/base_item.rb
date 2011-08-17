@@ -67,9 +67,6 @@ class BaseItem < ActiveRecord::Base
   validates :content_uom,
       :presence => true, :length => { :maximum => 3 }
   validates :gpc_code, :presence => true, :numericality => true
-  validates :gpc_name,
-      :presence => true #, TODO I can not fix the database_cleaner problem
-#       :inclusion => { :in => Gpc.all.map(&:name) }
   validates :country_of_origin_code,
       :presence => true, :length => { :maximum => 2 }
   validates :item_description,
