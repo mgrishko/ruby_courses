@@ -32,6 +32,7 @@
 .bg-green{
   background-color:#A9F5BC;
 }
+
 /* Logistics */
 
 
@@ -245,7 +246,7 @@ ul.items li.new .item ul
 	margin: 1px 0 10px 0;
 }
 .input-table-edited{
-	margin: 15px 0 5px 0;
+	margin: 7px 0 13px 0;
 }
 .input-table-edited td{
 	padding: 0 0 5px;
@@ -344,7 +345,7 @@ ul.items li.new .item ul
 }
 .branch{
 	float: left;
-	min-height: 200px;
+	min-height: 130px;
 }
 .pi-cont.secondChild .bt{
 	height: 16px;
@@ -389,15 +390,41 @@ ul.items li.new .item ul
 	z-index: 2;
 	background: #fff;
 }
-.mini{
+.pi.mini{
 	z-index: 1;
 	position: relative;
 	border: 1px solid #fff;
-	height: 130px;
+	min-height: 132px;
+	padding: 5px 0 0 8px;
 }
-
-
-
+.pi.full{
+	padding: 5px 0 5px 8px;
+}
+.pi.mini .i-img, .pi.full .i-img{
+	margin-bottom: 10px;
+}
+.pi-cont.minimized{
+	margin: 5px 15px 2px 5px;
+}
+.pi-cont.minimized .tree-larr{
+	width: 12px;
+	height: 62px;
+	background: url(/images/newdesign/tree-larr.jpg) left bottom no-repeat;
+	position: absolute;
+	left: -17px;
+	top: -5px;
+}
+.pi-cont.minimized .bt{
+	height: 16px;
+	border-bottom: 1px dashed #cccccc;
+	position: absolute;
+	top: -22px;
+	left: 0;
+	background: #fff;
+}
+.pi.mini .input-table-edited{
+	margin: 7px 0 0;
+}
 
 
 .fleft {
