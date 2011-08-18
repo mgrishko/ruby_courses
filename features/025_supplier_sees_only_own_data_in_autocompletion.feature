@@ -1,5 +1,5 @@
 @javascript
-
+@wip
 Feature: Supplier shouldn't see other suppliers data
   In order to test visibility of autocompletion data
   As a supplier
