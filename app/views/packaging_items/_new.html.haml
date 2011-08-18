@@ -1,0 +1,12 @@
+- pi_id = @packaging_item.parent ? "packaging_item_new_#{@packaging_item.parent.id}" : 'packaging_item_new'
+- secondChild = @packaging_item.parent.children.any? ? "secondChild" : '' if @packaging_item.parent
+.pi-cont.edited{:id=> pi_id,:class=>secondChild, :style=>'clear:left'}
+  .bt
+  .tree-larr
+  = form_for @packaging_item, :url => base_item_packaging_items_path(@base_item), :remote => true do |f|
+    = render :partial => 'form', :locals => { :f => f }
+    = f.hidden_field :parent_id
+    %div{:align => 'center'}
+      = f.submit t('pi.pack'), :class=> 'submit-btn accept-btn'
+  = link_to content_tag(:span, t('main.cancel')), 'javascript:void(0)', {:onclick => "deleteLeaf(this);return false;",:class=> 'blue-btn cancel-btn'}
+
