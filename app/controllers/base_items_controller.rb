@@ -34,14 +34,14 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :manufacturer_gln, :full => true,
                :extra_data => [:manufacturer_name],
                :uniq => true,
-               :use_limit => true,
+               :use_limit => false,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id, :status => 'published'}}
                end
   autocomplete :base_item, :manufacturer_name, :full => true,
                :extra_data => [:manufacturer_gln],
                :uniq => true,
-               :use_limit => true,
+               :use_limit => false,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id, :status => 'published'}}
                end
