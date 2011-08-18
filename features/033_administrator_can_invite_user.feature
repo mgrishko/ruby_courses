@@ -1,4 +1,4 @@
-@wip
+
 Feature: Administrator invite user.
   In order to test invitation requests
   As a administrator
@@ -7,8 +7,8 @@ Feature: Administrator invite user.
 
   Background:
     Given "administrator" has gln "1234" and password "1234"
-    Given loaded countries and gpcs
-    And I wait for 30 seconds
+#    Given loaded countries and gpcs
+#    And I wait for 30 seconds
 
   @javascript
   Scenario: Administrator accepts invitation request
