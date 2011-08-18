@@ -269,6 +269,25 @@ ul.items li.new .item ul
 	display: none;
 	z-index: 2;
 }
+.pi-cont:hover .edit-delete{
+	display: block;
+}
+.pi .edit-delete2{
+	position: absolute;
+	left: 5px;
+	top: 0;
+	width: 21px;
+	height: 21px;
+	margin-top: 5px;
+	background: url(/images/newdesign/edit-delete-btn.png);
+	overflow: hidden;
+	display: none;
+	z-index: 2;
+}
+.pi-cont:hover .edit-delete, .pi-cont:hover .edit-delete2{
+	display: block;
+}
+/*
 .delete-leaf-2{
 	position: absolute;
 	left: 5px;
@@ -283,10 +302,11 @@ ul.items li.new .item ul
 .pi-cont:hover .delete-leaf-2{
 	display: block;
 }
+
 .hasChild:hover .delete-leaf-2{
 	display: none;
-}
-.edit-delete a{
+}*/
+.edit-delete a, .edit-delete2 a{
 	width: 20px;
 	height: 21px;
 	float: left;

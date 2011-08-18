@@ -1,11 +1,11 @@
-
 <%= form_for @base_item,  :html=>{:class=> 'jNice',:style=>'width:132px;margin:0px;padding:0px;'},:remote => true do |f| %>
-<div class='pi'>
-	<%= f.error_messages %>
-	<%= pi_image_tag @base_item, :class=> 'i-img', :id => "bi-id-#{@base_item.id}", :width=> '64', :height => '64' %>
-  <div class="logistics-item-in-1-top">
-    1<span class="logistics-item-title"><%= t('pi.inside')%></span>
-  </div>
+  <div class="bt"></div>
+	<div class="pi">
+	  <%= f.error_messages %>
+	  <%= pi_image_tag @base_item, :class=> 'i-img', :id => "bi-id-#{@base_item.id}", :width=> '64', :height => '64' %>
+    <div class="logistics-item-in-1-top">
+      1<span class="logistics-item-title"><%= t('pi.inside')%></span>
+    </div>
 
     <div id="cases_input_0" style='margin:0;padding:0;'>
 	  	<div class="drop-down-cont zi-5 fleft">
@@ -82,8 +82,8 @@ onsumer"><img src="/images/newdesign/icon-consumer-unit-3.jpg" height="23" alt="
 									</tbody></table>
 </div>
 <div align = 'center'>
-  <%= f.submit t('main.update'), :class=>'submit-btn3'%>
-  <%= link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'blue-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %>
+  <%= f.submit t('main.update'), :class=>'submit-btn accept-btn'%>
+  <%= link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'blue-btn cance,l-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"  %>
 </div>
 
 <%end%>

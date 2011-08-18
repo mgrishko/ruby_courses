@@ -1,38 +1,38 @@
---- 
-en: 
+---
+en:
   application_name: Getmasterdata
-  comment: 
+  comment:
     add: "Add Comment"
     comment: Comment
     title: Comments
-  edit: 
+  edit:
     base_item: "Editing base item"
     revert_to_published: "Revert to published"
-  errors: 
+  errors:
     dynamic_format: "%{message}=TODO=TODO"
-    template: 
+    template:
       body: "There were problems with the following fields:"
-      header: 
+      header:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
-  event: 
+  event:
     title: "Event Log"
-  filter: 
+  filter:
     remove: "Remove filter"
-  flash: 
+  flash:
     account_admin: "Only Admin has access to this page"
     account_login: "Please login into your account to access this page"
     account_logout: "Please logout from your account to access this page"
     created: "BaseItem was successfully created."
     created_sent: "BaseItem was successfully created and sent"
-  form: 
+  form:
     main_date: "Main Data"
     minimum_durability_from_arrival: min_durability
     plu_description: "plu description"
-  image: 
+  image:
     change: "Change Image"
     upload: Upload
-  invitation: 
+  invitation:
     add_user: "Add User"
     back: Back
     company_name: "Company Name"
@@ -45,7 +45,7 @@ en:
     request_invitation: "Request Invitation"
     request_your_invitation: "Request Your Invitation"
     role: "Desired role"
-  item: 
+  item:
     add_item: "Add item"
     back: "Back to the list of items"
     base: "Base data"
@@ -90,13 +90,13 @@ en:
     variant_hint: "variant hint here"
     vat: Vat
     versions: Versions
-  login: 
+  login:
     logged_in: "Successful login"
     logged_out: "Successful logout"
     reqiure_no_user: "Please logout to access this page"
     require_admin: "Only admin has access to this page"
     require_user: "Please login to access this page"
-  main: 
+  main:
     add: Add
     address: address
     annotations: "Пояснения к полю"
@@ -142,7 +142,7 @@ en:
     tile: Tile
     title: Datapool
     update: Update
-  menu: 
+  menu:
     events: Events
     inbox: Inbox
     log_off: "Log off"
@@ -152,15 +152,15 @@ en:
     status: Status
     statuses: Statuses
     suppliers: Suppliers
-  message: 
+  message:
     title: Messages
-  pager: 
+  pager:
     from: from
     newest: "The Newest"
     next: Next
     oldest: "The Oldest"
     previous: Newer
-  pi: 
+  pi:
     depth: Depth
     gross_weight: "gross weight"
     height: Height
@@ -173,7 +173,7 @@ en:
     select: Select
     size: "H x L x W"
     width: Width
-  privacy: 
+  privacy:
     all: all
     brick: Brick
     carton: Carton
@@ -189,16 +189,16 @@ en:
     selected: Selected
     who_can_see: "Who can see item?"
     wrapper: Wrapper
-  ra: 
+  ra:
     add: "Add Data"
     article_id: "Retailer Article Id"
     classification: "Retailer Classification"
     comment: "Retailer Comment"
     item_description: "Retailer Item Description"
-  receivers: 
+  receivers:
     add: Add
     add_receiver_from_list: "Add receiver from list"
-  sr: 
+  sr:
     accept: Accept
     accept_all: "Accept All"
     cancel: Cancel
@@ -212,10 +212,10 @@ en:
     new_or_changed_items: "New or changed items"
     not_send: "Data was not sent"
     updated: Updated
-  status: 
+  status:
     items_subscribers: Items/Subscribers
     title: "Subscription Results Statuses"
-  subscription: 
+  subscription:
     have_subscription: "You are subscribed to the all items of"
     not_found: "Record with such gtin is not found"
     record_code: "Record code"
@@ -223,16 +223,16 @@ en:
     subscribe: Subscribe
     subscribe_gtin: "Подписка по GTIN"
     unsubscribe: Unsubscribe
-  supplier: 
+  supplier:
     last_update: "Last update"
     title: Suppliers
-  tag: 
+  tag:
     add: "Add tag"
     title: Tags
-  uom: 
-    grm: grm
+  uom:
+    grm: g
     mm: mm
-  user: 
+  user:
     admin: Admin
     apply: Save
     back: Back
@@ -254,7 +254,8 @@ en:
     retailer: Retailer
     title: Company
     website: Website
-  warning: 
+  warning:
     javascript_should_be_enabled: "You should have javascript enabled."
     please_use: "Please use"
     unsupported_browser: "You are using unsupported browser."
+

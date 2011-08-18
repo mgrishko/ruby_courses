@@ -1,6 +1,11 @@
 // функции "упаковать"
-var packageMe = function(bi_id){
-  $.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
+var packageMe = function(obj,bi_id){
+ // $.getScript('/base_items/'+bi_id+'/packaging_items/new', function() {});
+  $.get('/base_items/'+bi_id+'/packaging_items/new', {},
+    function(data){
+      addLeaf(obj, data)
+  });
+
   return false;
 };
 var packageMeWithSub = function(obj,bi_id,iid){

@@ -1,8 +1,10 @@
 #packaging_items
   %h2= t 'main.logistic'
+  %br
+  %br
   .tree-cont
     .branch
-      .pi-cont.edited{:class=> @packaging_items.any? ? 'hasChild' : ''}
+      .pi-cont{:class=>"#{'hasChild' if @packaging_items.any? } #{@base_item.draft? ? 'edited' : 'minimized'}", :id => 'first_pi' }
         .bt
         - unless @base_item.draft?
           .pi.mini.edited
@@ -20,6 +22,8 @@
               %tr
                 %td.art{:colspan => "2"}= h @base_item.gtin
         .pi.edited{:class=> @base_item.draft? ? '' : 'full'}
+          .edit-delete2
+            = link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true} if @base_item.draft?
           = pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64'
           %span.logistics-item-title
             %strong= '1'
@@ -72,8 +76,10 @@
                 = h @base_item.net_weight
                 = t('uom.grm')
           =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
-        = link_to(content_tag(:span, t('pi.pack')), '#', :class=> 'blue-btn pack-btn', :onclick => "addLeaf(this);return false;")
-      = pi_tree @packaging_items.roots  do |item, options|
-        = render :partial => 'packaging_items/item', :locals=>{:item => item, :options => options}
+        = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
+            :onclick => "packageMe(this,#{@base_item.id});return false"
+      - if @packaging_items.any?
+        = pi_tree @packaging_items.roots  do |item, options|
+          = render :partial => 'packaging_items/item', :locals=>{:item => item, :options => options}
   .clear
 

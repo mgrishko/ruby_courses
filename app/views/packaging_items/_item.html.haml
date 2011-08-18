@@ -1,8 +1,6 @@
-.pi-cont.edited{:class=>options[:class],:style => options[:style], :id => "pi-#{item.id}"}
+.pi-cont{:class=>"#{options[:class]} #{@base_item.draft? ? 'edited' : 'minimized'}",:style => options[:style], :id => "pi-#{item.id}"}
   .bt
   .tree-larr
-  = link_to '1',  edit_base_item_packaging_item_path(@base_item, item),{ :method => :get, :remote => true, :class => "delete-leaf-2"}
-  = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'), :class => "delete-leaf-2",:method => :delete, :remote => true} if item.leaf?
   - unless @base_item.draft?
     .pi.mini.edited
       = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
@@ -17,6 +15,9 @@
           %td.art{:colspan => 2}
             = h item.gtin
   .pi.edited{:class=> @base_item.draft? ? '' : 'full'}
+    %div{:class=>"edit-delete#{'2' unless item.leaf?}"}
+      = link_to '', edit_base_item_packaging_item_path(@base_item, item), { :method => :get, :remote => true } if @base_item.draft?
+      = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf? and @base_item.draft?
     = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
     %span.logistics-item-title
       %strong
