@@ -85,7 +85,7 @@
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/
   %div{:align => "center"}
     = f.submit t('main.update'), :class=>'submit-btn accept-btn'
-    = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'blue-btn cance,l-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
+    = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'blue-btn cancel-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
 .dd-overlay
 :javascript
   $('.drop-down-link').click(function(e){
@@ -94,8 +94,7 @@
     $('.drop-down').css('visibility','hidden');
     $('.dd-overlay').css('display','block');
     $(this).parent().find('.drop-down').css('visibility','visible');
-    return false;
-  });
+    return false;  });
   $('.choose-btn').click(function(){
     $('.drop-down').css('visibility','hidden');
     $('.dd-overlay').css('display', 'none');
@@ -110,7 +109,7 @@
     $(this).parent().find('.pt-cases ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
         $('#base_item_packaging_name').val($(this).html());
-        "$('#bi-id-\#{@base_item.id}')".attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
+        $("#bi-id-#{@base_item.id}").attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
 
           $('.drop-down').css('visibility','hidden');
          $('.dd-overlay').css('display', 'none');

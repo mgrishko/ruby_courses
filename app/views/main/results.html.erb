@@ -4,6 +4,14 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+	  $('.drop-down-list ul li a').click(function(){
+	  	$(this).parent().parent().find('li').removeClass('selected');
+	  	$(this).parent().parent().parent().find('li').removeClass('selected');
+	  	$(this).parent().addClass('selected');
+	  	requestManData($(this).parent().attr("id"));
+	  	return false;
+	  });
+
     $('.pt-cases').each(function(){
       var val = $(this).parent().parent().parent().find('.dd-input').val();
       $(this).find('ul li').each(function(){
@@ -12,19 +20,11 @@
           $(this).addClass('selected');
     	  	requestManData(code);
     	  	$('.pt-cases').scrollTo("li.selected",600)
-   	    }    	  
-      });      
-    });        
-	});    
+   	    }
+      });
+    });
 
-	  $('.drop-down-list ul li a').click(function(){
-	  	$(this).parent().parent().find('li').removeClass('selected');
-	  	$(this).parent().parent().parent().find('li').removeClass('selected');
-	  	$(this).parent().addClass('selected');
-	  	requestManData($(this).parent().attr("id"));
-	  	return false;
-	  });
-	
+	});
 
 </script>
 
