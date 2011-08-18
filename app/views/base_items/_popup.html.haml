@@ -18,7 +18,6 @@
       %span
         = t 'main.subscribers'
         (#{base_item.item.subscribers.count rescue 0}):
-        (#{base_item.item.inspect}):
       = base_item.item.subscribers.map{|s| s.name}.join(', ') rescue ''
   -#.logistics
     %h3 Логистика
@@ -66,3 +65,4 @@
         .consumer-unit
         .delivery-unit
           %img{:alt => "", :height => "12", :src => "/images/newdesign/icon-delivery-unit.jpg", :width => "23"}/
+
