@@ -15,13 +15,14 @@ module Uservoice
     # available.
     #
     def uservoice_config_javascript(options={})
-      config = uservoice_configuration['uservoice_options'].dup
+      configuration = uservoice_configuration[I18n.locale]
+      config = configuration['uservoice_options'].dup
       config.merge!(options)
-      widget_path = uservoice_configuration['widget']['path']
+      widget_path = configuration['widget']['path']
       if config[:sso] && config[:sso][:guid]
         config.merge!(:params => {:sso => Uservoice::Token.new(
-          uservoice_configuration['uservoice_options']['key'],
-          uservoice_configuration['uservoice_api']['api_key'],
+          configuration['uservoice_options']['key'],
+          configuration['uservoice_api']['api_key'],
           config.delete(:sso)).to_s})
       end
 
