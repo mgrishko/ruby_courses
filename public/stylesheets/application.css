@@ -335,10 +335,10 @@ ul.items li.new .item ul
 .pi p{
 	margin-bottom:3px;
 }
-#first_pi {
+/*#first_pi {
   padding-top: 18px;
   margin-top: 20px;
-}
+}*/
 .pi input[type='text']
 {
   margin-top: 0px;

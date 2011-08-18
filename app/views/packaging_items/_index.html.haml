@@ -1,7 +1,6 @@
 #packaging_items
   %h2= t 'main.logistic'
   %br
-  %br
   .tree-cont
     .branch
       .pi-cont{:class=>"#{'hasChild' if @packaging_items.any? } #{@base_item.draft? ? 'edited' : 'minimized'}", :id => 'first_pi' }
@@ -22,8 +21,9 @@
               %tr
                 %td.art{:colspan => "2"}= h @base_item.gtin
         .pi.edited{:class=> @base_item.draft? ? '' : 'full'}
-          .edit-delete2
-            = link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true} if @base_item.draft?
+          - unless @base_item.published? || @view_only
+            .edit-delete2
+              = link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}
           = pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64'
           %span.logistics-item-title
             %strong= '1'
@@ -80,6 +80,7 @@
             :onclick => "packageMe(this,#{@base_item.id});return false"
       - if @packaging_items.any?
         = pi_tree @packaging_items.roots  do |item, options|
-          = render :partial => 'packaging_items/item', :locals=>{:item => item, :options => options}
+          .pi-cont{:class=>"#{options[:class]} #{@base_item.draft? ? 'edited' : 'minimized'}",:style => options[:style], :id => "pi-#{item.id}"}
+            = render :partial => 'packaging_items/item', :locals=>{:item => item, :options => options}
   .clear
 

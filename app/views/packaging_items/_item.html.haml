@@ -1,80 +1,81 @@
-.pi-cont{:class=>"#{options[:class]} #{@base_item.draft? ? 'edited' : 'minimized'}",:style => options[:style], :id => "pi-#{item.id}"}
-  .bt
-  .tree-larr
-  - unless @base_item.draft?
-    .pi.mini.edited
-      = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
-      %span.logistics-item-title
-        %strong
-        = h item.calculate_packaging_type
-      %br
-      %span.logistics-item-title-2
-        = calculate_quantity item
-      %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
-        %tr
-          %td.art{:colspan => 2}
-            = h item.gtin
-  .pi.edited{:class=> @base_item.draft? ? '' : 'full'}
-    %div{:class=>"edit-delete#{'2' unless item.leaf?}"}
-      = link_to '', edit_base_item_packaging_item_path(@base_item, item), { :method => :get, :remote => true } if @base_item.draft?
-      = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf? and @base_item.draft?
+- options ||={}
+.bt
+.tree-larr
+- unless @base_item.draft?
+  .pi.mini.edited
     = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
     %span.logistics-item-title
       %strong
-        = ""
       = h item.calculate_packaging_type
     %br
     %span.logistics-item-title-2
       = calculate_quantity item
     %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
-      %tbody
-        %tr
-          %td.art{:colspan=>2}
-            = h item.gtin
-        %tr
-          %td
-            = t('pi.height')
-            \:
-          %td
-            = h item.height
-            &nbsp;
-            = t('uom.mm')
-        %tr
-          %td
-            = t('pi.width')
-            \:
-          %td
-            = h item.width
-            &nbsp;
-            = t('uom.mm')
-        %tr
-          %td
-            = t('pi.depth')
-            \:
-          %td
-            = h item.depth
-            &nbsp;
-            = t('uom.mm')
-        %tr
-          %td
-          %td
-        %tr
-          %td
-            = t('pi.gross_weight')
-            \:
-          %td
-            = h item.gross_weight
-            &nbsp;
-            = t('uom.grm')
-        %tr
-          %td
-            = t('pi.net_weight')
-            \:
-          %td
-            = h item.net_weight
-            &nbsp;
-            = t('uom.grm')
-    =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
-  = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
+      %tr
+        %td.art{:colspan => 2}
+          = h item.gtin
+.pi.edited{:class=> @base_item.draft? ? '' : 'full'}
+  - unless @base_item.published? || @view_only
+    %div{:class=>"edit-delete#{'2' unless item.leaf?}"}
+      = link_to '', edit_base_item_packaging_item_path(@base_item, item), { :method => :get, :remote => true }
+      = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf?
+  = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
+  %span.logistics-item-title
+    %strong
+      = ""
+    = h item.calculate_packaging_type
+  %br
+  %span.logistics-item-title-2
+    = calculate_quantity item
+  %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
+    %tbody
+      %tr
+        %td.art{:colspan=>2}
+          = h item.gtin
+      %tr
+        %td
+          = t('pi.height')
+          \:
+        %td
+          = h item.height
+          &nbsp;
+          = t('uom.mm')
+      %tr
+        %td
+          = t('pi.width')
+          \:
+        %td
+          = h item.width
+          &nbsp;
+          = t('uom.mm')
+      %tr
+        %td
+          = t('pi.depth')
+          \:
+        %td
+          = h item.depth
+          &nbsp;
+          = t('uom.mm')
+      %tr
+        %td
+        %td
+      %tr
+        %td
+          = t('pi.gross_weight')
+          \:
+        %td
+          = h item.gross_weight
+          &nbsp;
+          = t('uom.grm')
+      %tr
+        %td
+          = t('pi.net_weight')
+          \:
+        %td
+          = h item.net_weight
+          &nbsp;
+          = t('uom.grm')
+  =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
+= link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
             :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"
 

@@ -1,3 +1,3 @@
-page.replace_html "#{dom_id(@packaging_item)}_item", :partial => 'item', :object => @packaging_item
+page.replace_html "pi-#{@packaging_item.id}", :partial => 'item', :locals => {:item => @packaging_item}
 page.call "drawLines"
 

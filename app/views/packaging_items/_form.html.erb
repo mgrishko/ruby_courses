@@ -113,14 +113,5 @@
     });
   });
 </script>
-<!--
-<p>
-<% if @packaging_item.leaf? || !@packaging_item.id %>
-<%=f.text_field :number_of_next_lower_item, :size => 4, :maxlength => 6, :style => "width: 43px; border: 0;", :title=> "Number of Next Lower Item"%>
-<% else %>
-<%= @packaging_item.number_of_next_lower_item %>
-<% end %>
-<span class='t'><%= t 'pi.packages_inside' %></span>
-</p> -->
 </div>
 
