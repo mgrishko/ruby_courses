@@ -146,7 +146,6 @@ GEM
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
     nokogiri (1.5.0)
-    parseexcel (0.5.2)
     pg (0.11.0)
     pickle (0.4.7)
       cucumber (>= 0.8)
@@ -192,6 +191,7 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.6.0)
     ruby-graphviz (0.9.21)
+    ruby-ole (1.2.11.1)
     ruby-xslt (0.9.8)
     ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
@@ -203,6 +203,8 @@ GEM
       rubyzip
     sexp_processor (3.0.5)
     spork (0.8.5)
+    spreadsheet (0.6.5.7)
+      ruby-ole (>= 1.0)
     term-ansicolor (1.0.5)
     test-unit (2.3.0)
     thor (0.14.6)
@@ -246,7 +248,6 @@ DEPENDENCIES
   jrails
   libnotify
   nested_set
-  parseexcel
   pg
   pickle
   rails (= 3.0.7)
@@ -262,6 +263,7 @@ DEPENDENCIES
   russian!
   selenium-webdriver (= 0.2.2)
   spork
+  spreadsheet
   test-unit
   thoughtbot-factory_girl
   translations_sync
