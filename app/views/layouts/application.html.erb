@@ -26,7 +26,7 @@
     <![endif]-->
     <% if Rails.env.production? %>
     <!-- user voice -->
-      <%= user_voice_widget %>
+      <%= user_voice_widget if current_user.id.present? %>
     <!-- endof uservoice -->
       <!-- google analitics -->
       <script type="text/javascript">
