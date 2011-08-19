@@ -232,6 +232,8 @@ en:
   uom:
     grm: g
     mm: mm
+    m: m
+    kg: kg
   user:
     admin: Admin
     apply: Save

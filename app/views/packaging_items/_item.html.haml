@@ -34,47 +34,32 @@
           = h item.gtin
       %tr
         %td
-          = t('pi.height')
-          \:
-        %td
-          = h item.height
-          &nbsp;
-          = t('uom.mm')
+          = t('pi.height')+":"
+        %td{:class => 'tright'}
+          = convert_mm_to_m item.height
       %tr
         %td
-          = t('pi.width')
-          \:
-        %td
-          = h item.width
-          &nbsp;
-          = t('uom.mm')
+          = t('pi.width')+":"
+        %td{:class => 'tright'}
+          = convert_mm_to_m item.width
       %tr
         %td
-          = t('pi.depth')
-          \:
-        %td
-          = h item.depth
-          &nbsp;
-          = t('uom.mm')
+          = t('pi.depth')+":"
+        %td{:class => 'tright'}
+          = convert_mm_to_m item.depth
       %tr
         %td
         %td
       %tr
         %td
-          = t('pi.gross_weight')
-          \:
-        %td
-          = h item.gross_weight
-          &nbsp;
-          = t('uom.grm')
+          = t('pi.gross_weight')+":"
+        %td{:class => 'tright'}
+          = convert_grm_to_kg item.gross_weight
       %tr
         %td
-          = t('pi.net_weight')
-          \:
-        %td
-          = h item.net_weight
-          &nbsp;
-          = t('uom.grm')
+          = t('pi.net_weight')+":"
+        %td{:class => 'tright'}
+          = convert_grm_to_kg item.net_weight
   =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
 = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
             :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"

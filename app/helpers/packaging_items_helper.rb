@@ -4,7 +4,7 @@ module PackagingItemsHelper
   def pi_tree(items, options = {}, &block)
     result = ''
     result << "<div class='branch'>"
-    items.each_with_index do |item, count|
+    items.reverse.each_with_index do |item, count|
       options[:style] = count > 0 ? 'clear:left' : ''
       options[:class] = count > 0 ? 'secondChild' : ''
       options[:class] = "hasChild #{options[:class]}" if item.children.any?
@@ -43,5 +43,25 @@ module PackagingItemsHelper
    end
      image_tag "pi_new/#{id}.jpg", options
   end
+
+  def convert_mm_to_m value
+    if value > 999
+      "#{value.to_f/100} #{t('uom.m')}"
+    else
+      "#{value} #{t('uom.mm')}"
+    end
+
+  end
+
+  def convert_grm_to_kg value
+    return "- #{t('uom.grm')}" unless value.present?
+    if value > 999
+      "#{(value.to_f/1000).round(2)} #{t('uom.kg')}"
+    else
+      "#{value} #{t('uom.grm')}"
+    end
+
+  end
+
 end
 

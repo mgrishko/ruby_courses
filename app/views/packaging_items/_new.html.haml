@@ -1,5 +1,5 @@
 - pi_id = @packaging_item.parent ? "packaging_item_new_#{@packaging_item.parent.id}" : 'packaging_item_new'
-- secondChild = @packaging_item.parent.children.any? ? "secondChild" : '' if @packaging_item.parent
+- secondChild = nil# @packaging_item.parent.children.any? ? "secondChild" : '' if @packaging_item.parent
 .pi-cont.edited{:id=> pi_id,:class=>secondChild, :style=>'clear:left'}
   .bt
   .tree-larr

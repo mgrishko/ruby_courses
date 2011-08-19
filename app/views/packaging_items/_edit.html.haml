@@ -1,4 +1,4 @@
-= form_for @packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item), :html=>{:class=> 'jNice'},:remote => true do |f|
+= form_for @packaging_item, :url => base_item_packaging_item_path(@base_item, @packaging_item), :remote => true do |f|
   .bt
   = render :partial => 'form', :locals => { :f => f }
   %div{:align => "center"}

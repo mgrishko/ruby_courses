@@ -1,3 +1,4 @@
 pi_id = @packaging_item.parent ? "packaging_item_new_#{@packaging_item.parent.id}" : 'packaging_item_new'
 page.replace pi_id, :partial => 'new'
+page.call "drawLines"
 
