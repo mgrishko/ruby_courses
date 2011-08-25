@@ -1,0 +1,36 @@
+- if current_user.id
+  .search
+    %form{:action => "/base_items/", :method => "GET"}
+      - value = params[:search].blank? ? t('main.search') : h(params[:search])
+      %input#search-form-input.search-inp{:name => "search", :type => "text", :value => value}
+      %input.search-btn{:type => "submit", :value => " "}
+    .clr
+  %ul#top-menu
+    - if @content_for_leftmenu
+      = yield :leftmenu
+    - else
+      - if current_user.supplier?
+        %li.first
+          = link_to t('menu.my_items'), base_items_path, {:class=>"#{'cur' if params[:controller]=='base_items'}"}
+        - if can? :read, Comment
+          %li
+            = link_to t('menu.statuses'), {:controller => 'statuses'}, {:class=>"#{'cur' if params[:controller]=='statuses'}"}
+      - if current_user.retailer?
+        %li.first
+          = link_to t('menu.inbox'), subscription_results_path, {:class=>"#{'cur' if params[:controller]=='subscription_results'}"}
+        %li
+          = link_to t('menu.received_items'), {:controller => 'retailer_items'}, {:class=>"#{'cur' if params[:controller]=='retailer_items'}"}
+        %li
+          = link_to t('menu.suppliers'), suppliers_path, {:class=>"#{'cur' if params[:controller]=='suppliers'}"}
+      - if can? :read, Comment
+        %li
+          = link_to t('menu.messages'), {:controller => 'messages'}, {:class=>"#{'cur' if params[:controller]=='messages'}"}
+      %li
+        = link_to t('menu.events'), {:controller => 'events'}, {:class=>"#{'cur' if params[:controller]=='events'}"}
+  .right
+    = link_to current_user.name, '#', :class=> 'company'
+    = link_to t('main.settings'), user_path(current_user),:id=> 'settings_link', :class=> 'set name''#'
+    = link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout)
+    - for locale in @other_locales
+      = link_to locale[:locale], locale, :class=> "locale_#{locale}"
+  .clr
