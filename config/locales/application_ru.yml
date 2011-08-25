@@ -232,8 +232,10 @@ ru:
     add: "Add tag=TODO"
     title: Tags=TODO
   uom: 
-    grm: grm=TODO
-    mm: mm=TODO
+    grm: г
+    kg: кг
+    m: м
+    mm: мм
   user: 
     admin: Администратор
     apply: Save=TODO
