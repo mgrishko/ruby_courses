@@ -1,0 +1,63 @@
+--- 
+ru:
+  activerecord:
+    models:
+      user:
+        Пользователя
+
+    attributes:
+      user:
+        company_name: "Название компании"
+        contacts: Контактная информация
+        name:
+          Полное имя
+        email:
+          Электронный адрес
+        gln: GLN
+        locale: Предпочтительный язык
+        password:
+          Пароль
+        password_confirmation:
+          Подтверждение пароля
+        login_count:
+          Число логинов
+        failed_login_count:
+          Ошибочных попыток захода
+        last_request_at:
+          Последний запрос в
+        current_login_at:
+          Текущий логин в
+        last_login_at:
+          Предыдущий логин в
+        current_login_ip:
+          IP текущий
+        last_login_ip:
+          IP предыдущий
+        website: "Адрес сайта"
+
+  users:
+    index:
+      new_user:
+        Создать нового пользователя
+      title:
+        Список пользователей
+    edit:
+      title:
+        Редактирование пользователя
+    form:
+      change_password: "Изменить пароль"
+      user:
+        Пользователь
+    new:
+      title:
+        Регистрация
+    roles: Разрешённые роли
+    show:
+      title:
+        Информация о пользователе
+    was_created:
+      Вы успешно зарегистрировались. На Ваш email высланы инструкции по активации Вашего профиля.
+    was_updated:
+      Пользователь успешно изменён
+    was_deleted:
+      Пользователь успешно удалён

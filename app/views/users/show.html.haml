@@ -1,3 +1,5 @@
+- title t('.title')
+
 #left-side
   .cat
 
@@ -5,47 +7,51 @@
   .wrap
     .address
       %a
+        = User.human_attribute_name :gln
         = @user.gln
     #profile-info
       .info-wrap
         %h3{:class=>'title'}
-          = t('user.main_information')
+          = t('.title')
         %table{:cellspacing => 0, :cellpadding => 0}
           %tr
             %td
               %span
-                = t('user.namе')
+                = User.human_attribute_name :name
             %td
               = @user.name
           %tr
             %td
               %span
-                = t('user.company_name')
+                = User.human_attribute_name :company_name
             %td
               = @user.company_name
           %tr
             %td
               %span
-                = t('user.contacts')
+                = User.human_attribute_name :contacts
             %td
               = @user.contacts
           %tr
             %td
               %span
-                = t('user.email')
+                = User.human_attribute_name :email
             %td
               = @user.email
           %tr
             %td
               %span
-                = t('user.website')
+                = User.human_attribute_name :website
             %td
               = @user.website
           %tr
             %td
               %span
-                = t('user.language')
+                = User.human_attribute_name :locale
             %td
               = @user.locale
-        =link_to t('user.edit'), edit_user_path(@user), :id =>'edit_user_info_link'
 
+        - if can? :index, User
+          = link_to t('back'), users_path
+        - if can? :edit, User
+          = link_to t('edit'), edit_user_path(@user)

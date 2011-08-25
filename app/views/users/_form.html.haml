@@ -1,0 +1,72 @@
+= form_for @user do |f|
+  = f.error_messages
+  %table{:cellspacing => 0, :cellpadding => 0}
+    %tr
+      %td
+        %span
+          = f.label :name
+      %td
+        = f.text_field :name
+    %tr
+      %td
+        %span
+          = f.label :email
+      %td
+        = f.text_field :email
+    %tr
+      %td
+        %span
+          = f.label :company_name
+      %td
+        = f.text_field :company_name
+    %tr
+      %td
+        %span
+          = f.label :locale
+      %td
+        = f.select :locale, I18n.available_locales,:include_blank =>true
+    %tr
+      %td
+        %span
+          = f.label :contacts
+      %td
+        = f.text_area :contacts, :rows=>5
+    %tr
+      %td
+        %span
+          = f.label :website
+      %td
+        = f.text_field :website
+
+  %h3{:class=>'title'}
+    = t('.change_password')
+  %table{:cellspacing => 0, :cellpadding => 0}
+    %tr
+      %td
+        %span
+          = f.label :password
+      %td
+        = f.password_field :password
+    %tr
+      %td
+        %span
+          = f.label :password_confirmation
+      %td
+        = f.password_field :password_confirmation
+
+  - if can? :set_roles, User
+    %h3{:class=>'title'}
+      = t('users.roles')
+    %table{:cellspacing => 0, :cellpadding => 0}
+      %tr
+      - for role in User::ROLES
+        %tr
+          %td
+            = check_box_tag "user[roles][]", role, @user.roles.include?(role), :id => "user_#{role}"
+          %td
+            = f.label role, t("user.#{role}")
+
+  = hidden_field_tag "user[roles][]", ""
+
+  %br
+  = f.submit :class => 'submit-btn', :id => 'save_user_info'

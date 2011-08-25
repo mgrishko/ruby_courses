@@ -5,9 +5,7 @@ en:
     add: "Add Comment"
     comment: Comment
     title: Comments
-  edit:
-    base_item: "Editing base item"
-    revert_to_published: "Revert to published"
+  edit_base_item: "Editing base item"
   errors:
     dynamic_format: "%{message}=TODO=TODO"
     template:
@@ -198,6 +196,7 @@ en:
   receivers:
     add: Add
     add_receiver_from_list: "Add receiver from list"
+  revert_to_published: "Revert to published"
   sr:
     accept: Accept
     accept_all: "Accept All"
@@ -239,8 +238,6 @@ en:
     apply: Save
     back: Back
     change_password: "Change password"
-    company_name: "Company Name"
-    contacts: Contacts
     description: Description
     edit: Edit
     export_allowed: "Export allowed"
@@ -249,13 +246,10 @@ en:
     local_supplier: "Local supplier"
     locale: Locale
     login: Login
-    main_information: "Main Information"
-    name: Name
     password: Password
     remember_me: "Remember me"
     retailer: Retailer
     title: Company
-    website: Website
   warning:
     javascript_should_be_enabled: "You should have javascript enabled."
     please_use: "Please use"
