@@ -16,6 +16,7 @@
     <%= javascript_include_tag 'jquery-ui', 'jquery.jNice' %>
     <%= javascript_include_tag "autocomplete-rails.js", 'preview.js' %>
     <%= javascript_include_tag 'dropdowns', 'jquery.scrollTo','logistic' %>
+    <%= include_wice_grid_assets(:include_calendar => true) %>
     <%= csrf_meta_tag %>
     <%= yield :head -%>
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />

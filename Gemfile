@@ -26,6 +26,7 @@ gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
 gem 'globalize3'
 gem 'uservoice', :path => 'vendor/gems/uservoice'
+gem 'wice_grid'
 
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
