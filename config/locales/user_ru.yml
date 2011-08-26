@@ -3,7 +3,7 @@ ru:
   activerecord:
     models:
       user:
-        Пользователя
+        Пользователь
 
     attributes:
       user:
@@ -34,6 +34,13 @@ ru:
         last_login_ip:
           IP предыдущий
         website: "Адрес сайта"
+
+  helpers: 
+    submit: 
+      user: 
+        create: "Добавить пользователя"
+        submit: "Сохранить пользователя"
+        update: "Изменить пользователя"
 
   users:
     index:

@@ -35,6 +35,13 @@ en:
           Last login IP
         website: Website
 
+  helpers: 
+    submit: 
+      user: 
+        create: "Add user"
+        submit: "Save user"
+        update: "Update user"
+
   users:
     index:
       new_user:
