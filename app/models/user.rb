@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   has_many :base_item_subscription_results, :class_name => 'SubscriptionResult', :through => :base_items
   has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
+  validates :gln, :presence => true
   validates_uniqueness_of :gln
   validates :email,
             :allow_nil => true,
