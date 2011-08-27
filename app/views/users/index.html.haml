@@ -1,0 +1,35 @@
+- title t('.title')
+
+- colspan = 0
+- action = {}
+- for abilty in [:show, :edit, :destroy]
+  - if can? abilty, User
+    - colspan += 1
+    - action[abilty] = true
+
+#left-side
+  .cat
+
+#middle-side
+  .wrap
+    #profile-info
+      .info-wrap
+        = grid @users_grid do |g|
+          - g.column :column_name => User.human_attribute_name(:name),
+            :attribute_name => 'name'
+          - g.column :column_name => User.human_attribute_name(:email),
+            :attribute_name => 'email'
+          - g.column :column_name => User.human_attribute_name(:gln),
+            :attribute_name => 'gln'
+          - if action[:show]
+            - g.column do |user|
+              - link_to t('show'), user
+          - if action[:edit]
+            - g.column do |user|
+              - link_to t('edit'), edit_user_path(user)
+          - if action[:destroy]
+            - g.column do |user|
+              - link_to t('destroy'), user, :confirm => t('are_you_sure', :default => 'Are you sure?'), :method => :delete
+
+        - if can? :create, User
+          %p= link_to t('.new_user'), new_user_path

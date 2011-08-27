@@ -1,6 +1,13 @@
 = form_for @user do |f|
   = f.error_messages
   %table{:cellspacing => 0, :cellpadding => 0}
+    - if @user.new_record?
+      %tr
+        %td
+          %span
+            = f.label :gln
+        %td
+          = f.text_field :gln
     %tr
       %td
         %span
@@ -38,8 +45,9 @@
       %td
         = f.text_field :website
 
-  %h3{:class=>'title'}
-    = t('.change_password')
+  - unless @user.new_record?
+    %h3{:class=>'title'}
+      = t('.change_password')
   %table{:cellspacing => 0, :cellpadding => 0}
     %tr
       %td

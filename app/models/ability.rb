@@ -10,6 +10,9 @@ class Ability
       can :create, User if user.new_record?
       can [:show,:edit, :update], User, :id => user.id
 
+      # User
+      can [:show, :update], User, :id => user.id
+
       # BaseItem
       can [
         :read, :create, :update, :delete,
