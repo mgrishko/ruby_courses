@@ -2,6 +2,16 @@
 <%= form_for Tag.new,:html=>{:style=>'display:none'}, :remote => true do |f| %>
   <input type="hidden" name="tag[item_id]" value="<%= @base_item.item_id %>"/>
   <a class='remove' style='float:right;margin-right:15px' href='javascript:void(0)' onclick="$('#new_tag').hide();$('#add_tag_link').show();">x</a>
+  <%#<%= link_to "x", '#', :class => 'remove', :style => 'float:right;margin-right:15px' %>
   <%= f.autocomplete_field :name, autocomplete_tag_name_tags_path, :size=>'13' %>
 <% end %>
 
+<%#<script type="text/javascript">%>
+  <%#$(document).ready(function() {%>
+    <%#$('a.remove').click(function(event){%>
+      <%#$('#new_tag').hide();%>
+      <%#$('#add_tag_link').show();%>
+      <%#event.preventDefault();%>
+    <%#});%>
+  <%#})%>
+<%#</script>%>

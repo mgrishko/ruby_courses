@@ -12,6 +12,7 @@
         = f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input'
         %a#packaging_item_packaging_name_link.drop-down-link.item-qnt{:href => "#"}
           = @base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')
+        -#= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
         .drop-down.pic
           .blue-tarr
           .drop-down-list-cont{:style => "width:400px;"}

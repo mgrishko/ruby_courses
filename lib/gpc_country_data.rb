@@ -23,10 +23,10 @@ class GpcCountryData
     end
   end
   def gpc
-    puts 'Filling GPC' unless Rails.env.cucumber?  or Rails.env.test?
+    #puts 'Filling GPC' unless Rails.env.cucumber?  or Rails.env.test?
     Gpc.delete_all
     Gpc.reset_column_information
-    book = Spreadsheet.open('data/GS1 Combined Published_Schema as at 01062011.xls')
+    book = Spreadsheet.open('data/gpc_pack.xls')
     worksheet = book.worksheet(0)
     skip = 1
     ActiveRecord::Base.transaction do
