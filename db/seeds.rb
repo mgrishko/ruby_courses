@@ -68,6 +68,7 @@ User.delete_all
 users.each do |user|
   u = User.new(user)
   u.id = user[:id]
+  u.active = true
   u.save
   puts u.errors
   puts "#{u.gln}/#{u.password}"

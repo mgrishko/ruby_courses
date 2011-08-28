@@ -11,6 +11,7 @@ Factory.define :user do |f|
 end
 
 Factory.define :administrator, :parent => :user do |f|
+  f.active true
   f.gln '1234'
   f.password  '1234'
   f.name "Administrator"
@@ -19,6 +20,7 @@ Factory.define :administrator, :parent => :user do |f|
 end
 
 Factory.define :supplier, :parent => :user do |f|
+  f.active true
   f.gln '1234'
   f.password  '1234'
   f.name "Supplier"
@@ -27,6 +29,7 @@ Factory.define :supplier, :parent => :user do |f|
 end
 
 Factory.define :another_supplier, :parent => :user do |f|
+  f.active true
   f.gln '12345'
   f.password  '1234'
   f.name "Another Supplier"
@@ -35,6 +38,7 @@ Factory.define :another_supplier, :parent => :user do |f|
 end
 
 Factory.define :retailer, :parent => :user do |f|
+  f.active true
   f.gln '4321'
   f.password  '1234'
   f.name "Retailer"
@@ -43,6 +47,7 @@ Factory.define :retailer, :parent => :user do |f|
 end
 
 Factory.define :another_retailer, :parent => :user do |f|
+  f.active true
   f.gln '5678'
   f.password '1234'
   f.name "Another Retailer"
