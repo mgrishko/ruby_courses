@@ -38,6 +38,7 @@ class UsersController < ApplicationController
   def create
     respond_to do |format|
       @user.roles = nil unless can? :set_roles, @user
+      @user.active = params[:user][:active] if can? :activate, @user
       if User.count == 0
         @user.roles = ['admin']
         # @user.active = true
@@ -61,6 +62,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       params[:user].delete(:roles) unless can? :set_roles, @user
+      @user.active = params[:user][:active] if can? :activate, @user
       if @user.update_attributes(params[:user])
         format.html { redirect_to(@user, :notice => t('users.was_updated.')) }
         format.xml  { head :ok }

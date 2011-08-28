@@ -94,6 +94,7 @@ en:
     reqiure_no_user: "Please logout to access this page"
     require_admin: "Only admin has access to this page"
     require_user: "Please login to access this page"
+    unsuccessful: "Unsuccessful attempt to login"
   main:
     add: Add
     address: address

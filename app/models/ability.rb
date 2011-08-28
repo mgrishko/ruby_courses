@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     if user.is? :admin
       can :manage, :all
+      cannot :activate, User, :id => user.id
     else
 #       can :read, :all
       can :manage, UserSession

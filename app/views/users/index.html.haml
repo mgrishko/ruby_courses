@@ -15,6 +15,9 @@
     #profile-info
       .info-wrap
         = grid @users_grid do |g|
+          - g.column :column_name => User.human_attribute_name(:active),
+            :attribute_name => 'active' do |user|
+            - t user.active.to_s
           - g.column :column_name => User.human_attribute_name(:name),
             :attribute_name => 'name'
           - g.column :column_name => User.human_attribute_name(:email),

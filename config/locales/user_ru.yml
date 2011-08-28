@@ -7,6 +7,7 @@ ru:
 
     attributes:
       user:
+        active: Активирован
         company_name: "Название компании"
         contacts: Контактная информация
         name:

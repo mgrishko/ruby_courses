@@ -17,6 +17,12 @@
           %tr
             %td
               %span
+                = User.human_attribute_name :active
+            %td
+              = t @user.active.to_s
+          %tr
+            %td
+              %span
                 = User.human_attribute_name :name
             %td
               = @user.name

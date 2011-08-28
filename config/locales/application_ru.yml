@@ -42,7 +42,7 @@ ru:
     invite: Invite=TODO
     name: Name=TODO
     notes: Notes=TODO
-    request_invitation: "Request Invitation=TODO"
+    request_invitation: "Запросить приглашение"
     request_your_invitation: "Request Your Invitation=TODO"
     role: "Desired role=TODO"
   item: 
@@ -96,6 +96,7 @@ ru:
     reqiure_no_user: "Please logout to access this page=TODO"
     require_admin: "Only admin has access to this page=TODO"
     require_user: "Please login to access this page=TODO"
+    unsuccessful: "Неудачная попытка зайти"
   main: 
     add: Add=TODO
     address: address=TODO
@@ -133,7 +134,7 @@ ru:
     save: Save=TODO
     search: Искать
     select: Select=TODO
-    settings: Settings=TODO
+    settings: "Мои настройки"
     short: Кратко
     show: Show=TODO
     status: Status=TODO
@@ -145,7 +146,7 @@ ru:
   menu: 
     events: Events=TODO
     inbox: Inbox=TODO
-    log_off: "Log off=TODO"
+    log_off: "Выйти из системы"
     messages: Messages=TODO
     my_items: "My Items=TODO"
     received_items: "Received Items=TODO"
@@ -243,13 +244,13 @@ ru:
     description: Description=TODO
     edit: Edit=TODO
     export_allowed: "Экспорт разрещён"
-    gln: GLN=TODO
+    gln: GLN
     global_supplier: "Глбальный поставщик"
     local_supplier: "Локальный поставщик"
     locale: Locale=TODO
-    login: Login=TODO
-    password: Password=TODO
-    remember_me: "Remember me=TODO"
+    login: Войти
+    password: Пароль
+    remember_me: "Запомнить меня"
     retailer: "Розничный торговец"
     title: Company=TODO
   warning: 

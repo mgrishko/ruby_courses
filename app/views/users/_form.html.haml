@@ -8,6 +8,13 @@
             = f.label :gln
         %td
           = f.text_field :gln
+    - if can? :activate, @user
+      %tr
+        %td
+          %span
+            = f.label :active
+        %td
+          = f.check_box :active
     %tr
       %td
         %span

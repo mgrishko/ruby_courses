@@ -18,6 +18,9 @@
 # encoding = utf-8
 
 class User < ActiveRecord::Base
+
+  attr_protected :active
+
   has_many :items
   has_many :base_items
   has_many :packaging_items
