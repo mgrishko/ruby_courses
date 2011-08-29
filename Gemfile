@@ -57,7 +57,7 @@ group :development, :test do
   gem 'rails-erd'
   gem 'rspec-rails', '~> 2.4'
   gem 'ruby_parser'
-  gem 'selenium-webdriver', '0.2.2'
+  gem 'selenium-webdriver', '2.5.0'
   gem 'spork'
   gem 'test-unit'
   gem 'thoughtbot-factory_girl', :require => false
