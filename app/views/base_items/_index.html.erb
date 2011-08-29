@@ -106,8 +106,8 @@
 
                         <p class="adres">
                           <div class='fleft'>
-                        <%= t 'menu.status' %>: 
-                        <%= base_item.item.status rescue '' %>, 
+                        <%= t 'menu.status' %>:
+                        <%= base_item.item.status rescue '' %>,
                         <%= base_item.created_at.to_s(:short) %>
                         </div>
                           <div class="tags-wrapper">
@@ -260,7 +260,7 @@
 
 <script>
 $(document).ready(function(){
-  $('#goods-list-short .item').click(function(){    
+  $('#goods-list-short .item').click(function(){
   document.location=$('#goods-list-short .item').find('.art').attr('href');
   });
 });
