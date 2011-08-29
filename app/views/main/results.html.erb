@@ -4,13 +4,13 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-	  $('.drop-down-list ul li a').click(function(){
-	  	$(this).parent().parent().find('li').removeClass('selected');
-	  	$(this).parent().parent().parent().find('li').removeClass('selected');
-	  	$(this).parent().addClass('selected');
-	  	requestManData($(this).parent().attr("id"));
-	  	return false;
-	  });
+    $('.drop-down-list ul li a').click(function(){
+      $(this).parent().parent().find('li').removeClass('selected');
+      $(this).parent().parent().parent().find('li').removeClass('selected');
+      $(this).parent().addClass('selected');
+      requestManData($(this).parent().attr("id"));
+      return false;
+    });
 
     $('.pt-cases').each(function(){
       var val = $(this).parent().parent().parent().find('.dd-input').val();
@@ -18,13 +18,13 @@
         if ($(this).find('a').html() == val){
           var code = $(this).attr('id');
           $(this).addClass('selected');
-    	  	requestManData(code);
-    	  	$('.pt-cases').scrollTo("li.selected",600)
-   	    }
+          requestManData(code);
+          $('.pt-cases').scrollTo("li.selected",600)
+        }
       });
     });
 
-	});
+  });
 
 </script>
 
