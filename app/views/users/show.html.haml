@@ -60,4 +60,5 @@
         - if can? :index, User
           = link_to t('back'), users_path
         - if can? :edit, User
-          = link_to t('edit'), edit_user_path(@user)
+          = link_to t('edit'), edit_user_path(@user), :id =>'edit_user_info_link'
+
