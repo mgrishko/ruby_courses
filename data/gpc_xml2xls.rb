@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'spreadsheet'
 
 #You should use file size about 6 - 10 mb
-file = File.open("GS1 Combined Published  as at 01062011.xml")
+file = File.open("gpc_pack.xml")
 doc = Nokogiri::XML(file)
 file.close
 
@@ -64,7 +64,7 @@ else
 worksheet.row(0).height = 16
 format = Spreadsheet::Format.new :color  => :blue,
                                  :weight => :bold,
-                                 :size   => 12
+                                 :size   => 10
 worksheet.row(0).default_format = format
 
 #And finally, write the Excel File:
