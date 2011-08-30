@@ -1,8 +1,14 @@
 namespace :db do
-  desc "Fill the database with the necessary date"
-  task :gpc_country => :environment do
-    data = GpcCountryData.new
-    data.run
+  namespace :seed do
+    desc "Fill the database with the necessary date"
+    task :country => :environment do
+      country_data = CountryData.new
+      country_data.run
+    end
+    task :gpc => :environment do
+      gpc_data = GpcData.new
+      gpc_data.run
+    end
   end
 end
 

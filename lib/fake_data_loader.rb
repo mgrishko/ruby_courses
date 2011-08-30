@@ -1,5 +1,6 @@
 class FakeDataLoader
   def initialize(options = nil)
+    make_users
     @ptypes = REF_BOOKS["correspondence_code"][:en]
     @uoms = { 'кг'=>'KGM',
           'л' => 'LTR',
@@ -25,6 +26,88 @@ class FakeDataLoader
     read_description_data
   end
 
+###########################################
+  #making_users
+###########################################
+  def make_users
+    users = [
+       {:id => 1,
+        :gln => 10001,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Поставщик №1',
+        :roles => ['admin', 'global_supplier']},
+       {:id => 2,
+        :gln => 30001,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Красный Октябрь',
+        :roles => [ 'local_supplier']},
+       {:id => 3,
+        :gln => 10002,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Крафт Фудс',
+        :roles => ['global_supplier']},
+       {:id => 4,
+        :gln => 10003,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Центрпоставка',
+        :roles => [ 'global_supplier']},
+       {:id => 10,
+        :gln => 30002,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Центрпоставка local',
+        :roles => ['local_supplier']},
+    #retailers
+       {:id => 5,
+        :gln => 20001,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Азбука Вкуса',
+        :roles => ['admin', 'retailer']},
+       {:id => 6,
+        :gln => 20002,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Х5',
+        :roles => [ 'retailer']},
+       {:id => 7,
+        :gln => 20003,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Лента',
+        :roles => [ 'retailer']},
+       {:id => 8,
+         :gln => 20004,
+         :password => '1234',
+         :password_confirmation => '1234',
+         :name => 'Глобус',
+        :roles => [ 'retailer']},
+       {:id => 9,
+        :gln => 20005,
+        :password => '1234',
+        :password_confirmation => '1234',
+        :name => 'Седьмой континент',
+        :roles => [ 'retailer']},
+
+    ]
+    puts "Making #{users.size} users"
+
+    User.delete_all
+    users.each do |user|
+      u = User.new(user)
+      u.id = user[:id]
+      u.active = true
+      u.save
+      puts u.errors
+      puts "#{u.gln}/#{u.password}"
+    end
+    User.connection.execute 'ALTER SEQUENCE users_id_seq RESTART WITH 11;'
+    puts "ok"
+  end
 ############################################
 #read structure data
 ############################################
