@@ -18,6 +18,9 @@
 # encoding = utf-8
 
 class User < ActiveRecord::Base
+
+  attr_protected :active
+
   has_many :items
   has_many :base_items
   has_many :packaging_items
@@ -31,12 +34,15 @@ class User < ActiveRecord::Base
   has_many :user_tags
   has_many :tags , :through => :clouds
   has_many :receivers
+  has_many :dedicated_base_items,
+      :through => :receivers, :source => :base_item
   has_many :events
   has_many :item_comments, :class_name => 'Comment', :through => :items
   has_many :item_retailer_attributes, :class_name => 'RetailerAttribute', :through => :items
   has_many :base_item_subscription_results, :class_name => 'SubscriptionResult', :through => :base_items
   has_many :clouded_items , :class_name => 'Item', :through => :clouds
 
+  validates :gln, :presence => true
   validates_uniqueness_of :gln
   validates :email,
             :allow_nil => true,
@@ -59,7 +65,8 @@ class User < ActiveRecord::Base
   end
 
 
-  ROLES = %w[admin retailer local_supplier global_supplier]
+  ROLES =
+    %w[admin retailer local_supplier global_supplier export_allowed]
 
   scope :retailers,
     where("roles_mask & #{2**ROLES.index('retailer')} != 0")

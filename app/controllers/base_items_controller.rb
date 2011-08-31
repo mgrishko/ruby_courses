@@ -1,7 +1,9 @@
 require 'zip/zip'
 require 'zip/zipfilesystem'
 class BaseItemsController < ApplicationController
+
   before_filter :require_user
+  load_and_authorize_resource :collection => :export
 
   #Autocompletion fields
   autocomplete :base_item, :brand, :full => true,
@@ -32,39 +34,62 @@ class BaseItemsController < ApplicationController
   autocomplete :base_item, :manufacturer_gln, :full => true,
                :extra_data => [:manufacturer_name],
                :uniq => true,
-               :use_limit => true,
+               :use_limit => false,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id, :status => 'published'}}
                end
   autocomplete :base_item, :manufacturer_name, :full => true,
                :extra_data => [:manufacturer_gln],
                :uniq => true,
-               :use_limit => true,
+               :use_limit => false,
                :display_value => :manufacturer do
                  {:where =>{:user_id =>  current_user.id, :status => 'published'}}
                end
 
   def index
-    redirect_to :controller => "subscription_results" if current_user.retailer?
+    redirect_to :controller => "subscription_results" if current_user.retailer? and not current_user.supplier?
+
+    restrictions = {}
+    restrictions[:brand] = params[:brand] if params[:brand].present?
+    restrictions[:manufacturer_name] = params[:manufacturer_name] if params[:manufacturer_name].present?
+    restrictions[:functional] = params[:functional] if params[:functional].present?
+    @base_items = @base_items.where restrictions
+
+    if params[:search].present?
+      @base_items =
+        @base_items.where ['mix ilike ?', "%#{params[:search]}%"]
+    end
+
+    if params[:tag].present?
+      @base_items =
+        @base_items.where [
+          'item_id in (select items.id from items, clouds where items.id = clouds.item_id and clouds.user_id = :user_id and clouds.tag_id = :tag_id)',
+          {
+            :user_id => current_user.id,
+            :tag_id => params[:tag]
+          }
+        ]
+      @base_items = @base_items.order("created_at DESC")
+    elsif params[:receiver].present? and restricios.empty?
+      @base_items = @base_items.dedicated_to params[:receiver]
+    end
+
+    @base_items = @base_items.last_published
+
     number = 50 if params[:view].nil? || params[:view] == 'list'
     number = 48 if params[:view] == 'tile'
     number ||= 12
-    BaseItem.per_page = number
-    @base_items = BaseItem.get_base_items :user_id => current_user.id,
-      :manufacturer_name => params[:manufacturer_name],
-      :functional => params[:functional],
-      :brand => params[:brand],
-      :tag => params[:tag],
-      :receiver => params[:receiver],
-      :search => params[:search],
-      :page => params[:page]
+    @base_items = @base_items.paginate(
+      :page => params[:page],
+      :per_page => number
+    )
+
     get_bi_filters current_user
   end
 
   def show
     if params[:view]
       @view_only = true;
-      @base_item = BaseItem.find(params[:id])
       @packaging_items = @base_item.packaging_items
       @subscription_result = SubscriptionResult.find(params[:subscription_result_id]) if params[:subscription_result_id]
       if current_user.retailer? && @subscription_result
@@ -74,7 +99,6 @@ class BaseItemsController < ApplicationController
           :order => 'base_items.id DESC').first
       end
     else
-      @base_item = current_user.base_items.find(params[:id])
       @packaging_items = @base_item.packaging_items
     end
     ####
@@ -82,9 +106,9 @@ class BaseItemsController < ApplicationController
       return render 'update_step2'
     end
     ####
-    @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})||RetailerAttribute.new
+    @retailer_attribute = RetailerAttribute.find(:first, :conditions => {:user_id => current_user.id, :item_id => @base_item.item_id})||RetailerAttribute.new
     @retailers = User.retailers
-    @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
+    @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item_id})
   end
 
   def new
@@ -105,7 +129,6 @@ class BaseItemsController < ApplicationController
   end
 
   def edit
-    @base_item = current_user.base_items.find(params[:id])
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
     if params[:step]
       @base_item.next_step
@@ -121,11 +144,6 @@ class BaseItemsController < ApplicationController
   #end
 
   def create
-    # only suppliers can create BI
-    if current_user.retailer?
-      return redirect_to :action => 'index'
-    end
-    #/only
     session[:base_item_params].deep_merge!(params[:base_item]) if params[:base_item]
     @base_item = current_user.base_items.new(session[:base_item_params])
     @base_item.current_step = session[:base_item_step]
@@ -170,7 +188,6 @@ class BaseItemsController < ApplicationController
   end
 
   def update
-    @base_item = current_user.base_items.find(params[:id])
     @clouds = Cloud.find(:all, :conditions => {:user_id => current_user.id, :item_id => @base_item.item.id})
     if params[:step]
       @base_item.next_step
@@ -198,14 +215,12 @@ class BaseItemsController < ApplicationController
   end
 
   def destroy
-    @base_item = current_user.base_items.find(params[:id])
     @base_item.destroy
 
     redirect_to(base_items_url)
   end
 
   def published
-    @base_item = current_user.base_items.find params[:id]
     #generate_attachment
     if @base_item.draft? and params[:cancel]
       @base_item.destroy
@@ -233,7 +248,6 @@ class BaseItemsController < ApplicationController
 
   # Create a draft version of base_item
   def draft
-    @base_item = current_user.base_items.find params[:id]
     if @base_item.published?
       #make new base_item.tree
       new_base_item = BaseItem.new(@base_item.attributes)
@@ -270,13 +284,11 @@ class BaseItemsController < ApplicationController
   end
 
   def accept
-    @base_item = current_user.base_items.find params[:id]
     @base_item.accept!
     redirect_to base_items_url
   end
 
   def reject
-    @base_item = current_user.base_items.find params[:id]
     @base_item.reject!
     redirect_to base_items_url
   end
@@ -299,7 +311,7 @@ class BaseItemsController < ApplicationController
   def export
     files ={}
     ids =  params['base_items'] ? params['base_items'][0..-1].split(',') : params[:id]
-    @base_items = BaseItem.where(:id => ids)
+    @base_items = @base_items.where(:id => ids)
     @forms = params[:forms]
     @name =""
     @prefix = "#{Rails.root}/tmp/xls/"
@@ -320,6 +332,7 @@ class BaseItemsController < ApplicationController
   end
 
   private
+
   def package_to_zip(files)
     tmp = Tempfile.new("zipfile_to_#{request.remote_ip}.zip")
     Zip::ZipOutputStream.open(tmp.path) do |zos|
@@ -330,6 +343,7 @@ class BaseItemsController < ApplicationController
     end
     tmp
   end
+
   def generate_xls(bis, template, name)
     @base_items = bis
     str = render_to_string :template => 'base_items/attachment.xml', :layout => false

@@ -52,7 +52,6 @@ Put goods images into data/images/ directory of the project and run rake tasks
 
   rake db:create
   rake db:migrate
-  rake db:gpc_country
   rake db:seed
   rake db:seed:fake_data
 

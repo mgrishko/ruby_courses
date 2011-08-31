@@ -1,77 +1,112 @@
-users = [
-   {    :gln => 10001,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Поставщик №1',
-    :roles => ['admin', 'global_supplier']},
-   {
-     :gln => 10002,
-     :password => '1234',
-     :password_confirmation => '1234',
-     :name => 'Красный Октябрь',
-     :roles => ['admin', 'local_supplier']},
-   {
-    :gln => 10003,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Крафт Фудс',
-    :roles => ['admin', 'global_supplier']},
-   {
-    :gln => 10004,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Центрпоставка',
-    :roles => ['admin', 'global_supplier']},
-   {:id => 10,
-    :gln => 10005,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Центрпоставка local',
-    :roles => ['local_supplier']},
-#retailers
-   {
-    :gln => 20001,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Азбука Вкуса',
-    :roles => ['admin', 'retailer']},
-   {
-    :gln => 20002,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Х5',
-    :roles => ['admin', 'retailer']},
-   {
-    :gln => 20003,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Лента',
-    :roles => ['admin', 'retailer']},
-   {
-     :gln => 20004,
-     :password => '1234',
-     :password_confirmation => '1234',
-     :name => 'Глобус',
-    :roles => ['admin', 'retailer']},
-   {
-    :gln => 20005,
-    :password => '1234',
-    :password_confirmation => '1234',
-    :name => 'Седьмой континент',
-    :roles => ['admin', 'retailer']},
-
-]
-puts "Making #{users.size} users"
-
-User.delete_all
-users.each do |user|
-  u = User.new(user)
-  #u.id = user[:id]
-  u.save
-  puts u.errors
-  puts "#{u.gln}/#{u.password}"
+require 'spreadsheet'
+puts 'Filling countries' unless Rails.env.cucumber?  or Rails.env.test?
+Country.delete_all
+Country.reset_column_information
+book = Spreadsheet.open('data/country_codelist_2009-12-05.xls')
+worksheet = book.worksheet(0)
+skip = 1
+ActiveRecord::Base.transaction do
+  worksheet.each(skip) do |row|
+    Country.create(
+      :code => row.at(0).to_s,
+      :description => row.at(2).to_s
+    )
+  end
 end
-puts "ok"
+puts 'Filling GPC' unless Rails.env.cucumber?  or Rails.env.test?
+Gpc.delete_all
+Gpc.reset_column_information
+book = Spreadsheet.open('data/gpc_pack.xls')
+worksheet = book.worksheet(0)
+skip = 1
+ActiveRecord::Base.transaction do
+  worksheet.each(skip) do |row|
+    Gpc.create(
+      :code => row.at(6).to_i,
+      :name => row.at(7).to_s,
+      :group => row.at(3).to_s,
+      :description => row.at(5).to_s,
+      :segment_description => row.at(1).to_s
+    )
+  end
+end
+#users = [
+   #{:id => 1,
+    #:gln => 10001,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Поставщик №1',
+    #:roles => ['admin', 'global_supplier']},
+   #{:id => 2,
+    #:gln => 30001,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Красный Октябрь',
+    #:roles => [ 'local_supplier']},
+   #{:id => 3,
+    #:gln => 10002,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Крафт Фудс',
+    #:roles => ['global_supplier']},
+   #{:id => 4,
+    #:gln => 10003,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Центрпоставка',
+    #:roles => [ 'global_supplier']},
+   #{:id => 10,
+    #:gln => 30002,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Центрпоставка local',
+    #:roles => ['local_supplier']},
+##retailers
+   #{:id => 5,
+    #:gln => 20001,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Азбука Вкуса',
+    #:roles => ['admin', 'retailer']},
+   #{:id => 6,
+    #:gln => 20002,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Х5',
+    #:roles => [ 'retailer']},
+   #{:id => 7,
+    #:gln => 20003,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Лента',
+    #:roles => [ 'retailer']},
+   #{:id => 8,
+     #:gln => 20004,
+     #:password => '1234',
+     #:password_confirmation => '1234',
+     #:name => 'Глобус',
+    #:roles => [ 'retailer']},
+   #{:id => 9,
+    #:gln => 20005,
+    #:password => '1234',
+    #:password_confirmation => '1234',
+    #:name => 'Седьмой континент',
+    #:roles => [ 'retailer']},
+
+#]
+#puts "Making #{users.size} users"
+
+#User.delete_all
+#users.each do |user|
+  #u = User.new(user)
+  #u.id = user[:id]
+  #u.active = true
+  #u.save
+  #puts u.errors
+  #puts "#{u.gln}/#{u.password}"
+#end
+#User.connection.execute 'ALTER SEQUENCE users_id_seq RESTART WITH 11;'
+#puts "ok"
 
 =begin
 items = [

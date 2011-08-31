@@ -8,16 +8,9 @@ Feature: Administrator can accept and decline request.
   Background:
     Given invitation_request exists with name: "Some name", company_name: "Some company name", email: "some@email.com", notes: "Some notes", status: "new"
     And "administrator" has gln "1234" and password "1234"
-    Given loaded countries and gpcs
-    And I wait for 30 seconds
+#    Given loaded countries and gpcs
+#    And I wait for 30 seconds
 
-  @javascript
-  Scenario: Administrator declines invitation request
-    When I logged in as "administrator"
-    And I go to the invitation_requests page
-    Then I should see "Some name"
-    When I click element ".decline"
-    Then invitation_request should exist with name: "Some name", company_name: "Some company name", email: "some@email.com", notes: "Some notes", status: "declined"
 
   @javascript
   Scenario: Administrator accepts invitation request
@@ -30,4 +23,11 @@ Feature: Administrator can accept and decline request.
     And I wait for 20 seconds
     And 10 base_items should exist with user_id: "2"
     And 1 email should be delivered to "some@email.com"
+  @javascript
+  Scenario: Administrator declines invitation request
+    When I logged in as "administrator"
+    And I go to the invitation_requests page
+    Then I should see "Some name"
+    When I click element ".decline"
+    Then invitation_request should exist with name: "Some name", company_name: "Some company name", email: "some@email.com", notes: "Some notes", status: "declined"
 

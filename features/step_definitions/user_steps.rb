@@ -41,3 +41,6 @@ When /(?:|I ) confirm action$/ do
   page.evaluate_script('window.confirm = function() { return true; }')
 end
 
+Then /^I accept the alert$/ do
+  page.driver.browser.switch_to.alert.accept
+end

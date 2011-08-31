@@ -1,35 +1,21 @@
 # encoding = utf-8
 module PackagingItemsHelper
-  def recursive_tree_output(set, options = {}, &block)
-    prev_level = set.first.level_cache - 1 if set.present?
+
+  def pi_tree(items, options = {}, &block)
     result = ''
-    result << "<ul #{ ("class='" +options[:class]+"'") if options[:class]} #{ ("id='"+options[:id]+"'") if options[:id]}>\n".html_safe  unless options[:without_root]
-
-    set.each do |node|
-      level = node.level_cache
-      next if level - prev_level > 1
-      result << "<ul>\n" if level > prev_level && prev_level != -1
-      result << "</li>\n" if level == prev_level
-      (prev_level-level).times { |i| result << "</li>\n</ul>\n" } if level < prev_level
-      result << "</li>\n"  if level < prev_level
-      if node.first? and node.last?
-	      if node.root? and @base_item.has_forest?
-      	  result << "<li id=\"#{dom_id node}\" class='pack'>\n"
-        else
-      	  result << "<li id=\"#{dom_id node}\" style='background: none;'>\n"
-      	end
-      else
-        result << "<li id=\"#{dom_id node}\" class='pack'>\n"
-      end
-
-      result << capture(node, &block)
-
-      prev_level = level
+    result << "<div class='branch'>"
+    items.reverse.each_with_index do |item, count|
+      options[:style] = count > 0 ? 'clear:left' : ''
+      options[:class] = count > 0 ? 'secondChild' : ''
+      options[:class] = "hasChild #{options[:class]}" if item.children.any?
+      result << capture(item, options, &block)
+      result << pi_tree(item.children, options, &block) if item.children.any?
     end
-    (prev_level - set.first.level_cache + 1).times { |i| result << "</li>\n</ul>\n" } if set.present?
+    result << '</div>'
 
     result.html_safe
   end
+
 
   # Depicts the quantity of packagingItem
   def calculate_quantity(pi)
@@ -57,5 +43,25 @@ module PackagingItemsHelper
    end
      image_tag "pi_new/#{id}.jpg", options
   end
+
+  def convert_mm_to_m value
+    if value > 999
+      "#{value.to_f/100} #{t('uom.m')}"
+    else
+      "#{value} #{t('uom.mm')}"
+    end
+
+  end
+
+  def convert_grm_to_kg value
+    return "- #{t('uom.grm')}" unless value.present?
+    if value > 999
+      "#{(value.to_f/1000).round(2)} #{t('uom.kg')}"
+    else
+      "#{value} #{t('uom.grm')}"
+    end
+
+  end
+
 end
 

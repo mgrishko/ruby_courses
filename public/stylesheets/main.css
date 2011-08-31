@@ -157,8 +157,8 @@ ol, ul {
 
 }
 #header .right a.set {
-	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat right 6px;
-	padding: 0 12px 0 0;
+	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat center bottom ;
+	padding: 0 0 5px 0;
 }
 #header .company {
 	color:#808080;
@@ -949,7 +949,7 @@ ol, ul {
 	display:inline-block;
 	margin:0 0px 3px 3px;
 	height:15px;
-	float: right;
+	//float: right;
 }
 #goods-list-short .item a.btn span {
 	background: url("/images/newdesign/btn-right.png") no-repeat right top;

@@ -1,6 +1,12 @@
 = form_for @user_session, :url => { :controller => :user_sessions, :action => :login } do |f|
   %div{:style => "margin:0 auto;width:300px"}
-    = f.error_messages
+    - if @user_session.errors.present?
+      #errorExplanation.errorExplanation
+        %h2
+          = t 'login.unsuccessful'
+        %ul
+          - @user_session.errors.full_messages.map do |msg|
+            %li=msg
     %p
       = f.label t('user.gln')
       %br/

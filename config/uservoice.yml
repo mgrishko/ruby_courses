@@ -1,11 +1,23 @@
-uservoice_options:
-  # required
-  key: getmasterdata
-  host: getmasterdata.uservoice.com
-  forum: 128773
+ru:
+  uservoice_options:
+    # required
+    key: getmasterdata
+    host: getmasterdata.uservoice.com
+    forum: 130899
+  uservoice_api:
+    api_key: 92205a47af50540dbd25f2fd8ff8c65f
+  widget:
+    path: widget.uservoice.com/UEQC77ouD2VWvSS7XCjbA.js
 
-uservoice_api:
-  api_key: 92205a47af50540dbd25f2fd8ff8c65f
-widget:
-  path: widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js
+
+en:
+  uservoice_options:
+    # required
+    key: getmasterdata
+    host: getmasterdata.uservoice.com
+    forum: 128873
+  uservoice_api:
+    api_key: 92205a47af50540dbd25f2fd8ff8c65f
+  widget:
+    path: widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js
 

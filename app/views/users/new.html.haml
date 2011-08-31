@@ -1,0 +1,14 @@
+- title t('.title')
+
+#left-side
+  .cat
+
+#middle-side
+  .wrap
+    #profile-info
+      .info-wrap
+        %h3{:class=>'title'}
+          = t('.title')
+        = render 'form'
+        - if can? :index, User
+          = link_to t('back'), users_path

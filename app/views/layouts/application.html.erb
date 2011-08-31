@@ -7,7 +7,7 @@
   <title>
     <%= yield(:title) || "Untitled" %>
     |
-    <%= t 'main.title' %>
+    <%= t 'application_name' %>
   </title>
     <%= stylesheet_link_tag 'jquery-ui', 'dropdowns', 'main','application','jNice' %>
 
@@ -15,7 +15,8 @@
 
     <%= javascript_include_tag 'jquery-ui', 'jquery.jNice' %>
     <%= javascript_include_tag "autocomplete-rails.js", 'preview.js' %>
-    <%= javascript_include_tag 'dropdowns', 'jquery.scrollTo' %>
+    <%= javascript_include_tag 'dropdowns', 'jquery.scrollTo','logistic' %>
+    <%= include_wice_grid_assets(:include_calendar => true) %>
     <%= csrf_meta_tag %>
     <%= yield :head -%>
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -26,7 +27,7 @@
     <![endif]-->
     <% if Rails.env.production? %>
     <!-- user voice -->
-      <%= user_voice_widget %>
+      <%= user_voice_widget if current_user.id.present? %>
     <!-- endof uservoice -->
       <!-- google analitics -->
       <script type="text/javascript">
@@ -101,7 +102,6 @@
         </noscript>
         <!-- /Yandex.Metrika counter -->
       <% end %>
-      <%= debug(params) if Rails.env.development? %>
   </div>
   <%= clicktale_bottom if  Rails.env.production? %>
   </body>

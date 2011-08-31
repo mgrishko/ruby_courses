@@ -21,7 +21,7 @@ describe User do
   describe 'class' do
     it 'should have ROLES ' do
       User::ROLES.should ==
-        %w[admin retailer local_supplier global_supplier]
+        %w[admin retailer local_supplier global_supplier export_allowed]
     end
 
     it 'should respond to :retailers' do
@@ -75,6 +75,12 @@ describe User do
     user.is_admin?.should == false
     user.roles = %w[admin]
     user.is_admin?.should == true
+  end
+
+  it 'validates :gln, :presence => true' do
+    object = User.new(@valid_attrs.merge :gln => nil)
+    object.should_not be_valid
+    object.errors_on(:gln).should be_present
   end
 
 end

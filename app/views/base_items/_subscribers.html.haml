@@ -1,0 +1,22 @@
+- unless @view_only
+  .left-side-subscribers.bb
+    %span.block-title
+      = t 'main.subscribers'
+      - count = @base_item.item.subscribers.count rescue 0
+      (#{count})
+    - if count > 0
+      - for u in @base_item.item.subscribers do
+        .subscriber
+          - sr = u.subscription_results.find_by_base_item_id(@base_item.id) if @base_item.published?
+          - if @base_item.published?
+            - ind = %w{filler multi accepted new canceled}
+            %span{:class => "subscriber-name stat-#{(sr ? ind.index(sr.status) : '-')}", :title => (sr ? sr.status_for_title : t('sr.not_send') )}= u.name
+            %br/
+          - else
+            %span.subscriber-name= u.name
+            %br/
+          - ra = RetailerAttribute.find(:first, :conditions => {:user_id => u.id, :item_id => @base_item.item_id})||RetailerAttribute.new
+          %span.subscriber-address
+            = "#{ra.retailer_article_id}" if ra.retailer_article_id.to_s.length > 0
+            = ", #{ra.retailer_item_description}" if ra.retailer_item_description.to_s.length > 0
+            = ", #{ra.retailer_classification}" if ra.retailer_classification.to_s.length > 0

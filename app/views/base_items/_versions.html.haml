@@ -1,0 +1,13 @@
+- unless @view_only || @base_item.draft?
+  .versions
+    %span.block-title= t 'item.versions'
+    %ul
+      - i = 0
+      - BaseItem.find_all_by_item_id(@base_item.item_id, :conditions => {:status => "published"}, :order => 'created_at desc').each do |v|
+        %li{:class => i==0 ? 'cur-version' : 'strikethrough'}
+          - if v.id == @base_item.id
+            = @base_item.updated_at.to_s(:db)
+          - else
+            - view_only = @view_only ? {:view => 1} : {}
+            = link_to v.updated_at.to_s(:db), base_item_path(v, view_only)
+        - i += 1

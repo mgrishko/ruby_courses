@@ -1,0 +1,68 @@
+.preview-popup
+  .preview-larr
+  %a.preview-close{:href => "#"}
+  #img-container
+    %img#img.preview-pic{:alt => "", :height => "113", :src => base_item.image_url('tile')}/
+  .top-description
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      %tr
+        %th= t 'item.description'
+        %th= t 'item.internal_item_id'
+      %tr
+        %td= base_item.item_description
+        %td= base_item.item_id
+      %tr
+        %td.product-num{:colspan => "2"}= base_item.gtin
+  - if current_user.supplier?
+    .subscribers
+      %span
+        = t 'main.subscribers'
+        (#{base_item.item.subscribers.count rescue 0}):
+      = base_item.item.subscribers.map{|s| s.name}.join(', ') rescue ''
+  -#.logistics
+    %h3 Логистика
+    .logistics-item
+      .logistics-item-in-1
+        %span.logistics-item-title Aqua Minerale 0.33L
+        %br/
+        %span.item-qnt 1 бутылка
+      .logistics-item-in-2
+        %img{:alt => "", :height => "44", :src => "/images/newdesign/bottle-img.jpg", :width => "50"}/
+      .logistics-item-in-4
+        .consumer-unit
+          %img{:alt => "", :height => "12", :src => "/images/newdesign/icon-consumer-unit.jpg", :width => "23"}/
+        .delivery-unit
+    .logistics-item
+      .logistics-item-in-1
+        %span.logistics-item-title 6 бутылок в замотке
+        %br/
+        %span.item-qnt 6 бутылок
+      .logistics-item-in-2
+        %img{:alt => "", :height => "44", :src => "/images/newdesign/bottles-img.jpg", :width => "50"}/
+      .logistics-item-in-4
+        .consumer-unit
+        .delivery-unit
+          %img{:alt => "", :height => "12", :src => "/images/newdesign/icon-delivery-unit.jpg", :width => "23"}/
+    .logistics-item
+      .logistics-item-in-1
+        %span.logistics-item-title 4 замотки в коробке
+        %br/
+        %span.item-qnt 24 бутылки
+      .logistics-item-in-2
+        %img{:alt => "", :height => "45", :src => "/images/newdesign/box-img.jpg", :width => "50"}/
+      .logistics-item-in-4
+        .consumer-unit
+        .delivery-unit
+          %img{:alt => "", :height => "12", :src => "/images/newdesign/icon-delivery-unit.jpg", :width => "23"}/
+    .logistics-item
+      .logistics-item-in-1
+        %span.logistics-item-title 12 коробок на паллете
+        %br/
+        %span.item-qnt 288 бутылок
+      .logistics-item-in-2
+        %img{:alt => "", :height => "48", :src => "/images/newdesign/pallet-img.jpg", :width => "50"}/
+      .logistics-item-in-4
+        .consumer-unit
+        .delivery-unit
+          %img{:alt => "", :height => "12", :src => "/images/newdesign/icon-delivery-unit.jpg", :width => "23"}/
+

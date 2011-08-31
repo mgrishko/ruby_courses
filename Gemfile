@@ -18,7 +18,7 @@ gem 'jrails'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete','0.7.5.1', :git => 'git://github.com/pavel-so/rails3-jquery-autocomplete.git'
 gem 'xml2xls',:path => 'vendor/gems/xml2xls-0.2.5'
-#gem 'spreadsheet'
+gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
@@ -26,6 +26,7 @@ gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
 gem 'globalize3'
 gem 'uservoice', :path => 'vendor/gems/uservoice'
+gem 'wice_grid'
 
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
@@ -52,12 +53,11 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'headless'
   gem 'hpricot'
-  gem 'parseexcel'
   gem 'pickle'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 2.4'
   gem 'ruby_parser'
-  gem 'selenium-webdriver', '0.2.2'
+  gem 'selenium-webdriver', '2.5.0'
   gem 'spork'
   gem 'test-unit'
   gem 'thoughtbot-factory_girl', :require => false

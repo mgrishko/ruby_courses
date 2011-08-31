@@ -1,33 +1,56 @@
----
-ru:
-  application_name:
-    Getmasterdata
-  comment:
+--- 
+ru: 
+  application_name: Getmasterdata
+  comment: 
+    add: "Add Comment=TODO"
     comment: Комментировать
-  edit:
-    base_item: "Editing base item=TODO"
-    revert_to_published: "Revert to published=TODO"
-  errors:
+    title: Comments=TODO
+  edit_ base_item: "Editing base item=TODO"
+  errors: 
     dynamic_format: "%{message}=TODO"
-  event:
+    template: 
+      body: "There were problems with the following fields:=TODO"
+      header: 
+        one: "1 error prohibited this %{model} from being saved=TODO"
+        few: "%{count} errors prohibited this %{model} from being saved=TODO"
+        many: "%{count} errors prohibited this %{model} from being saved=TODO"
+        other: "%{count} errors prohibited this %{model} from being saved=TODO"
+  event: 
     title: "Event Log=TODO"
-  filter:
+  filter: 
     remove: "Remove filter=TODO"
-  form:
+  flash: 
+    account_admin: "Только администратор имеет право доступа к этой странице"
+    account_login: "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
+    account_logout: "Пожалуйста выйдите со своего аккаунта для доступа к этой странице"
+    created: "BaseItem was successfully created.=TODO"
+    created_sent: "BaseItem was successfully created and sent=TODO"
+  form: 
     main_date: "Основные данные"
     minimum_durability_from_arrival: min_durability=TODO
     plu_description: "plu description=TODO"
-  image:
+  image: 
     change: "Change Image=TODO"
     upload: Upload=TODO
-  item:
+  invitation: 
+    add_user: "Add User=TODO"
+    back: Back=TODO
+    company_name: "Company Name=TODO"
+    decline: Decline=TODO
+    email: Email=TODO
+    invitations: "Invitation Requests=TODO"
+    invite: Invite=TODO
+    name: Name=TODO
+    notes: Notes=TODO
+    request_invitation: "Запросить приглашение"
+    request_your_invitation: "Request Your Invitation=TODO"
+    role: "Desired role=TODO"
+  item: 
     add_item: "Добавить товар"
     back: "Вернуться к списку товаров"
     base: "Base data=TODO"
-    input_items: 'Входящие товары'
     brand: Brand=TODO
-    incorrect: 'Неверно введён штрих-код'
-    have_subscription: 'У Вас уже есть подписка?'
+    brand_hint: "brand hint here=TODO"
     content: Content=TODO
     content_uom: "Content uom=TODO"
     country_of_origin: "Country of origin=TODO"
@@ -37,12 +60,21 @@ ru:
     edit: Edit=TODO
     export_to_xls: "Export to xls=TODO"
     functional: Functional=TODO
+    functional_hint: "functional hint here=TODO"
     gpc_code: "GPC Code=TODO"
     gpc_name: "GPC Name=TODO"
     gtin: gtin=TODO
+    gtin_hint: "gtin hint here=TODO"
+    have_subscription: "У Вас уже есть подписка?"
+    incorrect: "Неверно введён штрих-код"
+    input_items: "Входящие товары"
     internal_item_id: "Internal item id=TODO"
+    internal_item_id_hint: "internal item id hint here=TODO"
+    item_description_hint: "item descripton hint here=TODO"
     manufacturer_gln: "Manufacturer GLN=TODO"
+    manufacturer_gln_hint: "manufacturer gln hint here=TODO"
     manufacturer_name: "Manufacturer name=TODO"
+    manufacturer_name_hint: "manufacturer name hint here=TODO"
     missing: отсутствует
     name_en: "item name long en=TODO"
     name_ru: "item name long ru=TODO"
@@ -52,17 +84,20 @@ ru:
     private: Private=TODO
     shelf_life_period: "Shelf life period=TODO"
     subbrand: Subbrand=TODO
+    subbrand_hint: "subbrand hint here=TODO"
     uom: UOMs=TODO
     variant: Variant=TODO
+    variant_hint: "variant hint here=TODO"
     vat: Vat=TODO
     versions: Versions=TODO
-  login:
-    logged_in: 'Успешно вошли'
-    logged_out: 'Успешно вышли'
+  login: 
+    logged_in: "Успешно вошли"
+    logged_out: "Успешно вышли"
     reqiure_no_user: "Please logout to access this page=TODO"
     require_admin: "Only admin has access to this page=TODO"
     require_user: "Please login to access this page=TODO"
-  main:
+    unsuccessful: "Неудачная попытка зайти"
+  main: 
     add: Add=TODO
     address: address=TODO
     annotations: "Пояснения к полю=TODO"
@@ -71,18 +106,18 @@ ru:
     base_items: "Base Items=TODO"
     brands: Brands=TODO
     cancel: Cancel=TODO
+    change: Change=TODO
     confirm: "Are you sure?=TODO"
     create: Create=TODO
     days: days=TODO
-    error: Error=TODO
-    not_available: Not_Available=TODO
-    change: Change=TODO
     delete: Delete=TODO
     detailed: Развернуто
     edit: Edit=TODO
+    error: Error=TODO
     export: Export=TODO
     functional: Functional=TODO
     home: Home=TODO
+    information: "Основная информация"
     item: Item=TODO
     item_quantity: "Количество товаров"
     items: Items=TODO
@@ -90,15 +125,16 @@ ru:
     manufacturers: Manufacturers=TODO
     name: Name=TODO
     next: Next=TODO
+    not_available: Not_Available=TODO
     products: Products=TODO
     publish: Publish=TODO
     receivers: Receivers=TODO
     reply: Reply=TODO
     results: Results=TODO
     save: Save=TODO
-    search: Search=TODO
+    search: Искать
     select: Select=TODO
-    settings: Settings=TODO
+    settings: "Мои настройки"
     short: Кратко
     show: Show=TODO
     status: Status=TODO
@@ -107,39 +143,43 @@ ru:
     tile: Плитка
     title: Datapool=TODO
     update: Update=TODO
-    information: "Основная информация"
-  menu:
+  menu: 
     events: Events=TODO
     inbox: Inbox=TODO
-    log_off: "Log off=TODO"
+    log_off: "Выйти из системы"
     messages: Messages=TODO
     my_items: "My Items=TODO"
     received_items: "Received Items=TODO"
     status: Status=TODO
     statuses: Statuses=TODO
     suppliers: Suppliers=TODO
-  message:
+  message: 
     title: Messages=TODO
-  pager:
+  pager: 
     from: from=TODO
     newest: "The Newest=TODO"
     next: Next=TODO
     oldest: "The Oldest=TODO"
     previous: Newer=TODO
-  pi:
+  pi: 
+    depth: Depth=TODO
     gross_weight: "gross weight=TODO"
+    height: Height=TODO
+    inside: Inside=TODO
     items: ед.
     net_weight: "net weight=TODO"
     pack: pack=TODO
     packages_inside: "уп. внутри"
     packaging_type: "Packaging Type=TODO"
+    select: Select=TODO
     size: "(В x Д x Ш)"
-  privacy:
+    width: Width=TODO
+  privacy: 
     all: все
     brick: Brick=TODO
     carton: Carton=TODO
     case: Case=TODO
-    choose: 'Выберите...'
+    choose: Выберите...
     gable_top: Gable-Top=TODO
     i_and_companies: "я, и ещё эти компании:"
     just_i: "только я"
@@ -147,19 +187,20 @@ ru:
     not_packed: "Not Packed=TODO"
     packed: "Packed, unspecified dfcdddddddddd=TODO"
     pouch: Pouch=TODO
-    selected: Выбранный пункт
+    selected: "Выбранный пункт"
     who_can_see: "Кто может видеть этот товар?"
     wrapper: Wrapper=TODO
-  ra:
+  ra: 
     add: "Добавить данные"
     article_id: "Retailer Article Id=TODO"
     classification: "Retailer Classification=TODO"
     comment: "Retailer Comment=TODO"
     item_description: "Retailer Item Description=TODO"
-  receivers:
+  receivers: 
     add: Add=TODO
     add_receiver_from_list: "Add receiver from list=TODO"
-  sr:
+  revert_to_published: "Revert to published=TODO"
+  sr: 
     accept: Акцептовать
     accept_all: "Акцептовать все"
     cancel: Отменить
@@ -167,14 +208,16 @@ ru:
     changed: changed=TODO
     confirm_accept_all: "Вы точно хотите акцептовать все результаты?"
     confirm_cancel_all: "Вы точно хотите отменить все результаты?"
-    date: date=TODO
+    date: дата
     inbox: Inbox=TODO
-    new: new=TODO
+    new: новый
+    new_or_changed_items: "New or changed items=TODO"
     not_send: "Данные не отправлялись"
-  status:
-    items_subscribers: 'Товары/Подписчики'
+    updated: Updated=TODO
+  status: 
+    items_subscribers: Товары/Подписчики
     title: "Статусы результатов подписки"
-  subscription:
+  subscription: 
     have_subscription: "Вы подписаны на все товары"
     not_found: "Record with such gtin is not found=TODO"
     record_code: "Record code=TODO"
@@ -182,26 +225,35 @@ ru:
     subscribe: Подписаться
     subscribe_gtin: "Подписка по GTIN=TODO"
     unsubscribe: Отписаться
-  supplier:
+  supplier: 
     last_update: "Последнее обновление"
     title: Suppliers=TODO
-  tag:
+  tag: 
     add: "Add tag=TODO"
     title: Tags=TODO
-  user:
-    contacts: Contacts=TODO
+  uom: 
+    grm: г
+    kg: кг
+    m: м
+    mm: мм
+  user: 
+    admin: Администратор
+    apply: Save=TODO
+    back: Back=TODO
+    change_password: "Change password=TODO"
     description: Description=TODO
-    gln: GLN=TODO
-    login: Login=TODO
-    name: "Company Name=TODO"
-    password: Password=TODO
-    remember_me: "Remember me=TODO"
+    edit: Edit=TODO
+    export_allowed: "Экспорт разрещён"
+    gln: GLN
+    global_supplier: "Глбальный поставщик"
+    local_supplier: "Локальный поставщик"
+    locale: Locale=TODO
+    login: Войти
+    password: Пароль
+    remember_me: "Запомнить меня"
+    retailer: "Розничный торговец"
     title: Company=TODO
-
-  flash:
-    account_login: "Пожалуйста войдите под своим аккаунтом для доступа к этой странице"
-    account_logout: "Пожалуйста выйдите со своего аккаунта для доступа к этой странице"
-    account_admin: "Только администратор имеет право доступа к этой странице"
-    created_sent: 'BaseItem was successfully created and sent=TODO'
-    created: 'BaseItem was successfully created.=TODO'
-
+  warning: 
+    javascript_should_be_enabled: "You should have javascript enabled.=TODO"
+    please_use: "Please use=TODO"
+    unsupported_browser: "You are using unsupported browser.=TODO"

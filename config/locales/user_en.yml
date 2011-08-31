@@ -1,0 +1,71 @@
+--- 
+en:
+  activerecord:
+    models:
+      user:
+        User
+
+    attributes:
+      user:
+        active: Active
+        company_name: "Company Name"
+        contacts: Contacts
+        name:
+          Full name
+        email:
+          Email
+        gln: GLN
+        locale: Preferred language
+        password:
+          Password
+        password_confirmation:
+          Password confirmation
+        login_count:
+          Login count
+        failed_login_count:
+          Failed login count
+        last_request_at:
+          Last request at
+        current_login_at:
+          Current loign at
+        last_login_at:
+          Last login at
+        current_login_ip:
+          Current login IP
+        last_login_ip:
+          Last login IP
+        website: Website
+
+  helpers: 
+    submit: 
+      user: 
+        create: "Add user"
+        submit: "Save user"
+        update: "Update user"
+
+  users:
+    index:
+      new_user:
+        Create new user
+      title:
+        Listing of users
+    edit:
+      title:
+        Edit user
+    form:
+      change_password: "Change password"
+      user:
+        User
+    new:
+      title:
+        Creation of the new user
+    roles: Reles allowed
+    show:
+      title:
+        User's details
+    was_created:
+      You have successfully registered. Please, check your email for the activation instructions
+    was_updated:
+      User was successfully updated
+    was_deleted:
+      User was successfully deleted

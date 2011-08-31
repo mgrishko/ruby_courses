@@ -12,12 +12,13 @@ class PackagingItemsController < ApplicationController
 
   def new
     @packaging_item = @base_item.packaging_items.new
+    render :partial => 'new'
   end
 
   def new_sub
     @packaging_item = @base_item.packaging_items.new({ :parent_id => params[:id] })
 
-    render 'new'
+    render :partial => 'new'
   end
 
   def edit

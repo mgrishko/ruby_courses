@@ -1,0 +1,56 @@
+--- 
+ru:
+  user_sessions:
+    new:
+      login:
+        Вход в кабинет
+
+  authlogic:
+    error_messages:
+      login_blank:
+        не может быть пустым
+      login_not_found:
+        введёно с ошибкой
+      login_invalid:
+        должен содержать только латинские буквы, цифры, пробелы и знаки .-_@
+      consecutive_failed_logins_limit_exceeded:
+        Превышен лимит ошибочных попоыток входа. Профиль заблокирован.
+      email_invalid:
+        должнен выглядить как адрес email
+      password_blank:
+        не может быть пустым
+      password_invalid:
+        введёно с ошибкой
+      not_active:
+        Ваш профиль не активен
+      not_confirmed:
+        Ваш профиль не подтверждён
+      not_approved:
+        Ваш профиль не одобрен
+      no_authentication_details:
+        Вы не предоставили никакой информации чтобы Вас узнать
+      login_failed:
+        Войти не удалось
+    models:
+      user_session:
+        Сессия
+    attributes:
+      user_session:
+        login:
+          Логин
+        email:
+          email
+        password:
+          Пароль
+        remember_me:
+          Запомнить меня
+    do_login:
+      Войти
+    register:
+      Зарегистрироваться
+    sign_up:
+      Зарегистрироваться здесь
+    logged_in:
+      Здравствуйте, %{name}!
+    lgged_out:
+      Всего хорошего!
