@@ -157,8 +157,8 @@ ol, ul {
 
 }
 #header .right a.set {
-	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat right 6px;
-	padding: 0 12px 0 0;
+	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat center bottom ;
+	padding: 0 0 5px 0;
 }
 #header .company {
 	color:#808080;

@@ -28,7 +28,9 @@
       %li
         = link_to t('menu.events'), {:controller => 'events'}, {:class=>"#{'cur' if params[:controller]=='events'}"}
   .right
-    = link_to current_user.name, '#', :class=> 'company'
+    %span.company
+      = current_user.name
+      = current_user.try(:gln)
     = link_to t('main.settings'), user_path(current_user),:id=> 'settings_link', :class=> 'set name''#'
     = link_to t('menu.log_off'), url_for(:controller => :user_sessions, :action => :logout)
     - for locale in @other_locales
