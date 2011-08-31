@@ -2,6 +2,13 @@ require 'rubygems'
 require 'nokogiri'
 require 'spreadsheet'
 
+#Copiyng old file to gpc_pack_full.xml
+if File.exist?('gpc_pack.xml')
+  File.rename('gpc_pack.xml', 'gpc_pack_backup.xml')
+else
+  puts "First created file"
+end
+
 #You should use file size about 6 - 10 mb
 file = File.open("gpc_pack.xml")
 doc = Nokogiri::XML(file)
