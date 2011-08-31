@@ -1,3 +1,4 @@
+require 'spreadsheet'
 puts 'Filling countries' unless Rails.env.cucumber?  or Rails.env.test?
 Country.delete_all
 Country.reset_column_information
