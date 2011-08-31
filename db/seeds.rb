@@ -1,4 +1,3 @@
-require 'spreadsheet'
 puts 'Filling countries' unless Rails.env.cucumber?  or Rails.env.test?
 Country.delete_all
 Country.reset_column_information
@@ -7,10 +6,12 @@ worksheet = book.worksheet(0)
 skip = 1
 ActiveRecord::Base.transaction do
   worksheet.each(skip) do |row|
-    Country.create(
+    I18n.locale = :en
+    country = Country.create(
       :code => row.at(0).to_s,
-      :description => row.at(2).to_s
-    )
+      :description => row.at(2).to_s)
+    I18n.locale = :ru
+    country.update_attributes(:description => row.at(1).to_s)
   end
 end
 puts 'Filling GPC' unless Rails.env.cucumber?  or Rails.env.test?

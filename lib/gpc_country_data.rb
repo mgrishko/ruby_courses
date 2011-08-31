@@ -1,4 +1,4 @@
-require 'parseexcel'
+require 'spreadsheet'
 class GpcCountryData
   def initialize
   end
