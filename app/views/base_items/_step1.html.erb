@@ -134,6 +134,7 @@
     <td colspan="3">
       <div id="country_input">
         <div class="drop-down-cont zi-2">
+          <%= f.hidden_field :country_of_origin_code %>
           <%= f.text_field :country, :class => 'dd-input w132', :onkeyup => 'setCountrySelection(this)' %>
           <div class="drop-down">
             <div class="blue-tarr"></div>
@@ -268,7 +269,17 @@
 	$("#country_select_btn").click(function(){
     $('#country_input .drop-down-list ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
-        $('#base_item_country').val($(this).parent().attr('id'));
+        $('#base_item_country').val($(this).html());
+     		$('.drop-down').css('visibility','hidden');
+    		$('.dd-overlay').css('display', 'none');
+    		return false;
+    		}
+    });
+  });
+	$("#country_select_btn").click(function(){
+    $('#country_input .drop-down-list ul li a').each( function(){
+      if ($(this).parent().hasClass('selected')){
+        $('#base_item_country_of_origin_code').val($(this).parent().attr('id'));
      		$('.drop-down').css('visibility','hidden');
     		$('.dd-overlay').css('display', 'none');
     		return false;
