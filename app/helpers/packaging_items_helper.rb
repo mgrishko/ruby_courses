@@ -3,7 +3,6 @@ module PackagingItemsHelper
 
   def pi_tree(items, options = {}, &block)
     result = ''
-    result << "<div class='branch'>"
     items.reverse.each_with_index do |item, count|
       options[:style] = count > 0 ? 'clear:left' : ''
       options[:class] = count > 0 ? 'secondChild' : ''
@@ -11,19 +10,28 @@ module PackagingItemsHelper
       result << capture(item, options, &block)
       result << pi_tree(item.children, options, &block) if item.children.any?
     end
-    result << '</div>'
-
-    result.html_safe
+    content_tag(:div, result.html_safe, :class=>'branch')
   end
-
 
   # Depicts the quantity of packagingItem
-  def calculate_quantity(pi)
-    content_tag(:span, pi.number_of_next_lower_item, :class => 'd')+" "+
-    content_tag(:span, 'уп. внутри', :class => 't')+" "+
-    content_tag(:span, pi.number_of_bi_items, :class => 'd')+" "+
-    content_tag(:span, 'ед.', :class => 't')
+  def calculate_quantity_of_bi(pi)
+    content_tag(:span, pluralize(pi.number_of_bi_items, pi.base_item.packaging_name.downcase))+" "+
+    content_tag(:span, t('pi.in'))+" "+
+    content_tag(:span, pi.packaging_name.downcase)
   end
+
+  def calculate_quantity_of_parent(pi)
+    parent = pi.parent ? pi.parent : pi.base_item
+    content_tag(:span, pluralize(pi.number_of_next_lower_item, parent.packaging_name.downcase))+" "+
+    content_tag(:span, t('pi.in'))+" "+
+    content_tag(:span, pi.packaging_name.downcase)
+  end
+
+  def parent_packaging_name(pi)
+    parent = pi.parent ? pi.parent : pi.base_item
+    parent.packaging_name
+  end
+
 
   # Depicts the pallete  of packagingItem
   def calculate_pallet(pi)
@@ -62,6 +70,5 @@ module PackagingItemsHelper
     end
 
   end
-
 end
 

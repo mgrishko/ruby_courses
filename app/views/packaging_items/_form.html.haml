@@ -2,12 +2,14 @@
 #pi_new{:class => "pi #{"pl" if @packaging_item.pallet?}"}
   = f.error_messages
   = pi_image_tag @packaging_item, :class=> 'i-img', :id => "pi-id-#{@packaging_item.id}", :width=> '64', :height => '64'
-  .logistics-item-in-1-top
+  %div{:class =>(  (@packaging_item.leaf? || !@packaging_item.id) ? "logistics-item-in-2-top" : "logistics-item-in-1-top" )}
     - if @packaging_item.leaf? || !@packaging_item.id
       = f.text_field :number_of_next_lower_item, :size => 4, :maxlength => 6, :class=>"w18", :title=> "Number of Next Lower Item"
     - else
       = @packaging_item.number_of_next_lower_item
-    %span.logistics-item-title= t('pi.inside')
+    %span.logistics-item-title
+      = parent_packaging_name(@packaging_item).downcase
+      = t('pi.in')
   %div{:id => "cases_input_#{@packaging_item.id}", :style => "margin:0;padding:0;"}
     .drop-down-cont.zi-5.fleft
       = f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input'

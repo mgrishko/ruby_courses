@@ -5,14 +5,12 @@
     = pi_image_tag @base_item, :class=> 'i-img', :id => "bi-id-#{@base_item.id}", :width=> '64', :height => '64'
     .logistics-item-in-1-top
       1
-      %span.logistics-item-title= t('pi.inside')
     = hidden_field_tag 'step', :value=>2
     #cases_input_0{:style => "margin:0;padding:0;"}
       .drop-down-cont.zi-5.fleft
         = f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input'
         %a#packaging_item_packaging_name_link.drop-down-link.item-qnt{:href => "#"}
           = @base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')
-        -#= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
         .drop-down.pic
           .blue-tarr
           .drop-down-list-cont{:style => "width:400px;"}
@@ -110,6 +108,7 @@
     $(this).parent().find('.pt-cases ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
         $('#base_item_packaging_name').val($(this).html());
+        $('#packaging_item_packaging_name_link').html($(this).html());
         $("#bi-id-#{@base_item.id}").attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
 
           $('.drop-down').css('visibility','hidden');

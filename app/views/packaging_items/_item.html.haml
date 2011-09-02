@@ -5,11 +5,10 @@
   .pi.mini.edited
     = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
     %span.logistics-item-title
-      %strong
-      = h item.calculate_packaging_type
+      = calculate_quantity_of_parent item
     %br
     %span.logistics-item-title-2
-      = calculate_quantity item
+      = calculate_quantity_of_bi item
     %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
       %tr
         %td.art{:colspan => 2}
@@ -21,12 +20,10 @@
       = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf?
   = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
   %span.logistics-item-title
-    %strong
-      = ""
-    = h item.calculate_packaging_type
+    = calculate_quantity_of_parent item
   %br
   %span.logistics-item-title-2
-    = calculate_quantity item
+    = calculate_quantity_of_bi item
   %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
     %tbody
       %tr

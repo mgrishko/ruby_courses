@@ -38,8 +38,13 @@
 
 /* Logistics */
 
+.logistics-item-in-2-top{
+  float:left;
+  }
 
-
+.logistics-item-in-1-top{
+  padding-top:4px;
+  }
 
 li.pack {
   background: url(/images/lbg.png) left top repeat-y;

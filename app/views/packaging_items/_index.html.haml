@@ -1,3 +1,5 @@
+= content_for :head do
+  = javascript_include_tag 'logistic'
 #packaging_items
   %h2= t 'main.logistic'
   %br
@@ -10,13 +12,11 @@
             = pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64'
             %span.logistics-item-title
               %strong= '1'
-              = h @base_item.calculate_packaging_type
+              = h @base_item.calculate_packaging_type.downcase
             %br/
             %span.logistics-item-title-2
-              %strong 1
-              = t 'pi.packages_inside'
-              %strong 1
-              = t 'pi.items'
+              %strong= '1'
+              = h @base_item.calculate_packaging_type.downcase
             %table.input-table-edited{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "116"}
               %tr
                 %td.art{:colspan => "2"}= h @base_item.gtin
@@ -27,13 +27,11 @@
           = pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64'
           %span.logistics-item-title
             %strong= '1'
-            = h @base_item.calculate_packaging_type
+            = h @base_item.calculate_packaging_type.downcase
           %br/
           %span.logistics-item-title-2
-            %strong 1
-            = t 'pi.packages_inside'
-            %strong 1
-            = t 'pi.items'
+            %strong= '1'
+            = h @base_item.calculate_packaging_type.downcase
           %table.input-table-edited{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "116"}
             %tr
               %td.art{:colspan => "2"}= h @base_item.gtin
