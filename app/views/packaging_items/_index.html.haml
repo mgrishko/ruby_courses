@@ -39,17 +39,17 @@
               %td
                 = t('pi.height')+":"
               %td{:class => 'tright'}
-                = convert_mm_to_m  @base_item.height
+                = convert_mm_to_m  @base_item, :height
             %tr
               %td
                 = t('pi.width')+":"
               %td{:class => 'tright'}
-                = convert_mm_to_m  @base_item.width
+                = convert_mm_to_m  @base_item, :width
             %tr
               %td
                 = t('pi.depth')+":"
               %td{:class => 'tright'}
-                = convert_mm_to_m  @base_item.depth
+                = convert_mm_to_m  @base_item, :depth
             %tr
               %td
               %td
@@ -57,12 +57,12 @@
               %td
                 = t('pi.gross_weight')+":"
               %td{:class => 'tright'}
-                = convert_grm_to_kg  @base_item.gross_weight
+                = convert_grm_to_kg  @base_item, :gross_weight
             %tr
               %td
                 = t('pi.net_weight')+":"
               %td{:class => 'tright'}
-                = convert_grm_to_kg  @base_item.net_weight
+                = convert_grm_to_kg  @base_item, :net_weight
           =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
         = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
             :onclick => "packageMe(this,#{@base_item.id});return false"

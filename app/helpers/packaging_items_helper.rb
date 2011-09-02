@@ -52,8 +52,16 @@ module PackagingItemsHelper
      image_tag "pi_new/#{id}.jpg", options
   end
 
-  def convert_mm_to_m value
-    if value > 999
+
+  def convert_mm_to_m item, field
+
+    #FIXME: не самое лучшее решение, но не знаю как сделать удобнее.
+    #Может индикатор переключения измерений стоит держать в модели, чтобы не пересчитывать постоянно
+    switch = false
+    %w{height width depth}.each{|f| switch = item.send(f) and break if item.send(f)>999}
+
+    value = item.send(field)
+    if value > 999 or switch
       "#{value.to_f/100} #{t('uom.m')}"
     else
       "#{value} #{t('uom.mm')}"
@@ -61,9 +69,16 @@ module PackagingItemsHelper
 
   end
 
-  def convert_grm_to_kg value
+  def convert_grm_to_kg item, field
+
+    #FIXME: не самое лучшее решение, но не знаю как сделать удобнее.
+    #Может индикатор переключения измерений стоит держать в модели, чтобы не пересчитывать постоянно
+    switch = false
+    %w{net_weight gross_weight}.each{|f| switch = item.send(f) and break if item.send(f)>999}
+
+    value = item.send(field)
     return "- #{t('uom.grm')}" unless value.present?
-    if value > 999
+    if value > 999 or switch
       "#{(value.to_f/1000).round(2)} #{t('uom.kg')}"
     else
       "#{value} #{t('uom.grm')}"
