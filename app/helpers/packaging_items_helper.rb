@@ -71,13 +71,14 @@ module PackagingItemsHelper
   end
 
   def convert_grm_to_kg item, field
+    value = item.send(field)
     return "- #{t('uom.grm')}" unless value.present?
     #FIXME: не самое лучшее решение, но не знаю как сделать удобнее.
     #Может индикатор переключения измерений стоит держать в модели, чтобы не пересчитывать постоянно
     switch = false
     %w{net_weight gross_weight}.each{|f| switch = item.send(f) and break if item.send(f) and item.send(f)>999}
 
-    value = item.send(field)
+
     if value > 999 or switch
       "#{(value.to_f/1000).round(2)} #{t('uom.kg')}"
     else
