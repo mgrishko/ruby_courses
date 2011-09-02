@@ -13,6 +13,7 @@ module PackagingItemsHelper
     content_tag(:div, result.html_safe, :class=>'branch')
   end
 
+  #TODO russian language pluralization. for calculate_quantity_of_bi and calculate_quantity_of_parent
   # Depicts the quantity of packagingItem
   def calculate_quantity_of_bi(pi)
     content_tag(:span, pluralize(pi.number_of_bi_items, pi.base_item.packaging_name.downcase))+" "+
