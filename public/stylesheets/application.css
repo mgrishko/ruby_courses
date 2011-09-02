@@ -403,10 +403,15 @@ ul.items li.new .item ul
 	bottom: 13px;
 	display: none;
 }
-.accept-btn, .cancel-btn{
-	width: 95px;
+.accept-btn{
+	width: 60px;
 	margin: 5px 0 0 17px;
 }
+.cancel-btn{
+  margin:9px 9px 0 0;
+
+}
+
 .pi-cont:hover .full{
 	display: block;
 }
@@ -460,7 +465,6 @@ ul.items li.new .item ul
 }
 .fright {
   float: right;
-	color:#596979;
 }
 .clear {
   clear: both;
