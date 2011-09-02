@@ -83,8 +83,9 @@
             %label{:for => "cbdelivery"}
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/
   %div{:align => "center"}
+    = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'fright cancel-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
     = f.submit t('main.update'), :class=>'submit-btn accept-btn'
-    = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'blue-btn cancel-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
+
 .dd-overlay
 :javascript
   $('.drop-down-link').click(function(e){
