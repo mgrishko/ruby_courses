@@ -1,4 +1,5 @@
 <a href="#" id="add_tag_link" onclick="$(this).hide(); $('#new_tag').show();return false;"><%=t 'tag.add' %></a>
+<%= link_to I18n.t('tag.add'), '#', :id => 'add_tag_link' %>
 <%= form_for Tag.new,:html=>{:style=>'display:none'}, :remote => true do |f| %>
   <input type="hidden" name="tag[user_id]" value="<%= @user.id %>"/>
   <%= link_to "x", 'javascript:void(0)', :class => 'remove', :style => 'float:right' %>
@@ -7,6 +8,12 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    $('a#add_tag_link').click(function(event){
+      $(this).hide();
+      $('#new_tag').show();
+      return false;
+      });
+
     $('a.remove').click(function(event){
       $('#new_tag').hide();
       $('#add_tag_link').show();
