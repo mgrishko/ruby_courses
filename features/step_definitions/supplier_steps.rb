@@ -57,13 +57,13 @@ end
 
 Then /^I should see new image$/ do
   img = @base_item.image_url('tile')
-  assert find_by_id('item_image')["src"] =~ /#{img}$/
+  assert find_by_id('item_image')["src"] =~ /#{img}\?\d+$/
 end
 
 Then /^I should see appropriate image$/ do
   BaseItem.all.each do |base_item|
     img = base_item.image_url('tile')
-    assert find_by_id('img')["src"] =~ /#{img}$/
+    assert find_by_id('img')["src"] =~ /#{img}\?\d+$/
   end
 end
 

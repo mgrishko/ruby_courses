@@ -1,2 +1,3 @@
-<li id="<%= result[:code] %>"><a href="javascript:void(0)"><%= result[:name] %></a></li>
-
+<li id="<%= result[:code] %>">
+  <%= link_to result[:name], 'javascript:void(0)' %>
+</li>

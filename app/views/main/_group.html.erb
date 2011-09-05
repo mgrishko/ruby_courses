@@ -1,2 +1,3 @@
-<li id="<%= CGI::escape group[:segment_description] %>"><a href="#"><%= group[:segment_description] %></a></li>
-
+<li id="<%= CGI::escape group[:segment_description] %>">
+  <%= link_to group[:segment_description], '#' %>
+</li>

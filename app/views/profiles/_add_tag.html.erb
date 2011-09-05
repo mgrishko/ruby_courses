@@ -1,7 +1,16 @@
 <a href="#" id="add_tag_link" onclick="$(this).hide(); $('#new_tag').show();return false;"><%=t 'tag.add' %></a>
 <%= form_for Tag.new,:html=>{:style=>'display:none'}, :remote => true do |f| %>
   <input type="hidden" name="tag[user_id]" value="<%= @user.id %>"/>
-  <a class='remove' style='float:right' href='javascript:void(0)' onclick="$('#new_tag').hide();$('#add_tag_link').show();">x</a>
+  <%= link_to "x", 'javascript:void(0)', :class => 'remove', :style => 'float:right' %>
   <%= f.text_field :name,:size=>'15' %>
 <% end %>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a.remove').click(function(event){
+      $('#new_tag').hide();
+      $('#add_tag_link').show();
+      event.preventDefault();
+    });
+  })
+</script>

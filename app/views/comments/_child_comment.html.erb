@@ -4,7 +4,9 @@
       $('div.cm-child:nth-child(odd)').addClass('odd');
     })
   </script>
-  <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Supplier Image"/></div>
+  <div class="img">
+    <%= image_tag("item_image_small.jpg", :alt => "Supplier Image", :width => "50") %>
+  </div>
   <div class="desc">
     <div class="author">
       <span class="normal <%= "red" if @comment.item.user_id != @comment.user_id %>"><%= @comment.user.name %></span>

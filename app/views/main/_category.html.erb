@@ -1,2 +1,3 @@
-<li id="<%= category[:code] %>"><a href="#"><%= category[:name] %></a></li>
-
+<li id="<%= category[:code] %>">
+  <%= link_to category[:name], '#' %>
+</li>

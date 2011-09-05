@@ -84,7 +84,9 @@
             <div class="drop-down-list first">
               <ul>
                 <% (@base_item.content_uoms).each do |uom| %>
-                    <li><a href="#"><%= uom[0] if uom %></a></li>
+                  <li>
+                    <%= link_to "#{uom[0] if uom}", '#' %>
+                  </li>
                 <% end %>
               </ul>
             </div>
@@ -147,7 +149,7 @@
             </div>
             <div class="remark"><%= t 'item.annotations' %><br/><br/><br/>
             </div>
-            <a id='country_select_btn' class="submit-btn2" href="#"><%= t 'main.apply' %></a>
+            <%= link_to I18n.t('main.apply'), "#", :id => 'country_select_btn', :class => 'submit-btn2' %>
           </div>
         </div>
       </div>
@@ -163,8 +165,7 @@
         <div class="dd-overlay"></div>
         <div class="drop-down-cont zi-3">
           <%= f.hidden_field :gpc_name, :class => "w100 dd-input" %>
-          <a class="drop-down-link" id='base_item_gpc_name_link' href="#"><%= @base_item.gpc_name ? @base_item.gpc_name : I18n.t('main.select') %></a>
-
+          <%= link_to "#{@base_item.gpc_name ? @base_item.gpc_name : I18n.t('main.select')}", "#", :id => 'base_item_gpc_name_link', :class => "drop-down-link" %>
           <div class="drop-down">
             <div class="blue-tarr"></div>
             <div class="drop-down-list-cont" style="width:783px;">
@@ -178,7 +179,7 @@
             <div class="remark">
               <%= t 'item.annotations' %><br/><br/><br/>
             </div>
-            <a id='gpc_select_btn' class="submit-btn2" href="javascript:void(0)"><%= I18n.t('main.apply') %></a>
+            <%= link_to I18n.t('main.apply'), "javascript:void(0)", :class => "submit-btn2", :id => "gpc_select_btn" %>
           </div>
         </div>
       </div>
@@ -193,8 +194,7 @@
     <td>
       <div class="drop-down-cont vat zi-4 ">
         <%= f.hidden_field :vat, :class => "w100 dd-input" %>
-        <a class="drop-down-link" href="#"><%= @base_item.id ? @base_item.calculate_vat : I18n.t('main.select')%></a>
-
+        <%= link_to "#{@base_item.id ? @base_item.calculate_vat : I18n.t('main.select')}", '#', :class => 'drop-down-link' %>
         <div class="drop-down">
           <div class="blue-tarr"></div>
           <div class="drop-down-list-cont">

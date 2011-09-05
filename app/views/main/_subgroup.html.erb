@@ -1,2 +1,3 @@
-<li id="<%= CGI::escape subgroup %>"><a href="#">- <%= subgroup %></a></li>
-
+<li id="<%= CGI::escape subgroup %>">
+  <%= link_to "- #{subgroup}", '#' %>
+</li>

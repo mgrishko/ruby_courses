@@ -11,9 +11,7 @@
     <div id="cases_input_0" style='margin:0;padding:0;'>
 	  	<div class="drop-down-cont zi-5 fleft">
     	  <%= f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
-    	  <a class="drop-down-link item-qnt" id='packaging_item_packaging_name_link' href="#">
-       	  <%= @base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')%>
-    	  </a>
+          <%= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :class => 'drop-down-link item-qnt', :id => 'packaging_item_packaging_name_link' %>
 	    	<div class="drop-down pic" >
 	    		<div class="blue-tarr"></div>
 	    		<div class="drop-down-list-cont" style ="width:400px;">
@@ -25,7 +23,7 @@
 	    		<div class="remark">
 	      			<%= t 'main.annotations' %><br /><br /><br />
 	    		</div>
-	        <a class="submit-btn2 pt-choose-btn" href="javascript:void(0)"><%= I18n.t('main.apply') %></a>
+                <%= link_to I18n.t('main.apply'), 'javascript:void(0)', :class => 'submit-btn2 pt-choose-btn' %>
 	    	</div>
 	    </div>
 	  </div>

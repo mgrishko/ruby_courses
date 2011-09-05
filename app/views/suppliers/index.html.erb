@@ -4,7 +4,8 @@
   <%= render '/nav' %>
   <div class='cat'>
     <ul>
-      <li><a href='#'><%= t 'supplier.title' %></a>
+      <li>
+        <%= link_to I18n.t('supplier.title'), '#' %>
       <ul>
         <%= selected_wrapper "<a href='?subscribed=true' class='filter'>"+t('supplier.my_suppliers')+"</a>", params[:subscribed].to_s == 'true' %>
       </ul>
@@ -12,7 +13,8 @@
   </div>
   <div class='cat'>
     <ul>
-      <li><a href='#'><%= t 'main.tags' %></a>
+      <li>
+        <%= link_to I18n.t('main.tags'), '#' %>
       <ul>
         <% @clouds.each do |c| %>
             <%= selected_wrapper "<a href='?tag=#{c.tag.id}' >#{c.tag.name} (#{c[:q]}#{c.q})</a>", params[:tag].to_s == c.tag_id.to_s %>
@@ -29,7 +31,7 @@
       <div id="retailers">
         <% @users.each do |user|%>
                 <div id="bi-<%= user.id %>" class="item <%= 'subscribed' if user.my_retailer_flag(current_user.id) %>">
-                    <div class="img"><img src="./images/newdesign/retailer-img-1.jpg" alt="" /></div>
+                  <div class="img"><%= image_tag("newdesign/retailer-img-1.jpg", :alt => "") %></div>
                     <div class="desc">
                         <%= link_to user.name, supplier_path(user), :class => 'title' %>
                         <div class="contact"><%= t 'main.address' %></div>

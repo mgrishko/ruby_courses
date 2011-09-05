@@ -1,15 +1,13 @@
 <div class="top-box-img bb">
 <% if  @base_item.id and @base_item.image_url('big').any? %>
-  <a id='iil' href="<%= @base_item.image_url('big') %>" title="">
-    <img id="item_image" src="<%= @base_item.image_url('tile') %>" alt="Item Image"/>
-  </a>
+  <%= link_to image_tag(@base_item.image_url('tile'), :alt => "Item Image", :id => 'item_image'), @base_item.image_url('big'), :id => 'iil', :title => ""%>
 <%else%>
-  <img id="item_image" src="/images/item_image.jpg" style="width:163px;height:163px" alt="Item Image"/>
+  <%= image_tag("item_image.jpg", :size => '163x163', :alt => 'Item Image', :id => 'item_image') %>
 <%end%>
 <% unless @view_only %>
   <% if @base_item.id %>
     <div id="upload">
-      <a id="link_upload" href="#" onclick="$('#link_upload').hide(); $('#form_upload').show(); return false;"><%= t 'image.change' %></a>
+      <%= link_to I18n.t('image.change'), '#', :id => 'link_upload' %>
       <form id="form_upload" target="frame" action="/images/upload" enctype="multipart/form-data" method="POST" style="display:none;">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
         <input type="hidden" name="item_id" value="<%= @base_item.item_id %>"/>
@@ -24,3 +22,13 @@
 <% end %>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a#link_upload').click(function(event){
+      $('#link_upload').hide();
+      $('#form_upload').show();
+      event.preventDefault();
+      return false;
+    });
+  })
+</script>

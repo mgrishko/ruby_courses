@@ -1,14 +1,4 @@
 <div id="left-side">
-  <%#<div class="top-box-img"><img src="./images/profile-img.jpg" alt="" /></div>%>
-  <%#<div class="cat">%>
-      <%#<ul>%>
-          <%#<li class="act"><a href="#">Инфо</a></li>%>
-          <%#<li><a href="#">Сотрудники (6)</a></li>%>
-          <%#<li><a href="#">Новости (3)</a></li>%>
-          <%#<li><a href="#">Товары (13)</a></li>%>
-          <%#<li><a href="#">Заметки (2)</a></li>%>
-      <%#</ul>%>
-  <%#</div>%>
   <div class="btn-profil">
     <% if current_user.retailer? %>
       <%= render :partial => "clouds" %>
@@ -19,7 +9,7 @@
 <div id="middle-side">
   <div class="wrap">
     <div class="address">
-      <a href='#'><%= t 'user.title' %></a>
+      <%= link_to I18n.t('user.title'), '#' %>
     </div>
     <div id="profile-info">
       <div class="info-wrap">

@@ -1,1 +1,3 @@
-<li id="<%= country[:code] %>"><a href='#'><%= country[:description] %></a></li>
+<li id="<%= country[:code] %>">
+  <%= link_to country[:description], '#' %>
+</li>
