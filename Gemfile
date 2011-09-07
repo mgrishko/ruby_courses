@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'http://gems.github.com'
 source 'http://gemcutter.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.10'
 gem 'authlogic', '3.0.3'
 gem 'aasm', :require => 'aasm'
 gem 'responds_to_parent',:git => 'https://github.com/kennon/responds_to_parent.git'

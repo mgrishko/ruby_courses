@@ -4,7 +4,8 @@ class MainController < ApplicationController
   layout false
 
   def classifier
-    @groups = Gpc.all :select => "DISTINCT(gpcs.segment_description)", :order => 'segment_description'
+    #@groups = Gpc.all :select => "DISTINCT(gpcs.segment_description)", :order => 'segment_description'
+    @groups = Gpc.select("DISTINCT(gpcs.segment_description)").order('segment_description').all
     respond_to do |format|
       format.js
     end
@@ -15,11 +16,13 @@ class MainController < ApplicationController
   end
 
   def subgroups
-    @subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
+    #@subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
+    @subgroups = Gpc.where(['segment_description = ?', CGI::unescape(params[:id])]).order('description').all.group_by(&:group)
   end
 
   def categories
-    @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
+    #@categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
+    @categories = Gpc.select("code, name").where(['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code,name').all
   end
 
   #def countries
