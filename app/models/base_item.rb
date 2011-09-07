@@ -324,13 +324,13 @@ class BaseItem < ActiveRecord::Base
     country_of_origin.try(:description)
   end
 
-  def calculate_country
-    country_of_origin.description
-  end
+  #def calculate_country
+    #country_of_origin.description
+  #end
 
-  def countries
-    Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
-  end
+  #def countries
+    #Country.find(:all, :select => 'code, description').map { |c| [c.description, c.code] }
+  #end
 
   def vats
     REF_BOOKS['vats'][I18n.locale]

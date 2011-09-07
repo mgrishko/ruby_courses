@@ -22,12 +22,12 @@ class MainController < ApplicationController
     @categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
   end
 
-  def countries
-    @countries = Country.all :order => 'description'
-    respond_to do |format|
-      format.js
-    end
-  end
+  #def countries
+    #@countries = Country.all :order => 'description'
+    #respond_to do |format|
+      #format.js
+    #end
+  #end
 
   def cases
     @id = if PackagingItem.find_by_id(params[:packagin_item_id])

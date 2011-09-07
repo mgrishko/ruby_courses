@@ -37,7 +37,7 @@
           <tr>
             <td><%= @base_item.manufacturer_gln %></td>
             <td><%= @base_item.manufacturer_name %></td>
-            <td colspan="3"><%= @base_item.calculate_country %></td>
+            <td colspan="3"><%= @base_item.country %></td>
           </tr>
           <tr class="th">
             <td colspan="5"><%= t 'item.gpc_code' %></td>
@@ -136,8 +136,8 @@
 <td <%= highlight(:manufacturer_name, @base_item, @accepted_base_item) if @accepted_base_item -%>>
 <%=@base_item.manufacturer_name %>
 </td>
-<td <%= highlight(:calculate_country, @base_item, @accepted_base_item) if @accepted_base_item -%>>
-<%= @base_item.calculate_country %>
+<td <%= highlight(:country, @base_item, @accepted_base_item) if @accepted_base_item -%>>
+<%= @base_item.country %>
 </td>
 </tr>
 <tr class="info">
