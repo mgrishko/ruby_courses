@@ -156,10 +156,10 @@ ol, ul {
 	font-size: 10px;
 
 }
-#header .right a.set {
-	background: url("/images/newdesign/header-a-set-2.jpg") no-repeat center bottom ;
-	padding: 0 0 5px 0;
-}
+/*#header .right a.set {*/
+	/*background: url("/images/newdesign/header-a-set-2.jpg") no-repeat center bottom ;*/
+	/*padding: 0 0 5px 0;*/
+/*}*/
 #header .company {
 	color:#808080;
 }
