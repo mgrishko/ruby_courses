@@ -3,6 +3,9 @@ $('document').ready(function(){
   drawLines();
 })
 
+function initjNice(){
+  $('.jNice').jNice();
+}
 function addLeaf(obj, data)
 {
   parent = $(obj).parent();
@@ -12,12 +15,9 @@ function addLeaf(obj, data)
   $('.tree-cont').width($('.tree-cont').children('.branch').width()+300);
   if(parent.hasClass('hasChild'))
   {
-
     var branch = parent.next('.branch');
     branch.find(">:first-child").css('clear','left').addClass('secondChild');
     branch.prepend(leaf);
-
-
   }
   else
   {

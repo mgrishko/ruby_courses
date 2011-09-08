@@ -53,15 +53,13 @@
           %td  
         %tr
           %td{:width => "50px"}
-            = t('pi.gross_weight')
-            \:
+            = t('pi.gross_weight')+":"
           %td
             = f.text_field :gross_weight, :class=>"w44"
             = t('uom.grm')
         %tr
           %td
-            = t('pi.net_weight')
-            \:
+            = t('pi.net_weight')+":"
           %td
             = f.text_field :net_weight, :class=>"w44"
             = t('uom.grm')
@@ -71,7 +69,6 @@
           %td
             %span.jNiceWrapper
               %input#cbconsumer.jNiceHidden{:name => "rb1", :style => "opacity: 0; ", :type => "checkbox"}
-                %span.jNiceCheckbox.jNiceChecked
           %td{:width => "44"}
             %label{:for => "cb\r\nonsumer"}
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
@@ -79,7 +76,6 @@
           %td
             %span.jNiceWrapper
               %input#cbdelivery.jNiceHidden{:name => "rb1", :style => "opacity: 0; ", :type => "checkbox"}
-                %span.jNiceCheckbox.jNiceChecked
           %td{:width => "44"}
             %label{:for => "cbdelivery"}
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/

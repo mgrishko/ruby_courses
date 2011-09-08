@@ -1,3 +1,4 @@
 page.replace_html "pi-#{@packaging_item.id}", :partial => 'edit'
 page.call "drawLines"
+page.call "initjNice"
 

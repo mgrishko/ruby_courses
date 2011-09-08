@@ -82,12 +82,10 @@
 				var $a = $(this);
 				var input = $a.siblings('input')[0];
 				if (input.checked===true){
-					alert(1);
 					input.checked = false;
 					$a.removeClass('jNiceChecked');
 				}
 				else {
-					alert(1);
 					input.checked = true;
 					$a.addClass('jNiceChecked');
 				}

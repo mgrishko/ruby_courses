@@ -7,6 +7,6 @@
     = render :partial => 'form', :locals => { :f => f }
     = f.hidden_field :parent_id
     %div{:align => 'center'}
+      = link_to content_tag(:span, t('main.cancel')), 'javascript:void(0)', {:onclick => "deleteLeaf($(this).parent().parent());return false;",:class=> 'fright cancel-btn'}
       = f.submit t('pi.pack'), :class=> 'submit-btn accept-btn'
-  = link_to content_tag(:span, t('main.cancel')), 'javascript:void(0)', {:onclick => "deleteLeaf(this);return false;",:class=> 'blue-btn cancel-btn'}
 
