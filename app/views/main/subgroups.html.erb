@@ -3,7 +3,7 @@
   	<div class="drop-down-list-in">
 			<h3><%= k -%></h3>
 			<ul>
-	      <%= render :partial => "subgroup", :collection => v.map(&:description).uniq %>
+                            <%= render :partial => "subgroup", :collection => v.map(&@class_description).uniq %>
 			</ul>
 	  </div>
 	<% end %>

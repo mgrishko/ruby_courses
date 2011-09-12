@@ -54,7 +54,8 @@ end
 
 Factory.define :gpc do |f|
   f.code '10000115'
-  f.name 'Some Name'
+  f.brick_en 'Some Name'
+  f.brick_ru 'Какое-то имя'
 end
 
 Factory.define :subscription do |f|

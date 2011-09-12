@@ -17,7 +17,7 @@ describe BaseItem do
       :minimum_durability_from_arrival => '1234',
       :vat => 0.18,
       :content_uom => '123',
-      :gpc_name => 'Some Name',
+      :gpc_name => 10000115,
       :country_of_origin_code => 'RU',
       :item_description => '"Coca-Cola"',
       :manufacturer_gln => '4607099820661',

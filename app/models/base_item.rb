@@ -303,16 +303,28 @@ class BaseItem < ActiveRecord::Base
   #end
   #end
 
-  def gpc_name= name
-    self.gpc = Gpc.find_by_name(name)
+  def gpc_name= code
+    self.gpc = Gpc.find_by_code(code)
   end
 
   def gpc_name
-    swallow_nil { gpc.name }
+    if I18n.locale == :en
+      gpc.try(:brick_en)
+    else
+      gpc.try(:brick_ru)
+    end
   end
 
-  def country= name
-    c = Country.where(['code = ?', name]).first
+  def calculate_gpc
+    if I18n.locale == :en
+      "#{gpc.code} : #{gpc.brick_en}" rescue ''
+    else
+      "#{gpc.code} : #{gpc.brick_ru}" rescue ''
+    end
+  end
+
+  def country= code
+    c = Country.where(['code = ?', code]).first
     if c
       self.country_of_origin_code = c.code
     else
@@ -357,10 +369,6 @@ class BaseItem < ActiveRecord::Base
 
   def calculate_content
     content_uoms.detect { |u| content_uom == u[1] }[0]
-  end
-
-  def calculate_gpc
-    "#{gpc.code} : #{gpc.name}" rescue ''
   end
 
   def calculate_vat

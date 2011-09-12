@@ -164,7 +164,7 @@
       <div id="classifier_input">
         <div class="dd-overlay"></div>
         <div class="drop-down-cont zi-3">
-          <%= f.hidden_field :gpc_name, :class => "w100 dd-input" %>
+          <%= f.hidden_field :gpc_code, :class => "w100 dd-input" %>
           <%= link_to "#{@base_item.gpc_name ? @base_item.gpc_name : I18n.t('main.select')}", "#", :id => 'base_item_gpc_name_link', :class => "drop-down-link" %>
           <div class="drop-down">
             <div class="blue-tarr"></div>
@@ -270,15 +270,6 @@
     $('#country_input .drop-down-list ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
         $('#base_item_country').val($(this).html());
-     		$('.drop-down').css('visibility','hidden');
-    		$('.dd-overlay').css('display', 'none');
-    		return false;
-    		}
-    });
-  });
-	$("#country_select_btn").click(function(){
-    $('#country_input .drop-down-list ul li a').each( function(){
-      if ($(this).parent().hasClass('selected')){
         $('#base_item_country_of_origin_code').val($(this).parent().attr('id'));
      		$('.drop-down').css('visibility','hidden');
     		$('.dd-overlay').css('display', 'none');
@@ -286,6 +277,7 @@
     		}
     });
   });
+
   $('#base_item_gpc_name_link').click(function(){
     $.ajax({data:$.param($(this).serializeArray()), dataType:'script', type:'post', url:'/main/classifier'});
 	});
@@ -294,7 +286,8 @@
     $('#categories ul li a').each( function(){
       if ($(this).parent().hasClass('selected')){
         $('#base_item_gpc_name_link').html($(this).html());
-        $('#base_item_gpc_name').val($(this).html());
+        $('#base_item_gpc_name').val($(this).parent().attr('id'));
+        $('#base_item_gpc_code').val($(this).parent().attr('id'));
      	 	$('.drop-down').css('visibility','hidden');
     	 	$('.dd-overlay').css('display', 'none');
        	return false;

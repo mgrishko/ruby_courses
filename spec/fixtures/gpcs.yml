@@ -1,6 +1,6 @@
 drinks:
-  name: Some Name
+  brick_en: Some Name
   code: 10000115
-  segment_description: Food/Beverage/Tobacco
-  description: Coffee/Tea/Substitutes
-  group: "Beverages"
+  segment_description_en: Food/Beverage/Tobacco
+  family_description_en: Coffee/Tea/Substitutes
+  class_description_en: "Beverages"

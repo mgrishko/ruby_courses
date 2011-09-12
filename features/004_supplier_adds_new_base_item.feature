@@ -11,7 +11,7 @@ Feature: Add new Base Item
       | RU | Russia |
       | CN | China |
     And the following gpcs exist
-    | segment_description | description | code | name |
+    | segment_description_en | class_description_en | code | brick_en |
     | Arts/Crafts/Needlework Supplies |	Artists Painting/Drawing  Supplies |	10001682|	Artists Accessories |
     When I logged in as "supplier"
     And I go to the base_items page
@@ -31,7 +31,7 @@ Feature: Add new Base Item
     And I fill in "base_item_minimum_durability_from_arrival" with "1"
     And I fill in hidden_field "base_item_country_of_origin_code" with "CN"
     And I fill in "base_item_country" with "China"
-    And I fill in hidden_field "base_item_gpc_name" with "Artists Accessories"
+    And I fill in hidden_field "base_item_gpc_code" with "10000115"
     And I wait for 1 second
     And I press "next_button"
     And I wait for 2 seconds

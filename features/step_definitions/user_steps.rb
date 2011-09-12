@@ -16,7 +16,7 @@ When /^(?:|I )go with "(.+)" to (.+)$/ do |url, page_name|
 end
 
 Given /^"(.+)" has a base_item$/ do |role|
-  gpc = Factory(:gpc, :code => '10000115', :name => 'Some Name')
+  gpc = Factory(:gpc)
   item = Item.create(:user_id => @users[role].id)
   country = Factory(:country)
   #country = Factory(:country, :code => 'RU', :description => '')

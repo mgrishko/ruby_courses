@@ -1,11 +1,15 @@
 # encoding = utf-8
 class MainController < ApplicationController
+  before_filter :internalization, :only => [:classifier, :subgroups, :categories]
 
   layout false
 
   def classifier
-    #@groups = Gpc.all :select => "DISTINCT(gpcs.segment_description)", :order => 'segment_description'
-    @groups = Gpc.select("DISTINCT(gpcs.segment_description)").order('segment_description').all
+    if I18n.locale == :en
+      @groups = Gpc.select("DISTINCT(gpcs.segment_description_en)").order('segment_description_en').all
+    else
+      @groups = Gpc.select("DISTINCT(gpcs.segment_description_ru)").order('segment_description_ru').all
+    end
     respond_to do |format|
       format.js
     end
@@ -16,13 +20,19 @@ class MainController < ApplicationController
   end
 
   def subgroups
-    #@subgroups = Gpc.all(:order => 'description', :conditions => ['segment_description = ?', CGI::unescape(params[:id])]).group_by(&:group)
-    @subgroups = Gpc.where(['segment_description = ?', CGI::unescape(params[:id])]).order('description').all.group_by(&:group)
+    if I18n.locale == :en
+      @subgroups = Gpc.where(['segment_description_en = ?', CGI::unescape(params[:id])]).order('class_description_en').all.group_by(&:family_description_en)
+    else
+      @subgroups = Gpc.where(['segment_description_ru = ?', CGI::unescape(params[:id])]).order('class_description_ru').all.group_by(&:family_description_ru)
+    end
   end
 
   def categories
-    #@categories = Gpc.all :select => "code, name", :order => 'code,name', :conditions => ['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]
-    @categories = Gpc.select("code, name").where(['description = ? OR gpcs.group = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code,name').all
+    if I18n.locale == :en
+      @categories = Gpc.select("code, brick_en").where(['class_description_en = ? OR gpcs.family_description_en = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code, brick_en').all
+    else
+      @categories = Gpc.select("code, brick_ru").where(['class_description_ru = ? OR gpcs.family_description_ru = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code ,brick_ru').all
+    end
   end
 
   #def countries
@@ -57,5 +67,17 @@ class MainController < ApplicationController
 #    end
   end
 
-end
+  private
 
+    def internalization
+      @code = :code
+      if I18n.locale == :en
+        @brick, @class_description, @family_description, @segment_description = :brick_en,
+          :class_description_en, :family_description_en, :segment_description_en
+      else
+        @brick, @class_description, @family_description, @segment_description = :brick_ru,
+          :class_description_ru, :family_description_ru, :segment_description_ru
+      end
+    end
+
+end
