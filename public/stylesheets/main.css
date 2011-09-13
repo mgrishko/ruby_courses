@@ -702,6 +702,19 @@ ol, ul {
 
 
 
+#retailer_attributes .submit-add {
+	border:1px solid #8FA3C4;
+	border-bottom:1px solid #312378;
+	cursor:pointer;
+	font-size:11px;
+	background:#3B5A9A;
+	margin:3px 5px;
+	padding:0px 18px;
+	color:#fff;
+	height:18px;
+}
+
+
 #profile-news {}
 #profile-news .goods-wrap {
 	width:680px;

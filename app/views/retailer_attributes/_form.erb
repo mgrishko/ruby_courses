@@ -40,7 +40,7 @@
 </td>
 </tr>
 </table>
-<%= f.submit t('main.save'), :class=>"button" %>
-<%= button_to t('main.cancel'), {:url => url_for(:controller => "retailer_attributes", :action => "show", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @retailer_attribute.base_item_id )}, {:method => :get, :class => "button", :remote => true} %>
+<%= f.submit t('main.save'), :class=>"submit-add" %>
+<%= button_to t('main.cancel'), {:url => url_for(:controller => "retailer_attributes", :action => "show", :id => @retailer_attribute.id, "retailer_attribute[item_id]" => item.id, "retailer_attribute[base_item_id]" => @retailer_attribute.base_item_id )}, {:method => :get, :class => "submit-add", :remote => true} %>
 <% end %>
 
