@@ -622,4 +622,6 @@ a:visited.submit-btn2 {
 #user_contacts #user_description {
 
 }
-
+.autocomplete_manufacturer_gln .autocomplete_manufacturer_name {
+  display: none;
+}

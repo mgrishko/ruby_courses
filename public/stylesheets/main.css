@@ -372,6 +372,10 @@ ol, ul {
 	margin:0 0px 3px 0;
 	height:15px;
 }
+#content #left-side .btn-profil a.remove-form {
+        float: right;
+        margin-right: 15px;
+}
 #content #left-side .btn-profil p.btn span {
 	background: url("/images/newdesign/btn-right.png") no-repeat right top;
 	display:inline-block;
