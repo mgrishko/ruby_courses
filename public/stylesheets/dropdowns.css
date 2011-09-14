@@ -9,6 +9,7 @@ a.drop-down-link{
 .drop-down-cont{
 	height: 30px;
 	position: relative;
+        padding-left: 6px;
 }
 .drop-down{
 	border: 1px solid #40b5eb;
@@ -131,6 +132,17 @@ a.drop-down-link{
 	padding: 4px 8px 6px 4px;
 	color: #60605e;
 	font-size: 9px;
+
+}
+#definition .drop-down .remark{
+        border-top: 1px solid #40b5eb;
+        border-bottom: 1px solid #40b5eb;
+        background: #f5fafe;
+        clear: left;
+        margin: 0 0 3px 0;
+        padding: 4px 8px 6px 4px;
+        color: #60605e;
+        font-size: 9px;
 
 }
 .choose-btn{

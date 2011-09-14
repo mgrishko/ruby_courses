@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                :integer         not null, primary key
-#  gln               :integer
+#  gln               :integer         not null
 #  pw_hash           :string(255)
 #  persistence_token :string(255)
 #  created_at        :datetime
@@ -13,6 +13,11 @@
 #  contacts          :text
 #  roles_mask        :integer
 #  email             :string(255)
+#  company_name      :string(255)
+#  locale            :string(255)
+#  website           :string(255)
+#  perishable_token  :string(255)
+#  active            :boolean
 #
 
 # encoding = utf-8

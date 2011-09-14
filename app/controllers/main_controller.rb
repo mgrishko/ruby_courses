@@ -1,6 +1,6 @@
 # encoding = utf-8
 class MainController < ApplicationController
-  before_filter :internalization, :only => [:classifier, :subgroups, :categories]
+  before_filter :internalization, :only => [:classifier, :subgroups, :categories, :definition]
 
   layout false
 
@@ -31,7 +31,15 @@ class MainController < ApplicationController
     if I18n.locale == :en
       @categories = Gpc.select("code, brick_en").where(['class_description_en = ? OR gpcs.family_description_en = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code, brick_en').all
     else
-      @categories = Gpc.select("code, brick_ru").where(['class_description_ru = ? OR gpcs.family_description_ru = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code ,brick_ru').all
+      @categories = Gpc.select("code, brick_ru").where(['class_description_ru = ? OR gpcs.family_description_ru = ?', CGI::unescape(params[:id]),CGI::unescape(params[:id])]).order('code, brick_ru').all
+    end
+  end
+
+  def definition
+    if I18n.locale == :en
+      @definition = Gpc.select("brick_definition_en").where(['code = ?', CGI::unescape(params[:id])]).first
+    else
+      @definition = Gpc.select("brick_definition_ru").where(['code = ?', CGI::unescape(params[:id])]).first
     end
   end
 
@@ -72,12 +80,13 @@ class MainController < ApplicationController
     def internalization
       @code = :code
       if I18n.locale == :en
-        @brick, @class_description, @family_description, @segment_description = :brick_en,
-          :class_description_en, :family_description_en, :segment_description_en
+        @brick, @brick_definition, @class_description, @family_description, @segment_description = :brick_en,
+          :brick_definition_en, :class_description_en, :family_description_en, :segment_description_en
       else
-        @brick, @class_description, @family_description, @segment_description = :brick_ru,
-          :class_description_ru, :family_description_ru, :segment_description_ru
+        @brick, @brick_definition, @class_description, @family_description, @segment_description = :brick_ru,
+          :brick_definition_ru, :class_description_ru, :family_description_ru, :segment_description_ru
       end
     end
 
 end
+

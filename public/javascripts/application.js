@@ -269,6 +269,20 @@ function receiveCategoriesData(data) {
   }
 };
 
+function requestDefinitionData(q){
+  var data = null;
+  $.get("/main/definition/" + q, function(data) {
+    receiveDefinitionData(data);
+  });
+}
+
+function receiveDefinitionData(data) {
+  if (data) {
+    $("li", "#definition").removeClass("ac_loading");
+    $("#definition").html(data);
+  }
+};
+
 
 function requestSubgroupsData(q){
   var data = null;
