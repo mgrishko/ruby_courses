@@ -1,8 +1,8 @@
 <% unless result.accepted? -%>
-		<%= form_for(result, :html=>{:style=>"float:left"}) do |f| %>
+  <%= form_for(result, :html=>{:class => "fleft"}) do |f| %>
 			<%= f.submit t('sr.accept'),:class=>'submit-btn', :name => 'accept' %>
 		<% end %>
-		<%= form_for(result, :html=>{:style=>"float:left;margin-right:5px"}) do |f| %>
+                <%= form_for(result, :html=>{:class => "fleft marginr5"}) do |f| %>
 			<%= f.submit t('sr.cancel'),:class=>'submit-btn', :name => 'cancel' %>
 		<% end %>
 <% end -%>

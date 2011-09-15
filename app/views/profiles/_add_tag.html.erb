@@ -2,7 +2,7 @@
 <%= link_to I18n.t('tag.add'), '#', :id => 'add_tag_link' %>
 <%= form_for Tag.new,:html=>{:style=>'display:none'}, :remote => true do |f| %>
   <input type="hidden" name="tag[user_id]" value="<%= @user.id %>"/>
-  <%= link_to "x", 'javascript:void(0)', :class => 'remove', :style => 'float:right' %>
+  <%= link_to "x", 'javascript:void(0)', :class => 'remove fright' %>
   <%= f.text_field :name,:size=>'15' %>
 <% end %>
 

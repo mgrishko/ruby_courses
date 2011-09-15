@@ -22,8 +22,8 @@
 .tright{
   text-align:right;
 }
-.w156{
-  width:150px;
+.tleft{
+  text-align:left;
 }
 .pt-cases{
   height:200px;
@@ -123,7 +123,6 @@ ul.items li .item .line-down
   left: -32px;
   top: 192px;
   line-height: 20px;
-/*  height: 183px;*/
   width: 29px;
   margin-top: -25px;
   font-size: 20pt;
@@ -337,10 +336,6 @@ ul.items li.new .item ul
 .pi p{
 	margin-bottom:3px;
 }
-/*#first_pi {
-  padding-top: 18px;
-  margin-top: 20px;
-}*/
 .pi input[type='text']
 {
   margin-top: 0px;
@@ -350,12 +345,13 @@ ul.items li.new .item ul
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 }
-.w110{
-	width: 110px;
+.opacity0{
+        opacity: 0;
 }
-
-
-
+.comment-area {
+        width:680px;
+        background: #FFF;
+}
 
 .tree-cont{
 }
@@ -453,7 +449,6 @@ ul.items li.new .item ul
 	margin: 7px 0 0;
 }
 
-
 .fleft {
   float: left;
 }
@@ -464,17 +459,14 @@ ul.items li.new .item ul
   clear: both;
 }
 
+.hide {
+  display: none;
+}
+
 .error_field {
   background-color: #ff9090;
 }
 
-
-
-
-
-.hide {
-  display: none;
-}
 .subscribed {
   background: #daffb5;
 }
@@ -494,10 +486,6 @@ ul.items li.new .item ul
   color: #999;
   font-size: 95%;
 }
-
-
-
-
 
 .subscribed {
   background: url(/images/newdesign/icon-stat-2.png) 2px no-repeat;
@@ -625,3 +613,33 @@ a:visited.submit-btn2 {
 .autocomplete_manufacturer_gln .autocomplete_manufacturer_name {
   display: none;
 }
+#cases_input_0 {
+    margin: 0;
+    padding: 0;
+}
+.dd-input {
+    border: 0;
+}
+.margintop7 {
+    margin-top: 7px;
+}
+#add-notes{
+  clear: both;
+  margin-left: 2em;
+}
+.marginr5{
+  margin-right: 5px;
+}
+.marginl2{
+  margin-left: 2em;
+}
+.back-white{
+  background: #FFF;
+}
+.invite{
+  margin:0 auto;
+  width: 300px;
+}
+.gtin-error{color: red}
+.gtin-nil{color: grey}
+.gtin-subscription{cursor:auto;}

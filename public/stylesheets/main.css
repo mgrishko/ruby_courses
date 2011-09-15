@@ -183,8 +183,14 @@ ol, ul {
 	width:180px;
 }
 #content #middle-side {
+        float:left;
+        width:798px;
+        border:1px solid #c7c7c7;
+        border-top:0px;
+}
+#content #middle-side.w100p {
 	float:left;
-	width:798px;
+	width: 100%;
 	border:1px solid #c7c7c7;
 	border-top:0px;
 }
@@ -220,8 +226,8 @@ ol, ul {
 	border-top:0px;
 }
 
-.w760{
-	width: 760px;
+.w-auto{
+  width: auto;
 }
 .resizeable .w760{
 	width: 98%;
@@ -538,7 +544,7 @@ ol, ul {
 }
 #statuses tr.top th div{
 		-moz-transform: rotate(270deg);
-	    -webkit-transform: rotate(270deg);
+	    -webkit-transform: rotate(270deform g);
 	    -o-transform: rotate(270deg);
 	    writing-mode: tb-rl;
 	    text-align: left;
@@ -749,7 +755,6 @@ ol, ul {
 	width:43px;
 }
 #profile-news .item .desc {
-        /*float:left;*/
 	width:595px;
 	color:#353535;
 	font-weight:500;
@@ -935,8 +940,6 @@ ol, ul {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	background: #ebeff2;
-	/*border-top:1px solid #fff;
-	border-bottom:1px solid #fff;*/
 }
 #goods-list-short .item .img {
 	float:left;
@@ -1223,10 +1226,6 @@ tr.th td {
 	color:#003e8b;
 	text-decoration:none;
 }
-
-
-
-
 .pp-overlay{
    display: none;
    width: 100%;
@@ -1286,9 +1285,6 @@ tr.th td {
 }
 .preview-pic{
         vertical-align: middle;
-	/*border: 1px solid #bfbfbf;*/
-	/*margin: 0 0 0 8px;*/
-	/*float: left;*/
 }
 .top-description{
 	margin: 25px 0 34px 0;
@@ -1403,9 +1399,6 @@ tr.th td {
 .delivery-unit{
 	height: 20px;
 }
-.logistics.main{
-	/*border-bottom: 2px solid #cfd0d0;*/
-}
 .logistics.main h3{
 	padding-bottom: 15px;
 	padding-left: 0;
@@ -1439,9 +1432,6 @@ tr.th td {
 	position: relative;
 	top: -2px;
 	margin: 0 4px 0 0;
-}
-.fleft{
-	float: left;
 }
 .logistics.main .logistics-item-in-2{
 	width: 80px;
@@ -1542,6 +1532,24 @@ tr.th td {
 .w100p{
 	width: 100%;
 }
+.w110{
+	width: 110px;
+}
+.w400{
+        width: 400px;
+}
+.w783{
+        width: 783px;
+}
+.w260{
+        width: 260px;
+}
+.w760{
+	width: 760px;
+}
+.h100p{
+        height: 100%;
+}
 .w759{
 	width: 753px;
 }
@@ -1561,6 +1569,9 @@ tr.th td {
 }
 .w44{
 	width: 44px;
+}
+.w156{
+  width:150px;
 }
 .w30{
 	width: 30px;
@@ -1602,6 +1613,10 @@ tr.th td {
 	min-width: 55px;
 	height: auto;
 }
+.drop-down-list .first #countries_div {
+        white-space:nowrap;
+        height:250px;
+}
 .drop-down-cont.units .drop-down-list{
 	overflow-y: auto;
 }
@@ -1630,7 +1645,6 @@ tr.th td {
 	padding: 0 0 0 6px;
 }
 .who-can-see{
-	/*border-bottom: 2px solid #cfd0d0;*/
 	padding: 12px 0;
 }
 .who-can-see table{
@@ -1681,9 +1695,6 @@ tr.th td {
 }
 .drop-down-link.companies-choise:hover span{
 	border-bottom: 1px dashed #fff;
-}
-.drop-down-link-cont{
-
 }
 .drop-down-link-choosed{
 	float: left;
@@ -1831,9 +1842,6 @@ tr.th td {
   background: #eeeeee;
 }
 
-.even {
-}
-
 .normal {
   font-size: 120%;
   font-weight: bold;
@@ -1845,7 +1853,7 @@ tr.th td {
 }
 
 .wrap-messages {
-  border: 1px solid #ececec;
+  border:1px solid #c7c7c7;
 }
 
 #messages {
@@ -1857,4 +1865,7 @@ tr.th td {
   margin-top: 2em;
   padding: 30px 20px 30px 20px;
 }
-
+#comment{
+  font-size: 125%;
+  margin-bottom: 1em;
+}

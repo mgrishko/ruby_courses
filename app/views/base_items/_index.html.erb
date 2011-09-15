@@ -94,7 +94,7 @@
                         <%= image_tag(base_item.image_url('small'), :alt => 'Item Image', :width => '50', :id => 'img') %>
                       </div>
                       <div class="desc">
-                        <div style="float:right">
+                        <div class="fright">
                           <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
                         </div>
                         <p>
@@ -135,7 +135,7 @@
                     <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
                         <div class="top">
                             <div class="bottom">
-                              <div style="float:right">
+                              <div clas='frigth'>
                                 <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
                               </div>
                               <div class="img">

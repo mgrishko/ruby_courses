@@ -3,7 +3,7 @@
     <%if gtin[:errors]%>
         <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
         <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content gtin-error">
-          <div style='float:right'>
+          <div class="fright">
             <%= link_to_function t('main.edit'),"editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function t('main.delete'),"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
           </div>
@@ -13,7 +13,7 @@
     <%else%>
         <div class="img"><img src="/images/item_image_small.jpg" width="50px" alt="Item Image"/></div>
         <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content gtin-nil">
-          <div style='float:right'>
+          <div class="fright">
             <%= link_to_function t('main.edit'),"editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function t('main.delete'),"if (confirm(#{I18n.t('main.confirm')})) removeGtin('#{gtin[:gtin]}')" #????????%>
           </div>
@@ -26,7 +26,7 @@
         <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
         <div class="img"><img id='img' src="<%= base_item.image_url('small') %>" width="50px" alt="Item Image"/></div>
         <div id='bi-content-<%=gtin[:gtin]%>' class="bi-content">
-          <div style='float:right'>
+          <div class="fright">
             <%= link_to_function t('main.edit'),"if (confirm(#{I18n.t('main.confirm')})) editGtin('#{gtin[:gtin]}')"%> |
             <%= link_to_function t('main.delete'),"if (confirm(#{I18n.t('main.confirm')})) removeGtin('#{gtin[:gtin]}')" %>
           </div>

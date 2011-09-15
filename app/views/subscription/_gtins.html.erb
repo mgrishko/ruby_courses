@@ -2,11 +2,6 @@
   <%= render :partial => 'gtin',:collection => @gtins %>
   <%= f.submit t('subscription.subscribe') ,:class=>'submit-add', :id => 'subscribe_by_gtin_btn'%>
 <%end %>
-<style>
-  .gtin-error{color: red}
-  .gtin-nil{color: grey}
-  .gtin-subscription{cursor:auto;}
-</style>
 <script>
   $('#subscribe_by_gtin').submit(function(){
       if( $('.gtin-error').length > 0 || $('.gtin-nil').length >0 )

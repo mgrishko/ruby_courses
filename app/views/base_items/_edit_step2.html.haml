@@ -6,16 +6,16 @@
     .logistics-item-in-1-top
       1
     = hidden_field_tag 'step', :value=>2
-    #cases_input_0{:style => "margin:0;padding:0;"}
+    #cases_input_0
       .drop-down-cont.zi-5.fleft
         = f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input'
         = link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#',
           :id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
         .drop-down.pic
           .blue-tarr
-          .drop-down-list-cont{:style => "width:400px;"}
-            #cases_results_0.drop-down-list.first.pt-cases{:style => "width:100%"}
-            .pic-cont{:style => "height:100%;"}
+          .drop-down-list-cont.w400
+            #cases_results_0.drop-down-list.first.pt-cases.w100p
+            .pic-cont.h100p
           .remark
             = t 'main.annotations'
             %br/
@@ -68,14 +68,14 @@
         %tr
           %td
             %span.jNiceWrapper
-              %input#cbconsumer.jNiceHidden{:name => "rb1", :style => "opacity: 0; ", :type => "checkbox"}
+              %input#cbconsumer.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
           %td{:width => "44"}
             %label{:for => "cb\r\nonsumer"}
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
               -#= image_tag "newdesign/icon-consumer-unit-3.jpg", :alt => "", :height => "23"
           %td
             %span.jNiceWrapper
-              %input#cbdelivery.jNiceHidden{:name => "rb1", :style => "opacity: 0; ", :type => "checkbox"}
+              %input#cbdelivery.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
           %td{:width => "44"}
             %label{:for => "cbdelivery"}
               %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/

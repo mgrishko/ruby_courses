@@ -69,7 +69,7 @@
     </td>
     <td width="155px" height="20px">
                     <div class="cont-dd-input">
-      <%= f.text_field :content, :class=>'w40 dd-input', :style=>'float:left'%>
+      <%= f.text_field :content, :class=>'w40 dd-input fleft'%>
             										<div class="drop-down hint2">
 											<div class="blue-barr"></div>
 											<%= t('item.content_hint')%>
@@ -120,7 +120,7 @@
       <%= f.autocomplete_field :manufacturer_gln, autocomplete_base_item_manufacturer_gln_base_items_path, :class=>'w156 dd-input', :update_elements => {:manufacturer_name => '#base_item_manufacturer_name'} %>
                   										<div class="drop-down hint2">
 											<div class="blue-barr"></div>
-											<%= t('item.manufacturer_gln_hint')%>
+										<%= t('item.manufacturer_gln_hint')%>
 										</div>
 									</div>
     </td>
@@ -141,7 +141,7 @@
           <div class="drop-down">
             <div class="blue-tarr"></div>
             <div class="drop-down-list-cont">
-              <div class="drop-down-list first" style="white-space:nowrap;height:250px" id='countries_div'>
+              <div class="drop-down-list first" id='countries_div'>
                 <ul>
                   <%= render :partial => "main/country", :collection => Country.all(:order => 'code') %>
                 </ul>
@@ -167,12 +167,12 @@
           <%= link_to "#{@base_item.gpc_name ? @base_item.gpc_name : I18n.t('main.select')}", "#", :id => 'base_item_gpc_name_link', :class => "drop-down-link" %>
           <div class="drop-down">
             <div class="blue-tarr"></div>
-            <div class="drop-down-list-cont" style="width:783px;">
-              <div id='groups' class="drop-down-list first" style="width:260px">
+            <div class="drop-down-list-cont w783">
+              <div id='groups' class="drop-down-list first w260">
               </div>
-              <div id='subgroups' class="drop-down-list" style="width:260px">
+              <div id='subgroups' class="drop-down-list w260">
               </div>
-              <div id='categories' class="drop-down-list" style="width:260px">
+              <div id='categories' class="drop-down-list w260">
               </div>
               <div id='definition' class="remark">
               </div>

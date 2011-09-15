@@ -5,7 +5,7 @@
     <%= f.error_messages %>
       <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } %>
       <p>
-        <%= f.submit t('main.apply'), :class=> "submit-btn", :style=>'color:white' %>
+        <%= f.submit t('main.apply'), :class=> "submit-btn" %>
         <%= f.submit t('main.back'), :class => "submit-btn", :name => "back_button", :style=>'color:white' unless @base_item.first_step? %>
          <%= link_to t('main.cancel'), @base_item, {:method => :get, :remote => true } %>
       </p>
