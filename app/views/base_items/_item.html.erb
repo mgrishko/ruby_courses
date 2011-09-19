@@ -19,7 +19,7 @@
 
 
 
-<div id="export_form_wrapper" style="display:none;">
+<div id="export_form_wrapper" class='hide'>
   <%= form_for @base_item, :url =>  export_base_item_path(@base_item),:html=> {:id => 'base_item_export_form', :method => "POST"} do |f|%>
     <div id="export_form_fields"></div>
     <%= f.submit t('main.export'), :class => "button fright",:id =>'export_one' ,  :disabled => true%>

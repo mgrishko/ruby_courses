@@ -1,5 +1,5 @@
 <%= link_to I18n.t('tag.add'), '#', :id => 'add_tag_link' %>
-<%= form_for Tag.new,:html=>{:style=>'display:none'}, :remote => true do |f| %>
+<%= form_for Tag.new,:html=>{:class=>'hide'}, :remote => true do |f| %>
   <input type="hidden" name="tag[item_id]" value="<%= @base_item.item_id %>"/>
   <%= link_to "x", '#', :class => 'remove-form' %>
   <%= f.autocomplete_field :name, autocomplete_tag_name_tags_path, :size=>'13' %>

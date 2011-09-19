@@ -475,7 +475,9 @@ ul.items li.new .item ul
   color: #000;
   text-decoration: none;
 }
-
+.color-white{
+  color: white;
+}
 .line-through {
   text-decoration: line-through;
 }
@@ -632,6 +634,9 @@ a:visited.submit-btn2 {
 }
 .marginl2{
   margin-left: 2em;
+}
+.marginl20{
+  margin-left: 20px;
 }
 .back-white{
   background: #FFF;

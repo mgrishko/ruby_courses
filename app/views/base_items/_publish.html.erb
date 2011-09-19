@@ -1,5 +1,5 @@
 <% if @base_item.draft? %>
-<%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id),:html=>{:style=>'margin-left:20px'} do |f| %>
+  <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'published', :id => @base_item.id),:html=>{:class=>'marginl20'} do |f| %>
 <% if @base_item.item.user.id == current_user.id %>
   <%= f.fields_for @base_item.comments.new do |c| %>
     <%= c.hidden_field 'item_id', :value => @base_item.item.id %>

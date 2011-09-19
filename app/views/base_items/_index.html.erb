@@ -251,7 +251,7 @@
 </div>
 
 <% if can? :export, BaseItem %>
-<div id="export_form_wrapper" style="display:none">
+<div id="export_form_wrapper" class='hide'>
   <%= form_for BaseItem.new, :url => export_base_items_path, :html=> {:id => 'base_item_export_form', :method => "POST"} do |f| %>
       <div id="export_form_fields"></div>
       <input type='hidden' name='base_items' id='base_items_ids'/>

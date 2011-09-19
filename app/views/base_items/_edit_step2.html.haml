@@ -8,7 +8,7 @@
     = hidden_field_tag 'step', :value=>2
     #cases_input_0
       .drop-down-cont.zi-5.fleft
-        = f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input'
+        = f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input'
         = link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#',
           :id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
         .drop-down.pic
