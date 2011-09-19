@@ -43,12 +43,12 @@
 
         <% unless @base_item.draft? %>
           <% if @view_only%>
-                <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form",:style=>"margin-top:7px;", :id => 'export_link'  unless current_user.is_local_supplier? %>
+                <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form",:style=>"margin-top:7px;", :id => 'export_link'  if can? :export, BaseItem %>
           <% else %>
               <%= form_for @base_item, :url => url_for(:controller => "base_items", :action => 'draft', :id => @base_item.id) do |f| %>
                   <%= link_to content_tag(:span, I18n.t('main.edit'), :onclick=>"$('#edit_base_item_#{@base_item.id}').submit()"),'javascript:void(0)', :class => "blue-btn",:id=>'edit_base_item_btn', :onclick=>"$('#edit_base_item_#{@base_item.id}').submit()" %>
               <% end %>
-              <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' unless current_user.is_local_supplier?%>
+              <%= link_to content_tag(:span, I18n.t('main.export'), :class => "show_export_form"), "#", :class => "blue-btn show_export_form", :id => 'export_link' if can? :export, BaseItem %>
           <% end %>
         <%end%>
 

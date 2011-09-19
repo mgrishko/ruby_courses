@@ -76,7 +76,7 @@
      %>
     <div id="<%= id %>">
       <div class="sort-btn">
-        <%= link_to t('item.export_to_xls'), 'javascript:void(0)', :class=>'export', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile' unless current_user.is_local_supplier? %>
+        <%= link_to t('item.export_to_xls'), 'javascript:void(0)', :class=>'export', :id => 'show_export_form' if @base_items.any? and params[:view]!='tile' if can? :export, BaseItem %>
         <%= link_to_if (params[:view]!='list' and params[:view].present?), t('main.short'), url_for(params.merge :view => 'list'), :class=>'kr' %> |
         <%= link_to_if params[:view]!='tile', t('main.tile'), url_for(params.merge(:view => 'tile')) %> |
         <%= link_to_if params[:view]!='detailed', t('main.detailed'), url_for(params.merge(:view => 'detailed')) %>
@@ -95,7 +95,7 @@
                       </div>
                       <div class="desc">
                         <div class="fright">
-                          <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' unless current_user.is_local_supplier? %>
+                          <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' if can? :export, BaseItem %>
                         </div>
                         <p>
                           <%= link_to base_item.gtin,base_item_path(path_params),:class=>'art'  %>
