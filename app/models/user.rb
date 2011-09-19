@@ -140,6 +140,10 @@ class User < ActiveRecord::Base
     roles.include? 'retailer'
   end
 
+  def is_local_supplier?
+    is? 'local_supplier'
+  end
+
   def is_admin?
     is? 'admin'
   end
