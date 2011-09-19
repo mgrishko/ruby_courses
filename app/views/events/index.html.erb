@@ -7,7 +7,7 @@
     </div>
     <div class="sort-btn">
     </div>
-    <div id="products" width="100%">
+    <div id="products">
         <% @events.each do |e| %>
         <% cd = e.created_at.to_s(:event) %>
         <% if cd != od %>
