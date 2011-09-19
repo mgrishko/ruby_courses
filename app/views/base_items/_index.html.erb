@@ -94,7 +94,7 @@
                         <%= image_tag(base_item.image_url('small'), :alt => 'Item Image', :width => '50', :id => 'img') %>
                       </div>
                       <div class="desc">
-                        <div style="float:right">
+                        <div class="fright">
                           <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' unless current_user.is_local_supplier? %>
                         </div>
                         <p>
@@ -135,7 +135,7 @@
                     <%= render :partial => '/base_items/popup',:locals=>{:base_item => base_item} %>
                         <div class="top">
                             <div class="bottom">
-                              <div style="float:right">
+                              <div class='frigth'>
                                 <%= check_box_tag "base_items[]", base_item.id, checked = false, :id => "bi-checkbox-#{base_item}", :class => 'base_item_checkbox' %>
                               </div>
                               <div class="img">
@@ -251,7 +251,7 @@
 </div>
 
 <% if can? :export, BaseItem %>
-<div id="export_form_wrapper" style="display:none">
+<div id="export_form_wrapper" class='hide'>
   <%= form_for BaseItem.new, :url => export_base_items_path, :html=> {:id => 'base_item_export_form', :method => "POST"} do |f| %>
       <div id="export_form_fields"></div>
       <input type='hidden' name='base_items' id='base_items_ids'/>

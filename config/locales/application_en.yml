@@ -98,7 +98,7 @@ en:
   main:
     add: Add
     address: address
-    annotations: "Пояснения к полю"
+    annotations: "Annotations:"
     apply: Apply
     back: Back
     base_items: "Base Items"

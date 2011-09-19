@@ -2,14 +2,6 @@
   <%= render :partial => "category", :collection => @categories %>
 </ul>
 
-<%#<script type="text/javascript">%>
-	<%#$('.drop-down-list ul li a').click(function(){%>
-		<%#$(this).parent().parent().find('li').removeClass('selected');%>
-		<%#$(this).parent().parent().parent().find('li').removeClass('selected');%>
-		<%#$(this).parent().addClass('selected');%>
-		<%#return false;%>
-	<%#});%>
-<%#</script>%>
 <script type="text/javascript">
 	$('.drop-down-list ul li a').click(function(){
 		$(this).parent().parent().find('li').removeClass('selected');

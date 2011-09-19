@@ -1,5 +1,5 @@
 = form_for @user_session, :url => { :controller => :user_sessions, :action => :login } do |f|
-  %div{:style => "margin:0 auto;width:300px"}
+  .invite
     - if @user_session.errors.present?
       #errorExplanation.errorExplanation
         %h2

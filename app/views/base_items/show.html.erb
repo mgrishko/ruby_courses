@@ -37,7 +37,7 @@
           <%= render :partial => 'subscription_results/actions', :locals => {:result => @subscription_result} %>
         <% else %>
           <% if params[:view] %>
-            <div id="by_item_id" style="float:left"><%= render :partial => 'subscription/by_item_id' %></div>
+            <div id="by_item_id" class='fleft'><%= render :partial => 'subscription/by_item_id' %></div>
           <% end %>
         <% end %>
 

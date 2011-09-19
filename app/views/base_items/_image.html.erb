@@ -8,7 +8,7 @@
   <% if @base_item.id %>
     <div id="upload">
       <%= link_to I18n.t('image.change'), '#', :id => 'link_upload' %>
-      <form id="form_upload" target="frame" action="/images/upload" enctype="multipart/form-data" method="POST" style="display:none;">
+      <form id="form_upload" target="frame" action="/images/upload" enctype="multipart/form-data" method="POST" class='hide'>
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
         <input type="hidden" name="item_id" value="<%= @base_item.item_id %>"/>
         <input type="hidden" name="base_item_id" value="<%= @base_item.id %>"/>
@@ -16,7 +16,7 @@
         <input type="submit" id="image_submit" value="<%= t 'image.upload' %>" class="submit-btn"/>
         <input type="button" value="<%= t 'main.cancel' %>" onclick="$('#link_upload').show(); $('#form_upload').hide(); return false;" class="submit-btn"/>
       </form>
-      <iframe id='frame' name="frame" style="display:none;"></iframe>
+      <iframe id='frame' name="frame" class='hide'></iframe>
     </div>
   <% end %>
 <% end %>

@@ -1,8 +1,8 @@
 - if (current_user.id == comment.item.user_id) or
 - ((comment.user_id == current_user.id) or (comment.item.user_id == comment.user_id))
-  .item{:style => "width: 100%"}
+  .item.w100p
     - if @message_info
-      %div{:style => "font-size: 125%; margin-bottom: 1em;"}
+      .comment
         %strong
           - if comment.item
             - args = current_user.retailer? ? {:view => true} :{}
@@ -15,6 +15,7 @@
       .text= comment.content
       .date= comment.created_at.to_s(:cmnt)
     %div{:id => "allch-#{comment.id}"}
+
       - for c in comment.get_children do
         - if (current_user.id == c.item.user_id) or
         - (c.get_root.user_id == current_user.id) or
@@ -36,7 +37,7 @@
                 \&nbsp;
                 -# if c.user_id != current_user.id
     .add-notes
-      %div{:style => "clear: both; margin-left: 2em;"}
+      #add-notes
         - if ((comment.item.user_id == current_user.id) && (comment.user_id != current_user.id)) ||
         - ((comment.item.user_id != current_user.id) && (comment.user_id == current_user.id))
           = link_to t('comment.comment'),
@@ -45,4 +46,4 @@
             :root_id => comment.id,
             :message_info => @message_info }),
             :remote => true, :id=>'show_comment_form'
-      %div{:id => "cr-#{comment.id}", :style => "margin-left: 2em;"}
+      .marginl2{:id => "cr-#{comment.id}"}

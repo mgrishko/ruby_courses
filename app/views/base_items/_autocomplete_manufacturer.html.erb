@@ -1,10 +1,10 @@
 <ul>
-<% unless @base_items.nil? -%>
-	<% @base_items.map{|bi| [bi.manufacturer_gln,bi.manufacturer_name]}.uniq.each do | item | -%>
-	  <li><%= "#{item[0]} : #{item[1]}" %>
-	    <div class="autocomplete_manufacturer_gln" style="display: none;"><%= item[0] %></div>
-	    <div class="autocomplete_manufacturer_name" style="display: none;"><%= item[1] %></div>
-	  </li>
-	<% end -%>
-<% end -%>
+  <% unless @base_items.nil? -%>
+          <% @base_items.map{|bi| [bi.manufacturer_gln,bi.manufacturer_name]}.uniq.each do | item | -%>
+            <li><%= "#{item[0]} : #{item[1]}" %>
+              <div class="autocomplete_manufacturer_gln hide"><%= item[0] %></div>
+              <div class="autocomplete_manufacturer_name hide"><%= item[1] %></div>
+            </li>
+          <% end -%>
+  <% end -%>
 </ul>

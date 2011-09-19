@@ -8,16 +8,16 @@
     1<span class="logistics-item-title"><%= t('pi.inside')%></span>
   </div>
 
-    <div id="cases_input_0" style='margin:0;padding:0;'>
+    <div id="cases_input_0">
 	  	<div class="drop-down-cont zi-5 fleft">
-    	  <%= f.hidden_field :packaging_name, :style=>"border: 0;", :title =>"Packaging Type",:class=>'dd-input' %>
+    	  <%= f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input' %>
           <%= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :class => 'drop-down-link item-qnt', :id => 'packaging_item_packaging_name_link' %>
 	    	<div class="drop-down pic" >
 	    		<div class="blue-tarr"></div>
-	    		<div class="drop-down-list-cont" style ="width:400px;">
-	    			<div id="cases_results_0" style="width:100%" class="drop-down-list first pt-cases">
+	    		<div class="drop-down-list-cont w400" >
+	    			<div id="cases_results_0" class="drop-down-list first pt-cases w100p">
 	    			</div>
-      			<div class="pic-cont" style="height:100%;">
+      			<div class="pic-cont h100p" >
 	  			    </div>
 	      	</div>
 	    		<div class="remark">
@@ -67,13 +67,13 @@
 	</tbody></table>
 									<table class="rb-table" cellpadding="0" cellspacing="0" border="0">
 										<tbody><tr>
-											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbconsumer" class="jNiceHidden" style="opacity: 0; "><span class="jNiceCheckbox jNiceChecked"></span></span></td>
+											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbconsumer" class="jNiceHidden opacity0"><span class="jNiceCheckbox jNiceChecked"></span></span></td>
 
 								<td width="44"><label for="cb
 onsumer"><img src="/images/newdesign/icon-consumer-unit-3.jpg" height="23" alt=""></label></td>
 
 
-											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbdelivery" class="jNiceHidden" style="opacity: 0; "><span class="jNiceCheckbox jNiceChecked"></span></span></td>
+											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbdelivery" class="jNiceHidden opacity0"><span class="jNiceCheckbox jNiceChecked"></span></span></td>
 											<td width="44"><label for="cbdelivery"><img src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt=""></label></td>
 
 
