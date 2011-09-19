@@ -1,5 +1,5 @@
-%div{:style=> 'margin:0 auto;width:300px'}
-  %h1 
+.invite
+  %h1
     =t('invitation.request_your_invitation')
   -form_for @invitation_request do |f|
     = f.error_messages
@@ -12,11 +12,11 @@
     %p
       =f.label t('invitation.email')
       =f.text_field :email
-    %p  
+    %p
       =f.label t('invitation.notes')
       =f.text_area :notes,:rows=>15,:cols=>40
-      
-    %p  
+
+    %p
       =f.label t('invitation.role')
       %p
         -#InvitationRequest::ROLES.each do |role|

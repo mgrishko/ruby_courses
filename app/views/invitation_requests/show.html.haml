@@ -1,10 +1,10 @@
-%div{:style=> 'margin:0 auto;width:300px'}
-  %h1 
+.invite
+  %h1
     =t('invitation.request_your_invitation')
   %p
     = flash[:notice]
-  %p 
+  %p
     Please wait for your application approval.
-    The result of consideration will be sent to specified email    
+    The result of consideration will be sent to specified email
   %p
     = link_to t('user.login'), login_path

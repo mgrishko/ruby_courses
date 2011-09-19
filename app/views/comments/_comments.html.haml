@@ -7,6 +7,6 @@
         = f.hidden_field :base_item_id, :value => @base_item.id
         = f.text_area :content, :rows => 4, :cols => "30", :class => "comment-area"
         %br/
-        = f.submit t('comment.add'), :name => "new", :class => "submit-add", :style => "width: auto;"
+        = f.submit t('comment.add'), :name => "new", :class => "submit-add w-auto"
     #comments
       = render :partial => 'comments/comment', :collection =>  @base_item.item.comments if @base_item.item

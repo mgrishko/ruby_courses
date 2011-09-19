@@ -10,7 +10,7 @@
     #goods-list-short
       =link_to t('invitation.add_user'),'javascript:void(0)',:onclick =>'$("#form_wrapper").show()', :id => 'show_add_user_link'
       #add_user_wrapper
-        #form_wrapper{:style=>'display:none'}
+        #form_wrapper.hide
           = render :partial => 'form'
 
 
