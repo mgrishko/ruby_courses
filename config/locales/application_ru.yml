@@ -60,6 +60,7 @@ ru:
     edit: Edit=TODO
     export_to_xls: "Export to xls=TODO"
     functional: Functional=TODO
+    already_exists: "уже существует"
     functional_hint: "functional hint here=TODO"
     gpc_code: "GPC Code=TODO"
     gpc_name: "GPC Name=TODO"
@@ -226,6 +227,9 @@ ru:
     subscribe: Подписаться
     subscribe_gtin: "Подписка по GTIN=TODO"
     unsubscribe: Отписаться
+    data_send: "Данные отправлены"
+    data_accept: "Данные акцептованы"
+    data_not_accepted: "Данные не приняты"
   supplier:
     last_update: "Последнее обновление"
     title: Suppliers=TODO

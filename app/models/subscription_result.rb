@@ -40,9 +40,9 @@ class SubscriptionResult < ActiveRecord::Base
   scope :accepted, where(:status => 'accepted')
 
   def status_for_title
-    return "Данные отправлены" if self.new?
-    return "Данные акцептованы" if self.accepted?
-    "Данные не приняты"
+    return I18n.t('subscription.data_send') if self.new?
+    return I18n.t('subscription.data_accept') if self.accepted?
+    I18n.t('subscription.data_not_accepted')
   end
 
   def get_url(current_user)

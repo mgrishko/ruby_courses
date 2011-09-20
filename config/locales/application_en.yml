@@ -60,6 +60,7 @@ en:
     functional: Functional
     functional_hint: "functional hint here"
     gpc_code: "GPC Code"
+    already_exists: "already exists"
     gpc_name: "GPC Name"
     gtin: gtin
     gtin_hint: "gtin hint here"
@@ -222,8 +223,11 @@ en:
     record_code: "Record code"
     status: "Subscribe status"
     subscribe: Subscribe
-    subscribe_gtin: "Подписка по GTIN"
+    subscribe_gtin: "Subscribe by GTIN"
     unsubscribe: Unsubscribe
+    data_send: "Data send"
+    data_accept: "Data accept"
+    data_not_accepted: "Data not accepted"
   supplier:
     last_update: "Last update"
     title: Suppliers

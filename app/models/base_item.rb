@@ -215,8 +215,8 @@ class BaseItem < ActiveRecord::Base
   #end
 
   def check_gtin
-    errors.add(:gtin, "Уже существует") if BaseItem.published.where("item_id != ? and user_id = ? and gtin = ? and status != ?", self.item_id, self.user_id, self.gtin, 'draft').count > 0
-    errors.add(:gtin, "Уже существует") if PackagingItem.joins(:base_item).where("packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.user_id, self.gtin).count > 0
+    errors.add(:gtin, I18n.t('item.already_exists')) if BaseItem.published.where("item_id != ? and user_id = ? and gtin = ? and status != ?", self.item_id, self.user_id, self.gtin, 'draft').count > 0
+    errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.joins(:base_item).where("packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.user_id, self.gtin).count > 0
   end
 
   def draft_all
