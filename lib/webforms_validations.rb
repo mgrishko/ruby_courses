@@ -19,7 +19,7 @@ module WebformsValidations
   def validates_gtin *attr_names
     configuration = {
       :on => :save,
-      :message => 'gtin is invalid'
+      :message => I18n.t('item.gtin_invalid')
     }
 
     configuration.update(attr_names.extract_options!)

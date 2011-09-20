@@ -6,7 +6,7 @@
   <tr>
     <td>
         <div class="cont-dd-input">
-      <%= f.text_field :gtin, :class=>'w156 dd-input' %>
+          <%= f.text_field :gtin, :maxlength => 14, :class=>'w156 dd-input' %>
       										<div class="drop-down hint2">
 											<div class="blue-barr"></div>
 											<%= t('item.gtin_hint')%>
