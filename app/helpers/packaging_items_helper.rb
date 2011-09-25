@@ -17,8 +17,9 @@ module PackagingItemsHelper
   # Depicts the quantity of packagingItem
   def calculate_quantity_of_bi(pi)
     content_tag(:span, pluralize(pi.number_of_bi_items, pi.base_item.packaging_name.downcase))+" "+
-    content_tag(:span, t('pi.in'))+" "+
-    content_tag(:span, pi.packaging_name.downcase)
+    #content_tag(:span, t('pi.in'))+" "+
+    content_tag(:span, t('pi.total'))
+    #content_tag(:span, pi.packaging_name.downcase)
   end
 
   def calculate_quantity_of_parent(pi)

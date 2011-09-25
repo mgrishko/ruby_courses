@@ -167,6 +167,7 @@ en:
     height: Height
     inside: Inside
     in: in
+    total: 'total'
     items: items
     net_weight: "net weight"
     pack: pack

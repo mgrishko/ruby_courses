@@ -46,13 +46,14 @@ class BaseItem < ActiveRecord::Base
   #validates_associated :gpc
   #validates_associated :country_of_origin
 
-  validate :check_gtin # TODO
 
   validates :user_id, :presence => true
   validates :item_id, :presence => true
+  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?,
+                          #:unless => Proc.new{|bi| bi.gtin == '00000000'}
   validates :gtin, :presence => true
-  #validates_gtin :gtin, :if => :first_step?
-  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?
+  validates_gtin :gtin, :if => :first_step?
+  validate :check_gtin # TODO
   validates :brand, :length => 1..70
   validates :subbrand, :length =>  { :maximum => 70 }, :allow_nil => true
   validates :functional, :length => 1..35
@@ -215,8 +216,10 @@ class BaseItem < ActiveRecord::Base
   #end
 
   def check_gtin
-    errors.add(:gtin, I18n.t('item.already_exists')) if BaseItem.published.where("item_id != ? and user_id = ? and gtin = ? and status != ?", self.item_id, self.user_id, self.gtin, 'draft').count > 0
-    errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.joins(:base_item).where("packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.user_id, self.gtin).count > 0
+    unless self.gtin == '0000000000000'
+      errors.add(:gtin, I18n.t('item.already_exists')) if BaseItem.published.where("item_id != ? and user_id = ? and gtin = ? and status != ?", self.item_id, self.user_id, self.gtin, 'draft').count > 0
+      errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.joins(:base_item).where("packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.user_id, self.gtin).count > 0
+    end
   end
 
   def draft_all

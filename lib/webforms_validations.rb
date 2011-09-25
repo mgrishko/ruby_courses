@@ -39,7 +39,7 @@ module WebformsValidations
       check_digit += index.even? ? item.to_i * 3 : item.to_i
     end
     return check_digit % 10 == 0
+
   end
 
 end
-

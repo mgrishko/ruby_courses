@@ -9,8 +9,10 @@
     #cases_input_0
       .drop-down-cont.zi-5.fleft
         = f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input'
-        = link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#',
-          :id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
+        %a#packaging_item_packaging_name_link.drop-down-link.item-qnt{:href => "#"}
+          = @base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')
+        -#= link_to @base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select'), '#',
+          -#:id => packaging_item_packaging_name_link, :class => 'drop-down-link item-qnt'
         .drop-down.pic
           .blue-tarr
           .drop-down-list-cont.w400
