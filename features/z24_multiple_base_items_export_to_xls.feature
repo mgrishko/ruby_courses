@@ -11,15 +11,15 @@ Feature: Data export(multiple bi)
       |status|retailer_id|supplier_id|
       |active| 2 | 1 |
     And I logged in as "supplier"
-    Given I have a base_item with gtin "1234567"
-    Given I have a base_item with gtin "7654321"
-    And I go to the base_item with gtin "1234567" page
+    Given I have a base_item with gtin "43210121"
+    Given I have a base_item with gtin "43220120"
+    And I go to the base_item with gtin "43210121" page
     And I follow "edit_base_item_btn"
     And I follow "edit_base_item_link" within "#base_item"
     And I fill in "Any brand" for "base_item_subbrand"
     And I press "base_item_submit" within "#step1"
     And I press "base_item_submit" within ".logistics"
-    And I go to the base_item with gtin "7654321" page
+    And I go to the base_item with gtin "43220120" page
     And I follow "edit_base_item_btn"
     And I follow "edit_base_item_link" within "#base_item"
     And I fill in "Any brand" for "base_item_subbrand"

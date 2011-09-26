@@ -8,7 +8,7 @@ describe BaseItem do
     @valid_attrs = {
       :user_id => users(:u10001).id,
       :item_id => items(:item11).id,
-      :gtin => '123456',
+      :gtin => '43210121',
       :brand => '123',
       :functional => '123',
       :manufacturer_name => '123',
@@ -79,9 +79,9 @@ describe BaseItem do
     object.publish!
     new.should_not be_valid
     new.errors_on(:gtin).should be_present
-    pi = object.packaging_items.create(@pi_attrs.merge :gtin => '987654')
+    pi = object.packaging_items.create(@pi_attrs.merge :gtin => '43220120')
     pi.errors.should == {}
-    new = BaseItem.new(@valid_attrs.merge :gtin => '987654')
+    new = BaseItem.new(@valid_attrs.merge :gtin => '43220120')
     new.should_not be_valid
     new.errors_on(:gtin).should be_present
   end

@@ -11,7 +11,7 @@ Feature: Data export(single bi)
       |status|retailer_id|supplier_id|
       |active| 3 | 2 |
     And I logged in as "supplier"
-    Given I have a base_item with gtin "1234567"
+    Given I have a base_item with gtin "43210121"
 
   Scenario: get single base_item export as retailer
     When I logged in as "retailer"

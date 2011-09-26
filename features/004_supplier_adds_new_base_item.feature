@@ -17,7 +17,7 @@ Feature: Add new Base Item
     And I go to the base_items page
     And I follow "new_base_item_link"
     And I wait for 1 second
-    And I fill in "base_item_gtin" with "1234567"
+    And I fill in "base_item_gtin" with "43210121"
     And I fill in "base_item_internal_item_id" with "1"
     And I fill in "base_item_brand" with "Brand name"
     And I fill in "base_item_subbrand" with "Subbrand name"

@@ -51,8 +51,11 @@ class BaseItem < ActiveRecord::Base
   validates :item_id, :presence => true
   #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?,
                           #:unless => Proc.new{|bi| bi.gtin == '00000000'}
-  validates :gtin, :presence => true
-  validates_gtin :gtin, :if => :first_step?
+  #validates_gtin :gtin, :if => :first_step?
+  #validates :gtin, :gtin_format => true, :if => :first_step?
+  validates :gtin, :presence => true,
+                   :numericality => {:only_integer => true},
+                   :gtin_format => {:if => :first_step? }
   validate :check_gtin # TODO
   validates :brand, :length => 1..70
   validates :subbrand, :length =>  { :maximum => 70 }, :allow_nil => true

@@ -63,7 +63,7 @@ en:
     already_exists: "already exists"
     gpc_name: "GPC Name"
     gtin: gtin
-    gtin_invalid: "gtin is invalid"
+    gtin_invalid: "is invalid"
     gtin_hint: "gtin hint here"
     have_subscription: "You already have subscription?"
     incorrect: "Entered an incorrect ?GTIN?"

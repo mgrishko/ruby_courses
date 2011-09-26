@@ -65,7 +65,7 @@ ru:
     gpc_code: "GPC Code=TODO"
     gpc_name: "GPC Name=TODO"
     gtin: gtin=TODO
-    gtin_invalid: "gtin неверен"
+    gtin_invalid: "неверен"
     gtin_hint: "gtin hint here=TODO"
     have_subscription: "У Вас уже есть подписка?"
     incorrect: "Неверно введён штрих-код"

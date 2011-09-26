@@ -21,7 +21,7 @@ Feature: Subscription Result generation
     And I go to the base_items page
     And I follow "new_base_item_link"
     And I wait for 1 second
-    And I fill in "base_item_gtin" with "1234567"
+    And I fill in "base_item_gtin" with "43210121"
     And I fill in "base_item_internal_item_id" with "1"
     And I fill in "base_item_brand" with "Brand name"
     And I fill in "base_item_subbrand" with "Subbrand name"
@@ -53,7 +53,7 @@ Feature: Subscription Result generation
     And I go to the subscription_results page
     Then I should see "1234"
     When I follow "1234"
-    Then I should see "1234567"
+    Then I should see "43210121"
 
   Scenario: Edit and publish base_item
     Given "supplier" has gln "1234" and password "1234"
@@ -62,7 +62,7 @@ Feature: Subscription Result generation
       |status|retailer_id|supplier_id|
       |active| 2 | 1 |
     And I logged in as "supplier"
-    And I have a base_item with gtin "1234567"
+    And I have a base_item with gtin "43220120"
     When I go to the base_item page
     And I follow "edit_base_item_btn"
     And I follow "edit_base_item_link" within "#base_item"
@@ -73,5 +73,5 @@ Feature: Subscription Result generation
     And I go to the subscription_results page
     Then I should see "1234"
     When I follow "1234"
-    Then I should see "1234567"
+    Then I should see "43220120"
 

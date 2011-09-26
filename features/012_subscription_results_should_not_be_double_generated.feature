@@ -21,7 +21,7 @@ Feature: Subscription Result shoud not duplicate
     And I go to the base_items page
     And I follow "new_base_item_link"
     And I wait for 1 second
-    And I fill in "base_item_gtin" with "1234567"
+    And I fill in "base_item_gtin" with "43210121"
     And I fill in "base_item_internal_item_id" with "1"
     And I fill in "base_item_brand" with "Brand name"
     And I fill in "base_item_subbrand" with "Subbrand name"
@@ -50,7 +50,7 @@ Feature: Subscription Result shoud not duplicate
     And I wait for 1 second
     And I press "base_item_submit" within ".logistics"
     And I go to the base_items page
-    And I follow "1234567"
+    And I follow "43210121"
     And I follow "edit_base_item_btn"
     And I press "base_item_submit" within ".logistics"
 
