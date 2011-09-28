@@ -6,12 +6,6 @@ GIT
     email_spec (0.6.2)
 
 GIT
-  remote: git://github.com/dima4p/russian.git
-  revision: e2cb3aa75d24c269a4c5280128c36f43b2acc4b0
-  specs:
-    russian (0.2.8.pre2)
-
-GIT
   remote: git://github.com/pavel-so/rails3-jquery-autocomplete.git
   revision: e13b249de09cfc319dc494fc4d6df5771191fdf1
   specs:
@@ -264,7 +258,6 @@ DEPENDENCIES
   ruby-xslt
   ruby_parser
   rubyzip
-  russian!
   selenium-webdriver (= 2.5.0)
   spork
   spreadsheet

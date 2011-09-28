@@ -7,7 +7,7 @@ en:
     title: Comments
   edit_base_item: "Editing base item"
   errors:
-    dynamic_format: "%{message}=TODO=TODO"
+    dynamic_format: "%{message}"
     template:
       body: "There were problems with the following fields:"
       header:
@@ -58,7 +58,6 @@ en:
     edit: Edit
     export_to_xls: "Export to xls"
     functional: Functional
-    functional_hint: "functional hint here"
     gpc_code: "GPC Code"
     already_exists: "already exists"
     gpc_name: "GPC Name"
@@ -68,7 +67,7 @@ en:
     have_subscription: "You already have subscription?"
     incorrect: "Entered an incorrect ?GTIN?"
     input_items: "Incoming items"
-    internal_item_id: "Internal item id=TODO=TODO"
+    internal_item_id: "Internal item id"
     internal_item_id_hint: "internal item id hint here"
     item_description_hint: "item descripton hint here"
     manufacturer_gln: "Manufacturer GLN"

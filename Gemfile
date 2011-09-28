@@ -22,7 +22,7 @@ gem 'spreadsheet'
 gem 'rubyzip'
 gem 'ruby-xslt'
 gem 'exception_notification', :git => 'https://github.com/rails/exception_notification.git', :require => 'exception_notifier'
-gem 'russian', :git => "git://github.com/dima4p/russian.git"
+#gem 'russian', :git => "git://github.com/dima4p/russian.git"
 gem 'cancan'
 gem 'globalize3'
 gem 'uservoice', :path => 'vendor/gems/uservoice'

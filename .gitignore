@@ -8,5 +8,6 @@ config/database.yml
 *.swo
 .idea
 public/data
+public/clicktale
 !public/data/images/pi_new
 data/images

@@ -6,15 +6,15 @@ ru:
     comment: Комментировать
     title: Comments=TODO
   edit_ base_item: "Editing base item=TODO"
-  errors:
-    dynamic_format: "%{message}=TODO"
-    template:
-      body: "There were problems with the following fields:=TODO"
-      header:
-        one: "1 error prohibited this %{model} from being saved=TODO"
-        few: "%{count} errors prohibited this %{model} from being saved=TODO"
-        many: "%{count} errors prohibited this %{model} from being saved=TODO"
-        other: "%{count} errors prohibited this %{model} from being saved=TODO"
+  #errors:
+    #dynamic_format: "%{message}=TODO"
+    #template:
+      #body: "There were problems with the following fields:=TODO"
+      #header:
+        #one: "1 error prohibited this %{model} from being saved=TODO"
+        #few: "%{count} errors prohibited this %{model} from being saved=TODO"
+        #many: "%{count} errors prohibited this %{model} from being saved=TODO"
+        #other: "%{count} errors prohibited this %{model} from being saved=TODO"
   event:
     title: "Event Log=TODO"
   filter:
