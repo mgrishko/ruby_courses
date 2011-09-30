@@ -271,14 +271,20 @@ function receiveCategoriesData(data) {
 
 function requestDefinitionData(q){
   var data = null;
-  $.get("/main/definition/" + q, function(data) {
-    receiveDefinitionData(data);
-  });
+  if (isInt(q)) {
+    $.get("/main/definition/" + q, function(data) {
+      receiveDefinitionData(data);
+    });
+  };
+}
+
+function isInt(n) {
+   return n % 1 == 0;
 }
 
 function receiveDefinitionData(data) {
   if (data) {
-    $("li", "#definition").removeClass("ac_loading");
+    $("li", "#categories").removeClass("ac_loading");
     $("#definition").html(data);
   }
 };

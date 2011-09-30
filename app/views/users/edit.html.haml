@@ -1,7 +1,7 @@
 - title t('.title')
 
 #left-side
-  .cat
+  .cat-invisible
 
 #middle-side
   .wrap
@@ -15,6 +15,6 @@
           = t('.title')
         = render 'form'
         - if can? :index, User
-          = link_to t('back'), users_path
+          = link_to t('back'), users_path, :class => 'add-product'
         - if can? :show, User
-          = link_to t('show'), @user
+          = link_to t('show'), @user, :class => 'add-product'
