@@ -23,7 +23,8 @@
             %br/
             %br/
             %br/
-          = link_to I18n.t('main.apply'), "javascript:void(0)", :class => 'submit-btn2 pt-choose-btn'
+            %a.submit-btn2.pt-choose-btn{:href => "javascript:void(0)"}= I18n.t('main.apply')
+          -#= link_to I18n.t('main.apply'), "javascript:void(0)", :class => 'submit-btn2 pt-choose-btn'
     %table.input-table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %tbody
         %tr
