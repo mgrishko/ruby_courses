@@ -42,6 +42,9 @@ class PackagingItem < ActiveRecord::Base
   #validates_presence_of :gtin
   #validates_gtin :gtin
   #validates_uniqueness_of :gtin, :scope => :user_id
+  validates :gtin, :presence => true,
+                   :numericality => {:only_integer => true},
+                   :gtin_format => true
   validate :check_gtin
 
   validates_number_length_of :number_of_next_lower_item, 6
@@ -59,10 +62,12 @@ class PackagingItem < ActiveRecord::Base
   validates_length_of :item_name_long_ru, :maximum => 35, :allow_nil => true
 
   def check_gtin
-    errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.joins(:base_item).where("base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin).count() > 0 # versions
-    errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.where("base_item_id=? and id != ? and gtin = ?", self.base_item_id, self.id, self.gtin).count() > 0 # same PI tree
-    errors.add(:gtin, I18n.t('item.already_exists')) if BaseItem.where(:user_id => self.user_id, :gtin => self.gtin, :status => 'published').count() > 0 # bi
-    errors.add(:gtin, I18n.t('item.already_exists')) if self.gtin.to_s == self.base_item.gtin.to_s
+    unless self.gtin == '00000000000000'
+      errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.joins(:base_item).where("base_items.item_id != ? and packaging_items.user_id = ? and packaging_items.gtin = ? and base_items.status = 'published'", self.base_item.item_id, self.user_id, self.gtin).count() > 0 # versions
+      errors.add(:gtin, I18n.t('item.already_exists')) if PackagingItem.where("base_item_id=? and id != ? and gtin = ?", self.base_item_id, self.id, self.gtin).count() > 0 # same PI tree
+      errors.add(:gtin, I18n.t('item.already_exists')) if BaseItem.where(:user_id => self.user_id, :gtin => self.gtin, :status => 'published').count() > 0 # bi
+      errors.add(:gtin, I18n.t('item.already_exists')) if self.gtin.to_s == self.base_item.gtin.to_s
+    end
   end
 
   def gross_weight_validation

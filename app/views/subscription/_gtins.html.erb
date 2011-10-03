@@ -13,8 +13,8 @@
   var tmp ={};
   var editGtin=function(gtin){
     var input = '<input id="input-'+gtin+'" type = "text" name="gtin" value="'+gtin+'" />';
-    var apply = '<a href="javascript:void(0)" id="apply-'+gtin+'">Применить</a>';
-    var refuse = '<a href="javascript:void(0)" id="refuse-'+gtin+'">Отмена</a>';
+    var apply = '<a href="javascript:void(0)" id="apply-'+gtin+'">Submit</a>';
+    var refuse = '<a href="javascript:void(0)" id="refuse-'+gtin+'">Cancel</a>';
     tmp[gtin] = $("#bi-content-"+gtin).html();
     $("#bi-content-"+gtin).html(input+apply+' '+refuse);
     $("#refuse-"+gtin).click(function(){

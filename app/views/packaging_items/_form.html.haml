@@ -30,7 +30,7 @@
     %tbody
       %tr
         %td.gnt{:colspan => "2", :width => "30px"}
-          = f.text_field :gtin, :class=>'w110', :title=> t('item.gtin')
+          = f.text_field :gtin, :maxlength => 14, :class=>'w110', :title=> t('item.gtin')
       %tr
         %td
           = t('pi.height')+":"

@@ -5,7 +5,7 @@
         <div id='bi-content-<%=gtin[:gtin]%>' class="desc bi-content gtin-error">
           <div class="fright">
             <%= link_to_function t('main.edit'),"editGtin('#{gtin[:gtin]}')"%> |
-            <%= link_to_function t('main.delete'),"if (confirm('Вы уверены?')) removeGtin('#{gtin[:gtin]}')" %>
+            <%= link_to_function t('main.delete'),"if (confirm(#{I18n.t('main.confirm')})) removeGtin('#{gtin[:gtin]}')" %>
           </div>
           <span class="art"><%= gtin[:gtin] %></span>
           <div class="usual"><%= gtin[:errors] %></div>
