@@ -46,6 +46,8 @@ class PackagingItem < ActiveRecord::Base
                    :numericality => {:only_integer => true},
                    :gtin_format => true
   validate :check_gtin
+  validates :packaging_type,
+            :presence => true, :length => { :maximum => 3 }
 
   validates_number_length_of :number_of_next_lower_item, 6
   validates_number_length_of :number_of_bi_items, 6

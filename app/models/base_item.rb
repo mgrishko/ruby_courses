@@ -87,8 +87,8 @@ class BaseItem < ActiveRecord::Base
   validates_number_length_of :depth, 5, :step => :last_step?
   validates_number_length_of :width, 5, :step => :last_step?
   validates :packaging_type,
-      :presence => true, :length => { :maximum => 3 },
-      :if => :last_step?
+            :presence => true, :length => { :maximum => 3 },
+            :if => :last_step?
 
   before_save :update_mix_field # data for search
 
