@@ -64,7 +64,10 @@
       %td
         = h @base_item.net_weight
         = t('uom.grm')
-  =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
+  - if @base_item.order_unit
+    = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img'
+  - if @base_item.consumer_unit
+    = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img'
 = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
             :onclick => "packageMe(this,#{@base_item.id});return false"
 

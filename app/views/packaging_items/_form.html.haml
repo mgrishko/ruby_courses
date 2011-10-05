@@ -63,13 +63,16 @@
       %tr{:class=>'jNice'}
         %td
           %span.jNiceWrapper
-            %input#cbconsumer.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+            -#??? зачем нужно использовать такую конструкцию?
+            -#%input#cbconsumer.jNiceHidden{:name => "rb1", :style => "opacity: 0;", :type => "checkbox"}
+            = f.check_box :consumer_unit
         %td{:width => "44"}
           %label{:for => "cbconsumer"}
             %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
         %td
           %span.jNiceWrapper
-            %input#cbdelivery.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+            -#%input#cbconsumer.jNiceHidden{:name => "rb1", :style => "opacity: 0;", :type => "checkbox"}
+            = f.check_box :order_unit
         %td{:width => "44"}
           %label{:for => "cbdelivery"}
             %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/

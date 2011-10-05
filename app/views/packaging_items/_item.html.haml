@@ -57,7 +57,10 @@
           = t('pi.net_weight')+":"
         %td{:class => 'tright'}
           = convert_grm_to_kg item, :net_weight
-  =image_tag 'newdesign/icon-delivery-unit-2.jpg',:height=>23, :alt=>"",:class=> 'u-img'
+  - if item.order_unit
+    = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img'
+  - if item.consumer_unit
+    = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img'
 = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
             :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"
 

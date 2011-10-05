@@ -70,18 +70,20 @@
         %tr
           %td
             %span.jNiceWrapper
-              %input#cbconsumer.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+              -#%input#cbconsumer.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+              = f.check_box :consumer_unit
           %td{:width => "44"}
-            %label{:for => "cb\r\nonsumer"}
-              %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
-              -#= image_tag "newdesign/icon-consumer-unit-3.jpg", :alt => "", :height => "23"
+            %label{:for => "cbconsumer"}
+              -#%img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
+              = image_tag "newdesign/icon-consumer-unit-3.jpg", :alt => "", :height => "23"
           %td
             %span.jNiceWrapper
-              %input#cbdelivery.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+              -#%input#cbdelivery.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}
+              = f.check_box :order_unit
           %td{:width => "44"}
             %label{:for => "cbdelivery"}
-              %img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/
-              -#= image_tag "newdesign/icon-delivery-unit-2.jpg", :alt => "", :height => "23"
+              -#%img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/
+              = image_tag "newdesign/icon-delivery-unit-2.jpg", :alt => "", :height => "23"
   %div{:align => "center"}
     = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'fright cancel-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
     = f.submit t('main.update'), :class=>'submit-btn accept-btn'
