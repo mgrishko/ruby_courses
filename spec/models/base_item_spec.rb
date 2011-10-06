@@ -79,7 +79,7 @@ describe BaseItem do
     object.publish!
     new.should_not be_valid
     new.errors_on(:gtin).should be_present
-    pi = object.packaging_items.create(@pi_attrs.merge :gtin => '43220120')
+    pi = object.packaging_items.create(@pi_attrs.merge :gtin => '43220120', :packaging_type => 'BX')
     pi.errors.should == {}
     new = BaseItem.new(@valid_attrs.merge :gtin => '43220120')
     new.should_not be_valid

@@ -9,7 +9,7 @@
         <%= link_to t('main.base_items'), "/base_items"%>
         <%= link_to t('item.add_item'), "#", :class => "last"%>
       </div>
-      <%= form_for(@base_item) do |f| %>
+      <%= form_for @base_item, :html => {:class => 'jNice'} do |f| %>
         <%= f.error_messages %>
         <div class="item-description" id="base_item">
         <%= render :partial => "#{@base_item.current_step}", :locals => {:f => f } if @base_item.current_step == 'step1' %>

@@ -1,121 +1,116 @@
 <div class="step2">
-<h2><%= t 'item.logistic' %></h2>
-<br/>
-<div class='pi'>
-	<%= f.error_messages %>
-	<%= pi_image_tag @base_item, :class=> 'i-img', :id => "bi-id-#{@base_item.id}", :width=> '64', :height => '64' %>
-  <div class="logistics-item-in-1-top">
-    <span class="logistics-item-title"><%= t('pi.inside')%></span>
+  <h2><%= t 'item.logistic' %></h2>
+  <br/>
+  <div class='pi'>
+    <%= f.error_messages %>
+    <%= pi_image_tag @base_item, :class=> 'i-img', :id => "bi-id-#{@base_item.id}", :width=> '64', :height => '64' %>
+    <div class="logistics-item-in-1-top">
+      <span class="logistics-item-title"><%= t('pi.inside')%></span>
+    </div>
+    <div id="cases_input_0">
+      <div class="drop-down-cont zi-5 fleft">
+        <%= f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input' %>
+          <%= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :class => 'drop-down-link item-qnt', :id => 'packaging_item_packaging_name_link' %>
+        <div class="drop-down pic" >
+        <div class="blue-tarr"></div>
+          <div class="drop-down-list-cont w400" >
+            <div id="cases_results_0" class="drop-down-list first pt-cases w100p">
+            </div>
+            <div class="pic-cont h100p" >
+              </div>
+          </div>
+          <div class="remark">
+              <%= t 'main.annotations' %><br /><br /><br />
+          </div>
+                <%= link_to I18n.t('main.apply'), 'javascript:void(0)', :class => 'submit-btn2 pt-choose-btn' %>
+        </div>
+      </div>
+    </div>
+
+    <table class="input-table" cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+            <td colspan="2" class="gnt" width='1px'>
+              <%= f.text_field :gtin, :maxlength => 14, :class=>'w110', :title=> t('item.gtin') %>
+            </td>
+          </tr>
+          <tr>
+            <td><%=t('pi.height')%>:</td>
+            <td>
+              <%=f.text_field :height, :class => 'w44' %> <%= t('uom.mm')%>
+            </td>
+          </tr>
+          <tr>
+            <td><%=t('pi.width')%>:</td>
+            <td>
+              <%=f.text_field :width, :class => 'w44' %> <%= t('uom.mm')%>
+            </td>
+          </tr>
+          <tr>
+            <td><%=t('pi.depth')%>:</td>
+            <td>
+              <%=f.text_field :depth, :class => 'w44' %> <%= t('uom.mm')%>
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="50px"><%= t('pi.gross_weight')%>:</td>
+            <td><%=f.text_field :gross_weight, :class=>"w44"%> <%=t('uom.grm')%></td>
+          </tr>
+          <tr>
+            <td><%= t('pi.net_weight')%>:</td>
+            <td><%=f.text_field :net_weight, :class=>"w44"%> <%=t('uom.grm')%></td>
+          </tr>
+    </tbody></table>
+    <table class="rb-table" cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <tr>
+          <td><span class="jNiceWrapper"><%= f.check_box :consumer_unit %></span></td>
+          <td width="44"><label for="cbconsumer"><img src="/images/newdesign/icon-consumer-unit-3.jpg" height="23" alt=""></label></td>
+          <td><span class="jNiceWrapper"><%= f.check_box :order_unit %></span></td>
+          <td width="44"><label for="cbdelivery"><img src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt=""></label></td>
+        </tr>
+    </tbody></table>
   </div>
 
-    <div id="cases_input_0">
-	  	<div class="drop-down-cont zi-5 fleft">
-    	  <%= f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input' %>
-          <%= link_to "#{@base_item.packaging_name.present? ? @base_item.packaging_name : t('pi.select')}", '#', :class => 'drop-down-link item-qnt', :id => 'packaging_item_packaging_name_link' %>
-	    	<div class="drop-down pic" >
-	    		<div class="blue-tarr"></div>
-	    		<div class="drop-down-list-cont w400" >
-	    			<div id="cases_results_0" class="drop-down-list first pt-cases w100p">
-	    			</div>
-      			<div class="pic-cont h100p" >
-	  			    </div>
-	      	</div>
-	    		<div class="remark">
-	      			<%= t 'main.annotations' %><br /><br /><br />
-	    		</div>
-                <%= link_to I18n.t('main.apply'), 'javascript:void(0)', :class => 'submit-btn2 pt-choose-btn' %>
-	    	</div>
-	    </div>
-	  </div>
-
-  <table class="input-table" cellpadding="0" cellspacing="0" border="0">
-									<tbody><tr>
-										<td colspan="2" class="gnt" width='1px'>
-                                                                                  <%= f.text_field :gtin, :maxlength => 14, :class=>'w110', :title=> t('item.gtin') %>
-										</td>
-									</tr>
-									<tr>
-										<td><%=t('pi.height')%>:</td>
-										<td>
-										  <%=f.text_field :height, :class => 'w44' %> <%= t('uom.mm')%>
-										</td>
-									</tr>
-									<tr>
-										<td><%=t('pi.width')%>:</td>
-										<td>
-										  <%=f.text_field :width, :class => 'w44' %> <%= t('uom.mm')%>
-										</td>
-									</tr>
-									<tr>
-										<td><%=t('pi.depth')%>:</td>
-										<td>
-										  <%=f.text_field :depth, :class => 'w44' %> <%= t('uom.mm')%>
-										</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									</tr>
-									<tr>
-										<td width="50px"><%= t('pi.gross_weight')%>:</td>
-										<td><%=f.text_field :gross_weight, :class=>"w44"%> <%=t('uom.grm')%></td>
-									</tr>
-									<tr>
-										<td><%= t('pi.net_weight')%>:</td>
-										<td><%=f.text_field :net_weight, :class=>"w44"%> <%=t('uom.grm')%></td>
-									</tr>
-	</tbody></table>
-									<table class="rb-table" cellpadding="0" cellspacing="0" border="0">
-										<tbody><tr>
-											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbconsumer" class="jNiceHidden opacity0"><span class="jNiceCheckbox jNiceChecked"></span></span></td>
-
-								<td width="44"><label for="cb
-onsumer"><img src="/images/newdesign/icon-consumer-unit-3.jpg" height="23" alt=""></label></td>
 
 
-											<td><span class="jNiceWrapper"><input type="checkbox" name="rb1" id="cbdelivery" class="jNiceHidden opacity0"><span class="jNiceCheckbox jNiceChecked"></span></span></td>
-											<td width="44"><label for="cbdelivery"><img src="/images/newdesign/icon-delivery-unit-2.jpg" height="23" alt=""></label></td>
-
-
-										</tr>
-									</tbody></table>
-</div>
-
-
-
-<div class="dd-overlay"></div>
-<script type="text/javascript">
-	$('.drop-down-link').click(function(e){
-	  $('.remark').html("");
-  	$.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
-		$('.drop-down').css('visibility','hidden');
-		$('.dd-overlay').css('display','block');
-		$(this).parent().find('.drop-down').css('visibility','visible');
-		return false;
-	});
-	$('.choose-btn').click(function(){
-		$('.drop-down').css('visibility','hidden');
-		$('.dd-overlay').css('display', 'none');
-		return false;
-	})
- 	$('.dd-overlay').click(function(){
-  		$('.drop-down').css('visibility','hidden');
-  		$('.dd-overlay').css('display', 'none');
-	});
-	$(".pt-choose-btn").click(function(){
-	  var btn = $(this);
-    $(this).parent().find('.pt-cases ul li a').each( function(){
-      if ($(this).parent().hasClass('selected')){
-        $('#base_item_packaging_name').val($(this).html());
-        <%="$('#bi-id-#{@base_item.id}')"%>.attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
-
-     	 	$('.drop-down').css('visibility','hidden');
-    	 	$('.dd-overlay').css('display', 'none');
-       	return false;
-      }
+  <div class="dd-overlay"></div>
+  <script type="text/javascript">
+    $('.drop-down-link').click(function(e){
+      $('.remark').html("");
+      $.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
+      $('.drop-down').css('visibility','hidden');
+      $('.dd-overlay').css('display','block');
+      $(this).parent().find('.drop-down').css('visibility','visible');
+      return false;
     });
-  });
-</script>
+    $('.choose-btn').click(function(){
+      $('.drop-down').css('visibility','hidden');
+      $('.dd-overlay').css('display', 'none');
+      return false;
+    })
+    $('.dd-overlay').click(function(){
+        $('.drop-down').css('visibility','hidden');
+        $('.dd-overlay').css('display', 'none');
+    });
+    $(".pt-choose-btn").click(function(){
+      var btn = $(this);
+      $(this).parent().find('.pt-cases ul li a').each( function(){
+        if ($(this).parent().hasClass('selected')){
+          $('#base_item_packaging_name').val($(this).html());
+          <%="$('#bi-id-#{@base_item.id}')"%>.attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
+
+          $('.drop-down').css('visibility','hidden');
+          $('.dd-overlay').css('display', 'none');
+          return false;
+        }
+      });
+    });
+  </script>
 
 </div>
 
