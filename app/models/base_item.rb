@@ -49,10 +49,6 @@ class BaseItem < ActiveRecord::Base
 
   validates :user_id, :presence => true
   validates :item_id, :presence => true
-  #validates_uniqueness_of :gtin, :scope => [:user_id, :item_id], :if => :first_step?,
-                          #:unless => Proc.new{|bi| bi.gtin == '00000000'}
-  #validates_gtin :gtin, :if => :first_step?
-  #validates :gtin, :gtin_format => true, :if => :first_step?
   validates :gtin, :presence => true,
                    :numericality => {:only_integer => true},
                    :gtin_format => {:if => :first_step? }
@@ -539,6 +535,7 @@ class BaseItem < ActiveRecord::Base
     self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code] if value.present?
     @packaging_name = value
   end
+
   def packaging_name
     BaseItem.packaging_types.detect{|pt| pt[:code] == packaging_type}[:name] if packaging_type.present?
   end

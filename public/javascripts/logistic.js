@@ -8,7 +8,7 @@ function initjNice(){
 }
 function addLeaf(obj, data)
 {
-  parent = $(obj).parent();
+  parent = $(obj).parent().parent().parent();
   leaf = '<div class=\'pi-cont edited\'>'+data +'</div>';
   leaf = data;
   branch = '<div class=\'branch\'></div>';

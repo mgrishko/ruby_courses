@@ -1456,7 +1456,8 @@ tr.th td {
 	margin-top: 5px;
 	background: url(/images/newdesign/edit-delete-btn.png) no-repeat;
 	overflow: hidden;
-	display: none;
+        /*display: none;*/
+        visibility: hidden;
 }
 .edit-delete a{
 	width: 20px;
@@ -2205,7 +2206,8 @@ ul.items li.new .item ul
 	margin-top: 5px;
 	background: url(/images/newdesign/edit-delete-btn.png);
 	overflow: hidden;
-	display: none;
+        /*display: none;*/
+        visibility: hidden;
 	z-index: 2;
 }
 .pi-cont:hover .edit-delete{
@@ -2220,7 +2222,8 @@ ul.items li.new .item ul
 	margin-top: 5px;
 	background: url(/images/newdesign/edit-delete-btn.png);
 	overflow: hidden;
-	display: none;
+        /*display: none;*/
+        visibility: hidden;
 	z-index: 2;
 }
 .pi-cont:hover .edit-delete, .pi-cont:hover .edit-delete2{
@@ -2329,7 +2332,8 @@ ul.items li.new .item ul
 	position: absolute;
 	left: 29px;
 	bottom: 13px;
-	display: none;
+        /*display: none;*/
+        visibility: hidden;
 }
 .accept-btn{
 	width: 60px;

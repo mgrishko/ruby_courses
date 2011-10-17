@@ -13,11 +13,11 @@
       %tr
         %td.art{:colspan => 2}
           = h item.gtin
-.pi.edited{:class=> @base_item.draft? ? '' : 'full'}
+.pi.edited{:id => "pi-#{item.calculate_number}", :class=> @base_item.draft? ? '' : 'full'}
   - unless @base_item.published? || @view_only
     %div{:class=>"edit-delete#{'2' unless item.leaf?}"}
-      = link_to '', edit_base_item_packaging_item_path(@base_item, item), { :method => :get, :remote => true }
-      = link_to '', base_item_packaging_item_path(@base_item, item), {:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf?
+      = link_to '', edit_base_item_packaging_item_path(@base_item, item), {:id => 'pi_edit', :method => :get, :remote => true }
+      = link_to '', base_item_packaging_item_path(@base_item, item), {:id => 'pi_delete',:confirm => t('main.confirm'),:method => :delete, :remote => true} if item.leaf?
   = pi_image_tag item, :class=> 'i-img', :width=> '64', :height => '64'
   %span.logistics-item-title
     = calculate_quantity_of_parent item
@@ -58,9 +58,9 @@
         %td{:class => 'tright'}
           = convert_grm_to_kg item, :net_weight
   - if item.order_unit
-    = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img'
+    = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img', :id => "order_unit"
   - if item.consumer_unit
-    = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img'
-= link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
-            :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"
-
+    = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img', :id => "consumer_unit"
+  .pack-btn
+    = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn',:align=>'center',
+              :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"

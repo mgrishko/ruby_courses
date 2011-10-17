@@ -104,6 +104,12 @@ Then /^(?:|I )should see JSON:$/ do |expected_json|
   expected.should == actual
 end
 
+Then /^(?:|I )should see img_id "([^"]*)"(?: within "([^"]*)")?$/ do |id, selector|
+  with_scope(selector) do
+    find_by_id(id)
+  end
+end
+
 Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should
@@ -131,7 +137,7 @@ Then /^(?:|I )should not see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selecto
       page.should have_no_content(text)
   else
       assert page.has_no_content?(text)
-    end
+3   end
   end
 end
 

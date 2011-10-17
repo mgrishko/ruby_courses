@@ -20,7 +20,7 @@
   :description: "Bag-In-Box or BIB is a type of container for the storage and transportation of liquids. It consists of a strong bladder, usually made of aluminium PET film or other plastics seated inside a corrugated fibreboard box. The box and internal bag can be fused together. In most cases there is nozzle or valve fixed to the bag. The nozzle can be connected easily to a dispensing installation or the valve allows for convenient dispensing. "
   :id: 5
 - :code: BPK
-  :name: :Banded package
+  :name: Banded package
   :description: "Something used to bind, tie, or encircle the item or its packaging to secure and maintain unit integrity. "
   :id: 6
 - :code: BA
@@ -202,7 +202,7 @@
   :description: "Bag-In-Box or BIB is a type of container for the storage and transportation of liquids. It consists of a strong bladder, usually made of aluminium PET film or other plastics seated inside a corrugated fibreboard box. The box and internal bag can be fused together. In most cases there is nozzle or valve fixed to the bag. The nozzle can be connected easily to a dispensing installation or the valve allows for convenient dispensing. "
   :id: 5
 - :code: BPK
-  :name: :Banded package
+  :name: Banded package
   :description: "Something used to bind, tie, or encircle the item or its packaging to secure and maintain unit integrity. "
   :id: 6
 - :code: BA

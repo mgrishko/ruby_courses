@@ -2,9 +2,9 @@ require 'rubygems'
 require 'nokogiri'
 require 'spreadsheet'
 
-#Copiyng old file to gpc_pack_full.xml
-if File.exist?('gpc_pack.xml')
-  File.rename('gpc_pack.xml', 'gpc_pack_backup.xml')
+#Copiyng old file to gpc_pack_backup.xls
+if File.exist?('gpc_pack.xls')
+  File.rename('gpc_pack.xls', 'gpc_pack_backup.xls')
 else
   puts "First created file"
 end

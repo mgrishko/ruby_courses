@@ -148,6 +148,10 @@ class PackagingItem < ActiveRecord::Base
     "#{quantity_of_layers_per_pallet},#{quantity_of_trade_items_per_pallet_layer},#{stacking_factor}"
   end
 
+  def calculate_number
+    self.lft
+  end
+
   #actually used to compare previous and new versions values.  and highlight if changed
 #  def calculate_weights
 #    "#{gross_weight},#{net_weight}"

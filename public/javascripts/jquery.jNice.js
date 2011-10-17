@@ -94,7 +94,10 @@
 		$input.click(function(){
 
 			if(this.checked){
-			$a.addClass('jNiceChecked');  alert(1);
+			$a.addClass('jNiceChecked');
+                        //before
+                        //capybara don't work
+			//$a.addClass('jNiceChecked');  alert(1);
 				}
 			else { $a.removeClass('jNiceChecked'); }
 		}).focus(function(){ $a.addClass('jNiceFocus'); }).blur(function(){ $a.removeClass('jNiceFocus'); });

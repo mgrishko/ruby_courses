@@ -22,7 +22,7 @@
         .pi.edited{:class=> @base_item.draft? ? '' : 'full'}
           - unless @base_item.published? || @view_only
             .edit-delete2
-              = link_to '', edit_base_item_path(@base_item, :step => 2), {:method => :get, :remote => true}
+              = link_to '', edit_base_item_path(@base_item, :step => 2), {:id => 'pi_edit', :method => :get, :remote => true}
           = pi_image_tag @base_item, :class=> 'i-img', :width=> '64', :height => '64'
           %span.logistics-item-title
             %strong= '1'
@@ -63,14 +63,40 @@
               %td{:class => 'tright'}
                 = convert_grm_to_kg  @base_item, :net_weight
           - if @base_item.order_unit
-            = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img'
+            = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img', :id => "order_unit"
           - if @base_item.consumer_unit
-            = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img'
-        = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn pack-btn',:align=>'center',
-            :onclick => "packageMe(this,#{@base_item.id});return false"
+            = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img', :id => "consumer_unit"
+          .pack-btn
+            = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn',:align=>'center',
+                :onclick => "packageMe(this,#{@base_item.id});return false"
       - if @packaging_items.any?
         = pi_tree @packaging_items.roots  do |item, options|
           .pi-cont{:class=>"#{options[:class]} #{@base_item.draft? ? 'edited' : 'minimized'}",:style => options[:style], :id => "pi-#{item.id}"}
             = render :partial => 'packaging_items/item', :locals=>{:item => item, :options => options}
   .clear
+
+:javascript
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.edit-delete2').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.edit-delete2').css('visibility','hidden');
+  });
+
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.edit-delete').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.edit-delete').css('visibility','hidden');
+  });
+
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.pack-btn').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.pack-btn').css('visibility','hidden');
+  });
 

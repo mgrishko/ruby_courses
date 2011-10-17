@@ -16,7 +16,7 @@ module PackagingItemsHelper
   #TODO russian language pluralization. for calculate_quantity_of_bi and calculate_quantity_of_parent
   # Depicts the quantity of packagingItem
   def calculate_quantity_of_bi(pi)
-    content_tag(:span, pluralize(pi.number_of_bi_items, pi.base_item.packaging_name.downcase))+" "+
+    content_tag(:span, pluralize(pi.number_of_bi_items, pi.base_item.packaging_name.downcase), :id => "number_of_bi_items")+" "+
     #content_tag(:span, t('pi.in'))+" "+
     content_tag(:span, t('pi.total'))
     #content_tag(:span, pi.packaging_name.downcase)

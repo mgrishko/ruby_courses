@@ -23,7 +23,7 @@
             %br/
             %br/
             %br/
-          = link_to I18n.t('main.apply'), "javascript:void(0)", :class => 'submit-btn2 pt-choose-btn'
+          = link_to I18n.t('main.apply'), "javascript:void(0)", :class => 'submit-btn2 pt-choose-btn', :id => "pack_apply"
     %table.input-table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %tbody
         %tr
@@ -74,7 +74,6 @@
               = f.check_box :consumer_unit
           %td{:width => "44"}
             %label{:for => "cbconsumer"}
-              -#%img{:alt => "", :height => "23", :src => "/images/newdesign/icon-consumer-unit-3.jpg"}/
               = image_tag "newdesign/icon-consumer-unit-3.jpg", :alt => "", :height => "23"
           %td
             %span.jNiceWrapper
@@ -82,7 +81,6 @@
               = f.check_box :order_unit
           %td{:width => "44"}
             %label{:for => "cbdelivery"}
-              -#%img{:alt => "", :height => "23", :src => "/images/newdesign/icon-delivery-unit-2.jpg"}/
               = image_tag "newdesign/icon-delivery-unit-2.jpg", :alt => "", :height => "23"
   %div{:align => "center"}
     = link_to content_tag(:span, t('main.cancel')),'javascript:void(0)',:class=>'fright cancel-btn', :onclick => "cancelEditButton('#{base_item_path(@base_item, :step => 2)}');return false;"
@@ -120,4 +118,3 @@
       }
     });
   });
-
