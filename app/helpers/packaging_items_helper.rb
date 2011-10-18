@@ -64,7 +64,7 @@ module PackagingItemsHelper
 
     value = item.send(field)
     if value > 999 or switch
-      "#{value.to_f/1000} #{t('uom.m')}"
+      "#{(value.to_f/1000).round(2)} #{t('uom.m')}"
     else
       "#{value} #{t('uom.mm')}"
     end
