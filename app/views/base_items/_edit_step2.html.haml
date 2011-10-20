@@ -1,4 +1,4 @@
-= form_for @base_item,  :html=>{:class=> 'jNice',:style=>'width:132px;margin:0px;padding:0px;'},:remote => true do |f|
+= form_for @base_item,  :html=>{:style=>'width:132px;margin:0px;padding:0px;'},:remote => true do |f|
   .bt
   .pi
     = f.error_messages
@@ -67,7 +67,7 @@
             = t('uom.grm')
     %table.rb-table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %tbody
-        %tr
+        %tr{:class=>'jNice'}
           %td
             %span.jNiceWrapper
               -#%input#cbconsumer.jNiceHidden.opacity0{:name => "rb1", :type => "checkbox"}

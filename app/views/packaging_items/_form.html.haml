@@ -1,6 +1,8 @@
+- if @packaging_item.errors.any?
+  .siblings_errors
+    = f.error_messages
 .tree-larr
 #pi_new{:class => "pi #{"pl" if @packaging_item.pallet?}"}
-  = f.error_messages
   = pi_image_tag @packaging_item, :class=> 'i-img', :id => "pi-id-#{@packaging_item.id}", :width=> '64', :height => '64'
   %div{:class =>(  (@packaging_item.leaf? || !@packaging_item.id) ? "logistics-item-in-2-top" : "logistics-item-in-1-top" )}
     - if @packaging_item.leaf? || !@packaging_item.id
@@ -110,4 +112,3 @@
         }
       });
     });
-

@@ -39,9 +39,6 @@ class PackagingItem < ActiveRecord::Base
   belongs_to :base_item
   belongs_to :user
   attr_accessor :packaging_name
-  #validates_presence_of :gtin
-  #validates_gtin :gtin
-  #validates_uniqueness_of :gtin, :scope => :user_id
   validates :gtin, :presence => true,
                    :numericality => {:only_integer => true},
                    :gtin_format => true
@@ -49,13 +46,12 @@ class PackagingItem < ActiveRecord::Base
   validates :packaging_type,
             :presence => true, :length => { :maximum => 3 }
 
-  validates_number_length_of :number_of_next_lower_item, 6
-  validates_number_length_of :number_of_bi_items, 6
-  validates_number_length_of :gross_weight, 7
-  validate :gross_weight_validation
-  validates_number_length_of :height, 5
-  validates_number_length_of :depth, 5
-  validates_number_length_of :width, 5
+  validates_number_length_of :number_of_next_lower_item, 6, :presence => true
+  validates_number_length_of :number_of_bi_items, 6, :presence => true
+  validates_number_length_of :gross_weight, 7, :presence => true
+  validates_number_length_of :height, 5, :presence => true
+  validates_number_length_of :depth, 5, :presence => true
+  validates_number_length_of :width, 5, :presence => true
 
   validates_numericality_of :quantity_of_layers_per_pallet, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?
   validates_numericality_of :quantity_of_trade_items_per_pallet_layer, :greater_than => 0, :less_than_or_equal_to => 999, :if => :pallet?

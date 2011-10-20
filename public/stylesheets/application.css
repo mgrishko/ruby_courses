@@ -2303,7 +2303,7 @@ ul.items li.new .item ul
 	position: relative;
 }
 .branch{
-	float: left;
+        float: left;
 	min-height: 130px;
 }
 .pi-cont.secondChild .bt{
@@ -2502,12 +2502,23 @@ a:visited.submit-btn2 {
   background-color: #5d0093;
 }
 
+.siblings_errors {
+  position: absolute;
+  margin: 0px 0px 0px 160px;
+  width: 150px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #d9d9d9;
+  padding: 18px 2px 12px 8px;
+}
+
 .page a.prev-dis {
 	background: url("/images/newdesign/page-prev-n.png") no-repeat 0 0;
 }
 .page a.next-dis {
 	background: url("/images/newdesign/page-next-n.png") no-repeat 0 0;
-
+}
 .page a.prev {
 	background: url("/images/newdesign/page-prev.png") no-repeat 0 0;
 }

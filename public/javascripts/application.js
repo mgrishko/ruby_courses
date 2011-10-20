@@ -369,4 +369,3 @@ function receiveManData(data) {
 //$(document).ready(function() {
   //$('div.cm-child:nth-child(odd)').addClass('odd');
 //})
-

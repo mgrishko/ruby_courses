@@ -3,8 +3,10 @@ module WebformsValidations
   def validates_number_length_of attribute, max_length, options={}
     if options[:step]
       validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true, :allow_nil => options[:allow_nil], :if => options[:step]
+      validates_presence_of attribute, :presence => options[:presence], :if => options[:step] if options[:presence] == true
     else
       validates_numericality_of attribute, :greater_than => 0, :less_than_or_equal_to => 10**max_length - 1, :only_integer => true, :allow_nil => options[:allow_nil]
+      validates_presence_of attribute, :presence => options[:presence], :if => options[:step] if options[:presence] == true
     end
   end
 

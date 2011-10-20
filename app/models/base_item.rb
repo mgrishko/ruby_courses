@@ -61,8 +61,8 @@ class BaseItem < ActiveRecord::Base
   validates :content,
       :numericality => {:greater_than => 0,
                         :less_than_or_equal_to => 999999.999}
-  validates_number_length_of :internal_item_id, 20
-  validates_number_length_of :minimum_durability_from_arrival, 4
+  validates_number_length_of :internal_item_id, 20, :presence => true
+  validates_number_length_of :minimum_durability_from_arrival, 4, :presence => true
   validates :vat, :presence => true, :numericality => true
   validates :content_uom,
       :presence => true, :length => { :maximum => 3 }
@@ -75,13 +75,11 @@ class BaseItem < ActiveRecord::Base
       :presence => true, :length => { :maximum => 13 }
 
   # Only last step validations
-  validates_number_length_of :gross_weight,
-      7, :step => :last_step?
-  validates_number_length_of :net_weight,
-      7, :allow_nil=> true, :step => :last_step?
-  validates_number_length_of :height, 5, :step => :last_step?
-  validates_number_length_of :depth, 5, :step => :last_step?
-  validates_number_length_of :width, 5, :step => :last_step?
+  validates_number_length_of :gross_weight, 7, :step => :last_step?, :presence => true
+  validates_number_length_of :net_weight, 5, :allow_nil => true, :step => :last_step?, :presence => false
+  validates_number_length_of :height, 5, :step => :last_step?, :presence => true
+  validates_number_length_of :depth, 5, :step => :last_step?, :presence => true
+  validates_number_length_of :width, 5, :step => :last_step?, :presence => true
   validates :packaging_type,
             :presence => true, :length => { :maximum => 3 },
             :if => :last_step?
