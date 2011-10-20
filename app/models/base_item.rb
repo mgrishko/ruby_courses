@@ -25,7 +25,7 @@
 #  height                          :integer
 #  depth                           :integer
 #  width                           :integer
-#  content                         :decimal(6, 3)
+#  content                         :decimal(9, 3)
 #  brand                           :string(70)      default(""), not null
 #  subbrand                        :string(70)
 #  functional                      :string(35)      default(""), not null
