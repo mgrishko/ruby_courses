@@ -58,9 +58,9 @@ class BaseItem < ActiveRecord::Base
   validates :functional, :length => 1..35
   #validates_gln :manufacturer_gln, :first_step?
   validates :manufacturer_name, :length => 1..35
-  validates :content,
-      :numericality => {:greater_than => 0,
-                        :less_than_or_equal_to => 999999.999}
+  #validates :content,
+      #:numericality => {:greater_than => 0,
+                        #:less_than_or_equal_to => 999999.999}
   validates_number_length_of :internal_item_id, 20, :presence => true
   validates_number_length_of :minimum_durability_from_arrival, 4, :presence => true
   validates :vat, :presence => true, :numericality => true
