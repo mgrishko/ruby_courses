@@ -93,6 +93,22 @@ Feature: Test packages
     And I wait for 1 seconds
     And I should see img_id "order_unit" within "#pi-1"
     And I should see "32 bags" within "#pi-2"
+    #
+    And I wait for 1 seconds
+    And I hover element "#pi-2.edited.pi" within ".edited.pi-cont"
+    And I follow "pack" within "#pi-2"
+    And I press "packaging_item_submit"
+    And the element matched by ".siblings_errors" should exist
+    And I should see "16 errors prohibited this packaging item from being saved" within ".siblings_errors"
+    And I should see "Gtin can't be blank & is not a number & is invalid" within ".siblings_errors"
+    And I should see "Packaging type can't be blank" within ".siblings_errors"
+    And I should see "Number of next lower item is not a number & can't be blank" within ".siblings_errors"
+    And I should see "Number of bi items is not a number & can't be blank" within ".siblings_errors"
+    And I should see "Gross weight is not a number & can't be blank" within ".siblings_errors"
+    And I should see "Height is not a number & can't be blank" within ".siblings_errors"
+    And I should see "Depth is not a number & can't be blank" within ".siblings_errors"
+    And I should see "Width is not a number & can't be blank" within ".siblings_errors"
+    And I follow "Cancel" within ".new_packaging_item"
     And I press "base_item_submit"
     And I go to the base_items page
     And I follow "4607085440385"
