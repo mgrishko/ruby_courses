@@ -54,21 +54,18 @@ module PackagingItemsHelper
      image_tag "pi_new/#{id}.jpg", options
   end
 
-
-  def convert_mm_to_m item, field
-
+  def convert_mm_to_cm(item, field)
     #FIXME: не самое лучшее решение, но не знаю как сделать удобнее.
     #Может индикатор переключения измерений стоит держать в модели, чтобы не пересчитывать постоянно
     switch = false
-    %w{height width depth}.each{|f| switch = item.send(f) and break if item.send(f) and item.send(f)>999}
+    %w{height width depth}.each{|f| switch = item.send(f) and break if item.send(f) and item.send(f)>9}
 
     value = item.send(field)
-    if value > 999 or switch
-      "#{(value.to_f/1000).round(2)} #{t('uom.m')}"
+    if value > 9 or switch
+      "#{(value.to_f/10)} #{t('uom.cm')}"
     else
-      "#{value} #{t('uom.mm')}"
+      "#{value} #{t('uom.cm')}"
     end
-
   end
 
   def convert_grm_to_kg item, field

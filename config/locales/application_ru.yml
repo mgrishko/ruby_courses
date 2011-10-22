@@ -242,6 +242,7 @@ ru:
     grm: г
     kg: кг
     m: м
+    cm: см
     mm: мм
   user:
     admin: Администратор
