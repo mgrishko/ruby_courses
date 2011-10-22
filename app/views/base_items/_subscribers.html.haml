@@ -1,4 +1,4 @@
-- unless @view_only
+- unless @view_only || current_user.is?('local_supplier')
   .left-side-subscribers.bb
     %span.block-title
       = t 'main.subscribers'
