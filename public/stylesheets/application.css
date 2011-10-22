@@ -2136,7 +2136,7 @@ ul.items li.new .item ul
 }
 .pi .item-qnt{
 	position: relative;
-	top: 2px;
+	/*top: 2px;*/
 }
 .pi .drop-down-list li{
 	padding: 0;
