@@ -33,7 +33,8 @@ gem 'haml'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem 'capistrano-ext'
 
 # External services
 gem "airbrake"
