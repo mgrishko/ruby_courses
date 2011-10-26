@@ -1,12 +1,8 @@
 .idea
 .bundle
-db/*.sqlite3
-config/database.login.yml
-config/*.sphinx.conf
 log/*.log
 log/*.pid
 tmp/
 public/assets/
 .sass-cache/
 .DS_Store
-.rvmrc
