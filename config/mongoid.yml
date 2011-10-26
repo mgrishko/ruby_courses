@@ -1,20 +1,22 @@
-development:
+defaults: &defaults
   host: localhost
-  database: gm_dev
   # Enable identity maps
   identity_map_enabled: true
   # Disable dynamic fields
   allow_dynamic_fields: false
   skip_version_check: true
 
+development:
+  <<: *defaults
+  database: gm_dev
+
 test:
-  host: localhost
+  <<: *defaults
   database: gm_test
-  # Enable identity maps
-  identity_map_enabled: true
-  # Disable dynamic fields
-  allow_dynamic_fields: false
-  skip_version_check: true
+
+cucumber:
+  <<: *defaults
+  database: gm_cucumber
 
 # set these environment variables on your prod server
 production:

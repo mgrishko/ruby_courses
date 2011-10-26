@@ -19,7 +19,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Frontend
 gem 'jquery-rails'
+gem 'haml'
+gem 'compass'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -30,12 +33,29 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
+# External services
+gem "airbrake"
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-group :test do
+# Next gems also in development to run generators and rake tasks
+group :development, :test, :cucumber do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'fabrication', "~> 1.2.0"
+  gem "spork", '0.9.0.rc9'
+end
+
+group :test, :cucumber do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'capybara', "~> 1.1.1"
+  gem 'database_cleaner'
+  gem 'ffaker'
+  gem 'shoulda'
+  gem 'timecop'
+  gem 'launchy'
 end
 
 # Gems used only in development and not required
@@ -44,4 +64,5 @@ group :development do
   gem 'execjs'
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
   gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
+  gem 'haml-rails'
 end
