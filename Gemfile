@@ -11,15 +11,18 @@ gem "bson_ext", "~> 1.4"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
 
+# Security related gems
+gem "devise", "~> 1.4.9"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'compass'
   gem 'less-rails'
   gem 'less-rails-bootstrap'
+  #gem 'compass', '~> 0.12.alpha'
 end
 
 # Frontend

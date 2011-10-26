@@ -1,4 +1,13 @@
 GoodsMaster::Application.routes.draw do
+  scope :path => "/dashboard" do
+    devise_for :admins, path: '/'
+
+    get '/' => 'admin/dashboard#index', :as => 'dashboard'
+    root :to => 'admin/dashboard#index', :as => 'admin_root'
+  end
+
+  root :to => 'welcome#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
