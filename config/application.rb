@@ -48,6 +48,9 @@ module GoodsMaster
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
+    # Import the compass mixins
+    config.sass.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
