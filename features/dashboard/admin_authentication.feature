@@ -17,7 +17,6 @@ Feature: Admin authentication
     When admin submits <email> email and <password> password
     Then he should be redirected back to the sign in page
     And admin should see alert message "Invalid email or password"
-    When admin submits wrong email and valid password
     Examples:
       | email | password |
       | valid | wrong    |
