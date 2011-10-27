@@ -11,15 +11,17 @@ Feature: Admin authentication
     When admin submits valid email and password
     Then he should be redirected back to the restricted page
 
-  Scenario: Admin enters wrong email or password
+  Scenario Outline: Admin enters wrong email or password
     Given an unauthenticated admin
     And he is on the sign in page
-    When admin submits valid email and wrong password
+    When admin submits <email> email and <password> password
     Then he should be redirected back to the sign in page
     And admin should see alert message "Invalid email or password"
     When admin submits wrong email and valid password
-    Then he should be redirected back to the sign in page
-    And admin should see alert message "Invalid email or password"
+    Examples:
+      | email | password |
+      | valid | wrong    |
+      | wrong | valid    |
 
   Scenario: Admin signs out
     Given an authenticated admin
