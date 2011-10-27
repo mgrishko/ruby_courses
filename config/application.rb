@@ -46,16 +46,16 @@ module GoodsMaster
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
-
-    # Import the compass mixins
-    config.sass.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Forcing application to not access the DB or load models when precompiling assets
+    config.assets.initialize_on_precompile = false
 
     # Setting test framework and fixture replacement to Fabrication
     config.generators do |g|

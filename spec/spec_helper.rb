@@ -27,10 +27,13 @@ Spork.prefork do
     # config.mock_with :rr
     config.mock_with :rspec
 
-    # If you're not using ActiveRecord, or you'd prefer not to run each of your
-    # examples within a transaction, remove the following line or assign false
-    # instead of true.
-    config.use_transactional_fixtures = false
+    # Devise tests helpers for functional specs
+    config.include Devise::TestHelpers, :type => :controller
+
+    ## If you're not using ActiveRecord, or you'd prefer not to run each of your
+    ## examples within a transaction, remove the following line or assign false
+    ## instead of true.
+    #config.use_transactional_fixtures = false
 
     # Rspec's use_transactional_fixtures option will have no affect on Mongoid,
     # so you can clean up your specs after the suite.
@@ -53,6 +56,9 @@ Spork.prefork do
     # automatically. This will be the default behavior in future versions of
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = true
+
+    config.extend ControllerMacros, :type => :controller
+    config.extend ModelMacros, :type => :model
   end
 end
 
