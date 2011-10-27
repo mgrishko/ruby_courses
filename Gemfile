@@ -20,14 +20,14 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'less-rails'
-  gem 'less-rails-bootstrap'
+  gem 'bootstrap-sass'
   #gem 'compass', '~> 0.12.alpha'
 end
 
 # Frontend
 gem 'jquery-rails'
 gem 'haml'
+gem "simple_form"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
