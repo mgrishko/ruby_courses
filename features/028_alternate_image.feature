@@ -39,7 +39,7 @@ Feature: Corresponding test image should show when original image not upload
     And I wait for 1 second
     And I press "next_button"
     And I wait for 2 seconds
-    And I fill in hidden_field "base_item_packaging_name" with "Box"
+    And I fill in hidden_field "base_item_packaging_name" with "BX"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"
@@ -51,9 +51,4 @@ Feature: Corresponding test image should show when original image not upload
     And I press "base_item_submit" within ".logistics"
     And I go to the base_items page
     And I wait for 1 second
-    And I should see appropriate image
-
-    #When I logged in as "retailer"
-    #And I go to the subscription_results page
-    #And I should see appropriate image
-
+    Then I should see appropriate image

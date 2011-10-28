@@ -57,10 +57,58 @@
           = t('pi.net_weight')+":"
         %td{:class => 'tright'}
           = convert_grm_to_kg item, :net_weight
+  - if item.packaging_type == 'PX'
+    %table.input-table-edited{:width=>116, :cellpadding => 0, :cellspacing =>0, :border =>0}
+      %tbody
+        %tr
+          %td
+          %td
+        %tr
+          %td
+            = t('pi.items_per_layer')+":"
+          %td{:class => 'tright'}
+            = h item.quantity_of_trade_items_per_pallet_layer
+        %tr
+          %td
+            = t('pi.layers')+":"
+          %td{:class => 'tright'}
+            = h item.quantity_of_layers_per_pallet
+        %tr
+          %td
+            = t('pi.stacking')+":"
+          %td{:class => 'tright'}
+            = h item.stacking_factor
   - if item.order_unit
     = image_tag 'newdesign/icon-delivery-unit-2.jpg', :height => 23, :alt => "", :class => 'u-img', :id => "order_unit"
   - if item.consumer_unit
     = image_tag "newdesign/icon-consumer-unit-3.jpg", :height => 23, :alt => "", :class => 'u-img', :id => "consumer_unit"
-  .pack-btn
-    = link_to content_tag(:span, t('pi.pack')) ,"javascript:void(0)", :class=> 'blue-btn',:align=>'center',
-              :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"
+  - unless item.pallet?
+    .pack-btn
+      = link_to content_tag(:span, t('pi.pack'), :id => "pack_pi") ,"javascript:void(0)", :class=> 'blue-btn',:align=>'center',
+        :onclick => "packageMeWithSub(this,#{@base_item.id},#{item.id});return false"
+
+:javascript
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.edit-delete2').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.edit-delete2').css('visibility','hidden');
+  });
+
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.edit-delete').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.edit-delete').css('visibility','hidden');
+  });
+
+  $('.edited .pi').mouseenter(function(){
+    $(this).find('.pack-btn').css('visibility','visible');
+  });
+
+  $('.edited .pi').mouseleave(function(){
+    $(this).find('.pack-btn').css('visibility','hidden');
+  });
+

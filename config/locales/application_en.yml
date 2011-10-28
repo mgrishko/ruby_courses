@@ -165,6 +165,9 @@ en:
     gross_weight: "gross weight"
     height: Height
     inside: Inside
+    layers: "layers on pallet"
+    stacking: "stacking factor"
+    items_per_layer: "items per layer"
     in: in
     total: 'total'
     items: items

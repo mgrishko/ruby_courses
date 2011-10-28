@@ -15,7 +15,7 @@
   :name: Bag
   :description: "A preformed, flexible container, generally enclosed on all but one side, which forms an opening that may or may not be sealed after filling. "
   :id: 4
-- :code: NEW
+- :code: BIB
   :name: Bag in Box
   :description: "Bag-In-Box or BIB is a type of container for the storage and transportation of liquids. It consists of a strong bladder, usually made of aluminium PET film or other plastics seated inside a corrugated fibreboard box. The box and internal bag can be fused together. In most cases there is nozzle or valve fixed to the bag. The nozzle can be connected easily to a dispensing installation or the valve allows for convenient dispensing. "
   :id: 5
@@ -197,7 +197,7 @@
   :name: Bag
   :description: "A preformed, flexible container, generally enclosed on all but one side, which forms an opening that may or may not be sealed after filling. "
   :id: 4
-- :code: NEW
+- :code: BIB
   :name: Bag in Box
   :description: "Bag-In-Box or BIB is a type of container for the storage and transportation of liquids. It consists of a strong bladder, usually made of aluminium PET film or other plastics seated inside a corrugated fibreboard box. The box and internal bag can be fused together. In most cases there is nozzle or valve fixed to the bag. The nozzle can be connected easily to a dispensing installation or the valve allows for convenient dispensing. "
   :id: 5

@@ -2,7 +2,7 @@
   .siblings_errors
     = f.error_messages
 .tree-larr
-#pi_new{:class => "pi #{"pl" if @packaging_item.pallet?}"}
+#pi_new.pi
   = pi_image_tag @packaging_item, :class=> 'i-img', :id => "pi-id-#{@packaging_item.id}", :width=> '64', :height => '64'
   %div{:class =>(  (@packaging_item.leaf? || !@packaging_item.id) ? "logistics-item-in-2-top" : "logistics-item-in-1-top" )}
     - if @packaging_item.leaf? || !@packaging_item.id
@@ -14,7 +14,7 @@
       = t('pi.in')
   .pack_item{:id => "cases_input_#{@packaging_item.id}"}
     .drop-down-cont.zi-5.fleft
-      = f.hidden_field :packaging_name, :title =>"Packaging Type",:class=>'dd-input'
+      = f.hidden_field :packaging_name, :title =>"Packaging Type", :class=>'dd-input', :value => @packaging_item.packaging_type
       %a#packaging_item_packaging_name_link.drop-down-link.item-qnt{:href => "#"}
         = @packaging_item.packaging_name.present? ? @packaging_item.packaging_name : t('pi.select')
       .drop-down.pic
@@ -27,7 +27,7 @@
           %br/
           %br/
           %br/
-        %a{:class => "submit-btn2 pt-choose-btn-#{@packaging_item.id}", :href => "javascript:void(0)"}= I18n.t('main.apply')
+        %a{:id => "pack_apply", :class => "submit-btn2 pt-choose-btn-#{@packaging_item.id}", :href => "javascript:void(0)"}= I18n.t('main.apply')
   %table.input-table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
     %tbody
       %tr
@@ -60,6 +60,26 @@
         %td
           = f.text_field :gross_weight, :class=>"w44"
           = t('uom.grm')
+  %table.input-table{:border => "0", :cellpadding => "0", :cellspacing => "0", :id => "pallet_table", :style => "display:none;"}
+    %tbody
+      %tr
+        %td  
+        %td
+      %tr
+        %td
+          = t('pi.items_per_layer')+":"
+        %td
+          = f.text_field :quantity_of_trade_items_per_pallet_layer, :class => 'w44'
+      %tr
+        %td
+          = t('pi.layers')+":"
+        %td
+          = f.text_field :quantity_of_layers_per_pallet, :class => 'w44'
+      %tr
+        %td
+          = t('pi.stacking')+":"
+        %td
+          = f.text_field :stacking_factor, :class => 'w44'
   %table.rb-table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
     %tbody
       %tr{:class=>'jNice'}
@@ -83,7 +103,6 @@
     $('.drop-down-link').click(function(e){
       $('.remark').html("");
       $.ajax({data:"packagin_item_id=#{@packaging_item.id}#{'&hide_px=true' if @packaging_item.children.count > 0}", dataType:'script', type:'post', url:'/main/cases'});
-
       $('.drop-down').css('visibility','hidden');
       $('.dd-overlay').css('display','block');
       $(this).parent().find('.drop-down').css('visibility','visible');
@@ -102,13 +121,17 @@
         var btn = $(this);
       $(this).parent().find('.pt-cases ul li a').each( function(){
         if ($(this).parent().hasClass('selected')){
-          $('#packaging_item_packaging_name').val($(this).html());
+          $('#packaging_item_packaging_name').val($(this).parent().attr('id'));
           $('#packaging_item_packaging_name_link').html($(this).html());
             $('.drop-down').css('visibility','hidden');
            $('.dd-overlay').css('display', 'none');
           $("#pi-id-#{@packaging_item.id}").attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
-
-           return false;
+          if ($(this).parent().attr('id') == 'PX') {$('#pallet_table').show(400);}
+          else {$('#pallet_table').hide(400);}
+          return false;
         }
       });
     });
+    if ($('.dd-input').attr('value') == 'PX') {
+      $('#pallet_table').show();
+      }

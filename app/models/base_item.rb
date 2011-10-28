@@ -530,8 +530,9 @@ class BaseItem < ActiveRecord::Base
 
   #hide packaging code from user and show name instead
   def packaging_name= value
-    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code] if value.present?
-    @packaging_name = value
+    self.packaging_type = value
+    #self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:code] == value}[:code] if value.present?
+    #@packaging_name = BaseItem.packaging_types.detect{|pt| pt[:code] == value}[:name] if value.present?
   end
 
   def packaging_name

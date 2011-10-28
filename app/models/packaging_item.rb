@@ -102,7 +102,7 @@ class PackagingItem < ActiveRecord::Base
       	errors.add_to_base("Gross Weight is more than child gross weight")
       end
       if child.number_of_next_lower_item*volume > child.height*child.depth*child.width
-	      errors.add_to_base("Volume is more than child volume")
+        errors.add_to_base("Volume is more than child volume")
       end
     end
   end
@@ -194,8 +194,10 @@ class PackagingItem < ActiveRecord::Base
 
   #hide packaging code from user and show name instead
   def packaging_name= value
-    @packaging_name = value
-    self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:name] == value}[:code] if value.present?
+    self.packaging_type = value
+    #self.packaging_type = BaseItem.packaging_types.detect{|pt| pt[:code] == value}[:code] if value.present?
+    #@packaging_name = BaseItem.packaging_types.detect{|pt| pt[:code] == value}[:name] if value.present?
+    #@packaging_name = value
   end
 
   def packaging_name

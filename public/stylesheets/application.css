@@ -2265,11 +2265,10 @@ ul.items li.new .item ul
 	font-weight: bold;
 }
 
-.pl {
-
-  background:url(/images/pallet.gif) no-repeat 0 bottom;
-  min-height: 168px;
-}
+/*.pl {*/
+  /*background:url(/images/pallet.gif) no-repeat 0 bottom;*/
+  /*min-height: 168px;*/
+/*}*/
 .pallet {
   font-size: 85%;
 }

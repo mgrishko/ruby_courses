@@ -169,6 +169,9 @@ ru:
     height: Height=TODO
     inside: Inside=TODO
     total: всего
+    layers: "кол-во слоев"
+    stacking: "стекинг"
+    items_per_layer: "упаковок в слое"
     in: в
     items: ед.
     net_weight: "net weight=TODO"

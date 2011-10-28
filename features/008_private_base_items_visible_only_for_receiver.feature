@@ -61,16 +61,14 @@ Feature:  Some Base Items can be private
     And I click element ".plus-btn"
     And I wait for 5 seconds
     And I press "base_item_submit" within ".logistics"
-    Then I logged in as "retailer"
+    When I logged in as "retailer"
     And go to the subscription_results page
     And I wait for 1 second
     And I follow "1234"
     And I wait for 1 second
-    And I should see "uUi56fgewKJwexmeaY"
-    And I logged in as "another_retailer"
+    Then I should see "uUi56fgewKJwexmeaY"
+    When I logged in as "another_retailer"
     And go to the subscription_results page
-
     And I wait for 1 seconds
     And I follow "1234"
-    And I should not see "uUi56fgewKJwexmeaY"
-
+    Then I should not see "uUi56fgewKJwexmeaY"

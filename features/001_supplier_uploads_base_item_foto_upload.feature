@@ -15,5 +15,5 @@ Feature: Supplier foto upload feature
     And I press "image_submit"
     And I go to the base_item page
     And I wait for 1 seconds
-    And I should see new image
+    Then I should see new image
 

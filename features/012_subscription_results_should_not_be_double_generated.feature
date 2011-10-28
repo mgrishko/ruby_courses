@@ -39,7 +39,7 @@ Feature: Subscription Result shoud not duplicate
     And I wait for 1 second
     And I press "next_button"
     And I wait for 2 seconds
-    And I fill in hidden_field "base_item_packaging_name" with "Box"
+    And I fill in hidden_field "base_item_packaging_name" with "BX"
     And I fill in "base_item_height" with "1"
     And I fill in "base_item_width" with "1"
     And I fill in "base_item_depth" with "1"

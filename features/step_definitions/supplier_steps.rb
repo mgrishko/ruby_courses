@@ -137,3 +137,9 @@ When /^I hover element "([^""]*)"(?: within "([^""]*)")?$/ do |id,selector|
     page.execute_script("$('#{id}').mouseover();")
   end
 end
+
+When /^I unhover element "([^""]*)"(?: within "([^""]*)")?$/ do |id,selector|
+  with_scope(selector) do
+    page.execute_script("$('#{id}').mouseout();")
+  end
+end

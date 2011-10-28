@@ -43,9 +43,9 @@ Feature:  Supplier can reply
     And I fill in "comment_reply" with "Reply for the Personal Comment"
     And I press "reply_submit"
     Then I should see "My Personal Comment" within "#comments"
-    Then I should see "Reply for the Personal Comment"
+    And I should see "Reply for the Personal Comment"
     And I logged in as "another_retailer"
     And I go with "?view=true" to the base_item page
-    Then I should not see "Another comment" within "#comments"
-    Then I should not see "Reply for the Personal Comment"
+    And I should not see "Another comment" within "#comments"
+    And I should not see "Reply for the Personal Comment"
 

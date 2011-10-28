@@ -86,7 +86,8 @@
   <script type="text/javascript">
     $('.drop-down-link').click(function(e){
       $('.remark').html("");
-      $.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
+      //$.ajax({data:'packagin_item_id=0&hide_px=true', dataType:'script', type:'post', url:'/main/cases'});
+      $.ajax({data:'packagin_item_id=0', dataType:'script', type:'post', url:'/main/cases'});
       $('.drop-down').css('visibility','hidden');
       $('.dd-overlay').css('display','block');
       $(this).parent().find('.drop-down').css('visibility','visible');
@@ -105,7 +106,8 @@
       var btn = $(this);
       $(this).parent().find('.pt-cases ul li a').each( function(){
         if ($(this).parent().hasClass('selected')){
-          $('#base_item_packaging_name').val($(this).html());
+          $('#base_item_packaging_name').val($(this).parent().attr('id'));
+          $('#packaging_item_packaging_name_link').html($(this).html());
           <%="$('#bi-id-#{@base_item.id}')"%>.attr('src', $(btn).parent().find('.pic-cont img').attr('src'));
 
           $('.drop-down').css('visibility','hidden');

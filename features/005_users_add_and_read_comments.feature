@@ -8,7 +8,7 @@ Feature: User can post comments
   In order to post comments
   As a user
   I want post comments
-  
+
   Background:
     Given "supplier" has gln "1234" and password "1234"
     And "retailer" has gln "4321" and password "1234" also
@@ -22,7 +22,7 @@ Feature: User can post comments
     And I fill in "comment_content" with "Very Long comment-comment and commemt again"
     And I press "comment_submit"
     Then I should see "Very Long comment-comment and commemt again" within "#comments"
-  
+
   Scenario: Supplier and Retailer post comments
     Given I logged in as "supplier"
     And I have a base_item
@@ -34,7 +34,7 @@ Feature: User can post comments
     And I fill in "comment_content" with "Another comment"
     And I press "comment_submit"
     Then I should see "Another comment" within "#comments"
-    Then I should see "Very Long comment-comment and commemt again" within "#comments"
+    And I should see "Very Long comment-comment and commemt again" within "#comments"
 
   Scenario: Retailer and Another Retailer post comments, Supplier can see all, Retailers can see only own
     Given I logged in as "supplier"
@@ -48,11 +48,11 @@ Feature: User can post comments
     And I fill in "comment_content" with "Second_Retailer Comment"
     And I press "comment_submit"
     Then I should see "Second_Retailer Comment" within "#comments"
-    Then I should not see "First_Retailer Comment" within "#comments"
+    And I should not see "First_Retailer Comment" within "#comments"
     And I logged in as "supplier"
     And I go to the base_item page
-    Then I should see "Second_Retailer Comment" within "#comments"
-    Then I should see "First_Retailer Comment" within "#comments"
+    And I should see "Second_Retailer Comment" within "#comments"
+    And I should see "First_Retailer Comment" within "#comments"
 
 
 
@@ -63,5 +63,5 @@ Feature: User can post comments
 
 
 
-    
+
 
