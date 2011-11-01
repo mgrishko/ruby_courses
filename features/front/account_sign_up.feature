@@ -5,14 +5,15 @@ Feature: Account sign up
 
   Scenario: Not registered user signs up a new company account
     Given company representative is on the new account sign up page
-    When he fills out next personal information:
+    When he fills out the following personal information:
       | First name |
       | Last name  |
       | Email      |
       | Password   |
       | Time zone  |
-    And he fills out next account information:
+    And he fills out the following account information:
       | Company   |
+      | Country   |
       | Subdomain |
     And he submits the form
     # Delayed account activation steps:

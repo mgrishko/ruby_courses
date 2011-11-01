@@ -59,7 +59,7 @@ group :test, :cucumber do
   gem 'capybara', "~> 1.1.1"
   gem 'database_cleaner'
   gem 'ffaker'
-  gem 'shoulda'
+  gem "shoulda-matchers"
   gem 'timecop'
   gem 'launchy'
 end

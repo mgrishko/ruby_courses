@@ -1,4 +1,13 @@
 GoodsMaster::Application.routes.draw do
+  devise_for :users , :controllers => {:registrations => 'users/registrations'}, :skip => [:registrations] do
+    get "/signup"  => "users/registrations#new",       :as => :new_user_registration
+    post "/signup" => "users/registrations#create",    :as => :user_registration
+    get "/profile/edit" => "users/registrations#edit", :as => :edit_user_registration
+    put "/profile"  => "users/registrations#update"
+    delete "/users" => "users/registrations#destroy"
+    get "/users/cancel" => "users/registrations#cancel", :as => :cancel_user_registration
+  end
+
   scope :path => "/dashboard" do
     devise_for :admins, path: '/'
 
