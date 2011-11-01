@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    = render :partial => 'layouts/partials/head'
+  %body
+    .container-fluid
+      %header
+        = render 'layouts/partials/header-fluid'
+      %section
+        = yield
+      = render 'layouts/partials/footer'
+      = javascript_include_tag "application"

@@ -1,0 +1,8 @@
+form.search-wrapper {
+  @extend .span-one-third;
+  @extend .pull-right;
+}
+
+input.search {
+  @extend .span5;
+}
