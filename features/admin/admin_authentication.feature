@@ -7,7 +7,7 @@ Feature: Admin authentication
   Scenario: Admin signs in successfully
     Given an unauthenticated admin
     When the admin tries to access a restricted page
-    Then he should be redirected to the login page
+    Then he should be redirected to the admin login page
     When admin submits valid email and password
     Then he should be redirected back to the restricted page
 

@@ -97,6 +97,7 @@ GEM
       railties (~> 3.0)
     highline (1.6.2)
     hike (1.2.1)
+    hpricot (0.8.4)
     i18n (0.6.0)
     jquery-rails (1.0.16)
       railties (~> 3.0)
@@ -173,6 +174,8 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.7.0)
+    ruby_parser (2.3.1)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     sass (3.1.10)
     sass-rails (3.1.4)
@@ -186,6 +189,7 @@ GEM
       ffi (= 1.0.9)
       json_pure
       rubyzip
+    sexp_processor (3.0.7)
     shoulda (2.11.3)
     simple_form (1.5.2)
       actionpack (~> 3.0)
@@ -234,6 +238,7 @@ DEPENDENCIES
   ffaker
   haml
   haml-rails
+  hpricot
   jquery-rails
   launchy
   mongoid (~> 2.3.2)
@@ -241,6 +246,7 @@ DEPENDENCIES
   mongoid_session_store (~> 2.0.1)
   rails (= 3.1.1)
   rspec-rails
+  ruby_parser
   sass-rails (~> 3.1.4)
   shoulda
   simple_form

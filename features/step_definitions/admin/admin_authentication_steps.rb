@@ -35,7 +35,7 @@ When /^(?:[^\s]* )returns next time$/ do
   visit(dashboard_url)
 end
 
-Then /^he should be redirected to the login page$/ do
+Then /^he should be redirected to the admin login page$/ do
   current_url.should == new_admin_session_url
 end
 

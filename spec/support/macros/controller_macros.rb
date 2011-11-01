@@ -18,17 +18,16 @@ module ControllerMacros
     end
   end
 
-  #def with_subdomain(subdomain = false)
-  #  subdomain = "#{subdomain}." unless subdomain.blank?
-  #  before(:each) do
-  #    @request.host = "#{subdomain}test.host"
-  #  end
-  #end
-  #
-  #def with_default_subdomain
-  #  with_subdomain "www"
-  #end
-  #
+  def with_subdomain(subdomain = false)
+    before(:each) do
+      @request.host = subdomain ? "#{subdomain}.test.host" : "test.host"
+    end
+  end
+
+  def with_default_subdomain
+    with_subdomain false
+  end
+
   #def setup_devise_controller_for(resource)
   #  before(:each) do
   #    setup_controller_for_warden

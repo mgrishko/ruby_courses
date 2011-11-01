@@ -11,9 +11,6 @@ gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
 
-# Security related gems
-gem "devise", "~> 1.4.9"
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,6 +25,9 @@ end
 gem 'jquery-rails'
 gem 'haml'
 gem "simple_form"
+
+# Security related gems
+gem "devise", "~> 1.4.9"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -71,4 +71,6 @@ group :development do
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
   gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
   gem 'haml-rails'
+  gem 'hpricot'
+  gem 'ruby_parser'
 end
