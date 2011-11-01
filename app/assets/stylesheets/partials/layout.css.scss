@@ -1,8 +1,56 @@
-form.search-wrapper {
+header {
+  @extend .page-header;
+  margin-bottom: 50px;
+}
+.search-wrapper {
   @extend .span-one-third;
   @extend .pull-right;
 }
 
-input.search {
+.search {
   @extend .span5;
+}
+
+.front {
+  @extend container;
+}
+
+.application {
+  @extend .container-fluid;
+}
+
+.flash.error {
+  @extend .alert-message.error
+}
+
+body {
+  .front{
+    .topbar-size{
+      @extend container;
+    }
+  }
+}
+
+body {
+  .application{
+    .topbar-size{
+      @extend .container-fluid;
+    }
+  }
+}
+
+.flash.error {
+  @extend .alert-message.error
+}
+
+.flash.success {
+  @extend .alert-message.success
+}
+
+.flash.notice {
+  @extend .alert-message.info
+}
+
+.flash.warning {
+  @extend .alert-message.warning
 }

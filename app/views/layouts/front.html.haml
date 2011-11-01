@@ -3,10 +3,11 @@
   %head
     = render :partial => 'layouts/partials/head'
   %body
-    .container
+    .front
       %header
-        = render 'layouts/partials/header-fixed'
+        = render 'layouts/partials/header'
       %section
+        = render 'layouts/partials/flash'
         = yield
       = render 'layouts/partials/footer'
       = javascript_include_tag "application"
