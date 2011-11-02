@@ -1,7 +1,5 @@
-.flash.error {
-  @extend .alert-message.error
-}
-
-.flash.notice {
-  @extend .alert-message.info
+.flash {
+  @extend .alert-message;
+  &.alert { @extend .error; }
+  &.notice  { @extend .info;  }
 }

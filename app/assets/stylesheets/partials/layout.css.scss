@@ -12,19 +12,12 @@ section {
 }
 
 body {
-  &.front{
-    header{@extend .container;}
+  &.front {
+    header { @extend .container; }
+    section { @extend .container; }
   }
-  &.application{
-    header{@extend .container-fluid;}
-  }
-}
-
-body {
-  &.front{
-    section{@extend .container;}
-  }
-  &.application{
-    section{@extend .container-fluid;}
+  &.application {
+    header { @extend .container-fluid; }
+    section { @extend .container-fluid; }
   }
 }

@@ -20,7 +20,9 @@
           %form.search-wrapper{:action => ""}
             %input.search{:placeholder => "Search", :type => "text"}
     %section
-      = render 'layouts/partials/flash'
+      - flash.each do |key, value|
+        %p{:class => "flash #{key}"}
+          = value
       = yield
     %footer.footer
       = debug(params) if Rails.env.development?
