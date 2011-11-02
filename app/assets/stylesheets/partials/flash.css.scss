@@ -1,0 +1,7 @@
+.flash.error {
+  @extend .alert-message.error
+}
+
+.flash.notice {
+  @extend .alert-message.info
+}

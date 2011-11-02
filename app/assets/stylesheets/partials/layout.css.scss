@@ -1,6 +1,5 @@
-header {
-  @extend .page-header;
-  margin-bottom: 50px;
+section {
+  margin-top: 50px;
 }
 
 .search-wrapper {
@@ -12,27 +11,20 @@ header {
   @extend .span5;
 }
 
-body .front {
-  @extend .container;
-}
-
-body .application {
-  @extend .container-fluid;
+body {
+  &.front{
+    header{@extend .container;}
+  }
+  &.application{
+    header{@extend .container-fluid;}
+  }
 }
 
 body {
-  .front{
-    .topbar-inner{@extend .container;}
+  &.front{
+    section{@extend .container;}
   }
-  .application{
-    .topbar-inner{@extend .container-fluid;}
+  &.application{
+    section{@extend .container-fluid;}
   }
-}
-
-.flash.error {
-  @extend .alert-message.error
-}
-
-.flash.notice {
-  @extend .alert-message.info
 }
