@@ -3,5 +3,6 @@ Fabricator(:user) do
   last_name       { Faker::Name.last_name }
   email           { Faker::Internet.email }
   password        { "password" }
+  locale          { "en" }
   time_zone       { "Moscow" }
 end

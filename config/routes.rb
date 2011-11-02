@@ -6,6 +6,7 @@ GoodsMaster::Application.routes.draw do
     put "/profile"  => "users/registrations#update"
     delete "/users" => "users/registrations#destroy"
     get "/users/cancel" => "users/registrations#cancel", :as => :cancel_user_registration
+    get "/signup/acknowledgement" => "users/registrations#acknowledgement", :as => :signup_acknowledgement
   end
 
   scope :path => "/dashboard" do

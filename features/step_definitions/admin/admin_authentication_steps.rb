@@ -6,8 +6,10 @@ end
 Given /^an authenticated admin$/ do
   Fabricate(:admin, email: "admin@example.com", password: "password")
 
-  Given %{admin is on the sign in page}
-  When %{admin submits valid email and password}
+  steps %Q{
+    Given admin is on the sign in page
+    When admin submits valid email and password
+  }
 end
 
 Given /^(?:[^\s]* )is on the sign in page$/ do

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/durran/state_machine.git
+  revision: 3f3829b79ce29183d1a64a21c10c08021a3f3958
+  branch: mongoid-2.3-fixes
+  specs:
+    state_machine (1.0.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -161,6 +168,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.11)
       json (~> 1.4)
+    responders (0.6.4)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -245,12 +253,14 @@ DEPENDENCIES
   mongoid_i18n (~> 0.5.1)
   mongoid_session_store (~> 2.0.1)
   rails (= 3.1.1)
+  responders
   rspec-rails
   ruby_parser
   sass-rails (~> 3.1.4)
   shoulda-matchers
   simple_form
   spork (= 0.9.0.rc9)
+  state_machine!
   therubyracer
   therubyrhino
   timecop

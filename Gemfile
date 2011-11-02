@@ -10,6 +10,7 @@ gem "mongoid", "~> 2.3.2"
 gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
+gem "state_machine", git: "https://github.com/durran/state_machine.git", :branch => "mongoid-2.3-fixes"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +26,9 @@ end
 gem 'jquery-rails'
 gem 'haml'
 gem "simple_form"
+
+# Backend
+gem "responders"
 
 # Security related gems
 gem "devise", "~> 1.4.9"

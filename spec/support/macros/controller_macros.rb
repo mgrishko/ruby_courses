@@ -1,6 +1,13 @@
 module ControllerMacros
   include Devise::TestHelpers
 
+  def setup_devise_controller_for(resource)
+    before(:each) do
+      setup_controller_for_warden
+      request.env["devise.mapping"] = Devise.mappings[resource.to_sym]
+    end
+  end
+
   def login(resource, role = nil)
     resource_with_role = "#{role.blank? ? "" : "#{role.to_s}_"}#{resource.to_s}"
     before(:each) do
@@ -27,12 +34,4 @@ module ControllerMacros
   def with_default_subdomain
     with_subdomain false
   end
-
-  #def setup_devise_controller_for(resource)
-  #  before(:each) do
-  #    setup_controller_for_warden
-  #    request.env["devise.mapping"] = Devise.mappings[resource.to_sym]
-  #  end
-  #end
-
 end

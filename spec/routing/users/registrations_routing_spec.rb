@@ -25,5 +25,9 @@ describe Users::RegistrationsController do
     it "routes to #cancel" do
       get("/users/cancel").should route_to("users/registrations#cancel")
     end
+
+    it "routes to #acknowledgement" do
+      get("/signup/acknowledgement").should route_to("users/registrations#acknowledgement")
+    end
   end
 end

@@ -13,4 +13,10 @@ describe User do
   it { should allow_mass_assignment_of(:first_name) }
   it { should allow_mass_assignment_of(:last_name) }
   it { should allow_mass_assignment_of(:time_zone) }
+  it { should allow_mass_assignment_of(:locale) }
+
+  it "should not require password confirmation" do
+    user = Fabricate.build(:user, password_confirmation: nil)
+    user.should be_valid
+  end
 end
