@@ -1,0 +1,23 @@
+section {
+  margin-top: 50px;
+}
+
+.search-wrapper {
+  @extend .span-one-third;
+  @extend .pull-right;
+}
+
+.search {
+  @extend .span5;
+}
+
+body {
+  &.front {
+    header { @extend .container; }
+    section { @extend .container; }
+  }
+  &.application {
+    header { @extend .container-fluid; }
+    section { @extend .container-fluid; }
+  }
+}

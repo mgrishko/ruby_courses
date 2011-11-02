@@ -7,7 +7,7 @@ gem 'rails', '3.1.1'
 
 # ORM and relative
 gem "mongoid", "~> 2.3.2"
-gem "bson_ext", "~> 1.4"
+gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
 
@@ -71,4 +71,9 @@ group :development do
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
   gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
   gem 'haml-rails'
+end
+
+group :console do
+  gem 'hirb'
+  gem 'wirble'
 end
