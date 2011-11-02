@@ -47,23 +47,10 @@ gem "airbrake"
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-if RUBY_PLATFORM =~ /win32/
-  gem 'rb-fchange'
-  gem 'rb-notifu'
-elsif RUBY_PLATFORM =~ /linux/
-  gem 'rb-inotify'
-  gem 'libnotify'
-elsif RUBY_PLATFORM =~ /darwin/
-  gem 'rb-fsevent'
-  gem 'growl'
-end
   gem 'rspec-rails'
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
   gem "spork", '0.9.0.rc9'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
 end
 
 group :test, :cucumber do
