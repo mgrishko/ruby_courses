@@ -2,6 +2,7 @@ header {
   @extend .page-header;
   margin-bottom: 50px;
 }
+
 .search-wrapper {
   @extend .span-one-third;
   @extend .pull-right;
@@ -11,31 +12,20 @@ header {
   @extend .span5;
 }
 
-.front {
-  @extend container;
+body .front {
+  @extend .container;
 }
 
-.application {
+body .application {
   @extend .container-fluid;
-}
-
-.flash.error {
-  @extend .alert-message.error
 }
 
 body {
   .front{
-    .topbar-size{
-      @extend container;
-    }
+    .topbar-inner{@extend .container;}
   }
-}
-
-body {
   .application{
-    .topbar-size{
-      @extend .container-fluid;
-    }
+    .topbar-inner{@extend .container-fluid;}
   }
 }
 
@@ -43,14 +33,6 @@ body {
   @extend .alert-message.error
 }
 
-.flash.success {
-  @extend .alert-message.success
-}
-
 .flash.notice {
   @extend .alert-message.info
-}
-
-.flash.warning {
-  @extend .alert-message.warning
 }
