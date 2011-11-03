@@ -19,4 +19,14 @@ describe User do
     user = Fabricate.build(:user, password_confirmation: nil)
     user.should be_valid
   end
+
+  it "should accept nested attributes for account" do
+    user = Fabricate.build(:user)
+    account_attrs = Fabricate.attributes_for(:account)
+    user.accounts.build(account_attrs)
+    user.save!
+    user.reload
+    account = user.accounts.first
+    account.subdomain.should == account_attrs[:subdomain]
+  end
 end

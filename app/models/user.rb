@@ -6,7 +6,9 @@ class User
   field :time_zone, type: String
   field :locale, type: String, default: "en"
 
-  has_and_belongs_to_many :accounts
+  has_and_belongs_to_many :accounts, autosave: true
+  accepts_nested_attributes_for :accounts
+  attr_accessible :accounts_attributes
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable, :recoverable, :lockable

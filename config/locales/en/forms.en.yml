@@ -1,4 +1,19 @@
 en:
+  # Translations for forms
+  helpers:
+    submit:
+    label:
+      user:
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        email: 'Email'
+        password: 'Password'
+        role: 'Administrator'
+        tize_zone: "Time zone"
+      account:
+        company_name: "Company"
+        tize_zone: "Time zone"
+
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -11,14 +26,18 @@ en:
     error_notification:
       default_message: "Some errors were found, please take a look:"
     # Labels and hints examples
-    # labels:
+    labels:
+      time_zone: "Time zone"
+
+      account:
+        new:
+          company_name: "Company"
     #   password: 'Password'
     #   user:
     #     new:
     #       email: 'E-mail para efetuar o sign in.'
     #     edit:
     #       email: 'E-mail.'
-    # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
-
+    hints:
+      account:
+        subdomain: "Subdomains may include letters and numbers only (no space)."

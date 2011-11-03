@@ -1,22 +1,29 @@
 GoodsMaster::Application.routes.draw do
-  devise_for :users , :controllers => {:registrations => 'users/registrations'}, :skip => [:registrations] do
-    get "/signup"  => "users/registrations#new",       :as => :new_user_registration
-    post "/signup" => "users/registrations#create",    :as => :user_registration
-    get "/profile/edit" => "users/registrations#edit", :as => :edit_user_registration
-    put "/profile"  => "users/registrations#update"
-    delete "/users" => "users/registrations#destroy"
-    get "/users/cancel" => "users/registrations#cancel", :as => :cancel_user_registration
-    get "/signup/acknowledgement" => "users/registrations#acknowledgement", :as => :signup_acknowledgement
+  constraints(subdomain: /.+/) do
+    devise_for :users , :controllers => {:registrations => 'users/registrations'}, :skip => [:registrations] do
+      constraints(subdomain: "app") do
+        get "/signup"  => "users/registrations#new",       :as => :new_user_registration
+        post "/signup" => "users/registrations#create",    :as => :user_registration
+        get "/signup/thankyou" => "users/registrations#acknowledgement", :as => :signup_acknowledgement
+      end
+
+      get "/profile/edit" => "users/registrations#edit", :as => :edit_user_registration
+      put "/profile"  => "users/registrations#update"
+      delete "/users" => "users/registrations#destroy"
+      get "/users/cancel" => "users/registrations#cancel", :as => :cancel_user_registration
+    end
+
+    constraints(subdomain: "app") do
+      scope subdomain: "app", :path => "/dashboard" do
+        devise_for :admins, path: '/'
+
+        get '/' => 'admin/dashboard#index', :as => :dashboard
+        root :to => 'admin/dashboard#index', :as => :admin_root
+      end
+    end
+
+    root :to => 'home#index'
   end
-
-  scope :path => "/dashboard" do
-    devise_for :admins, path: '/'
-
-    get '/' => 'admin/dashboard#index', :as => 'dashboard'
-    root :to => 'admin/dashboard#index', :as => 'admin_root'
-  end
-
-  root :to => 'welcome#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

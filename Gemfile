@@ -22,16 +22,18 @@ group :assets do
   #gem 'compass', '~> 0.12.alpha'
 end
 
-# Frontend
+# Security related gems
+gem "devise", "~> 1.4.9"
+
+# Frontend tools
 gem 'jquery-rails'
 gem 'haml'
 gem "simple_form"
+gem "carmen" # country_select and state_select plugin
 
-# Backend
+# Backend tools
 gem "responders"
 
-# Security related gems
-gem "devise", "~> 1.4.9"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

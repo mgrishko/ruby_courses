@@ -63,6 +63,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carmen (0.2.8)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
     coffee-rails (3.1.1)
@@ -237,6 +238,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara (~> 1.1.1)
+  carmen
   coffee-rails (~> 3.1.1)
   cucumber-rails
   database_cleaner

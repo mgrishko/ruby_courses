@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe WelcomeController do
+describe HomeController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/").should route_to("welcome#index")
+      get("http://app.example.com/").should route_to("home#index")
     end
   end
 end
