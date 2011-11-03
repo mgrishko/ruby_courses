@@ -1,28 +1,28 @@
 Given /^an activated account$/ do
   @account = Fabricate(:account)
   @account.activate!
+
+  user = Fabricate(:user, email: "user@example.com", password: "password")
+  user.accounts << @account
 end
 
 Given /^an unauthenticated user$/ do
-  Fabricate(:user, email: "user@example.com", password: "password")
   reset_session!
 end
 
 Given /^an authenticated user$/ do
-  Fabricate(:user, email: "user@example.com", password: "password")
-
   steps %Q{
-    Given user is on the sign in page
+    Given user is on the user sign in page
     When user submits valid email and password
   }
 end
 
 Given /^(?:[^\s]* )is on the user sign in page$/ do
-  visit(new_user_session_url)
+  visit(new_user_session_url(subdomain: @account.subdomain))
 end
 
 When /^the user tries to access a restricted page$/ do
-  visit(dashboard_path)
+  visit(home_url(subdomain: @account.subdomain))
 end
 
 When /^user submits (.*) email and(.*) password$/ do |email, password|
@@ -39,17 +39,17 @@ When /^user signs out$/ do
 end
 
 When /^user returns next time$/ do
-  visit(dashboard_url)
+  visit(home_url(subdomain: @account.subdomain))
 end
 
 Then /^he should be redirected to the user sign in page$/ do
-  current_url.should == new_user_session_url
+  current_url.should == new_user_session_url(subdomain: @account.subdomain)
 end
 
 Then /^user should be redirected back to the restricted page$/ do
-  current_url.should == dashboard_url
+  current_url.should == home_url(subdomain: @account.subdomain)
 end
 
 Then /^user should be signed out$/ do
-  current_url.should == new_user_session_url
+  current_url.should == new_user_session_url(subdomain: @account.subdomain)
 end
