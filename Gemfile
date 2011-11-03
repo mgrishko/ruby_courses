@@ -7,12 +7,10 @@ gem 'rails', '3.1.1'
 
 # ORM and relative
 gem "mongoid", "~> 2.3.2"
-gem "bson_ext", "~> 1.4"
+gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
-
-# Security related gems
-gem "devise", "~> 1.4.9"
+gem "state_machine", git: "https://github.com/durran/state_machine.git", :branch => "mongoid-2.3-fixes"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,10 +22,18 @@ group :assets do
   #gem 'compass', '~> 0.12.alpha'
 end
 
-# Frontend
+# Security related gems
+gem "devise", "~> 1.4.9"
+
+# Frontend tools
 gem 'jquery-rails'
 gem 'haml'
 gem "simple_form"
+gem "carmen" # country_select and state_select plugin
+
+# Backend tools
+gem "responders"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -59,7 +65,7 @@ group :test, :cucumber do
   gem 'capybara', "~> 1.1.1"
   gem 'database_cleaner'
   gem 'ffaker'
-  gem 'shoulda'
+  gem "shoulda-matchers"
   gem 'timecop'
   gem 'launchy'
 end
@@ -71,4 +77,6 @@ group :development do
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
   gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
   gem 'haml-rails'
+  gem 'hpricot'
+  gem 'ruby_parser'
 end

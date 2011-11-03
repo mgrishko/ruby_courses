@@ -1,0 +1,6 @@
+en:
+  users:
+    registrations:
+      new:
+        create_account: "Create account"
+        title: "Sign up"

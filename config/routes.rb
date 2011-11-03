@@ -1,12 +1,32 @@
 GoodsMaster::Application.routes.draw do
-  scope :path => "/dashboard" do
-    devise_for :admins, path: '/'
+  constraints(subdomain: /.+/) do
 
-    get '/' => 'admin/dashboard#index', :as => 'dashboard'
-    root :to => 'admin/dashboard#index', :as => 'admin_root'
+    devise_for :users,
+               path: '/', controllers: {registrations: 'users/registrations'}, skip: [:registrations] do
+      constraints(subdomain: "app") do
+        get "/signup"  => "users/registrations#new",       as: :new_user_registration
+        post "/signup" => "users/registrations#create",    as: :user_registration
+        get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
+      end
+
+      get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
+      put "/profile"  => "users/registrations#update"
+      delete "/users" => "users/registrations#destroy"
+      get "/users/cancel" => "users/registrations#cancel", as: :cancel_user_registration
+    end
+
+    constraints(subdomain: "app") do
+      scope subdomain: "app", :path => "/dashboard" do
+        devise_for :admins, path: '/'
+
+        get '/' => 'admin/dashboard#index', as: :dashboard
+        root :to => 'admin/dashboard#index', as: :admin_root
+      end
+    end
+
+    get '/' => 'home#index', as: :home
+    root :to => 'home#index', as: :user_root
   end
-
-  root :to => 'welcome#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

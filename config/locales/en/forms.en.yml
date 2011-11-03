@@ -1,0 +1,43 @@
+en:
+  # Translations for forms
+  helpers:
+    submit:
+    label:
+      user:
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        email: 'Email'
+        password: 'Password'
+        role: 'Administrator'
+        tize_zone: "Time zone"
+      account:
+        company_name: "Company"
+        tize_zone: "Time zone"
+
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Some errors were found, please take a look:"
+    # Labels and hints examples
+    labels:
+      time_zone: "Time zone"
+
+      account:
+        new:
+          company_name: "Company"
+    #   password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail para efetuar o sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    hints:
+      account:
+        subdomain: "Subdomains may include letters and numbers only (no space)."
