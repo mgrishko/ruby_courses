@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    = render :partial => 'layouts/partials/head'
+  %body.application
+    .topbar
+      .topbar-inner
+        %header
+          %h3
+            %a{:href => "#"} Project Name
+          %ul.nav
+            %li
+              %a{:href => "#"} My Items
+            %li
+              %a{:href => "#"} Statuses
+            %li
+              %a{:href => "#"} Messages
+            %li
+              %a{:href => "#"} Events
+          %form.search-wrapper{:action => ""}
+            %input.search{:placeholder => "Search", :type => "text"}
+    %section
+      = render :partial => 'layouts/partials/flash', :object => flash
+      = yield
+    %footer.footer
+      = debug(params) if Rails.env.development?
+      = javascript_include_tag "application"

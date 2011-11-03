@@ -7,7 +7,7 @@ set :rvm_ruby_string, '1.9.3'             # Or whatever env you want it to run i
 require "bundler/capistrano"
 
 # Bundler options
-set :bundle_without, [:assets, :development, :test, :cucumber]
+set :bundle_without, [:assets, :development, :test, :cucumber, :console]
 
 ## Airbrake Notifier
 #Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|

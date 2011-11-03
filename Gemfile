@@ -80,3 +80,8 @@ group :development do
   gem 'hpricot'
   gem 'ruby_parser'
 end
+
+group :console do
+  gem 'hirb'
+  gem 'wirble'
+end

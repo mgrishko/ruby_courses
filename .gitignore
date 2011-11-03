@@ -1,5 +1,7 @@
+*.swp
 .idea
 .bundle
+.rvmrc
 log/*.log
 log/*.pid
 tmp/
