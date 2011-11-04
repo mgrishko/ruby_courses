@@ -14,10 +14,11 @@ class User
   # :token_authenticatable, :confirmable, :lockable and :timeoutable, :recoverable, :lockable
   devise :database_authenticatable, :registerable, :trackable, :validatable, :rememberable
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :time_zone, presence: true
-  validates :email, presence: true
+  validates :first_name, presence: true, length: { maximum: 50 }
+  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
+  validates :password, length: 5..20
 
   attr_accessible :email, :password, :first_name, :last_name, :time_zone, :locale
 end

@@ -15,10 +15,12 @@ class Account
   validates :subdomain,
             presence: true,
             format: { with: /^[a-z0-9]+$/ },
-            exclusion: { in: %w(www app admin dashboard secured) }
-  validates :company_name, presence: true
-  validates :country, presence: true
-  validates :time_zone, presence: true
+            exclusion: { in: %w(www app admin dashboard secured) },
+            uniqueness: { case_sensitive: false },
+            length: 5..20
+  validates :company_name, presence: true, length: { maximum: 50 }
+  validates :country, presence: true, inclusion: { in: Carmen.country_codes }
+  validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }
 
   attr_accessible :subdomain, :company_name, :country, :time_zone, :locale
 

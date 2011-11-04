@@ -4,17 +4,7 @@ describe Account do
   let(:account) { Fabricate(:account) }
 
   it { should validate_presence_of(:subdomain) }
-  it { should validate_presence_of(:company_name) }
-  it { should validate_presence_of(:country) }
-  it { should validate_presence_of(:time_zone) }
-
-  it { should allow_mass_assignment_of(:subdomain) }
-  it { should allow_mass_assignment_of(:company_name) }
-  it { should allow_mass_assignment_of(:country) }
-  it { should allow_mass_assignment_of(:time_zone) }
-  it { should allow_mass_assignment_of(:locale) }
-  it { should_not allow_mass_assignment_of(:state) }
-
+    it { should ensure_length_of(:subdomain).is_at_least(5).is_at_most(20) }
   it { should allow_value("subdomain12").for(:subdomain) }
   it { should allow_value("1subdomain").for(:subdomain) }
   it { should allow_value("UPPERcase").for(:subdomain) }
@@ -26,6 +16,35 @@ describe Account do
   it { should_not allow_value("secured").for(:subdomain) }
   it { should_not allow_value("admin").for(:subdomain) }
   it { should_not allow_value("dashboard").for(:subdomain) }
+  it { should allow_mass_assignment_of(:subdomain) }
+
+  it { should validate_presence_of(:company_name) }
+    it { should ensure_length_of(:company_name).is_at_most(50) }
+  it { should allow_mass_assignment_of(:company_name) }
+
+  it { should validate_presence_of(:country) }
+  it { should allow_value("US").for(:country) }
+  it { should_not allow_value("ZZZ").for(:country) }
+  it { should allow_mass_assignment_of(:country) }
+
+  it { should validate_presence_of(:time_zone) }
+  it { should_not allow_value("Invalid").for(:time_zone) }
+  it { should allow_mass_assignment_of(:time_zone) }
+
+  it { should allow_mass_assignment_of(:locale) }
+  it { should_not allow_mass_assignment_of(:state) }
+
+  context "uniqueness validation" do
+    before(:each) { Fabricate(:account, subdomain: "taken") }
+
+    it "should validate uniqueness of subdomain case insensitive" do
+      new_account = Fabricate.build(:account, subdomain: "TAKEN")
+      new_account.should_not be_valid
+      new_account.should have_at_least(1).error_on(:subdomain)
+      new_account.subdomain = "newsubdomain"
+      new_account.should be_valid
+    end
+  end
 
   it "should have and belong to many users" do
     user = account.users.build

@@ -10,8 +10,10 @@ When /^(?:[^\s]* )fills? out the sign up form with following (.*) data:$/ do |da
     attr = field.downcase.gsub(/\s/, '_').to_sym
 
     case attr
-      when :time_zone, :country
+      when :time_zone
         select attributes[attr], from: field
+      when :country
+        select Carmen.country_name(attributes[attr]), from: field
       when :company_name
         fill_in field, with: attributes[:company_name]
       else
