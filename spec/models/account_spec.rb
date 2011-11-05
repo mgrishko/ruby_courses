@@ -4,7 +4,7 @@ describe Account do
   let(:account) { Fabricate(:account) }
 
   it { should validate_presence_of(:subdomain) }
-    it { should ensure_length_of(:subdomain).is_at_least(5).is_at_most(20) }
+  it { should ensure_length_of(:subdomain).is_at_least(5).is_at_most(20) }
   it { should allow_value("subdomain12").for(:subdomain) }
   it { should allow_value("1subdomain").for(:subdomain) }
   it { should allow_value("UPPERcase").for(:subdomain) }
@@ -19,7 +19,7 @@ describe Account do
   it { should allow_mass_assignment_of(:subdomain) }
 
   it { should validate_presence_of(:company_name) }
-    it { should ensure_length_of(:company_name).is_at_most(50) }
+  it { should ensure_length_of(:company_name).is_at_most(50) }
   it { should allow_mass_assignment_of(:company_name) }
 
   it { should validate_presence_of(:country) }
