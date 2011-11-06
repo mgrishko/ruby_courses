@@ -9,7 +9,7 @@
     = f.input :email
     = f.input :password, required: true
     = f.input :time_zone
-    = f.simple_fields_for :account, wrapper: :inline do |n|
+    = f.simple_fields_for :accounts, wrapper: :inline do |n|
       = n.input :company_name
       = n.input :country
       = n.input :subdomain

@@ -1,7 +1,21 @@
-class Ability
+class MembershipAbility
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(membership)
+    membership ||= Membership.new
+
+    if membership.role? :admin
+      can :manage, :all
+
+    elsif membership.role? :editor
+
+    elsif membership.role? :contributor
+
+    elsif membership.role? :viewer
+
+    else
+      cannot :read, :all
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

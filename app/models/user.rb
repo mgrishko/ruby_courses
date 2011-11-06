@@ -6,7 +6,7 @@ class User
   field :time_zone, type: String
   field :locale, type: String, default: "en"
 
-  has_and_belongs_to_many :accounts, autosave: true
+  has_many :accounts, foreign_key: :owner_id, autosave: true
   accepts_nested_attributes_for :accounts
   attr_accessible :accounts_attributes
 

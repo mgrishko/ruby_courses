@@ -47,7 +47,7 @@ describe User do
 
   it "should accept nested attributes for account" do
     user = Fabricate.build(:user)
-    account_attrs = Fabricate.attributes_for(:account)
+    account_attrs = Fabricate.attributes_for(:account, owner: user )
     user.accounts.build(account_attrs)
     user.save!
     user.reload
