@@ -4,3 +4,8 @@ en:
       new:
         create_account: "Create account"
         title: "Sign up"
+      edit:
+        title: "Edit your account"
+    sessions:
+      new:
+        title: "Sign in"

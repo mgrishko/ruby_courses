@@ -1,4 +1,4 @@
-%h2= t('.title')
+- title t('.title'), :body => true
 
 = simple_form_for(setup_account(resource), :as => resource_name, :url => registration_path(resource_name)) do |f|
   = f.error_notification
