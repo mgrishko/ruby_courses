@@ -17,6 +17,11 @@
               %a{:href => "#"} Messages
             %li
               %a{:href => "#"} Events
+
+            // Fixme: Refactor sign out
+            - if user_signed_in?
+              %li= link_to "Sign out", destroy_user_session_url, method: :delete
+
           %form.search-wrapper{:action => ""}
             %input.search{:placeholder => "Search", :type => "text"}
     %section

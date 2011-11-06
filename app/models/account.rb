@@ -7,17 +7,19 @@ class Account
   field :time_zone, type: String
   field :locale, type: String, default: "en"
 
-  has_and_belongs_to_many :users
+  belongs_to :owner, class_name: "User"
+  embeds_many :memberships
 
   before_validation :set_default_attributes, on: :create
   before_validation :downcase_subdomain
 
+  validates :owner, presence: true
   validates :subdomain,
             presence: true,
             format: { with: /^[a-z0-9]+$/ },
             exclusion: { in: %w(www app admin dashboard secured) },
             uniqueness: { case_sensitive: false },
-            length: 5..20
+            length: 3..20
   validates :company_name, presence: true, length: { maximum: 50 }
   validates :country, presence: true, inclusion: { in: Carmen.country_codes }
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }
@@ -32,12 +34,13 @@ class Account
 
   private
 
+  # Sets default time zone and locale from account owner.
+  # Adds owner to memberships with admin role.
   def set_default_attributes
-    # When account is creating user (who signs up account) should have been already persisted.
-    user = self.users.first
-    unless user.nil?
-      self.time_zone = user.time_zone
-      self.locale = user.locale
+    if owner
+      self.time_zone = owner.time_zone
+      self.locale = owner.locale
+      self.memberships.build user: owner, role: "admin"
     end
   end
 
