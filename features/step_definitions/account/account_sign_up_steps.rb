@@ -18,7 +18,7 @@ When /^he submits sign up form with taken subdomain$/ do
   click_button "Create account"
 end
 
-Then /^he should be redirected to the new account sign up page$/ do
+Then /^he should be redirected back to the sign up page$/ do
   current_url.should == new_user_registration_url(subdomain: "app")
 end
 

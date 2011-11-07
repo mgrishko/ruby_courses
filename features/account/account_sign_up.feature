@@ -23,5 +23,5 @@ Feature: Account sign up
   Scenario: Signup with taken subdomain
     Given company representative is on the new account sign up page
     When he submits sign up form with taken subdomain
-    Then he should be redirected to the new account sign up page
+    Then he should be redirected back to the sign up page
     And he should see that subdomain is already taken
