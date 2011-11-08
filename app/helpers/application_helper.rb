@@ -1,4 +1,6 @@
 module ApplicationHelper
+  #page_title - title in head
+  #body: true - optional, show title in body > h2
   #title(name, body => true - optional, if you want to display title in body > h1)
   def title(page_title, options = {})
     if options[:body] == true

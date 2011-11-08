@@ -5,7 +5,7 @@ en:
         create_account: "Create account"
         title: "Sign up"
       edit:
-        title: "Edit your account"
+        title: "Edit your profile"
     sessions:
       new:
         title: "Sign in"

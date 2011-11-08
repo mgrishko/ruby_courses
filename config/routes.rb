@@ -2,17 +2,20 @@ GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
 
     devise_for :users,
-               path: '/', controllers: {registrations: 'users/registrations'}, skip: [:registrations] do
+               path: "profile", controllers: {registrations: 'users/registrations'}, skip: [:registrations, :sessions] do
       constraints(subdomain: "app") do
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
       end
-
       get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
       put "/profile"  => "users/registrations#update"
-      delete "/users" => "users/registrations#destroy"
-      get "/users/cancel" => "users/registrations#cancel", as: :cancel_user_registration
+      delete "/profile" => "users/registrations#destroy"
+      get "/profile/cancel" => "users/registrations#cancel", as: :cancel_user_registration
+
+      get '/signin'   => "devise/sessions#new",        :as => :new_user_session
+      post '/signin'  => 'devise/sessions#create',     :as => :user_session
+      delete '/signout'  => 'devise/sessions#destroy', :as => :destroy_user_session
     end
 
     constraints(subdomain: "app") do
@@ -23,6 +26,7 @@ GoodsMaster::Application.routes.draw do
         root :to => 'admin/dashboard#index', as: :admin_root
       end
     end
+
 
     get '/' => 'home#index', as: :home
     root :to => 'home#index', as: :root
@@ -85,3 +89,4 @@ GoodsMaster::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+
