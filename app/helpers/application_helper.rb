@@ -9,4 +9,26 @@ module ApplicationHelper
       content_for(:head_title, page_title.to_s)
     end
   end
+
+  # Returns ability for current membership.
+  #
+  def current_ability
+    @current_ability ||= MembershipAbility.new(current_membership)
+  end
+
+  # Returns account membership if current user has membership for current account and account is not nil.
+  # Otherwise returns nil.
+  def current_membership
+    @current_membership ||= begin
+      current_user && current_account ? current_account.memberships.where(user_id: current_user.id).first : nil
+    end
+  end
+
+  # Returns account if account can be found by current request subdomain. Otherwise returns nil.
+  #
+  def current_account
+    unless controller.request.subdomain == "app"
+      @current_account ||= Account.where(subdomain: controller.request.subdomain).first
+    end
+  end
 end

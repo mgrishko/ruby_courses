@@ -20,3 +20,8 @@ Feature: Account sign up
     Then he should be redirected to the signup acknowledgement page
     And he should see notice message "Thank you! We will send you an invitation once we are ready."
 
+  Scenario: Signup with taken subdomain
+    Given company representative is on the new account sign up page
+    When he submits sign up form with taken subdomain
+    Then he should be redirected back to the sign up page
+    And he should see that subdomain is already taken

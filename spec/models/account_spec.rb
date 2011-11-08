@@ -4,7 +4,7 @@ describe Account do
   let(:account) { Fabricate(:account) }
 
   it { should validate_presence_of(:subdomain) }
-    it { should ensure_length_of(:subdomain).is_at_least(5).is_at_most(20) }
+  it { should ensure_length_of(:subdomain).is_at_least(3).is_at_most(20) }
   it { should allow_value("subdomain12").for(:subdomain) }
   it { should allow_value("1subdomain").for(:subdomain) }
   it { should allow_value("UPPERcase").for(:subdomain) }
@@ -19,7 +19,7 @@ describe Account do
   it { should allow_mass_assignment_of(:subdomain) }
 
   it { should validate_presence_of(:company_name) }
-    it { should ensure_length_of(:company_name).is_at_most(50) }
+  it { should ensure_length_of(:company_name).is_at_most(50) }
   it { should allow_mass_assignment_of(:company_name) }
 
   it { should validate_presence_of(:country) }
@@ -34,6 +34,9 @@ describe Account do
   it { should allow_mass_assignment_of(:locale) }
   it { should_not allow_mass_assignment_of(:state) }
 
+  it { should validate_presence_of(:owner) }
+  it { should_not allow_mass_assignment_of(:owner) }
+
   context "uniqueness validation" do
     before(:each) { Fabricate(:account, subdomain: "taken") }
 
@@ -46,9 +49,15 @@ describe Account do
     end
   end
 
-  it "should have and belong to many users" do
-    user = account.users.build
-    user.accounts.should include(account)
+  it "should belong to owner" do
+    user = Fabricate(:user)
+    account = user.accounts.build
+    account.owner.should eql(user)
+  end
+
+  it "should embeds many memberships" do
+    membership = account.memberships.build
+    membership.account.should eql(account)
   end
 
   describe "default values" do
@@ -65,6 +74,12 @@ describe Account do
 
     it "locale should equal user to the first locale" do
       @account.locale.should == @user.locale
+    end
+
+    it "first user should have an admin membership" do
+      membership = @account.memberships.first
+      membership.user.should eql(@user)
+      membership.role.should == "admin"
     end
   end
 

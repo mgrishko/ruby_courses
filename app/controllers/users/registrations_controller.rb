@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
 
+  layout "front"
+
   def acknowledgement
   end
 

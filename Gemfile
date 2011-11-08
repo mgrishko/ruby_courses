@@ -24,16 +24,17 @@ end
 
 # Security related gems
 gem "devise", "~> 1.4.9"
+gem "cancan", "~> 1.6.7"
 
 # Frontend tools
 gem 'jquery-rails'
 gem 'haml'
-gem "simple_form"
+gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin
 
 # Backend tools
 gem "responders"
-
+gem "draper"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

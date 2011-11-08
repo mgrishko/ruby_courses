@@ -1,10 +1,10 @@
 - title t('.title'), :body => true
 
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name), wrapper: :inline) do |f|
   .inputs
-    = f.input :email, :required => false, :autofocus => true
-    = f.input :password, :required => false
-    = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+    = f.input :email, required: false, autofocus: true
+    = f.input :password, required: false
+    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
   .actions
-    = f.button :submit, "Sign in"
+    = f.button :submit, "Sign in", class: 'primary'
 = render :partial => "devise/shared/links"
