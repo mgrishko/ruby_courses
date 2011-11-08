@@ -11,13 +11,7 @@ Feature: Edit user
     When he goes to the home page
     And he follow "Profile"
     Then he should be redirected to the edit profile page
-    When he fill in "First name" with "Alexander"
-    And  he fill in "Last name" with "Makedonsky"
-    And  he fill in "Email" with "email@mail.com"
-    And  he fill in "Password" with "foobar"
-    And  he select in "Time zone" with "Kyiv"
-    And  he fill in "Current password" with "password"
-    And he submits the edit form
+    When he submits profile form with current password and with password
     Then he should be redirected to the edit profile page
     And he should see notice message "You updated your account successfully."
 
@@ -26,12 +20,7 @@ Feature: Edit user
     When he goes to the home page
     And he follow "Profile"
     Then he should be redirected to the edit profile page
-    When he fill in "First name" with "Alexander"
-    And  he fill in "Last name" with "Makedonsky"
-    And  he fill in "Email" with "email@mail.com"
-    And  he fill in "Password" with "foobar"
-    And  he select in "Time zone" with "Kyiv"
-    And he submits the edit form
+    When he submits profile form without current password and with password
     And he should see alert message "You should enter current password."
 
   Scenario: User edits profile without password
@@ -39,16 +28,11 @@ Feature: Edit user
     When he goes to the home page
     And he follow "Profile"
     Then he should be redirected to the edit profile page
-    When he fill in "First name" with "Alexander"
-    And  he fill in "Last name" with "Makedonsky"
-    And  he fill in "Email" with "email@mail.com"
-    And he select in "Time zone" with "Kyiv"
-    And he fill in "Current password" with "password"
-    And he submits the edit form
+    When he submits profile form with current password and without password
     Then he should be redirected to the edit profile page
     And he should see notice message "You updated your account successfully."
     When user signs out
     And he goes to the user sign in page
     And he fill in "Email" with "email@mail.com"
     And he fill in "Password" with "password"
-    Then user should be redirected to the user sign in page
+    Then he should be redirected to the user sign in page
