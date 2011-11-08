@@ -4,6 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def acknowledgement
   end
 
+  def update
+
+  end
+
   protected
 
   def after_sign_up_path_for(resource)
@@ -11,6 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    edit_person_registration_path(subdomain: "app")
+    edit_user_registration_path(subdomain: "app")
   end
 end

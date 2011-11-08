@@ -6,37 +6,49 @@ Feature: Edit user
   Background: Activated account exists
     Given an activated account
 
-  Scenario: User edit account data
+  Scenario: User successfully edits profile
     Given an authenticated user
     When he goes to the home page
     And he follow "Profile"
     Then he should be redirected to the edit profile page
-    #And he is on the user edit page
-    When he fills out the sign up form with following personal data:
-      | First name       |
-      | Last name        |
-      | Email            |
-      | Password         |
-      | Time zone        |
-      | Locale           |
-      | Current password |
+    When he fill in "First name" with "Alexander"
+    And  he fill in "Last name" with "Makedonsky"
+    And  he fill in "Email" with "email@mail.com"
+    And  he fill in "Password" with "foobar"
+    And  he select in "Time zone" with "Kyiv"
+    And  he fill in "Current password" with "password"
     And he submits the edit form
     Then he should be redirected to the edit profile page
-    And he should see notice message "You update profile"
+    And he should see notice message "You updated your account successfully."
 
-  Scenario: User edit account data without confirmation
+  Scenario: User edits profile without current password
     Given an authenticated user
     When he goes to the home page
     And he follow "Profile"
     Then he should be redirected to the edit profile page
-    #And he is on the user edit page
-    When he fills out the sign up form with following personal data:
-      | First name       |
-      | Last name        |
-      | Email            |
-      | Password         |
-      | Time zone        |
-      | Locale           |
+    When he fill in "First name" with "Alexander"
+    And  he fill in "Last name" with "Makedonsky"
+    And  he fill in "Email" with "email@mail.com"
+    And  he fill in "Password" with "foobar"
+    And  he select in "Time zone" with "Kyiv"
+    And he submits the edit form
+    And he should see alert message "You should enter current password."
+
+  Scenario: User edits profile without password
+    Given an authenticated user
+    When he goes to the home page
+    And he follow "Profile"
+    Then he should be redirected to the edit profile page
+    When he fill in "First name" with "Alexander"
+    And  he fill in "Last name" with "Makedonsky"
+    And  he fill in "Email" with "email@mail.com"
+    And he select in "Time zone" with "Kyiv"
+    And he fill in "Current password" with "password"
     And he submits the edit form
     Then he should be redirected to the edit profile page
-    And he should see alert message "You should enter current password."
+    And he should see notice message "You updated your account successfully."
+    When user signs out
+    And he goes to the user sign in page
+    And he fill in "Email" with "email@mail.com"
+    And he fill in "Password" with "password"
+    Then user should be redirected to the user sign in page
