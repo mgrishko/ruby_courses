@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe HomeController do
-  with_subdomain "subdomain"
-
   context "when user is authenticated" do
     login :user
 

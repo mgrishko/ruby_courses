@@ -8,3 +8,8 @@ en:
       destroy:
         notice: "%{resource_name} was successfully destroyed."
         alert: "%{resource_name} could not be destroyed."
+
+    accounts:
+      activate:
+        notice: "Account was successfully activated."
+        alert: "Account was not activated."

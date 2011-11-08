@@ -1,6 +1,29 @@
 en:
+  show: "Show"
+  back: "Back"
+
   users:
     registrations:
       new:
         create_account: "Create account"
         title: "Sign up"
+
+  admin:
+    accounts:
+      defaults: &ADMIN_ACCOUNT_DEFAULTS
+        activate: "Activate"
+        subdomain: "Subdomain"
+        company: "Company"
+        country: "Country"
+        state: "State"
+        states:
+          pending: "Awaiting activation"
+          active: "Active"
+
+      index:
+        title: "Listing accounts"
+        <<: *ADMIN_ACCOUNT_DEFAULTS
+
+      show:
+        title: "%{company} Account"
+        <<: *ADMIN_ACCOUNT_DEFAULTS

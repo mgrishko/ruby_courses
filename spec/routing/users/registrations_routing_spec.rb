@@ -18,12 +18,12 @@ describe Users::RegistrationsController do
       put("http://app.example.com/profile").should route_to("users/registrations#update")
     end
 
-    it "routes to #destroy" do
-      delete("http://app.example.com/users").should route_to("users/registrations#destroy")
+    it "#destroy should not be routable" do
+      delete("http://app.example.com/profile").should_not be_routable
     end
 
-    it "routes to #cancel" do
-      get("http://app.example.com/users/cancel").should route_to("users/registrations#cancel")
+    it "#cancel should not be routable" do
+      get("http://app.example.com/profile/cancel").should_not be_routable
     end
 
     it "routes to #acknowledgement" do
