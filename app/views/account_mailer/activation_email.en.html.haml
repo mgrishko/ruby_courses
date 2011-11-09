@@ -4,12 +4,29 @@
     %meta{"http-equiv" => "content-type", :content => "text/html; charset=utf-8"}
   %body
     %h1
-      Hello,
+      Hi
       = @owner.first_name
 
     %p
-      Your account is active now.
+      Welcome to GoodsMaster and thanks for signing up! We've just created a new account for your company,
+      = "#{@account.company_name}."
+
     %p
-      To login to your account, just follow this link:
+      Sign in to your account:
+      %br
       = @url
 
+    %p
+      Login:
+      %br
+      = @owner.email
+
+    %p
+      If you have any questions or feedback, please don't hesitate to contact us at http://feedback.goodsmasterhq.com
+
+    %p
+      All the best,
+      %br
+      The GoodsMaster Team
+      %br
+      http://GoodsMasterHQ.com

@@ -4,6 +4,7 @@ class AccountMailer < ActionMailer::Base
   # ToDo Refactor to user AccountDraper
   def activation_email(account)
     @owner = account.owner
+    @account = account
     @url = home_url(subdomain: account.subdomain)
     mail( to: @owner.email, subject: "Account for #{account.company_name} has been activated" )
   end

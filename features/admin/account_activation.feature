@@ -12,6 +12,6 @@ Feature: Account activation
     # Email steps
     And an account owner should receive an invitation email
     When he follows company account link
-    And user signs in with valid credentials
-    Then he should be on the company account home page
+#    And user signs in with valid credentials
+#    Then he should be on the company account home page
 
