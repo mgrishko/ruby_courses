@@ -2,25 +2,34 @@ GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
 
     devise_for :users,
-               path: '/', controllers: {registrations: 'users/registrations'}, skip: [:registrations] do
+               path: "profile",
+               controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
+               skip: [:registrations, :sessions] do
       constraints(subdomain: "app") do
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
       end
-
       get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
       put "/profile"  => "users/registrations#update"
-      delete "/users" => "users/registrations#destroy"
-      get "/users/cancel" => "users/registrations#cancel", as: :cancel_user_registration
+
+      get '/signin'   => "users/sessions#new",        as: :new_user_session
+      post '/signin'  => 'users/sessions#create',     as: :user_session
+      delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
     end
 
     constraints(subdomain: "app") do
-      scope subdomain: "app", :path => "/dashboard" do
-        devise_for :admins, path: '/'
+      scope subdomain: "app" do
+        devise_for :admins, path: '/dashboard'
 
-        get '/' => 'admin/dashboard#index', as: :dashboard
-        root :to => 'admin/dashboard#index', as: :admin_root
+        namespace :admin, path: "/dashboard" do
+          resources :accounts, only: [:index, :show] do
+            get :activate, on: :member
+          end
+
+          get '/' => 'dashboard#index', as: :dashboard
+          root :to => 'dashboard#index', as: :root
+        end
       end
     end
 

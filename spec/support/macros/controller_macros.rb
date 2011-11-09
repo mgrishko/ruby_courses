@@ -30,8 +30,4 @@ module ControllerMacros
       @request.host = subdomain ? "#{subdomain}.test.host" : "test.host"
     end
   end
-
-  def with_default_subdomain
-    with_subdomain false
-  end
 end

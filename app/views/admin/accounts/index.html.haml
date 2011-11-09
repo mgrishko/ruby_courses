@@ -1,0 +1,17 @@
+= title t('.title')
+
+%table
+  %tr
+    %th= t('.subdomain')
+    %th= t('.company')
+    %th= t('.country')
+    %th= t('.state')
+
+  - @accounts.each do |account|
+    %tr
+      %td= account.subdomain
+      %td= account.company_name
+      %td= account.country
+      %td= account.state
+      %td= link_to t("show"), [:admin, account]
+

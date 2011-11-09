@@ -1,6 +1,4 @@
-class Admin::DashboardController < ApplicationController
-  before_filter :authenticate_admin!
-  skip_authorization_check
+class Admin::DashboardController < Admin::BaseController
   respond_to :html
 
   # GET /dashboard

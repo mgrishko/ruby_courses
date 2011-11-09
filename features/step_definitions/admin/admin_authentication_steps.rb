@@ -17,7 +17,7 @@ Given /^(?:[^\s]* )is on the admin sign in page$/ do
 end
 
 When /^the admin tries to access a restricted page$/ do
-  visit(dashboard_url)
+  visit(admin_dashboard_url)
 end
 
 When /^admin submits (.*) email and(.*) password$/ do |email, password|
@@ -34,7 +34,7 @@ When /^admin signs out$/ do
 end
 
 When /^admin returns next time$/ do
-  visit(dashboard_url)
+  visit(admin_dashboard_url)
 end
 
 Then /^he should be redirected to the admin sign in page$/ do
@@ -42,7 +42,7 @@ Then /^he should be redirected to the admin sign in page$/ do
 end
 
 Then /^admin should be redirected back to the restricted page$/ do
-  current_url.should == dashboard_url
+  current_url.should == admin_dashboard_url
 end
 
 Then /^admin should be signed out$/ do
