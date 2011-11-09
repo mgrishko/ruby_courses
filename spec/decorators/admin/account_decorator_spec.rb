@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe AccountDecorator do
+describe Admin::AccountDecorator do
   before { ApplicationController.new.set_current_view_context }
 
   before(:each) do
     @account = Fabricate(:account, country: "US")
-    @decorator = AccountDecorator.decorate(@account)
+    @decorator = Admin::AccountDecorator.decorate(@account)
   end
 
   it "shows country name" do

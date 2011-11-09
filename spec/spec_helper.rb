@@ -65,6 +65,10 @@ Spork.prefork do
 
     config.extend ControllerMacros, :type => :controller
     config.extend ModelMacros, :type => :model
+
+    # Configure EmailSpec::Helpers and EmailSpec::Matchers
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
   end
 
   # Workaround of Draper url_for issue https://github.com/jcasimir/draper/issues/60

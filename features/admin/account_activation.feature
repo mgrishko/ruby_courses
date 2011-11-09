@@ -8,12 +8,10 @@ Feature: Account activation
     And not activated company account
     When admin goes to the accounts page
     And he activates the account
-    Then show me the page
     Then he should see notice message "Account was successfully activated."
-    And an invitation email should be sent
-
-    When a company representative receives the invitation email
-    And he clicks company account link
-    # Back to our scenario (user is signed in during sign up)
+    # Email steps
+    And an account owner should receive an invitation email
+    When he follows company account link
+    And user signs in with valid credentials
     Then he should be on the company account home page
 

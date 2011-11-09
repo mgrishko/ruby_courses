@@ -1,6 +1,9 @@
 class Account
   include Mongoid::Document
 
+  SUBDOMAIN_BLACKLIST = %w(admin api app beta blog community dashboard demo feedback fuck help login mail
+                           secured signin signup status support test www)
+
   field :subdomain, type: String
   field :company_name, type: String
   field :country, type: String
@@ -17,7 +20,7 @@ class Account
   validates :subdomain,
             presence: true,
             format: { with: /^[a-z0-9]+$/ },
-            exclusion: { in: %w(www app admin dashboard secured) },
+            exclusion: { in: SUBDOMAIN_BLACKLIST },
             uniqueness: { case_sensitive: false },
             length: 3..20
   validates :company_name, presence: true, length: { maximum: 50 }

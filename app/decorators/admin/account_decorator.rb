@@ -1,4 +1,4 @@
-class AccountDecorator < ApplicationDecorator
+class Admin::AccountDecorator < ApplicationDecorator
   decorates :account
   allows :subdomain, :company_name
 

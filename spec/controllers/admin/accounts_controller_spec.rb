@@ -5,7 +5,7 @@ describe Admin::AccountsController do
 
   before(:each) do
     @account = Fabricate(:account)
-    @account_decorator = AccountDecorator.decorate(@account)
+    @account_decorator = Admin::AccountDecorator.decorate(@account)
   end
 
   describe "GET index" do
@@ -32,6 +32,14 @@ describe Admin::AccountsController do
       get :activate, id: @account.id, subdomain: "app"
       @account.reload
       @account.should be_active
+    end
+
+    it "sends account activation email" do
+      AccountMailer.stub_chain(:activation_email, :deliver)
+      message = mock(Mail::Message)
+      AccountMailer.should_receive(:activation_email).and_return(message)
+      message.should_receive(:deliver)
+      get :activate, id: @account.id, subdomain: "app"
     end
 
     it "renders show template" do

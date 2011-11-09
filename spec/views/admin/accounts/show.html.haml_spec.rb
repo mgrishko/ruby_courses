@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "admin/accounts/show.html.haml" do
   before(:each) do
-    @account = assign(:account, stub_model(Account))
+    decorator = Admin::AccountDecorator.decorate(Fabricate.build(:account))
+    decorator.stub(:activation_link)
+    @account = assign(:account, decorator)
   end
 
   it "renders a subdomain column" do
@@ -23,11 +25,6 @@ describe "admin/accounts/show.html.haml" do
   it "renders a state column" do
     render
     rendered.should have_selector("p>strong", text: "State")
-  end
-
-  it "renders an activation link" do
-    render
-    rendered.should have_selector("a", text: "Activate")
   end
 
   it "renders a back link" do
