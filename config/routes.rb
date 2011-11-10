@@ -22,7 +22,6 @@ GoodsMaster::Application.routes.draw do
     constraints(subdomain: "app") do
       scope subdomain: "app" do
         devise_for :admins, path: '/dashboard'
-
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
             get :activate, on: :member

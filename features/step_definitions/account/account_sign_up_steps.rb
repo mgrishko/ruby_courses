@@ -23,7 +23,7 @@ Then /^he should be redirected back to the sign up page$/ do
 end
 
 Then /^he should see that subdomain (.*)$/ do |message|
-  page.find("form span", :text => message)
+  page.find("#user_accounts_attributes_0_subdomain").find(:xpath, ".//..").find("span", text: message)
 end
 
 Then /^(?:[^\s]* )should be redirected to the signup acknowledgement page$/ do

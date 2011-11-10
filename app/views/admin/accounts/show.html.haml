@@ -1,0 +1,23 @@
+= title t('.title', company: @account.company_name)
+
+%p
+  %strong= "#{t('.subdomain')}:"
+  = @account.subdomain
+%p
+  %strong= "#{t('.company')}:"
+  = @account.company_name
+
+%p
+  %strong= "#{t('.country')}:"
+  = @account.country
+
+%p
+  %strong= "#{t('.state')}:"
+  = @account.state
+
+%p
+  = @account.activation_link
+
+%p
+  = link_to t("back"), admin_accounts_path
+

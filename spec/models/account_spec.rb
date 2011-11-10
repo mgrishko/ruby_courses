@@ -10,12 +10,27 @@ describe Account do
   it { should allow_value("UPPERcase").for(:subdomain) }
   it { should_not allow_value("sub domain").for(:subdomain) }
   it { should_not allow_value("sub.domain").for(:subdomain) }
-  # Reserved subdomains
+  # Reserved or censored subdomains
   it { should_not allow_value("www").for(:subdomain) }
   it { should_not allow_value("app").for(:subdomain) }
   it { should_not allow_value("secured").for(:subdomain) }
   it { should_not allow_value("admin").for(:subdomain) }
   it { should_not allow_value("dashboard").for(:subdomain) }
+  it { should_not allow_value("status").for(:subdomain) }
+  it { should_not allow_value("api").for(:subdomain) }
+  it { should_not allow_value("blog").for(:subdomain) }
+  it { should_not allow_value("feedback").for(:subdomain) }
+  it { should_not allow_value("support").for(:subdomain) }
+  it { should_not allow_value("signin").for(:subdomain) }
+  it { should_not allow_value("signup").for(:subdomain) }
+  it { should_not allow_value("login").for(:subdomain) }
+  it { should_not allow_value("test").for(:subdomain) }
+  it { should_not allow_value("beta").for(:subdomain) }
+  it { should_not allow_value("demo").for(:subdomain) }
+  it { should_not allow_value("community").for(:subdomain) }
+  it { should_not allow_value("help").for(:subdomain) }
+  it { should_not allow_value("mail").for(:subdomain) }
+  it { should_not allow_value("fuck").for(:subdomain) }
   it { should allow_mass_assignment_of(:subdomain) }
 
   it { should validate_presence_of(:company_name) }
