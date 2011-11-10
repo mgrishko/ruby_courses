@@ -1,8 +1,11 @@
+
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
 
     devise_for :users,
-               path: "profile", controllers: {registrations: 'users/registrations'}, skip: [:registrations, :sessions] do
+               path: "profile",
+               controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
+               skip: [:registrations, :sessions] do
       constraints(subdomain: "app") do
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
@@ -10,28 +13,30 @@ GoodsMaster::Application.routes.draw do
       end
       get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
       put "/profile"  => "users/registrations#update"
-      delete "/profile" => "users/registrations#destroy"
-      get "/profile/cancel" => "users/registrations#cancel", as: :cancel_user_registration
 
-      get '/signin'   => "devise/sessions#new",        :as => :new_user_session
-      post '/signin'  => 'devise/sessions#create',     :as => :user_session
-      delete '/signout'  => 'devise/sessions#destroy', :as => :destroy_user_session
+      get '/signin'   => "users/sessions#new",        as: :new_user_session
+      post '/signin'  => 'users/sessions#create',     as: :user_session
+      delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
     end
 
     constraints(subdomain: "app") do
-      scope subdomain: "app", :path => "/dashboard" do
-        devise_for :admins, path: '/'
+      scope subdomain: "app" do
+        devise_for :admins, path: '/dashboard'
 
-        get '/' => 'admin/dashboard#index', as: :dashboard
-        root :to => 'admin/dashboard#index', as: :admin_root
+        namespace :admin, path: "/dashboard" do
+          resources :accounts, only: [:index, :show] do
+            get :activate, on: :member
+          end
+
+          get '/' => 'dashboard#index', as: :dashboard
+          root :to => 'dashboard#index', as: :root
+        end
       end
     end
-
 
     get '/' => 'home#index', as: :home
     root :to => 'home#index', as: :root
   end
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

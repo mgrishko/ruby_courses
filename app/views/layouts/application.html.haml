@@ -9,15 +9,15 @@
           %h3
             %a{:href => "#"} Project Name
           %ul.nav
-            %li
-              = link_to "Profile", edit_user_registration_path
+            // Fixme: Refactor profile
+            - if user_signed_in?
+              %li= link_to "Profile", edit_user_registration_path
             %li
               %a{:href => "#"} Statuses
             %li
               %a{:href => "#"} Messages
             %li
               %a{:href => "#"} Events
-
             // Fixme: Refactor sign out
             - if user_signed_in?
               %li= link_to "Sign out", destroy_user_session_url, method: :delete

@@ -1,5 +1,9 @@
-Given /^(?:[^\s]* )is on the user edit page$/ do
+Given /^(?:[^\s]* )is on the edit profile page$/ do
   visit(edit_user_registration_url(subdomain: @account.subdomain))
+end
+
+When /^(?:[^\s]* )goes to the home page$/ do
+  visit(home_url(subdomain: @account.subdomain))
 end
 
 When /^(?:[^\s]* )follow "([^"]*)"$/ do |link|
@@ -10,16 +14,20 @@ Then /^(?:[^\s]* )should be redirected to the edit profile page$/ do
   current_url.should == edit_user_registration_url(subdomain: @account.subdomain)
 end
 
-When /^(?:[^\s]* )goes to the home page$/ do
-  visit(home_url(subdomain: @account.subdomain))
+When /^(?:|he )submits profile form with current password$/ do
+  fill_in "Current password", with: "password"
+  click_button "Update"
 end
 
 When /^(?:[^\s]* )goes to the user sign in page$/ do
-  visit(new_user_session_url(subdomain: @account.subdomain))
+  visit(new_user_session_url)
 end
 
-When /^(?:|he )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
-  fill_in(field, with: value)
+When /^user submits email and password$/ do
+  #user = Fabricate(:user, email: "user@example.com", password: "password")
+  fill_in "Email", with: "user@example.com"
+  fill_in "Password", with: "password"
+  click_button "Sign in"
 end
 
 When /^(?:|he )submits profile form (.*) current password and (.*) password$/ do |current_password, password|

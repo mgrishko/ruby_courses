@@ -3,7 +3,7 @@ Given /^an activated account$/ do
   @account.activate!
 
   user = Fabricate(:user, email: "user@example.com", password: "password")
-  user.accounts << @account
+  @ola= user.accounts << @account
 end
 
 Given /^an unauthenticated user$/ do
