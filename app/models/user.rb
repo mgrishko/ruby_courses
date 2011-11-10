@@ -19,12 +19,7 @@ class User
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :password, length: 5..20, if: :password_required?
-  #validates :password, presence: true, if: :password_required?
 
   attr_accessible :email, :password, :first_name, :last_name, :time_zone, :locale
 
-  #private
-  #def password_required?
-    #!persisted? || !password.nil? || !password_confirmation.nil?
-  #end
 end
