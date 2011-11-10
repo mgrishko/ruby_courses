@@ -15,8 +15,25 @@ Then /^(?:[^\s]* )should be redirected to the edit profile page$/ do
 end
 
 When /^(?:|he )submits profile form with current password$/ do
+  #fill_in "Current password", with: @user[:password]
   fill_in "Current password", with: "password"
   click_button "Update"
+end
+
+When /^(?:|he )submits profile form with new password$/ do
+  #fill_in "Current password", with: @user[:password]
+  fill_in "Password", with: "foobar"
+  fill_in "Current password", with: "password"
+  click_button "Update"
+end
+
+When /^(?:|he )submits profile form without current password$/ do
+  fill_in "Current password", with: ""
+  click_button "Update"
+end
+
+Then /^(?:|he )should see that current password can't be blank$/ do
+  page.find(:xpath, '//*[contains(concat( " ", @class, " " ), concat( " ", "optional", " " ))]//*[contains(concat( " ", @class, " " ), concat( " ", "help-inline", " " ))]').text.should == "can't be blank"
 end
 
 When /^(?:[^\s]* )goes to the user sign in page$/ do
@@ -24,21 +41,15 @@ When /^(?:[^\s]* )goes to the user sign in page$/ do
 end
 
 When /^user submits email and password$/ do
-  #user = Fabricate(:user, email: "user@example.com", password: "password")
+  #fill_in "Email", with: @user[:email]
+  #fill_in "Password", with: @user[:password]
   fill_in "Email", with: "user@example.com"
   fill_in "Password", with: "password"
   click_button "Sign in"
 end
 
-When /^(?:|he )submits profile form (.*) current password and (.*) password$/ do |current_password, password|
-  current_password.strip!
-  password.strip!
-
-  fill_in "First name", with: "John"
-  fill_in "Last name", with: "Smith"
-  fill_in "Email", with: "email@mail.com"
-  select "Moscow", from: "Time zone"
-  fill_in "Password", with: password == "with" ? "foobar" : ""
-  fill_in "Current password", with: current_password == "current" ? "password" : ""
-  click_button "Update"
+When /^user submits email and new password$/ do
+  fill_in "Email", with: "user@example.com"
+  fill_in "Password", with: "foobar"
+  click_button "Sign in"
 end

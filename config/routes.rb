@@ -1,4 +1,3 @@
-
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
 
@@ -22,6 +21,7 @@ GoodsMaster::Application.routes.draw do
     constraints(subdomain: "app") do
       scope subdomain: "app" do
         devise_for :admins, path: '/dashboard'
+
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
             get :activate, on: :member
@@ -36,6 +36,7 @@ GoodsMaster::Application.routes.draw do
     get '/' => 'home#index', as: :home
     root :to => 'home#index', as: :root
   end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
