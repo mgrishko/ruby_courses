@@ -3,39 +3,29 @@ Feature: Account membership management
 	An account admin
 	Should be able to manage the account membership
 	
+	Background:
+		Given an authenticated admin user
+		And admin user is on the account memberships page
+	
 	@wip
-	Scenario: Account admin views the account members
-		Given an authenticated account admin
-		When account admin opens "Account Settings"
-		Then account admin should see the list of account members
+	Scenario: Admin user views the account users
+		Then he should see account users
 	
-	Scenario: Account admin removes a user from an account
-		Given an authenticated account admin
-		When account admin opens "Account Settings"
-		Then account admin should see "Some User"
-		When account admin follows "Remove" link next to "Some User"
-		Then account admin should not see "Some User"
+	Scenario: Admin user deletes a user from an account
+		When he deletes an account user
+		Then he should see notice message "has been deleted from account"
+	
+	Scenario: Admin user can't delete the account owner from an account
+		Then he should not be able to delete the account owner
 		
-	Scenario: Account admin changes the role of a member
-		Given an authenticated account admin
-		When account admin opens "Account Settings"
-		Then account admin should see that "Some User" has "Viewer" role
-		When account admin follows "Change Role" link next to "Some User"
-		Then account admin should see "Change Some User Role"
-		When account admin changes role from "Viewer" to "Editor"
-		Then account admin should see that "Some User" has "Editor" role
+	Scenario: Admin user changes the role of an account user
+		When he opens edit user membership page
+		And changes the user role
+		Then he should see notice message "role has been changed"
 	
-	Scenario: Account admin changes his role in the account
-		Given an authenticated account admin
-		When account admin opens "Account Settings"
-		Then account admin should see that "Account Admin" has "Administrator" role
-		When account admin follows "Change Role" link next to "Account Admin"
-		Then account admin should see "Change Account Admin Role"
-		When account admin changes role from "Administrator" to "Viewer"
-		Then account admin should be redirected to the home page
+	Scenario: Admin user changes his role in the account
+		When he changes his own role
+		Then he should see notice message "role has been changed"
 	
-	Scenario: Account admin can't change the role of the account owner
-		Given an authenticated account admin
-		When account admin opens "Account Settings"
-		Then account admin should see that "Account Owner" has "Administrator" role
-		And account admin should not see "Change role" next to "Account Owner"
+	Scenario: Admin user can't change the account owner role
+		Then he should not be able to edit the account owner role
