@@ -1,12 +1,18 @@
 en:
-  show: "Show"
   back: "Back"
+  show: "Show"
+  update: "Update"
 
   users:
     registrations:
       new:
         create_account: "Create account"
         title: "Sign up"
+      edit:
+        title: "Edit your profile"
+    sessions:
+      new:
+        title: "Sign in"
 
   admin:
     accounts:

@@ -20,4 +20,5 @@ describe Users::RegistrationsController do
 
     it { should render_template(:acknowledgement) }
   end
+
 end

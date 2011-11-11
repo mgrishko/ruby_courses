@@ -11,8 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     signup_acknowledgement_url(subdomain: "app")
   end
-  #
-  #def after_update_path_for(resource)
-  #  edit_person_registration_path
-  #end
+
+  def after_update_path_for(resource)
+    edit_user_registration_path
+  end
 end

@@ -9,7 +9,7 @@ describe ApplicationHelper do
 
     it "sets content for body title" do
       helper.title "Home", :body => true
-      helper.content_for(:body_title).should == "<h1>Home</h1>"
+      helper.content_for(:body_title).should == "<h2>Home</h2>"
     end
   end
 
