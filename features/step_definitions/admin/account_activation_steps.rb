@@ -1,6 +1,11 @@
-Given /^not activated company account$/ do
+Given /^company representative is signed up a new account$/ do
   owner = Fabricate(:user, email: "user@example.com", password: "password")
   @account = Fabricate(:account, owner: owner)
+
+  visit new_user_session_url(subdomain: "app")
+  fill_in "Email", with: owner.email
+  fill_in "Password", with: owner.password
+  click_button "Sign in"
 end
 
 When /^admin goes to the accounts page$/ do
@@ -16,12 +21,6 @@ When /^he follows company account link$/ do
   visit_in_email(home_url(subdomain: @account.subdomain))
 end
 
-When /^user signs in with valid credentials$/ do
-  current_url.should == new_user_session_url(subdomain: @account.subdomain)
-  fill_in "Email", with: "user@example.com"
-  fill_in "Password", with: "password"
-  click_button "Sign in"
-end
 
 Then /^an account owner should receive an invitation email$/ do
   email_address = @account.owner.email
