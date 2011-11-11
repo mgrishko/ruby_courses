@@ -12,7 +12,7 @@ describe Account do
   it { should_not allow_value("sub.domain").for(:subdomain) }
   # Reserved or censored subdomains
   it { should_not allow_value("www").for(:subdomain) }
-  it { should_not allow_value("app").for(:subdomain) }
+  it { should_not allow_value(Settings.app_subdomain).for(:subdomain) }
   it { should_not allow_value("secured").for(:subdomain) }
   it { should_not allow_value("admin").for(:subdomain) }
   it { should_not allow_value("dashboard").for(:subdomain) }

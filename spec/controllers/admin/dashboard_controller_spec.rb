@@ -5,7 +5,7 @@ describe Admin::DashboardController do
 
   describe "GET index" do
     it "renders index template" do
-      get :index, subdomain: "app"
+      get :index, subdomain: Settings.app_subdomain
       response.should render_template(:index)
     end
   end

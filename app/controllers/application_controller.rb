@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   private
 
   def require_authorization?
-    !(request.subdomain == "app" || devise_controller?)
+    !(request.subdomain == Settings.app_subdomain || devise_controller?)
   end
 end

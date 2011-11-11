@@ -12,7 +12,7 @@ describe Admin::BaseController do
 
     describe "GET index" do
       it "renders index template" do
-        get :index, subdomain: "app"
+        get :index, subdomain: Settings.app_subdomain
         response.should be_success
       end
     end
@@ -20,11 +20,11 @@ describe Admin::BaseController do
 
   context "when admin is not authenticated" do
     logout :admin
-    with_subdomain "app"
+    with_subdomain Settings.app_subdomain
 
     describe "GET index" do
       it "redirects to dashboard sign in page" do
-        get :index, subdomain: "app"
+        get :index, subdomain: Settings.app_subdomain
         response.should redirect_to(new_admin_session_url)
       end
     end

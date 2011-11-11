@@ -9,6 +9,6 @@ end
 
 Fabricator(:account_with_memberships, from: :account) do
   after_build do |account|
-    account.memberships.build(Fabricate.attributes_for(:membership, account: account))
+    account.memberships.build(role: "editor", user: Fabricate(:user))
   end
 end

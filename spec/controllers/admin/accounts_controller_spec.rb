@@ -10,26 +10,26 @@ describe Admin::AccountsController do
 
   describe "GET index" do
     it "assigns all accounts as @account_decorators" do
-      get :index, subdomain: "app"
+      get :index, subdomain: Settings.app_subdomain
       assigns(:accounts).first.should eq(@account_decorator)
     end
   end
 
   describe "GET show" do
     it "assigns the requested account as @account_decorator" do
-      get :show, id: @account.id, subdomain: "app"
+      get :show, id: @account.id, subdomain: Settings.app_subdomain
       assigns(:account).should eq(@account_decorator)
     end
   end
 
   describe "GET activate" do
     it "assigns the activating account as @account_decorator" do
-      get :activate, id: @account.id, subdomain: "app"
+      get :activate, id: @account.id, subdomain: Settings.app_subdomain
       assigns(:account).should eq(@account_decorator)
     end
 
     it "activates the @account_decorator" do
-      get :activate, id: @account.id, subdomain: "app"
+      get :activate, id: @account.id, subdomain: Settings.app_subdomain
       @account.reload
       @account.should be_active
     end
@@ -39,11 +39,11 @@ describe Admin::AccountsController do
       message = mock(Mail::Message)
       AccountMailer.should_receive(:activation_email).and_return(message)
       message.should_receive(:deliver)
-      get :activate, id: @account.id, subdomain: "app"
+      get :activate, id: @account.id, subdomain: Settings.app_subdomain
     end
 
     it "renders show template" do
-      get :activate, id: @account.id, subdomain: "app"
+      get :activate, id: @account.id, subdomain: Settings.app_subdomain
       response.should render_template(:show)
     end
   end

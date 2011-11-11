@@ -1,0 +1,18 @@
+defaults: &defaults
+  app_subdomain: "app"
+
+development:
+  <<: *defaults
+  neat_setting: 800
+
+test:
+  <<: *defaults
+
+cucumber:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

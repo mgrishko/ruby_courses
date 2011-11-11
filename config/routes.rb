@@ -5,7 +5,7 @@ GoodsMaster::Application.routes.draw do
                path: "profile",
                controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
                skip: [:registrations, :sessions] do
-      constraints(subdomain: "app") do
+      constraints(subdomain: Settings.app_subdomain) do
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
@@ -15,11 +15,12 @@ GoodsMaster::Application.routes.draw do
 
       get '/signin'   => "users/sessions#new",        as: :new_user_session
       post '/signin'  => 'users/sessions#create',     as: :user_session
+      get '/signout'  => 'users/sessions#destroy', as: :destroy_user_session if Devise.sign_out_via == :get
       delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
     end
 
-    constraints(subdomain: "app") do
-      scope subdomain: "app" do
+    constraints(subdomain: Settings.app_subdomain) do
+      scope subdomain: Settings.app_subdomain do
         devise_for :admins, path: '/dashboard'
 
         namespace :admin, path: "/dashboard" do

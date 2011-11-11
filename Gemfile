@@ -35,6 +35,7 @@ gem "carmen" # country_select and state_select plugin
 # Backend tools
 gem "responders"
 gem "draper"
+gem "settingslogic", "~> 2.0.6"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

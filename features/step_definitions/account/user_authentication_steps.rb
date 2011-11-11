@@ -33,9 +33,8 @@ When /^user submits (.*) email and(.*) password$/ do |email, password|
   click_button "Sign in"
 end
 
-# ToDo Adjust to sign out link when it will be present
 When /^user signs out$/ do
-  reset_session!
+  visit(destroy_user_session_url)
 end
 
 When /^user returns next time$/ do

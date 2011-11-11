@@ -34,7 +34,7 @@ module ApplicationHelper
   #
   # return [Account, nil] account for current subdomain if account subdomain or nil.
   def current_account
-    unless controller.request.subdomain == "app"
+    unless controller.request.subdomain == Settings.app_subdomain
       @current_account ||= Account.where(subdomain: controller.request.subdomain).first
     end
   end
