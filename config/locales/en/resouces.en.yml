@@ -3,6 +3,9 @@ en:
   show: "Show"
   update: "Update"
 
+  navigation:
+
+
   users:
     registrations:
       new:

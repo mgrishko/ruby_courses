@@ -216,6 +216,8 @@ GEM
     settingslogic (2.0.6)
     sexp_processor (3.0.7)
     shoulda-matchers (1.0.0.beta3)
+    simple-navigation (3.5.0)
+      activesupport (>= 2.3.2)
     spork (0.9.0.rc9)
     sprockets (2.0.3)
       hike (~> 1.2)
@@ -279,6 +281,7 @@ DEPENDENCIES
   sass-rails (~> 3.1.4)
   settingslogic (~> 2.0.6)
   shoulda-matchers
+  simple-navigation (~> 3.5.0)
   simple_form!
   spork (= 0.9.0.rc9)
   state_machine!

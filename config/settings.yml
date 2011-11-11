@@ -1,4 +1,5 @@
 defaults: &defaults
+  project_name: "GoodsMaster"
   app_subdomain: "app"
 
 development:

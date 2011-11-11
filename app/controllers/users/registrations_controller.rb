@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
 
-  layout "front"
+  layout :layout_name
 
   def acknowledgement
   end
@@ -14,5 +14,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     edit_user_registration_path
+  end
+
+  private
+
+  def layout_name
+    %w(new create acknowledgement cancel).include?(action_name) ? "front" : "application"
   end
 end

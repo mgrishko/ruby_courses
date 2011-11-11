@@ -66,7 +66,7 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments.
-  config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.cucumber? || Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = "50e43ebe2fee8d698c3e43aa495fdd9610a88d580d22115b12e67587b09dda26122a4f82ff3a3e5bbf34d5e7620371b322b871739f0854c0282350ddb85098ea"
@@ -192,7 +192,7 @@ Devise.setup do |config|
   # config.navigational_formats = [:"*/*", "*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = Rails.env.cucumber? ? :get : :delete
+  config.sign_out_via = Rails.env.cucumber? || Rails.env.test? ? :get : :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
