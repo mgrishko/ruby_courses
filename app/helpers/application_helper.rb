@@ -1,7 +1,8 @@
 module ApplicationHelper
-  #page_title - title in head
-  #body: true - optional, show title in body > h2
-  #title(name, body => true - optional, if you want to display title in body > h1)
+  # Returns title for current page.
+  #
+  # @param [String] return string to head title
+  # @param [Hash] optional, if :body = true, return [String] to the body > h2
   def title(page_title, options = {})
     if options[:body] == true
       body_title = content_tag(:h2, page_title.to_s)

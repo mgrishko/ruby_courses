@@ -1,14 +1,14 @@
 - title t('.title'), :body => true
 
-= simple_form_for(resource, :as => resource_name, :url => profile_path, wrapper: :inline, :html => { :method => :put }) do |f|
+= simple_form_for(resource, :as => resource_name, :url => profile_path, wrapper: :inline, html: { method: :put }) do |f|
   = f.error_notification
   .inputs
     = f.input :first_name, autofocus: true
     = f.input :last_name
     = f.input :email
-    = f.input :password, :hint => "leave it blank if you don't want to change it"
+    = f.input :password
     = f.input :time_zone
-    = f.input :current_password, :hint => "we need your current password to confirm your changes"
+    = f.input :current_password
   .actions
     = f.button :submit, "Update"
 = link_to "Back", :back

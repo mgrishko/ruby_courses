@@ -2,8 +2,8 @@ Given /^an activated account$/ do
   @account = Fabricate(:account)
   @account.activate!
 
-  @user = Fabricate(:user, email: "user@example.com", password: "password")
-  @user.accounts << @account
+  user = Fabricate(:user, email: "user@example.com", password: "password")
+  user.accounts << @account
 end
 
 Given /^an unauthenticated user$/ do

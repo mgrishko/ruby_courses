@@ -15,12 +15,13 @@ Then /^(?:[^\s]* )should be redirected to the edit profile page$/ do
 end
 
 When /^(?:|he )submits profile form with(.*) password$/ do |password|
+  @user = Fabricate.attributes_for(:user, email: "user@example.com")
   password.strip!
   if password == "current"
-    fill_in "Current password", with: "password"
+    fill_in "Current password", with: @user[:password]
   elsif password == "new"
     fill_in "Password", with: "foobar"
-    fill_in "Current password", with: "password"
+    fill_in "Current password", with: @user[:password]
   #for without password
   elsif password == "out"
     fill_in "Current password", with: ""
@@ -38,7 +39,7 @@ end
 
 When /^user submits email and(.*) password$/ do |password|
   password.strip!
-  fill_in "Email", with: "user@example.com"
-  fill_in "Password", with: password == "new" ? "foobar" : "password"
+  fill_in "Email", with: @user[:email]
+  fill_in "Password", with: password == "new" ? "foobar" : @user[:password]
   click_button "Sign in"
 end
