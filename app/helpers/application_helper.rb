@@ -1,8 +1,8 @@
 module ApplicationHelper
-  # Returns title for current page.
+  # Sets content for title in head and for body header.
   #
-  # @param [String] return string to head title
-  # @param [Hash] optional, if :body = true, return [String] to the body > h2
+  # @param [String] page_title page title
+  # @param [Hash] options optional. if options[:body] == true sets content for body title.
   def title(page_title, options = {})
     if options[:body] == true
       body_title = content_tag(:h2, page_title.to_s)
@@ -13,14 +13,17 @@ module ApplicationHelper
     end
   end
 
-  # Returns ability for current membership.
+  # Prepares ability for current membership.
   #
+  # return [MembershipAbility] membership ability for current user in current account.
   def current_ability
     @current_ability ||= MembershipAbility.new(current_membership)
   end
 
-  # Returns account membership if current user has membership for current account and account is not nil.
+  # Prepares account membership if current user has membership for current account and account is not nil.
   # Otherwise returns nil.
+  #
+  # return [Membership, nil] membership on current user in current account.
   def current_membership
     @current_membership ||= begin
       current_user && current_account ? current_account.memberships.where(user_id: current_user.id).first : nil
@@ -29,6 +32,7 @@ module ApplicationHelper
 
   # Returns account if account can be found by current request subdomain. Otherwise returns nil.
   #
+  # return [Account, nil] account for current subdomain if account subdomain or nil.
   def current_account
     unless controller.request.subdomain == "app"
       @current_account ||= Account.where(subdomain: controller.request.subdomain).first

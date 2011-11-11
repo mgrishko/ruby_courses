@@ -1,6 +1,7 @@
 en:
-  show: "Show"
   back: "Back"
+  show: "Show"
+  update: "Update"
 
   users:
     registrations:
