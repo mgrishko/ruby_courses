@@ -17,6 +17,7 @@
               %a{:href => "#"} Messages
             %li
               %a{:href => "#"} Events
+            %li= link_to "Users", memberships_path
 
             // Fixme: Refactor sign out
             - if user_signed_in?

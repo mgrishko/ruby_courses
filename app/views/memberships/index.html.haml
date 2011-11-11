@@ -1,0 +1,7 @@
+%h1 Users
+%table.grid
+	- @memberships.each do |m|
+		%tr
+			%td= m.display_name
+			%td= m.role_name
+			%td= link_to "Edit", edit_membership_path(m)

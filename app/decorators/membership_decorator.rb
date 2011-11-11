@@ -1,6 +1,14 @@
 class MembershipDecorator < ApplicationDecorator
   decorates :membership
 
+  def display_name
+    "#{membership.user.first_name} #{membership.user.last_name}"
+  end
+  
+  def role_name
+    membership.role.capitalize
+  end
+  
   # Accessing Helpers
   #   You can access any helper via a proxy
   #

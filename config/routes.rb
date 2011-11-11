@@ -1,6 +1,7 @@
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
-
+    resources :memberships
+    
     devise_for :users,
                path: "profile",
                controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
