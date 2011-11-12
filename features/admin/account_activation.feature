@@ -5,7 +5,7 @@ Feature: Account activation
 
   Scenario: Admin activates account
     Given an authenticated admin
-    And company representative is signed up a new account
+    And company representative has signed up a new account
     When admin goes to the accounts page
     And he activates the account
     Then he should see notice message "Account was successfully activated."

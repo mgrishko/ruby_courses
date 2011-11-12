@@ -10,10 +10,12 @@ Given /^an authenticated admin$/ do
     Given admin is on the admin sign in page
     When admin submits valid email and password
   }
+
+  current_url.should == admin_dashboard_url
 end
 
 Given /^(?:[^\s]* )is on the admin sign in page$/ do
-  visit(new_admin_session_url)
+  visit(new_admin_session_url(subdomain: Settings.app_subdomain))
 end
 
 When /^the admin tries to access a restricted page$/ do

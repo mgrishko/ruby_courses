@@ -36,3 +36,8 @@ en:
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+
+    sessions:
+      new:
+        title: "Sign in"
+        sign_in: "Sign in"

@@ -5,23 +5,31 @@ GoodsMaster::Application.routes.draw do
                path: "profile",
                controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
                skip: [:registrations, :sessions] do
+
+      # Routes signup and acknowledgement routes only under app subdomain
       constraints(subdomain: Settings.app_subdomain) do
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
       end
-      get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
-      put "/profile"  => "users/registrations#update"
 
-      get '/signin'   => "users/sessions#new",        as: :new_user_session
-      post '/signin'  => 'users/sessions#create',     as: :user_session
-      get '/signout'  => 'users/sessions#destroy', as: :destroy_user_session if Devise.sign_out_via == :get
-      delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
+      # Routes edit user profile routes and sign in / sign out only under account subdomain
+      # Todo: refactor to Subdomain class when will be more than one application subdomain
+      constraints(lambda { |req| !(req.subdomain == Settings.app_subdomain) }) do
+        get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
+        put "/profile"  => "users/registrations#update"
+
+        get '/signin'   => "users/sessions#new",        as: :new_user_session
+        post '/signin'  => 'users/sessions#create',     as: :user_session
+        get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
+        delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
+      end
     end
 
+    # Admin dashboard only under app subdomain
     constraints(subdomain: Settings.app_subdomain) do
       scope subdomain: Settings.app_subdomain do
-        devise_for :admins, path: '/dashboard'
+        devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
 
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
