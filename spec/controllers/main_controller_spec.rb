@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BaseController do
+describe MainController do
   controller do
     skip_authorization_check
 

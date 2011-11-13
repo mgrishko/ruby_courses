@@ -1,9 +1,7 @@
 Given /^an activated account$/ do
-  @account = Fabricate(:account)
-  @account.activate!
-
   user = Fabricate(:user, email: "user@example.com", password: "password")
-  user.accounts << @account
+  @account = user.accounts.create!(Fabricate.attributes_for(:account, user: nil))
+  @account.activate!
 end
 
 Given /^an unauthenticated user$/ do

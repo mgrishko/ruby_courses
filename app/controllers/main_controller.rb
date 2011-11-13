@@ -1,4 +1,4 @@
-class BaseController < ApplicationController
+class MainController < ApplicationController
   before_filter :authenticate_user!
   before_filter :validate_account_membership!
 

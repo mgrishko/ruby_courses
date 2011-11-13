@@ -1,5 +1,5 @@
-class ProductsController < BaseController
-  load_and_authorize_resource
+class ProductsController < MainController
+  load_and_authorize_resource :through => :current_account
 
   # GET /products
   # GET /products.xml

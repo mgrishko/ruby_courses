@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe HomeController do
 
-  it { should be_kind_of(BaseController) }
+  it { should be_kind_of(MainController) }
 
   context "when user is authenticated" do
     login_account

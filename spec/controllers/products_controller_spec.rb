@@ -2,14 +2,10 @@ require 'spec_helper'
 
 describe ProductsController do
 
-  it { should be_kind_of(BaseController) }
+  it { should be_kind_of(MainController) }
 
   def valid_attributes
-    @attrs ||= begin
-      product = Fabricate.attributes_for(:product)
-      product.delete(:account)
-      product
-    end
+    @attrs ||= Fabricate.attributes_for(:product, account: nil)
   end
 
   describe "GET index" do
@@ -21,6 +17,13 @@ describe ProductsController do
       get :index
       assigns(:products).should eq([product])
     end
+
+    it "does not show other account products" do
+      account = Fabricate(:account, subdomain: "other")
+      account.products.create! valid_attributes
+      get :index
+      assigns(:products).should be_empty
+    end
   end
 
   describe "GET show" do
@@ -31,6 +34,12 @@ describe ProductsController do
       product = account.products.create! valid_attributes
       get :show, :id => product.id
       assigns(:product).should eq(product)
+    end
+
+    it "does not show other account product" do
+      account = Fabricate(:account, subdomain: "other")
+      product = account.products.create! valid_attributes
+      lambda { get :show, :id => product.id }.should raise_error(Mongoid::Errors::DocumentNotFound)
     end
   end
 
