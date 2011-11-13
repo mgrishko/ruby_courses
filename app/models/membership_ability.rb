@@ -8,11 +8,12 @@ class MembershipAbility
       can :manage, :all
 
     elsif membership.role? :editor
-
+      can :manage, Product
+      can :read, :all
     elsif membership.role? :contributor
-
+      can :read, :all
     elsif membership.role? :viewer
-
+      can :read, :all
     else
       cannot :read, :all
     end

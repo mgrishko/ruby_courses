@@ -1,5 +1,4 @@
-class HomeController < ApplicationController
-  before_filter :authenticate_user!
+class HomeController < BaseController
   skip_authorization_check
   respond_to :html
 

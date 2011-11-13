@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe HomeController do
+
+  it { should be_kind_of(BaseController) }
+
   context "when user is authenticated" do
-    login :user
+    login_account
 
     describe "GET index" do
       it "renders index template" do
@@ -16,7 +19,7 @@ describe HomeController do
     logout :user
 
     describe "GET index" do
-      it "renders index template" do
+      it "redirects to the user sign in page" do
         get :index, subdomain: "subdomain"
         response.should redirect_to(new_user_session_url)
       end

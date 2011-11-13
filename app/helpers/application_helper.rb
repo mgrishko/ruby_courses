@@ -15,7 +15,7 @@ module ApplicationHelper
 
   # Prepares ability for current membership.
   #
-  # return [MembershipAbility] membership ability for current user in current account.
+  # @return [MembershipAbility] membership ability for current user in current account.
   def current_ability
     @current_ability ||= MembershipAbility.new(current_membership)
   end
@@ -23,19 +23,23 @@ module ApplicationHelper
   # Prepares account membership if current user has membership for current account and account is not nil.
   # Otherwise returns nil.
   #
-  # return [Membership, nil] membership on current user in current account.
+  # @return [Membership, nil] membership on current user in current account.
   def current_membership
     @current_membership ||= begin
       current_user && current_account ? current_account.memberships.where(user_id: current_user.id).first : nil
     end
   end
 
+  def current_membership?
+    current_membership
+  end
+
   # Returns account if account can be found by current request subdomain. Otherwise returns nil.
   #
-  # return [Account, nil] account for current subdomain if account subdomain or nil.
+  # @return [Account, nil] account for current subdomain if account subdomain or nil.
   def current_account
-    unless controller.request.subdomain == Settings.app_subdomain
-      @current_account ||= Account.where(subdomain: controller.request.subdomain).first
+    unless request.subdomain == Settings.app_subdomain
+      @current_account ||= Account.where(subdomain: request.subdomain, state: "active").first
     end
   end
 end
