@@ -6,12 +6,10 @@ Feature: Account membership management
   Background:
     Given account with memberships
 
-  @wip
   Scenario: Admin user views the account users
     Given admin user is on the account memberships page
     Then he should see account users
 
-  @wip
   Scenario: Non-admin can't view the account users
 	Given an authenticated account user
 	Then he should not see account users
@@ -19,7 +17,7 @@ Feature: Account membership management
   Scenario: Admin user deletes a user from an account
     Given admin user is on the account memberships page
     When he deletes an account user
-    Then he should see notice message "has been deleted from account"
+    Then he should see notice message "was successfully destroyed"
 
   Scenario: Admin user can't delete the account owner from an account
     Given admin user is on the account memberships page

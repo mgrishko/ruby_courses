@@ -8,6 +8,10 @@ When /^he signs in with "(.*)" email and "(.*)" password$/ do |email, password|
   click_button "Sign in"
 end
 
+When /^he deletes an account user$/ do
+  click_button("Delete")
+end
+
 Given /^admin user is on the account memberships page$/ do
   steps %Q{
     Given user is on the user sign in page

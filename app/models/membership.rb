@@ -1,11 +1,12 @@
 class Membership
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   ROLES = %w(admin editor contributor viewer)
 
   field :role, type: String
 
-  embedded_in :account
+  embedded_in :account 
   belongs_to :user
 
   validates :user, presence: true
@@ -16,5 +17,4 @@ class Membership
   def role?(role)
     self.role == role.to_s
   end
-
 end
