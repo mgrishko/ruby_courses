@@ -6,7 +6,8 @@ class MembershipDecorator < ApplicationDecorator
   end
   
   def role_name
-    membership.role.capitalize
+    return "Owner" if membership.user == membership.account.owner
+    return membership.role.capitalize
   end
   
   # Accessing Helpers

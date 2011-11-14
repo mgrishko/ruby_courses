@@ -5,7 +5,8 @@ class MembershipAbility
     membership ||= Membership.new
 
     if membership.role? :admin
-      can :manage, :all
+      can :manage, Membership
+      cannot [:destroy, :update], Membership, :user_id => membership.account.owner_id
     elsif membership.role? :editor
 
     elsif membership.role? :contributor
