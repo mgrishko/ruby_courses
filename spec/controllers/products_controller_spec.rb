@@ -9,7 +9,7 @@ describe ProductsController do
   end
 
   describe "GET index" do
-    login_account as: :viewer, account: { subdomain: "company" }
+    login_account_as :viewer, account: { subdomain: "company" }
 
     it "assigns all products as @products" do
       account = Account.where(subdomain: "company").first
@@ -27,7 +27,7 @@ describe ProductsController do
   end
 
   describe "GET show" do
-    login_account as: :viewer, account: { subdomain: "company" }
+    login_account_as :viewer, account: { subdomain: "company" }
 
     it "assigns the requested product as @product" do
       account = Account.where(subdomain: "company").first
@@ -44,7 +44,7 @@ describe ProductsController do
   end
 
   describe "GET new" do
-    login_account as: :editor, account: { subdomain: "company" }
+    login_account_as :editor, account: { subdomain: "company" }
 
     it "assigns a new product as @product" do
       get :new
@@ -61,7 +61,7 @@ describe ProductsController do
   #end
 
   describe "POST create" do
-    login_account as: :editor, account: { subdomain: "company" }
+    login_account_as :editor, account: { subdomain: "company" }
 
     describe "with valid params" do
       it "creates a new Product" do

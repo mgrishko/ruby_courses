@@ -6,7 +6,6 @@ class MembershipAbility
 
     if membership.role? :admin
       can :manage, :all
-
     elsif membership.role? :editor
       can :manage, Product
       can :read, :all

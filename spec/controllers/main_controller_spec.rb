@@ -10,7 +10,7 @@ describe MainController do
   end
 
   describe "account membership" do
-    login_account as: :viewer
+    login_account_as :viewer
 
     context "when valid" do
       it "processes request" do

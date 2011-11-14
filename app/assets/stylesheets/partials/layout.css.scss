@@ -15,9 +15,11 @@ body {
   &.front {
     header { @extend .container; }
     section { @extend .container; }
+    footer { @extend .container; }
   }
   &.application {
     header { @extend .container-fluid; }
     section { @extend .container-fluid; }
+    footer { @extend .container-fluid; }
   }
 }

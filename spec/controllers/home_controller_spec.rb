@@ -5,7 +5,7 @@ describe HomeController do
   it { should be_kind_of(MainController) }
 
   context "when user is authenticated" do
-    login_account
+    login_account_as :viewer
 
     describe "GET index" do
       it "renders index template" do

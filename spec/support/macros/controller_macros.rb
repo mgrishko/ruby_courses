@@ -45,12 +45,11 @@ module ControllerMacros
   #
   # Examples:
   #
-  #   login_account as: :viewer, account: { subdomain: "company" }, user: { email: "user@email.com"}
+  #   login_account_as :viewer, account: { subdomain: "company" }, user: { email: "user@email.com"}
   #
   # @param [Hash] opts optional, :as option for role, :account for account attributes, :user for user attributes.
-  def login_account(opts = {})
+  def login_account_as(role, opts = {})
     opts = (opts || {}).with_indifferent_access
-    role = opts[:as] || :viewer
     user_attrs = opts.delete(:user) || {}
     account_attrs = opts.delete(:account) || {}
 

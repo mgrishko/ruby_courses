@@ -10,10 +10,16 @@ describe "products/new.html.haml" do
 
   it "renders new product form" do
     render
+    rendered.should have_selector("form", action: products_path, method: "post")
+  end
 
-    assert_select "form", :action => products_path, :method => "post" do
-      assert_select "input#product_name", :name => "product[name]"
-      assert_select "input#product_description", :name => "product[description]"
-    end
+  it "renders name field" do
+    render
+    rendered.should have_field("product_name", name: "product[name]")
+  end
+
+  it "renders description field" do
+    render
+    rendered.should have_field("product_description", name: "product[description]")
   end
 end

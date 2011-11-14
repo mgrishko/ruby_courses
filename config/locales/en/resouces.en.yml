@@ -5,6 +5,15 @@ en:
 
   navigation:
 
+  products:
+    defaults: &PRODUCT_DEFAULTS
+      new_product: "New Product"
+    index:
+      <<: *PRODUCT_DEFAULTS
+      title: "Listing products"
+    new:
+      <<: *PRODUCT_DEFAULTS
+      title: "New product"
 
   users:
     registrations:
