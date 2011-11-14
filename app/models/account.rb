@@ -12,6 +12,7 @@ class Account
 
   belongs_to :owner, class_name: "User"
   embeds_many :memberships
+  has_many :products
 
   before_validation :set_default_attributes, on: :create
   before_validation :downcase_subdomain

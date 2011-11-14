@@ -8,8 +8,18 @@ describe ApplicationHelper do
     end
 
     it "sets content for body title" do
-      helper.title "Home", :body => true
+      helper.title "Home", body: true
       helper.content_for(:body_title).should == "<h2>Home</h2>"
+    end
+
+    it "sets content for body title by default" do
+      helper.title "Home"
+      helper.content_for(:body_title).should == "<h2>Home</h2>"
+    end
+
+    it "should not set content for body title" do
+      helper.title "Home", body: false
+      helper.content_for(:body_title).should be_blank
     end
   end
 
@@ -17,6 +27,7 @@ describe ApplicationHelper do
     before(:each) { @account = Fabricate(:account, subdomain: "company") }
 
     it "returns account if account with current subdomain exists" do
+      @account.activate!
       controller.request.host = 'company.domain.com'
       helper.current_account.should eql(@account)
     end
@@ -25,16 +36,23 @@ describe ApplicationHelper do
       controller.request.host = 'unknown.domain.com'
       helper.current_account.should be_nil
     end
+
+    it "returns nil if account is not active" do
+      controller.request.host = 'company.domain.com'
+      helper.current_account.should be_nil
+    end
   end
 
   describe "#current_membership" do
     before(:each) do
       @user1 = Fabricate(:user)
       @account1 = @user1.accounts.create(Fabricate.attributes_for(:account, subdomain: "company1"))
+      @account1.activate!
       @membership1 = @account1.memberships.first
 
       @user2 = Fabricate(:user)
       @account2 = @user2.accounts.create(Fabricate.attributes_for(:account, subdomain: "company2"))
+      @account2.activate!
       @membership2 = @account2.memberships.create(user: @user1, role: "editor")
     end
 

@@ -1,6 +1,6 @@
 Fabricator(:membership) do
   account!
-  user!#_id { Fabricate(:user).id }
+  user!
   role "editor"
 end
 

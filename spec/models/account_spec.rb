@@ -70,9 +70,14 @@ describe Account do
     account.owner.should eql(user)
   end
 
-  it "should embeds many memberships" do
+  it "should embed many memberships" do
     membership = account.memberships.build
     membership.account.should eql(account)
+  end
+
+  it "should have many products" do
+    product = account.products.build
+    product.account.should eql(account)
   end
 
   describe "default values" do
