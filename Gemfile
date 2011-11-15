@@ -31,10 +31,12 @@ gem 'jquery-rails'
 gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin
+gem "simple-navigation", "~> 3.5.0"
 
 # Backend tools
 gem "responders"
 gem "draper"
+gem "settingslogic", "~> 2.0.6"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

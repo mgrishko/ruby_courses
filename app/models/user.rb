@@ -21,4 +21,5 @@ class User
   validates :password, presence: true, if: :password_required?
 
   attr_accessible :email, :password, :first_name, :last_name, :time_zone, :locale
+
 end

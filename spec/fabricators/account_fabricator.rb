@@ -19,5 +19,12 @@ end
 Fabricator(:account_with_another_admin, from: :account) do
   after_build do |account|
     Fabricate.build(:admin_membership, account: account)
+    account.memberships.build(role: "editor", user: Fabricate(:user))
+  end
+end
+
+Fabricator(:active_account, from: :account) do
+  after_create do |account|
+    account.activate!
   end
 end

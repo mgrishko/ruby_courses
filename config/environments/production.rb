@@ -59,6 +59,5 @@ GoodsMaster::Application.configure do
   config.active_support.deprecation = :notify
 
   # Setting default_url_options (required for devise).
-  #ToDo: it must be the actual host of your application
   config.action_mailer.default_url_options = { :host => 'goodsmasterhq.com' }
 end

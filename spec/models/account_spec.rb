@@ -12,7 +12,7 @@ describe Account do
   it { should_not allow_value("sub.domain").for(:subdomain) }
   # Reserved or censored subdomains
   it { should_not allow_value("www").for(:subdomain) }
-  it { should_not allow_value("app").for(:subdomain) }
+  it { should_not allow_value(Settings.app_subdomain).for(:subdomain) }
   it { should_not allow_value("secured").for(:subdomain) }
   it { should_not allow_value("admin").for(:subdomain) }
   it { should_not allow_value("dashboard").for(:subdomain) }
@@ -70,9 +70,14 @@ describe Account do
     account.owner.should eql(user)
   end
 
-  it "should embeds many memberships" do
+  it "should embed many memberships" do
     membership = account.memberships.build
     membership.account.should eql(account)
+  end
+
+  it "should have many products" do
+    product = account.products.build
+    product.account.should eql(account)
   end
 
   describe "default values" do

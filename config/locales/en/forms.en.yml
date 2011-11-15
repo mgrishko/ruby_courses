@@ -43,3 +43,8 @@ en:
     hints:
       account:
         subdomain: "Subdomains may include letters and numbers only (no space)."
+
+      user:
+        edit:
+          current_password: "we need your current password to confirm your changes"
+          password: "leave it blank if you don't want to change it"

@@ -20,16 +20,18 @@ cucumber:
 
 # set these environment variables on your prod server
 production:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
-  # Enable identity maps
-  identity_map_enabled: true
-  # Disable dynamic fields
-  allow_dynamic_fields: false
-  skip_version_check: true
+  <<: *defaults
+  database: gm_production
+#  host: <%= ENV['MONGOID_HOST'] %>
+#  port: <%= ENV['MONGOID_PORT'] %>
+#  username: <%= ENV['MONGOID_USERNAME'] %>
+#  password: <%= ENV['MONGOID_PASSWORD'] %>
+#  database: <%= ENV['MONGOID_DATABASE'] %>
+#  # Enable identity maps
+#  identity_map_enabled: true
+#  # Disable dynamic fields
+#  allow_dynamic_fields: false
+#  skip_version_check: true
   # slaves:
   #   - host: slave1.local
   #     port: 27018

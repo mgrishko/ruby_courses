@@ -1,16 +1,17 @@
 Given /^an activated account$/ do
-  @account = Fabricate(:account)
+  user = Fabricate(:user, email: "owner@example.com", password: "password")
+  @account = user.accounts.create!(Fabricate.attributes_for(:account, user: nil))
   @account.activate!
-
-  user = Fabricate(:user, email: "user@example.com", password: "password")
-  user.accounts << @account
 end
 
 Given /^an unauthenticated user$/ do
+  Fabricate(:user, email: "user@example.com", password: "password")
   reset_session!
 end
 
 Given /^an authenticated user$/ do
+  @user = Fabricate(:user, email: "user@example.com", password: "password")
+
   steps %Q{
     Given user is on the user sign in page
     When user submits valid email and password
@@ -33,9 +34,8 @@ When /^user submits (.*) email and(.*) password$/ do |email, password|
   click_button "Sign in"
 end
 
-# ToDo Adjust to sign out link when it will be present
 When /^user signs out$/ do
-  reset_session!
+  visit(destroy_user_session_url)
 end
 
 When /^user returns next time$/ do

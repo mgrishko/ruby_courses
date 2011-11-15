@@ -1,5 +1,5 @@
 Given /^company representative is on the new account sign up page$/ do
-  visit(new_user_registration_url(subdomain: "app"))
+  visit(new_user_registration_url(subdomain: Settings.app_subdomain))
 end
 
 When /^(?:[^\s]* )fills? out the sign up form with following (.*) data:$/ do |data_type, table|
@@ -19,7 +19,7 @@ When /^he submits sign up form with taken subdomain$/ do
 end
 
 Then /^he should be redirected back to the sign up page$/ do
-  current_url.should == new_user_registration_url(subdomain: "app")
+  current_url.should == new_user_registration_url(subdomain: Settings.app_subdomain)
 end
 
 Then /^he should see that subdomain (.*)$/ do |message|
@@ -27,7 +27,7 @@ Then /^he should see that subdomain (.*)$/ do |message|
 end
 
 Then /^(?:[^\s]* )should be redirected to the signup acknowledgement page$/ do
-  current_url.should == signup_acknowledgement_url(subdomain: "app")
+  current_url.should == signup_acknowledgement_url(subdomain: Settings.app_subdomain)
 end
 
 def fill_out_signup_form(data_type, form_fields)

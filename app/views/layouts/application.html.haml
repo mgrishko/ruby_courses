@@ -25,11 +25,23 @@
 
           %form.search-wrapper{:action => ""}
             %input.search{:placeholder => "Search", :type => "text"}
+
     %section
-      = render :partial => 'layouts/partials/flash', :object => flash
-      - if content_for?(:body_title)
-        = yield(:body_title)
-      = yield
-    %footer.footer
+
+      .sidebar
+        - if content_for?(:sidebar)
+          = yield(:sidebar)
+
+      .content
+        = render :partial => 'layouts/partials/flash', :object => flash
+
+        - if content_for?(:body_title)
+          = yield(:body_title)
+
+        = yield
+
+
+
+    %footer
       = debug(params) if Rails.env.development?
       = javascript_include_tag "application"
