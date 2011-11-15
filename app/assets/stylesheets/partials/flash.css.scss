@@ -1,5 +1,4 @@
-.flash {
-  @extend .alert-message;
+.alert-message {
   &.alert { @extend .error; }
   &.notice  { @extend .info;  }
 }

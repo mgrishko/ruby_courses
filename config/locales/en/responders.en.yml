@@ -12,6 +12,8 @@ en:
       all: "You are not authorized to access this page."
     create:
       product: "Not allowed to create a new product."
+    update:
+      product: "Not allowed to update a product."
 
   flash:
     actions:

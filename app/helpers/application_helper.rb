@@ -4,13 +4,26 @@ module ApplicationHelper
   # @param [String] page_title page title
   # @param [Hash] options optional. if options[:body] == true or does not present it sets content for body title.
   def title(page_title, options = {})
-    set_body_title = options[:body].nil? ? true : options[:body]
-    if set_body_title
-      body_title = content_tag(:h2, page_title.to_s)
-      content_for(:body_title, body_title.to_s)
+    set_page_title = options[:page_title].nil? ? true : options[:page_title]
+    if set_page_title
+      content_for(:page_title, page_title.to_s)
       content_for(:head_title, page_title.to_s)
     else
       content_for(:head_title, page_title.to_s)
+    end
+  end
+
+  # Generates a link to create a new object in current ability allows to create that object.
+  # Otherwise returns nil.
+  #
+  # @param [Object] object to create a new object link
+  # @param [Hash] opts optional options for link_to helper
+  # @return [String, nil] link to new object page.
+  def create_link(object, opts = {})
+    content = I18n.t("#{controller.controller_name}.#{controller.action_name}.new")
+    if can?(:create, object)
+      object_class = (object.kind_of?(Class) ? object : object.class)
+      link_to(content, [:new, object_class.name.underscore.to_sym], opts)
     end
   end
 

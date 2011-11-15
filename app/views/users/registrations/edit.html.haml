@@ -1,4 +1,7 @@
-- title t('.title'), body: true
+- title t('.title')
+
+- content_for(:sidebar) do
+  = link_to t("back"), :back
 
 = simple_form_for(resource, :as => resource_name, :url => profile_path, wrapper: :inline, html: { method: :put }) do |f|
   = f.error_notification
@@ -10,5 +13,4 @@
     = f.input :time_zone
     = f.input :current_password
   .actions
-    = f.button :submit, t("update")
-= link_to t("back"), :back
+    = f.button :submit, t("update"), class: "primary"

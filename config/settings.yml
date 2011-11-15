@@ -2,6 +2,8 @@ defaults: &defaults
   project_name: "GoodsMaster"
   app_subdomain: "app"
 
+  page_title_header: "h1"
+
 development:
   <<: *defaults
   neat_setting: 800

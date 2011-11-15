@@ -1,12 +1,22 @@
-%p#notice= notice
+= title @product.name, page_title: false
 
-%p
-  %b Name:
-  = @product.name
-%p
-  %b Description:
-  = @product.description
+- content_for(:sidebar) do
+  = image_tag("product_missing.jpg")
+  %br
+  %br
+
+  = @product.edit_link(class: "btn large")
+
+  %br
+  %br
+  = link_to t("back"), products_path
+
+%article
+  %header
+    %h2= @product.name
+
+  %p= @product.description
 
 -#= link_to 'Edit', edit_product_path(@product)
 -#\|
-= link_to 'Back', products_path
+

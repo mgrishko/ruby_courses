@@ -4,13 +4,19 @@ en:
   update: "Update"
 
   navigation:
+    main:
+      home: "Dashboard"
+      products: "Products"
 
   products:
     defaults: &PRODUCT_DEFAULTS
-      new_product: "New Product"
+      new: "New Product"
+      edit: "Edit Product"
     index:
       <<: *PRODUCT_DEFAULTS
       title: "Listing products"
+    show:
+      <<: *PRODUCT_DEFAULTS
     new:
       <<: *PRODUCT_DEFAULTS
       title: "New product"
@@ -25,6 +31,7 @@ en:
     sessions:
       new:
         title: "Sign in"
+        sign_in: "Sign in"
 
   admin:
     accounts:

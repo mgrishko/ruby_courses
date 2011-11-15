@@ -17,4 +17,20 @@ describe ProductDecorator do
       @decorator.description.should == "Product description"
     end
   end
+
+  describe "#edit_link" do
+    context "when user can edit product" do
+      it "renders link" do
+        @decorator.h.stub(:can?).and_return(true)
+        @decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
+      end
+    end
+
+    context "when user cannot edit product" do
+      it "should return empty string when user cannot edit product" do
+        @decorator.h.stub(:can?).and_return(false)
+        @decorator.edit_link.should be_blank
+      end
+    end
+  end
 end
