@@ -1,5 +1,5 @@
 Fabricator(:account) do
-  owner!           { Fabricate(:user) }
+  owner!          { Fabricate(:user) }
   subdomain       { "subdomain" }
   company_name    { Faker::Company.name }
   country         { "US" }
