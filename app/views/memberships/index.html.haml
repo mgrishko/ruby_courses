@@ -1,13 +1,14 @@
 %h1 Users
-= current_user.first_name
+
 %table.grid
+	%tr
+		%th Name
+		%th Role
+		%th &nbsp;
+		%th &nbsp;
 	- @memberships.each do |m|
 		%tr
 			%td= m.display_name
 			%td= m.role_name
-			%td
-				- if can? :update, m.model
-					= link_to "Edit", edit_membership_path(m)
-			%td
-				- if can? :destroy, m.model
-					= button_to "Delete", m, :method => :delete, :class => "btn small danger"
+			%td= link_to("Edit", [:edit, m], :class => "btn small") if can?(:update, m.model)
+			%td= button_to "Delete", m, :method => :delete, :class => "btn small danger" if can?(:destroy, m.model)
