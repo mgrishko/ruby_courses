@@ -2,7 +2,7 @@ Feature: Account membership management
   In order to control which users have access to an account
   An account admin
   Should be able to manage the account membership
-
+  
   Scenario: Admin user views the account users
     Given account with memberships
     Given admin user is on the account memberships page
@@ -20,7 +20,7 @@ Feature: Account membership management
     Then he should see notice message "was successfully destroyed"
 
   Scenario: Admin user can't delete the account owner from an account
-    Given account
+    Given active account
     Given admin user is on the account memberships page
     Then he should not be able to delete the account owner
 

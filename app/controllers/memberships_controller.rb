@@ -1,4 +1,4 @@
-class MembershipsController < ApplicationController
+class MembershipsController < MainController
   load_and_authorize_resource :through => :current_account
   
   def index

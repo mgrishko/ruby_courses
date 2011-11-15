@@ -29,13 +29,15 @@ end
 When /^user submits (.*) email and(.*) password$/ do |email, password|
   password.strip!
 
-  fill_in "Email", with: email == "valid" ? "user@example.com" : "invalid@example.com"
+  #fill_in "Email", with: email == "valid" ? "user@example.com" : "invalid@example.com"
+  fill_in "Email", with: email == "valid" ? "owner@example.com" : "invalid@example.com"
   fill_in "Password", with: password.blank? || password == "valid" ? "password" : "invalid"
   click_button "Sign in"
 end
 
 When /^user signs out$/ do
-  visit(destroy_user_session_url)
+  #visit(destroy_user_session_url)
+  click_link("Sign out")
 end
 
 When /^user returns next time$/ do

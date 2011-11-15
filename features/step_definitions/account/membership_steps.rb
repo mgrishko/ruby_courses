@@ -2,8 +2,8 @@ Given /^account with memberships$/ do
   @account = Fabricate(:account_with_memberships)
 end
 
-Given /^account$/ do
-  @account = Fabricate(:account)
+Given /^active account$/ do
+  @account = Fabricate(:active_account)
 end
 
 Given /^account with another admin$/ do
