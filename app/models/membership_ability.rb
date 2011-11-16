@@ -8,12 +8,12 @@ class MembershipAbility
       can :manage, :all
       cannot [:destroy, :update], Membership, :user_id => membership.account.owner_id
     elsif membership.role? :editor
-      can :read, :all
+      can :read, Product
       can :manage, Product
     elsif membership.role? :contributor
-      can :read, :all
+      can :read, Product
     elsif membership.role? :viewer
-      can :read, :all
+      can :read, Product
     else
       cannot :read, :all
     end

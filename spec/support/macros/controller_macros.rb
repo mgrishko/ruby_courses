@@ -55,8 +55,25 @@ module ControllerMacros
 
     before(:each) do
       user = Fabricate(:user, user_attrs)
+      
+      #puts "1"
+      User.all.each do |u|
+        
+        #puts u.inspect
+        
+      end
       account = Fabricate(:active_account, account_attrs)
+      #puts "2"
+      User.all.each do |u|
+        
+        #puts u.inspect
+      end
       Fabricate("#{role.to_s}_membership".to_sym, account: account, user: user)
+      
+      #puts "3"
+      User.all.each do |u|
+        #puts u.inspect
+      end
 
       # Stubbing helper method current_user
       @controller.stub(:current_user).and_return(user)

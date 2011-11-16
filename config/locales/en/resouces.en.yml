@@ -15,6 +15,13 @@ en:
       <<: *PRODUCT_DEFAULTS
       title: "New product"
 
+  memberships:
+    index:
+      title: All People
+    edit:
+      title: Edit Membership
+    update: Submit
+
   users:
     registrations:
       new:

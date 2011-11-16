@@ -13,9 +13,7 @@ en:
       account:
         company_name: "Company"
         tize_zone: "Time zone"
-  memberships:
-    edit:
-        update: Submit
+
   simple_form:
     "yes": 'Yes'
     "no": 'No'

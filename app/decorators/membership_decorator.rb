@@ -1,7 +1,7 @@
 class MembershipDecorator < ApplicationDecorator
   decorates :membership
 
-  include CanCan::ControllerAdditions::ClassMethods
+  #include CanCan::ControllerAdditions::ClassMethods
 
   def display_name
     "#{membership.user.first_name} #{membership.user.last_name}"

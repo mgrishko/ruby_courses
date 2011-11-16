@@ -51,32 +51,20 @@ describe MembershipAbility do
       @ability = MembershipAbility.new(@editor_membership)
     end
     
-    it { @ability.should_not be_able_to(:destroy, @owner_membership) }
-    it { @ability.should_not be_able_to(:update, @owner_membership) }
-    it { @ability.should be_able_to(:read, @owner_membership) }
-    
-    it "should not manage members" do
-      @non_owner_memberships.each do |m|
-        @ability.should_not be_able_to(:destroy, m)
-        @ability.should_not be_able_to(:update, m)
-        @ability.should be_able_to(:read, m)
-      end 
-    end
-    
-    it {@ability.should be_able_to(:manage, Product.new) }
-    it { @ability.should be_able_to(:read, :all) }
+    it { @ability.should_not be_able_to(:read, Membership) }
+    it { @ability.should be_able_to(:manage, Product.new) }
   end
 
   describe "viewer" do
     prepare_ability_for :viewer, :membership
 
-    #it { @ability.should be_able_to(:manage, Product.new) }
-    #it { @ability.should be_able_to(:read, :all) }
+    it { @ability.should_not be_able_to(:read, Membership) }
+    it { @ability.should be_able_to(:read, Product) }
   end
 
   describe "contributor" do
     prepare_ability_for :contributor, :membership
-
-    it { @ability.should be_able_to(:read, :all) }
+    it { @ability.should_not be_able_to(:read, Membership) }
+    #it { @ability.should be_able_to(:read, Product) }
   end
 end

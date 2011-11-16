@@ -4,19 +4,15 @@ describe MembershipDecorator do
   before { ApplicationController.new.set_current_view_context }
 
   before(:each) do
-    @account = Fabricate(:account_with_memberships)
-    @membership = @account.memberships.first
+    @membership = Fabricate(:membership)
     @decorator = MembershipDecorator.decorate(@membership)
   end
 
   it "has display name" do
-    @membership.user.first_name = "John"
-    @membership.user.last_name = "Smith"
-    @decorator.display_name.should == "John Smith"
+    @decorator.display_name.should == "#{@membership.user.first_name} #{@membership.user.last_name}"
   end
   
   it "has role name" do
-    @membership.role = "editor"
-    @decorator.role_name.should == "Editor"
+    @decorator.role_name.should == @membership.role.capitalize
   end
 end

@@ -13,6 +13,11 @@ describe "memberships/index.html.haml" do
       stub_model(Membership, :display_name => "fname", :role_name => "Admin", :model => Membership)
     ])
   end
+  
+  it "renders All People" do
+    render
+    rendered.should have_selector("h2", text: "All People")
+  end
 
   it "renders the list of memberships" do
     render

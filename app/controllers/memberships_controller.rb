@@ -11,9 +11,10 @@ class MembershipsController < MainController
   
   def update
     @membership.attributes = params[:membership]
+
     if @membership.save
       if @membership.user != current_user || @membership.role?(:admin)
-        respond_with @membership
+        redirect_to memberships_path
       else
         redirect_to root_path
       end
