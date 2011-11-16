@@ -7,5 +7,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-//= require bootstrap-dropdown
 //= require bootstrap-alerts
+//= require bootstrap-dropdown
+
+$(document).ready(function() {
+    $(".alert-message").alert('close');
+});

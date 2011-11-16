@@ -11,7 +11,7 @@ Feature: Show product
     Given an authenticated user with contributor role
     And he is on the products page
     When he follows product link
-    Then he should be on that product page
+    Then he should be on the product page
     And he should not see "Edit Product" link within sidebar
 
   Scenario: Editor can see edit product link

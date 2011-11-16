@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe "products/show.html.haml" do
-  stub_ability
-
   before(:each) do
     decorator = ProductDecorator.decorate(Fabricate.build(:product))
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
+    @product.stub(:destroy_link)
   end
 
   describe "content" do
@@ -35,6 +34,16 @@ describe "products/show.html.haml" do
     it "renders a back link" do
       render
       view.content_for(:sidebar).should have_selector("a", text: "Back")
+    end
+
+    it "renders an edit link" do
+      @product.should_receive(:edit_link).with(class: "btn large")
+      render
+    end
+
+    it "renders a destroy link" do
+      @product.should_receive(:destroy_link).with(class: "btn small danger")
+      render
     end
   end
 end

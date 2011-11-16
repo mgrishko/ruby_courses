@@ -3,9 +3,15 @@ class ProductDecorator < ApplicationDecorator
   allows :name, :description
 
   def edit_link(opts = {})
-    if h.can? :update, Product
-      h.link_to I18n.t("edit", scope: scope), h.edit_product_path(product), opts
-    end
+    h.edit_link(product, opts)
+  end
+
+  def destroy_link(opts = {})
+    h.destroy_link(product, opts)
+  end
+
+  def show_link
+    h.show_link(product, name: :name, fallback: true)
   end
 
   private

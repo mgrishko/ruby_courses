@@ -13,20 +13,6 @@ module ApplicationHelper
     end
   end
 
-  # Generates a link to create a new object in current ability allows to create that object.
-  # Otherwise returns nil.
-  #
-  # @param [Object] object to create a new object link
-  # @param [Hash] opts optional options for link_to helper
-  # @return [String, nil] link to new object page.
-  def create_link(object, opts = {})
-    content = I18n.t("#{controller.controller_name}.#{controller.action_name}.new")
-    if can?(:create, object)
-      object_class = (object.kind_of?(Class) ? object : object.class)
-      link_to(content, [:new, object_class.name.underscore.to_sym], opts)
-    end
-  end
-
   # Prepares ability for current membership.
   #
   # @return [MembershipAbility] membership ability for current user in current account.

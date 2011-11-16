@@ -2,6 +2,8 @@ en:
   back: "Back"
   show: "Show"
   update: "Update"
+  cancel: "Cancel"
+  confirm: "Are you sure?"
 
   navigation:
     main:
@@ -12,6 +14,7 @@ en:
     defaults: &PRODUCT_DEFAULTS
       new: "New Product"
       edit: "Edit Product"
+      destroy: "Delete Product"
     index:
       <<: *PRODUCT_DEFAULTS
       title: "Listing products"

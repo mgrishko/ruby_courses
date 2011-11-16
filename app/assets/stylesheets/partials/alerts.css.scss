@@ -1,0 +1,8 @@
+.alert-message {
+  &.alert { @extend .warning; }
+  &.notice  { @extend .success;  }
+}
+
+p.error_notification {
+  @extend .block-message;
+}

@@ -4,6 +4,7 @@
 %meta{:name => "description", :content => ""}
 %title= "#{Settings.project_name}#{": #{yield(:head_title)}" if content_for?(:head_title)}"
 = stylesheet_link_tag "application"
+= javascript_include_tag "application"
 = csrf_meta_tag
-= favicon_link_tag 'goodsmaster.png', type: 'image/png'
+= favicon_link_tag
 

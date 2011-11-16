@@ -1,3 +1,14 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.products {
+  tbody tr td:first-child {
+    width: 80px;
+    padding: 5;
+  }
+
+  h2 {
+    font-weight: normal;
+  }
+}

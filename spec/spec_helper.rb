@@ -65,7 +65,6 @@ Spork.prefork do
 
     config.extend ControllerMacros, type: :controller
     config.extend ModelMacros, type: :model
-    config.extend ViewMacros, type: :view
 
     # Configure EmailSpec::Helpers and EmailSpec::Matchers
     config.include(EmailSpec::Helpers)

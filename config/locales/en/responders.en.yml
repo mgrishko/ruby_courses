@@ -1,5 +1,20 @@
 en:
 
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} was successfully created."
+      update:
+        notice: "%{resource_name} was successfully updated."
+      destroy:
+        notice: "%{resource_name} was successfully deleted."
+        alert: "%{resource_name} could not be deleted."
+
+    accounts:
+      activate:
+        notice: "Account was successfully activated."
+        alert: "Account was not activated."
+
   # unauthorized:
   #   manage:
   #     all: "Not authorized to %{action} %{subject}."
@@ -14,18 +29,5 @@ en:
       product: "Not allowed to create a new product."
     update:
       product: "Not allowed to update a product."
-
-  flash:
-    actions:
-      create:
-        notice: "%{resource_name} was successfully created."
-      update:
-        notice: "%{resource_name} was successfully updated."
-      destroy:
-        notice: "%{resource_name} was successfully destroyed."
-        alert: "%{resource_name} could not be destroyed."
-
-    accounts:
-      activate:
-        notice: "Account was successfully activated."
-        alert: "Account was not activated."
+    destroy:
+      product: "Not allowed to delete a product."

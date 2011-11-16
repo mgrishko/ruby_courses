@@ -16,7 +16,8 @@
 
             %ul.nav{class: "secondary-nav"}
               %li.dropdown{"data-dropdown" => "dropdown"}
-                %a{class: "dropdown-toggle"}= current_user.first_name || current_user.email
+                %a{class: "dropdown-toggle"}
+                  = (current_user.first_name || current_user.email)
                 %ul{class: "dropdown-menu"}
                   %li= link_to "Profile", edit_user_registration_path
                   %li= link_to "Sign out", destroy_user_session_url, method: :delete
@@ -24,7 +25,7 @@
             -#%form.search-wrapper{:action => ""}
               %input.search{:placeholder => "Search", :type => "text"}
 
-    %section.main
+    %section.main{ class: controller_name }
 
       %aside.sidebar
         - if content_for?(:sidebar)
@@ -39,6 +40,6 @@
 
         = yield
 
-    %footer
-      = debug(params) if Rails.env.development?
-      = javascript_include_tag "application"
+    -#%footer
+      -#= debug(params) if Rails.env.development?
+
