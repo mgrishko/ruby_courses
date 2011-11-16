@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "products/index.html.haml" do
   before(:each) do
-    assign(:products, [
+    @products = assign(:products, [
       stub_model(Product,
         :name => "",
         :description => ""
@@ -12,13 +12,29 @@ describe "products/index.html.haml" do
         :description => ""
       )
     ])
+
+    view.stub(:create_link)
+    Product.any_instance.stub(:show_link)
   end
 
-  #it "renders a list of products" do
-  #  render
-  #  # Run the generator again with the --webrat flag if you want to use webrat matchers
-  #  assert_select "tr>td", :text => "".to_s, :count => 2
-  #  # Run the generator again with the --webrat flag if you want to use webrat matchers
-  #  assert_select "tr>td", :text => "".to_s, :count => 2
-  #end
+  describe "content" do
+    it "renders a list of products" do
+      render
+      rendered.should have_selector("table tr", count: 2)
+    end
+
+    it "renders product show link" do
+      @products.each do |product|
+        product.should_receive(:show_link)
+      end
+      render
+    end
+  end
+
+  describe "sidebar" do
+    it "renders a new link" do
+      view.should_receive(:create_link).with(Product, class: "btn large primary")
+      render
+    end
+  end
 end

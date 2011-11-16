@@ -3,16 +3,21 @@
   %head
     = render :partial => 'layouts/partials/head'
   %body.application
-    .topbar
+    %header.topbar
       .topbar-inner
-        %header
+        .header-container
           %h3
-            %a{:href => "#"} Project Name
+            = link_to Settings.project_name, home_url
 
           - if user_signed_in?
+            %ul.nav
+              %li= link_to t('navigation.main.home'), home_url
+              %li= link_to t('navigation.main.products'), products_url
+
             %ul.nav{class: "secondary-nav"}
               %li.dropdown{"data-dropdown" => "dropdown"}
-                %a{class: "dropdown-toggle"}= current_user.first_name || current_user.email
+                %a{class: "dropdown-toggle"}
+                  = (current_user.first_name || current_user.email)
                 %ul{class: "dropdown-menu"}
                   %li= link_to "Profile", edit_user_registration_path
                   %li= link_to "Sign out", destroy_user_session_url, method: :delete
@@ -20,22 +25,21 @@
             -#%form.search-wrapper{:action => ""}
               %input.search{:placeholder => "Search", :type => "text"}
 
-    %section
+    %section.main{ class: controller_name }
 
-      .sidebar
+      %aside.sidebar
         - if content_for?(:sidebar)
           = yield(:sidebar)
 
-      .content
+      %section.content
         = render :partial => 'layouts/partials/flash', :object => flash
 
-        - if content_for?(:body_title)
-          = yield(:body_title)
+        - if content_for?(:page_title)
+          %header
+            %h1= yield(:page_title)
 
         = yield
 
+    -#%footer
+      -#= debug(params) if Rails.env.development?
 
-
-    %footer
-      = debug(params) if Rails.env.development?
-      = javascript_include_tag "application"

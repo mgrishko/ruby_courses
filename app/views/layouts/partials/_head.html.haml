@@ -1,9 +1,10 @@
 %meta{"http-equiv" => "content-type", :content => "text/html; charset=utf-8"}
-%meta{:name => "robots", :content => "noindex,nofollow"}
+%meta{:name => "robots", :content => "noindex, nofollow"}
 %meta{:name => "keywords", :content => ""}
 %meta{:name => "description", :content => ""}
-%title
-  = "GetMasterData #{"| " + yield(:head_title) if content_for?(:head_title)}"
+%title= "#{Settings.project_name}#{": #{yield(:head_title)}" if content_for?(:head_title)}"
 = stylesheet_link_tag "application"
+= javascript_include_tag "application"
 = csrf_meta_tag
-%link{:href => "/favicon.ico", :rel => "icon", :type => "image/x-icon"}
+= favicon_link_tag
+

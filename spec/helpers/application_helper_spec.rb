@@ -8,18 +8,18 @@ describe ApplicationHelper do
     end
 
     it "sets content for body title" do
-      helper.title "Home", body: true
-      helper.content_for(:body_title).should == "<h2>Home</h2>"
+      helper.title "Home", page_title: true
+      helper.content_for(:page_title).should == "Home"
     end
 
     it "sets content for body title by default" do
       helper.title "Home"
-      helper.content_for(:body_title).should == "<h2>Home</h2>"
+      helper.content_for(:page_title).should == "Home"
     end
 
     it "should not set content for body title" do
-      helper.title "Home", body: false
-      helper.content_for(:body_title).should be_blank
+      helper.title "Home", page_title: false
+      helper.content_for(:page_title).should be_blank
     end
   end
 

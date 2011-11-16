@@ -15,6 +15,8 @@ Feature: New product
       | Description |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
+    When he goes to the products list
+    Then he should see that product in the products list
 
   Scenario: Viewer should not be able to add a new product
     Given an authenticated user with viewer role

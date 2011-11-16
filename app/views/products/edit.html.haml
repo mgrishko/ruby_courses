@@ -1,7 +1,7 @@
-%h1 Editing product
+= title t(".title")
+
+- content_for(:sidebar) do
+  = link_to t("back"), :back
 
 = render 'form'
 
-= link_to 'Show', @product
-\|
-= link_to 'Back', products_path

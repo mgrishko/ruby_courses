@@ -1,24 +1,17 @@
-= title t(".title")
+= title t('.title'), page_title: false
 
 - content_for(:sidebar) do
-  - if can? :create, Product
-    = link_to t(".new_product"), new_product_path
+  = create_link Product, class: "btn large primary"
 
-%table
-  %tr
-    %th Name
-    %th Description
-    %th
-    %th
-    %th
+%article
+  %table
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td= image_tag("product_small.png")
+          %td
+            %h2= product.show_link
 
-  - @products.each do |product|
-    %tr
-      %td= product.name
-      %td= product.description
-      %td= link_to 'Show', product
-      %td= link_to 'Edit', edit_product_path(product)
-      %td= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete
 
 
 
