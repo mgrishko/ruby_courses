@@ -1,9 +1,3 @@
-Given /^an activated account$/ do
-  user = Fabricate(:user, email: "owner@example.com", password: "password")
-  @account = user.accounts.create!(Fabricate.attributes_for(:account, user: nil))
-  @account.activate!
-end
-
 Given /^an unauthenticated user$/ do
  @user = Fabricate(:user, email: "user@example.com", password: "password")
  Fabricate(:editor_membership, account: @account, user: @user)

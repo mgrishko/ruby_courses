@@ -19,16 +19,16 @@ describe ProductsController do
       post("http://subdomain.example.com/products").should route_to("products#create")
     end
 
-    #it "routes to #edit" do
-    #  get("http://subdomain.example.com/products/1/edit").should route_to("products#edit", id: "1")
-    #end
+    it "routes to #edit" do
+      get("http://subdomain.example.com/products/1/edit").should route_to("products#edit", id: "1")
+    end
 
-    #it "routes to #update" do
-    #  put("http://subdomain.example.com/products/1").should route_to("products#update", id: "1")
-    #end
+    it "routes to #update" do
+      put("http://subdomain.example.com/products/1").should route_to("products#update", id: "1")
+    end
 
-    #it "routes to #delete" do
-    #  delete("http://subdomain.example.com/products/1").should route_to("products#destroy", id: "1")
-    #end
+    it "routes to #delete" do
+      delete("http://subdomain.example.com/products/1").should route_to("products#destroy", id: "1")
+    end
   end
 end

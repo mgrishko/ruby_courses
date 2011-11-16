@@ -63,8 +63,8 @@ Spork.prefork do
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = true
 
-    config.extend ControllerMacros, :type => :controller
-    config.extend ModelMacros, :type => :model
+    config.extend ControllerMacros, type: :controller
+    config.extend ModelMacros, type: :model
 
     # Configure EmailSpec::Helpers and EmailSpec::Matchers
     config.include(EmailSpec::Helpers)

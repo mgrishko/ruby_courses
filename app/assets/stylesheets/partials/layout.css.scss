@@ -1,6 +1,3 @@
-section {
-  margin-top: 50px;
-}
 
 .search-wrapper {
   @extend .span-one-third;
@@ -12,14 +9,24 @@ section {
 }
 
 body {
-  &.front {
-    header { @extend .container; }
-    section { @extend .container; }
+  &.clean {
+    .header-container { @extend .container; }
+    section.main { @extend .container; }
     footer { @extend .container; }
   }
   &.application {
-    header { @extend .container-fluid; }
-    section { @extend .container-fluid; }
+    .header-container { @extend .container-fluid; }
+    section.main { @extend .container-fluid; }
     footer { @extend .container-fluid; }
   }
 }
+
+section.main {
+  margin-top: 80px;
+}
+
+
+
+
+
+

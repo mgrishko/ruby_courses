@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
+  prepend_before_filter :authenticate_user!, :only => [ :acknowledgement ]
 
   layout :layout_name
 
@@ -19,6 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def layout_name
-    %w(new create acknowledgement cancel).include?(action_name) ? "front" : "application"
+    %w(new create acknowledgement cancel).include?(action_name) ? "clean" : "application"
   end
 end

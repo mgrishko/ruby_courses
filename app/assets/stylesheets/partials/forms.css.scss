@@ -1,0 +1,15 @@
+body.application form {
+  input {
+    &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
+    &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
+    &[type=number], &[type=range], &[type=search], &[type=color] {
+      @extend .span8;
+    }
+  }
+
+  textarea {
+    @extend .span12;
+    height: $baseline / 13px * 6.5em;
+  }
+}
+

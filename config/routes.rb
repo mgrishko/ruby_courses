@@ -25,8 +25,8 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
-    resources :products, except: [:edit, :update, :destroy]
     resources :memberships, except: [:show, :new, :create]
+    resources :products
 
     # Admin dashboard is only under app subdomain
     constraints(subdomain: Settings.app_subdomain) do

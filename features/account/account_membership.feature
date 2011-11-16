@@ -17,7 +17,7 @@ Feature: Account membership management
     Given account with memberships
     Given admin user is on the account memberships page
     When he deletes an account user
-    Then he should see notice message "was successfully destroyed"
+    Then he should see notice message "was successfully deleted"
 
   Scenario: Admin user can't delete the account owner from an account
     Given active account
@@ -30,7 +30,7 @@ Feature: Account membership management
     When he opens edit user membership page
     And changes the user role
     Then he should see notice message "was successfully updated"
-  @wip
+
   Scenario: Admin user changes his role in the account
     Given account with another admin
     Given non owner admin user is on the account memberships page

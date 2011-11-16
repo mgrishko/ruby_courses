@@ -2,6 +2,25 @@ class ProductDecorator < ApplicationDecorator
   decorates :product
   allows :name, :description
 
+  def edit_link(opts = {})
+    h.edit_link(product, opts)
+  end
+
+  def destroy_link(opts = {})
+    h.destroy_link(product, opts)
+  end
+
+  def show_link
+    h.show_link(product, name: :name, fallback: true)
+  end
+
+  private
+
+  def scope
+    "products.defaults"
+  end
+
+
   # Accessing Helpers
   #   You can access any helper via a proxy
   #

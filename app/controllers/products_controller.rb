@@ -24,10 +24,11 @@ class ProductsController < MainController
     respond_with(@product)
   end
 
-  ## GET /products/1/edit
-  #def edit
-  #  @product = Product.find(params[:id])
-  #end
+  # GET /products/1/edit
+  def edit
+    #@product = Product.find(params[:id]) loaded by CanCan
+    respond_with(@product)
+  end
 
   # POST /products
   # POST /products.xml
@@ -37,19 +38,19 @@ class ProductsController < MainController
     respond_with(@product)
   end
 
-  ## PUT /products/1
-  ## PUT /products/1.xml
-  #def update
-  #  @product = Product.find(params[:id])
-  #  @product.update_attributes(params[:product])
-  #  respond_with(@product)
-  #end
-  #
-  ## DELETE /products/1
-  ## DELETE /products/1.xml
-  #def destroy
-  #  @product = Product.find(params[:id])
-  #  @product.destroy
-  #  respond_with(@product)
-  #end
+  # PUT /products/1
+  # PUT /products/1.xml
+  def update
+    #@product = Product.find(params[:id]) loaded by CanCan
+    @product.update_attributes(params[:product])
+    respond_with(@product)
+  end
+
+  # DELETE /products/1
+  # DELETE /products/1.xml
+  def destroy
+    #@product = Product.find(params[:id]) loaded by CanCan
+    @product.destroy
+    respond_with(@product)
+  end
 end
