@@ -16,11 +16,16 @@ en:
       title: "New product"
 
   memberships:
+    defaults: &MEMBERSHIP_DEFAULTS
+        edit: Edit
+        destroy: Destroy
     index:
       title: All People
     edit:
       title: Edit Membership
     update: Submit
+    destroy: Destroy
+    
 
   users:
     registrations:

@@ -17,11 +17,15 @@ When /^he signs in with "(.*)" email and "(.*)" password$/ do |email, password|
 end
 
 When /^he deletes an account user$/ do
-  click_button "Delete"
+  @membership = @account.memberships.select{|m|!m.role?(:admin)}.first
+  #rack_test_session_wrapper = Capybara.current_session.driver
+  #rack_test_session_wrapper.process :delete, membership_path(@membership)
+  #delete membership_path(@membership)
+  visit(destroy_membership_url(@membership, subdomain: @account.subdomain))
 end
 
 Then /^he should not be able to delete the account owner$/ do
-  page.should_not have_button('Delete')
+  page.should_not have_link('Destroy')
 end
 
 Then /^he should not be able to edit the account owner role$/ do
@@ -36,7 +40,6 @@ Given /^admin user is on the account memberships page$/ do
   }
 
   click_link "Users" 
-  page.find "h1", text: "Users"
 end
 
 Given /^non owner admin user is on the account memberships page$/ do

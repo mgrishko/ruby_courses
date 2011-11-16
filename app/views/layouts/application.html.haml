@@ -3,18 +3,17 @@
   %head
     = render :partial => 'layouts/partials/head'
   %body.application
-    %header.topbar
+    .topbar
       .topbar-inner
-        .header-container
+        %header
           %h3
-            = link_to Settings.project_name, home_url
+            %a{:href => "#"} Project Name
 
           - if user_signed_in?
             %ul.nav
               %li= link_to t('navigation.main.home'), home_url
               %li= link_to t('navigation.main.products'), products_url
               %li= link_to "Users", memberships_path
-
             %ul.nav{class: "secondary-nav"}
               %li.dropdown{"data-dropdown" => "dropdown"}
                 %a{class: "dropdown-toggle"}= current_user.first_name || current_user.email
@@ -25,21 +24,17 @@
             -#%form.search-wrapper{:action => ""}
               %input.search{:placeholder => "Search", :type => "text"}
 
-    %section.main
+    %section
 
-      %aside.sidebar
+      .sidebar
         - if content_for?(:sidebar)
           = yield(:sidebar)
 
-      %section.content
+      .content
         = render :partial => 'layouts/partials/flash', :object => flash
 
-        - if content_for?(:page_title)
-          %header
-            %h1= yield(:page_title)
+        - if content_for?(:body_title)
+          = yield(:body_title)
 
         = yield
 
-    %footer
-      = debug(params) if Rails.env.development?
-      = javascript_include_tag "application"
