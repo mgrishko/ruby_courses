@@ -2,6 +2,8 @@ en:
   # Translations for forms
   helpers:
     submit:
+      membership:
+        update: Update
     label:
       user:
         first_name: 'First Name'

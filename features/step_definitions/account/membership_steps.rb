@@ -21,7 +21,8 @@ When /^he deletes an account user$/ do
   #rack_test_session_wrapper = Capybara.current_session.driver
   #rack_test_session_wrapper.process :delete, membership_path(@membership)
   #delete membership_path(@membership)
-  visit(destroy_membership_url(@membership, subdomain: @account.subdomain))
+  #visit(destroy_membership_url(@membership, subdomain: @account.subdomain))
+  click_link("Destroy")
 end
 
 Then /^he should not be able to delete the account owner$/ do
@@ -51,8 +52,7 @@ Given /^non owner admin user is on the account memberships page$/ do
     Then he should see notice message \"Signed in successfully.\"
   }
 
-  click_link "Users" 
-  page.find "h1", text: "Users"
+  click_link "Users"
 end
 
 Then /^he should see account users$/ do
@@ -80,7 +80,7 @@ end
 
 When /^changes the user role$/ do
   select 'Viewer', :from => 'Role'
-  click_button "Submit"
+  click_button "Update"
 end
 
 Then /^he should be redirected to home page$/ do

@@ -2,6 +2,8 @@ en:
   back: "Back"
   show: "Show"
   update: "Update"
+  cancel: "Cancel"
+  confirm: "Are you sure?"
 
   navigation:
 

@@ -1,9 +1,9 @@
-%h1 Edit User
+= title t(".title")
 
 = simple_form_for @membership, wrapper: :inline do |f|
   = f.error_notification
   .inputs
     = f.input :role, collection: Membership::ROLES.collect{|r| [r.capitalize, r] }, include_blank: false
   .actions
-    = f.button :submit, t('.update'), class: 'primary'
+    = f.button :submit, class: 'primary'
 	

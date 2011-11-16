@@ -11,16 +11,26 @@ class MembershipsController < MainController
   
   def update
     @membership.attributes = params[:membership]
-
+    if @membership.save
+      respond_with(@membership) do |format|
+        format.html { redirect_to memberships_path }
+      end
+    else
+      render :edit
+    end
+=begin
     if @membership.save
       if @membership.user != current_user || @membership.role?(:admin)
-        redirect_to memberships_path
+        respond_with(@membership) do |format|
+          format.html { redirect_to memberships_path }
+        end
       else
         redirect_to root_path
       end
     else
       render :edit
     end
+=end
   end
   
   def destroy
