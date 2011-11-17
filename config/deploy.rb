@@ -41,7 +41,7 @@ depend :remote, :gem, "rake", ">=0.9.2.2"
 
 after "deploy:update_code" do
   deploy.copy_database_configuration
-  deploy.compile_assets
+  #deploy.compile_assets
 end
 ## This goes out even if the deploy fails, sadly
 #after "deploy:update", "newrelic:notice_deployment"
