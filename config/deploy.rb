@@ -7,7 +7,7 @@ set :rvm_ruby_string, '1.9.3-p0'             # Or whatever env you want it to ru
 require "bundler/capistrano"
 
 # Bundler options
-set :bundle_without, [:assets, :development, :test, :cucumber, :console]
+set :bundle_without, [:development, :test, :cucumber, :console]
 
 ## Airbrake Notifier
 #Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
@@ -63,12 +63,11 @@ namespace :deploy do
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 
-  # Precompile assets locally
-  namespace :deploy do
-    task :compile_assets do
-      run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
-    end
-  end
+  ## Precompile assets locally
+  #task :compile_assets do
+  #  run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
+  #end
+
 end
 
 

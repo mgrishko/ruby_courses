@@ -22,6 +22,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 1.4.0'
   #gem 'compass', '~> 0.12.alpha'
+
+  gem 'execjs'
+  gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
+  gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
 end
 
 # Security related gems
@@ -79,9 +83,6 @@ end
 # Gems used only in development and not required
 # in production environments by default.
 group :development do
-  gem 'execjs'
-  gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
-  gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
   gem 'haml-rails'
   gem 'hpricot'
   gem 'ruby_parser'
