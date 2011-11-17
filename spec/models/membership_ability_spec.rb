@@ -21,6 +21,12 @@ describe MembershipAbility do
       end 
     end
     
+    it "should not be able to read memberships from another account" do
+      @another_account = Fabricate(:active_account, subdomain: "another")
+      @ability.should_not be_able_to(:read, @another_account.memberships.first)
+      @ability.should_not be_able_to(:manage, @another_account.memberships.first)
+    end
+    
     it { @ability.should be_able_to(:manage, Product.new) }
   end
   
