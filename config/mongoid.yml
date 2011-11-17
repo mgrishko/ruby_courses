@@ -18,9 +18,9 @@ cucumber:
   <<: *defaults
   database: gm_cucumber
 
-testing:
+qa:
   <<: *defaults
-  database: gm_testing
+  database: gm_qa
 
 staging:
   <<: *defaults

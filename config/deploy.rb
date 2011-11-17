@@ -7,7 +7,7 @@ set :rvm_ruby_string, '1.9.3-p0'             # Or whatever env you want it to ru
 require "bundler/capistrano"
 
 # Bundler options
-set :bundle_without, [:development, :test, :cucumber, :console]
+set :bundle_without, [:assets, :development, :test, :cucumber, :console]
 
 ## Airbrake Notifier
 #Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
@@ -19,8 +19,8 @@ set :bundle_without, [:development, :test, :cucumber, :console]
 #require 'new_relic/recipes'
 
 # Multistage
-set :stages, %w(development staging testing)
-set :default_stage, "testing"
+set :stages, %w(development staging qa)
+set :default_stage, "qa"
 require 'capistrano/ext/multistage'
 
 set :application, "goodsmaster"
@@ -41,6 +41,7 @@ depend :remote, :gem, "rake", ">=0.9.2.2"
 
 after "deploy:update_code" do
   deploy.copy_database_configuration
+  deploy.compile_assets
 end
 ## This goes out even if the deploy fails, sadly
 #after "deploy:update", "newrelic:notice_deployment"
@@ -60,6 +61,13 @@ namespace :deploy do
   task :copy_database_configuration, :roles => :app do
     db_config = "/var/www/projects/#{application}/config/mongoid.yml"
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
+  end
+
+  # Precompile assets locally
+  namespace :deploy do
+    task :compile_assets do
+      run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
+    end
   end
 end
 
