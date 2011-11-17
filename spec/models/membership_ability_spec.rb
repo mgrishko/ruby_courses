@@ -65,6 +65,5 @@ describe MembershipAbility do
   describe "contributor" do
     prepare_ability_for :contributor, :membership
     it { @ability.should_not be_able_to(:read, Membership) }
-    #it { @ability.should be_able_to(:read, Product) }
   end
 end

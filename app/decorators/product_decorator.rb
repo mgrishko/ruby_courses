@@ -1,14 +1,15 @@
 class ProductDecorator < ApplicationDecorator
   decorates :product
   allows :name, :description
+  include CommonLinks
 
-  def edit_link(opts = {})
-    h.edit_link(product, opts)
-  end
+#  def edit_link(opts = {})
+#    h.edit_link(product, opts)
+#  end
 
-  def destroy_link(opts = {})
-    h.destroy_link(product, opts)
-  end
+#  def destroy_link(opts = {})
+#    h.destroy_link(product, opts)
+#  end
 
   def show_link
     h.show_link(product, name: :name, fallback: true)

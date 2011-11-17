@@ -9,7 +9,6 @@ describe Membership do
   it { should allow_value("contributor").for(:role) }
   it { should allow_value("viewer").for(:role) }
   it { should_not allow_value("god").for(:role) }
-  it { should_not allow_value("").for(:role) }
   it { should allow_mass_assignment_of(:role) }
 
   it { should validate_presence_of(:user) }

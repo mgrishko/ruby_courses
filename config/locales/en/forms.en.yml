@@ -3,7 +3,7 @@ en:
   helpers:
     submit:
       membership:
-        update: Update
+        update: "Save"
     label:
       user:
         first_name: 'First Name'

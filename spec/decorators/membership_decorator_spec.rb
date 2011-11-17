@@ -15,4 +15,8 @@ describe MembershipDecorator do
   it "has role name" do
     @decorator.role_name.should == @membership.role.capitalize
   end
+  
+  it "has role_select_options" do
+    @decorator.role_select_options.should == [["Admin", "admin"], ["Editor", "editor"], ["Contributor", "contributor"], ["Viewer", "viewer"]]
+  end
 end

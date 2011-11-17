@@ -4,7 +4,7 @@ describe "memberships/index.html.haml" do
   before(:each) do
     @membership = stub_model(Membership, :display_name => "lname", :role_name => "Editor", :model => Membership )
     Membership.any_instance.stub(:edit_link).and_return("<a>Edit</a>")
-    Membership.any_instance.stub(:destroy_link).and_return("<a>Destroy</a>")
+    Membership.any_instance.stub(:destroy_link).and_return("<a>Delete</a>")
     
     assign(:memberships, [@membership])
   end
@@ -41,6 +41,6 @@ describe "memberships/index.html.haml" do
   
   it "renders Destroy link" do
     render
-    rendered.should have_selector("table td", text: "Destroy")
+    rendered.should have_selector("table td", text: "Delete")
   end
 end

@@ -18,11 +18,7 @@ end
 
 When /^he deletes an account user$/ do
   @membership = @account.memberships.select{|m|!m.role?(:admin)}.first
-  #rack_test_session_wrapper = Capybara.current_session.driver
-  #rack_test_session_wrapper.process :delete, membership_path(@membership)
-  #delete membership_path(@membership)
-  #visit(destroy_membership_url(@membership, subdomain: @account.subdomain))
-  click_link("Destroy")
+  click_link("Delete")
 end
 
 Then /^he should not be able to delete the account owner$/ do
@@ -62,8 +58,9 @@ Then /^he should see account users$/ do
 end
 
 Given /^an authenticated account user$/ do
-  @user = @account.memberships.select{|m| !m.role?(:admin) }.first.user
+  #@user = @account.memberships.select{|m| !m.role?(:admin) }.first.user
   steps %Q{
+    Given authenticated user with "editor" role
     Given user is on the user sign in page
     When he signs in with \"#{@user.email}\" email and \"password\" password
     Then he should see notice message \"Signed in successfully.\"
@@ -80,7 +77,7 @@ end
 
 When /^changes the user role$/ do
   select 'Viewer', :from => 'Role'
-  click_button "Update"
+  click_button "Save"
 end
 
 Then /^he should be redirected to home page$/ do

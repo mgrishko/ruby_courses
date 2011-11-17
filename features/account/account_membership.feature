@@ -8,10 +8,11 @@ Feature: Account membership management
     Given admin user is on the account memberships page
     Then he should see account users
 
+  @wip
   Scenario: Non-admin can't view the account users
     Given account with memberships
-	Given an authenticated account user
-	Then he should not see account users
+  	Given an authenticated account user
+	  Then he should not see account users
 
   Scenario: Admin user deletes a user from an account
     Given account with memberships
