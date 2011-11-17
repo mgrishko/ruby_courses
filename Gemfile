@@ -5,6 +5,8 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+gem "rake"
+
 # ORM and relative
 gem "mongoid", "~> 2.3.2"
 gem "bson_ext"

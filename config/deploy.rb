@@ -30,6 +30,7 @@ set :scm, :git
 set :repository, "git@git.assembla.com:webforms2.2.git"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
+set :use_sudo, false
 
 ssh_options[:forward_agent] = true # use local keys instead of the ones on the server
 default_run_options[:pty] = true   # must be set for the password prompt from git to work
