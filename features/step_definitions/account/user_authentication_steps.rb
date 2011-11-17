@@ -1,17 +1,15 @@
 Given /^an unauthenticated user$/ do
- @user = Fabricate(:user, email: "user@example.com", password: "password")
- Fabricate(:editor_membership, account: @account, user: @user)
- reset_session!
+  Fabricate(:user, email: "user@example.com", password: "password")
+  reset_session!
 end
 
 Given /^an authenticated user$/ do
- @user = Fabricate(:user, email: "user@example.com", password: "password")
- Fabricate(:editor_membership, account: @account, user: @user)
+  @user = Fabricate(:user, email: "user@example.com", password: "password")
 
- steps %Q{
-   Given user is on the user sign in page
-   When user submits valid email and password
- }
+  steps %Q{
+    Given user is on the user sign in page
+    When user submits valid email and password
+  }
 end
 
 Given /^(?:[^\s]* )is on the user sign in page$/ do
@@ -31,7 +29,7 @@ When /^user submits (.*) email and(.*) password$/ do |email, password|
 end
 
 When /^user signs out$/ do
-  click_link("Sign out")
+  visit(destroy_user_session_url)
 end
 
 When /^user returns next time$/ do
