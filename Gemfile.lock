@@ -38,9 +38,6 @@ GEM
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
-    airbrake (3.0.5)
-      activesupport
-      builder
     ansi (1.4.1)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
@@ -242,7 +239,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   bootstrap-sass (~> 1.4.0)
   bson_ext
   cancan (~> 1.6.7)
