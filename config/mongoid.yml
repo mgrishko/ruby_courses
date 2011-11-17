@@ -18,6 +18,14 @@ cucumber:
   <<: *defaults
   database: gm_cucumber
 
+testing:
+  <<: *defaults
+  database: gm_testing
+
+staging:
+  <<: *defaults
+  database: gm_staging
+
 # set these environment variables on your prod server
 production:
   <<: *defaults
