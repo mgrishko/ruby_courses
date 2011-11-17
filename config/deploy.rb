@@ -7,7 +7,7 @@ set :rvm_ruby_string, '1.9.3-p0'             # Or whatever env you want it to ru
 require "bundler/capistrano"
 
 # Bundler options
-set :bundle_without, [:assets, :development, :test, :cucumber, :console]
+set :bundle_without, [:development, :test, :cucumber, :console]
 
 ## Airbrake Notifier
 #Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
@@ -36,6 +36,9 @@ ssh_options[:forward_agent] = true # use local keys instead of the ones on the s
 default_run_options[:pty] = true   # must be set for the password prompt from git to work
 #ssh_options[:port] = 37777 # must be set to open ssh port
 
+depend :remote, :gem, "bundler", ">=1.0.21"
+depend :remote, :gem, "rake", ">=0.9.2.2"
+
 after "deploy:update_code" do
   deploy.copy_database_configuration
 end
@@ -59,3 +62,6 @@ namespace :deploy do
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 end
+
+
+after "deploy", "deploy:cleanup" # keeps only last 5 releases
