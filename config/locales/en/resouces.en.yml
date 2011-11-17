@@ -26,20 +26,18 @@ en:
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
-        edit: "Edit"
-        destroy: "Delete"
+      edit: "Edit"
+      destroy: "Delete"
+      roles:
+        owner: "Owner"
+        admin: "Admin"
+        editor: "Editor"
+        contributor: "Contributor"
+        viewer: "Viewer"  
     index:
       title: "All People"
     edit:
       title: "Edit Membership"
-    update: "Submit"
-    destroy: "Delete"
-    roles:
-      owner: "Owner"
-      admin: "Admin"
-      editor: "Editor"
-      contributor: "Contributor"
-      viewer: "Viewer"
 
   users:
     registrations:

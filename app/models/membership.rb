@@ -17,4 +17,8 @@ class Membership
   def role?(role)
     self.role == role.to_s
   end
+  
+  def owner?
+    account.owner == self.user
+  end
 end

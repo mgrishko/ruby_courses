@@ -122,16 +122,20 @@ describe MembershipsController do
       end
 
       describe "with invalid params" do
+        before(:each) do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Membership.any_instance.stub(:save).and_return(false)
+          Membership.any_instance.stub_chain(:errors, :empty?).and_return(false)
+        end
+        
         it "assigns the membership as @membership" do
           membership = Account.where(subdomain: "company").first.memberships.first
-          Membership.any_instance.stub(:save).and_return(false)
           put :update, :id => membership.id, :membership => {}
           assigns(:membership).should eq(membership)
         end
 
         it "re-renders the 'edit' template" do
           membership = Account.where(subdomain: "company").first.memberships.first
-          Membership.any_instance.stub(:save).and_return(false)
           put :update, :id => membership.id, :membership => {}
           response.should render_template("edit")
         end

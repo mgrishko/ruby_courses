@@ -57,16 +57,6 @@ Then /^he should see account users$/ do
   end
 end
 
-Given /^an authenticated account user$/ do
-  #@user = @account.memberships.select{|m| !m.role?(:admin) }.first.user
-  steps %Q{
-    Given authenticated user with "editor" role
-    Given user is on the user sign in page
-    When he signs in with \"#{@user.email}\" email and \"password\" password
-    Then he should see notice message \"Signed in successfully.\"
-  }
-end
-
 Then /^he should not see account users$/ do
   page.has_no_content? "Users"
 end
@@ -77,7 +67,7 @@ end
 
 When /^changes the user role$/ do
   select 'Viewer', :from => 'Role'
-  click_button "Save"
+  click_button "Update"
 end
 
 Then /^he should be redirected to home page$/ do
