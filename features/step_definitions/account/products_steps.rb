@@ -57,10 +57,6 @@ When /^he goes to the update product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
-When /^he goes to the delete product page$/ do
-  visit(destroy_product_url(@product, subdomain: @account.subdomain))
-end
-
 When /^he goes to the products list$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
