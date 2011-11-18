@@ -1,9 +1,3 @@
-Given /^an authenticated user with (.*) role$/ do |role|
-  step "an authenticated user"
-
-  Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
-end
-
 Given /^he is on the account home page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end

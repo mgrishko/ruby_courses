@@ -12,6 +12,17 @@ Given /^an authenticated user$/ do
   }
 end
 
+Given /^an authenticated user with (.*) role$/ do |role|
+  step "an authenticated user"
+
+  @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
+end
+
+Given /^an authenticated account owner$/ do
+  step "an authenticated user"
+  @account.owner = @user
+end
+
 Given /^(?:[^\s]* )is on the user sign in page$/ do
   visit(new_user_session_url(subdomain: @account.subdomain))
 end

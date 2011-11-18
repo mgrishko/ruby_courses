@@ -71,7 +71,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
-    # primary.dom_id = 'menu-id'
+    primary.dom_id = 'account_menu'
     primary.dom_class = 'dropdown-menu'
 
     # You can turn off auto highlighting for a specific level
