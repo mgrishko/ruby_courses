@@ -1,7 +1,7 @@
 # RVM configuration
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, '1.9.3-p0'             # Or whatever env you want it to run in.
+set :rvm_ruby_string, '1.9.3-p0@gm'             # Or whatever env you want it to run in.
 
 # Bundler
 require "bundler/capistrano"
@@ -43,6 +43,9 @@ after "deploy:update_code" do
   deploy.copy_database_configuration
   #deploy.compile_assets
 end
+
+#before "deploy:symlink", "deploy:compile_assets"
+
 ## This goes out even if the deploy fails, sadly
 #after "deploy:update", "newrelic:notice_deployment"
 
@@ -63,11 +66,10 @@ namespace :deploy do
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 
-  ## Precompile assets locally
-  #task :compile_assets do
-  #  run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
-  #end
-
+  # Precompile assets
+  task :compile_assets do
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+  end
 end
 
 

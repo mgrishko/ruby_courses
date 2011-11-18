@@ -42,4 +42,8 @@ module ApplicationHelper
       @current_account ||= Account.where(subdomain: request.subdomain, state: "active").first
     end
   end
+
+  def current_account?
+    current_account
+  end
 end
