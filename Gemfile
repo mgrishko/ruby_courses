@@ -5,12 +5,14 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+gem "rake", "~> 0.9.2.2"
+
 # ORM and relative
 gem "mongoid", "~> 2.3.2"
 gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
-gem "state_machine", git: "https://github.com/durran/state_machine.git", :branch => "mongoid-2.3-fixes"
+gem "state_machine"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,6 +22,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 1.4.0'
   #gem 'compass', '~> 0.12.alpha'
+
+  gem 'execjs'
+  gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
+  gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
 end
 
 # Security related gems
@@ -49,7 +55,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 # External services
-gem "airbrake"
+#gem "airbrake"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -77,9 +83,6 @@ end
 # Gems used only in development and not required
 # in production environments by default.
 group :development do
-  gem 'execjs'
-  gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
-  gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
   gem 'haml-rails'
   gem 'hpricot'
   gem 'ruby_parser'

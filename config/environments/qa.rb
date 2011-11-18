@@ -58,6 +58,9 @@ GoodsMaster::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # To serve app.dev.getmasterdata.com
+  config.action_dispatch.tld_length = 2
+
   # Setting default_url_options (required for devise).
-  config.action_mailer.default_url_options = { :host => 'goodsmasterhq.com' }
+  config.action_mailer.default_url_options = { :host => 'dev.goodsmasterhq.com' }
 end
