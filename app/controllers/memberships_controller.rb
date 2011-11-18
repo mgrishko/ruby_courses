@@ -12,11 +12,10 @@ class MembershipsController < MainController
   end
   
   def update
-    @membership.attributes = params[:membership]
     @membership = MembershipDecorator.decorate(@membership)
 
     respond_with(@membership) do |format|
-      if @membership.save
+      if @membership.update_attributes(params[:membership])
         format.html { redirect_to memberships_path }
       else
         format.html { render action: :edit }
