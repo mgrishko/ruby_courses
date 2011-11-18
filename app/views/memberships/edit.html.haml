@@ -1,0 +1,8 @@
+= title t(".title")
+
+= simple_form_for @membership, wrapper: :inline do |f|
+  = f.error_notification
+  .inputs
+    = f.input :role, collection: @membership.role_select_options, include_blank: false
+  .actions
+    = f.button :submit, class: 'primary'

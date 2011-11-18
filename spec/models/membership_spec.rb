@@ -25,5 +25,4 @@ describe Membership do
       membership.should_not be_role(:admin)
     end
   end
-
 end

@@ -24,6 +24,21 @@ en:
       <<: *PRODUCT_DEFAULTS
       title: "New product"
 
+  memberships:
+    defaults: &MEMBERSHIP_DEFAULTS
+      edit: "Edit"
+      destroy: "Delete"
+      roles:
+        owner: "Owner"
+        admin: "Admin"
+        editor: "Editor"
+        contributor: "Contributor"
+        viewer: "Viewer"  
+    index:
+      title: "All People"
+    edit:
+      title: "Edit Membership"
+
   users:
     registrations:
       new:

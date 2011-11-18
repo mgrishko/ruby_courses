@@ -1,6 +1,5 @@
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
-
     devise_for :users,
                path: "profile",
                controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
@@ -26,6 +25,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
+    resources :memberships, except: [:show, :new, :create]
     resources :products
 
     # Admin dashboard is only under app subdomain

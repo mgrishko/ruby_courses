@@ -13,7 +13,7 @@
             %ul.nav
               %li= link_to t('navigation.main.home'), home_url
               %li= link_to t('navigation.main.products'), products_url
-
+              %li= link_to "Users", memberships_path
             %ul.nav{class: "secondary-nav"}
               %li.dropdown{"data-dropdown" => "dropdown"}
                 %a{class: "dropdown-toggle"}
@@ -42,4 +42,3 @@
 
     -#%footer
       -#= debug(params) if Rails.env.development?
-
