@@ -1,5 +1,5 @@
 class AccountMailer < ActionMailer::Base
-  default from: "system@goodsmaster.com"
+  default from: Settings.send_mail_from
 
   # ToDo Refactor to user AccountDraper
   def activation_email(account)
