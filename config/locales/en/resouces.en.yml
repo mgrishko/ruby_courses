@@ -9,6 +9,12 @@ en:
     main:
       home: "Dashboard"
       products: "Products"
+    account:
+      menu_title: "Account"
+      users: "Users"
+    user:
+      profile: "Profile"
+      sign_out: "Sign out"
 
   products:
     defaults: &PRODUCT_DEFAULTS

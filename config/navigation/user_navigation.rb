@@ -7,11 +7,11 @@ SimpleNavigation::Configuration.run do |navigation|
   # navigation.renderer = Your::Custom::Renderer
 
   # Specify the class that will be applied to active navigation items. Defaults to 'selected'
-  # navigation.selected_class = 'your_selected_class'
+  navigation.selected_class = 'active'
 
   # Specify the class that will be applied to the current leaf of
   # active navigation items. Defaults to 'simple-navigation-active-leaf'
-  # navigation.active_leaf_class = 'your_active_leaf_class'
+  navigation.active_leaf_class = ''
 
   # Item keys are normally added to list items as id.
   # This setting turns that off
@@ -52,6 +52,9 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>. 
     #
 
+    primary.item :profile, t('navigation.user.profile'), edit_user_registration_path
+    primary.item :sing_out, t('navigation.user.sign_out'), destroy_user_session_url, { method: :delete }
+
     # Example configuration:
     #primary.item :key_1, 'name', url, options
     #
@@ -70,7 +73,7 @@ SimpleNavigation::Configuration.run do |navigation|
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
     # primary.dom_id = 'menu-id'
-    # primary.dom_class = 'menu-class'
+    primary.dom_class = 'dropdown-menu'
 
     # You can turn off auto highlighting for a specific level
     # primary.auto_highlight = false

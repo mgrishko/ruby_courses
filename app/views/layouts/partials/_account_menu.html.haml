@@ -1,0 +1,5 @@
+%ul.nav{class: "secondary-nav"}
+  %li.dropdown{"data-dropdown" => "dropdown"}
+    %a{class: "dropdown-toggle"}
+      = t('navigation.account.menu_title')
+    = render_navigation context: :account

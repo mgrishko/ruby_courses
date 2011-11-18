@@ -1,0 +1,5 @@
+%ul.nav{class: "secondary-nav"}
+  %li.dropdown{"data-dropdown" => "dropdown"}
+    %a{class: "dropdown-toggle"}
+      = (current_user.first_name || current_user.email)
+    = render_navigation context: :user
