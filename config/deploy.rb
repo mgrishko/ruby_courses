@@ -56,5 +56,5 @@ namespace :deploy do
 end
 
 after "deploy", "deploy:copy_database_configuration"
-after "deploy:update", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
+after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
