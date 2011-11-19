@@ -5,18 +5,15 @@ set :rvm_ruby_string, '1.9.3-p0@gm'             # Or whatever env you want it to
 
 # Bundler
 require "bundler/capistrano"
-
-# Bundler options
-set :bundle_without, [:development, :test, :cucumber, :console]
-
-## Airbrake Notifier
-#Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
-#  $: << File.join(vendored_notifier, 'lib')
-#end
-#require 'hoptoad_notifier/capistrano'
+# Airbrake error notifier
+require './config/boot'
+require 'airbrake/capistrano'
 
 ## NewRelic Recording Deployments
 #require 'new_relic/recipes'
+
+# Bundler options
+set :bundle_without, [:development, :test, :cucumber, :console]
 
 # Multistage
 set :stages, %w(development staging qa)
@@ -65,3 +62,4 @@ namespace :deploy do
 end
 
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
+

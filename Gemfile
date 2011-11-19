@@ -55,7 +55,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 # External services
-#gem "airbrake"
+gem "airbrake"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
