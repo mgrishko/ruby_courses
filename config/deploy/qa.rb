@@ -5,6 +5,7 @@ set :deploy_to, "/var/www/projects/#{application}/qa"
 set :branch, "develop"
 set :rails_env, "qa"
 set :user, "demo"
+set :rvm_type, :user
 
 set :appserver, "dev.getmasterdata.com"
 

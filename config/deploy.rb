@@ -41,10 +41,7 @@ depend :remote, :gem, "rake", ">=0.9.2.2"
 
 after "deploy:update_code" do
   deploy.copy_database_configuration
-  #deploy.compile_assets
 end
-
-#before "deploy:symlink", "deploy:compile_assets"
 
 ## This goes out even if the deploy fails, sadly
 #after "deploy:update", "newrelic:notice_deployment"
@@ -65,12 +62,6 @@ namespace :deploy do
     db_config = "/var/www/projects/#{application}/config/mongoid.yml"
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
-
-  # Precompile assets
-  task :compile_assets do
-    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-  end
 end
-
 
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
