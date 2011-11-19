@@ -3,8 +3,6 @@ defaults: &defaults
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
 
-  page_title_header: "h1"
-
 development:
   <<: *defaults
 

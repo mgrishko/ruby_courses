@@ -5,12 +5,13 @@ set :rvm_ruby_string, '1.9.3-p0@gm'             # Or whatever env you want it to
 
 # Bundler
 require "bundler/capistrano"
+
 # Airbrake error notifier
 require './config/boot'
 require 'airbrake/capistrano'
 
-## NewRelic Recording Deployments
-#require 'new_relic/recipes'
+# NewRelic Recording Deployments
+require 'new_relic/recipes'
 
 # Bundler options
 set :bundle_without, [:development, :test, :cucumber, :console]
@@ -36,13 +37,6 @@ default_run_options[:pty] = true   # must be set for the password prompt from gi
 depend :remote, :gem, "bundler", ">=1.0.21"
 depend :remote, :gem, "rake", ">=0.9.2.2"
 
-after "deploy:update_code" do
-  deploy.copy_database_configuration
-end
-
-## This goes out even if the deploy fails, sadly
-#after "deploy:update", "newrelic:notice_deployment"
-
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -61,5 +55,6 @@ namespace :deploy do
   end
 end
 
+after "deploy", "deploy:deploy.copy_database_configuration"
+after "deploy:update", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
-
