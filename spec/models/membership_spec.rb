@@ -27,13 +27,14 @@ describe Membership do
   end
 
   describe "owner?" do
-    it "should return true if owner" do
-      membership.user = membership.account.owner
-      membership.owner?.should be_true
+    it "returns true if owner" do
+      membership.account.owner = membership.user
+      membership.should be_owner
     end
 
-    it "should return true if not owner" do
-      membership.owner?.should be_false
+    it "returns false if not owner" do
+      membership.account.owner = Fabricate(:user)
+      membership.should_not be_owner
     end
   end
 end

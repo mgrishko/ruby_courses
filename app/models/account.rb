@@ -44,7 +44,7 @@ class Account
     if owner
       self.time_zone = owner.time_zone
       self.locale = owner.locale
-      self.memberships.build user: owner, role: "admin"
+      self.memberships.build user: owner, role: "admin" if self.memberships.empty?
     end
   end
 

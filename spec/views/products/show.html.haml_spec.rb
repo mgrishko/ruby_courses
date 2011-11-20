@@ -11,7 +11,7 @@ describe "products/show.html.haml" do
   describe "content" do
     it "should not render body title" do
       render
-      rendered.should_not have_selector(".content header #{Settings.page_title_header}")
+      rendered.should_not have_selector(".content header h1")
     end
 
     it "renders a product title" do

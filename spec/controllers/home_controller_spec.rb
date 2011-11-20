@@ -16,6 +16,7 @@ describe HomeController do
   end
 
   context "when user is not authenticated" do
+    login_account_as :viewer
     logout :user
 
     describe "GET index" do

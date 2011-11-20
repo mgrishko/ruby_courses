@@ -1,52 +1,41 @@
 # RVM configuration
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, '1.9.3'             # Or whatever env you want it to run in.
+set :rvm_ruby_string, '1.9.3-p0@gm'             # Or whatever env you want it to run in.
 
 # Bundler
 require "bundler/capistrano"
 
+# Airbrake error notifier
+require './config/boot'
+require 'airbrake/capistrano'
+
+# NewRelic Recording Deployments
+require 'new_relic/recipes'
+
 # Bundler options
-set :bundle_without, [:assets, :development, :test, :cucumber, :console]
-
-## Airbrake Notifier
-#Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
-#  $: << File.join(vendored_notifier, 'lib')
-#end
-#require 'hoptoad_notifier/capistrano'
-
-## NewRelic Recording Deployments
-#require 'new_relic/recipes'
+set :bundle_without, [:development, :test, :cucumber, :console]
 
 # Multistage
-set :stages, %w(staging production)
-set :default_stage, "staging"
+set :stages, %w(development staging qa)
+set :default_stage, "qa"
 require 'capistrano/ext/multistage'
 
 set :application, "goodsmaster"
-set :appserver, "goodsmaster.com"
 
 # Use Git source control
 set :scm, :git
 set :repository, "git@git.assembla.com:webforms2.2.git"
-# Deploy from staging branch by default.
-set :branch, "staging"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
+set :use_sudo, false
 
 ssh_options[:forward_agent] = true # use local keys instead of the ones on the server
 default_run_options[:pty] = true   # must be set for the password prompt from git to work
-ssh_options[:port] = 37777 # must be set to open ssh port
+#ssh_options[:port] = 37777 # must be set to open ssh port
 
-role :app, appserver
-role :web, appserver
-role :db,  appserver, :primary => true
-
-after "deploy:update_code" do
-  deploy.copy_database_configuration
-end
-## This goes out even if the deploy fails, sadly
-#after "deploy:update", "newrelic:notice_deployment"
+depend :remote, :gem, "bundler", ">=1.0.21"
+depend :remote, :gem, "rake", ">=0.9.2.2"
 
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
@@ -61,7 +50,11 @@ namespace :deploy do
 
   # Avoid keeping the mongoid.yml configuration in git.
   task :copy_database_configuration, :roles => :app do
-    db_config = "/var/www/#{application}/config/mongoid.yml"
+    db_config = "/var/www/projects/#{application}/config/mongoid.yml"
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 end
+
+after "deploy", "deploy:copy_database_configuration"
+after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
+after "deploy", "deploy:cleanup" # keeps only last 5 releases

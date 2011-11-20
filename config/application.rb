@@ -62,5 +62,13 @@ module GoodsMaster
       g.test_framework      :rspec, :fixture => true
       g.fixture_replacement :fabrication, :dir => "spec/fabricators"
     end
+
+    # Turn off auto TLS for e-mail
+    config.action_mailer.smtp_settings = {
+            :address => "localhost",
+            :port => 25,
+            :domain => "localhost",
+            :enable_starttls_auto => false
+    }
   end
 end

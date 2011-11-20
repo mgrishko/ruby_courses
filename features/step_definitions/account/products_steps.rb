@@ -1,9 +1,3 @@
-Given /^an authenticated user with (.*) role$/ do |role|
-  step "an authenticated user"
-
-  Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
-end
-
 Given /^he is on the account home page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
@@ -55,10 +49,6 @@ end
 
 When /^he goes to the update product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
-end
-
-When /^he goes to the delete product page$/ do
-  visit(destroy_product_url(@product, subdomain: @account.subdomain))
 end
 
 When /^he goes to the products list$/ do

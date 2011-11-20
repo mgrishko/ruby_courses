@@ -85,21 +85,31 @@ describe Account do
       @user = Fabricate(:user, time_zone: "Auckland", locale: "de")
       @user.accounts.build(Fabricate.attributes_for(:account))
       @account = @user.accounts.first
-      @account.save!
     end
 
     it "time zone should equal to the first user time zone" do
+      @account.save!
       @account.time_zone.should == @user.time_zone
     end
 
     it "locale should equal user to the first locale" do
+      @account.save!
       @account.locale.should == @user.locale
     end
 
     it "first user should have an admin membership" do
+      @account.save!
       membership = @account.memberships.first
       membership.user.should eql(@user)
       membership.role.should == "admin"
+    end
+
+    it "should create only one membership for owner" do
+      @account.subdomain = nil
+      @account.should_not be_valid
+      @account.subdomain = "valid"
+      @account.save
+      @account.memberships.count.should == 1
     end
   end
 

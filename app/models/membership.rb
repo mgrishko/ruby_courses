@@ -1,5 +1,6 @@
 class Membership
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   ROLES = %w(admin editor contributor viewer)
 
@@ -18,7 +19,6 @@ class Membership
   end
 
   def owner?
-    self.user == self.account.owner
+    account.owner == self.user
   end
-
 end

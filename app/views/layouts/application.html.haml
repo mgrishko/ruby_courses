@@ -10,17 +10,9 @@
             = link_to Settings.project_name, home_url
 
           - if user_signed_in?
-            %ul.nav
-              %li= link_to t('navigation.main.home'), home_url
-              %li= link_to t('navigation.main.products'), products_url
-
-            %ul.nav{class: "secondary-nav"}
-              %li.dropdown{"data-dropdown" => "dropdown"}
-                %a{class: "dropdown-toggle"}
-                  = (current_user.first_name || current_user.email)
-                %ul{class: "dropdown-menu"}
-                  %li= link_to "Profile", edit_user_registration_path
-                  %li= link_to "Sign out", destroy_user_session_url, method: :delete
+            = render_navigation context: :main, level: 1
+            = render "layouts/partials/user_menu"
+            = render "layouts/partials/account_menu"
 
             -#%form.search-wrapper{:action => ""}
               %input.search{:placeholder => "Search", :type => "text"}
@@ -42,4 +34,3 @@
 
     -#%footer
       -#= debug(params) if Rails.env.development?
-

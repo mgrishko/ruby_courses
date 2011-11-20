@@ -9,6 +9,12 @@ en:
     main:
       home: "Dashboard"
       products: "Products"
+    account:
+      menu_title: "Account"
+      users: "Users"
+    user:
+      profile: "Profile"
+      sign_out: "Sign out"
 
   products:
     defaults: &PRODUCT_DEFAULTS
@@ -23,6 +29,21 @@ en:
     new:
       <<: *PRODUCT_DEFAULTS
       title: "New product"
+
+  memberships:
+    defaults: &MEMBERSHIP_DEFAULTS
+      edit: "Edit"
+      destroy: "Delete"
+      roles:
+        owner: "Owner"
+        admin: "Admin"
+        editor: "Editor"
+        contributor: "Contributor"
+        viewer: "Viewer"  
+    index:
+      title: "All People"
+    edit:
+      title: "Edit Membership"
 
   users:
     registrations:
