@@ -119,7 +119,6 @@ GEM
       railties (~> 3.0)
     highline (1.6.2)
     hike (1.2.1)
-    hirb (0.5.0)
     hpricot (0.8.4)
     i18n (0.6.0)
     jquery-rails (1.0.16)
@@ -240,7 +239,6 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.0.6)
       rack (>= 1.0)
-    wirble (0.1.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -267,7 +265,6 @@ DEPENDENCIES
   ffaker
   haml
   haml-rails
-  hirb
   hpricot
   jquery-rails
   launchy
@@ -290,4 +287,3 @@ DEPENDENCIES
   timecop
   turn
   uglifier (>= 1.0.3)
-  wirble

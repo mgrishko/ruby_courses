@@ -26,6 +26,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
+    resources :accounts
     resources :products
 
     # Admin dashboard is only under app subdomain

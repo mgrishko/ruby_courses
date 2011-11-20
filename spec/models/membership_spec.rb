@@ -26,4 +26,14 @@ describe Membership do
     end
   end
 
+  describe "owner?" do
+    it "should return true if owner" do
+      membership.user = membership.account.owner
+      membership.owner?.should be_true
+    end
+
+    it "should return true if not owner" do
+      membership.owner?.should be_false
+    end
+  end
 end
