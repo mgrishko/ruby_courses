@@ -18,12 +18,6 @@ Given /^he is on the product page$/ do
   visit(product_url(@product, subdomain: @account.subdomain))
 end
 
-When /^he follows "([^"]*)" within sidebar$/ do |link|
-  within(".sidebar") do
-    click_on(link)
-  end
-end
-
 When /^he follows product link$/ do
   click_link(@product.name)
 end

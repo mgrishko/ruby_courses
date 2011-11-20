@@ -31,7 +31,7 @@ When /^the user tries to access a restricted page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-When /^user submits (.*) email and(.*) password$/ do |email, password|
+When /^(?:[^\s]* ) submits (.*) email and(.*) password$/ do |email, password|
   password.strip!
 
   fill_in "Email", with: email == "valid" ? "user@example.com" : "invalid@example.com"

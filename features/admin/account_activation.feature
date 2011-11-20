@@ -9,6 +9,6 @@ Feature: Account activation
     When admin goes to the accounts page
     And he activates the account
     Then he should see notice message "Account was successfully activated."
-    And an account owner should receive an invitation email
-    #When he follows company account link
-    #Then he should be on the company account home page
+    And an account owner should receive an activation email
+    When he follows company account link
+    Then he should be on the company account home page

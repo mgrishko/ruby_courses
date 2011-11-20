@@ -43,6 +43,12 @@ en:
         inactive: 'inactive'
         unconfirmed: 'unconfirmed'
         locked: 'locked'
+    invitations:
+      user:
+        send_instructions: 'A new membership invitation has been sent to %{email}.'
+        invitation_token_invalid: 'Your invitation token is not valid!'
+        updated: 'Welcome on board! You are now signed in.'
+
     unlocks:
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
       unlocked: 'Your account was successfully unlocked. You are now signed in.'
@@ -57,3 +63,6 @@ en:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
+      invitation_instructions:
+        subject: 'You got an invitation!'
+        user_subject: 'You got a user invitation!'

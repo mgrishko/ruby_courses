@@ -30,6 +30,7 @@ end
 
 # Security related gems
 gem "devise", "~> 1.4.9"
+gem "devise_invitable", "~> 0.6.0"
 gem "cancan", "~> 1.6.7"
 
 # Frontend tools

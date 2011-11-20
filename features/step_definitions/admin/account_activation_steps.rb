@@ -22,7 +22,7 @@ When /^he follows company account link$/ do
 end
 
 
-Then /^an account owner should receive an invitation email$/ do
+Then /^an account owner should receive an activation email$/ do
   email_address = @account.owner.email
   unread_emails_for(email_address).size.should == 1
   open_email(email_address)
