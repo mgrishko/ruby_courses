@@ -1,24 +1,21 @@
 class AccountsController < MainController
+  load_and_authorize_resource
+
   # GET /accounts/1/edit
   def edit
-    @account = Account.find(params[:id])
+    @account = Account.where(subdomain: request.subdomain, state: "active").first
+    respond_with(@account)
   end
 
-  ## PUT /accounts/1
-  ## PUT /accounts/1.json
-  #def update
-    #@account = Account.find(params[:id])
-
-    #respond_to do |format|
-      #if @account.update_attributes(params[:account])
-        #format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        #format.json { head :ok }
-      #else
-        #format.html { render action: "edit" }
-        #format.json { render json: @account.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+  #PUT /accounts/1
+  #PUT /accounts/1.json
+  def update
+    @account = Account.where(subdomain: request.subdomain, state: "active").first
+      if @account.update_attributes(params[:account])
+        flash[:notice] = "Account was successfully updated."
+      end
+      redirect_to edit_account_path
+  end
 
   ## GET /accounts
   ## GET /accounts.json

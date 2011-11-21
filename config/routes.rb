@@ -25,7 +25,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
-    resources :accounts
+    resource :account, only: [:edit, :update]
     resources :memberships, except: [:show, :new, :create]
     resources :products
 

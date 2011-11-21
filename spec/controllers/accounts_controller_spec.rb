@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe AccountsController do
-
   it { should be_kind_of(MainController) }
 
   def valid_attributes
-    @attrs ||= Fabricate.attributes_for(:account, owner: nil)
+    @attrs ||= Fabricate.attributes_for(:account)
   end
 
   describe "GET edit" do
@@ -14,55 +13,53 @@ describe AccountsController do
       login_account_as :owner, account: { subdomain: "company" }
 
       it "assigns the requested account as @account" do
+        account = Account.where(subdomain: "company").first
         get :edit, subdomain: "company"
-        assigns(:account).should eq(@current_account)
+        assigns(:account).should eq(account)
       end
     end
   end
 
-  #describe "PUT update" do
-    #describe "with valid params" do
-      #it "updates the requested account" do
-        #account = Account.create! valid_attributes
-        ## Assuming there are no other accounts in the database, this
-        ## specifies that the Account created on the previous line
-        ## receives the :update_attributes message with whatever params are
-        ## submitted in the request.
-        #Account.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        #put :update, :id => account.id, :account => {'these' => 'params'}
-      #end
+  describe "PUT update" do
 
-      #it "assigns the requested account as @account" do
-        #account = Account.create! valid_attributes
-        #put :update, :id => account.id, :account => valid_attributes
-        #assigns(:account).should eq(account)
-      #end
+    before(:each) do
+      @account = Account.create! valid_attributes
+    end
 
-      #it "redirects to the account" do
-        #account = Account.create! valid_attributes
-        #put :update, :id => account.id, :account => valid_attributes
-        #response.should redirect_to(account)
-      #end
-    #end
+    describe "with valid params" do
+      login_account_as :owner, account: { subdomain: "company" }
+      it "updates the requested account" do
+        Account.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :account => {'these' => 'params'}
+      end
 
-    #describe "with invalid params" do
-      #it "assigns the account as @account" do
-        #account = Account.create! valid_attributes
-        ## Trigger the behavior that occurs when invalid params are submitted
-        #Account.any_instance.stub(:save).and_return(false)
-        #put :update, :id => account.id, :account => {}
-        #assigns(:account).should eq(account)
-      #end
+      it "assigns the requested account as @account" do
+        put :update, :account => valid_attributes
+        assigns(:account).should eq(@account)
+      end
 
-      #it "re-renders the 'edit' template" do
-        #account = Account.create! valid_attributes
-        ## Trigger the behavior that occurs when invalid params are submitted
-        #Account.any_instance.stub(:save).and_return(false)
-        #put :update, :id => account.id, :account => {}
-        #response.should render_template("edit")
-      #end
-    #end
-  #end
+      it "redirects to the account" do
+        put :update, :account => valid_attributes
+        response.should redirect_to(@account)
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns the account as @account" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        Account.any_instance.stub(:save).and_return(false)
+        put :update, :account => {}
+        assigns(:account).should eq(@account)
+      end
+
+      it "re-renders the 'edit' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        Account.any_instance.stub(:save).and_return(false)
+        put :update, :account => {}
+        response.should render_template("edit")
+      end
+    end
+  end
 
   #describe "GET index" do
     #it "assigns all accounts as @accounts" do

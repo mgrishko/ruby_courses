@@ -54,34 +54,24 @@ module ControllerMacros
     account_attrs = opts.delete(:account) || {}
 
     before(:each) do
+      user = Fabricate(:user, user_attrs)
+
       if role == :owner
-        user = Fabricate(:user, user_attrs)
         account = Fabricate(:active_account, owner: user)
-
-        # Stubbing helper method current_user
-        @controller.stub(:current_user).and_return(user)
-        @current_user = user
-
-        # Stubbing helper method current_account
-        @controller.stub(:current_account).and_return(account)
-        @current_account = account
-
-        sign_in :user, user
-      else role == (:admin || :editor || :viewer || :contributor)
-        user = Fabricate(:user, user_attrs)
+      else
         account = Fabricate(:active_account, account_attrs)
         Fabricate("#{role.to_s}_membership".to_sym, account: account, user: user)
-
-        # Stubbing helper method current_user
-        @controller.stub(:current_user).and_return(user)
-        @current_user = user
-
-        # Stubbing helper method current_account
-        @controller.stub(:current_account).and_return(account)
-        @current_account = account
-
-        sign_in :user, user
       end
+
+      # Stubbing helper method current_user
+      @controller.stub(:current_user).and_return(user)
+      @current_user = user
+
+      # Stubbing helper method current_account
+      @controller.stub(:current_account).and_return(account)
+      @current_account = account
+
+      sign_in :user, user
     end
   end
 end

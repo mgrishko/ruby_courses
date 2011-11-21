@@ -1,73 +1,21 @@
 en:
   back: "Back"
-  show: "Show"
-  update: "Update"
   cancel: "Cancel"
   confirm: "Are you sure?"
-
-  navigation:
-    main:
-      home: "Dashboard"
-      products: "Products"
-    account:
-      menu_title: "Account"
-      users: "Users"
-    user:
-      profile: "Profile"
-      sign_out: "Sign out"
-
-  products:
-    defaults: &PRODUCT_DEFAULTS
-      new: "New Product"
-      edit: "Edit Product"
-      destroy: "Delete Product"
-    index:
-      <<: *PRODUCT_DEFAULTS
-      title: "Listing products"
-    show:
-      <<: *PRODUCT_DEFAULTS
-    new:
-      <<: *PRODUCT_DEFAULTS
-      title: "New product"
-
-  memberships:
-    defaults: &MEMBERSHIP_DEFAULTS
-      edit: "Edit"
-      destroy: "Delete"
-      roles:
-        owner: "Owner"
-        admin: "Admin"
-        editor: "Editor"
-        contributor: "Contributor"
-        viewer: "Viewer"  
-    index:
-      title: "All People"
-    edit:
-      title: "Edit Membership"
-
-  users:
-    registrations:
-      new:
-        create_account: "Create account"
-        title: "Sign up"
-      edit:
-        title: "Edit your profile"
-    sessions:
-      new:
-        title: "Sign in"
-        sign_in: "Sign in"
+  show: "Show"
+  update: "Update"
 
   admin:
     accounts:
       defaults: &ADMIN_ACCOUNT_DEFAULTS
         activate: "Activate"
-        subdomain: "Subdomain"
         company: "Company"
         country: "Country"
         state: "State"
         states:
-          pending: "Awaiting activation"
           active: "Active"
+          pending: "Awaiting activation"
+        subdomain: "Subdomain"
 
       index:
         title: "Listing accounts"
@@ -77,7 +25,64 @@ en:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
 
+  accounts:
+    edit:
+      title: "Account settings"
+
+  memberships:
+    defaults: &MEMBERSHIP_DEFAULTS
+      edit: "Edit"
+      destroy: "Delete"
+      roles:
+        admin: "Admin"
+        contributor: "Contributor"
+        editor: "Editor"
+        owner: "Owner"
+        viewer: "Viewer"
+    index:
+      title: "All People"
+    edit:
+      title: "Edit Membership"
+
+  navigation:
+    account:
+      menu_title: "Account"
+      settings: "Settings"
+      users: "Users"
+    main:
+      home: "Dashboard"
+      products: "Products"
+    user:
+      profile: "Profile"
+      sign_out: "Sign out"
+
+  products:
+    defaults: &PRODUCT_DEFAULTS
+      destroy: "Delete Product"
+      edit: "Edit Product"
+      new: "New Product"
+    index:
+      <<: *PRODUCT_DEFAULTS
+      title: "Listing products"
+    new:
+      <<: *PRODUCT_DEFAULTS
+      title: "New product"
+    show:
+      <<: *PRODUCT_DEFAULTS
+
+  users:
+    registrations:
+      edit:
+        title: "Edit your profile"
+      new:
+        create_account: "Create account"
+        title: "Sign up"
     sessions:
       new:
-        title: "Sign in"
         sign_in: "Sign in"
+        title: "Sign in"
+
+    sessions:
+      new:
+        sign_in: "Sign in"
+        title: "Sign in"
