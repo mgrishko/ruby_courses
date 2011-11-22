@@ -3,6 +3,7 @@ en:
   helpers:
     submit:
       membership:
+        create: "Send an invitation"
         update: "Update"
         destroy: "Delete"
     label:
@@ -41,6 +42,7 @@ en:
     #       email: 'E-mail para efetuar o sign in.'
     #     edit:
     #       email: 'E-mail.'
+
     hints:
       account:
         subdomain: "Subdomains may include letters and numbers only (no space)."

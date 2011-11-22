@@ -5,6 +5,10 @@ en:
   cancel: "Cancel"
   confirm: "Are you sure?"
 
+  errors:
+    messages:
+      already_invited: "is already invited"
+
   navigation:
     main:
       home: "Dashboard"
@@ -34,6 +38,7 @@ en:
     defaults: &MEMBERSHIP_DEFAULTS
       edit: "Edit"
       destroy: "Delete"
+      invite: "Invite a new member"
       roles:
         owner: "Owner"
         admin: "Admin"
@@ -42,10 +47,14 @@ en:
         viewer: "Viewer"  
     index:
       title: "All People"
+    new:
+      title: "Send invitation"
     edit:
       title: "Edit Membership"
 
   users:
+    invitations:
+
     registrations:
       new:
         create_account: "Create account"

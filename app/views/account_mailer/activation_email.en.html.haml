@@ -3,8 +3,8 @@
   %head
     %meta{"http-equiv" => "content-type", :content => "text/html; charset=utf-8"}
   %body
-    %h1
-      Hi
+    %p
+      Hi,
       = @owner.first_name
 
     %p
@@ -22,11 +22,12 @@
       = @owner.email
 
     %p
-      If you have any questions or feedback, please don't hesitate to contact us at http://feedback.goodsmasterhq.com
+      If you have any questions or feedback, please don't hesitate to contact us at
+      = Settings.links.feedback
 
     %p
       All the best,
       %br
       The GoodsMaster Team
       %br
-      http://GoodsMasterHQ.com
+      = Settings.links.project_home

@@ -55,4 +55,35 @@ describe User do
     account = user.accounts.first
     account.subdomain.should == account_attrs[:subdomain]
   end
+
+  describe "#full_name" do
+    it "should combine first and last name" do
+      user = Fabricate(:user, first_name: "John", last_name: "Bon Jovi")
+      user.full_name.should == "John Bon Jovi"
+    end
+  end
+
+  describe "#generate_password!" do
+    before(:each) { user.generate_password! }
+
+    it "generates password 8 characters length" do
+      user.password.length.should == 8
+    end
+
+    it "uses only latin letters and digits" do
+      user.password.should match(/^[A-Za-z0-9]+$/)
+    end
+
+    it "should have at least one digit" do
+      user.password.should match(/(?=.*\d)/)
+    end
+
+    it "should have at least one upper case letter" do
+      user.password.should match(/(?=.*[A-Z])/)
+    end
+
+    it "should have al least one lower case letter" do
+      user.password.should match(/(?=.*[a-z])/)
+    end
+  end
 end

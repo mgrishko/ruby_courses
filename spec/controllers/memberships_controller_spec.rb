@@ -4,8 +4,70 @@ describe MembershipsController do
   it { should be_kind_of(MainController) }
   
   def valid_attributes
-    @attrs ||= Fabricate.attributes_for(:admin_membership)
+    @attrs ||= begin
+      attrs = Fabricate.attributes_for(:admin_membership)
+      attrs[:user_attributes] = Fabricate.attributes_for(:user)
+      attrs
+    end
   end
+
+  describe "GET new" do
+    login_account_as :admin, account: { subdomain: "company" }
+
+    it "assigns a new membership as @membership" do
+      get :new
+      assigns(:membership).should be_a_new(MembershipDecorator)
+    end
+  end
+
+  describe "POST create" do
+    login_account_as :admin, account: { subdomain: "company" }
+
+    describe "with valid params" do
+      it "creates a new Membership" do
+        account = Account.where(subdomain: "company").first
+        account.memberships.count.should == 2
+        post :create, :membership => valid_attributes
+        account.reload.memberships.count.should == 3
+      end
+
+      it "sets membership invited by to current user" do
+        post :create, :membership => valid_attributes
+        assigns(:membership).invited_by.should eql(@current_user)
+      end
+
+      it "assigns a newly created membership as @membership" do
+        post :create, :membership => valid_attributes
+        assigns(:membership).should be_a(MembershipDecorator)
+        assigns(:membership).should be_persisted
+      end
+
+      it "redirects to the account memberships" do
+        post :create, :membership => valid_attributes
+        response.should redirect_to(memberships_path)
+      end
+    end
+
+    describe "with invalid params" do
+      before(:each) do
+        # Trigger the behavior that occurs when invalid params are submitted
+        Membership.any_instance.stub(:save).and_return(false)
+        Membership.any_instance.stub_chain(:errors, :empty?).and_return(false)
+        controller.stub(:set_already_invited_error)
+      end
+
+      it "assigns a newly created but unsaved membership as @membership" do
+        post :create, :membership => {}
+        assigns(:membership).should be_a_new(MembershipDecorator)
+      end
+
+      it "re-renders the 'new' template" do
+        post :create, :membership => {}
+        response.should render_template("new")
+      end
+    end
+  end
+
 
   context "as an account owner" do
     login_account_as :admin, account: { subdomain: "company" }
@@ -72,10 +134,10 @@ describe MembershipsController do
       end
     end
   end
-  
+
   context "as an account admin" do
     login_account_as :admin, account: { subdomain: "company" }
-    
+
     # Make current user the owner of the current account and make another user in the account an editor
     before(:each) do
       @current_account.owner = @current_user
@@ -83,7 +145,7 @@ describe MembershipsController do
       @current_account.memberships.select{|m|m.user != @current_user}.first.role = "editor"
       @current_account.save!
     end
-    
+
     describe "GET index" do
       it "assigns all memberships as @memberships" do
         memberships = MembershipDecorator.decorate(Account.where(subdomain: "company").first.memberships)
@@ -127,7 +189,7 @@ describe MembershipsController do
           Membership.any_instance.stub(:save).and_return(false)
           Membership.any_instance.stub_chain(:errors, :empty?).and_return(false)
         end
-        
+
         it "assigns the membership as @membership" do
           membership = Account.where(subdomain: "company").first.memberships.first
           put :update, :id => membership.id, :membership => {}
@@ -146,7 +208,7 @@ describe MembershipsController do
       it "destroys non-admin membership" do
         account = Account.where(subdomain: "company").first
         membership = account.memberships.first
-        
+
         expect {
           delete :destroy, :id => membership.id
         }.to change(account.memberships, :count).by(-1)
@@ -159,10 +221,10 @@ describe MembershipsController do
       end
     end
   end
-  
+
   context "as an editor" do
     login_account_as :editor, account: { subdomain: "company" }
-    
+
     describe "GET index" do
       it "redirects to the home" do
         memberships = MembershipDecorator.decorate(Account.where(subdomain: "company").first.memberships)
@@ -187,7 +249,7 @@ describe MembershipsController do
           response.should redirect_to(root_url(subdomain: "company"))
         end
       end
-      
+
       it "can update non-admin membership" do
         membership = Account.where(subdomain: "company").first.memberships.first
         put :update, :id => membership.id, :membership => {'role' => 'viewer'}
@@ -199,7 +261,7 @@ describe MembershipsController do
       it "doesn't destroy a membership" do
         account = Account.where(subdomain: "company").first
         membership = account.memberships.first
-        
+
         expect {
           delete :destroy, :id => membership.id
         }.to_not change(account.memberships, :count)

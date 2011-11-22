@@ -22,4 +22,16 @@ class User
 
   attr_accessible :email, :password, :first_name, :last_name, :time_zone, :locale
 
+  # @return [String] user full name
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  def generate_password!
+    array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
+    self.password = 8.times.map{ array[Random.rand(array.length - 1)] }.join
+
+    Rails.logger.debug self.password
+    generate_password! unless /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/.match(self.password)
+  end
 end
