@@ -1,0 +1,20 @@
+= title t(".title")
+
+- content_for(:sidebar) do
+  = link_to t("back"), memberships_path
+
+= simple_form_for @membership.setup_nested, url: membership_invitation_path, wrapper: :inline do |f|
+  = f.error_notification
+  .inputs
+    = f.simple_fields_for :user, wrapper: :inline do |n|
+      = n.input :first_name
+      = n.input :last_name
+      = n.input :email
+
+    = f.input :role, collection: MembershipDecorator.role_select_options, include_blank: false
+    = f.input :invitation_note, as: :text
+
+  .actions
+    = f.button :submit, class: "primary"
+    = button_tag t("cancel"), type: :reset, class: "btn"
+

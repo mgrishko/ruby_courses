@@ -52,7 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>. 
     #
 
-    primary.item :memberships, t('navigation.account.users'), memberships_url
+    primary.item :memberships, t('navigation.account.users'), memberships_url, if: -> { can? :manage, Membership }
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options

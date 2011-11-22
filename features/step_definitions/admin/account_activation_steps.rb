@@ -21,7 +21,6 @@ When /^he follows company account link$/ do
   visit_in_email(home_url(subdomain: @account.subdomain))
 end
 
-
 Then /^an account owner should receive an activation email$/ do
   email_address = @account.owner.email
   unread_emails_for(email_address).size.should == 1

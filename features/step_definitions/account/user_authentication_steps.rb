@@ -1,10 +1,10 @@
 Given /^an unauthenticated user$/ do
-  Fabricate(:user, email: "user@example.com", password: "password")
+  @user = Fabricate(:user, password: "password")
   reset_session!
 end
 
 Given /^an authenticated user$/ do
-  @user = Fabricate(:user, email: "user@example.com", password: "password")
+  @user = Fabricate(:user, password: "password")
 
   steps %Q{
     Given user is on the user sign in page
@@ -31,10 +31,12 @@ When /^the user tries to access a restricted page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-When /^(?:[^\s]* ) submits (.*) email and(.*) password$/ do |email, password|
+When /^(?:he|user) submits (.*) email and(.*) password$/ do |email, password|
   password.strip!
 
-  fill_in "Email", with: email == "valid" ? "user@example.com" : "invalid@example.com"
+  valid_email = @user.nil? ? "user@example.com" : @user.email
+
+  fill_in "Email", with: email == "valid" ? valid_email : "invalid@example.com"
   fill_in "Password", with: password.blank? || password == "valid" ? "password" : "invalid"
   click_button "Sign in"
 end

@@ -1,0 +1,27 @@
+Hello, <%= @user.first_name %>
+
+We thought you'd like to know that <%= @invited_by.full_name %> has added you
+to the <%= @account.company_name %> account.
+
+Click this link to get started:
+<%= @url %>
+
+Login:
+<%= @user.email %>
+<% if @user.password.present? %>
+Password:
+<%= @user.password %>
+<% end %>
+
+<% if @invitation_note.present? %>
+<%= @invited_by.first_name %> also says:
+
+<%= @invitation_note %>
+<% end %>
+
+Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>
+
+
+All the best,
+The GoodsMaster Team
+<%= Settings.links.project_home %>

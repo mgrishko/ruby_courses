@@ -24,14 +24,14 @@ describe ApplicationController do
   describe "#current_membership" do
     before(:each) do
       @user1 = Fabricate(:user)
-      @account1 = @user1.accounts.create(Fabricate.attributes_for(:account, subdomain: "company1"))
+      @account1 = Fabricate(:account, owner: @user1, subdomain: "company1")
       @account1.activate!
       @membership1 = @account1.memberships.first
 
       @user2 = Fabricate(:user)
-      @account2 = @user2.accounts.create(Fabricate.attributes_for(:account, subdomain: "company2"))
+      @account2 = Fabricate(:account, owner: @user2, subdomain: "company2")
       @account2.activate!
-      @membership2 = @account2.memberships.create(user: @user1, role: "editor")
+      @membership2 = Fabricate(:membership, account: @account2, user: @user1, role: "editor")
     end
 
     it "returns current user membership with admin role" do

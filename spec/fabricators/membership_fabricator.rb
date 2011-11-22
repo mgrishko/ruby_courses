@@ -2,6 +2,7 @@ Fabricator(:membership) do
   account!
   user!
   role "editor"
+  invited_by { |m| m.account.owner }
 end
 
 Fabricator(:admin_membership, from: :membership) do

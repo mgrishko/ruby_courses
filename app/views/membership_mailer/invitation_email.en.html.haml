@@ -1,0 +1,48 @@
+!!!
+%html
+  %head
+    %meta{"http-equiv" => "content-type", :content => "text/html; charset=utf-8"}
+  %body
+    %p
+      Hello,
+      = @user.first_name
+
+    %p
+      We thought you'd like to know that
+      = @invited_by.full_name
+      has added you to the
+      = @account.company_name
+      account.
+    %p
+      %strong
+        Click this link to get started:
+      %br
+      = @url
+
+    %p
+      Login:
+      %br
+      = @user.email
+      - if @user.password.present?
+        Password:
+        %br
+        = @user.password
+
+    - if @invitation_note.present?
+      %p
+        = @invited_by.first_name
+        also says:
+      %pre= @invitation_note
+
+    %p
+      %strong
+        Have questions?
+      = "Contact #{@invited_by.full_name} - company account administrator - at #{@invited_by.email}"
+
+
+    %p
+      All the best,
+      %br
+      The GoodsMaster Team
+      %br
+      = Settings.links.project_home

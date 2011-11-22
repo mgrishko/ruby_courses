@@ -5,50 +5,45 @@ Feature: Membership invitation
 
   Background: Account admin exists
     Given an activated account
-    And an authenticated user with admin role
 
   Scenario: Admin invites a new user to an account
-    Given admin is on the account memberships page
-    When he follows "Invite new user" within sidebar
+    Given an authenticated user with admin role
+    And admin is on the account memberships page
+    When he follows "Invite a new member" within sidebar
     And he submits the account invitation form with:
       | First name |
       | Last name  |
       | Email |
       | Role  |
+      | Invitation note |
     Then he should see notice message "A new membership invitation has been sent"
     When admin goes to the account memberships page
-    Then he should see that user
-    And a user membership state should be invited
+    Then he should see that user membership
 
-    And user should receive an invitation email
-    When he follows membership invitation link
-    Then he should be on the accept invitation page
-    When he submits the accept invitation form with:
-      | First name |
-      | Last name  |
-      | Password   |
+    Then user should receive an invitation email with password
+    And he follows membership invitation link
+    And he submits valid email and password
     Then he should be on the company account home page
-    And he should see notice message "Welcome on board! You are now signed in."
-    And a user membership state should be active
 
   Scenario: Admin invites an unauthenticated user to an account
     Given an unauthenticated user
     When admin invites that user
-    Then user should receive an invitation email
+    Then user should receive an invitation email without password
     When he follows membership invitation link
     And he submits valid email and password
-    Then he should see notice message "Welcome on board! You are now signed in."
+    Then he should be on the company account home page
 
   Scenario: Admin invites an authenticated user to an account
     Given an authenticated user
     When admin invites that user
-    Then user should receive an invitation email
+    Then user should receive an invitation email without password
     When he follows membership invitation link
     Then he should be on the company account home page
-    And he should see notice message "Welcome on board! You are now signed in."
 
   Scenario: Admin tries to invite an invited user
-    Given an invited user with email "invited@email.com"
+    Given user with an account membership
+    And an authenticated user with admin role
+    And he is on the new membership page
     When admin tries to invite that user
-    Then he should see alert message "User with email invited@email.com is already invited."
-    And user should not receive an invitation email
+    Then he should be on the redisplayed new membership page
+    And he should see that email is already invited

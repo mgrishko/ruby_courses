@@ -49,12 +49,6 @@ When /^he goes to the products list$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
-When /^he follows "([^"]*)" within header$/ do |link|
-  within(".topbar") do
-    click_link(link)
-  end
-end
-
 Then /^he should be on the product page$/ do
   product = @product || Product.first
   current_url.should == product_url(product, subdomain: @account.subdomain)
