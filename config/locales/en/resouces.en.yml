@@ -16,6 +16,10 @@ en:
           active: "Active"
           pending: "Awaiting activation"
         subdomain: "Subdomain"
+    sessions:
+      new:
+        sign_in: "Sign in"
+        title: "Sign in"
 
       index:
         title: "Listing accounts"
@@ -77,11 +81,6 @@ en:
       new:
         create_account: "Create account"
         title: "Sign up"
-    sessions:
-      new:
-        sign_in: "Sign in"
-        title: "Sign in"
-
     sessions:
       new:
         sign_in: "Sign in"

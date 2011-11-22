@@ -1,20 +1,21 @@
 class AccountsController < MainController
-  load_and_authorize_resource
+  before_filter :load_account
+  authorize_resource
 
   # GET /accounts/1/edit
   def edit
-    @account = Account.where(subdomain: request.subdomain, state: "active").first
     respond_with(@account)
   end
 
   #PUT /accounts/1
   #PUT /accounts/1.json
   def update
-    @account = Account.where(subdomain: request.subdomain, state: "active").first
-      if @account.update_attributes(params[:account])
-        flash[:notice] = "Account was successfully updated."
-      end
-      redirect_to edit_account_path
+    if @account.update_attributes(params[:account])
+      flash[:notice] = "Account was successfully updated."
+      redirect_to edit_account_url
+    else
+      render 'edit'
+    end
   end
 
   ## GET /accounts
@@ -77,4 +78,9 @@ class AccountsController < MainController
       #format.json { head :ok }
     #end
   #end
+private
+
+  def load_account
+    @account = current_account
+  end
 end

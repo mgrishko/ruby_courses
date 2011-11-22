@@ -11,7 +11,7 @@ Feature: Account edit
     When he goes to the home page
     Then he should not see account settings link in menu
     When he tries access to the account edit page
-    Then he should see alert message "Access denied."
+    Then he should see alert message "You are not authorized to access this page."
     Examples:
       | role   |
       | admin  |
