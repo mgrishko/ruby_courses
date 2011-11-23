@@ -36,12 +36,6 @@ class Membership
     self.role == role.to_s
   end
 
-<<<<<<< HEAD
-  def owner?
-    account.owner == self.user
-  end
-end
-=======
   # Checks if current membership is an account owner
   #
   # @return [Boolean] true if membership is an account owner and false otherwise
@@ -77,4 +71,3 @@ end
     MembershipMailer.invitation_email(self).deliver
   end
 end
->>>>>>> develop
