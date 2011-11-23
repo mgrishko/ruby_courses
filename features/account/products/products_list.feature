@@ -9,7 +9,7 @@ Feature: Products list
   Scenario: User successfully goes to the company products list
     Given an authenticated user with viewer role
     And he is on the account home page
-    When he follows "Products" within header
+    When he follows "Products" within topbar
     Then he should be on the products page
 
   Scenario: User can not view other company account products

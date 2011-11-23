@@ -1,9 +1,11 @@
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
     devise_for :users,
-               path: "profile",
-               controllers: { registrations: 'users/registrations', sessions: 'users/sessions' },
-               skip: [:registrations, :sessions] do
+               path: "/",
+               controllers: { registrations: 'users/registrations',
+                              sessions: 'users/sessions',
+                              invitations: 'users/invitations'},
+               skip: [:registrations, :sessions, :invitations] do
 
       # Routes signup and acknowledgement routes only under app subdomain
       constraints(subdomain: Settings.app_subdomain) do
@@ -22,11 +24,17 @@ GoodsMaster::Application.routes.draw do
         post '/signin'  => 'users/sessions#create',     as: :user_session
         get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
         delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
+
+        get 'memberships/invitation/accept' => "users/invitations#edit",   as: :accept_user_invitation
+        put 'memberships/invitation'        => "users/invitations#update", as: :user_invitation
       end
     end
 
     resource :account, only: [:edit, :update]
     resources :memberships, except: [:show, :new, :create]
+    get 'memberships/invitation/new' => "memberships#new",    as: :new_membership
+    post 'memberships/invitation'    => "memberships#create", as: :membership_invitation
+
     resources :products
 
     # Admin dashboard is only under app subdomain

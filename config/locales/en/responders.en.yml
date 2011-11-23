@@ -15,6 +15,10 @@ en:
         notice: "Account was successfully activated."
         alert: "Account was not activated."
 
+    memberships:
+      create:
+        notice: "A new membership invitation has been sent."
+
   # unauthorized:
   #   manage:
   #     all: "Not authorized to %{action} %{subject}."

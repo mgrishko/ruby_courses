@@ -3,8 +3,8 @@ Fabricator(:account) do
   subdomain       { "subdomain" }
   company_name    { Faker::Company.name }
   country         { "US" }
-  locale          { "en" }
-  time_zone       { "Moscow" }
+  locale        "en"
+  time_zone     "Moscow"
 end
 
 Fabricator(:active_account, from: :account) do

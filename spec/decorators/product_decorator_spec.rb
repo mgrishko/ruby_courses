@@ -27,7 +27,7 @@ describe ProductDecorator do
     end
 
     context "when user cannot edit product" do
-      it "should return empty string when user cannot edit product" do
+      it "should return empty string" do
         @decorator.h.stub(:can?).and_return(false)
         @decorator.edit_link.should be_blank
       end
@@ -45,7 +45,7 @@ describe ProductDecorator do
     end
 
     context "when user cannot destroy product" do
-      it "should return empty string when user cannot edit product" do
+      it "should return empty string" do
         @decorator.h.stub(:can?).and_return(false)
         @decorator.destroy_link.should be_blank
       end

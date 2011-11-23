@@ -2,6 +2,9 @@ defaults: &defaults
   project_name: "GoodsMaster"
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
+  links:
+    project_home: "http://GoodsMasterHQ.com"
+    feedback: "http://feedback.goodsmasterhq.com"
 
 development:
   <<: *defaults

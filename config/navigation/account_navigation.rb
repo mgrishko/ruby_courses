@@ -54,6 +54,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :accounts, t('navigation.account.settings'), edit_account_url if @current_membership.owner?
     primary.item :memberships, t('navigation.account.users'), memberships_url
+    primary.item :memberships, t('navigation.account.users'), memberships_url, if: -> { can? :manage, Membership }
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
