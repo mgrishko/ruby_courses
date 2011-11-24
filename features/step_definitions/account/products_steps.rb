@@ -6,16 +6,21 @@ Given /^he is on the products page$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
-Given /^that account has a product$/ do
-  @product = Fabricate(:product, account: @account)
+Given /^that account has a product(.*)$/ do |relative|
+  fabricator = "product#{relative}".gsub(/\s/, "_").to_sym
+  @product = Fabricate(fabricator, account: @account)
 end
 
-And /^that other account has a product$/ do
+Given /^that other account has a product$/ do
   @product = Fabricate(:product, account: @other_account)
 end
 
 Given /^he is on the product page$/ do
   visit(product_url(@product, subdomain: @account.subdomain))
+end
+
+Given /^he is on the edit product page$/ do
+  visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
 When /^he follows product link$/ do

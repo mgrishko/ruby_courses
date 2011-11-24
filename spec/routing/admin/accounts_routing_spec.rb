@@ -13,24 +13,24 @@ describe Admin::AccountsController do
           should route_to("admin/accounts#show", id: "1", subdomain: Settings.app_subdomain)
     end
 
-    it "routes #new to #show (#new should not be routable)" do
+    it "routes to #new" do
       get("http://#{Settings.app_subdomain}.example.com/dashboard/accounts/new").
           should route_to("admin/accounts#show", id: "new", subdomain: Settings.app_subdomain)
     end
 
-    it "#create should not be routable" do
+    it "routes to #create" do
       post("http://#{Settings.app_subdomain}.example.com/dashboard/accounts").should_not be_routable
     end
 
-    it "#edit should not be routable" do
+    it "routes to #edit" do
       get("http://#{Settings.app_subdomain}.example.com/dashboard/accounts/1/edit").should_not be_routable
     end
 
-    it "#update should not be routable" do
+    it "routes to #update" do
       put("http://#{Settings.app_subdomain}.example.com/dashboard/accounts/1").should_not be_routable
     end
 
-    it "#destroy should not be routable" do
+    it "routes to #destroy" do
       delete("http://#{Settings.app_subdomain}.example.com/dashboard/accounts/1").should_not be_routable
     end
 

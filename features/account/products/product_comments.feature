@@ -1,0 +1,38 @@
+Feature: Product comments
+  In order to get feedback about product from colleagues
+  An account admin, editor and contributor
+  Should be able to add comments to the product
+
+  Background: Account exists
+    Given an activated account
+    And that account has a product with comments
+
+   Scenario: Editor enters a comment during product update
+    Given an authenticated user with editor role
+    And he is on the edit product page
+    When he enters a comment to the product
+    And he submits form with updated product
+    Then he should be on the product page
+    And he should see notice message "Product was successfully updated."
+    And he should see that comment on the top of comments
+
+  @javascript
+  Scenario: Contributor add a comment to the product
+    Given an authenticated user with contributor role
+    And he is on the product page
+    When he submits a comment to the product
+    Then he should be on the product page
+    And he should see that comment on the top of comments
+
+  Scenario: Viewer cannot add comments
+    Given an authenticated user with contributor role
+    And he is on the product page
+    Then he should see product comments
+    And he should not see "Add comment" button
+
+  @javascript
+  Scenario: Comment author deletes own comment
+    Given an authenticated user with contributor role
+    And he is on the product page
+    And he should see product comments
+    And he should not see "Add comment" button
