@@ -4,29 +4,26 @@ require 'spec_helper'
 describe MembershipAbility do
 
   describe "account owner" do
-    prepare_ability_for :admin, :membership
+    prepare_ability_for :owner, :membership
 
     before do
-      @owner_id = @resource.account.owner.id
-      @account = Account.first
-      @owner_membership = @account.memberships.owner
+      @account = @resource.account
     end
 
-    it {@ability.should be_able_to(:update, Membership, user_id: @owner_id)}
-    it {@ability.should be_able_to(:destroy, Membership, user_id: @owner_id)}
-
-    #it { @ability.should_not be_able_to(:update, @owner_membership) }
-    #it { @ability.should_not be_able_to(:destroy, @owner_membership) }
+    it {@ability.should be_able_to(:update, @account)}
   end
 
   describe "account admin" do
     prepare_ability_for :admin, :membership
 
     before do
-      @account = Account.first
+      @owner_id = @resource.account.owner_id
+      @account = @resource.account
       @owner_membership = @account.memberships.select{ |m| m.owner? }.first
     end
 
+    it {@ability.should_not be_able_to(:update, @account)}
+    it {@ability.should_not be_able_to(:destroy, @account)}
     it { @ability.should_not be_able_to(:update, @owner_membership) }
     it { @ability.should_not be_able_to(:destroy, @owner_membership) }
     it { @ability.should be_able_to(:read, Membership) }

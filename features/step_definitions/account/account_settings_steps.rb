@@ -1,8 +1,10 @@
-Then /^(?:[^\s]*) should (.*) see account settings link in menu$/ do |visible|
-  if visible == 'not'
-    page.should have_no_xpath('smth')
-  elsif visible.empty?
-    page.should have_xpath('smth')
+Then /^he should(.*) see "([^"]*)" link within header$/ do |should, link|
+  within("ul#account_menu") do
+    if should.strip == "not"
+      page.should_not have_link(link)
+    else
+      page.should have_link(link)
+    end
   end
 end
 

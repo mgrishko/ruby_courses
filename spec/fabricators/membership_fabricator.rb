@@ -9,6 +9,11 @@ Fabricator(:admin_membership, from: :membership) do
   role "admin"
 end
 
+Fabricator(:owner_membership, from: :membership) do
+  user { |m| m.account.owner }
+  role "admin"
+end
+
 Fabricator(:editor_membership, from: :membership) do
   role "editor"
 end
