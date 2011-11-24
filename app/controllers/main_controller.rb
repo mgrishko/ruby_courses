@@ -3,13 +3,14 @@ class MainController < ApplicationController
   before_filter :authenticate_user!, if: :current_account?
   before_filter :validate_account_membership!
 
+  #rescue_from CanCan::AccessDenied do |exception|
+    #redirect_to new_user_session_url(subdomain: current_account.subdomain)
+  #end
+
   private
 
-  # Responds with 401 Unauthorized status code if current user does not a member of current account.
   def validate_account_membership!
-
-    # Fix me!!! We should show login form for signed in user unless current_membership (ticket 364)
-    head :unauthorized unless current_membership?
+    redirect_to new_user_session_url(subdomain: current_account.subdomain) unless current_membership?
   end
 
   # Fix me!!! If user signed in he should be redirected to his account list

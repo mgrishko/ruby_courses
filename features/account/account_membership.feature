@@ -13,7 +13,7 @@ Feature: Account membership management
   Scenario: Non-admin can't view the account users
     Given account with memberships
   	And an authenticated user with editor role
-	Then he should not see account users menu link
+	  Then he should not see account users menu link
     When he tries to visit account memberships page
     Then he should see alert message "not authorized"
 

@@ -1,10 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
-
+  skip_before_filter :require_no_authentication, :only => [ :new, :create ]
   layout "clean"
 
-  protected
-
-  #def after_sign_in_path_for(resource)
-  #  home_path
-  #end
+  def create
+    warden.logout()
+    super
+  end
 end

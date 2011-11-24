@@ -35,7 +35,6 @@ When /^(?:he|user) submits (.*) email and(.*) password$/ do |email, password|
   password.strip!
 
   valid_email = @user.nil? ? "user@example.com" : @user.email
-
   fill_in "Email", with: email == "valid" ? valid_email : "invalid@example.com"
   fill_in "Password", with: password.blank? || password == "valid" ? "password" : "invalid"
   click_button "Sign in"
