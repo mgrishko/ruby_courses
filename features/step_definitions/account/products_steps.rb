@@ -79,3 +79,11 @@ Then /^he should(.*) see that product in the products list$/ do |should|
     end
   end
 end
+
+Given /^he should be on the product version page$/ do
+  current_url.should == product_url(product, subdomain: @account.subdomain)
+end
+
+Then /^he should see version (\d+) of the product$/ do |version|
+  pending # express the regexp above with the code you wish you had
+end

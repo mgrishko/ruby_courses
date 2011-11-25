@@ -6,6 +6,9 @@ describe "products/show.html.haml" do
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
+    @product.stub(:version).and_return(2)
+    @product.stub(:version_link).with(1).and_return("<a>Version 1</a>")
+    @product.stub(:version_link).with(2).and_return("<a>Version 2</a>")
   end
 
   describe "content" do
@@ -34,6 +37,17 @@ describe "products/show.html.haml" do
     it "renders a back link" do
       render
       view.content_for(:sidebar).should have_selector("a", text: "Back")
+    end
+
+    it "renders product versions header" do
+      render
+      view.content_for(:sidebar).should have_selector("h3", text: "Versions")
+    end
+
+    it "renders product version links" do
+      render
+      view.content_for(:sidebar).should have_selector("a", text: "Version 1")
+      view.content_for(:sidebar).should have_selector("a", text: "Version 2")
     end
 
     it "renders an edit link" do

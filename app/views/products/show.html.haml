@@ -10,7 +10,14 @@
   %br
 
   = @product.destroy_link(class: "btn small danger")
-
+  
+  %br
+  %br
+  %h3 Versions
+  %ul
+  - (1..@product.version).reverse_each do |v|
+    %li= link_to "Version #{v}", "#"
+    
   %br
   %br
   = link_to t("back"), products_path
