@@ -7,10 +7,6 @@ en:
         update: "Update"
         destroy: "Delete"
     label:
-      membership:
-        name: 'Name'
-        email: 'Email'
-        role: 'Role'
       user:
         first_name: 'First Name'
         last_name: 'Last Name'
