@@ -7,6 +7,8 @@ describe MembershipsController do
     @attrs ||= begin
       attrs = Fabricate.attributes_for(:admin_membership)
       attrs[:user_attributes] = Fabricate.attributes_for(:user)
+      attrs.delete(:user)
+      attrs.delete(:account)
       attrs
     end
   end
@@ -100,15 +102,14 @@ describe MembershipsController do
 
     describe "with valid params" do
       it "redirects to memberships" do
-        #Membership.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         membership = Fabricate(:admin_membership, account: @current_account)
-        put :update, :id => membership.id, :membership => {'role' => 'admin'}
+        put :update, :id => membership.id, :membership => valid_attributes
         response.should redirect_to(memberships_url)
       end
 
       it "assigns the requested non-admin membership as @membership" do
         membership = Fabricate(:membership, {account: @current_account})
-        put :update, id: membership.id, membership: {'role' => 'admin'}
+        put :update, id: membership.id, membership: valid_attributes
         assigns(:membership).should eq(membership)
       end
     end
@@ -116,13 +117,17 @@ describe MembershipsController do
     describe "with invalid params" do
       it "assigns the membership as @membership" do
         membership = Fabricate(:membership, account: @current_account)
-        put :update, :id => membership.id, :membership => {role: "invalid_role"}
+        Membership.any_instance.stub(:save).and_return(false)
+        Membership.any_instance.stub_chain(:errors, :empty?).and_return(false)
+        put :update, :id => membership.id, :membership => {'these' => 'params'}
         assigns(:membership).should eq(membership)
       end
 
       it "re-renders the 'edit' template" do
         membership = Fabricate(:membership, account: @current_account)
-        put :update, :id => membership.id, :membership => {role: "invalid_role"}
+        Membership.any_instance.stub(:save).and_return(false)
+        Membership.any_instance.stub_chain(:errors, :empty?).and_return(false)
+        put :update, :id => membership.id, :membership => {'these' => 'params'}
         response.should render_template("edit")
       end
     end

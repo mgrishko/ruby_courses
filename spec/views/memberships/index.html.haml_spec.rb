@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "memberships/index.html.haml" do
   before(:each) do
-    @membership = stub_model(Membership, :display_name => "lname", :role_name => "Editor", :model => Membership )
+    @membership = stub_model(Membership, :display_name => "lname", :role_name => "Editor", :model => Membership, :email => "some@email.com" )
     Membership.any_instance.stub(:edit_link).and_return("<a>Edit</a>")
     Membership.any_instance.stub(:destroy_link).and_return("<a>Delete</a>")
     MembershipDecorator.stub(:invitation_link)
@@ -21,6 +21,11 @@ describe "memberships/index.html.haml" do
       rendered.should have_selector("table th", text: "Name")
     end
 
+    it "renders Email column" do
+      render
+      rendered.should have_selector("table th", text: "Email")
+    end
+    
     it "renders Role column" do
       render
       rendered.should have_selector("table th", text: "Role")
@@ -29,6 +34,11 @@ describe "memberships/index.html.haml" do
     it "renders role value" do
       render
       rendered.should have_selector("table td", text: "Editor")
+    end
+
+    it "renders email value" do
+      render
+      rendered.should have_selector("table td", text: "some@email.com")
     end
 
     it "renders display_name value" do
