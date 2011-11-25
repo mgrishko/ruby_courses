@@ -21,10 +21,11 @@ describe MainController do
     end
 
     context "when invalid" do
-      it "response should be unauthorized" do
+      it "redirects to the login page" do
         @controller.stub(:current_membership).and_return(false)
+        @controller.stub_chain(:current_account, :subdomain).and_return("company")
         get :index
-        response.status.should == 401 # unauthorized
+        response.should redirect_to(new_user_session_url(subdomain: "company"))
       end
     end
   end
