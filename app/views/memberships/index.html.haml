@@ -6,13 +6,15 @@
 %article
   %table.grid
     %tr
-    %th Name
-    %th Role
+    %th= t('.name')
+    %th= t('.role')
+    %th= t('.email')
     %th &nbsp;
     %th &nbsp;
     - @memberships.each do |m|
       %tr
         %td= m.display_name
         %td= m.role_name
+        %td= m.email
         %td= m.edit_link
         %td= m.destroy_link

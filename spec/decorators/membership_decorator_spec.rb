@@ -18,6 +18,10 @@ describe MembershipDecorator do
       @decorator.role_name.should == "Editor"
     end
 
+    it "#email" do
+      @decorator.email.should == @membership.user.email
+    end
+    
     it "#role_select_options" do
       MembershipDecorator.role_select_options.should ==
           [["Admin", "admin"], ["Editor", "editor"], ["Contributor", "contributor"], ["Viewer", "viewer"]]
