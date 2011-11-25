@@ -18,6 +18,12 @@ Given /^an authenticated user with (.*) role$/ do |role|
   @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
 end
 
+
+Given /^an unauthenticated user with (.*) role$/ do |role|
+  @user = Fabricate(:user, password: "password")
+  @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
+end
+
 Given /^an authenticated account owner$/ do
   step "an authenticated user"
   @account.owner = @user
@@ -58,4 +64,12 @@ end
 
 Then /^user should be signed out$/ do
   current_url.should == new_user_session_url(subdomain: @account.subdomain)
+end
+
+When /^he navigates to products page$/ do
+  visit(products_url(subdomain: @account.subdomain))
+end
+
+Then /^he should be redirected back to the products page$/ do
+  current_url.should == products_url(subdomain: @account.subdomain)
 end

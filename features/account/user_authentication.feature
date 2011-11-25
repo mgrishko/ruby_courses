@@ -7,12 +7,12 @@ Feature: User authentication
     Given an activated account
 
   Scenario: User signs in successfully
-    Given an unauthenticated user
-    When the user tries to access a restricted page
+    And an unauthenticated user with admin role
+    When he navigates to products page
     Then he should be redirected to the user sign in page
     When user submits valid email and password
-    Then user should be redirected back to the restricted page
-
+    Then he should be redirected back to the products page
+    
   Scenario Outline: User enters wrong email or password
     Given an unauthenticated user
     And he is on the user sign in page
