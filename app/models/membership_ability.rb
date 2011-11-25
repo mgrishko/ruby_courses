@@ -4,11 +4,13 @@ class MembershipAbility
   def initialize(membership)
     membership ||= Membership.new
 
-    if membership.role? :admin
+    if membership.owner?
+      can :manage, :all
+    elsif membership.role? :admin
       can :manage, :all
       cannot [:update, :destroy], Account
-      can :update, Account, owner_id: membership.user_id
       cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
+      #can :update, Account, owner_id: membership.user_id
     elsif membership.role? :editor
       can :manage, Product
       can :read, :all

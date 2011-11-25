@@ -40,7 +40,7 @@ class Membership
   #
   # @return [Boolean] true if membership is an account owner and false otherwise
   def owner?
-    account.owner == self.user
+    account.try(:owner) == self.user
   end
 
   protected

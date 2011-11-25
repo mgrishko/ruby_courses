@@ -1,13 +1,14 @@
+@allow-rescue
 Feature: Account edit
   In order to edit account settings
   An account owner
   Should be able to edit company account
 
   Background: Activated account exists
-    Given an activated account
+    Given active account
 
   Scenario Outline: User access to the account settings is denied
-    Given an authenticated user with <role> role
+    Given an authenticated user with role <role>
     When he goes to the home page
     Then he should not see "Settings" link within header
     When he tries access to the account edit page
@@ -18,7 +19,7 @@ Feature: Account edit
       | admin  |
 
   Scenario: Account owner successfully edits account setings
-    Given an authenticated user with owner role
+    Given an authenticated user with role owner
     When he goes to the home page
     Then he should see "Settings" link within header
     When he follows "Settings"
