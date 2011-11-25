@@ -4,5 +4,6 @@ class HomeController < MainController
 
   # GET /
   def index
+    
   end
 end

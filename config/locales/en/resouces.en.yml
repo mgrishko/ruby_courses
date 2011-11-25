@@ -40,20 +40,23 @@ en:
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
       edit: "Edit"
-      invite: "Invite a new member"
       destroy: "Delete"
+      invite: "Invite a new member"
       roles:
-        admin: "Admin"
-        contributor: "Contributor"
-        editor: "Editor"
         owner: "Owner"
+        admin: "Admin"
+        editor: "Editor"
+        contributor: "Contributor"
         viewer: "Viewer"
-    edit:
-      title: "Edit Membership"
     index:
       title: "All People"
+      name: "Name"
+      email: "Email"
+      role: 'Role'
     new:
       title: "Send invitation"
+    edit:
+      title: "Edit Membership"
 
   navigation:
     account:
