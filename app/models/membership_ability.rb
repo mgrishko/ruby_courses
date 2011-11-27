@@ -6,11 +6,11 @@ class MembershipAbility
 
     if membership.owner?
       can :manage, :all
+      cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
     elsif membership.role? :admin
       can :manage, :all
-      cannot [:update, :destroy], Account
+      cannot :manage, Account
       cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
-      #can :update, Account, owner_id: membership.user_id
     elsif membership.role? :editor
       can :manage, Product
       can :read, :all

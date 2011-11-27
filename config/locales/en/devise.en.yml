@@ -12,57 +12,55 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
 
   devise:
-    failure:
-      already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
-      invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
-      inactive: 'Your account was not activated yet.'
-    sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
-    passwords:
-      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
-      updated: 'Your password was changed successfully. You are now signed in.'
-      updated_not_active: 'Your password was changed successfully.'
-      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
     confirmations:
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: 'Your account was successfully confirmed. You are now signed in.'
-    registrations:
-      #signed_up: 'Welcome! You have signed up successfully.'
-      signed_up: 'Thank you! We will send you an invitation once we are ready.'
-      inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
-      updated: 'You updated your profile successfully.'
-      destroyed: 'Bye! Your profile was successfully cancelled. We hope to see you again soon.'
-      reasons:
-        inactive: 'inactive'
-        unconfirmed: 'unconfirmed'
-        locked: 'locked'
-    invitations:
-      user:
-        send_instructions: 'A new membership invitation has been sent to %{email}.'
-        invitation_token_invalid: 'Your invitation token is not valid!'
-        updated: 'Welcome on board! You are now signed in.'
-
-    unlocks:
-      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-      unlocked: 'Your account was successfully unlocked. You are now signed in.'
-      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
-    omniauth_callbacks:
-      success: 'Successfully authorized from %{kind} account.'
-      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    failure:
+      already_authenticated: 'You are already signed in.'
+      invalid: 'Invalid email or password.'
+      inactive: 'Your account was not activated yet.'
+      invalid_token: 'Invalid authentication token.'
+      locked: 'Your account is locked.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      unauthenticated: 'You need to sign in or sign up before continuing.'
+      unconfirmed: 'You have to confirm your account before continuing.'
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'
+      invitation_instructions:
+        subject: 'You got an invitation!'
+        user_subject: 'You got a user invitation!'
       reset_password_instructions:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
-      invitation_instructions:
-        subject: 'You got an invitation!'
-        user_subject: 'You got a user invitation!'
+    omniauth_callbacks:
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+      success: 'Successfully authorized from %{kind} account.'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+      updated: 'Your password was changed successfully. You are now signed in.'
+      updated_not_active: 'Your password was changed successfully.'
+    registrations:
+      destroyed: 'Bye! Your profile was successfully cancelled. We hope to see you again soon.'
+      inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
+      signed_up: 'Thank you! We will send you an invitation once we are ready.'
+      updated: 'You updated your profile successfully.'
+      reasons:
+        inactive: 'inactive'
+        locked: 'locked'
+        unconfirmed: 'unconfirmed'
+    sessions:
+      signed_in: 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
+    invitations:
+      user:
+        invitation_token_invalid: 'Your invitation token is not valid!'
+        send_instructions: 'A new membership invitation has been sent to %{email}.'
+        updated: 'Welcome on board! You are now signed in.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'

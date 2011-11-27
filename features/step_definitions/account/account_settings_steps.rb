@@ -8,11 +8,11 @@ Then /^he should(.*) see "([^"]*)" link within header$/ do |should, link|
   end
 end
 
-When /^(?:[^\s]*) tries access to the account edit page$/ do
+When /^(?:[^\s]*) tries to access to the account edit page$/ do
   visit(edit_account_url(subdomain: @account.subdomain))
 end
 
-When /^(?:[^\s]*) change and submits Company name, Country, Subdomain, Timezone$/ do
+When /^(?:[^\s]*) changes and submit Company name, Country, Subdomain, Timezone$/ do
   @account = Fabricate.attributes_for(:account)
   fill_in "Company name", with: @account[:company_name]
   select Carmen.country_name(@account[:country]), from: "Country"
@@ -24,14 +24,4 @@ end
 Then /^(?:[^\s]*) should be redirected to the account settings page$/ do
   #current_url.should == edit_account_url(subdomain: @account.subdomain)
   visit(edit_account_url(subdomain: @account.subdomain     ))
-end
-
-Given /^an authenticated user with role (.*)$/ do |role|
-
-  @membership = Fabricate("#{role}_membership".to_sym, account: @account)
-
-  visit(new_user_session_url(subdomain: @account.subdomain))
-  fill_in "Email", with: @membership.user.email
-  fill_in "Password", with: @membership.user.password
-  click_button "Sign in"
 end

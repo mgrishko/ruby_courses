@@ -11,7 +11,7 @@ Feature: Account edit
     Given an authenticated user with role <role>
     When he goes to the home page
     Then he should not see "Settings" link within header
-    When he tries access to the account edit page
+    When he tries to access to the account edit page
     Then he should see alert message "You are not authorized to access this page."
     Examples:
       | role   |
@@ -24,5 +24,5 @@ Feature: Account edit
     Then he should see "Settings" link within header
     When he follows "Settings"
     Then he should be redirected to the account settings page
-    When he change and submits Company name, Country, Subdomain, Timezone
+    When he changes and submit Company name, Country, Subdomain, Timezone
     Then he should see notice message "Account was successfully updated."

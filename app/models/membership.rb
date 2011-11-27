@@ -38,9 +38,11 @@ class Membership
 
   # Checks if current membership is an account owner
   #
+  # if account present
   # @return [Boolean] true if membership is an account owner and false otherwise
+  # otherwise return [nil]
   def owner?
-    account.try(:owner) == self.user
+    !(account.nil?) ? (account.owner == self.user) : nil
   end
 
   protected

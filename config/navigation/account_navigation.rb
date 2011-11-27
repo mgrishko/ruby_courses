@@ -52,7 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :accounts, t('navigation.account.settings'), edit_account_url, if: -> { @current_membership.try(:owner?) }
+    primary.item :accounts, t('navigation.account.settings'), edit_account_url, if: -> { can? :manage, Account }
     primary.item :memberships, t('navigation.account.users'), memberships_url, if: -> { can? :manage, Membership }
 
     # Example configuration:
