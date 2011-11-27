@@ -18,52 +18,79 @@ describe ProductDecorator do
     end
   end
 
-  describe "#edit_link" do
-    context "when user can edit product" do
-      it "renders link" do
-        @decorator.h.stub(:can?).and_return(true)
-        @decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
+  describe "decorates" do
+    describe "#edit_link" do
+      context "when user can edit product" do
+        it "renders link" do
+          @decorator.h.stub(:can?).and_return(true)
+          @decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
+        end
+      end
+
+      context "when user cannot edit product" do
+        it "should return empty string" do
+          @decorator.h.stub(:can?).and_return(false)
+          @decorator.edit_link.should be_blank
+        end
       end
     end
 
-    context "when user cannot edit product" do
-      it "should return empty string" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.edit_link.should be_blank
+    describe "#destroy_link" do
+      context "when user can destroy product" do
+        it "renders link" do
+          @decorator.h.stub(:can?).and_return(true)
+          @decorator.destroy_link.should ==
+              "<a href=\"/products/#{@product.id
+              }\" data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\">Delete Product</a>"
+        end
       end
-    end
-  end
 
-  describe "#destroy_link" do
-    context "when user can destroy product" do
-      it "renders link" do
-        @decorator.h.stub(:can?).and_return(true)
-        @decorator.destroy_link.should ==
-            "<a href=\"/products/#{@product.id
-            }\" data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\">Delete Product</a>"
-      end
-    end
-
-    context "when user cannot destroy product" do
-      it "should return empty string" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.destroy_link.should be_blank
-      end
-    end
-  end
-
-  describe "#show_link" do
-    context "when user can view product" do
-      it "renders link" do
-        @decorator.h.stub(:can?).and_return(true)
-        @decorator.show_link.should =="<a href=\"/products/#{@product.id}\">Product name</a>"
+      context "when user cannot destroy product" do
+        it "should return empty string" do
+          @decorator.h.stub(:can?).and_return(false)
+          @decorator.destroy_link.should be_blank
+        end
       end
     end
 
-    context "when user cannot view product" do
-      it "renders product name" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.show_link.should == "Product name"
+    describe "#show_link" do
+      context "when user can view product" do
+        it "renders link" do
+          @decorator.h.stub(:can?).and_return(true)
+          @decorator.show_link.should =="<a href=\"/products/#{@product.id}\">Product name</a>"
+        end
+      end
+
+      context "when user cannot view product" do
+        it "renders product name" do
+          @decorator.h.stub(:can?).and_return(false)
+          @decorator.show_link.should == "Product name"
+        end
+      end
+    end
+
+    describe "#setup_nested" do
+      before(:each) do
+        @product = Product.new
+        @decorator = ProductDecorator.decorate(@product)
+      end
+
+      context "comment" do
+        it "builds comment" do
+          @decorator.setup_nested
+          @decorator.comments.should_not be_empty
+        end
+
+        it "returns self" do
+          decorator = @decorator.setup_nested
+          decorator.should eql(@decorator)
+        end
+
+        it "doesn't build comments if it is not empty" do
+          comment = @product.comments.new
+          @decorator.setup_nested
+          @decorator.comments.should include(comment)
+        end
       end
     end
   end

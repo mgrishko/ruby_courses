@@ -10,7 +10,13 @@ require 'cucumber/rails'
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
-Capybara.default_selector = :css
+Capybara.run_server = true #Whether start server when testing
+Capybara.server_port = 8200
+Capybara.default_selector = :css #:xpath #default selector , you can change to :css
+Capybara.default_wait_time = 2 #When we testing AJAX, we can set a default wait time
+Capybara.ignore_hidden_elements = false #Ignore hidden elements when testing, make helpful when you hide or show elements using javascript
+Capybara.javascript_driver = :webkit #default driver when you using @javascript tag
+
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 

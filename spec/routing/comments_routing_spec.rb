@@ -2,7 +2,6 @@ require "spec_helper"
 
 describe CommentsController do
   describe "routing" do
-
     context "product" do
       it "routes to #index" do
         get("http://subdomain.example.com/products/1/comments").should_not be_routable

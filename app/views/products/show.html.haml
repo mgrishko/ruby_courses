@@ -21,6 +21,11 @@
 
   %p= @product.description
 
--#= link_to 'Edit', edit_product_path(@product)
--#\|
+%section#comments
+  = render "comments/form"
+
+  %table
+    - @comments.reject(&:new_record?).each do |comment|
+      = render comment
+
 

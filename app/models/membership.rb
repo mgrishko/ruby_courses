@@ -18,7 +18,7 @@ class Membership
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :invitation_note, length: { maximum: 1000 }
 
-  attr_accessible :role, :user, :invitation_note
+  attr_accessible :role, :invitation_note
 
   set_callback(:validation, :before) do |membership|
     membership.find_or_initialize_user if membership.new_record?

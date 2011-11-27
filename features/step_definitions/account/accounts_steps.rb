@@ -1,9 +1,14 @@
 Given /^an activated account$/ do
   user = Fabricate(:user, email: "owner@example.com", password: "password")
-  @account = user.accounts.create!(Fabricate.attributes_for(:account, user: nil))
+  @account = user.accounts.create!(Fabricate.attributes_for(:account, user: nil, subdomain: "company"))
   @account.activate!
+
+  set_current_subdomain(@account.subdomain)
 end
 
 Given /^some other account$/ do
-  @other_account = Fabricate(:account, subdomain: "other")
+  @other_account = Fabricate(:account, subdomain: "othercompany")
+
+  set_current_subdomain(@account.subdomain)
 end
+

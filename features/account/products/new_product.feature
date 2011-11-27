@@ -13,7 +13,6 @@ Feature: New product
     And he submits a new product form with following data:
       | Name        |
       | Description |
-      | Comment     |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
     When he goes to the products list

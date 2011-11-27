@@ -7,6 +7,17 @@ Feature: Product comments
     Given an activated account
     And that account has a product with comments
 
+  Scenario: Editor successfully adds a new product with comment
+    Given an authenticated user with editor role
+    And he is on the new product page
+    When he submits a new product form with following data:
+      | Name        |
+      | Description |
+      | Comment     |
+    Then he should be on the product page
+    And he should see notice message "Product was successfully created."
+    And he should see that comment on the top of comments
+
    Scenario: Editor enters a comment during product update
     Given an authenticated user with editor role
     And he is on the edit product page

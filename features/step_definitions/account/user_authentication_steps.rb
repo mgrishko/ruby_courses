@@ -24,7 +24,7 @@ Given /^an authenticated account owner$/ do
 end
 
 Given /^(?:[^\s]* )is on the user sign in page$/ do
-  visit(new_user_session_url(subdomain: @account.subdomain))
+  visit(new_user_session_path)
 end
 
 When /^the user tries to access a restricted page$/ do
@@ -50,7 +50,7 @@ When /^user returns next time$/ do
 end
 
 Then /^he should be redirected to the user sign in page$/ do
-  current_url.should == new_user_session_url(subdomain: @account.subdomain)
+  extract_port(current_url).should == new_user_session_url(subdomain: @account.subdomain)
 end
 
 Then /^user should be redirected back to the restricted page$/ do

@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "memberships/new.html.haml" do
   before(:each) do
-    assign(:membership, MembershipDecorator.decorate(Fabricate.build(:membership)))
+    assign(:membership, MembershipDecorator.decorate(stub_model(Membership,
+      :role => "editor"
+    ).as_new_record))
   end
 
   describe "content" do

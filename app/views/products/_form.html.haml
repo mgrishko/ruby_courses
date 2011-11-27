@@ -1,9 +1,12 @@
-= simple_form_for(@product, wrapper: :inline) do |f|
+= simple_form_for(@product.setup_nested, wrapper: :inline) do |f|
   = f.error_notification
 
   .inputs
     = f.input :name
     = f.input :description, as: :text
+
+    = f.simple_fields_for :comments, wrapper: :inline do |n|
+      = n.input :body, as: :text
 
   .actions
     = f.button :submit, class: "primary"

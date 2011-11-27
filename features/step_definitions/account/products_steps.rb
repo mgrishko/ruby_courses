@@ -23,6 +23,11 @@ Given /^he is on the edit product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
+And /^he is on the new product page$/ do
+  visit(new_product_url(subdomain: @account.subdomain))
+  @product = nil
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
@@ -32,7 +37,7 @@ When /^he submits a new product form with following data:$/ do |table|
 
   table.raw.flatten.each do |field|
     attr = field.downcase.gsub(/\s/, '_').to_sym
-    fill_in field, with: attrs[attr]
+    fill_in field, with: attr == :comment ? "Product comment" : attrs[attr]
   end
   click_button "Create Product"
 end
@@ -55,7 +60,7 @@ When /^he goes to the products list$/ do
 end
 
 Then /^he should be on the product page$/ do
-  product = @product || Product.first
+  product = @product || Product.last
   current_url.should == product_url(product, subdomain: @account.subdomain)
 end
 
@@ -83,4 +88,9 @@ Then /^he should(.*) see that product in the products list$/ do |should|
       page.should have_content(product.name)
     end
   end
+end
+
+Then /^he should see that comment on the top of comments$/ do
+  comment = @comment || @product.comments.last
+  page.should have_content(comment.body)
 end

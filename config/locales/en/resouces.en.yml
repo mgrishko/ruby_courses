@@ -20,6 +20,10 @@ en:
       profile: "Profile"
       sign_out: "Sign out"
 
+  comments:
+    defaults: &COMMENT_DEFAULTS
+      destroy: "Delete"
+
   products:
     defaults: &PRODUCT_DEFAULTS
       new: "New Product"

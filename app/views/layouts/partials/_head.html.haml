@@ -5,5 +5,5 @@
 %title= "#{Settings.project_name}#{": #{yield(:head_title)}" if content_for?(:head_title)}"
 = stylesheet_link_tag "application"
 = javascript_include_tag "application"
-= csrf_meta_tag
+= csrf_meta_tags
 = favicon_link_tag

@@ -12,7 +12,7 @@ describe Membership do
   it { should allow_mass_assignment_of(:role) }
 
   it { should validate_presence_of(:user) }
-  it { should allow_mass_assignment_of(:user) }
+  it { should_not allow_mass_assignment_of(:user_id) }
 
   it "should validate associated user" do
     user = Fabricate.build(:user, email: "invalid")

@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "products/edit.html.haml" do
   before(:each) do
-    @product = assign(:product, stub_model(Product,
+    @product = assign(:product, ProductDecorator.decorate(stub_model(Product,
       :name => "",
       :description => ""
-    ))
+    )))
   end
 
   describe "content" do
