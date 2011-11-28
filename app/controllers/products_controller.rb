@@ -17,9 +17,7 @@ class ProductsController < MainController
     _version = params[:version] ? params[:version].to_i : @product.version
     
     if _version < @product.version
-      versioned_attributes = @product.versions.where(:version => _version).first.versioned_attributes
-      versioned_attributes.delete("version")
-      @product.attributes = versioned_attributes
+      @product.attributes = @product.versions.where(:version => _version).first.versioned_attributes
     end
     
     @product = ProductDecorator.decorate(@product)

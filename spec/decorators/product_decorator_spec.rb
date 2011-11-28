@@ -17,8 +17,43 @@ describe ProductDecorator do
       @decorator.description.should == "Product description"
     end
     
+    it "#created_at" do
+      @decorator.created_at.should == @product.created_at
+    end
+    
+    it "#updated_at" do
+      @decorator.updated_at.should == @product.updated_at
+    end
+    
     it "#version" do
       @decorator.version.should == 1
+    end
+  end
+
+  describe "#version_count" do
+    it { @decorator.version_count.should == 1 }
+  end
+
+  describe "#version_date" do
+    context "when user can view product" do
+      it "renders date" do
+        @decorator.h.stub(:cannot?).and_return(false)
+        @decorator.version_date(1).should == @product.updated_at.strftime("%b %d, %Y")
+      end
+    end
+    
+    context "when user can view product and version number is invalid" do
+      it "renders date" do
+        @decorator.h.stub(:cannot?).and_return(false)
+        @decorator.version_date(666).should be_blank
+      end
+    end
+    
+    context "when user cannot view product" do
+      it "renders product name" do
+        @decorator.h.stub(:cannot?).and_return(true)
+        @decorator.version_date(1).should be_blank
+      end
     end
   end
 

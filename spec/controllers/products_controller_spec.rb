@@ -47,9 +47,6 @@ describe ProductsController do
       product = account.products.create! valid_attributes
       (2..3).each { product.update_attributes(other_valid_attributes) }
       
-      #get :show, id: product.id, version: 2
-      #assigns(:product).version.should == 2
-      
       get :show, id: product.id, version: 1
       assigns(:product).version.should == 1
     end

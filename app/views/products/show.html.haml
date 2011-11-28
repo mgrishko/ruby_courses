@@ -15,8 +15,10 @@
   %br
   %h3 Versions
   %ul
-  - (1..@product.version).reverse_each do |v|
-    %li= @product.show_version_link(v)
+  - (1..@product.version_count).reverse_each do |v|
+    %li
+      = @product.show_version_link(v)
+      (#{@product.version_date(v)})
     
   %br
   %br

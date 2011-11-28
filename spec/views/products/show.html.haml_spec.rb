@@ -6,9 +6,11 @@ describe "products/show.html.haml" do
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
-    @product.stub(:version).and_return(2)
+    @product.stub(:version_count).and_return(2)
     @product.stub(:show_version_link).with(1).and_return("<a>Version 1</a>")
     @product.stub(:show_version_link).with(2).and_return("<a>Version 2</a>")
+    @product.stub(:version_date).with(1).and_return("11 Oct, 2011")
+    @product.stub(:version_date).with(2).and_return("17 Oct, 2011")
   end
 
   describe "content" do
@@ -47,6 +49,12 @@ describe "products/show.html.haml" do
     it "renders product version links with decorator" do
       @product.should_receive(:show_version_link).with(1)
       @product.should_receive(:show_version_link).with(2)
+      render
+    end
+
+    it "renders product version dates with decorator" do
+      @product.should_receive(:version_date).with(1)
+      @product.should_receive(:version_date).with(2)
       render
     end
 
