@@ -15,18 +15,6 @@ class AccountsController < MainController
     respond_with(@account)
   end
 
-  #def update
-    #@account.update_attributes(params[:account])
-
-    #respond_with(@account) do |format|
-      #if @account.errors.empty?
-        #format.html { redirect_to edit_account_path }
-      #else
-        #format.html { render 'edit' }
-      #end
-    #end
-  #end
-
   def update
     @account.update_attributes(params[:account])
     respond_with(@account, location: :edit_account)

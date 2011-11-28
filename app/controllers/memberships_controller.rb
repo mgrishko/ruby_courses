@@ -1,6 +1,6 @@
 class MembershipsController < MainController
   load_and_authorize_resource :through => :current_account
-  
+
   def index
     @memberships = MembershipDecorator.decorate(@memberships)
     respond_with(@memberships)
@@ -39,21 +39,13 @@ class MembershipsController < MainController
       end
     end
   end
-  
+
   def update
-    #@membership = current_account.memberships.new loaded by CanCan
     @membership.update_attributes(params[:membership])
     @membership = MembershipDecorator.decorate(@membership)
-
-    respond_with(@membership) do |format|
-      if @membership.errors.empty?
-        format.html { redirect_to memberships_path }
-      else
-        format.html { render action: :edit }
-      end
-    end
+    respond_with(@membership, location: :memberships)
   end
-  
+
   def destroy
     @membership.destroy
     respond_with(@membership)
