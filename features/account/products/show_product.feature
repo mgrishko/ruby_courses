@@ -20,8 +20,9 @@ Feature: Show product
     Then he should see "Edit Product" link within sidebar
 
   Scenario: Contributor can see product versions
-    Giver the product has two versions
+    Given the product has 2 versions
+    Given an authenticated user with editor role
+    And he is on the product page
     When he follows "Version 1" within sidebar
-    Then he should be on the product version page
-    And he should see version 1 of the product
+    Then he should be on the product version 1 page
     

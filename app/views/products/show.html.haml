@@ -16,7 +16,7 @@
   %h3 Versions
   %ul
   - (1..@product.version).reverse_each do |v|
-    %li= link_to "Version #{v}", "#"
+    %li= @product.show_version_link(v)
     
   %br
   %br

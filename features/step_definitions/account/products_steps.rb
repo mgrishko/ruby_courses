@@ -18,6 +18,12 @@ Given /^he is on the product page$/ do
   visit(product_url(@product, subdomain: @account.subdomain))
 end
 
+Given /^the product has (\d+) versions$/ do |count|
+  (2..count.to_i).each do
+    @product.update_attributes name: SecureRandom.hex(10)
+  end
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
@@ -80,10 +86,6 @@ Then /^he should(.*) see that product in the products list$/ do |should|
   end
 end
 
-Given /^he should be on the product version page$/ do
-  current_url.should == product_url(product, subdomain: @account.subdomain)
-end
-
-Then /^he should see version (\d+) of the product$/ do |version|
-  pending # express the regexp above with the code you wish you had
+Given /^he should be on the product version (\d+) page$/ do |count|
+  current_url.should == product_version_url(@product, version: count, subdomain: @account.subdomain)
 end

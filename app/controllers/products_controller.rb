@@ -13,6 +13,15 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
+    
+    _version = params[:version] ? params[:version].to_i : @product.version
+    
+    if _version < @product.version
+      versioned_attributes = @product.versions.where(:version => _version).first.versioned_attributes
+      versioned_attributes.delete("version")
+      @product.attributes = versioned_attributes
+    end
+    
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end

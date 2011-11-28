@@ -25,6 +25,7 @@ en:
       new: "New Product"
       edit: "Edit Product"
       destroy: "Delete Product"
+      version: "Version %{version}"
     index:
       <<: *PRODUCT_DEFAULTS
       title: "Listing products"

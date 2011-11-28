@@ -19,4 +19,7 @@ describe Product do
     product = account.products.build
     product.account.should eql(account)
   end
+  
+  it { should respond_to :version }
+  it { should respond_to :versions } 
 end
