@@ -4,10 +4,7 @@ class MembershipAbility
   def initialize(membership)
     membership ||= Membership.new
 
-    if membership.owner?
-      can :manage, :all
-      cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
-    elsif membership.role? :admin
+    if membership.role? :admin
       can :manage, :all
       cannot :manage, Account
       cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
@@ -25,6 +22,9 @@ class MembershipAbility
       cannot :read, :all
     end
 
+    if !membership.new_record? && membership.owner?
+      can :update, Account
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -49,3 +49,4 @@ class MembershipAbility
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
 end
+

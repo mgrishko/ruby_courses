@@ -11,7 +11,7 @@ describe "products/edit.html.haml" do
   describe "content" do
     it "renders edit product form" do
       render
-      rendered.should have_selector("form", action: edit_product_path(@product), method: "put")
+      rendered.should have_selector("form", action: edit_product_path(@product), method: "get")
     end
 
     it "renders name field" do
@@ -32,3 +32,4 @@ describe "products/edit.html.haml" do
     end
   end
 end
+

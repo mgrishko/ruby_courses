@@ -42,7 +42,8 @@ class Membership
   # @return [Boolean] true if membership is an account owner and false otherwise
   # otherwise return [nil]
   def owner?
-    !(account.nil?) ? (account.owner == self.user) : nil
+    account.owner == self.user
+    #!(self.new_record?) ? (account.owner == self.user) : nil
   end
 
   protected

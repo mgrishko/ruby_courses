@@ -12,7 +12,7 @@ describe "accounts/edit.html.haml" do
   describe "content" do
     it "renders the edit account form" do
       render
-      rendered.should have_selector("form", action: edit_account_path(@account), method: "put")
+      rendered.should have_selector("form", action: account_path, method: "put")
     end
 
     it "render subdomain field" do
@@ -43,3 +43,4 @@ describe "accounts/edit.html.haml" do
     end
   end
 end
+

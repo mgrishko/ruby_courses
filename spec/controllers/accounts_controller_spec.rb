@@ -59,6 +59,7 @@ describe AccountsController do
       it "assigns the account as @account" do
         # Trigger the behavior that occurs when invalid params are submitted
         Account.any_instance.stub(:save).and_return(false)
+        Account.any_instance.stub_chain(:errors, :empty?).and_return(false)
         put :update, :account => {}
         assigns(:account).should eq(@account)
       end
@@ -66,6 +67,7 @@ describe AccountsController do
       it "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Account.any_instance.stub(:save).and_return(false)
+        Account.any_instance.stub_chain(:errors, :empty?).and_return(false)
         put :update, :account => {}
         response.should render_template("edit")
       end

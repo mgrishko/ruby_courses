@@ -14,6 +14,13 @@ en:
       activate:
         notice: "Account was successfully activated."
         alert: "Account was not activated."
+      #update:
+        #notice: "Account was successfully updated."
+        #error: "Account was not updated."
+
+    account:
+        notice: "Account was successfully updated."
+        error: "Account was not updated."
 
     memberships:
       create:
