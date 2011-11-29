@@ -4,6 +4,7 @@
 .rvmrc
 log/*.log
 log/*.pid
+log/*.db
 tmp/
 public/assets/
 .sass-cache/
