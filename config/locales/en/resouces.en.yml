@@ -51,6 +51,9 @@ en:
         viewer: "Viewer"  
     index:
       title: "All People"
+      name: "Name"
+      email: "Email"
+      role: 'Role'
     new:
       title: "Send invitation"
     edit:
