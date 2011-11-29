@@ -38,13 +38,4 @@ describe Product do
     product.updated_at.should == Time.now
     Timecop.return
   end
-
-  it "should accept nested attributes for comment" do
-    current_user = Fabricate(:user)
-    comment = product.comments.build(Fabricate.attributes_for(:comment, commentable: nil, user: nil))
-    product.comments.each { |c| c.user = current_user }
-    product.save!
-    product.reload
-    product.comments.should include(comment)
-  end
 end

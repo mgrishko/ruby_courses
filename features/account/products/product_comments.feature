@@ -18,7 +18,7 @@ Feature: Product comments
     And he should see notice message "Product was successfully created."
     And he should see that comment on the top of comments
 
-   Scenario: Editor enters a comment during product update
+  Scenario: Editor enters a comment during product update
     Given an authenticated user with editor role
     And he is on the edit product page
     When he enters a comment to the product
@@ -36,14 +36,7 @@ Feature: Product comments
     And he should see that comment on the top of comments
 
   Scenario: Viewer cannot add comments
-    Given an authenticated user with contributor role
+    Given an authenticated user with viewer role
     And he is on the product page
     Then he should see product comments
-    And he should not see "Add comment" button
-
-  @javascript
-  Scenario: Comment author deletes own comment
-    Given an authenticated user with contributor role
-    And he is on the product page
-    And he should see product comments
-    And he should not see "Add comment" button
+    And he should not see new comment form

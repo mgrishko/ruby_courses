@@ -48,14 +48,6 @@ describe ProductsController do
       get :show, :id => product.id
       assigns(:comment).should be_a_new(Comment)
     end
-
-    it "decorates product comments as @comments" do
-      account = Account.where(subdomain: "company").first
-      product = account.products.create! valid_attributes
-      Fabricate(:comment, commentable: product)
-      get :show, :id => product.id
-      assigns(:comments).should eq(product.comments)
-    end
   end
 
   describe "GET new" do
@@ -111,6 +103,8 @@ describe ProductsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
         Product.any_instance.stub_chain(:errors, :empty?).and_return(false)
+
+        # ToDo We should test situation when product is valid and comment is not valid
       end
 
       it "assigns a newly created but unsaved product as @product" do
@@ -139,7 +133,8 @@ describe ProductsController do
         # specifies that the Product created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Product.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Product.any_instance.should_receive(:attributes=).with({'these' => 'params'})
+        Product.any_instance.should_receive(:save)
         put :update, :id => @product.id, :product => {'these' => 'params'}
       end
 
@@ -166,6 +161,8 @@ describe ProductsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
         Product.any_instance.stub_chain(:errors, :empty?).and_return(false)
+
+        # ToDo We should test situation when product is valid and comment is not valid
       end
 
       it "assigns the product as @product" do

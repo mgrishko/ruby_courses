@@ -1,5 +1,6 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
+  before_filter :prepare_comment, except: [:index, :destroy]
 
   # GET /products
   # GET /products.xml
@@ -13,9 +14,8 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
-    @comment = @product.comments.build
     @product = ProductDecorator.decorate(@product)
+    @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
 
     respond_with(@product)
   end
@@ -39,8 +39,8 @@ class ProductsController < MainController
   # POST /products.xml
   def create
     #@product = Product.new(params[:product]) loaded by CanCan
-    prepare_comment
     @product.save
+
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end
@@ -49,7 +49,9 @@ class ProductsController < MainController
   # PUT /products/1.xml
   def update
     #@product = Product.find(params[:id]) loaded by CanCan
-    @product.update_attributes(params[:product])
+    @product.attributes = params[:product]
+    @product.save
+
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end
@@ -64,8 +66,8 @@ class ProductsController < MainController
 
   private
 
+  # Prepares comment for create and update actions
   def prepare_comment
-    attrs = params[:product][:comments_attributes]["0"]
-    @product.comments.build attrs.merge!(user: current_user) unless attrs.nil?
+    @comment = @product.prepare_comment(current_user, params[:comment])
   end
 end

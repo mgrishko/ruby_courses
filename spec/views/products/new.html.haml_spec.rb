@@ -6,6 +6,8 @@ describe "products/new.html.haml" do
       :name => "",
       :description => ""
     ).as_new_record))
+
+    assign(:comment, stub_model(Comment))
   end
 
   describe "content" do

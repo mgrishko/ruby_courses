@@ -68,30 +68,5 @@ describe ProductDecorator do
         end
       end
     end
-
-    describe "#setup_nested" do
-      before(:each) do
-        @product = Product.new
-        @decorator = ProductDecorator.decorate(@product)
-      end
-
-      context "comment" do
-        it "builds comment" do
-          @decorator.setup_nested
-          @decorator.comments.should_not be_empty
-        end
-
-        it "returns self" do
-          decorator = @decorator.setup_nested
-          decorator.should eql(@decorator)
-        end
-
-        it "doesn't build comments if it is not empty" do
-          comment = @product.comments.new
-          @decorator.setup_nested
-          @decorator.comments.should include(comment)
-        end
-      end
-    end
   end
 end

@@ -27,7 +27,7 @@ describe CommentsController do
 
         it "assigns a newly created comment as @comment" do
           post :create, product_id: @product.id, :comment => valid_attributes, format: :js
-          assigns(:comment).should be_a(Comment)
+          assigns(:comment).should be_a(CommentDecorator)
           assigns(:comment).should be_persisted
         end
 
@@ -51,7 +51,7 @@ describe CommentsController do
 
         it "assigns a newly created but unsaved comment as @comment" do
           post :create, product_id: @product.id, :comment => {}, format: :js
-          assigns(:comment).should be_a_new(Comment)
+          assigns(:comment).should be_a_new(CommentDecorator)
         end
 
         it "redirects to the product page" do

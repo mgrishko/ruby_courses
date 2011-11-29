@@ -22,10 +22,14 @@
   %p= @product.description
 
 %section#comments
-  = render "comments/form"
+  - if can? :create, Comment
+    = render "comments/form", commentable: @product, type: "product"
 
   %table
-    - @comments.reject(&:new_record?).each do |comment|
-      = render comment
+    %tbody#comments_list
+      -#- for comment in @comments
+      -#  = render comment
+      = render partial: "comments/comment", collection: @comments
+
 
 

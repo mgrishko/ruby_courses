@@ -6,6 +6,8 @@ describe "products/edit.html.haml" do
       :name => "",
       :description => ""
     )))
+
+    assign(:comment, stub_model(Comment))
   end
 
   describe "content" do

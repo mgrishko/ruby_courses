@@ -12,8 +12,12 @@ describe "products/show.html.haml" do
       :commentable => product
     ).as_new_record)
 
-    @comments = assign(:comments, product.comments)
-    Comment.any_instance.stub(:destroy_link)
+    @comments = assign(:comments, CommentDecorator.decorate([stub_model(Comment,
+      Fabricate.attributes_for(:comment, commentable: product, created_at: Time.now)
+    )]))
+
+    CommentDecorator.any_instance.stub(:destroy_link)
+    view.stub(:can?).and_return(true)
   end
 
   describe "content" do

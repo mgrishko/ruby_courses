@@ -22,6 +22,7 @@ class MembershipDecorator < ApplicationDecorator
     I18n.t("roles.#{membership.owner? ? "owner" : membership.role}", scope: scope)
   end
 
+  # Setups nested attributes for membership form
   def setup_nested
     self.membership.tap do |a|
       a.user = User.new if a.user.nil?
