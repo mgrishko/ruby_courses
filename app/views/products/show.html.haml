@@ -21,6 +21,15 @@
 
   %p= @product.description
 
--#= link_to 'Edit', edit_product_path(@product)
--#\|
+%section#comments
+  - if can? :create, Comment
+    = render "comments/form", commentable: @product, type: "product"
+
+  %table
+    %tbody#comments_list
+      -#- for comment in @comments
+      -#  = render comment
+      = render partial: "comments/comment", collection: @comments
+
+
 

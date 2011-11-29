@@ -19,4 +19,23 @@ describe Product do
     product = account.products.build
     product.account.should eql(account)
   end
+
+  it "should embeds many comments as commentable" do
+    comment = product.comments.build
+    comment.commentable.should eql(product)
+  end
+
+  it "should set created_at" do
+    Timecop.freeze
+    product = Fabricate(:product)
+    product.created_at.should == Time.now
+    Timecop.return
+  end
+
+  it "should set updated_at" do
+    Timecop.freeze
+    product.save!
+    product.updated_at.should == Time.now
+    Timecop.return
+  end
 end

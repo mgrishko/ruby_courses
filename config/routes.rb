@@ -34,7 +34,9 @@ GoodsMaster::Application.routes.draw do
     get 'memberships/invitation/new' => "memberships#new",    as: :new_membership
     post 'memberships/invitation'    => "memberships#create", as: :membership_invitation
 
-    resources :products
+    resources :products do
+      resources :comments, only: [:create, :destroy]
+    end
 
     # Admin dashboard is only under app subdomain
     constraints(subdomain: Settings.app_subdomain) do

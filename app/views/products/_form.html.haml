@@ -5,6 +5,9 @@
     = f.input :name
     = f.input :description, as: :text
 
+    = simple_fields_for @comment, wrapper: :inline do |n|
+      = n.input :body, as: :text, required: false
+
   .actions
     = f.button :submit, class: "primary"
     = button_tag t("cancel"), type: :reset, class: "btn"

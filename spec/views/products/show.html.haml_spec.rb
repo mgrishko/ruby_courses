@@ -2,10 +2,22 @@ require 'spec_helper'
 
 describe "products/show.html.haml" do
   before(:each) do
-    decorator = ProductDecorator.decorate(Fabricate.build(:product))
+    product = Fabricate.build(:product_with_comments)
+    decorator = ProductDecorator.decorate(product)
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
+
+    @comment = assign(:comment, stub_model(Comment,
+      :commentable => product
+    ).as_new_record)
+
+    @comments = assign(:comments, CommentDecorator.decorate([stub_model(Comment,
+      Fabricate.attributes_for(:comment, commentable: product, created_at: Time.now)
+    )]))
+
+    CommentDecorator.any_instance.stub(:destroy_link)
+    view.stub(:can?).and_return(true)
   end
 
   describe "content" do
@@ -44,6 +56,14 @@ describe "products/show.html.haml" do
     it "renders a destroy link" do
       @product.should_receive(:destroy_link).with(class: "btn small danger")
       render
+    end
+  end
+
+  describe "comments" do
+    it "renders new comment form" do
+      render
+      rendered.should have_selector("form", action: product_comments_path(@product.id),
+                                    method: "post", "data-remote" => true)
     end
   end
 end
