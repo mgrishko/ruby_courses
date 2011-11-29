@@ -57,7 +57,7 @@ module ControllerMacros
       user = Fabricate(:user, user_attrs)
 
       if role == :owner
-        account = Fabricate(:active_account, owner: user)
+        account = Fabricate(:active_account, account_attrs.merge({ owner: user }))
       else
         account = Fabricate(:active_account, account_attrs)
         Fabricate("#{role.to_s}_membership".to_sym, account: account, user: user)
