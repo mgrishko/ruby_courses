@@ -1,42 +1,43 @@
 en:
   back: "Back"
-  show: "Show"
-  update: "Update"
   cancel: "Cancel"
   confirm: "Are you sure?"
+  show: "Show"
+  update: "Update"
 
-  errors:
-    messages:
-      already_invited: "is already invited"
+  admin:
+    accounts:
+      defaults: &ADMIN_ACCOUNT_DEFAULTS
+        activate: "Activate"
+        company: "Company"
+        country: "Country"
+        state: "State"
+        states:
+          active: "Active"
+          pending: "Awaiting activation"
+        subdomain: "Subdomain"
+    sessions:
+      new:
+        sign_in: "Sign in"
+        title: "Sign in"
+      index:
+        title: "Listing accounts"
+        <<: *ADMIN_ACCOUNT_DEFAULTS
+      show:
+        title: "%{company} Account"
+        <<: *ADMIN_ACCOUNT_DEFAULTS
 
-  navigation:
-    main:
-      home: "Dashboard"
-      products: "Products"
-    account:
-      menu_title: "Account"
-      users: "Users"
-    user:
-      profile: "Profile"
-      sign_out: "Sign out"
-
+  accounts:
+    edit:
+      title: "Account settings"
+      
   comments:
     defaults: &COMMENT_DEFAULTS
       destroy: "Delete"
 
-  products:
-    defaults: &PRODUCT_DEFAULTS
-      new: "New Product"
-      edit: "Edit Product"
-      destroy: "Delete Product"
-    index:
-      <<: *PRODUCT_DEFAULTS
-      title: "Listing products"
-    show:
-      <<: *PRODUCT_DEFAULTS
-    new:
-      <<: *PRODUCT_DEFAULTS
-      title: "New product"
+  errors:
+    messages:
+      already_invited: "is already invited"
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
@@ -48,7 +49,7 @@ en:
         admin: "Admin"
         editor: "Editor"
         contributor: "Contributor"
-        viewer: "Viewer"  
+        viewer: "Viewer"
     index:
       title: "All People"
       name: "Name"
@@ -59,41 +60,45 @@ en:
     edit:
       title: "Edit Membership"
 
+  navigation:
+    account:
+      menu_title: "Account"
+      settings: "Settings"
+      users: "All People"
+    main:
+      home: "Dashboard"
+      products: "Products"
+    user:
+      profile: "Profile"
+      sign_out: "Sign out"
+
+  products:
+    defaults: &PRODUCT_DEFAULTS
+      destroy: "Delete Product"
+      edit: "Edit Product"
+      new: "New Product"
+    edit:
+      <<: *PRODUCT_DEFAULTS
+      title: "Edit product"
+    index:
+      <<: *PRODUCT_DEFAULTS
+      title: "Listing products"
+    new:
+      <<: *PRODUCT_DEFAULTS
+      title: "New product"
+    show:
+      <<: *PRODUCT_DEFAULTS
+
   users:
     invitations:
 
     registrations:
+      edit:
+        title: "Edit your profile"
       new:
         create_account: "Create account"
         title: "Sign up"
-      edit:
-        title: "Edit your profile"
     sessions:
       new:
-        title: "Sign in"
         sign_in: "Sign in"
-
-  admin:
-    accounts:
-      defaults: &ADMIN_ACCOUNT_DEFAULTS
-        activate: "Activate"
-        subdomain: "Subdomain"
-        company: "Company"
-        country: "Country"
-        state: "State"
-        states:
-          pending: "Awaiting activation"
-          active: "Active"
-
-      index:
-        title: "Listing accounts"
-        <<: *ADMIN_ACCOUNT_DEFAULTS
-
-      show:
-        title: "%{company} Account"
-        <<: *ADMIN_ACCOUNT_DEFAULTS
-
-    sessions:
-      new:
         title: "Sign in"
-        sign_in: "Sign in"

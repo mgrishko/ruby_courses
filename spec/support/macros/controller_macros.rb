@@ -55,8 +55,13 @@ module ControllerMacros
 
     before(:each) do
       user = Fabricate(:user, user_attrs)
-      account = Fabricate(:active_account, account_attrs)
-      Fabricate("#{role.to_s}_membership".to_sym, account: account, user: user)
+
+      if role == :owner
+        account = Fabricate(:active_account, account_attrs.merge({ owner: user }))
+      else
+        account = Fabricate(:active_account, account_attrs)
+        Fabricate("#{role.to_s}_membership".to_sym, account: account, user: user)
+      end
 
       # Stubbing helper method current_user
       @controller.stub(:current_user).and_return(user)

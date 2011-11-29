@@ -30,6 +30,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
+    resource :account, only: [:edit, :update]
     resources :memberships, except: [:show, :new, :create]
     get 'memberships/invitation/new' => "memberships#new",    as: :new_membership
     post 'memberships/invitation'    => "memberships#create", as: :membership_invitation

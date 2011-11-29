@@ -7,7 +7,7 @@ class Membership
   field :role, type: String
   field :invitation_note, type: String
 
-  embedded_in :account 
+  embedded_in :account
   belongs_to :user, autosave: true
   accepts_nested_attributes_for :user
   attr_accessible :user
@@ -38,9 +38,12 @@ class Membership
 
   # Checks if current membership is an account owner
   #
+  # if account present
   # @return [Boolean] true if membership is an account owner and false otherwise
+  # otherwise return [nil]
   def owner?
     account.owner == self.user
+    #!(self.new_record?) ? (account.owner == self.user) : nil
   end
 
   protected

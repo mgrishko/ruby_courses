@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
 
   # Checking that CanCan authorization is performed if it's required
   check_authorization if: :require_authorization?
-  
+
   protected
-  
+
   # Prepares ability for current membership.
   #
   # @return [MembershipAbility] membership ability for current user in current account.

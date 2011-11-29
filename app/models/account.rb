@@ -11,7 +11,7 @@ class Account
   field :locale, type: String, default: "en"
 
   belongs_to :owner, class_name: "User"
-  embeds_many :memberships
+  embeds_many :memberships, validate: false
   has_many :products
 
   before_validation :set_default_attributes, on: :create

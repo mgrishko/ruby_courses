@@ -159,13 +159,13 @@ describe Membership do
       membership.should_not be_role(:admin)
     end
   end
-  
+
   describe "owner?" do
     it "returns true if owner" do
       membership.account.owner = membership.user
       membership.should be_owner
     end
-    
+
     it "returns false if not owner" do
       membership.account.owner = Fabricate(:user)
       membership.should_not be_owner

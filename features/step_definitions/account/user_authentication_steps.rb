@@ -18,6 +18,16 @@ Given /^an authenticated user with (.*) role$/ do |role|
   @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
 end
 
+#special for account_settings.feature
+Given /^an authenticated user with role (.*)$/ do |role|
+
+  @membership = Fabricate("#{role}_membership".to_sym, account: @account)
+
+  visit(new_user_session_url(subdomain: @account.subdomain))
+  fill_in "Email", with: @membership.user.email
+  fill_in "Password", with: @membership.user.password
+  click_button "Sign in"
+end
 
 Given /^an unauthenticated user with (.*) role$/ do |role|
   @user = Fabricate(:user, password: "password")

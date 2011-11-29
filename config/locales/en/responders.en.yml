@@ -14,24 +14,22 @@ en:
       activate:
         notice: "Account was successfully activated."
         alert: "Account was not activated."
+      update:
+        notice: "Account was successfully updated."
+        error: "Account was not updated."
 
     memberships:
       create:
         notice: "A new membership invitation has been sent."
 
-  # unauthorized:
-  #   manage:
-  #     all: "Not authorized to %{action} %{subject}."
-  #     user: "Not allowed to manage other user accounts."
-  #   update:
-  #     project: "Not allowed to update this project."
-
   unauthorized:
-    read:
-      all: "You are not authorized to access this page."
     create:
       product: "Not allowed to create a new product."
+    read:
+      all: "You are not authorized to access this page."
     update:
       product: "Not allowed to update a product."
+      membership: "Not allowed to update this membership."
     destroy:
       product: "Not allowed to delete a product."
+      membership: "Not allowed to destroy this membership."
