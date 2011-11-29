@@ -17,6 +17,7 @@ class Product
   # Prepares comment for create and update actions
   def prepare_comment(user, attrs = {})
     comment = Comment.new(attrs)
+    comment.created_at = Time.now
     comment.user = user
     if comment.body.present? && comment.valid?
       self.comments << comment

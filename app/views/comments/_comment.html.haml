@@ -2,5 +2,5 @@
   %td
     .links
       = comment.destroy_link
-    %em= "#{comment.user.full_name}, #{comment.created_at.try(:strftime, '%d %b %Y, %H:%M')}"
+    %em= "#{comment.user.full_name}, #{comment.created_at.strftime('%d %b %Y, %H:%M')}"
     = simple_format comment.body
