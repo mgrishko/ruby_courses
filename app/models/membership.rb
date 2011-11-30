@@ -7,7 +7,7 @@ class Membership
   field :role, type: String
   field :invitation_note, type: String
 
-  embedded_in :account 
+  embedded_in :account
   belongs_to :user, autosave: true
   accepts_nested_attributes_for :user
   attr_accessible :user
@@ -18,7 +18,7 @@ class Membership
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :invitation_note, length: { maximum: 1000 }
 
-  attr_accessible :role, :user, :invitation_note
+  attr_accessible :role, :invitation_note
 
   set_callback(:validation, :before) do |membership|
     membership.find_or_initialize_user if membership.new_record?
@@ -38,9 +38,12 @@ class Membership
 
   # Checks if current membership is an account owner
   #
+  # if account present
   # @return [Boolean] true if membership is an account owner and false otherwise
+  # otherwise return [nil]
   def owner?
     account.owner == self.user
+    #!(self.new_record?) ? (account.owner == self.user) : nil
   end
 
   protected

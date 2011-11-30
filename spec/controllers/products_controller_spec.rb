@@ -56,6 +56,13 @@ describe ProductsController do
       product = account.products.create! valid_attributes
       lambda { get :show, :id => product.id }.should raise_error(Mongoid::Errors::DocumentNotFound)
     end
+
+    it "assigns a new comment as @comment" do
+      account = Account.where(subdomain: "company").first
+      product = account.products.create! valid_attributes
+      get :show, :id => product.id
+      assigns(:comment).should be_a_new(Comment)
+    end
   end
 
   describe "GET new" do
@@ -63,7 +70,7 @@ describe ProductsController do
 
     it "assigns a new product as @product" do
       get :new
-      assigns(:product).should be_a_new(Product)
+      assigns(:product).should be_a_new(ProductDecorator)
     end
   end
 
@@ -96,7 +103,7 @@ describe ProductsController do
 
       it "assigns a newly created product as @product" do
         post :create, :product => valid_attributes
-        assigns(:product).should be_a(Product)
+        assigns(:product).should be_a(ProductDecorator)
         assigns(:product).should be_persisted
       end
 
@@ -117,11 +124,13 @@ describe ProductsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
         Product.any_instance.stub_chain(:errors, :empty?).and_return(false)
+
+        # ToDo We should test situation when product is valid and comment is not valid
       end
 
       it "assigns a newly created but unsaved product as @product" do
         post :create, :product => {}
-        assigns(:product).should be_a_new(Product)
+        assigns(:product).should be_a_new(ProductDecorator)
       end
 
       it "re-renders the 'new' template" do
@@ -145,7 +154,8 @@ describe ProductsController do
         # specifies that the Product created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Product.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Product.any_instance.should_receive(:attributes=).with({'these' => 'params'})
+        Product.any_instance.should_receive(:save)
         put :update, :id => @product.id, :product => {'these' => 'params'}
       end
 
@@ -177,6 +187,8 @@ describe ProductsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
         Product.any_instance.stub_chain(:errors, :empty?).and_return(false)
+
+        # ToDo We should test situation when product is valid and comment is not valid
       end
 
       it "assigns the product as @product" do

@@ -22,3 +22,4 @@ Feature: Edit product
     Then he should not see "Update Product" link within sidebar
     When he goes to the update product page
     Then he should see alert message "Not allowed to update a product."
+

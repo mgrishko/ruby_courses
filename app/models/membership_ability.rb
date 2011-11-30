@@ -6,21 +6,33 @@ class MembershipAbility
 
     if membership.role? :admin
       can :manage, :all
-      cannot [:update, :destroy], Membership, :user_id => membership.account.owner_id
+      cannot :manage, Account
+      cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
+    
     elsif membership.role? :editor
-      can :manage, Product
       can :read, :all
+      can :manage, Product
+      can :create, Comment
+      can :destroy, Comment, user_id: membership.user_id
       cannot :read, Membership
+
     elsif membership.role? :contributor
       can :read, :all
       cannot :read, Membership
+      can :create, Comment
+      can :destroy, Comment, user_id: membership.user_id
+
     elsif membership.role? :viewer
       can :read, :all
       cannot :read, Membership
+
     else
       cannot :read, :all
     end
 
+    if !membership.new_record? && membership.owner?
+      can :update, Account
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

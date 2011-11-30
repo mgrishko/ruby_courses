@@ -18,8 +18,6 @@ gem "state_machine"
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 1.4.0'
   #gem 'compass', '~> 0.12.alpha'
 
@@ -27,6 +25,10 @@ group :assets do
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment
   gem 'therubyrhino', :platforms => :jruby # Build in jruby environment
 end
+
+# This assets gems should be global wide accessible to respond to js, for ex. with create.js.coffee:
+gem 'coffee-rails', '~> 3.1.1'
+gem 'uglifier', '>= 1.0.3'
 
 # Security related gems
 gem "devise", "~> 1.4.9"
@@ -74,6 +76,8 @@ group :test, :cucumber do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'capybara', "~> 1.1.1"
+  gem "capybara-webkit"
+  gem "headless"
   gem 'database_cleaner'
   gem 'ffaker'
   gem "shoulda-matchers"
@@ -87,9 +91,4 @@ group :development do
   gem 'haml-rails'
   gem 'hpricot'
   gem 'ruby_parser'
-end
-
-group :console do
-  gem 'hirb'
-  gem 'wirble'
 end

@@ -24,4 +24,23 @@ describe Product do
   it { should respond_to :versions } 
   it { should respond_to :created_at }
   it { should respond_to :updated_at }
+
+  it "should embeds many comments as commentable" do
+    comment = product.comments.build
+    comment.commentable.should eql(product)
+  end
+
+  it "should set created_at" do
+    Timecop.freeze
+    product = Fabricate(:product)
+    product.created_at.should == Time.now
+    Timecop.return
+  end
+
+  it "should set updated_at" do
+    Timecop.freeze
+    product.save!
+    product.updated_at.should == Time.now
+    Timecop.return
+  end
 end

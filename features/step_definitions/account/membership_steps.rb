@@ -40,7 +40,7 @@ end
 
 When /^he navigates to the account memberships page$/ do
   within("#account_menu") do
-    click_link "Users"
+    click_link "All People"
   end
 end
 

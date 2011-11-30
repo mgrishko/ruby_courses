@@ -2,16 +2,18 @@ require 'spec_helper'
 
 describe "products/edit.html.haml" do
   before(:each) do
-    @product = assign(:product, stub_model(Product,
+    @product = assign(:product, ProductDecorator.decorate(stub_model(Product,
       :name => "",
       :description => ""
-    ))
+    )))
+
+    assign(:comment, stub_model(Comment))
   end
 
   describe "content" do
     it "renders edit product form" do
       render
-      rendered.should have_selector("form", action: edit_product_path(@product), method: "put")
+      rendered.should have_selector("form", action: edit_product_path(@product), method: "get")
     end
 
     it "renders name field" do
@@ -32,3 +34,4 @@ describe "products/edit.html.haml" do
     end
   end
 end
+

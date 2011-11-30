@@ -11,7 +11,7 @@ class Account
   field :locale, type: String, default: "en"
 
   belongs_to :owner, class_name: "User"
-  embeds_many :memberships
+  embeds_many :memberships, validate: false
   has_many :products
 
   before_validation :set_default_attributes, on: :create
@@ -23,7 +23,7 @@ class Account
             format: { with: /^[a-z0-9]+$/ },
             exclusion: { in: SUBDOMAIN_BLACKLIST },
             uniqueness: { case_sensitive: false },
-            length: 3..20
+            length: 3..32
   validates :company_name, presence: true, length: { maximum: 50 }
   validates :country, presence: true, inclusion: { in: Carmen.country_codes }
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }

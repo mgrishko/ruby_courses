@@ -17,15 +17,15 @@ describe Users::SessionsController do
     end
 
     context "under #{Settings.app_subdomain} subdomain" do
-      it "to #new should not be routable" do
+      it "routes to #new" do
         get("http://#{Settings.app_subdomain}.example.com/signin").should_not be_routable
       end
 
-      it "to #create should not be routable" do
+      it "routes to #create" do
         post("http://#{Settings.app_subdomain}.example.com/signin").should_not be_routable
       end
 
-      it "to #destroy should not be routable" do
+      it "routes to #destroy" do
         delete("http://#{Settings.app_subdomain}.example.com/signout").should_not be_routable
       end
     end

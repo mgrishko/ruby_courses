@@ -12,7 +12,7 @@ describe Membership do
   it { should allow_mass_assignment_of(:role) }
 
   it { should validate_presence_of(:user) }
-  it { should allow_mass_assignment_of(:user) }
+  it { should_not allow_mass_assignment_of(:user_id) }
 
   it "should validate associated user" do
     user = Fabricate.build(:user, email: "invalid")
@@ -159,13 +159,13 @@ describe Membership do
       membership.should_not be_role(:admin)
     end
   end
-  
+
   describe "owner?" do
     it "returns true if owner" do
       membership.account.owner = membership.user
       membership.should be_owner
     end
-    
+
     it "returns false if not owner" do
       membership.account.owner = Fabricate(:user)
       membership.should_not be_owner

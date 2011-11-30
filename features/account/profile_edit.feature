@@ -9,11 +9,11 @@ Feature: Edit profile
   Scenario: User successfully edits profile
     Given an authenticated user with viewer role
     When he goes to the home page
-    And he follows "Profile"
+    And he follows "Profile" within topbar
     Then he should be redirected to the edit profile page
     When he submits profile form with current password
     Then he should see notice message "You updated your profile successfully."
-    And he follows "Sign out"
+    And he follows "Sign out" within topbar
     Then he should be redirected to the user sign in page
     When user submits email and password
     Then user should see notice message "Signed in successfully."
@@ -30,7 +30,7 @@ Feature: Edit profile
     When he submits profile form with new password
     Then he should be redirected to the edit profile page
     And he should see notice message "You updated your profile successfully."
-    And he follows "Sign out"
+    And he follows "Sign out" within topbar
     Then he should be redirected to the user sign in page
     When user submits email and new password
     Then user should see notice message "Signed in successfully."

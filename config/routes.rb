@@ -30,12 +30,15 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
+    resource :account, only: [:edit, :update]
     resources :memberships, except: [:show, :new, :create]
     get 'memberships/invitation/new' => "memberships#new",    as: :new_membership
     post 'memberships/invitation'    => "memberships#create", as: :membership_invitation
 
     match '/products/:id/versions/:version' => "products#show", :as => :product_version
-    resources :products
+    resources :products do
+      resources :comments, only: [:create, :destroy]
+    end
 
     # Admin dashboard is only under app subdomain
     constraints(subdomain: Settings.app_subdomain) do

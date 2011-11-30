@@ -1,6 +1,6 @@
 class ProductDecorator < ApplicationDecorator
   decorates :product
-  allows :name, :description, :version, :created_at, :updated_at
+
   include CommonLinks
 
   def show_link

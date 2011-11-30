@@ -4,8 +4,8 @@ Feature: Account activation
   Should be able to activate company account
 
   Scenario: Admin activates account
-    Given an authenticated admin
-    And company representative has signed up a new account
+    Given company representative has a new account
+    And an authenticated admin
     When admin goes to the accounts page
     And he activates the account
     Then he should see notice message "Account was successfully activated."

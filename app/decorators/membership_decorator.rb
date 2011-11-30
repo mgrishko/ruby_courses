@@ -17,11 +17,16 @@ class MembershipDecorator < ApplicationDecorator
   def display_name
     membership.user.full_name
   end
+  
+  def email
+    membership.user.email
+  end
 
   def role_name
     I18n.t("roles.#{membership.owner? ? "owner" : membership.role}", scope: scope)
   end
 
+  # Setups nested attributes for membership form
   def setup_nested
     self.membership.tap do |a|
       a.user = User.new if a.user.nil?

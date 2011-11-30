@@ -1,6 +1,6 @@
 Fabricator(:account) do
   owner!          { Fabricate(:user) }
-  subdomain       { "subdomain" }
+  subdomain       { Faker::Internet.domain_word[0..20] }
   company_name    { Faker::Company.name }
   country         { "US" }
   locale        "en"
