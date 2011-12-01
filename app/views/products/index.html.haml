@@ -1,7 +1,7 @@
 = title t('.title'), page_title: false
 
 - content_for(:sidebar) do
-  = create_link Product, class: "btn large primary"
+  = ProductDecorator.create_link class: "btn large primary"
 
 %article
   %table
@@ -10,8 +10,4 @@
         %tr
           %td= image_tag("product_small.png")
           %td
-            %h2= product.show_link
-
-
-
-
+            %h2= product.show_link(name: :name, fallback: true)

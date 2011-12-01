@@ -57,14 +57,14 @@ describe ProductDecorator do
       context "when user can view product" do
         it "renders link" do
           @decorator.h.stub(:can?).and_return(true)
-          @decorator.show_link.should =="<a href=\"/products/#{@product.id}\">Product name</a>"
+          @decorator.show_link(name: :name, fallback: true).should =="<a href=\"/products/#{@product.id}\">Product name</a>"
         end
       end
 
       context "when user cannot view product" do
         it "renders product name" do
           @decorator.h.stub(:can?).and_return(false)
-          @decorator.show_link.should == "Product name"
+          @decorator.show_link(name: :name, fallback: true).should == "Product name"
         end
       end
     end
