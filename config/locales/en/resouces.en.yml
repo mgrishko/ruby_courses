@@ -16,16 +16,17 @@ en:
           active: "Active"
           pending: "Awaiting activation"
         subdomain: "Subdomain"
-    sessions:
-      new:
-        sign_in: "Sign in"
-        title: "Sign in"
       index:
         title: "Listing accounts"
         <<: *ADMIN_ACCOUNT_DEFAULTS
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+
+    sessions:
+      new:
+        sign_in: "Sign in"
+        title: "Sign in"
 
   accounts:
     edit:
