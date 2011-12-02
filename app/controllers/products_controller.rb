@@ -17,6 +17,7 @@ class ProductsController < MainController
     
     # Load dates of each product version before loading a specific version
     @version_dates = @product.get_version_dates
+    
     @product.load_version!(params[:version])
     @product = ProductDecorator.decorate(@product)
     @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))

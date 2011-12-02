@@ -70,21 +70,4 @@ describe Product do
     product.save!
     product.get_version_dates.should eq([[2, product.updated_at], [1, product.versions.first.updated_at]])
   end
-  
-  #it "should load total version count for a specific version" do
-  #  product.name = SecureRandom.hex(10)
-  #  product.save!
-  #  product.version_count.should == 2
-  #  product.load_version!(1)
-  #  product.version_count.should == 2
-  #end
-  
-  #it "should load date for a specific version" do
-  #  updated_at = product.updated_at
-  #  product.name = SecureRandom.hex(10)
-  #  product.save!
-  #  product.load_version!(1)
-  #  product.get_version_date(1).should_not be_nil
-  #  product.get_version_date(2).should_not be_nil
-  #end
 end
