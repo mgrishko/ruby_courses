@@ -13,13 +13,12 @@
   
   %br
   %br
-  %h3 Versions
+  %h3= t('.versions')
   %ul
-  - (1..@product.version_count).reverse_each do |v|
-    %li
-      = @product.show_version_link(v)
-      (#{@product.version_date(v)})
-    
+    - @version_dates.each do |v|
+      %li
+        = @product.show_version_link(v[0])
+        %span (#{@product.format_date(v[1])})
   %br
   %br
   = link_to t("back"), products_path

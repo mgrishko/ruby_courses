@@ -96,6 +96,16 @@ Then /^he should(.*) see "([^"]*)" link within sidebar$/ do |should, link|
   end
 end
 
+Then /^he should(.*) see "([^"]*)" text within sidebar$/ do |should, text|
+  within(".sidebar") do
+    if should.strip == "not"
+      page.should_not have_content(text)
+    else
+      page.should have_content(text)
+    end
+  end
+end
+
 Then /^he should be on the products page$/ do
   extract_port(current_url).should == products_url(subdomain: @account.subdomain)
 end

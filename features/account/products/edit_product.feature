@@ -14,7 +14,7 @@ Feature: Edit product
     And he submits form with updated product
     Then he should be on the product page
     And he should see notice message "Product was successfully updated."
-    And he should see "Version 2" link within sidebar
+    And he should see "Version 1" link within sidebar
 
   Scenario: Viewer should not be able to update a product
     Given an authenticated user with viewer role

@@ -30,33 +30,6 @@ describe ProductDecorator do
     end
   end
 
-  describe "#version_count" do
-    it { @decorator.version_count.should == 1 }
-  end
-
-  describe "#version_date" do
-    context "when user can view product" do
-      it "renders date" do
-        @decorator.h.stub(:cannot?).and_return(false)
-        @decorator.version_date(1).should == @product.updated_at.strftime("%b %d, %Y")
-      end
-    end
-    
-    context "when user can view product and version number is invalid" do
-      it "renders date" do
-        @decorator.h.stub(:cannot?).and_return(false)
-        @decorator.version_date(666).should be_blank
-      end
-    end
-    
-    context "when user cannot view product" do
-      it "renders product name" do
-        @decorator.h.stub(:cannot?).and_return(true)
-        @decorator.version_date(1).should be_blank
-      end
-    end
-  end
-
   describe "decorates" do
     describe "#edit_link" do
       context "when user can edit product" do
@@ -113,7 +86,7 @@ describe ProductDecorator do
     context "when user can view product" do
       it "renders link" do
         @decorator.h.stub(:can?).and_return(true)
-        @decorator.show_version_link(1).should =="<a href=\"/products/#{@product.id}/versions/1\">Version 1</a>"
+        @decorator.show_version_link(1).should =="Version 1"
         @decorator.show_version_link(2).should =="<a href=\"/products/#{@product.id}/versions/2\">Version 2</a>"
       end
     end

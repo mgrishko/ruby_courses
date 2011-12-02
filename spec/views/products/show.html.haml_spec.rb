@@ -2,17 +2,19 @@ require 'spec_helper'
 
 describe "products/show.html.haml" do
   before(:each) do
+    version_dates = [[1, Date.parse('2001-02-03')], [2, Date.parse('2001-02-04')]]
+    @version_dates = assign(:version_dates, version_dates)
+    
     product = Fabricate.build(:product_with_comments)
     decorator = ProductDecorator.decorate(product)
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
-    @product.stub(:version_count).and_return(2)
-    @product.stub(:show_version_link).with(1).and_return("<a>Version 1</a>")
-    @product.stub(:show_version_link).with(2).and_return("<a>Version 2</a>")
-    @product.stub(:version_date).with(1).and_return("11 Oct, 2011")
-    @product.stub(:version_date).with(2).and_return("17 Oct, 2011")
-
+    @product.stub(:show_version_link).with(1).and_return('<a>Version 1</a>'.html_safe)
+    @product.stub(:show_version_link).with(2).and_return('<a>Version 2</a>'.html_safe)
+    @product.stub(:format_date).with(Date.parse('2001-02-03')).and_return("Feb 03, 2001")
+    @product.stub(:format_date).with(Date.parse('2001-02-04')).and_return("Feb 04, 2001")
+    
     @comment = assign(:comment, stub_model(Comment,
       :commentable => product
     ).as_new_record)
@@ -59,15 +61,15 @@ describe "products/show.html.haml" do
     end
 
     it "renders product version links with decorator" do
-      @product.should_receive(:show_version_link).with(1)
-      @product.should_receive(:show_version_link).with(2)
       render
+      view.content_for(:sidebar).should have_selector("a", text: "Version 1")
+      view.content_for(:sidebar).should have_selector("a", text: "Version 2")
     end
 
     it "renders product version dates with decorator" do
-      @product.should_receive(:version_date).with(1)
-      @product.should_receive(:version_date).with(2)
       render
+      view.content_for(:sidebar).should have_selector("span", text: "Feb 03, 2001")
+      view.content_for(:sidebar).should have_selector("span", text: "Feb 04, 2001")
     end
 
     it "renders an edit link" do

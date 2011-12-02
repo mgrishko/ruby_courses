@@ -43,4 +43,48 @@ describe Product do
     product.updated_at.should == Time.now
     Timecop.return
   end
+  
+  it "should load versions" do
+    old_name = product.name
+    new_name = SecureRandom.hex(10)
+    
+    product.name = new_name
+    product.save!
+    product.name.should == new_name
+    product.load_version!(1)
+    product.name.should == old_name
+  end
+  
+  it "should show that an existing version exists" do
+    product.name = SecureRandom.hex(10)
+    product.save!
+    product.version_exists?(2).should be_true
+  end
+  
+  it "should show that an nonexisting version does not exists" do
+    product.version_exists?(666).should_not be_true
+  end
+  
+  it "should load version datess" do
+    product.name = SecureRandom.hex(10)
+    product.save!
+    product.get_version_dates.should eq([[2, product.updated_at], [1, product.versions.first.updated_at]])
+  end
+  
+  #it "should load total version count for a specific version" do
+  #  product.name = SecureRandom.hex(10)
+  #  product.save!
+  #  product.version_count.should == 2
+  #  product.load_version!(1)
+  #  product.version_count.should == 2
+  #end
+  
+  #it "should load date for a specific version" do
+  #  updated_at = product.updated_at
+  #  product.name = SecureRandom.hex(10)
+  #  product.save!
+  #  product.load_version!(1)
+  #  product.get_version_date(1).should_not be_nil
+  #  product.get_version_date(2).should_not be_nil
+  #end
 end

@@ -15,12 +15,9 @@ class ProductsController < MainController
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
     
-    _version = params[:version] ? params[:version].to_i : @product.version
-    
-    if _version < @product.version
-      @product.attributes = @product.versions.where(:version => _version).first.versioned_attributes
-    end
-    
+    # Load dates of each product version before loading a specific version
+    @version_dates = @product.get_version_dates
+    @product.load_version!(params[:version])
     @product = ProductDecorator.decorate(@product)
     @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
 

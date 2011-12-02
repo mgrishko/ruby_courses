@@ -76,6 +76,7 @@ en:
     defaults: &PRODUCT_DEFAULTS
       destroy: "Delete Product"
       version: "Version %{version}"
+      versions: "Versions"
       edit: "Edit Product"
       new: "New Product"
     edit:

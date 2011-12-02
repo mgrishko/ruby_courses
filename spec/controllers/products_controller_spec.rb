@@ -42,6 +42,14 @@ describe ProductsController do
       assigns(:product).should eq(product)
     end
     
+    it "assigns the product versions as @version_dates" do
+      account = Account.where(subdomain: "company").first
+      product = account.products.create! valid_attributes
+      get :show, :id => product.id
+      assigns(:version_dates)[0][0].should == 1
+      assigns(:version_dates)[0][1].should == product.updated_at
+    end
+    
     it "loads the specified version" do
       account = Account.where(subdomain: "company").first
       product = account.products.create! valid_attributes

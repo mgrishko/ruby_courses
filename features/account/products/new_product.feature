@@ -15,7 +15,7 @@ Feature: New product
       | Description |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
-    And he should see "Version 1" link within sidebar
+    And he should see "Version 1" text within sidebar
     When he goes to the products list
     Then he should see that product in the products list
 
