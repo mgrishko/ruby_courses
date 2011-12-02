@@ -1,0 +1,10 @@
+#photo
+  - if photo && photo.image.url
+    - photo = PhotoDecorator.decorate(photo)
+    = image_tag(photo.image.medium.url)
+    = photo.destroy_link
+  - else
+    = image_tag("product_missing.jpg")
+
+    - if can? :create, Photo
+      = render "photos/form"

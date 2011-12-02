@@ -1,0 +1,7 @@
+= form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
+
+  = link_to t("photos.defaults.upload_photo"), "#"
+  = f.file_field :image
+  = f.submit
+
+

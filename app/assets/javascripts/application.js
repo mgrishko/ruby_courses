@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require namespace
 //= require_tree .
 //= require bootstrap-alerts
 //= require bootstrap-dropdown
@@ -13,3 +14,4 @@
 $(document).ready(function() {
     $(".alert-message").alert('close');
 });
+

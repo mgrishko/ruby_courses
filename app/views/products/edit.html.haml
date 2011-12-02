@@ -1,6 +1,11 @@
 = title t(".title")
 
 - content_for(:sidebar) do
+  = render "photos/photo", photo: @product.photos.last
+
+  %br
+  %br
+
   = link_to t("back"), :back
 
 = render 'form'

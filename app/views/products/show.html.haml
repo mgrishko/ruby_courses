@@ -1,7 +1,8 @@
 = title @product.name, page_title: false
 
 - content_for(:sidebar) do
-  = image_tag("product_missing.jpg")
+  = render "photos/photo", photo: @product.photos.last
+
   %br
   %br
 

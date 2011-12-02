@@ -14,6 +14,7 @@ class MembershipAbility
       can :manage, Product
       can :create, Comment
       can :destroy, Comment, user_id: membership.user_id
+      can :manage, Photo
       cannot :read, Membership
 
     elsif membership.role? :contributor
@@ -31,7 +32,7 @@ class MembershipAbility
     end
 
     if !membership.new_record? && membership.owner?
-      can :update, Account
+      can :update, Account, owner_id: membership.user_id
     end
     # Define abilities for the passed in user here. For example:
     #
