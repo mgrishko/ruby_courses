@@ -45,6 +45,9 @@ gem "simple-navigation", "~> 3.5.0"
 gem "responders"
 gem "draper"
 gem "settingslogic", "~> 2.0.6"
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mini_magick'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

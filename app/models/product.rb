@@ -7,6 +7,7 @@ class Product
 
   belongs_to :account
   embeds_many :comments, as: :commentable#, versioned: false
+  embeds_many :photos#, versioned: false
 
   validates :name, presence: true, length: 1..70
   validates :description, presence: true, length: 5..1000
