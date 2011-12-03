@@ -8,7 +8,11 @@
     %tbody
       - @products.each do |product|
         %tr
-          %td= image_tag("product_small.png")
+          %td
+            - if product.photos.last.nil?
+              = image_tag("product_small.png")
+            - else
+              = image_tag product.photos.last.image.small.url
           %td
             %h2= product.show_link
 
