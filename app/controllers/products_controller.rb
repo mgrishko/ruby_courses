@@ -1,6 +1,7 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
+  before_filter :load_version, only: [:show]
 
   # GET /products
   # GET /products.xml
@@ -14,13 +15,8 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    
-    # Load dates of each product version before loading a specific version
-    @version_dates = @product.get_version_dates
-    
-    @product.load_version!(params[:version])
-    @product = ProductDecorator.decorate(@product)
     @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
+    @product = ProductDecorator.decorate(@product)
 
     respond_with(@product)
   end
@@ -74,5 +70,13 @@ class ProductsController < MainController
   # Prepares comment for create and update actions
   def prepare_comment
     @comment = @product.prepare_comment(current_user, params[:comment])
+  end
+
+  # Load product version if version param is present
+  def load_version
+    @product_version = params[:version] ?
+        @product.versions.where(version: params[:version]).first : @product
+
+    @product_version = ProductDecorator.decorate(@product_version)
   end
 end

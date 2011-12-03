@@ -44,30 +44,11 @@ describe Product do
     Timecop.return
   end
   
-  it "should load versions" do
+  it "should create versions" do
     old_name = product.name
-    new_name = SecureRandom.hex(10)
-    
-    product.name = new_name
+    product.name = Faker::Product.product_name
     product.save!
-    product.name.should == new_name
-    product.load_version!(1)
-    product.name.should == old_name
-  end
-  
-  it "should show that an existing version exists" do
-    product.name = SecureRandom.hex(10)
-    product.save!
-    product.version_exists?(2).should be_true
-  end
-  
-  it "should show that an nonexisting version does not exists" do
-    product.version_exists?(666).should_not be_true
-  end
-  
-  it "should load version datess" do
-    product.name = SecureRandom.hex(10)
-    product.save!
-    product.get_version_dates.should eq([[2, product.updated_at], [1, product.versions.first.updated_at]])
+    product.name.should_not == old_name
+    product.versions.first.name.should == old_name
   end
 end

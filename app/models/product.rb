@@ -27,22 +27,4 @@ class Product
     end
     comment
   end
-  
-  # Returns a specific version
-  def load_version!(version=nil)
-    return if !version_exists?(version)
-    return self if version.nil? || version == self.version
-    self.attributes = versions.where(version: version.to_i).first.versioned_attributes
-  end
-  
-  # Returns true if product version exists
-  def version_exists?(version)
-    version == self.version || versions.where(version: version).first
-  end
-  
-  def get_version_dates
-    version_dates = [[self.version, self.updated_at]]
-    versions.reverse_each { |v| version_dates << [v.version, v.updated_at] }
-    return version_dates
-  end
 end

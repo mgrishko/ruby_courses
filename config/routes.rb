@@ -35,7 +35,7 @@ GoodsMaster::Application.routes.draw do
     get 'memberships/invitation/new' => "memberships#new",    as: :new_membership
     post 'memberships/invitation'    => "memberships#create", as: :membership_invitation
 
-    match '/products/:id/versions/:version' => "products#show", :as => :product_version
+    get '/products/:id/versions/:version' => "products#show", :as => :product_version
     resources :products do
       resources :comments, only: [:create, :destroy]
     end
