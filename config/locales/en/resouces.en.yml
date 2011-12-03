@@ -34,6 +34,7 @@ en:
       
   comments:
     defaults: &COMMENT_DEFAULTS
+      added: "Comment Added"
       destroy: "Delete"
 
   errors:
@@ -75,6 +76,9 @@ en:
 
   products:
     defaults: &PRODUCT_DEFAULTS
+      added: "Product Added"
+      updated: "Product Updated"
+      destroyed: "Product Destroyed"
       destroy: "Delete Product"
       edit: "Edit Product"
       new: "New Product"

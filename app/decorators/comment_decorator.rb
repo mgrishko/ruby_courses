@@ -9,7 +9,19 @@ class CommentDecorator < ApplicationDecorator
                 h.send("#{comment.commentable.class.name.underscore}_comment_path",
                        comment.commentable.id, comment.id), opts)
     end
-
+  end
+  
+  def display_name
+    h.truncate(comment.body, length: 50)
+  end
+  
+  def show_link
+    if h.can?(:read, comment.commentable) && !comment.destroyed?
+      commentable_decorator = "#{commentable.class.name}Decorator".constantize.new(comment.commentable)
+      return commentable_decorator.show_link(text: display_name)
+    else
+      return display_name
+    end
   end
 
   private

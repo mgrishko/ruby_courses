@@ -18,13 +18,21 @@ module CancanHelper
   def show_link(object, opts = {})
     opts = (opts || {}).with_indifferent_access
 
-    # Returning default name if name option does not present or object does not respond to name_method
+    # Returns text if opts hash contains text option
+    text = opts.delete(:text)
+    
+    # Returning default name if opts hash contains name option or object does not respond to name_method
     name_method = opts.delete(:name)
-    name = (object.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
+    
+    if text.nil?
+      name = (object.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
+    else
+      name = text
+    end
 
     fallback = opts.delete(:fallback)
 
-    if can?(:read, object)
+    if can?(:read, object) && !object.destroyed?
       link_to(name, object, opts)
     elsif fallback
       name

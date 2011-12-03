@@ -60,6 +60,14 @@ describe ProductDecorator do
           @decorator.show_link.should =="<a href=\"/products/#{@product.id}\">Product name</a>"
         end
       end
+      
+      context "when user can view destroyed product" do
+        it "renders link" do
+          @product.destroy
+          @decorator.h.stub(:can?).and_return(true)
+          @decorator.show_link.should =="Product name"
+        end
+      end
 
       context "when user cannot view product" do
         it "renders product name" do
