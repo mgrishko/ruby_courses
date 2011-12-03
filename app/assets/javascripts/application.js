@@ -6,10 +6,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery.remotipart
 //= require bootstrap-alerts
 //= require bootstrap-dropdown
+//= require namespace
+//= require flash
+//= require_tree .
 
-$(document).ready(function() {
-    $(".alert-message").alert('close');
-});
+
+

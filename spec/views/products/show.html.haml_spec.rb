@@ -2,21 +2,26 @@ require 'spec_helper'
 
 describe "products/show.html.haml" do
   before(:each) do
-    product = Fabricate.build(:product_with_comments)
-    decorator = ProductDecorator.decorate(product)
-    @product = assign(:product, decorator)
+    @product = assign(:product, ProductDecorator.decorate(stub_model(Product,
+      :name => "",
+      :description => ""
+    )))
+
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
 
     @comment = assign(:comment, stub_model(Comment,
-      :commentable => product
+      :commentable => @product
     ).as_new_record)
 
     @comments = assign(:comments, CommentDecorator.decorate([stub_model(Comment,
-      Fabricate.attributes_for(:comment, commentable: product, created_at: Time.now)
+      Fabricate.attributes_for(:comment, commentable: @product, created_at: Time.now)
     )]))
-
     CommentDecorator.any_instance.stub(:destroy_link)
+
+    assign(:photo, stub_model(Photo).as_new_record)
+    PhotoDecorator.any_instance.stub(:destroy_link)
+
     view.stub(:can?).and_return(true)
   end
 

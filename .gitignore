@@ -7,5 +7,6 @@ log/*.pid
 log/*.db
 tmp/
 public/assets/
+public/uploads/
 .sass-cache/
 .DS_Store

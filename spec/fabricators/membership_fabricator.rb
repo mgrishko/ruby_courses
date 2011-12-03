@@ -9,7 +9,7 @@ Fabricator(:admin_membership, from: :membership) do
   role "admin"
 end
 
-Fabricator(:owner_membership, from: :membership) do
+Fabricator(:owner_membership, from: :admin_membership) do
   user { |m| m.account.owner }
 end
 
