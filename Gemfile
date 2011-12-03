@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -18,7 +18,7 @@ gem "state_machine"
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
-  gem 'bootstrap-sass', '~> 1.4.0'
+  gem 'bootstrap-sass', '1.4.0'
   #gem 'compass', '~> 0.12.alpha'
 
   gem 'execjs'
@@ -36,6 +36,7 @@ gem "cancan", "~> 1.6.7"
 
 # Frontend tools
 gem 'jquery-rails'
+gem "remotipart", "~> 1.0.1" # for AJAX file uploads
 gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin

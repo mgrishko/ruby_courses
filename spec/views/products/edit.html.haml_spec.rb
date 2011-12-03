@@ -8,6 +8,10 @@ describe "products/edit.html.haml" do
     )))
 
     assign(:comment, stub_model(Comment))
+    assign(:photo, stub_model(Photo).as_new_record)
+    PhotoDecorator.any_instance.stub(:destroy_link)
+
+    view.stub(:can?).and_return(true)
   end
 
   describe "content" do

@@ -10,7 +10,7 @@ GoodsMaster.photos.init = ->
 
   $("#new_photo input[type='file']").on "change", (event) ->
     $("#new_photo a").remove()
-    $("#new_photo input[type='submit']").click()
+    $("form#new_photo").submit()
 
 
 $(document).ready ->

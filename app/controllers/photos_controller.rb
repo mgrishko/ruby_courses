@@ -20,9 +20,18 @@ class PhotosController < MainController
   def destroy
     #@photo = Photo.find(params[:id]) # loaded by cancan
     @photo.destroy
-    @photo = Photo.new if @photo.errors.empty?
+    prepare_photo
+
     respond_with(@photo) do |format|
       format.html { redirect_to @product }
+    end
+  end
+
+  private
+
+  def prepare_photo
+    if @photo.errors.empty?
+      @photo = @product.photos.empty? ? Photo.new : @product.photos.last
     end
   end
 end

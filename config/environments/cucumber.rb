@@ -39,4 +39,11 @@ GoodsMaster::Application.configure do
 
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'example.com' }
+
+
+  # Monkey patching bootstap assets (they does not included by default)
+  gems_path = ENV['GEM_PATH'].split(":").first
+  bootstrap_assets_path  = Dir["#{gems_path}/gems/bootstrap-sass-*/vendor/assets"].last
+  config.assets.paths << "#{bootstrap_assets_path}/javascripts"
+  config.assets.paths << "#{bootstrap_assets_path}/stylesheets"
 end

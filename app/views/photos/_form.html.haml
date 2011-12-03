@@ -1,7 +1,8 @@
-= form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
+- if can? :create, Photo
+  = form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
 
-  = link_to t("photos.defaults.upload_photo"), "#"
-  = f.file_field :image
-  = f.submit
+    = link_to t("photos.defaults.upload_photo"), "#"
+    = f.file_field :image
+    = f.submit
 
 
