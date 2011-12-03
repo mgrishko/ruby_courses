@@ -9,7 +9,10 @@ class CommentDecorator < ApplicationDecorator
                 h.send("#{comment.commentable.class.name.underscore}_comment_path",
                        comment.commentable.id, comment.id), opts)
     end
+  end
 
+  def info
+    "#{model.user.full_name}, #{model.created_at.strftime('%d %b %Y, %H:%M')}"
   end
 
   private

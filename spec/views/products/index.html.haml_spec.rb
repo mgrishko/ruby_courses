@@ -13,7 +13,7 @@ describe "products/index.html.haml" do
       )
     ])
 
-    ProductDecorator.any_instance.stub(:create_link)
+    ProductDecorator.stub(:create_link)
     Product.any_instance.stub(:show_link)
   end
 
@@ -33,7 +33,7 @@ describe "products/index.html.haml" do
 
   describe "sidebar" do
     it "renders a new link" do
-      view.should_receive(:create_link).with(class: "btn large primary")
+      ProductDecorator.should_receive(:create_link).with(class: "btn large primary")
       render
     end
   end

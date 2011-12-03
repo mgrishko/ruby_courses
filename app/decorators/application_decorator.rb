@@ -67,12 +67,12 @@ class ApplicationDecorator < Draper::Base
   # @param [Class] object to create a new link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to new object page.
-  def create_link(opts = {})
-    if h.can?(:create, model)
-      model_class = (model.kind_of?(Class) ? model : model.class)
-      h.link_to(I18n.t("new", scope: scope(model)), [:new, model_class.name.underscore.to_sym], opts)
-    end
-  end
+  #def create_link(opts = {})
+    #if h.can?(:create, model)
+      #model_class = (model.kind_of?(Class) ? model : model.class)
+      #h.link_to(I18n.t("new", scope: scope(model)), [:new, model_class.name.underscore.to_sym], opts)
+    #end
+  #end
 
   private
 
