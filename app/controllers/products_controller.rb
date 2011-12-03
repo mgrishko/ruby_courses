@@ -1,6 +1,7 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
+  before_filter :prepare_photo, only: [:show, :edit]
 
   # GET /products
   # GET /products.xml
@@ -66,8 +67,13 @@ class ProductsController < MainController
 
   private
 
-  # Prepares comment for create and update actions
+  # Prepares comment for show, new and edit actions.
   def prepare_comment
     @comment = @product.prepare_comment(current_user, params[:comment])
+  end
+
+  # Prepares photo for photo form in product's show and edit actions.
+  def prepare_photo
+    @photo = Photo.new
   end
 end

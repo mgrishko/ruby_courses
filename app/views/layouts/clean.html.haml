@@ -10,7 +10,7 @@
             = link_to Settings.project_name, home_url
 
     %section.main
-      = render :partial => 'layouts/partials/flash', :object => flash
+      #flash= render :partial => 'layouts/partials/flash', :object => flash
 
       - if content_for?(:page_title)
         %header

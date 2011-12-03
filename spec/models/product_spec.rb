@@ -25,6 +25,11 @@ describe Product do
     comment.commentable.should eql(product)
   end
 
+  it "should embeds many photos" do
+    photo = product.photos.build
+    photo.product.should eql(product)
+  end
+
   it "should set created_at" do
     Timecop.freeze
     product = Fabricate(:product)
