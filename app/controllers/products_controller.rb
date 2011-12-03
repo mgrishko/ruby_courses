@@ -1,6 +1,7 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
+  after_filter :log_event, only: [:create, :update, :destroy]
 
   # GET /products
   # GET /products.xml
@@ -69,5 +70,9 @@ class ProductsController < MainController
   # Prepares comment for create and update actions
   def prepare_comment
     @comment = @product.prepare_comment(current_user, params[:comment])
+  end
+  
+  def log_event
+    @event = @product.log_event(current_user, action_name)
   end
 end

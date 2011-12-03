@@ -14,8 +14,8 @@ When /^he goes to home page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-Then /^he should see "([^"]*)" event$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^he should see "([^"]*)" event$/ do |txt|
+  page.find("td", text: txt)
 end
 
 When /^he updates the product$/ do
@@ -28,8 +28,8 @@ When /^he updates the product$/ do
   }
 end
 
-Then /^he should see "([^"]*)" comment on the product page$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^he should see "([^"]*)" comment on the product page$/ do |txt|
+  pending#page.find("td", text: txt)
 end
 
 Then /^he cannot delete this comment$/ do

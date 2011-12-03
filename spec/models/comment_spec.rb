@@ -17,6 +17,11 @@ describe Comment do
     comment.commentable.should eql(product)
   end
   
+  it "should have many events as trackable" do
+    event = comment.events.build
+    event.trackable.should eql(comment)
+  end
+  
   it "should belong to user" do
     user = Fabricate(:user)
     comment = Fabricate(:comment, user: user)

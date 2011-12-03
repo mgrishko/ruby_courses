@@ -6,6 +6,7 @@ class Comment
 
   embedded_in :commentable, polymorphic: true
   belongs_to :user
+  has_many :events, as: :trackable
 
   validates :body, presence: true, length: { maximum: 1000 }
   validates :user, presence: true

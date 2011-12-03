@@ -11,15 +11,15 @@ describe EventDecorator do
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
         type: "added",
-        object: @product,
+        trackable: @product,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
     end
 
     describe "decorates" do
-      it "#formated_date" do
-        @decorator.formated_date.should == "Jan 01, 2011"
+      it "#formatted_date" do
+        @decorator.formatted_date.should == "Jan 01, 2011"
       end
       
       it "#user_name" do
@@ -46,15 +46,15 @@ describe EventDecorator do
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
         type: "updated",
-        object: @product,
+        trackable: @product,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
     end
 
     describe "decorates" do
-      it "#formated_date" do
-        @decorator.formated_date.should == "Jan 01, 2011"
+      it "#formatted_date" do
+        @decorator.formatted_date.should == "Jan 01, 2011"
       end
       
       it "#user_name" do
@@ -82,15 +82,15 @@ describe EventDecorator do
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
         type: "destroyed",
-        object: @product,
+        trackable: @product,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
     end
 
     describe "decorates" do
-      it "#formated_date" do
-        @decorator.formated_date.should == "Jan 01, 2011"
+      it "#formatted_date" do
+        @decorator.formatted_date.should == "Jan 01, 2011"
       end
       
       it "#user_name" do
@@ -117,15 +117,15 @@ describe EventDecorator do
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
         type: "added",
-        object: @comment,
+        trackable: @comment,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
     end
 
     describe "decorates" do
-      it "#formated_date" do
-        @decorator.formated_date.should == "Jan 01, 2011"
+      it "#formatted_date" do
+        @decorator.formatted_date.should == "Jan 01, 2011"
       end
       
       it "#user_name" do

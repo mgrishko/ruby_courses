@@ -4,13 +4,31 @@ describe HomeController do
 
   it { should be_kind_of(MainController) }
 
+  def valid_attributes
+    @attrs ||= Fabricate.attributes_for(:event, account: nil)
+  end
+
   context "when user is authenticated" do
-    login_account_as :viewer
+    login_account_as :viewer, account: { subdomain: "company" }
 
     describe "GET index" do
       it "renders index template" do
-        get :index, subdomain: "subdomain"
+        get :index, subdomain: "company"
         response.should render_template(:index)
+      end
+      
+      it "assigns all events as @events" do
+        account = Account.where(subdomain: "company").first
+        event = account.events.create! valid_attributes
+        get :index
+        assigns(:events).should eq([event])
+      end
+      
+      it "does not show other account events" do
+        account = Fabricate(:account, subdomain: "other")
+        account.events.create! valid_attributes
+        get :index
+        assigns(:events).should be_empty
       end
     end
   end

@@ -1,5 +1,8 @@
 class Product
+  include Trackable
+  
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
 
   field :name, type: String
@@ -7,6 +10,7 @@ class Product
 
   belongs_to :account
   embeds_many :comments, as: :commentable#, versioned: false
+  has_many :events, as: :trackable
 
   validates :name, presence: true, length: 1..70
   validates :description, presence: true, length: 5..1000

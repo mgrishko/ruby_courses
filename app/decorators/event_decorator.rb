@@ -2,7 +2,7 @@ class EventDecorator < ApplicationDecorator
   decorates :event
   include CommonLinks
   
-  def formated_date
+  def formatted_date
     event.created_at.strftime("%b %d, %Y")
   end
   
@@ -11,11 +11,11 @@ class EventDecorator < ApplicationDecorator
   end
   
   def display_name
-    I18n.t("#{event.object.class.name.pluralize.downcase}.defaults.#{event.type}")
+    I18n.t("#{event.trackable.class.name.pluralize.downcase}.defaults.#{event.type}")
   end 
   
   def show_link
-    object_decorator = "#{event.object.class.name}Decorator".constantize.new(event.object)
-    object_decorator.show_link
+    trackable_decorator = "#{event.trackable.class.name}Decorator".constantize.new(event.trackable)
+    trackable_decorator.show_link
   end
 end

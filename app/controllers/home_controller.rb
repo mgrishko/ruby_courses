@@ -4,6 +4,6 @@ class HomeController < MainController
 
   # GET /
   def index
-    
+    @events = EventDecorator.decorate(current_account.events.order(:created_at))
   end
 end

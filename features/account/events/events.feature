@@ -11,7 +11,8 @@ Feature: New event
     Given an authenticated user with editor role
     When he adds a new product
     And he goes to the home page
-    Then he should see "Product added" event
+    Then show me the page
+    Then he should see "Product Added" event
 
   @wip
   Scenario: Editor sees a new event when he adds a new product

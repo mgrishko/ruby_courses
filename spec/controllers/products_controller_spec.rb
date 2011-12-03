@@ -96,6 +96,13 @@ describe ProductsController do
         post :create, :product => valid_attributes
         response.should redirect_to(Product.last)
       end
+      
+      it "creates added event" do
+        post :create, :product => valid_attributes
+        assigns(:event).should be_a(Event)
+        assigns(:event).should be_persisted
+        assigns(:event).type.should == "added"
+      end
     end
 
     describe "with invalid params" do
@@ -154,6 +161,13 @@ describe ProductsController do
         lambda { put :update, :id => product.id, :product => valid_attributes }.
             should raise_error(Mongoid::Errors::DocumentNotFound)
       end
+      
+      it "creates updated event" do
+        put :update, :id => @product.id, :product => valid_attributes
+        assigns(:event).should be_a(Event)
+        assigns(:event).should be_persisted
+        assigns(:event).type.should == "updated"
+      end
     end
 
     describe "with invalid params" do
@@ -194,6 +208,13 @@ describe ProductsController do
     it "redirects to the products list" do
       delete :destroy, :id => @product.id
       response.should redirect_to(products_url)
+    end
+    
+    it "creates destroyed event" do
+      delete :destroy, :id => @product.id
+      assigns(:event).should be_a(Event)
+      assigns(:event).should be_persisted
+      assigns(:event).type.should == "destroyed"
     end
 
     it "does not allow to destroy other account product" do
