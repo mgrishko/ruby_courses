@@ -1,15 +1,15 @@
 class MembershipDecorator < ApplicationDecorator
   decorates :membership
 
-    def self.invitation_link(opts = {})
-      if h.can?(:create, Membership)
-        h.link_to(I18n.t("memberships.defaults.invite"), h.new_membership_path, opts)
-      end
+  def self.invitation_link(opts = {})
+    if h.can?(:create, Membership)
+      h.link_to(I18n.t("memberships.defaults.invite"), h.new_membership_path, opts)
     end
+  end
 
-    def self.role_select_options
-      Membership::ROLES.collect{|r| [I18n.t("roles.#{r}", scope: "memberships.defaults"), r] }
-    end
+  def self.role_select_options
+    Membership::ROLES.collect{|r| [I18n.t("roles.#{r}", scope: "memberships.defaults"), r] }
+  end
 
   def display_name
     model.user.full_name

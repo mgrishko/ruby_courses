@@ -7,7 +7,6 @@ class PhotoDecorator < ApplicationDecorator
       opts.merge!(method: :delete, remote: true)
       h.link_to(I18n.t("destroy", scope: scope), [photo.product, photo], opts)
     end
-
   end
 
   private
