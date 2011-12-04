@@ -50,11 +50,46 @@ describe Product do
   end
   
   it "should log added event" do
+    membership = product.account.memberships.first
+    
     product.events.should be_empty
-    product.log_event(product.account.owner, "create")
+    product.log_event(membership, "create")
     product.events.first.should be_persisted
     product.events.first.type?("added").should be_true
     product.events.first.user.should eq(product.account.owner)
     product.events.first.account.should eq(product.account)
+  end
+  
+  it "should log updated event" do
+    membership = product.account.memberships.first
+    
+    product.events.should be_empty
+    product.destroy
+    product.log_event(membership, "update")
+    product.events.first.should be_persisted
+    product.events.first.type?("updated").should be_true
+    product.events.first.user.should eq(membership.user)
+    product.events.first.account.should eq(membership.account)
+  end
+  
+  it "should log destroyed event" do
+    membership = product.account.memberships.first
+    
+    product.events.should be_empty
+    product.destroy
+    product.log_event(membership, "destroy")
+    product.events.first.should be_persisted
+    product.events.first.type?("destroyed").should be_true
+    product.events.first.user.should eq(membership.user)
+    product.events.first.account.should eq(membership.account)
+  end
+  
+  it "should create updated comment when updated" do
+    user = product.account.owner
+    expect {
+      product.build_updated_comment(user)
+    }.to change(product.comments, :count).by(1)
+    product.comments.last.body.should == "Updated by #{user.full_name}"
+    product.comments.last.system.should be_true
   end
 end

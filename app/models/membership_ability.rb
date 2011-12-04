@@ -8,12 +8,12 @@ class MembershipAbility
       can :manage, :all
       cannot :manage, Account
       cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
-    
+      cannot :destroy, Comment, system: true
     elsif membership.role? :editor
       can :read, :all
       can :manage, Product
       can :create, Comment
-      can :destroy, Comment, user_id: membership.user_id
+      can :destroy, Comment, { user_id: membership.user_id, system: false }
       can :manage, Photo
       cannot :read, Membership
 
@@ -21,7 +21,7 @@ class MembershipAbility
       can :read, :all
       cannot :read, Membership
       can :create, Comment
-      can :destroy, Comment, user_id: membership.user_id
+      can :destroy, Comment, { user_id: membership.user_id, system: false }
 
     elsif membership.role? :viewer
       can :read, :all

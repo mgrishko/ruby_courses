@@ -32,7 +32,7 @@ module CancanHelper
 
     fallback = opts.delete(:fallback)
 
-    if can?(:read, object) && !object.destroyed?
+    if !object.destroyed? && can?(:read, object)
       link_to(name, object, opts)
     elsif fallback
       name

@@ -111,6 +111,11 @@ Then /^he should see that comment on the top of comments$/ do
   page.find("#comments_list").first(".comment").find("p", text: comment.body)
 end
 
+Then /^he should see that comment among other comments$/ do
+  comment = @comment || @product.comments.last
+  page.find("#comments_list").find("p", text: comment.body)
+end
+
 Then /^he should see product comments$/ do
   page.find("#comments_list .comment p", text: @product.comments.first.body)
 end

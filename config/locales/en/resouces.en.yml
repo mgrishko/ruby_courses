@@ -36,6 +36,8 @@ en:
     defaults: &COMMENT_DEFAULTS
       added: "Comment Added"
       destroy: "Delete"
+      added: "Comment Added"
+      destroyed: "Comment Deleted"
 
   errors:
     messages:
@@ -83,10 +85,11 @@ en:
     defaults: &PRODUCT_DEFAULTS
       added: "Product Added"
       updated: "Product Updated"
-      destroyed: "Product Destroyed"
+      destroyed: "Product Deleted"
       destroy: "Delete Product"
       edit: "Edit Product"
       new: "New Product"
+      updated_by: "Updated by %{user_name}"
     edit:
       <<: *PRODUCT_DEFAULTS
       title: "Edit product"

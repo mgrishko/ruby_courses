@@ -13,7 +13,6 @@ class Event
   validates :account, presence: true
   validates :user, presence: true
   validates :type, presence: true, inclusion: { in: TYPES }
-  #validates :trackable, unless: lambda { type == :destroy }
   
   def type?(type)
     self.type == type.to_s

@@ -5,15 +5,15 @@ module Trackable
     return log_destroyed(current_user) if action_name == "destroy"
   end
   
-  def log_added(current_user)
-    Event.create(account: self.account, user: current_user, type: "added", trackable: self) unless self.new_record?
+  def log_added(current_membership)
+    Event.create(account: current_membership.account, user: current_membership.user, type: "added", trackable: self)
   end
   
-  def log_updated(current_user)
-    Event.create(account: self.account, user: current_user, type: "updated", trackable: self) unless self.new_record?
+  def log_updated(current_membership)
+    Event.create(account: current_membership.account, user: current_membership.user, type: "updated", trackable: self)
   end
   
-  def log_destroyed(current_user)
-    Event.create(account: self.account, user: current_user, type: "destroyed", trackable: self) if self.destroyed?
+  def log_destroyed(current_membership)
+    Event.create(account: current_membership.account, user: current_membership.user, type: "destroyed", trackable: self)
   end
 end

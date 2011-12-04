@@ -18,6 +18,13 @@ Then /^he should see "([^"]*)" event$/ do |txt|
   page.find("td", text: txt)
 end
 
+When /^he deletes the product$/ do
+  steps %Q{
+    When he is on the product page
+    And he follows "Delete Product" within sidebar
+  }
+end
+
 When /^he updates the product$/ do
   steps %Q{
     When he is on the product page
@@ -29,9 +36,11 @@ When /^he updates the product$/ do
 end
 
 Then /^he should see "([^"]*)" comment on the product page$/ do |txt|
-  pending#page.find("td", text: txt)
+  page.find("p", text: txt)
 end
 
 Then /^he cannot delete this comment$/ do
-  pending # express the regexp above with the code you wish you had
+  within("div.links") do
+    page.should_not have_link('Delete')
+  end
 end

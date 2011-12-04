@@ -31,4 +31,11 @@ class Product
     end
     comment
   end
+  
+  def build_updated_comment(user)
+    comment = self.comments.build(body: I18n.t("products.defaults.updated_by", user_name: user.full_name), user: user)
+    comment.system = true
+    comment.save
+    comment
+  end
 end

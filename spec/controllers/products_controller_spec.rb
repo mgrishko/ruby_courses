@@ -112,10 +112,13 @@ describe ProductsController do
       end
       
       it "creates added event" do
-        post :create, :product => valid_attributes
-        assigns(:event).should be_a(Event)
-        assigns(:event).should be_persisted
-        assigns(:event).type.should == "added"
+        expect {
+          post :create, :product => valid_attributes
+        }.to change(Event, :count).by(1)
+        
+        event = Event.desc(:created_at).first
+        event.type.should == "added"
+        event.trackable eq(@product)
       end
     end
 
@@ -136,6 +139,12 @@ describe ProductsController do
       it "re-renders the 'new' template" do
         post :create, :product => {}
         response.should render_template("new")
+      end
+      
+      it "doesn't create added event" do
+        expect {
+          post :create, :product => {}
+        }.to change(Event, :count).by(0)
       end
     end
   end
@@ -177,10 +186,22 @@ describe ProductsController do
       end
       
       it "creates updated event" do
-        put :update, :id => @product.id, :product => valid_attributes
-        assigns(:event).should be_a(Event)
-        assigns(:event).should be_persisted
-        assigns(:event).type.should == "updated"
+        expect {
+          put :update, :id => @product.id, :product => valid_attributes
+        }.to change(Event, :count).by(1)
+        
+        event = Event.desc(:created_at).first
+        event.type.should == "updated"
+        event.trackable eq(@product)
+      end
+      
+      it "creates updated comment" do
+        expect {
+          put :update, :id => @product.id, :product => valid_attributes
+        }.to change(@product.comments, :count).by(1)
+        
+        comment = @product.comments.desc(:created_at).first
+        comment.commentable eq(@product)
       end
     end
 
@@ -201,6 +222,12 @@ describe ProductsController do
       it "re-renders the 'edit' template" do
         put :update, :id => @product.id, :product => {}
         response.should render_template("edit")
+      end
+      
+      it "doesn't create updated event" do
+        expect {
+          put :update, :id => @product.id, :product => {}
+        }.to change(Event, :count).by(0)
       end
     end
   end
@@ -225,10 +252,13 @@ describe ProductsController do
     end
     
     it "creates destroyed event" do
-      delete :destroy, :id => @product.id
-      assigns(:event).should be_a(Event)
-      assigns(:event).should be_persisted
-      assigns(:event).type.should == "destroyed"
+      expect {
+        delete :destroy, :id => @product.id
+      }.to change(Event, :count).by(1)
+      
+      event = Event.desc(:created_at).first
+      event.type.should == "destroyed"
+      event.trackable eq(@product)
     end
 
     it "does not allow to destroy other account product" do

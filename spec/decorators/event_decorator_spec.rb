@@ -89,6 +89,10 @@ describe EventDecorator do
     end
 
     describe "decorates" do
+      before(:each) do    
+        
+      end
+      
       it "#formatted_date" do
         @decorator.formatted_date.should == "Jan 01, 2011"
       end
@@ -98,13 +102,22 @@ describe EventDecorator do
       end
       
       it "#display_name" do
-        @decorator.display_name.should == "Product Destroyed"
+        @decorator.display_name.should == "Product Deleted"
       end
 
       it "#show_link" do
-        product_decorator = ProductDecorator.decorate(@product)
-        product_decorator.h.stub(:can?).and_return(true)
-        @decorator.show_link.should == product_decorator.show_link
+        @product.destroy
+        @product = Product.deleted.find(@product.id)
+        
+        @event = stub_model(Event, 
+          created_at: DateTime.parse("2011-01-01"),
+          type: "destroyed",
+          trackable: @product,
+          user: @user
+        )
+        
+        @decorator = EventDecorator.decorate(@event)
+        @decorator.show_link.should == @product.name
       end
     end
   end

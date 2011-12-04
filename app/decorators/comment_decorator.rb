@@ -16,7 +16,7 @@ class CommentDecorator < ApplicationDecorator
   end
   
   def show_link
-    if h.can?(:read, comment.commentable) && !comment.destroyed?
+    if !comment.destroyed? && h.can?(:read, comment.commentable)
       commentable_decorator = "#{commentable.class.name}Decorator".constantize.new(comment.commentable)
       return commentable_decorator.show_link(text: display_name)
     else

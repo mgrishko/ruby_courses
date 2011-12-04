@@ -1,8 +1,11 @@
 class Comment
+  include Trackable
+  
   include Mongoid::Document
   include Mongoid::Timestamps
 
   field :body, type: String
+  field :system, type: Boolean, default: false
 
   embedded_in :commentable, polymorphic: true
   belongs_to :user
@@ -18,5 +21,10 @@ class Comment
     t = Time.now
     comment.created_at = t if comment.new_record?
     comment.updated_at = t
+  end
+  
+  # System comments can't be destroyed
+  set_callback(:destroy, :before) do |c|
+    !c.system?
   end
 end
