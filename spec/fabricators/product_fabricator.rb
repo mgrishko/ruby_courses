@@ -13,3 +13,12 @@ Fabricator(:product_with_comments, from: :product) do
     product.comments << comment
   end
 end
+
+Fabricator(:product_without_photo, from: :product) do
+end
+
+Fabricator(:product_with_photo, from: :product) do
+  after_create do |product|
+    product.photos << Fabricate(:photo, product: product)
+  end
+end

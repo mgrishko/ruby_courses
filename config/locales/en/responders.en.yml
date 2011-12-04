@@ -22,6 +22,10 @@ en:
       create:
         notice: "A new membership invitation has been sent."
 
+    photos:
+      create:
+        notice: "Photo was successfully uploaded."
+
   unauthorized:
     create:
       product: "Not allowed to create a new product."

@@ -1,7 +1,8 @@
 = title @product_version.name, page_title: false
 
 - content_for(:sidebar) do
-  = image_tag("product_missing.jpg")
+  = render "photos/photo", photo: @product.photos.last, disable_uploads: true
+
   %br
   %br
 

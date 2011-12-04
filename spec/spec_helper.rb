@@ -58,6 +58,11 @@ Spork.prefork do
       Timecop.return
     end
 
+    # Cleanup all uploaded files
+    config.after(:each) do
+      FileUtils.remove_entry(Rails.public_path + "/uploads/test/test", force: true)
+    end
+
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
     # rspec-rails.

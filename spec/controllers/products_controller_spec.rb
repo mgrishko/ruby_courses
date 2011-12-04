@@ -63,6 +63,13 @@ describe ProductsController do
       get :show, :id => product.id
       assigns(:comment).should be_a_new(Comment)
     end
+
+    it "assigns a new photo as @photo" do
+      account = Account.where(subdomain: "company").first
+      product = account.products.create! valid_attributes
+      get :show, :id => product.id
+      assigns(:photo).should be_a_new(Photo)
+    end
   end
 
   describe "GET new" do
@@ -88,6 +95,13 @@ describe ProductsController do
       account = Fabricate(:account, subdomain: "other")
       product = account.products.create! valid_attributes
       lambda { get :edit, :id => product.id }.should raise_error(Mongoid::Errors::DocumentNotFound)
+    end
+
+    it "assigns a new photo as @photo" do
+      account = Account.where(subdomain: "company").first
+      product = account.products.create! valid_attributes
+      get :edit, :id => product.id
+      assigns(:photo).should be_a_new(Photo)
     end
   end
 

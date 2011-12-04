@@ -1,0 +1,13 @@
+- if can? :create, Photo
+  = form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
+
+    .upload
+      .file
+        = f.file_field :image
+      .link
+        = link_to t("photos.defaults.upload_photo"), "#", class: "btn small"
+
+
+
+
+

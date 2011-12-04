@@ -38,6 +38,7 @@ GoodsMaster::Application.routes.draw do
     get '/products/:id/versions/:version' => "products#show", :as => :product_version
     resources :products do
       resources :comments, only: [:create, :destroy]
+      resources :photos, only: [:create, :destroy]
     end
 
     # Admin dashboard is only under app subdomain
