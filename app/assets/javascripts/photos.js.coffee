@@ -5,13 +5,12 @@
 $.namespace("GoodsMaster.photos")
 
 GoodsMaster.photos.init = ->
-  $("#new_photo a").on "click", (event) ->
-    $("#new_photo input[type='file']").click()
+  $form = $("#new_photo")
 
-  $("#new_photo input[type='file']").on "change", (event) ->
-    $("#new_photo a").remove()
-    $("form#new_photo").submit()
-
+  $form.find("input[type='file']").on "change", (event) ->
+    $form.find("a").remove()
+    $form.append(GoodsMaster.ajax_loader.img)
+    $form.submit()
 
 $(document).ready ->
   GoodsMaster.photos.init()

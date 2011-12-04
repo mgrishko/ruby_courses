@@ -11,6 +11,7 @@
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
+//= require ajax-loader
 //= require_tree .
 
 
