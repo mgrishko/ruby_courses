@@ -1,19 +1,17 @@
 require 'spec_helper'
 
 describe "products/show.html.haml" do
-  before(:each) do
-    version_dates = [[1, Date.parse('2001-02-03')], [2, Date.parse('2001-02-04')]]
-    @version_dates = assign(:version_dates, version_dates)
-    
+  before(:each) do    
     product = Fabricate.build(:product_with_comments)
     decorator = ProductDecorator.decorate(product)
     @product = assign(:product, decorator)
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
-    @product.stub(:show_version_link).with(1).and_return('<a>Version 1</a>'.html_safe)
-    @product.stub(:show_version_link).with(2).and_return('<a>Version 2</a>'.html_safe)
-    @product.stub(:format_date).with(Date.parse('2001-02-03')).and_return("Feb 03, 2001")
-    @product.stub(:format_date).with(Date.parse('2001-02-04')).and_return("Feb 04, 2001")
+    
+    ProductDecorator.any_instance.stub(:version_link).and_return("Version 1")
+    ProductDecorator.any_instance.stub(:version_date).and_return("<span>Feb 04, 2001</span>".html_safe)
+    
+    @product_version = assign(:product_version, ProductDecorator.decorate(product))
     
     @comment = assign(:comment, stub_model(Comment,
       :commentable => product
@@ -62,13 +60,11 @@ describe "products/show.html.haml" do
 
     it "renders product version links with decorator" do
       render
-      view.content_for(:sidebar).should have_selector("a", text: "Version 1")
-      view.content_for(:sidebar).should have_selector("a", text: "Version 2")
+      view.content_for(:sidebar).should have_selector("li", text: "Version 1")
     end
 
     it "renders product version dates with decorator" do
       render
-      view.content_for(:sidebar).should have_selector("span", text: "Feb 03, 2001")
       view.content_for(:sidebar).should have_selector("span", text: "Feb 04, 2001")
     end
 

@@ -85,16 +85,19 @@ describe ProductDecorator do
   describe "#version_link" do
     context "when user can view product" do
       it "renders link" do
+        @product.name = SecureRandom.hex(10)
+        @product.save!
         @decorator.h.stub(:can?).and_return(true)
-        @decorator.show_version_link(1).should =="Version 1"
-        @decorator.show_version_link(2).should =="<a href=\"/products/#{@product.id}/versions/2\">Version 2</a>"
+        @decorator.version_link(@product, @product).should == "Version 2"
+        ProductDecorator.decorate(@product.versions.first).version_link(@product, @product).should == "<a href=\"/products/#{@product.id}/versions/1\">Version 1</a>"
       end
     end
 
     context "when user cannot view product" do
       it "renders product name" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.show_version_link(1).should == "Version 1"
+        
+        #@decorator.h.stub(:can?).and_return(false)
+        #@decorator.version_link(@product.versions.first, @product).should == "Version 1"
       end
     end
   end
