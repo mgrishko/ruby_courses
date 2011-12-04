@@ -5,22 +5,24 @@ describe ApplicationDecorator do
 
   before(:each) do
     @product = Fabricate(:product, name: "Product name", description: "Product description")
-    @decorator = ProductDecorator.decorate(@product)
+    @product_decorator = ProductDecorator.decorate(@product)
+    @comment = Fabricate(:comment, commentable: @product, body: "smth written")
+    @comment_decorator = CommentDecorator.decorate(@comment)
   end
 
   describe "decorates" do
     describe "#show_link" do
       context "when user can view product" do
         it "renders link" do
-          @decorator.h.stub(:can?).and_return(true)
-          @decorator.show_link(name: :name, fallback: true).should =="<a href=\"/products/#{@product.id}\">Product name</a>"
+          @product_decorator.h.stub(:can?).and_return(true)
+          @product_decorator.show_link(name: :name).should =="<a href=\"/products/#{@product.id}\">Product name</a>"
         end
       end
 
       context "when user cannot view product" do
         it "renders product name" do
-          @decorator.h.stub(:can?).and_return(false)
-          @decorator.show_link(name: :name, fallback: true).should == "Product name"
+          @product_decorator.h.stub(:can?).and_return(false)
+          @product_decorator.show_link(name: :name).should == "Product name"
         end
       end
     end
@@ -28,15 +30,15 @@ describe ApplicationDecorator do
     describe "#edit_link" do
       context "when user can edit product" do
         it "renders link" do
-          @decorator.h.stub(:can?).and_return(true)
-          @decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
+          @product_decorator.h.stub(:can?).and_return(true)
+          @product_decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
         end
       end
 
       context "when user cannot edit product" do
         it "should return empty string" do
-          @decorator.h.stub(:can?).and_return(false)
-          @decorator.edit_link.should be_blank
+          @product_decorator.h.stub(:can?).and_return(false)
+          @product_decorator.edit_link.should be_blank
         end
       end
     end
@@ -44,17 +46,42 @@ describe ApplicationDecorator do
     describe "#destroy_link" do
       context "when user can destroy product" do
         it "renders link" do
-          @decorator.h.stub(:can?).and_return(true)
-          @decorator.destroy_link.should ==
+          @product_decorator.h.stub(:can?).and_return(true)
+          @product_decorator.destroy_link(confirm: true).should ==
               "<a href=\"/products/#{@product.id
               }\" data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\">Delete Product</a>"
         end
       end
 
+      context "when user can destroy comment" do
+        it "renders link" do
+          @comment_decorator.h.stub(:can?).and_return(true)
+          @comment_decorator.destroy_link(remote: true, through: @product).should ==
+              "<a href=\"/products/#{@product.id}/comments/#{@comment.id
+          }\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Delete</a>"
+        end
+      end
+
       context "when user cannot destroy product" do
         it "should return empty string" do
-          @decorator.h.stub(:can?).and_return(false)
-          @decorator.destroy_link.should be_blank
+          @product_decorator.h.stub(:can?).and_return(false)
+          @product_decorator.destroy_link.should be_blank
+        end
+      end
+    end
+
+    describe "ClassDecorator#create_link" do
+      context "when user can create product link" do
+        it "renders product link" do
+          @product_decorator.h.stub(:can?).and_return(true)
+          ProductDecorator.create_link.should == "<a href=\"/products/new\">New Product</a>"
+        end
+      end
+
+      context "when user can't create product link" do
+        it "renders product link" do
+          @product_decorator.h.stub(:can?).and_return(false)
+          ProductDecorator.create_link.should be_blank
         end
       end
     end

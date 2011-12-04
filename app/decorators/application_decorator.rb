@@ -7,16 +7,20 @@ class ApplicationDecorator < Draper::Base
   #
   #   show_link @product, class: "button", name: :title
   #   # => <a href="/products/1">This is a product title</a>
-  #
-  #   show_link @product, class: "button", name: :title, fallback: true
-      # returns a link name if ability does not allow to view object
+  #     returns a link name if ability does not allow to view object
   #   # => This is a product title
+  #
+  #   show_link @product, class: "button", name: :title, fallback: false
+  #     nothing return if ability does not allow to view object
+  #   # => nil
   #
   # @param [Instance] object to create a show link
   # @param [Hash] opts optional options for link_to helper.
   # @return [String, nil] link to show an object.
   def show_link(opts = {})
     opts = (opts || {}).with_indifferent_access
+    #Default options
+    opts.merge!(fallback: true) unless opts[:fallback] == false
 
     # Returning default name if name option does not present or object does not respond to name_method
     name_method = opts.delete(:name)
@@ -40,7 +44,7 @@ class ApplicationDecorator < Draper::Base
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to edit an object.
   def edit_link(opts = {})
-    h.link_to(I18n.t("edit", scope: scope(model)), [:edit, model], opts) if h.can?(:update, model)
+    h.link_to(I18n.t("edit", scope: i18n_scope), [:edit, model], opts) if h.can?(:update, model)
   end
 
   # Generates a destroy link if current ability allows to destroy object:
@@ -48,39 +52,51 @@ class ApplicationDecorator < Draper::Base
   #   destroy_link @product, class: "button"
   #   # => <a href="/products/1" rel="nofollow" data-method="delete" data-confirm="Are you sure?">Delete Product</a>
   #
+  #   destroy_link @comment, class: "button", confirm: false
+  #   # => <a href="/products/1" rel="nofollow" data-method="delete">Delete Product</a>
+  #
+  #   destroy_link @comment, class: "button", confirm: false, through: [@account, @product]
+  #   # => <a href="account/1/products/1/comments/1" rel="nofollow" data-method="delete">Delete Product</a>
+  #
   # @param [Instance] object to create a destroy link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to destroy an object.
   def destroy_link(opts = {})
     if h.can?(:destroy, model)
       opts = (opts || {}).with_indifferent_access
-      opts.merge!(method: :delete, confirm: I18n.t("confirm"))
-      h.link_to(I18n.t("destroy", scope: scope(model)), model, opts)
+      opts.merge!(method: :delete)
+      opts.merge!(confirm: I18n.t("confirm")) if opts[:confirm]
+      through = opts.delete(:through) || []
+      segments = through.kind_of?(Array) ? through : [through]
+      segments = segments << model
+      h.link_to(I18n.t("destroy", scope: i18n_scope), segments, opts)
     end
   end
 
+
   # Generates a create link if current ability allows to create object:
   #
-  #   create_link Product, class: "button"
+  #   ProductDecorator.create_link, class: "button"
   #   # => <a href="/products/new" class="button">New Product</a>
   #
-  # @param [Class] object to create a new link
+  # [ClassDecorator] object to create a new link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to new object page.
-  #def create_link(opts = {})
-    #if h.can?(:create, model)
-      #model_class = (model.kind_of?(Class) ? model : model.class)
-      #h.link_to(I18n.t("new", scope: scope(model)), [:new, model_class.name.underscore.to_sym], opts)
-    #end
-  #end
+  def self.create_link(opts = {})
+    if h.can?(:create, self.model_class)
+      initial_model_name = self.model_class.name.underscore
+      h.link_to(I18n.t("new", scope: "#{initial_model_name.pluralize}.defaults"), [:new, initial_model_name.to_sym], opts)
+    end
+  end
 
   private
 
-  # Returns translation scope for object.
+  # Returns translation i18n_scope for object.
   #
   # @param [Class, Instance] object class or class instance
-  # @return [String] scope of link translations
-  def scope(model)
-    "#{(model.kind_of?(Class) ? model : model.class).name.underscore.pluralize}.defaults"
+  # @return [String] i18n_scope of link translations
+  def i18n_scope
+    object_class = (self.kind_of?(Draper::Base) ? self.model_class : self.class)
+    "#{object_class.name.underscore.pluralize}.defaults"
   end
 end

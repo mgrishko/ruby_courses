@@ -18,19 +18,4 @@ describe ProductDecorator do
     end
   end
 
-  describe "#create_link" do
-    context "when user can create product link" do
-      it "renders product link" do
-        @decorator.h.stub(:can?).and_return(true)
-        ProductDecorator.create_link.should == "<a href=\"/products/new\">New Product</a>"
-      end
-    end
-
-    context "when user can't create product link" do
-      it "renders product link" do
-        @decorator.h.stub(:can?).and_return(false)
-        ProductDecorator.create_link.should be_blank
-      end
-    end
-  end
 end

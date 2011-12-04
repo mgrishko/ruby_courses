@@ -59,7 +59,7 @@ describe "products/show.html.haml" do
     end
 
     it "renders a destroy link" do
-      @product.should_receive(:destroy_link).with(class: "btn small danger")
+      @product.should_receive(:destroy_link).with(confirm: true, class: "btn small danger")
       render
     end
   end
