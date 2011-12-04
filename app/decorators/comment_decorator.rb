@@ -9,7 +9,6 @@ class CommentDecorator < ApplicationDecorator
                 h.send("#{comment.commentable.class.name.underscore}_comment_path",
                        comment.commentable.id, comment.id), opts)
     end
-
   end
 
   private

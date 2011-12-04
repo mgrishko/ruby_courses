@@ -1,6 +1,7 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
+  before_filter :load_version, only: [:show]
   before_filter :prepare_photo, only: [:show, :edit]
 
   # GET /products
@@ -15,8 +16,8 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    @product = ProductDecorator.decorate(@product)
     @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
+    @product = ProductDecorator.decorate(@product)
 
     respond_with(@product)
   end
@@ -72,6 +73,14 @@ class ProductsController < MainController
     @comment = @product.prepare_comment(current_user, params[:comment])
   end
 
+  # Load product version if version param is present
+  def load_version
+    @product_version = params[:version] ?
+        @product.versions.where(version: params[:version]).first : @product
+
+    @product_version = ProductDecorator.decorate(@product_version)
+  end
+  
   # Prepares photo for photo form in product's show and edit actions.
   def prepare_photo
     @photo = Photo.new
