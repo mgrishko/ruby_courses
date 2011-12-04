@@ -74,6 +74,11 @@ en:
       profile: "Profile"
       sign_out: "Sign out"
 
+  photos:
+    defaults: &PHOTO_DEFAULTS
+      destroy: "Delete photo"
+      upload_photo: "Upload photo"
+
   products:
     defaults: &PRODUCT_DEFAULTS
       added: "Product Added"

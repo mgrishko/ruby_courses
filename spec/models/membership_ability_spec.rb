@@ -7,12 +7,13 @@ describe MembershipAbility do
     prepare_ability_for :owner, :membership
 
     before do
-      @owner_id = @resource.account.owner_id
       @account = @resource.account
       @owner_membership = @account.memberships.select{ |m| m.owner? }.first
     end
 
-    it {@ability.should be_able_to(:update, @account)}
+    it { @ability.should be_able_to(:update, @account) }
+    it { @ability.should be_able_to(:update, @account) }
+    it { @ability.should_not be_able_to(:update, Account.new) }
     it { @ability.should_not be_able_to(:update, @owner_membership) }
     it { @ability.should_not be_able_to(:destroy, @owner_membership) }
   end
@@ -25,14 +26,15 @@ describe MembershipAbility do
       @owner_membership = @account.memberships.select{ |m| m.owner? }.first
     end
 
-    it { @ability.should_not be_able_to(:update, @account) }
-    it { @ability.should_not be_able_to(:destroy, @account) }
+    it { @ability.should_not be_able_to(:update, Account.new) }
+    it { @ability.should_not be_able_to(:destroy, Account.new) }
     it { @ability.should_not be_able_to(:update, @owner_membership) }
     it { @ability.should_not be_able_to(:destroy, @owner_membership) }
     it { @ability.should be_able_to(:read, Membership) }
     it { @ability.should be_able_to(:manage, Membership.new) }
     it { @ability.should be_able_to(:manage, Product.new) }
     it { @ability.should be_able_to(:manage, Comment.new) }
+    it { @ability.should be_able_to(:manage, Photo.new) }
   end
 
   describe "editor" do
@@ -49,15 +51,7 @@ describe MembershipAbility do
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
     it { @ability.should_not be_able_to(:update, Comment.new) }
-  end
-
-  describe "viewer" do
-    prepare_ability_for :viewer, :membership
-
-    it { @ability.should_not be_able_to(:read, Membership) }
-    it { @ability.should be_able_to(:read, Product) }
-    it { @ability.should_not be_able_to(:manage, Comment.new) }
-    it { @ability.should be_able_to(:read, Comment) }
+    it { @ability.should be_able_to(:manage, Photo.new) }
   end
 
   describe "contributor" do
@@ -74,5 +68,16 @@ describe MembershipAbility do
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
     it { @ability.should_not be_able_to(:update, Comment.new) }
+    it { @ability.should_not be_able_to(:manage, Photo.new) }
+  end
+
+  describe "viewer" do
+    prepare_ability_for :viewer, :membership
+
+    it { @ability.should_not be_able_to(:read, Membership) }
+    it { @ability.should be_able_to(:read, Product) }
+    it { @ability.should_not be_able_to(:manage, Comment.new) }
+    it { @ability.should be_able_to(:read, Comment) }
+    it { @ability.should_not be_able_to(:manage, Photo.new) }
   end
 end
