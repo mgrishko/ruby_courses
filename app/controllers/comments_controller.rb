@@ -9,7 +9,10 @@ class CommentsController < MainController
   def create
     #@comment = Comment.new(params[:comment]) # loaded by cancan
     @comment.user = current_user
-    @comment.save
+
+    if @comment.save
+      @comment.log_added(current_membership)
+    end
     @comment = CommentDecorator.decorate(@comment)
     respond_with(@comment) do |format|
       format.html { redirect_to @product }
@@ -20,7 +23,9 @@ class CommentsController < MainController
   # DELETE /comments/1.xml
   def destroy
     #@comment = Comment.find(params[:id]) # loaded by cancan
-    @comment.destroy
+    if @comment.destroy
+      @comment.log_destroyed(current_membership)
+    end
     respond_with(@comment) do |format|
       format.html { redirect_to @product }
     end

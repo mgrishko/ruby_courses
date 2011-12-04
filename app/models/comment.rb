@@ -2,6 +2,7 @@ class Comment
   include Trackable
   
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
 
   field :body, type: String
@@ -26,5 +27,11 @@ class Comment
   # System comments can't be destroyed
   set_callback(:destroy, :before) do |c|
     !c.system?
+  end
+  
+  # Finds comment by id. Performs search in deleted and present products and comments.
+  def self.find_trackable(trackable_id)
+    product = Product.unscoped.where(:"comments._id" => trackable_id).first
+    product.comments.unscoped.find(trackable_id)
   end
 end

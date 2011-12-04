@@ -76,4 +76,13 @@ describe Comment do
     comment.system = true
     comment.destroy.should be_false
   end
+  
+  it "should be found as trackable" do
+    Comment.find_trackable(comment.id).should eq(comment)
+  end
+  
+  it "should be found as trackable even if deleted" do
+    comment.destroy
+    Comment.find_trackable(comment.id).should eq(comment)
+  end
 end

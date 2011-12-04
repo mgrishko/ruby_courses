@@ -21,9 +21,26 @@ Feature: New event
     When he goes to the home page
     Then he should see "Product Updated" event
   
-  Scenario: Editor sees "Product destroyed" event when he destroys a product
+  Scenario: Editor sees "Product destroyed" event when he deletes a product
     Given that account has a product
     And an authenticated user with editor role
     When he deletes the product
     And he goes to the home page
     Then he should see "Product Deleted" event
+  
+  @javascript
+  Scenario: Editor sees "Comment Added" event when he adds a comment
+    Given that account has a product
+    And an authenticated user with editor role
+    When he adds a comment to the product
+    And he follows Dashboard link
+    Then he should see "Comment Added" event
+    
+  @javascript
+  Scenario: Editor sees "Comment Deleted" event when he deletes a comment
+    Given that account has a product
+    And an authenticated user with editor role
+    When he adds a comment to the product
+    And he deletes the comment
+    And he follows Dashboard link
+    Then he should see "Comment Deleted" event

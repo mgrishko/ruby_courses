@@ -10,8 +10,8 @@ When /^he adds a new product$/ do
   }
 end
 
-When /^he goes to home page$/ do
-  visit(home_url(subdomain: @account.subdomain))
+When /^he follows Dashboard link$/ do
+  click_link("Dashboard")
 end
 
 Then /^he should see "([^"]*)" event$/ do |txt|
@@ -33,6 +33,20 @@ When /^he updates the product$/ do
     Then he should be on the product page
     And he should see notice message "Product was successfully updated."
   }
+end
+
+When /^he adds a comment to the product$/ do
+  steps %Q{
+    And he is on the product page
+    When he submits a comment to the product
+  }
+end
+
+Then /^he deletes the comment$/ do
+  steps %Q{
+    When he is on the product page
+  }
+  click_link("Delete")
 end
 
 Then /^he should see "([^"]*)" comment on the product page$/ do |txt|

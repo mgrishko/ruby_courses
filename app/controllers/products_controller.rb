@@ -1,7 +1,6 @@
 class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
-  #after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :prepare_photo, only: [:show, :edit, :update]
 
   # GET /products
@@ -55,7 +54,7 @@ class ProductsController < MainController
     @product.attributes = params[:product]
     if @product.save
       @product.log_updated(current_membership)
-      @product.build_updated_comment(current_user)
+      @product.create_updated_comment(current_user)
     end
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)

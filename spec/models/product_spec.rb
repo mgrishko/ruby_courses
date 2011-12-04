@@ -87,9 +87,18 @@ describe Product do
   it "should create updated comment when updated" do
     user = product.account.owner
     expect {
-      product.build_updated_comment(user)
+      product.create_updated_comment(user)
     }.to change(product.comments, :count).by(1)
     product.comments.last.body.should == "Updated by #{user.full_name}"
     product.comments.last.system.should be_true
+  end
+  
+  it "should be found as trackable" do
+    Product.find_trackable(product.id).should eq(product)
+  end
+  
+  it "should be found as trackable even if deleted" do
+    product.destroy
+    Product.find_trackable(product.id).should eq(product)
   end
 end

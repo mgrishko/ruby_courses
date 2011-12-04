@@ -32,10 +32,16 @@ class Product
     comment
   end
   
-  def build_updated_comment(user)
+  # Saves comment for product update.
+  def create_updated_comment(user)
     comment = self.comments.build(body: I18n.t("products.defaults.updated_by", user_name: user.full_name), user: user)
     comment.system = true
     comment.save
     comment
+  end
+  
+  # Finds product by id. Performs search in deleted and present products.
+  def self.find_trackable(trackable_id)
+    Product.unscoped.find(trackable_id)
   end
 end
