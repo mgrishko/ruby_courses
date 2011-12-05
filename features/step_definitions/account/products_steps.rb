@@ -6,8 +6,8 @@ Given /^he is on the products page$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
-Given /^that account has a product(.*)$/ do |relative|
-  fabricator = "product#{relative}".gsub(/\s/, "_").to_sym
+Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|
+  fabricator = "#{prefix}product#{suffix}".gsub(/\s/, "_").to_sym
   @product = Fabricate(fabricator, account: @account)
 end
 
@@ -32,6 +32,10 @@ Given /^the product has (\d+) versions$/ do |count|
   (2..count.to_i).each do
     @product.update_attributes name: SecureRandom.hex(10)
   end
+end
+
+Given /^he should be on the product version (\d+) page$/ do |count|
+  extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
 end
 
 When /^he follows product link$/ do
@@ -69,6 +73,19 @@ When /^he submits a comment to the product$/ do
   click_button "Create Comment"
 end
 
+When /^he edits product tags$/ do
+  @tags = ["tag1", "tag2"]
+  fill_in "Tags", with: @tags.join(" ")
+end
+
+When /^he sets product visibility to (.*)$/ do |visibility|
+  select visibility.humanize, from: "Visibility"
+end
+
+When /^he changes product visibility to "([^"]*)"$/ do |visibility|
+  step "he sets product visibility to #{visibility}"
+end
+
 When /^he goes to the new product page$/ do
   visit(new_product_url(subdomain: @account.subdomain))
 end
@@ -77,7 +94,7 @@ When /^he goes to the update product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
-When /^he goes to the products list$/ do
+When /^he goes to the products page$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
@@ -122,10 +139,6 @@ Then /^he should(.*) see that product in the products list$/ do |should|
   end
 end
 
-Given /^he should be on the product version (\d+) page$/ do |count|
-  extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
-end
-
 Then /^he should see that comment on the top of comments$/ do
   comment = @comment || @product.comments.last
   page.find("#comments_list").first(".comment").find("p", text: comment.body)
@@ -144,3 +157,18 @@ Then /^he should see missing photo within sidebar$/ do
   @product.reload.photos.should be_empty
 end
 
+Then /^he should see that tags under product name$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^he should see that tags under product link$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^he should(.*) see "([^"]*)" under product name$/ do |should_not, label|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^he should see "([^"]*)" under product link$/ do |label|
+  pending # express the regexp above with the code you wish you had
+end

@@ -16,7 +16,7 @@ Feature: New product
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
     And he should see "Version 1" text within sidebar
-    When he goes to the products list
+    When he goes to the products page
     Then he should see that product in the products list
 
   Scenario: Viewer should not be able to add a new product
@@ -25,3 +25,5 @@ Feature: New product
     Then he should not see "New Product" link within sidebar
     When he goes to the new product page
     Then he should see alert message "Not allowed to create a new product."
+
+
