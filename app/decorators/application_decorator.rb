@@ -20,7 +20,7 @@ class ApplicationDecorator < Draper::Base
   def show_link(opts = {})
     opts = (opts || {}).with_indifferent_access
     #Default options
-    opts.merge!(fallback: true) unless opts[:fallback] == false
+    opts.merge!(fallback: opts[:fallback].nil? ? true : opts[:fallback])
 
     # Returning default name if name option does not present or object does not respond to name_method
     name_method = opts.delete(:name)
