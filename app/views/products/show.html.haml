@@ -1,4 +1,4 @@
-= title @product.name, page_title: false
+= title @product_version.name, page_title: false
 
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last, disable_uploads: true
@@ -14,13 +14,16 @@
 
   %br
   %br
+  = render "versions"
+  %br
+  %br
   = link_to t("back"), products_path
 
 %article
   %header
-    %h2= @product.name
+    %h2= @product_version.name
 
-  %p= @product.description
+  %p= @product_version.description
 
 %section#comments
   - if can? :create, Comment

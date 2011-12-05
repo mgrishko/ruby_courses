@@ -65,7 +65,7 @@ class ApplicationDecorator < Draper::Base
     if h.can?(:destroy, model)
       opts = (opts || {}).with_indifferent_access
       opts.merge!(method: :delete)
-      opts.merge!(confirm: I18n.t("confirm")) if opts[:confirm]
+      opts.merge!(confirm: I18n.t("confirm")) if opts[:confirm] === true
       through = opts.delete(:through) || []
       segments = through.kind_of?(Array) ? through : [through]
       segments = segments << model
@@ -85,7 +85,8 @@ class ApplicationDecorator < Draper::Base
   def self.create_link(opts = {})
     if h.can?(:create, self.model_class)
       initial_model_name = self.model_class.name.underscore
-      h.link_to(I18n.t("new", scope: "#{initial_model_name.pluralize}.defaults"), [:new, initial_model_name.to_sym], opts)
+      h.link_to(I18n.t("new", scope: "#{initial_model_name.pluralize}.defaults"),
+                [:new, initial_model_name.to_sym], opts)
     end
   end
 

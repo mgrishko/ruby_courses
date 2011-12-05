@@ -1,0 +1,6 @@
+%h3= t('.versions')
+%ul
+  = render "version_link", product: @product
+
+  - for product in ProductDecorator.decorate(@product.versions.desc(:version))
+    = render "version_link", product: product

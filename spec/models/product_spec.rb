@@ -19,6 +19,11 @@ describe Product do
     product = account.products.build
     product.account.should eql(account)
   end
+  
+  it { should respond_to :version }
+  it { should respond_to :versions } 
+  it { should respond_to :created_at }
+  it { should respond_to :updated_at }
 
   it "should embeds many comments as commentable" do
     comment = product.comments.build
@@ -42,5 +47,13 @@ describe Product do
     product.save!
     product.updated_at.should == Time.now
     Timecop.return
+  end
+  
+  it "should create versions" do
+    old_name = product.name
+    product.name = Faker::Product.product_name
+    product.save!
+    product.name.should_not == old_name
+    product.versions.first.name.should == old_name
   end
 end

@@ -28,6 +28,12 @@ Given /^he is on the new product page$/ do
   @product = nil
 end
 
+Given /^the product has (\d+) versions$/ do |count|
+  (2..count.to_i).each do
+    @product.update_attributes name: SecureRandom.hex(10)
+  end
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
@@ -86,6 +92,16 @@ Then /^he should be on the product page$/ do
   extract_port(current_url).should == product_url(product, subdomain: @account.subdomain)
 end
 
+Then /^he should(.*) see "([^"]*)" text within sidebar$/ do |should, text|
+  within(".sidebar") do
+    if should.strip == "not"
+      page.should_not have_content(text)
+    else
+      page.should have_content(text)
+    end
+  end
+end
+
 Then /^he should be on the products page$/ do
   extract_port(current_url).should == products_url(subdomain: @account.subdomain)
 end
@@ -106,6 +122,10 @@ Then /^he should(.*) see that product in the products list$/ do |should|
   end
 end
 
+Given /^he should be on the product version (\d+) page$/ do |count|
+  extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
+end
+
 Then /^he should see that comment on the top of comments$/ do
   comment = @comment || @product.comments.last
   page.find("#comments_list").first(".comment").find("p", text: comment.body)
@@ -123,3 +143,4 @@ Then /^he should see missing photo within sidebar$/ do
   # Actually we should check here that missing photo is present but it is not designed for now.
   @product.reload.photos.should be_empty
 end
+
