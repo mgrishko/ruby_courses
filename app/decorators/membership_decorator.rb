@@ -1,29 +1,26 @@
 class MembershipDecorator < ApplicationDecorator
   decorates :membership
-  include CommonLinks
 
-  class << self
-    def invitation_link(opts = {})
-      if h.can?(:create, Membership)
-        h.link_to(I18n.t("memberships.defaults.invite"), h.new_membership_path, opts)
-      end
+  def self.invitation_link(opts = {})
+    if h.can?(:create, Membership)
+      h.link_to(I18n.t("memberships.defaults.invite"), h.new_membership_path, opts)
     end
+  end
 
-    def role_select_options
-      Membership::ROLES.collect{|r| [I18n.t("roles.#{r}", scope: "memberships.defaults"), r] }
-    end
+  def self.role_select_options
+    Membership::ROLES.collect{|r| [I18n.t("roles.#{r}", scope: "memberships.defaults"), r] }
   end
 
   def display_name
     membership.user.full_name
   end
-  
+
   def email
     membership.user.email
   end
 
   def role_name
-    I18n.t("roles.#{membership.owner? ? "owner" : membership.role}", scope: scope)
+    I18n.t("roles.#{membership.owner? ? "owner" : membership.role}", scope: i18n_scope)
   end
 
   # Setups nested attributes for membership form
@@ -32,11 +29,5 @@ class MembershipDecorator < ApplicationDecorator
       a.user = User.new if a.user.nil?
     end
     self
-  end
-
-  private
-
-  def scope
-    "memberships.defaults"
   end
 end

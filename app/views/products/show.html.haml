@@ -10,8 +10,8 @@
   %br
   %br
 
-  = @product.destroy_link(class: "btn small danger")
-  
+  = @product.destroy_link(confirm: true, class: "btn small danger")
+
   %br
   %br
   = render "versions"
@@ -31,9 +31,4 @@
 
   %table
     %tbody#comments_list
-      -#- for comment in @comments
-      -#  = render comment
       = render partial: "comments/comment", collection: @comments
-
-
-

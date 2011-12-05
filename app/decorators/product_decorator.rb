@@ -1,12 +1,6 @@
 class ProductDecorator < ApplicationDecorator
   decorates :product
 
-  include CommonLinks
-
-  def show_link
-    h.show_link(product, name: :name, fallback: true)
-  end
-  
   # Returns html code for a link to a specific product version.
   # If product version is current version it returns only link name.
   #
@@ -18,7 +12,7 @@ class ProductDecorator < ApplicationDecorator
         h.product_path(last_version) : h.product_version_path(last_version, version: product.version)
 
     h.link_to_if(product.version != current_version.version,
-                 I18n.t("version", scope: scope, number: product.version),
+                 I18n.t("version", scope: i18n_scope, number: product.version),
                  path)
   end
 
@@ -30,11 +24,5 @@ class ProductDecorator < ApplicationDecorator
   def version_date
     date = product.version == 1 ? product.created_at : product.updated_at
     h.content_tag(:span, "(#{date.try(:strftime, '%d %b %Y, %H:%M')})")
-  end
-
-  private
-
-  def scope
-    "products.defaults"
   end
 end

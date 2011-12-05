@@ -31,7 +31,7 @@ en:
   accounts:
     edit:
       title: "Account settings"
-      
+
   comments:
     defaults: &COMMENT_DEFAULTS
       destroy: "Delete"
@@ -42,14 +42,14 @@ en:
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
-      edit: "Edit"
       destroy: "Delete"
+      edit: "Edit"
       invite: "Invite a new member"
       roles:
-        owner: "Owner"
         admin: "Admin"
-        editor: "Editor"
         contributor: "Contributor"
+        editor: "Editor"
+        owner: "Owner"
         viewer: "Viewer"
     index:
       title: "All People"
