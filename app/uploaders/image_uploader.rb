@@ -15,7 +15,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     env = Rails.env.test? || Rails.env.cucumber? ? "test/#{Rails.env}/" : ""
-    "uploads/#{env}/#{model.class.to_s.underscore}/#{model.id}"
+    # If uploads are stored in the "/public/system" directory,
+    # they will be automatically kept by capistrano across releases.
+    "system/uploads/#{env}/#{model.class.to_s.underscore}/#{model.id}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

@@ -1,7 +1,10 @@
 Fabricator(:product) do
   account!
-  name        { Faker::Product.product_name }
-  description { Faker::Lorem.paragraphs }
+  name         { Faker::Product.product_name }
+  manufacturer { Faker::Company.name[0..34] }
+  brand        { Faker::Product.brand }
+  description  { Faker::Lorem.paragraphs }
+  visibility   "public"
 end
 
 Fabricator(:product_with_comments, from: :product) do

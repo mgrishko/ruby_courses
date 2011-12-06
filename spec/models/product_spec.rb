@@ -7,12 +7,26 @@ describe Product do
   it { should ensure_length_of(:name).is_at_least(1).is_at_most(70) }
   it { should allow_mass_assignment_of(:name) }
   
+  it { should validate_presence_of(:manufacturer) }
+  it { should ensure_length_of(:manufacturer).is_at_least(1).is_at_most(35) }
+  it { should allow_mass_assignment_of(:manufacturer) }
+
+  it { should validate_presence_of(:brand) }
+  it { should ensure_length_of(:brand).is_at_least(1).is_at_most(70) }
+  it { should allow_mass_assignment_of(:brand) }
+
   it { should validate_presence_of(:description) }
   it { should ensure_length_of(:description).is_at_least(5).is_at_most(1000) }
   it { should allow_mass_assignment_of(:description) }
 
   it { should validate_presence_of(:account) }
   it { should_not allow_mass_assignment_of(:account) }
+
+  it { should validate_presence_of(:visibility) }
+  it { should allow_value("private").for(:visibility) }
+  it { should allow_value("public").for(:visibility) }
+  it { should_not allow_value("global").for(:visibility) }
+  it { should allow_mass_assignment_of(:visibility) }
 
   it "should belong to account" do
     account = Fabricate(:account)
@@ -28,6 +42,11 @@ describe Product do
   it "should embeds many comments as commentable" do
     comment = product.comments.build
     comment.commentable.should eql(product)
+  end
+
+  it "should embeds many tags as tagable" do
+    tag = product.tags.build
+    tag.taggable.should eql(product)
   end
 
   it "should embeds many photos" do
@@ -55,5 +74,21 @@ describe Product do
     product.save!
     product.name.should_not == old_name
     product.versions.first.name.should == old_name
+  end
+
+  describe "#public?" do
+    context "when visibility public" do
+      it "returns true" do
+        product.visibility = "public"
+        product.should be_public
+      end
+    end
+
+    context "when visibility not public" do
+      it "returns false" do
+        product.visibility = "private"
+        product.should_not be_public
+      end
+    end
   end
 end

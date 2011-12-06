@@ -43,17 +43,16 @@ When /^he follows product link$/ do
 end
 
 When /^he submits a new product form with following data:$/ do |table|
-  attrs = Fabricate.attributes_for(:product, account: nil)
+  submit_new_product_form(table.raw.flatten)
+end
 
-  table.raw.flatten.each do |field|
-    attr = field.downcase.gsub(/\s/, '_').to_sym
-    if attr == :comment
-      step "he enters a comment to the product"
-    else
-      fill_in field, with:  attrs[attr]
-    end
+When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
+  fields = ["Name", "Manufacturer", "Brand", "Description"]
+  unless custom.blank?
+    custom_field = custom.gsub(/^with\s/, "").humanize
+    fields << custom_field unless fields.find_index(custom_field)
   end
-  click_button "Create Product"
+  submit_new_product_form(fields)
 end
 
 When /^he submits form with updated product$/ do
@@ -157,7 +156,7 @@ Then /^he should see missing photo within sidebar$/ do
   @product.reload.photos.should be_empty
 end
 
-Then /^he should see that tags under product name$/ do
+Then /^he should see that tags within sidebar$/ do
   pending # express the regexp above with the code you wish you had
 end
 
@@ -165,10 +164,22 @@ Then /^he should see that tags under product link$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^he should(.*) see "([^"]*)" under product name$/ do |should_not, label|
+Then /^he should(.*) see "([^"]*)" under product link$/ do |should_not, label|
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^he should see "([^"]*)" under product link$/ do |label|
-  pending # express the regexp above with the code you wish you had
+def submit_new_product_form(fields)
+  attrs = Fabricate.attributes_for(:product, account: nil)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+
+    case attr
+      when :comment
+        step "he enters a comment to the product"
+      else
+        fill_in field, with:  attrs[attr]
+    end
+  end
+  click_button "Create Product"
 end

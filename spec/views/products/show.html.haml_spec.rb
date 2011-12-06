@@ -2,24 +2,27 @@ require 'spec_helper'
 
 describe "products/show.html.haml" do
   before(:each) do    
-    product = Fabricate.build(:product_with_comments)
-    decorator = ProductDecorator.decorate(product)
-    @product = assign(:product, decorator)
-
-#  before(:each) do
-    #@product = assign(:product, ProductDecorator.decorate(stub_model(Product,
-    #  :name => "",
-    #  :description => ""
-    #)))
+    product = stub_model(Product,
+      :name => "Name",
+      :description => "Description",
+      :manufacturer => "Manufacturer",
+      :brand => "Brand"
+    )
+    @product = assign(:product, ProductDecorator.decorate(product))
 
     @product.stub(:edit_link)
     @product.stub(:destroy_link)
-    
+
     ProductDecorator.any_instance.stub(:version_link).and_return("Version 1")
     ProductDecorator.any_instance.stub(:version_date).and_return("<span>Feb 04, 2001</span>".html_safe)
     
     @product_version = assign(:product_version, ProductDecorator.decorate(product))
-    
+
+    @product.stub(:visibility_label).with(wrapper: :li).
+        and_return("<li><span class='label important'>Private</span></li>".html_safe)
+    @product.stub(:tag_labels).with(wrapper: :li).
+        and_return("<li><span class='label'>Tag 1</span></li>".html_safe)
+
     @comment = assign(:comment, stub_model(Comment,
       :commentable => @product
     ).as_new_record)
@@ -46,9 +49,27 @@ describe "products/show.html.haml" do
       rendered.should have_selector("article header h2", text: @product.name)
     end
 
+    it "renders a product manufacturer" do
+      render
+      rendered.should have_selector("article p", text: @product.manufacturer)
+    end
+
+    it "renders a product brand" do
+      render
+      rendered.should have_selector("article p", text: @product.brand)
+    end
+
     it "renders a product description" do
       render
       rendered.should have_selector("article p", text: @product.description)
+    end
+
+    describe "comments" do
+      it "renders new comment form" do
+        render
+        rendered.should have_selector("form", action: product_comments_path(@product.id),
+                                      method: "post", "data-remote" => true)
+      end
     end
   end
 
@@ -87,13 +108,15 @@ describe "products/show.html.haml" do
       @product.should_receive(:destroy_link).with(confirm: true, class: "btn small danger")
       render
     end
-  end
 
-  describe "comments" do
-    it "renders new comment form" do
+    it "renders a product visibility label" do
       render
-      rendered.should have_selector("form", action: product_comments_path(@product.id),
-                                    method: "post", "data-remote" => true)
+      view.content_for(:sidebar).should have_selector("span.important", text: "Private")
+    end
+
+    it "renders a product tags labels" do
+      render
+      view.content_for(:sidebar).should have_selector("span.label", text: "Tag 1")
     end
   end
 end

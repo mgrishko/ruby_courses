@@ -32,7 +32,8 @@ describe Photo do
         photo = @product.photos.build
         photo.image = MiniMagick::Image.new(File.join(Rails.root, '/spec/fabricators/image.jpg'))
         photo.save!
-        photo.image.current_path.should == (Rails.public_path + "/uploads/test/test/photo/#{photo.id}/image.jpg")
+        photo.image.current_path.should ==
+            (Rails.public_path + "/system/uploads/test/test/photo/#{photo.id}/image.jpg")
       end
     end
   end
