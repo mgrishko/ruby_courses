@@ -57,9 +57,6 @@ module GoodsMaster
     # Forcing application to not access the DB or load models when precompiling assets
     config.assets.initialize_on_precompile = false
 
-    # Excluding partials from precompile path (Compass)
-    config.assets.precompile << /[^partials\/]*/
-
     # Setting test framework and fixture replacement to Fabrication
     config.generators do |g|
       g.test_framework      :rspec, :fixture => true
