@@ -7,7 +7,7 @@ class Tag
 
   validates :name,
             presence: true,
-            length: 1..20,
+            length: 1..Settings.tags.maximum_length,
             uniqueness: { case_insensitive: true, scope: :taggable }
 
   attr_accessible :name

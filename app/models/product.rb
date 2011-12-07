@@ -10,7 +10,7 @@ class Product
   field :manufacturer, type: String
   field :brand, type: String
   field :description, type: String
-  field :visibility, type: String
+  field :visibility, type: String, default: "public"
   field :updated_at, versioned: true
 
   belongs_to :account
@@ -25,7 +25,7 @@ class Product
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
 
   # :version, :updated_at attributes required for Mongoid versioning support
-  attr_accessible :name, :description, :version, :updated_at, :brand, :manufacturer, :visibility
+  attr_accessible :name, :description, :version, :updated_at, :brand, :manufacturer, :visibility, :tags_list
 
   # @return [Boolean] true if visibility "public" and false otherwise.
   def public?

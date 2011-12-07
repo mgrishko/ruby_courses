@@ -20,7 +20,7 @@ describe Mongoid::Taggable do
     end
 
     it "allows mass assignment" do
-      taggable = Fabricate(:product, tags_list: "tag1, tag2")
+      taggable = Product.new Fabricate(:product).attributes.merge({tags_list: "tag1, tag2"})
       taggable.tags_list == "tag1, tag2"
     end
 
@@ -28,6 +28,11 @@ describe Mongoid::Taggable do
       @taggable.tags_list = "tag1, tag2"
       @taggable.save!
       @taggable.tags.map(&:name).should eql(["tag1", "tag2"])
+    end
+
+    it "should have errors if any tag is invalid" do
+      @taggable.tags_list = "very_long_tag_name_and_this_tag_should_be_invalid, tag2"
+      @taggable.should have(1).error_on(:tags_list)
     end
   end
 

@@ -25,3 +25,13 @@ Fabricator(:product_with_photo, from: :product) do
     product.photos << Fabricate(:photo, product: product)
   end
 end
+
+Fabricator(:product_with_tags, from: :product) do
+  after_create do |product|
+    product.tags << Fabricate(:tag, taggable: product)
+  end
+end
+
+Fabricator(:private_product, from: :product) do
+  visibility "private"
+end

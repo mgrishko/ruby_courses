@@ -4,7 +4,7 @@ describe Tag do
   let(:tag) { Fabricate(:tag) }
 
   it { should validate_presence_of(:name) }
-  it { should ensure_length_of(:name).is_at_least(1).is_at_most(20) }
+  it { should ensure_length_of(:name).is_at_least(1).is_at_most(Settings.tags.maximum_length) }
   it { should allow_mass_assignment_of(:name) }
 
   describe "name uniqueness validation" do

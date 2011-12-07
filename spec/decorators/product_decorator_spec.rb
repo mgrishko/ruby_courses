@@ -84,11 +84,13 @@ describe ProductDecorator do
       end
 
       it "renders label with wrapper option" do
-        @decorator.visibility_label(wrapper: :div).should == "<div><span class=\"label important\">Private</span></div>"
+        @decorator.visibility_label(wrapper: :div).should ==
+            "<div><span class=\"label important\">Private</span></div>"
       end
 
       it "renders label with public false option" do
-        @decorator.visibility_label(public: false).should == "<span class=\"label important\">Private</span>"
+        @decorator.visibility_label(public: false).should ==
+            "<span class=\"label important\">Private</span>"
       end
     end
 
@@ -100,11 +102,12 @@ describe ProductDecorator do
       end
 
       it "renders label" do
-        @decorator.visibility_label.should == "<span class=\"label new\">Public</span>"
+        @decorator.visibility_label.should == "<span class=\"label success\">Public</span>"
       end
 
       it "renders label with wrapper option" do
-        @decorator.visibility_label(wrapper: :div).should == "<div><span class=\"label new\">Public</span></div>"
+        @decorator.visibility_label(wrapper: :div).should ==
+            "<div><span class=\"label success\">Public</span></div>"
       end
 
       it "does not render label with public false option" do

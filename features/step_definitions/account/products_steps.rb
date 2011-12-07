@@ -72,9 +72,13 @@ When /^he submits a comment to the product$/ do
   click_button "Create Comment"
 end
 
-When /^he edits product tags$/ do
+When /^he edits the product tags$/ do
   @tags = ["tag1", "tag2"]
-  fill_in "Tags", with: @tags.join(" ")
+  fill_in "Tags", with: @tags.join(", ")
+end
+
+When /^he adds very long tag$/ do
+  fill_in "Tags", with: SecureRandom.hex(Settings.tags.maximum_length + 1)
 end
 
 When /^he sets product visibility to (.*)$/ do |visibility|
@@ -126,11 +130,15 @@ Then /^he should be on the edit product page$/ do
   extract_port(current_url).should == edit_product_url(@product, subdomain: @account.subdomain)
 end
 
-Then /^he should(.*) see that product in the products list$/ do |should|
+Then /^he should be on the redisplayed edit product page$/ do
+  extract_port(current_url).should == edit_product_url(@product, subdomain: @account.subdomain).gsub("/edit", "")
+end
+
+Then /^he should(.*) see that product in the products list$/ do |should_not|
   product = @product || Product.first
 
   within(".content") do
-    if should.strip == "not"
+    if should_not.strip == "not"
       page.should_not have_content(product.name)
     else
       page.should have_content(product.name)
@@ -157,15 +165,27 @@ Then /^he should see missing photo within sidebar$/ do
 end
 
 Then /^he should see that tags within sidebar$/ do
-  pending # express the regexp above with the code you wish you had
+  within(".sidebar") do
+    page.find("span.label", text: @tags.first)
+  end
 end
 
 Then /^he should see that tags under product link$/ do
-  pending # express the regexp above with the code you wish you had
+  page.find("span.label", text: @tags.first)
 end
 
 Then /^he should(.*) see "([^"]*)" under product link$/ do |should_not, label|
-  pending # express the regexp above with the code you wish you had
+  within("table") do
+    if should_not.strip == "not"
+      page.should_not have_content(label)
+    else
+      page.should have_content(label)
+    end
+  end
+end
+
+Then /^he should see that tag (.*)$/ do |message|
+  page.find("#product_tags_list").find(:xpath, ".//..").find("span", text: message)
 end
 
 def submit_new_product_form(fields)
@@ -177,6 +197,8 @@ def submit_new_product_form(fields)
     case attr
       when :comment
         step "he enters a comment to the product"
+      when :tags
+         step "he edits the product tags"
       else
         fill_in field, with:  attrs[attr]
     end

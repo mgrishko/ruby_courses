@@ -45,7 +45,7 @@ class ProductDecorator < ApplicationDecorator
     opts = opts.with_indifferent_access
     return "" if opts[:public] == false && product.public?
 
-    css_class = product.public? ? "new" : "important"
+    css_class = product.public? ? "success" : "important"
     label = h.content_tag :span, I18n.t("visibility.#{product.visibility}", scope: i18n_scope),
                           class: "label #{css_class}"
 
@@ -61,7 +61,7 @@ class ProductDecorator < ApplicationDecorator
   def tag_labels(opts = {})
     opts = opts.with_indifferent_access
 
-    labels = product.tags.map { |t| h.content_tag :span, t.name, class: "label" }
-    opts[:wrapper] ? labels.map { |l| h.content_tag opts[:wrapper].to_sym, l }.join : labels.join
+    labels = product.tags.map { |t| h.content_tag :span, h.sanitize(t.name), class: "label" }
+    (opts[:wrapper] ? labels.map { |l| h.content_tag opts[:wrapper].to_sym, l }.join : labels.join).html_safe
   end
 end

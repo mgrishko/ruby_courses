@@ -214,6 +214,11 @@ describe ProductsController do
         put :update, :id => @product.id, :product => {}
         response.should render_template("edit")
       end
+
+      it "assigns a new photo as @photo" do
+        put :update, :id => @product.id, :product => {}
+        assigns(:photo).should be_a_new(Photo)
+      end
     end
   end
 
