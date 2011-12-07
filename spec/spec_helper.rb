@@ -60,7 +60,7 @@ Spork.prefork do
 
     # Cleanup all uploaded files
     config.after(:each) do
-      FileUtils.remove_entry(Rails.public_path + "/uploads/test/test", force: true)
+      FileUtils.remove_entry(Rails.public_path + "/system/uploads/test/test", force: true)
     end
 
     # If true, the base class of anonymous controllers will be inferred

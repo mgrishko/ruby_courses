@@ -1,5 +1,26 @@
 class ApplicationDecorator < Draper::Base
 
+  # Returns I18n translation scope for class object.
+  #
+  # @return [String] I18n translation scope
+  def self.i18n_scope
+    "#{self.model_class.name.underscore.pluralize}.defaults"
+  end
+
+  # Generates a create link if current ability allows to create object:
+  #
+  #   ProductDecorator.create_link, class: "button"
+  #   # => <a href="/products/new" class="button">New Product</a>
+  #
+  # [ClassDecorator] object to create a new link
+  # @param [Hash] opts optional options for link_to helper
+  # @return [String, nil] link to new object page.
+  def self.create_link(opts = {})
+    if h.can?(:create, self.model_class)
+      h.link_to(I18n.t("new", scope: i18n_scope), [:new, self.model_class.name.underscore.to_sym], opts)
+    end
+  end
+
   # Generates a show link if current ability allows to view object:
   #
   #   show_link @product, class: "button"
@@ -73,31 +94,12 @@ class ApplicationDecorator < Draper::Base
     end
   end
 
-
-  # Generates a create link if current ability allows to create object:
-  #
-  #   ProductDecorator.create_link, class: "button"
-  #   # => <a href="/products/new" class="button">New Product</a>
-  #
-  # [ClassDecorator] object to create a new link
-  # @param [Hash] opts optional options for link_to helper
-  # @return [String, nil] link to new object page.
-  def self.create_link(opts = {})
-    if h.can?(:create, self.model_class)
-      initial_model_name = self.model_class.name.underscore
-      h.link_to(I18n.t("new", scope: "#{initial_model_name.pluralize}.defaults"),
-                [:new, initial_model_name.to_sym], opts)
-    end
-  end
-
   private
-
-  # Returns translation i18n_scope for object.
+  # Returns I18n translation scope for class instance object.
   #
-  # @param [Class, Instance] object class or class instance
-  # @return [String] i18n_scope of link translations
+  # @return [String] I18n translation scope
   def i18n_scope
-    object_class = (self.kind_of?(Draper::Base) ? self.model_class : self.class)
-    "#{object_class.name.underscore.pluralize}.defaults"
+    self.class.i18n_scope
   end
+
 end

@@ -25,6 +25,12 @@ section.main {
   margin-top: 80px;
 }
 
+.sidebar {
+  ul {
+    @include no-bullets;
+
+  }
+}
 
 
 
