@@ -6,7 +6,9 @@ Feature: Account activation
   Scenario: Admin activates account
     Given company representative has a new account
     And an authenticated admin
-    When admin goes to the accounts page
+    When he goes to the home page
+    When he follows "Accounts" within topbar
+    #When admin goes to the accounts page
     And he activates the account
     Then he should see notice message "Account was successfully activated."
     And an account owner should receive an activation email

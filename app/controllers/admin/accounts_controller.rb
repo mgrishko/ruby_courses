@@ -1,4 +1,5 @@
 class Admin::AccountsController < Admin::BaseController
+  layout "admin"
 
   # GET /admin/accounts
   # GET /admin/accounts.json
