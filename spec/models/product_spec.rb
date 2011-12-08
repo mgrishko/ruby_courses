@@ -44,6 +44,11 @@ describe Product do
     comment.commentable.should eql(product)
   end
 
+  it "should have many events as trackable" do
+    event = product.events.build
+    event.trackable.should eql(product)
+  end
+  
   it "should embeds many tags as tagable" do
     tag = product.tags.build
     tag.taggable.should eql(product)
@@ -66,6 +71,15 @@ describe Product do
     product.save!
     product.updated_at.should == Time.now
     Timecop.return
+  end
+  
+  it "should create updated comment when updated" do
+    user = product.account.owner
+    expect {
+      product.create_updated_comment(user)
+    }.to change(product.comments, :count).by(1)
+    product.comments.last.body.should == "Updated by #{user.full_name}"
+    product.comments.last.system.should be_true
   end
   
   it "should create versions" do

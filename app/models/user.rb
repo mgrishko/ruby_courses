@@ -7,6 +7,7 @@ class User
   field :locale, type: String, default: "en"
 
   has_many :accounts, foreign_key: :owner_id, autosave: true
+  has_many :events
   accepts_nested_attributes_for :accounts
   attr_accessible :accounts_attributes
 

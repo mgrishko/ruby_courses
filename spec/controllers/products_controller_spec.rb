@@ -131,6 +131,16 @@ describe ProductsController do
         post :create, :product => valid_attributes
         response.should redirect_to(Product.last)
       end
+      
+      it "creates added event" do
+        expect {
+          post :create, :product => valid_attributes
+        }.to change(Event, :count).by(1)
+        
+        event = Event.desc(:created_at).first
+        event.type.should == "create"
+        event.trackable eq(@product)
+      end
     end
 
     describe "with invalid params" do
@@ -150,6 +160,12 @@ describe ProductsController do
       it "re-renders the 'new' template" do
         post :create, :product => {}
         response.should render_template("new")
+      end
+      
+      it "doesn't create added event" do
+        expect {
+          post :create, :product => {}
+        }.to change(Event, :count).by(0)
       end
     end
   end
@@ -194,6 +210,25 @@ describe ProductsController do
         lambda { put :update, :id => product.id, :product => valid_attributes }.
             should raise_error(Mongoid::Errors::DocumentNotFound)
       end
+      
+      it "creates updated event" do
+        expect {
+          put :update, :id => @product.id, :product => valid_attributes
+        }.to change(Event, :count).by(1)
+        
+        event = Event.desc(:created_at).first
+        event.type.should == "update"
+        event.trackable eq(@product)
+      end
+      
+      it "creates updated comment" do
+        expect {
+          put :update, :id => @product.id, :product => valid_attributes
+        }.to change(@product.comments, :count).by(1)
+        
+        comment = @product.comments.desc(:created_at).first
+        comment.commentable eq(@product)
+      end
     end
 
     describe "with invalid params" do
@@ -213,6 +248,12 @@ describe ProductsController do
       it "re-renders the 'edit' template" do
         put :update, :id => @product.id, :product => {}
         response.should render_template("edit")
+      end
+      
+      it "doesn't create updated event" do
+        expect {
+          put :update, :id => @product.id, :product => {}
+        }.to change(Event, :count).by(0)
       end
 
       it "assigns a new photo as @photo" do
@@ -239,6 +280,16 @@ describe ProductsController do
     it "redirects to the products list" do
       delete :destroy, :id => @product.id
       response.should redirect_to(products_url)
+    end
+    
+    it "creates destroyed event" do
+      expect {
+        delete :destroy, :id => @product.id
+      }.to change(Event, :count).by(1)
+      
+      event = Event.desc(:created_at).first
+      event.type.should == "destroy"
+      event.trackable eq(@product)
     end
 
     it "does not allow to destroy other account product" do

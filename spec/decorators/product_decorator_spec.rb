@@ -106,9 +106,16 @@ describe ProductDecorator do
         @decorator.visibility_label.should == "<span class=\"label success\">Public</span>"
       end
 
-      it "renders label with wrapper option" do
-        @decorator.visibility_label(wrapper: :div).should ==
-            "<div><span class=\"label success\">Public</span></div>"
+      context "when user cannot view product" do
+        it "renders product name" do
+          @decorator.h.stub(:can?).and_return(false)
+          @decorator.show_link(name: :name).should == @product.name
+        end
+
+        it "renders label with wrapper option" do
+          @decorator.visibility_label(wrapper: :div).should ==
+              "<div><span class=\"label success\">Public</span></div>"
+        end
       end
 
       it "does not render label with public false option" do

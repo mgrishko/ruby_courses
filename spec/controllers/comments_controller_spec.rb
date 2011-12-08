@@ -40,6 +40,16 @@ describe CommentsController do
           post :create, product_id: @product.id, :comment => valid_attributes, format: :js
           response.should render_template("create")
         end
+        
+        it "creates create event" do
+          expect {
+            post :create, product_id: @product.id, :comment => valid_attributes, format: :js
+          }.to change(Event, :count).by(1)
+
+          event = Event.desc(:created_at).first
+          event.type.should == "create"
+          event.trackable eq(@product)
+        end
       end
 
       describe "with invalid params" do
@@ -57,6 +67,12 @@ describe CommentsController do
         it "redirects to the product page" do
           post :create, product_id: @product.id, :comment => {}, format: :js
           response.should render_template("create")
+        end
+        
+        it "doesn't create added event" do
+          expect {
+            post :create, product_id: @product.id, :comment => {}, format: :js
+          }.to change(Event, :count).by(0)
         end
       end
     end

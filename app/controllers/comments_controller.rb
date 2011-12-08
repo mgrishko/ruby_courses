@@ -1,7 +1,8 @@
 class CommentsController < MainController
   load_resource :product, through: :current_account
   load_and_authorize_resource :comment, through: [:product]
-
+  after_filter :log_event, only: [:create]
+  
   respond_to :html, :js
 
   # POST /comments
@@ -9,6 +10,7 @@ class CommentsController < MainController
   def create
     #@comment = Comment.new(params[:comment]) # loaded by cancan
     @comment.user = current_user
+
     @comment.save
     @comment = CommentDecorator.decorate(@comment)
     respond_with(@comment) do |format|
@@ -24,5 +26,12 @@ class CommentsController < MainController
     respond_with(@comment) do |format|
       format.html { redirect_to @product }
     end
+  end
+  
+  protected
+  
+  # Logs comment creation
+  def log_event
+    @comment.commentable.log_event(current_membership, action_name, @comment.model) if @comment.errors.empty?
   end
 end

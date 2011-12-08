@@ -1,8 +1,11 @@
 class Product
   include Mongoid::Document
-  include Mongoid::Versioning
+
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
+  include Mongoid::Versioning
   include Mongoid::Taggable
+  include Mongoid::Trackable
 
   VISIBILITIES = %w(private public)
 
@@ -12,8 +15,9 @@ class Product
   field :description, type: String
   field :visibility, type: String, default: "public"
   field :updated_at, versioned: true
-
+  
   belongs_to :account
+
   embeds_many :comments, as: :commentable, versioned: false
   embeds_many :photos, versioned: false
 
@@ -40,6 +44,14 @@ class Product
     if comment.body.present? && comment.valid?
       self.comments << comment
     end
+    comment
+  end
+  
+  # Saves comment for product update.
+  def create_updated_comment(user)
+    comment = self.comments.build(body: I18n.t("products.events.update", user_name: user.full_name), user: user)
+    comment.system = true
+    comment.save
     comment
   end
 end

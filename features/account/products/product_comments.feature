@@ -22,7 +22,7 @@ Feature: Product comments
     And he submits form with updated product
     Then he should be on the product page
     And he should see notice message "Product was successfully updated."
-    And he should see that comment on the top of comments
+    And he should see that comment among other comments
 
   @javascript
   Scenario: Contributor add a comment to the product
