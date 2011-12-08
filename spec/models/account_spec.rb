@@ -79,6 +79,11 @@ describe Account do
     product = account.products.build
     product.account.should eql(account)
   end
+  
+  it "should have many events" do
+    event = account.events.build
+    event.account.should eql(account)
+  end
 
   describe "default values" do
     before(:each) do

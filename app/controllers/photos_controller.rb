@@ -1,7 +1,8 @@
 class PhotosController < MainController
   load_resource :product, through: :current_account
   load_and_authorize_resource through: :product
-
+  after_filter :log_event, only: [:create]
+  
   respond_to :html, :js
 
   # POST /photos
@@ -33,5 +34,10 @@ class PhotosController < MainController
     if @photo.errors.empty?
       @photo = @product.photos.empty? ? Photo.new : @product.photos.last
     end
+  end
+  
+  # Logs photo creation
+  def log_event
+    @product.log_event(current_membership, action_name, @product) if @photo.errors.empty?
   end
 end

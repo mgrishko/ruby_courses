@@ -12,7 +12,7 @@ Feature: Products list
     When he follows "Products" within topbar
     Then he should be on the products page
 
-  Scenario: User can not view other company account products
+  Scenario: User cannot view other company account products
     Given some other account
     And that other account has a product
     Given an authenticated user with viewer role

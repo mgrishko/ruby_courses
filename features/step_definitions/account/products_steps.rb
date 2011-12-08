@@ -107,6 +107,44 @@ When /^he attaches the product photo$/ do
   end
 end
 
+When /^he adds a new product$/ do
+  steps %Q{
+    When he is on the products page
+    And he follows "New Product" within sidebar
+    And he submits a new product form with following data:
+      | Name         |
+      | Manufacturer |
+      | Brand        |
+      | Description  |
+    Then he should be on the product page
+    And he should see notice message "Product was successfully created."
+  }
+end
+
+When /^he deletes the product$/ do
+  steps %Q{
+    When he is on the product page
+    And he follows "Delete Product" within sidebar
+  }
+end
+
+When /^he updates the product$/ do
+  steps %Q{
+    When he is on the product page
+    And he follows "Edit Product" within sidebar
+    And he submits form with updated product
+    Then he should be on the product page
+    And he should see notice message "Product was successfully updated."
+  }
+end
+
+When /^he adds a comment to the product$/ do
+  steps %Q{
+    And he is on the product page
+    When he submits a comment to the product
+  }
+end
+
 Then /^he should be on the product page$/ do
   product = @product || Product.last
   extract_port(current_url).should == product_url(product, subdomain: @account.subdomain)
@@ -149,6 +187,11 @@ end
 Then /^he should see that comment on the top of comments$/ do
   comment = @comment || @product.comments.last
   page.find("#comments_list").first(".comment").find("p", text: comment.body)
+end
+
+Then /^he should see that comment among other comments$/ do
+  comment = @comment || @product.comments.last
+  page.find("#comments_list").find("p", text: comment.body)
 end
 
 Then /^he should see product comments$/ do

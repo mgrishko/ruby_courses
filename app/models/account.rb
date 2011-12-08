@@ -13,6 +13,7 @@ class Account
   belongs_to :owner, class_name: "User"
   embeds_many :memberships, validate: false
   has_many :products
+  has_many :events
 
   before_validation :set_default_attributes, on: :create
   before_validation :downcase_subdomain

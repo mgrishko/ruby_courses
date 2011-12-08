@@ -62,6 +62,11 @@ describe User do
       user.full_name.should == "John Bon Jovi"
     end
   end
+  
+  it "should have many events" do
+    event = user.events.build
+    event.user.should eql(user)
+  end
 
   describe "#generate_password!" do
     before(:each) { user.generate_password! }

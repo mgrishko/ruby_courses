@@ -14,7 +14,7 @@ Feature: Show product
     Then he should be on the product page
     And he should not see "Edit Product" link within sidebar
 
-  Scenario: Editor can see a lint to edit product
+  Scenario: Editor can see a link to edit product
     Given an authenticated user with editor role
     And he is on the product page
     Then he should see "Edit Product" link within sidebar

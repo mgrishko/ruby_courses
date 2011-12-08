@@ -26,6 +26,14 @@ describe PhotosController do
         post :create, product_id: @product.id, :photo => valid_attributes, format: :js
         response.should render_template("create")
       end
+      
+      it "logs create event" do
+        Photo.any_instance.stub_chain(:errors, "empty?".to_sym).and_return(true)
+        Photo.any_instance.stub(:save).and_return(true)
+        
+        Product.any_instance.should_receive(:log_event)
+        post :create, product_id: @product.id, :photo => valid_attributes, format: :js
+      end
     end
 
     describe "with invalid params" do
@@ -43,6 +51,12 @@ describe PhotosController do
       it "redirects to the product page" do
         post :create, product_id: @product.id, :photo => {}, format: :js
         response.should render_template("create")
+      end
+      
+      it "doesn't create create event" do
+        expect {
+          post :create, product_id: @product.id, :photo => valid_attributes, format: :js
+        }.to change(Event, :count).by(0)
       end
     end
   end

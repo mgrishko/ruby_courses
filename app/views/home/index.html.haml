@@ -1,1 +1,9 @@
 %h1 Home
+
+%table
+  - @events.each do |e|
+    %tr
+      %td= e.trackable_name
+      %td= e.trackable_link
+      %td= e.description
+      %td= e.date

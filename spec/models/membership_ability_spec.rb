@@ -34,6 +34,11 @@ describe MembershipAbility do
     it { @ability.should be_able_to(:manage, Membership.new) }
     it { @ability.should be_able_to(:manage, Product.new) }
     it { @ability.should be_able_to(:manage, Comment.new) }
+    it "shouldn't be able to destroy system comment" do
+      comment = Comment.new
+      comment.system = true
+      @ability.should_not be_able_to(:destroy, comment)
+    end
     it { @ability.should be_able_to(:manage, Photo.new) }
   end
 
@@ -47,6 +52,10 @@ describe MembershipAbility do
     it { @ability.should be_able_to(:create, Comment.new) }
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
+    it "shouldn't be able to destroy system comment" do
+      @own_comment.system = true
+      @ability.should_not be_able_to(:destroy, @own_comment)
+    end
     it { @ability.should_not be_able_to(:update, Comment.new) }
     it { @ability.should be_able_to(:manage, Photo.new) }
   end
@@ -61,6 +70,10 @@ describe MembershipAbility do
     it { @ability.should be_able_to(:create, Comment.new) }
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
+    it "shouldn't be able to destroy system comment" do
+      @own_comment.system = true
+      @ability.should_not be_able_to(:destroy, @own_comment)
+    end
     it { @ability.should_not be_able_to(:update, Comment.new) }
     it { @ability.should_not be_able_to(:manage, Photo.new) }
   end
