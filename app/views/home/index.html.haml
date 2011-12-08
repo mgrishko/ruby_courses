@@ -3,7 +3,7 @@
 %table
   - @events.each do |e|
     %tr
-      %td= e.display_name
-      %td= e.show_link
-      %td= e.user_name
-      %td= e.formatted_date
+      %td= e.trackable_name
+      %td= e.trackable_link
+      %td= e.description
+      %td= e.date

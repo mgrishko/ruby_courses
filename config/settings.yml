@@ -5,6 +5,8 @@ defaults: &defaults
   links:
     project_home: "http://GoodsMasterHQ.com"
     feedback: "http://feedback.goodsmasterhq.com"
+  events:
+    recent_max_count: 50
 
 development:
   <<: *defaults

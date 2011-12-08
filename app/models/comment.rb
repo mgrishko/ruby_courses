@@ -1,6 +1,4 @@
 class Comment
-  include Trackable
-  
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps
@@ -10,7 +8,6 @@ class Comment
 
   embedded_in :commentable, polymorphic: true
   belongs_to :user
-  has_many :events, as: :trackable
 
   validates :body, presence: true, length: { maximum: 1000 }
   validates :user, presence: true
@@ -27,11 +24,5 @@ class Comment
   # System comments can't be destroyed
   set_callback(:destroy, :before) do |c|
     !c.system?
-  end
-  
-  # Finds comment by id. Performs search in deleted and present products and comments.
-  def self.find_trackable(trackable_id)
-    product = Product.unscoped.where(:"comments._id" => trackable_id).first
-    product.comments.unscoped.find(trackable_id)
   end
 end

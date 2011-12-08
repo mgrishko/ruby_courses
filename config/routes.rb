@@ -1,6 +1,4 @@
 GoodsMaster::Application.routes.draw do
-  resources :events
-
   constraints(subdomain: /.+/) do
     devise_for :users,
                path: "/",

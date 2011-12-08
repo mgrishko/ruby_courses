@@ -1,19 +1,16 @@
 class Product
-  include Trackable
-  
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps
-
+  include Mongoid::Trackable
+  
   field :name, type: String
   field :description, type: String
-
+  has_many :events, as: :trackable
   belongs_to :account
 
-  has_many :events, as: :trackable
   embeds_many :comments, as: :commentable, versioned: false
   embeds_many :photos, versioned: false
-
 
   validates :name, presence: true, length: 1..70
   validates :description, presence: true, length: 5..1000
@@ -34,14 +31,9 @@ class Product
   
   # Saves comment for product update.
   def create_updated_comment(user)
-    comment = self.comments.build(body: I18n.t("products.defaults.updated_by", user_name: user.full_name), user: user)
+    comment = self.comments.build(body: I18n.t("products.events.update", user_name: user.full_name), user: user)
     comment.system = true
     comment.save
     comment
-  end
-  
-  # Finds product by id. Performs search in deleted and present products.
-  def self.find_trackable(trackable_id)
-    Product.unscoped.find(trackable_id)
   end
 end

@@ -55,7 +55,7 @@ describe Product do
     product.events.should be_empty
     product.log_event(membership, "create")
     product.events.first.should be_persisted
-    product.events.first.type?("added").should be_true
+    product.events.first.type?("create").should be_true
     product.events.first.user.should eq(product.account.owner)
     product.events.first.account.should eq(product.account)
   end
@@ -67,7 +67,7 @@ describe Product do
     product.destroy
     product.log_event(membership, "update")
     product.events.first.should be_persisted
-    product.events.first.type?("updated").should be_true
+    product.events.first.type?("update").should be_true
     product.events.first.user.should eq(membership.user)
     product.events.first.account.should eq(membership.account)
   end
@@ -79,7 +79,7 @@ describe Product do
     product.destroy
     product.log_event(membership, "destroy")
     product.events.first.should be_persisted
-    product.events.first.type?("destroyed").should be_true
+    product.events.first.type?("destroy").should be_true
     product.events.first.user.should eq(membership.user)
     product.events.first.account.should eq(membership.account)
   end
@@ -91,14 +91,5 @@ describe Product do
     }.to change(product.comments, :count).by(1)
     product.comments.last.body.should == "Updated by #{user.full_name}"
     product.comments.last.system.should be_true
-  end
-  
-  it "should be found as trackable" do
-    Product.find_trackable(product.id).should eq(product)
-  end
-  
-  it "should be found as trackable even if deleted" do
-    product.destroy
-    Product.find_trackable(product.id).should eq(product)
   end
 end

@@ -3,30 +3,37 @@ class EventDecorator < ApplicationDecorator
   include CommonLinks
   
   # Returns the date when the event occured
-  def formatted_date
+  def date
     if event.created_at + 1.day > DateTime.now
-      h.time_ago_in_words(event.created_at) + " ago"
+      I18n.t("events.defaults.time_ago", time: h.time_ago_in_words(event.created_at))
     else
       event.created_at.strftime("%b %d, %Y")
     end
   end
   
-  # Returns the name of the user who raised the event
-  def user_name
-    event.user.full_name
+  # Returns event description and user name
+  def description
+    if event.trackable_child_type.nil?
+      I18n.t("#{event.trackable_type.pluralize.downcase}.events.#{event.type}", 
+        user_name: event.user.full_name)
+    else
+      I18n.t("#{event.trackable_child_type.pluralize.downcase}.events.#{event.type}", 
+        user_name: event.user.full_name)
+    end
   end
   
-  # Returns event name
-  def display_name
-    I18n.t("#{event.trackable_type.pluralize.downcase}.defaults.#{event.type}")
-  end 
+  # Returns link to the trackable object page or the name of the event
+  # if the current user can't read the object
+  def trackable_link
+    if h.can?(:read, event.trackable) && event.trackable
+      h.link_to name, event.trackable
+    else
+      name
+    end
+  end
   
-  # Returns link to the trackable object page or display_name of the trackable object page
-  def show_link
-    trackable_class = "#{event.trackable_type}".constantize
-    trackable_decorator_class = "#{event.trackable_type}Decorator".constantize
-    trackable_object = trackable_class.find_trackable(event.trackable_id)
-    trackable_decorator_object = trackable_decorator_class.new(trackable_object)
-    trackable_decorator_object.show_link
+  # Returns the class name of the trackable object
+  def trackable_name
+    I18n.t("#{event.trackable_type.pluralize.downcase}.events.name")
   end
 end

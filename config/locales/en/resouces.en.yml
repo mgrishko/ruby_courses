@@ -38,11 +38,15 @@ en:
       destroy: "Delete"
       added: "Comment Added"
       destroyed: "Comment Deleted"
+    events:
+      create: "Commented by %{user_name}"
 
   errors:
     messages:
       already_invited: "is already invited"
-
+  events:
+    defaults:
+      time_ago: "%{time} ago"
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
       edit: "Edit"
@@ -80,16 +84,20 @@ en:
     defaults: &PHOTO_DEFAULTS
       destroy: "Delete photo"
       upload_photo: "Upload photo"
-
+    events:
+      name: "Photo"
+      create: "Photo added by %{user_name}"
+      destroy: "Photo deleted by %{user_name}"
   products:
     defaults: &PRODUCT_DEFAULTS
-      added: "Product Added"
-      updated: "Product Updated"
-      destroyed: "Product Deleted"
       destroy: "Delete Product"
       edit: "Edit Product"
       new: "New Product"
-      updated_by: "Updated by %{user_name}"
+    events:
+      name: "Product"
+      create: "Created by %{user_name}"
+      update: "Updated by %{user_name}"
+      destroy: "Deleted by %{user_name}"
     edit:
       <<: *PRODUCT_DEFAULTS
       title: "Edit product"

@@ -1,15 +1,3 @@
-When /^he adds a new product$/ do
-  steps %Q{
-    When he is on the products page
-    And he follows "New Product" within sidebar
-    And he submits a new product form with following data:
-      | Name        |
-      | Description |
-    Then he should be on the product page
-    And he should see notice message "Product was successfully created."
-  }
-end
-
 When /^he follows Dashboard link$/ do
   click_link("Dashboard")
 end
@@ -18,35 +6,13 @@ Then /^he should see "([^"]*)" event$/ do |txt|
   page.find("td", text: txt)
 end
 
-When /^he deletes the product$/ do
-  steps %Q{
-    When he is on the product page
-    And he follows "Delete Product" within sidebar
-  }
-end
-
-When /^he updates the product$/ do
-  steps %Q{
-    When he is on the product page
-    And he follows "Edit Product" within sidebar
-    And he submits form with updated product
-    Then he should be on the product page
-    And he should see notice message "Product was successfully updated."
-  }
-end
-
-When /^he adds a comment to the product$/ do
-  steps %Q{
-    And he is on the product page
-    When he submits a comment to the product
-  }
-end
-
 Then /^he deletes the comment$/ do
   steps %Q{
     When he is on the product page
   }
-  click_link("Delete")
+  within("div.links") do
+    click_link("Delete")
+  end
 end
 
 Then /^he should see "([^"]*)" comment on the product page$/ do |txt|

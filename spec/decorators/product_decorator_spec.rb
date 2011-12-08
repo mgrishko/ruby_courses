@@ -61,14 +61,6 @@ describe ProductDecorator do
         end
       end
       
-      context "when user can view destroyed product" do
-        it "renders link" do
-          @product.destroy
-          @decorator.h.stub(:can?).and_return(true)
-          @decorator.show_link.should =="Product name"
-        end
-      end
-
       context "when user cannot view product" do
         it "renders product name" do
           @decorator.h.stub(:can?).and_return(false)

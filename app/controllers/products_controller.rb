@@ -2,6 +2,7 @@ class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
   before_filter :prepare_photo, only: [:show, :edit, :update]
+  after_filter :log_event, only: [:create, :update, :destroy]
 
   # GET /products
   # GET /products.xml
@@ -40,9 +41,7 @@ class ProductsController < MainController
   # POST /products.xml
   def create
     #@product = Product.new(params[:product]) loaded by CanCan
-    if @product.save
-      @product.log_added(current_membership)
-    end
+    @product.save
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end
@@ -52,8 +51,8 @@ class ProductsController < MainController
   def update
     #@product = Product.find(params[:id]) loaded by CanCan
     @product.attributes = params[:product]
+    #@product.save
     if @product.save
-      @product.log_updated(current_membership)
       @product.create_updated_comment(current_user)
     end
     @product = ProductDecorator.decorate(@product)
@@ -64,9 +63,7 @@ class ProductsController < MainController
   # DELETE /products/1.xml
   def destroy
     #@product = Product.find(params[:id]) loaded by CanCan
-    if @product.destroy
-      @product.log_destroyed(current_membership)
-    end
+    @product.destroy
     respond_with(@product)
   end
 
@@ -78,9 +75,9 @@ class ProductsController < MainController
   end
   
   # Logs added, updated, destroyed events of product.
-  #def log_event
-  #  @event = @product.log_event(current_membership, action_name)
-  #end
+  def log_event
+    @product.log_event(current_membership, action_name) if @product.errors.empty?
+  end
 
   # Prepares photo for photo form in product's show and edit actions.
   def prepare_photo

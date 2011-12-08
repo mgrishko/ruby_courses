@@ -4,16 +4,16 @@ describe "home/index.html.haml" do
   before(:each) do
     assign(:events, [
       stub_model(Event, 
-        formatted_date: "Jan 02, 2011",
-        display_name: "Product Added",
-        user_name: "User Name",
-        show_link: "<a>Product Name</a>".html_safe
+        trackable_name: "Product",
+        trackable_link: "<a>Product Name</a>".html_safe,
+        description: "Created by User Name",
+        date: "Jan 02, 2011"
       ),
       stub_model(Event, 
-        formatted_date: "Jan 01, 2011",
-        display_name: "Comment Added",
-        user_name: "User Name",
-        show_link: "<a>Comment Text</a>".html_safe
+        trackable_name: "Product",
+        trackable_link: "<a>Product Name</a>".html_safe,
+        description: "Commented by User Name",
+        date: "Jan 01, 2011"
       )
     ])
   end
@@ -26,8 +26,8 @@ describe "home/index.html.haml" do
     
     it "renders event types" do
       render
-      rendered.should have_selector("td", text: "Product Added")
-      rendered.should have_selector("td", text: "Comment Added")
+      rendered.should have_selector("td", text: "Product")
+      rendered.should have_selector("td", text: "Product")
     end
     
     it "renders event dates" do
@@ -38,14 +38,14 @@ describe "home/index.html.haml" do
     
     it "renders event owners" do
       render
-      rendered.should have_selector("td", text: "User Name")
-      rendered.should have_selector("td", text: "User Name")
+      rendered.should have_selector("td", text: "Created by User Name")
+      rendered.should have_selector("td", text: "Commented by User Name")
     end
     
     it "renders event object links" do
       render
       rendered.should have_selector("td a", text: "Product Name")
-      rendered.should have_selector("td a", text: "Comment Text")
+      rendered.should have_selector("td a", text: "Product Name")
     end
   end
 end

@@ -7,9 +7,9 @@ describe Event do
   it { should validate_presence_of(:user) }
   
   it { should validate_presence_of(:type) }
-  it { should allow_value("added").for(:type) }
-  it { should allow_value("updated").for(:type) }
-  it { should allow_value("destroyed").for(:type) }
+  it { should allow_value("create").for(:type) }
+  it { should allow_value("update").for(:type) }
+  it { should allow_value("destroy").for(:type) }
   it { should_not allow_value("whatever").for(:type) }
   
   it "should belong to account" do
@@ -30,4 +30,10 @@ describe Event do
     event.trackable.should eql(product)
   end
   
+  it "should set name to trackable name when created" do
+    product = Fabricate(:product)
+    event = product.events.build type: "create", account: product.account, user: product.account.owner
+    event.save!
+    event.name.should == product.name
+  end
 end

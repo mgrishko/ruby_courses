@@ -1,4 +1,5 @@
 Fabricator(:event) do
   user!
-  type "added"
+  type "create"
+  trackable { Fabricate(:product) }
 end
