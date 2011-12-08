@@ -31,7 +31,7 @@ en:
   accounts:
     edit:
       title: "Account settings"
-      
+
   comments:
     defaults: &COMMENT_DEFAULTS
       added: "Comment Added"
@@ -49,14 +49,14 @@ en:
       time_ago: "%{time} ago"
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
-      edit: "Edit"
       destroy: "Delete"
+      edit: "Edit"
       invite: "Invite a new member"
       roles:
-        owner: "Owner"
         admin: "Admin"
-        editor: "Editor"
         contributor: "Contributor"
+        editor: "Editor"
+        owner: "Owner"
         viewer: "Viewer"
     index:
       title: "All People"
@@ -93,6 +93,11 @@ en:
       destroy: "Delete Product"
       edit: "Edit Product"
       new: "New Product"
+      version: "Version %{number}"
+      versions: "Versions"
+      visibility:
+        private: "Private"
+        public: "Public"
     events:
       name: "Product"
       create: "Created by %{user_name}"
@@ -109,6 +114,7 @@ en:
       title: "New product"
     show:
       <<: *PRODUCT_DEFAULTS
+      tags: "Tags and Privacy"
 
   users:
     invitations:

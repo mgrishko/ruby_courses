@@ -16,7 +16,7 @@ Feature: Products list
     Given some other account
     And that other account has a product
     Given an authenticated user with viewer role
-    When he goes to the products list
+    When he goes to the products page
     Then he should not see that product in the products list
 
 

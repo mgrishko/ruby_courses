@@ -40,10 +40,7 @@ describe MembershipAbility do
   describe "editor" do
     prepare_ability_for :editor, :membership
 
-    before do
-      @own_comment = Fabricate(:comment)
-      @own_comment.user = @resource.user
-    end
+    before { @own_comment = Comment.new(user: @resource.user) }
 
     it { @ability.should_not be_able_to(:read, Membership) }
     it { @ability.should be_able_to(:manage, Product.new) }
@@ -57,10 +54,7 @@ describe MembershipAbility do
   describe "contributor" do
     prepare_ability_for :contributor, :membership
 
-    before do
-      @own_comment = Fabricate(:comment)
-      @own_comment.user = @resource.user
-    end
+    before { @own_comment = Comment.new(user: @resource.user) }
 
     it { @ability.should_not be_able_to(:read, Membership) }
     it { @ability.should be_able_to(:read, Product) }

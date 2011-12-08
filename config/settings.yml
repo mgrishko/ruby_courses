@@ -8,6 +8,10 @@ defaults: &defaults
   events:
     recent_max_count: 50
 
+  tags:
+    maximum_length: 20
+    separator: ","
+
 development:
   <<: *defaults
 

@@ -3,6 +3,7 @@ class ProductsController < MainController
   before_filter :prepare_comment, except: [:index, :destroy]
   before_filter :prepare_photo, only: [:show, :edit, :update]
   after_filter :log_event, only: [:create, :update, :destroy]
+  before_filter :load_version, only: [:show]
 
   # GET /products
   # GET /products.xml
@@ -16,8 +17,8 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    @product = ProductDecorator.decorate(@product)
     @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
+    @product = ProductDecorator.decorate(@product)
 
     respond_with(@product)
   end
@@ -79,6 +80,14 @@ class ProductsController < MainController
     @product.log_event(current_membership, action_name) if @product.errors.empty?
   end
 
+  # Load product version if version param is present
+  def load_version
+    @product_version = params[:version] ?
+        @product.versions.where(version: params[:version]).first : @product
+
+    @product_version = ProductDecorator.decorate(@product_version)
+  end
+  
   # Prepares photo for photo form in product's show and edit actions.
   def prepare_photo
     @photo = Photo.new

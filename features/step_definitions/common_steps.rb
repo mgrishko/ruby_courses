@@ -19,3 +19,13 @@ Then /^he should(.*) see "([^"]*)" link within sidebar$/ do |should, link|
     end
   end
 end
+
+Then /^he should(.*) see "([^"]*)" within sidebar$/ do |should, content|
+  within(".sidebar") do
+    if should.strip == "not"
+      page.should_not have_content(content)
+    else
+      page.should have_content(content)
+    end
+  end
+end

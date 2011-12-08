@@ -1,6 +1,5 @@
 class EventDecorator < ApplicationDecorator
   decorates :event
-  include CommonLinks
   
   # Returns the date when the event occured
   def date

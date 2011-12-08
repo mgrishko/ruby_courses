@@ -16,11 +16,15 @@ class Event
   validates :user, presence: true
   validates :type, presence: true, inclusion: { in: TYPES }
   
-  # Store the name of the trackable object in the event
+  # Stores the name of the trackable object in the event
   set_callback(:create, :before) do |comment|
     self.name = trackable.name
   end
   
+  # Checks if event has a specific type
+  #
+  # @param [String] event type
+  # @return [Boolean] true if event has the specified type and false otherwise
   def type?(type)
     self.type == type.to_s
   end

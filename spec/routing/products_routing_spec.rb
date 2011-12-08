@@ -11,6 +11,10 @@ describe ProductsController do
       get("http://subdomain.example.com/products/1").should route_to("products#show", id: "1")
     end
 
+    it "routes to #show version" do
+      get("http://subdomain.example.com/products/1/versions/1").should route_to("products#show", id: "1", version: "1")
+    end
+    
     it "routes to #new" do
       get("http://subdomain.example.com/products/new").should route_to("products#new")
     end

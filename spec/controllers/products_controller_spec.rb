@@ -7,7 +7,13 @@ describe ProductsController do
   def valid_attributes
     @attrs ||= Fabricate.attributes_for(:product, account: nil)
   end
-
+  
+  def other_valid_attributes 
+    other_valid_attributes = valid_attributes
+    other_valid_attributes[:name] = SecureRandom.hex(10)
+    return other_valid_attributes
+  end
+  
   describe "GET index" do
     login_account_as :viewer, account: { subdomain: "company" }
 
@@ -34,6 +40,15 @@ describe ProductsController do
       product = account.products.create! valid_attributes
       get :show, :id => product.id
       assigns(:product).should eq(product)
+    end
+    
+    it "loads the specified version" do
+      account = Account.where(subdomain: "company").first
+      product = account.products.create! valid_attributes
+      (2..3).each { product.update_attributes(other_valid_attributes) }
+      
+      get :show, id: product.id, version: 1
+      assigns(:product_version).version.should == 1
     end
 
     it "does not show other account product" do
@@ -106,6 +121,12 @@ describe ProductsController do
         assigns(:product).should be_persisted
       end
 
+      it "creates the first version of the product" do
+        post :create, :product => valid_attributes
+        assigns(:product).version.should == 1
+        assigns(:product).should be_persisted
+      end
+      
       it "redirects to the created product" do
         post :create, :product => valid_attributes
         response.should redirect_to(Product.last)
@@ -173,6 +194,11 @@ describe ProductsController do
         assigns(:product).should eq(@product)
       end
 
+      it "increments product version number" do
+        put :update, :id => @product.id, :product => other_valid_attributes
+        assigns(:product).version.should == 2
+      end
+
       it "redirects to the product" do
         put :update, :id => @product.id, :product => valid_attributes
         response.should redirect_to(@product)
@@ -228,6 +254,11 @@ describe ProductsController do
         expect {
           put :update, :id => @product.id, :product => {}
         }.to change(Event, :count).by(0)
+      end
+
+      it "assigns a new photo as @photo" do
+        put :update, :id => @product.id, :product => {}
+        assigns(:photo).should be_a_new(Photo)
       end
     end
   end

@@ -19,7 +19,7 @@ gem "state_machine"
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'bootstrap-sass', '1.4.0'
-  #gem 'compass', '~> 0.12.alpha'
+  #gem 'compass', "~> 0.11.5"
 
   gem 'execjs'
   gem 'therubyracer', :platforms => :mri   # Skip in jRuby evnironment

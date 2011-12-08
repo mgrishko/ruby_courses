@@ -1,4 +1,4 @@
-= title @product.name, page_title: false
+= title @product_version.name, page_title: false
 
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last, disable_uploads: true
@@ -10,17 +10,28 @@
   %br
   %br
 
-  = @product.destroy_link(class: "btn small danger")
+  = @product.destroy_link(confirm: true, class: "btn small danger")
 
+  %br
+  %br
+
+  %h3= t('.tags')
+  %ul
+    = @product.visibility_label(wrapper: :li)
+    = @product.tag_labels(wrapper: :li)
+
+  = render "versions"
   %br
   %br
   = link_to t("back"), products_path
 
 %article
   %header
-    %h2= @product.name
+    %h2= @product_version.name
 
-  %p= @product.description
+  %p= @product_version.manufacturer
+  %p= @product_version.brand
+  %p= @product_version.description
 
 %section#comments
   - if can? :create, Comment
@@ -28,9 +39,4 @@
 
   %table
     %tbody#comments_list
-      -#- for comment in @comments
-      -#  = render comment
       = render partial: "comments/comment", collection: @comments
-
-
-

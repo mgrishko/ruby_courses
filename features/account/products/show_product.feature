@@ -18,3 +18,11 @@ Feature: Show product
     Given an authenticated user with editor role
     And he is on the product page
     Then he should see "Edit Product" link within sidebar
+
+  Scenario: Contributor can see product versions
+    Given the product has 2 versions
+    Given an authenticated user with editor role
+    And he is on the product page
+    When he follows "Version 1" within sidebar
+    Then he should be on the product version 1 page
+    

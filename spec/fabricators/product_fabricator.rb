@@ -1,7 +1,10 @@
 Fabricator(:product) do
   account!
-  name        { Faker::Product.product_name }
-  description { Faker::Lorem.paragraphs }
+  name         { Faker::Product.product_name }
+  manufacturer { Faker::Company.name[0..34] }
+  brand        { Faker::Product.brand }
+  description  { Faker::Lorem.paragraphs }
+  visibility   "public"
 end
 
 Fabricator(:product_with_comments, from: :product) do
@@ -21,4 +24,14 @@ Fabricator(:product_with_photo, from: :product) do
   after_create do |product|
     product.photos << Fabricate(:photo, product: product)
   end
+end
+
+Fabricator(:product_with_tags, from: :product) do
+  after_create do |product|
+    product.tags << Fabricate(:tag, taggable: product)
+  end
+end
+
+Fabricator(:private_product, from: :product) do
+  visibility "private"
 end

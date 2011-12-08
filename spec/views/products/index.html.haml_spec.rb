@@ -13,8 +13,13 @@ describe "products/index.html.haml" do
       )
     ])
 
-    view.stub(:create_link)
+    ProductDecorator.stub(:create_link)
     Product.any_instance.stub(:show_link)
+
+    Product.any_instance.stub(:visibility_label).with(public: false).
+        and_return("<span class='label important'>Private</span>".html_safe)
+    Product.any_instance.stub(:tag_labels).
+        and_return("<span class='label'>Tag 1</span>".html_safe)
   end
 
   describe "content" do
@@ -29,11 +34,21 @@ describe "products/index.html.haml" do
       end
       render
     end
+
+    it "renders product visibility" do
+      render
+      rendered.should have_selector("span.important", text: "Private")
+    end
+
+    it "renders product tags" do
+      render
+      rendered.should have_selector("span.label", text: "Tag 1")
+    end
   end
 
   describe "sidebar" do
     it "renders a new link" do
-      view.should_receive(:create_link).with(Product, class: "btn large primary")
+      ProductDecorator.should_receive(:create_link).with(class: "btn large primary")
       render
     end
   end

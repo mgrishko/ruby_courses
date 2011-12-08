@@ -6,8 +6,8 @@ Given /^he is on the products page$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
-Given /^that account has a product(.*)$/ do |relative|
-  fabricator = "product#{relative}".gsub(/\s/, "_").to_sym
+Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|
+  fabricator = "#{prefix}product#{suffix}".gsub(/\s/, "_").to_sym
   @product = Fabricate(fabricator, account: @account)
 end
 
@@ -28,22 +28,31 @@ Given /^he is on the new product page$/ do
   @product = nil
 end
 
+Given /^the product has (\d+) versions$/ do |count|
+  (2..count.to_i).each do
+    @product.update_attributes name: SecureRandom.hex(10)
+  end
+end
+
+Given /^he should be on the product version (\d+) page$/ do |count|
+  extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
 
 When /^he submits a new product form with following data:$/ do |table|
-  attrs = Fabricate.attributes_for(:product, account: nil)
+  submit_new_product_form(table.raw.flatten)
+end
 
-  table.raw.flatten.each do |field|
-    attr = field.downcase.gsub(/\s/, '_').to_sym
-    if attr == :comment
-      step "he enters a comment to the product"
-    else
-      fill_in field, with:  attrs[attr]
-    end
+When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
+  fields = ["Name", "Manufacturer", "Brand", "Description"]
+  unless custom.blank?
+    custom_field = custom.gsub(/^with\s/, "").humanize
+    fields << custom_field unless fields.find_index(custom_field)
   end
-  click_button "Create Product"
+  submit_new_product_form(fields)
 end
 
 When /^he submits form with updated product$/ do
@@ -63,6 +72,23 @@ When /^he submits a comment to the product$/ do
   click_button "Create Comment"
 end
 
+When /^he edits the product tags$/ do
+  @tags = ["tag1", "tag2"]
+  fill_in "Tags", with: @tags.join(", ")
+end
+
+When /^he adds very long tag$/ do
+  fill_in "Tags", with: SecureRandom.hex(Settings.tags.maximum_length + 1)
+end
+
+When /^he sets product visibility to (.*)$/ do |visibility|
+  select visibility.humanize, from: "Visibility"
+end
+
+When /^he changes product visibility to "([^"]*)"$/ do |visibility|
+  step "he sets product visibility to #{visibility}"
+end
+
 When /^he goes to the new product page$/ do
   visit(new_product_url(subdomain: @account.subdomain))
 end
@@ -71,7 +97,7 @@ When /^he goes to the update product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
-When /^he goes to the products list$/ do
+When /^he goes to the products page$/ do
   visit(products_url(subdomain: @account.subdomain))
 end
 
@@ -80,13 +106,16 @@ When /^he attaches the product photo$/ do
     attach_file('photo_image', File.join(Rails.root, '/spec/fabricators/image.jpg'))
   end
 end
+
 When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
     And he follows "New Product" within sidebar
     And he submits a new product form with following data:
-      | Name        |
-      | Description |
+      | Name         |
+      | Manufacturer |
+      | Brand        |
+      | Description  |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
   }
@@ -121,6 +150,16 @@ Then /^he should be on the product page$/ do
   extract_port(current_url).should == product_url(product, subdomain: @account.subdomain)
 end
 
+Then /^he should(.*) see "([^"]*)" text within sidebar$/ do |should, text|
+  within(".sidebar") do
+    if should.strip == "not"
+      page.should_not have_content(text)
+    else
+      page.should have_content(text)
+    end
+  end
+end
+
 Then /^he should be on the products page$/ do
   extract_port(current_url).should == products_url(subdomain: @account.subdomain)
 end
@@ -129,11 +168,15 @@ Then /^he should be on the edit product page$/ do
   extract_port(current_url).should == edit_product_url(@product, subdomain: @account.subdomain)
 end
 
-Then /^he should(.*) see that product in the products list$/ do |should|
+Then /^he should be on the redisplayed edit product page$/ do
+  extract_port(current_url).should == edit_product_url(@product, subdomain: @account.subdomain).gsub("/edit", "")
+end
+
+Then /^he should(.*) see that product in the products list$/ do |should_not|
   product = @product || Product.first
 
   within(".content") do
-    if should.strip == "not"
+    if should_not.strip == "not"
       page.should_not have_content(product.name)
     else
       page.should have_content(product.name)
@@ -162,4 +205,46 @@ end
 Then /^he should see missing photo within sidebar$/ do
   # Actually we should check here that missing photo is present but it is not designed for now.
   @product.reload.photos.should be_empty
+end
+
+Then /^he should see that tags within sidebar$/ do
+  within(".sidebar") do
+    page.find("span.label", text: @tags.first)
+  end
+end
+
+Then /^he should see that tags under product link$/ do
+  page.find("span.label", text: @tags.first)
+end
+
+Then /^he should(.*) see "([^"]*)" under product link$/ do |should_not, label|
+  within("table") do
+    if should_not.strip == "not"
+      page.should_not have_content(label)
+    else
+      page.should have_content(label)
+    end
+  end
+end
+
+Then /^he should see that tag (.*)$/ do |message|
+  page.find("#product_tags_list").find(:xpath, ".//..").find("span", text: message)
+end
+
+def submit_new_product_form(fields)
+  attrs = Fabricate.attributes_for(:product, account: nil)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+
+    case attr
+      when :comment
+        step "he enters a comment to the product"
+      when :tags
+         step "he edits the product tags"
+      else
+        fill_in field, with:  attrs[attr]
+    end
+  end
+  click_button "Create Product"
 end
