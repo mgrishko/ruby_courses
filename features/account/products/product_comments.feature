@@ -7,6 +7,7 @@ Feature: Product comments
     Given an activated account
     And that account has a product with comments
 
+  @wip
   Scenario: Editor successfully adds a new product with comment
     Given an authenticated user with editor role
     And he is on the new product page

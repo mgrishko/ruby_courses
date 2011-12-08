@@ -24,7 +24,7 @@ class EventDecorator < ApplicationDecorator
   # Returns link to the trackable object page or the name of the event
   # if the current user can't read the object
   def trackable_link
-    if h.can?(:read, event.trackable) && event.trackable
+    if event.trackable.present? && h.can?(:read, event.trackable)
       h.link_to name, event.trackable
     else
       name

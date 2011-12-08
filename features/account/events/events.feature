@@ -9,7 +9,8 @@ Feature: New event
   Scenario: Editor sees a new event when he adds a new product
     Given an authenticated user with editor role
     When he adds a new product
-    And he goes to the home page
+    Then he should see "Created by" comment on the product page
+    When he goes to the home page
     Then he should see "Created by" event
 
   Scenario: Editor sees "Updated by" comment when he updates a product

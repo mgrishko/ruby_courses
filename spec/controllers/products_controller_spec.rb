@@ -132,6 +132,12 @@ describe ProductsController do
         response.should redirect_to(Product.last)
       end
       
+      it "creates system comment" do
+        post :create, :product => valid_attributes
+        assigns(:product).comments.count.should == 1
+        assigns(:product).comments.first.system.should be_true
+      end
+      
       it "creates added event" do
         expect {
           post :create, :product => valid_attributes

@@ -36,7 +36,7 @@ class Product
     visibility == "public"
   end
 
-  # Prepares comment for create and update actions
+  # Prepares comment for create and update actions.
   def prepare_comment(user, attrs = {})
     comment = Comment.new(attrs)
     comment.created_at = Time.now
@@ -53,5 +53,22 @@ class Product
     comment.system = true
     comment.save
     comment
+  end
+  
+  # Creates system comment or appends "Created/Updated by" text to comment body.
+  #
+  # @param [user] owner of the comment.
+  # @return [Boolean] true if saved and false otherwise. 
+  def save_with_system_comment(user)
+    comment = comments.last || comments.build
+    
+    template = self.new_record? ? "products.events.create" : "products.events.update"
+    system_comment_text = I18n.t(template, user_name: user.full_name)
+    comment.system = true
+    comment.created_at = DateTime.now
+    comment.user = user
+    comment.body = "#{comment.body}\r\n#{system_comment_text}"
+    
+    save
   end
 end

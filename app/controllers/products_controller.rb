@@ -42,7 +42,7 @@ class ProductsController < MainController
   # POST /products.xml
   def create
     #@product = Product.new(params[:product]) loaded by CanCan
-    @product.save
+    @product.save_with_system_comment(current_user)
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end
@@ -52,10 +52,7 @@ class ProductsController < MainController
   def update
     #@product = Product.find(params[:id]) loaded by CanCan
     @product.attributes = params[:product]
-    #@product.save
-    if @product.save
-      @product.create_updated_comment(current_user)
-    end
+    @product.save_with_system_comment(current_user)
     @product = ProductDecorator.decorate(@product)
     respond_with(@product)
   end
