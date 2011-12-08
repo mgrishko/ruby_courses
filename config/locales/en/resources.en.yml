@@ -66,6 +66,9 @@ en:
       menu_title: "Account"
       settings: "Settings"
       users: "All People"
+    accounts:
+      menu_title: "Accounts"
+      list: "Account list"
     main:
       home: "Dashboard"
       products: "Products"

@@ -22,7 +22,7 @@ describe ProductDecorator do
     it "#manufacturer" do
       @decorator.manufacturer.should == "Manufacturer"
     end
-    
+
     it "#brand" do
       @decorator.brand.should == "Brand"
     end
@@ -34,11 +34,11 @@ describe ProductDecorator do
     it "#created_at" do
       @decorator.created_at.should == @product.created_at
     end
-    
+
     it "#updated_at" do
       @decorator.updated_at.should == @product.updated_at
     end
-    
+
     it "#version" do
       @decorator.version.should == 1
     end
@@ -68,7 +68,8 @@ describe ProductDecorator do
 
   describe "#visibility_options" do
     it "returns options for select" do
-      Product::VISIBILITIES = %w(private public)
+      #product_decorator_spec.rb:71: warning: already initialized constant VISIBILITIES
+      #Product::VISIBILITIES = %w(private public)
       ProductDecorator.visibility_options.should == [["Private", "private"], ["Public", "public"]]
     end
   end

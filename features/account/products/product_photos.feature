@@ -27,7 +27,7 @@ Feature: Product photos
     And he should be on the edit product page
     And he should see missing photo within sidebar
 
-  @wip
+  @javascript
   Scenario Outline: User without editor rights can not manage photos
     Given that account has a product <photo> photo
     And an authenticated user with <role> role

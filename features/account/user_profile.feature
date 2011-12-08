@@ -1,5 +1,5 @@
 Feature: Edit profile
-  In order to edit profile data
+  In order to edit user profile data
   A user
   Should be able change profile data
 
@@ -10,7 +10,7 @@ Feature: Edit profile
     Given an authenticated user with viewer role
     When he goes to the home page
     And he follows "Profile" within topbar
-    Then he should be redirected to the edit profile page
+    Then he should be redirected to the user profile page
     When he submits profile form with current password
     Then he should see notice message "You updated your profile successfully."
     And he follows "Sign out" within topbar
@@ -20,15 +20,15 @@ Feature: Edit profile
 
   Scenario: User edits profile without current password
     Given an authenticated user with viewer role
-    And he is on the edit profile page
+    And he is on the user profile page
     When he submits profile form without current password
     Then he should see that current password can't be blank
 
   Scenario: User sets new password
     Given an authenticated user with viewer role
-    And he is on the edit profile page
+    And he is on the user profile page
     When he submits profile form with new password
-    Then he should be redirected to the edit profile page
+    Then he should be redirected to the user profile page
     And he should see notice message "You updated your profile successfully."
     And he follows "Sign out" within topbar
     Then he should be redirected to the user sign in page

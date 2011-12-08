@@ -52,8 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :profile, t('navigation.user.profile'), edit_admin_registration_url
-    primary.item :sing_out, t('navigation.user.sign_out'), destroy_admin_session_url
+    primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
@@ -72,12 +71,11 @@ SimpleNavigation::Configuration.run do |navigation|
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
-    primary.dom_id = 'admin_menu'
+    primary.dom_id = 'account_menu'
     primary.dom_class = 'dropdown-menu'
 
     # You can turn off auto highlighting for a specific level
     # primary.auto_highlight = false
 
   end
-
 end
