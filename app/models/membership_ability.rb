@@ -8,7 +8,7 @@ class MembershipAbility
       can :manage, :all
       cannot :manage, Account
       cannot [:update, :destroy], Membership, user_id: membership.account.owner_id
-      cannot :destroy, Comment, system: true
+      cannot :destroy, Comment, { system: true }
     elsif membership.role? :editor
       can :read, :all
       can :manage, Product
