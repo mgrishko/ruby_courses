@@ -81,10 +81,13 @@ en:
   products:
     defaults: &PRODUCT_DEFAULTS
       destroy: "Delete Product"
-      version: "Version %{number}"
-      versions: "Versions"
       edit: "Edit Product"
       new: "New Product"
+      version: "Version %{number}"
+      versions: "Versions"
+      visibility:
+        private: "Private"
+        public: "Public"
     edit:
       <<: *PRODUCT_DEFAULTS
       title: "Edit product"
@@ -96,6 +99,7 @@ en:
       title: "New product"
     show:
       <<: *PRODUCT_DEFAULTS
+      tags: "Tags and Privacy"
 
   users:
     invitations:

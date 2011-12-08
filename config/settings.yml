@@ -6,6 +6,10 @@ defaults: &defaults
     project_home: "http://GoodsMasterHQ.com"
     feedback: "http://feedback.goodsmasterhq.com"
 
+  tags:
+    maximum_length: 20
+    separator: ","
+
 development:
   <<: *defaults
 

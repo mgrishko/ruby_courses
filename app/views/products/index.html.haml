@@ -15,3 +15,6 @@
               = image_tag product.photos.last.image.small.url
           %td
             %h2= product.show_link(name: :name)
+            = product.visibility_label(public: false)
+            = product.tag_labels
+

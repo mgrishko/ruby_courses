@@ -3,7 +3,11 @@
 
   .inputs
     = f.input :name
+    = f.input :manufacturer
+    = f.input :brand
     = f.input :description, as: :text
+    = f.input :tags_list
+    = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
     = simple_fields_for @comment, wrapper: :inline do |n|
       = n.input :body, as: :text, required: false

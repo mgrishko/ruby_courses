@@ -2,7 +2,13 @@ require 'spec_helper'
 
 describe "memberships/index.html.haml" do
   before(:each) do
-    @membership = stub_model(Membership, :display_name => "lname", :role_name => "Editor", :model => Membership, :email => "some@email.com" )
+    @membership = stub_model(Membership,
+      :display_name => "lname",
+      :role_name => "Editor",
+      :model => Membership,
+      :email => "some@email.com"
+    )
+
     Membership.any_instance.stub(:edit_link).and_return("<a>Edit</a>")
     Membership.any_instance.stub(:destroy_link).and_return("<a>Delete</a>")
     MembershipDecorator.stub(:invitation_link)

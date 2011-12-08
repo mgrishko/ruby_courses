@@ -2,7 +2,7 @@ class ProductsController < MainController
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy]
   before_filter :load_version, only: [:show]
-  before_filter :prepare_photo, only: [:show, :edit]
+  before_filter :prepare_photo, only: [:show, :edit, :update]
 
   # GET /products
   # GET /products.xml
