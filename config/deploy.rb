@@ -53,8 +53,15 @@ namespace :deploy do
     db_config = "/var/www/projects/#{application}/config/mongoid.yml"
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
+
+  #Regenerate yard documention and restart yard server
+  task :yard_regenerate, :roles => :app do
+    run "yard doc"
+    run "yard server"
+  end
 end
 
 after "deploy", "deploy:copy_database_configuration"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
+after "deploy", "deploy:yard_regenerate" if ENV['RAILS_ENV'] == qa

@@ -60,6 +60,9 @@ gem 'mini_magick'
 gem 'capistrano'
 gem 'capistrano-ext'
 
+# Documentation Yard
+gem "yard", "~> 0.7.4"
+
 # External services
 gem "airbrake"
 gem "newrelic_rpm"
