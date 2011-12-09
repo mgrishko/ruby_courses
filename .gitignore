@@ -2,6 +2,7 @@
 .idea
 .bundle
 .rvmrc
+coverage/
 log/*.log
 log/*.pid
 log/*.db
