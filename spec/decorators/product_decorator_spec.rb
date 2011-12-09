@@ -68,7 +68,6 @@ describe ProductDecorator do
 
   describe "#visibility_options" do
     it "returns options for select" do
-      Product::VISIBILITIES = %w(private public)
       ProductDecorator.visibility_options.should == [["Private", "private"], ["Public", "public"]]
     end
   end

@@ -26,7 +26,7 @@ module Mongoid
     def tags_list=(val)
       @tags_list = val
 
-      valid_tags = val.split(Settings.tags.separator).map(&:strip).compact
+      valid_tags = val.split(Settings.tags.separator).map(&:strip).reject(&:blank?)
       current_tags = self.tags.map(&:name)
       tags_attrs = {}
 
