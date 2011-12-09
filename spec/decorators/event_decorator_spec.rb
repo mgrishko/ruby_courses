@@ -10,10 +10,10 @@ describe EventDecorator do
     
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
-        type: "create",
+        action_name: "create",
         name: "A product",
-        trackable_child_type: nil,
         trackable: @product,
+        trackable_event_source: @product,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
@@ -47,9 +47,9 @@ describe EventDecorator do
     
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
-        type: "update",
+        action_name: "update",
         name: "A product",
-        trackable_child_type: nil,
+        trackable_event_source: @product,
         trackable: @product,
         user: @user
       )
@@ -85,9 +85,9 @@ describe EventDecorator do
     
       @event = stub_model(Event,
         created_at: DateTime.parse("2011-01-01"),
-        type: "destroy",
+        action_name: "destroy",
         name: "A product",
-        trackable_child_type: nil,
+        trackable_event_source: @product,
         trackable: @product,
         user: @user
       )
@@ -118,13 +118,14 @@ describe EventDecorator do
     before(:each) do    
       @product = Fabricate(:product)
       @user = Fabricate(:user)
-    
+      @comment = @product.comments.create body: "Some content"
+      
       @event = stub_model(Event, 
         created_at: DateTime.parse("2011-01-01"),
-        type: "create",
+        action_name: "create",
         name: "A product",
         trackable: @product,
-        trackable_child_type: "Comment",
+        trackable_event_source: @comment,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)

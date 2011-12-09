@@ -67,7 +67,8 @@ class Product
     comment.system = true
     comment.created_at = DateTime.now
     comment.user = user
-    comment.body = "#{comment.body}\r\n#{system_comment_text}"
+    comment_empty = comment.body.nil? || comment.body.empty?
+    comment.body = comment_empty ? system_comment_text : "#{comment.body}\r\n#{system_comment_text}"
     
     save
   end

@@ -144,7 +144,7 @@ describe ProductsController do
         }.to change(Event, :count).by(1)
         
         event = Event.desc(:created_at).first
-        event.type.should == "create"
+        event.action_name.should == "create"
         event.trackable eq(@product)
       end
     end
@@ -223,7 +223,7 @@ describe ProductsController do
         }.to change(Event, :count).by(1)
         
         event = Event.desc(:created_at).first
-        event.type.should == "update"
+        event.action_name.should == "update"
         event.trackable eq(@product)
       end
       
@@ -294,7 +294,7 @@ describe ProductsController do
       }.to change(Event, :count).by(1)
       
       event = Event.desc(:created_at).first
-      event.type.should == "destroy"
+      event.action_name.should == "destroy"
       event.trackable eq(@product)
     end
 

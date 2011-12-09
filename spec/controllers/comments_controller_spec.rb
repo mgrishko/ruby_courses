@@ -47,7 +47,7 @@ describe CommentsController do
           }.to change(Event, :count).by(1)
 
           event = Event.desc(:created_at).first
-          event.type.should == "create"
+          event.action_name.should == "create"
           event.trackable eq(@product)
         end
       end

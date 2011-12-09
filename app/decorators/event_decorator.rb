@@ -12,13 +12,8 @@ class EventDecorator < ApplicationDecorator
   
   # Returns event description and user name
   def description
-    if event.trackable_child_type.nil?
-      I18n.t("#{event.trackable_type.pluralize.downcase}.events.#{event.type}", 
-        user_name: event.user.full_name)
-    else
-      I18n.t("#{event.trackable_child_type.pluralize.downcase}.events.#{event.type}", 
-        user_name: event.user.full_name)
-    end
+    I18n.t("#{event.trackable_event_source_type.pluralize.downcase}.events.#{event.action_name}", 
+      user_name: event.user.full_name)
   end
   
   # Returns link to the trackable object page or the name of the event

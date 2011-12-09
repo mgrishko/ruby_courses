@@ -18,7 +18,7 @@ describe Mongoid::Trackable do
     @trackable.events.should be_empty
     @trackable.log_event(membership, "create")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("create").should be_true
+    @trackable.events.first.action_name?("create").should be_true
     @trackable.events.first.user.should eq(@trackable.account.owner)
     @trackable.events.first.account.should eq(@trackable.account)
   end
@@ -30,7 +30,7 @@ describe Mongoid::Trackable do
     @trackable.destroy
     @trackable.log_event(membership, "update")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("update").should be_true
+    @trackable.events.first.action_name?("update").should be_true
     @trackable.events.first.user.should eq(membership.user)
     @trackable.events.first.account.should eq(membership.account)
   end
@@ -42,7 +42,7 @@ describe Mongoid::Trackable do
     @trackable.destroy
     @trackable.log_event(membership, "destroy")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("destroy").should be_true
+    @trackable.events.first.action_name?("destroy").should be_true
     @trackable.events.first.user.should eq(membership.user)
     @trackable.events.first.account.should eq(membership.account)
   end
