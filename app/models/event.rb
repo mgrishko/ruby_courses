@@ -3,11 +3,11 @@ class Event
   include Mongoid::Timestamps::Created
   
   # Stores the name of the trackable object in the event and sets
-  # trackable_event_source to trackable if trackable_event_source is not set
+  # eventable to trackable if eventable is not set
   before_validation Proc.new { |event| 
     event.name = event.trackable.name unless event.trackable.nil?
-    if event.trackable_event_source.nil? && !event.trackable.nil?
-      event.trackable_event_source = event.trackable
+    if event.eventable.nil? && !event.trackable.nil?
+      event.eventable = event.trackable
     end
   }
   
@@ -15,17 +15,16 @@ class Event
   
   field :action_name, type: String
   field :name, type: String
-  #field :trackable_child_type, type: String
   
   belongs_to :trackable, polymorphic: true
-  belongs_to :trackable_event_source, polymorphic: true
+  belongs_to :eventable, polymorphic: true
   belongs_to :account
   belongs_to :user
   
   validates :account, presence: true
   validates :user, presence: true
   validates :trackable, presence: true
-  validates :trackable_event_source, presence: true
+  validates :eventable, presence: true
   validates :name, presence: true
   validates :action_name, presence: true, inclusion: { in: ACTION_NAMES }
   

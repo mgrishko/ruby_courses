@@ -6,7 +6,7 @@ class Product
   include Mongoid::Versioning
   include Mongoid::Taggable
   include Mongoid::Trackable
-
+  
   VISIBILITIES = %w(private public)
 
   field :name, type: String
@@ -55,11 +55,20 @@ class Product
     comment
   end
   
-  # Creates system comment or appends "Created/Updated by" text to comment body.
+  # Saves product and creates system comment or appends "Created/Updated by"
+  # text to comment body. If the product was created or updated less then
+  # 60 minutes ago no comment is created.
   #
   # @param [user] owner of the comment.
   # @return [Boolean] true if saved and false otherwise. 
   def save_with_system_comment(user)
+    # If the most recent version was created/updated less then 60 minutes ago then
+    # save without versioning.
+    when_updated = versions.last.nil? ? updated_at : versions.last.updated_at
+    if when_updated && when_updated >= (Time.now - Settings.events.collapse_timeframe.minutes)
+      self.versionless { |p| return p.save }
+    end
+    
     comment = comments.last || comments.build
     
     template = self.new_record? ? "products.events.create" : "products.events.update"
@@ -69,7 +78,6 @@ class Product
     comment.user = user
     comment_empty = comment.body.nil? || comment.body.empty?
     comment.body = comment_empty ? system_comment_text : "#{comment.body}\r\n#{system_comment_text}"
-    
     save
   end
 end

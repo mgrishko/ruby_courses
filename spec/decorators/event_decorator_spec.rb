@@ -13,7 +13,7 @@ describe EventDecorator do
         action_name: "create",
         name: "A product",
         trackable: @product,
-        trackable_event_source: @product,
+        eventable: @product,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)
@@ -49,7 +49,7 @@ describe EventDecorator do
         created_at: DateTime.parse("2011-01-01"),
         action_name: "update",
         name: "A product",
-        trackable_event_source: @product,
+        eventable: @product,
         trackable: @product,
         user: @user
       )
@@ -87,7 +87,7 @@ describe EventDecorator do
         created_at: DateTime.parse("2011-01-01"),
         action_name: "destroy",
         name: "A product",
-        trackable_event_source: @product,
+        eventable: @product,
         trackable: @product,
         user: @user
       )
@@ -125,7 +125,7 @@ describe EventDecorator do
         action_name: "create",
         name: "A product",
         trackable: @product,
-        trackable_event_source: @comment,
+        eventable: @comment,
         user: @user
       )
       @decorator = EventDecorator.decorate(@event)

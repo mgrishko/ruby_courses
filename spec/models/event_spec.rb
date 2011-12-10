@@ -6,7 +6,7 @@ describe Event do
   it { should validate_presence_of(:account) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:trackable) }
-  it { should validate_presence_of(:trackable_event_source) }
+  it { should validate_presence_of(:eventable) }
   it { should validate_presence_of(:name) }
   
   it { should validate_presence_of(:action_name) }

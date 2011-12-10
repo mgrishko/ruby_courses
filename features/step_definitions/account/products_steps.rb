@@ -56,10 +56,12 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
 end
 
 When /^he submits form with updated product$/ do
-  sleep(1) # Sleep here in order to create a comment 1 second later then existing one
-
-  fill_in :name, with: "New product name"
-  click_button "Update Product"
+  # Wait 61 minute here to create a comment later then existing one
+  Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+    fill_in :name, with: "New product name"
+    click_button "Update Product"
+  end
+  Timecop.return
 end
 
 When /^he enters a comment to the product$/ do
@@ -129,13 +131,16 @@ When /^he deletes the product$/ do
 end
 
 When /^he updates the product$/ do
-  steps %Q{
-    When he is on the product page
-    And he follows "Edit Product" within sidebar
-    And he submits form with updated product
-    Then he should be on the product page
-    And he should see notice message "Product was successfully updated."
-  }
+  Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+    steps %Q{
+      When he is on the product page
+      And he follows "Edit Product" within sidebar
+      And he submits form with updated product
+      Then he should be on the product page
+      And he should see notice message "Product was successfully updated."
+    }
+  end
+  Timecop.return
 end
 
 When /^he adds a comment to the product$/ do

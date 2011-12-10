@@ -201,7 +201,10 @@ describe ProductsController do
       end
 
       it "increments product version number" do
-        put :update, :id => @product.id, :product => other_valid_attributes
+        Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+          put :update, :id => @product.id, :product => other_valid_attributes
+        end
+        Timecop.return
         assigns(:product).version.should == 2
       end
 
@@ -228,10 +231,12 @@ describe ProductsController do
       end
       
       it "creates updated comment" do
-        expect {
-          put :update, :id => @product.id, :product => valid_attributes
-        }.to change(@product.comments, :count).by(1)
-        
+        Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+          expect {
+            put :update, :id => @product.id, :product => valid_attributes
+          }.to change(@product.comments, :count).by(1)
+        end
+        Timecop.return
         comment = @product.comments.desc(:created_at).first
         comment.commentable eq(@product)
       end
