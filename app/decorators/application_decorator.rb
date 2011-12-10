@@ -42,10 +42,16 @@ class ApplicationDecorator < Draper::Base
     opts = (opts || {}).with_indifferent_access
     #Default options
     opts.merge!(fallback: opts[:fallback].nil? ? true : opts[:fallback])
-
-    # Returning default name if name option does not present or object does not respond to name_method
-    name_method = opts.delete(:name)
-    name = (model.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
+    
+    text = opts.delete(:text)
+    
+    if text.nil?
+      # Returning default name if name option does not present or object does not respond to name_method
+      name_method = opts.delete(:name)
+      name = (model.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
+    else
+      name = text
+    end
 
     fallback = opts.delete(:fallback)
 

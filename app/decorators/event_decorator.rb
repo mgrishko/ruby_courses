@@ -20,7 +20,13 @@ class EventDecorator < ApplicationDecorator
   # if the current user can't read the object
   def trackable_link
     if event.trackable.present? && h.can?(:read, event.trackable)
-      h.link_to name, event.trackable
+      eventable_object = "#{event.eventable_type}".constantize.send(:super_find, event.eventable_id, event.trackable)
+      if eventable_object.nil?
+        name
+      else
+        eventable_decorator = "#{event.eventable_type}Decorator".constantize.send(:new, eventable_object)
+        eventable_decorator.show_link text: event.name
+      end
     else
       name
     end

@@ -9,9 +9,11 @@ describe CommentDecorator do
     @decorator = CommentDecorator.decorate(@comment)
   end
 
-  describe "decorates" do
-    it "#info" do
-      @decorator.info.should == "#{@comment.user.full_name}, #{@comment.created_at.strftime('%d %b %Y, %H:%M')}"
-    end
+  it "#info" do
+    @decorator.info.should == "#{@comment.user.full_name}, #{@comment.created_at.strftime('%d %b %Y, %H:%M')}"
+  end
+  
+  it "#show_link" do
+    @decorator.show_link(text: "text").should == "<a href=\"/products/#{@product.id}##{@comment.id}\">text</a>"
   end
 end

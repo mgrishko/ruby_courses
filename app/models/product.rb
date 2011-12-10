@@ -48,12 +48,12 @@ class Product
   end
   
   # Saves comment for product update.
-  def create_updated_comment(user)
-    comment = self.comments.build(body: I18n.t("products.events.update", user_name: user.full_name), user: user)
-    comment.system = true
-    comment.save
-    comment
-  end
+  #def create_updated_comment(user)
+  #  comment = self.comments.build(body: I18n.t("products.events.update", user_name: user.full_name), user: user)
+  #  comment.system = true
+  #  comment.save
+  #  comment
+  #end
   
   # Saves product and creates system comment or appends "Created/Updated by"
   # text to comment body. If the product was created or updated less then
@@ -79,5 +79,9 @@ class Product
     comment_empty = comment.body.nil? || comment.body.empty?
     comment.body = comment_empty ? system_comment_text : "#{comment.body}\r\n#{system_comment_text}"
     save
+  end
+  
+  def self.super_find id, embedded_in
+    find(id)
   end
 end

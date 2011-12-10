@@ -25,4 +25,8 @@ class Comment
   set_callback(:destroy, :before) do |c|
     !c.system?
   end
+  
+  def self.super_find id, embedded_in
+    embedded_in.comments.find(id)
+  end
 end
