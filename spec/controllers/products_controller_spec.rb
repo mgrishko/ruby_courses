@@ -135,7 +135,7 @@ describe ProductsController do
       it "creates system comment" do
         post :create, :product => valid_attributes
         assigns(:product).comments.count.should == 1
-        assigns(:product).comments.first.system.should be_true
+        assigns(:product).comments.first.event.should_not be_nil
       end
       
       it "creates added event" do
@@ -235,6 +235,7 @@ describe ProductsController do
           expect {
             put :update, :id => @product.id, :product => valid_attributes
           }.to change(@product.comments, :count).by(1)
+          @product.comments.first.event.should_not be_nil
         end
         Timecop.return
         comment = @product.comments.desc(:created_at).first

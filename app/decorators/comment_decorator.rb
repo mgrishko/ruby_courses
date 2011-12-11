@@ -12,6 +12,11 @@ class CommentDecorator < ApplicationDecorator
     "#{comment.user.full_name}, #{comment.created_at.strftime('%d %b %Y, %H:%M')}"
   end
 
+  # Returns event description if the comment is linked to an event.
+  def system_info
+    h.simple_format(EventDecorator.decorate(event).description) unless comment.event.nil?
+  end
+
   private
 
   def scope

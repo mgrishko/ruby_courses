@@ -72,9 +72,17 @@ class ProductsController < MainController
     @comment = @product.prepare_comment(current_user, params[:comment])
   end
   
-  # Logs added, updated, destroyed events of product.
+  # Logs added, updated, destroyed events of product. On create and update
+  # binds the system comment to the event
   def log_event
-    @product.log_event(current_membership, action_name) if @product.errors.empty?
+    return unless @product.errors.empty?
+
+    event = @product.log_event(current_membership, action_name)
+    comment = @product.comments.last
+    if comment
+      comment.event = event
+      comment.save
+    end
   end
 
   # Load product version if version param is present

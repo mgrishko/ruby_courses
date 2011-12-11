@@ -8,6 +8,7 @@ class Comment
 
   embedded_in :commentable, polymorphic: true
   belongs_to :user
+  belongs_to :event
 
   validates :body, presence: true, length: { maximum: 1000 }
   validates :user, presence: true
@@ -23,10 +24,16 @@ class Comment
   
   # System comments can't be destroyed
   set_callback(:destroy, :before) do |c|
-    !c.system?
+    c.event.nil?
   end
   
-  def self.super_find id, embedded_in
-    embedded_in.comments.find(id)
+  # Finds a comment by id in a commentable object.
+  # Used to find a comment from a linked event.
+  # 
+  # @param [id] comment id.
+  # @param [commentable] owner of the comment.
+  # @return [Comment] comment.
+  def self.super_find(id, commentable)
+    commentable.comments.find(id)
   end
 end

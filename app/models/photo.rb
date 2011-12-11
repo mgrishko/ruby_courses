@@ -8,7 +8,12 @@ class Photo
   # Really no point if we don't have an image so we always require one
   validates_presence_of :image
   
-  def self.super_find id, embedded_in
-    embedded_in.photos.find(id)
+  # Finds a photo in product by id. Used to find a photo from a linked event.
+  # 
+  # @param [id] photo id.
+  # @param [product] product in which the photo is embedded.
+  # @return [Photo] photo.
+  def self.super_find id, product
+    product.photos.find(id)
   end
 end

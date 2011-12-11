@@ -32,13 +32,14 @@ module Mongoid
         event.action_name = action_name if event.new_record?
         event.save
       else
-        Event.create(account: current_membership.account, 
+        event = Event.create(account: current_membership.account, 
           user: current_membership.user, 
           action_name: action_name, 
           trackable: self,
           eventable: eventable.nil? ? self : eventable
         )
       end
+      event
     end
   end
 end

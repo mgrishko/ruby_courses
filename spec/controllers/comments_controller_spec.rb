@@ -96,6 +96,14 @@ describe CommentsController do
         delete :destroy, product_id: @product.id, :id => @comment.id, format: :js
         response.should render_template("destroy")
       end
+      
+      it "doesn't destroy system comment" do
+        @event = Fabricate(:event, trackable: @product, account: @product.account, user: @product.account.owner)
+        @comment.event = @event
+        expect {
+          delete :destroy, product_id: @product.id, :id => @comment.id, format: :js
+        }.to change(@product.comments, :count).by(0)
+      end
     end
   end
 end

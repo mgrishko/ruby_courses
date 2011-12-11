@@ -82,7 +82,6 @@ describe Product do
         product.save_with_system_comment(user)
         product.save
       }.to change(product.comments, :count).by(1)
-      product.comments.last.body.should == "Updated by #{user.full_name}"
       product.comments.last.system.should be_true
     end
     Timecop.return
@@ -96,7 +95,6 @@ describe Product do
       expect {
         product.save_with_system_comment(user)
       }.to change(product.comments, :count).by(1)
-      product.comments.last.body.include?("Updated by #{user.full_name}").should be_true
       product.comments.last.system.should be_true
     end
     Timecop.return
@@ -130,7 +128,6 @@ describe Product do
     expect {
       product.save_with_system_comment(user)
     }.to change(product.comments, :count).by(1)
-    product.comments.last.body.should == "Created by #{user.full_name}"
     product.comments.last.system.should be_true
   end
   
@@ -141,7 +138,6 @@ describe Product do
     expect {
       product.save_with_system_comment(user)
     }.to change(product.comments, :count).by(1)
-    product.comments.last.body.include?("Created by #{user.full_name}").should be_true
     product.comments.last.system.should be_true
   end
   

@@ -47,17 +47,8 @@ class Product
     comment
   end
   
-  # Saves comment for product update.
-  #def create_updated_comment(user)
-  #  comment = self.comments.build(body: I18n.t("products.events.update", user_name: user.full_name), user: user)
-  #  comment.system = true
-  #  comment.save
-  #  comment
-  #end
-  
-  # Saves product and creates system comment or appends "Created/Updated by"
-  # text to comment body. If the product was created or updated less then
-  # 60 minutes ago no comment is created.
+  # Saves product and creates system comment if needed. If the product
+  # was created or updated less then 60 minutes ago no comment is created.
   #
   # @param [user] owner of the comment.
   # @return [Boolean] true if saved and false otherwise. 
@@ -69,19 +60,21 @@ class Product
       self.versionless { |p| return p.save }
     end
     
+    # setup system comment
     comment = comments.last || comments.build
-    
-    template = self.new_record? ? "products.events.create" : "products.events.update"
-    system_comment_text = I18n.t(template, user_name: user.full_name)
     comment.system = true
     comment.created_at = DateTime.now
     comment.user = user
-    comment_empty = comment.body.nil? || comment.body.empty?
-    comment.body = comment_empty ? system_comment_text : "#{comment.body}\r\n#{system_comment_text}"
+    comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
     save
   end
   
-  def self.super_find id, embedded_in
+  # Finds a product by id or throws an exception. Used to find from a linked event.
+  #
+  # @param [id] product id.
+  # @param [embedded_in] owner of the comment.
+  # @return [Product] product.
+  def self.super_find(id, embedded_in)
     find(id)
   end
 end

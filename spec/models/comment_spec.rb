@@ -22,7 +22,13 @@ describe Comment do
     comment = Fabricate(:comment, user: user)
     comment.user.should eql(user)
   end
-
+  
+  it "should belong to event" do
+    event = Fabricate(:event, account: comment.commentable.account)
+    comment.event = event
+    comment.event.should eql(event)
+  end
+  
   it "should set created_at" do
     Timecop.freeze
     comment = Fabricate(:comment)
@@ -31,7 +37,7 @@ describe Comment do
   end
   
   it "should not be destroyed if system" do
-    comment.system = true
+    comment.event = stub_model(Event)
     comment.destroy.should be_false
   end
 end

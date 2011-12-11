@@ -16,4 +16,11 @@ describe CommentDecorator do
   it "#show_link" do
     @decorator.show_link(text: "text").should == "<a href=\"/products/#{@product.id}##{@comment.id}\">text</a>"
   end
+  
+  it "#system_info" do
+    @product.save_with_system_comment(@product.account.owner)
+    event = @product.log_event(@product.account.memberships.first, "update")
+    @comment.event = event
+    @decorator.system_info.should == "<p>Updated by #{@product.account.memberships.first.user.full_name}</p>"
+  end
 end
