@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::RegistrationsController do
+describe Admin::AdminsController do
   describe "routing" do
     context "under #{Settings.app_subdomain} subdomain" do
       #it "routes to #new" do
@@ -14,12 +14,12 @@ describe Admin::RegistrationsController do
       #end
 
       it "routes to #edit" do
-        get("http://#{Settings.app_subdomain}.example.com/dashboard/edit").should route_to("admin/registrations#edit",
+        get("http://#{Settings.app_subdomain}.example.com/admin/edit").should route_to("admin/admins#edit",
                                                                                           subdomain: "#{Settings.app_subdomain}")
       end
 
       it "routes to #update" do
-        put("http://#{Settings.app_subdomain}.example.com/dashboard").should route_to("admin/registrations#update",
+        put("http://#{Settings.app_subdomain}.example.com/admin").should route_to("admin/admins#update",
                                                                                      subdomain: "#{Settings.app_subdomain}")
       end
     end
@@ -40,16 +40,6 @@ describe Admin::RegistrationsController do
       it "routes to #update" do
         put("http://subdomain.example.com/dashboard").should_not be_routable
       end
-    end
-
-    it "routes to #destroy" do
-      delete("http://#{Settings.app_subdomain}.example.com/dashboard").should route_to('admin/registrations#destroy',
-                                                                                      subdomain: "#{Settings.app_subdomain}")
-    end
-
-    it "routes to #cancel" do
-      get("http://#{Settings.app_subdomain}.example.com/dashboard/cancel").should route_to('admin/registrations#cancel',
-                                                                                          subdomain: "#{Settings.app_subdomain}")
     end
   end
 end

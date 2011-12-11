@@ -44,8 +44,12 @@ GoodsMaster::Application.routes.draw do
     # Admin dashboard is only under app subdomain
     constraints(subdomain: Settings.app_subdomain) do
       scope subdomain: Settings.app_subdomain do
-        devise_for :admins, path: '/dashboard', controllers: { registrations: 'admin/registrations',
-                                                               sessions: 'admin/sessions' }
+        devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
+        devise_scope :admin do
+          match "/admin/edit" => "admin/admins#edit"
+          get "/admin/edit" => "admin/admins#edit", as: :edit_admin
+          put "/admin" => "admin/admins#update"
+        end
 
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
