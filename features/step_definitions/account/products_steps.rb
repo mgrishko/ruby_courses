@@ -69,8 +69,8 @@ When /^he enters a comment to the product$/ do
   fill_in "Comment", with: @comment.body
 end
 
-When /^he submits a comment to the product$/ do
-  step "he enters a comment to the product"
+When /^he submits a (.*)comment to the product$/ do |adj|
+  step "he enters a comment to the product" unless adj.present?
   click_button "Create Comment"
 end
 
@@ -158,6 +158,12 @@ When /^he deletes the product photo$/ do
   }
 end
 
+When /^he deletes that comment$/ do
+  within("tr.comment") do
+    click_link "Delete"
+  end
+end
+
 Then /^he should be on the product page$/ do
   product = @product || Product.last
   extract_port(current_url).should == product_url(product, subdomain: @account.subdomain)
@@ -197,9 +203,16 @@ Then /^he should(.*) see that product in the products list$/ do |should_not|
   end
 end
 
-Then /^he should see that comment on the top of comments$/ do
+Then /^he should(.*) see that comment on the top of comments$/ do |should_not|
   comment = @comment || @product.comments.last
-  page.find("#comments_list").first(".comment").find("p", text: comment.body)
+
+  within("#comments_list") do
+    if should_not.strip == "not"
+      page.should_not have_content(comment.body)
+    else
+      page.first(".comment").find("p", text: comment.body)
+    end
+  end
 end
 
 Then /^he should see that comment among other comments$/ do
@@ -242,6 +255,10 @@ end
 
 Then /^he should see that tag (.*)$/ do |message|
   page.find("#product_tags_list").find(:xpath, ".//..").find("span", text: message)
+end
+
+Then /^he should see that comment body (.*)$/ do |text|
+  page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
 def submit_new_product_form(fields)
