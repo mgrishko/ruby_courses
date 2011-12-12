@@ -22,6 +22,9 @@ en:
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+    profiles:
+      edit:
+        title: "Admin Profile"
 
     sessions:
       new:

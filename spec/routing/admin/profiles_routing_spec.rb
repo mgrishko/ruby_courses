@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::RegistrationsController do
+describe Admin::ProfilesController do
   describe "routing" do
     context "under #{Settings.app_subdomain} subdomain" do
       #it "routes to #new" do
@@ -14,12 +14,12 @@ describe Admin::RegistrationsController do
       #end
 
       it "routes to #edit" do
-        get("http://#{Settings.app_subdomain}.example.com/dashboard/edit").should route_to("admin/registrations#edit",
+        get("http://#{Settings.app_subdomain}.example.com/admin/profiles/1/edit").should route_to("admin/profiles#edit", id: "1",
                                                                                           subdomain: "#{Settings.app_subdomain}")
       end
 
       it "routes to #update" do
-        put("http://#{Settings.app_subdomain}.example.com/dashboard").should route_to("admin/registrations#update",
+        put("http://#{Settings.app_subdomain}.example.com/admin/profiles/1").should route_to("admin/profiles#update", id: "1",
                                                                                      subdomain: "#{Settings.app_subdomain}")
       end
     end
@@ -34,22 +34,12 @@ describe Admin::RegistrationsController do
       #end
 
       it "routes to #edit" do
-        get("http://subdomain.example.com/dashboard/edit").should_not be_routable
+        get("http://subdomain.example.com/admin/profiles/edit/1").should_not be_routable
       end
 
       it "routes to #update" do
-        put("http://subdomain.example.com/dashboard").should_not be_routable
+        put("http://subdomain.example.com/admin/profiles").should_not be_routable
       end
-    end
-
-    it "routes to #destroy" do
-      delete("http://#{Settings.app_subdomain}.example.com/dashboard").should route_to('admin/registrations#destroy',
-                                                                                      subdomain: "#{Settings.app_subdomain}")
-    end
-
-    it "routes to #cancel" do
-      get("http://#{Settings.app_subdomain}.example.com/dashboard/cancel").should route_to('admin/registrations#cancel',
-                                                                                          subdomain: "#{Settings.app_subdomain}")
     end
   end
 end

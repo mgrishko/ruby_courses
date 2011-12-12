@@ -5,7 +5,7 @@ Then /^he should see next links:$/ do |table|
 end
 
 Then /^(?:[^\s]* )should be redirected to the admin profile page$/ do
-  current_url.should == edit_admin_registration_url(subdomain: Settings.app_subdomain)
+  current_url.should == edit_admin_profile_url(subdomain: Settings.app_subdomain)
 end
 
 When /^(?:|he )submits admin profile form with(.*) password$/ do |password|
@@ -23,7 +23,7 @@ When /^(?:|he )submits admin profile form with(.*) password$/ do |password|
 end
 
 Given /^(?:[^\s]* )is on the admin profile page$/ do
-  visit(edit_admin_registration_url(subdomain: Settings.app_subdomain))
+  visit(edit_admin_profile_url(subdomain: Settings.app_subdomain))
 end
 
 Then /^(?:|he )should see that admin current password can't be blank$/ do
