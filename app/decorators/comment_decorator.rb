@@ -2,10 +2,9 @@ class CommentDecorator < ApplicationDecorator
   decorates :comment
   
   def show_link(opts = {})
-    opts_text = opts.delete(:text)
-    path = h.send("#{comment.commentable.class.name.downcase}_path", 
-      comment.commentable.id, anchor: comment.id)
-    h.link_to opts_text, path
+    commentable_decorator_class = "#{comment.commentable.class.name}Decorator".constantize
+    decorator = commentable_decorator_class.decorate(comment.commentable)
+    decorator.show_link(opts.merge(anchor: comment.id))
   end
   
   def info

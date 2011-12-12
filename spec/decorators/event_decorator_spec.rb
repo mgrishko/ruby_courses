@@ -137,6 +137,83 @@ describe EventDecorator do
       end
       
       it "#trackable_link" do
+        @decorator.h.stub(:can?).and_return(true)
+        @decorator.trackable_link.should == "<a href=\"/products/#{@product.id}##{@comment.id}\">A product</a>"
+      end
+      
+      it "#description" do
+        @decorator.description.should == "Commented by #{@user.full_name}"
+      end
+      
+      it "#date" do
+        @decorator.date.should == "Jan 01, 2011"
+      end
+    end
+  end
+  
+  context "for photo destroyed" do
+    before(:each) do    
+      @product = Fabricate(:product)
+      @user = Fabricate(:user)
+      @photo = Fabricate(:photo, product: @product)
+      @product.photos << @photo
+      
+      @event = stub_model(Event, 
+        created_at: DateTime.parse("2011-01-01"),
+        action_name: "create",
+        name: "A product",
+        trackable: @product,
+        eventable: @photo,
+        user: @user
+      )
+      @decorator = EventDecorator.decorate(@event)
+      @photo.destroy
+    end
+
+    describe "decorates" do
+      it "#trackable_name" do
+        @decorator.trackable_name.should == "Product"
+      end
+      
+      it "#trackable_link" do
+        @decorator.h.stub(:can?).and_return(false)
+        @decorator.trackable_link.should == @event.name
+      end
+      
+      it "#description" do
+        @decorator.description.should == "Photo updated by #{@user.full_name}"
+      end
+      
+      it "#date" do
+        @decorator.date.should == "Jan 01, 2011"
+      end
+    end
+  end
+  
+  context "for comment destroyed" do
+    before(:each) do    
+      @product = Fabricate(:product)
+      @user = Fabricate(:user)
+      @comment = @product.comments.create body: "Some content"
+      
+      @event = stub_model(Event, 
+        created_at: DateTime.parse("2011-01-01"),
+        action_name: "create",
+        name: "A product",
+        trackable: @product,
+        eventable: @comment,
+        user: @user
+      )
+      @decorator = EventDecorator.decorate(@event)
+      @comment.destroy
+    end
+
+    describe "decorates" do
+      it "#trackable_name" do
+        @decorator.trackable_name.should == "Product"
+      end
+      
+      it "#trackable_link" do
         @decorator.h.stub(:can?).and_return(false)
         @decorator.trackable_link.should == @event.name
       end

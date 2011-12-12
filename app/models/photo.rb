@@ -12,8 +12,8 @@ class Photo
   # 
   # @param [id] photo id.
   # @param [product] product in which the photo is embedded.
-  # @return [Photo] photo.
-  def self.super_find id, product
-    product.photos.find(id)
+  # @return [Photo] photo if found or nil otherwise.
+  def self.find_by_id_and_embedded_in(id, product)
+    product.photos.where("_id" => id).first
   end
 end

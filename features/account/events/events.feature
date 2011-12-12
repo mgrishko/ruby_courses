@@ -37,3 +37,10 @@ Feature: New event
     And he follows Dashboard link
     Then he should see "Commented by" event
     
+  @javascript
+  Scenario: Editor deletes a product photo
+    Given that account has a product with photo
+    And an authenticated user with editor role
+    When he deletes the product photo
+    And he follows Dashboard link
+    Then he should see "Photo updated by" event

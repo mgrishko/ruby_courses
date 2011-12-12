@@ -44,6 +44,7 @@ class ApplicationDecorator < Draper::Base
     opts.merge!(fallback: opts[:fallback].nil? ? true : opts[:fallback])
     
     text = opts.delete(:text)
+    anchor = opts.delete(:anchor)
     
     if text.nil?
       # Returning default name if name option does not present or object does not respond to name_method
@@ -56,7 +57,8 @@ class ApplicationDecorator < Draper::Base
     fallback = opts.delete(:fallback)
 
     if h.can?(:read, model)
-      h.link_to(name, model, opts)
+      path = h.send("#{model.class.name.downcase}_path", model.id, anchor: anchor)
+      h.link_to(name, path, opts)
     elsif fallback
       name
     end

@@ -68,13 +68,4 @@ class Product
     comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
     save
   end
-  
-  # Finds a product by id or throws an exception. Used to find from a linked event.
-  #
-  # @param [id] product id.
-  # @param [embedded_in] owner of the comment.
-  # @return [Product] product.
-  def self.super_find(id, embedded_in)
-    find(id)
-  end
 end

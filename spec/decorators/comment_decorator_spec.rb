@@ -14,6 +14,7 @@ describe CommentDecorator do
   end
   
   it "#show_link" do
+    @decorator.h.stub(:can?).and_return(true)
     @decorator.show_link(text: "text").should == "<a href=\"/products/#{@product.id}##{@comment.id}\">text</a>"
   end
   

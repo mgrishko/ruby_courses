@@ -32,8 +32,8 @@ class Comment
   # 
   # @param [id] comment id.
   # @param [commentable] owner of the comment.
-  # @return [Comment] comment.
-  def self.super_find(id, commentable)
-    commentable.comments.find(id)
+  # @return [Comment] comment if found or nil otherwise.
+  def self.find_by_id_and_embedded_in(id, commentable)
+    commentable.comments.where("_id" => id).first
   end
 end

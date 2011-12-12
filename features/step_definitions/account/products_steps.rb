@@ -150,6 +150,14 @@ When /^he adds a comment to the product$/ do
   }
 end
 
+When /^he deletes the product photo$/ do
+  steps %Q{
+    And he is on the edit product page
+    When he clicks "Delete photo" within sidebar
+    Then he should see notice message "Photo was successfully deleted"
+  }
+end
+
 Then /^he should be on the product page$/ do
   product = @product || Product.last
   extract_port(current_url).should == product_url(product, subdomain: @account.subdomain)
