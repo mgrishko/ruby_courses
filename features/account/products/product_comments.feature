@@ -25,15 +25,25 @@ Feature: Product comments
     And he should see that comment among other comments
 
   @javascript
-  Scenario: Contributor add a comment to the product
+  Scenario: Contributor adds a comment to the product and deletes it
     Given an authenticated user with contributor role
     And he is on the product page
     When he submits a comment to the product
     Then he should be on the product page
     And he should see that comment on the top of comments
+    When he deletes that comment
+    Then he should not see that comment on the top of comments
 
   Scenario: Viewer cannot add comments
     Given an authenticated user with viewer role
     And he is on the product page
     Then he should see product comments
     And he should not see new comment form
+
+  @javascript
+  Scenario: Contributor tries to add blank comment
+    Given an authenticated user with contributor role
+    And he is on the product page
+    When he submits a blank comment to the product
+    Then he should be on the product page
+    And he should see that comment body can't be blank
