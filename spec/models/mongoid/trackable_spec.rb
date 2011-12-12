@@ -18,7 +18,7 @@ describe Mongoid::Trackable do
     @trackable.events.should be_empty
     @trackable.log_event(membership, "create")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("create").should be_true
+    @trackable.events.first.action_name?("create").should be_true
     @trackable.events.first.user.should eq(@trackable.account.owner)
     @trackable.events.first.account.should eq(@trackable.account)
   end
@@ -27,10 +27,9 @@ describe Mongoid::Trackable do
     membership = @trackable.account.memberships.first
     
     @trackable.events.should be_empty
-    @trackable.destroy
     @trackable.log_event(membership, "update")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("update").should be_true
+    @trackable.events.first.action_name?("update").should be_true
     @trackable.events.first.user.should eq(membership.user)
     @trackable.events.first.account.should eq(membership.account)
   end
@@ -42,8 +41,57 @@ describe Mongoid::Trackable do
     @trackable.destroy
     @trackable.log_event(membership, "destroy")
     @trackable.events.first.should be_persisted
-    @trackable.events.first.type?("destroy").should be_true
+    @trackable.events.first.action_name?("destroy").should be_true
     @trackable.events.first.user.should eq(membership.user)
     @trackable.events.first.account.should eq(membership.account)
+  end
+  
+  it "should log only one event if the eventable was updated <= 60 minutes ago" do
+    membership = @trackable.account.memberships.first
+    
+    @trackable.events.should be_empty
+    @trackable.log_event(membership, "update")
+    Timecop.travel(Time.now + Settings.events.collapse_timeframe.minutes) do
+      @trackable.log_event(membership, "update")
+    end
+    @trackable.events.count.should == 1
+  end
+  
+  it "should log both update events if the eventable was updated > 60 minutes ago" do
+    membership = @trackable.account.memberships.first
+    
+    @trackable.events.should be_empty
+    @trackable.log_event(membership, "update")
+    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+      @trackable.log_event(membership, "update")
+    end
+    @trackable.events.count.should == 2
+  end
+  
+  it "should log only create event if the eventable was updated <= 60 minutes after creation" do
+    membership = @trackable.account.memberships.first
+    
+    @trackable.log_event(membership, "create")
+    @trackable.events.count.should == 1
+
+    @trackable.log_event(membership, "update")
+    Timecop.travel(Time.now + Settings.events.collapse_timeframe.minutes) do
+      @trackable.log_event(membership, "update")
+    end
+    @trackable.events.count.should == 1
+  end
+  
+  it "should log create & update event if the eventable was updated > 60 minutes after creation" do
+    membership = @trackable.account.memberships.first
+    
+    @trackable.log_event(membership, "create")
+    @trackable.events.count.should == 1
+
+    @trackable.log_event(membership, "update")
+    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+      @trackable.log_event(membership, "update")
+    end
+    
+    @trackable.events.count.should == 2
   end
 end

@@ -36,7 +36,7 @@ describe MembershipAbility do
     it { @ability.should be_able_to(:manage, Comment.new) }
     it "shouldn't be able to destroy system comment" do
       comment = Comment.new
-      comment.system = true
+      comment.event = stub_model(Product)
       @ability.should_not be_able_to(:destroy, comment)
     end
     it { @ability.should be_able_to(:manage, Photo.new) }
@@ -53,7 +53,7 @@ describe MembershipAbility do
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
     it "shouldn't be able to destroy system comment" do
-      @own_comment.system = true
+      @own_comment.event = stub_model(Product)
       @ability.should_not be_able_to(:destroy, @own_comment)
     end
     it { @ability.should_not be_able_to(:update, Comment.new) }
@@ -71,7 +71,7 @@ describe MembershipAbility do
     it { @ability.should_not be_able_to(:destroy, Comment.new) }
     it { @ability.should be_able_to(:destroy, @own_comment) }
     it "shouldn't be able to destroy system comment" do
-      @own_comment.system = true
+      @own_comment.event = stub_model(Product)
       @ability.should_not be_able_to(:destroy, @own_comment)
     end
     it { @ability.should_not be_able_to(:update, Comment.new) }

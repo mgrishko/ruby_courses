@@ -6,7 +6,7 @@ Feature: Edit product
   Background: Account exists
     Given an activated account
     And that account has a product
-
+  
   Scenario: Editor successfully updates a product
     Given an authenticated user with editor role
     And he is on the product page

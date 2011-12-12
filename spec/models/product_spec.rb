@@ -73,12 +73,71 @@ describe Product do
     Timecop.return
   end
   
-  it "should create updated comment when updated" do
+  it "should create updated comment when updated without comment" do
     user = product.account.owner
+    product.name = Faker::Product.product_name
+    
+    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+      expect {
+        product.save_with_system_comment(user)
+        product.save
+      }.to change(product.comments, :count).by(1)
+      product.comments.last.system.should be_true
+    end
+    Timecop.return
+  end
+  
+  it "should create updated comment when updated with comment" do
+    user = product.account.owner
+    product.name = Faker::Product.product_name
+    comment = product.comments.build body: Faker::Lorem.sentence
+    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+      expect {
+        product.save_with_system_comment(user)
+      }.to change(product.comments, :count).by(1)
+      product.comments.last.system.should be_true
+    end
+    Timecop.return
+  end
+  
+  it "should not create updated comment and new version when updated right after previous update/create" do
+    user = product.account.owner
+    
     expect {
-      product.create_updated_comment(user)
+      product.name = Faker::Product.product_name
+      product.save_with_system_comment(user)
+    }.to change(product.comments, :count).by(0)
+    product.version.should == 1
+  end
+  
+  it "should create updated comment and new version when updated in 60 minutes after previous update/create" do
+    user = product.account.owner
+    
+    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+      expect {
+        product.name = Faker::Product.product_name
+        product.save_with_system_comment(user)
+      }.to change(product.comments, :count).by(1)
+      product.version.should == 2
+    end
+  end
+  
+  it "should create created comment when created without comment" do
+    user = product.account.owner
+    product = Fabricate.build(:product)
+    expect {
+      product.save_with_system_comment(user)
     }.to change(product.comments, :count).by(1)
-    product.comments.last.body.should == "Updated by #{user.full_name}"
+    product.comments.last.system.should be_true
+  end
+  
+  it "should create only one comment when created with comment" do
+    user = product.account.owner
+    product = Fabricate.build(:product)
+    comment = product.comments.build body: Faker::Lorem.sentence
+    expect {
+      product.save_with_system_comment(user)
+    }.to change(product.comments, :count).by(1)
     product.comments.last.system.should be_true
   end
   

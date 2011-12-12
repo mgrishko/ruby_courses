@@ -7,6 +7,7 @@ defaults: &defaults
     feedback: "http://feedback.goodsmasterhq.com"
   events:
     recent_max_count: 50
+    collapse_timeframe: 60
 
   tags:
     maximum_length: 20

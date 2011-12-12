@@ -80,6 +80,16 @@ describe PhotosController do
       delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
       response.should render_template("destroy")
     end
+    
+    it "creates destroyed event" do
+      expect {
+        delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
+      }.to change(Event, :count).by(1)
+      
+      event = Event.desc(:created_at).first
+      event.action_name.should == "destroy"
+      event.trackable eq(@photo)
+    end
 
     it "assigns a new photo as @photo" do
       delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
