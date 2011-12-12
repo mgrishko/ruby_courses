@@ -29,8 +29,7 @@ class ProductDecorator < ApplicationDecorator
   #
   # @return [String] link or name
   def version_date
-    date = product.version == 1 ? product.created_at : product.updated_at
-    h.content_tag(:span, "(#{date.try(:strftime, '%d %b %Y, %H:%M')})")
+    h.content_tag(:span, "(#{product.updated_at.try(:strftime, '%d %b %Y, %H:%M')})")
   end
 
   # Returns visibility label wrapped with span and optional outer html wrapper.
