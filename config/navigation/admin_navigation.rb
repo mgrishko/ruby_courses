@@ -52,7 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :profile, t('navigation.user.profile'), edit_admin_profile_url(current_admin)
+    primary.item :profile, t('navigation.user.profile'), edit_admins_url(current_admin)
     primary.item :sing_out, t('navigation.user.sign_out'), destroy_admin_session_url
 
     # Example configuration:

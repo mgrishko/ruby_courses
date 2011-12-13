@@ -1,4 +1,4 @@
-class Admin::ProfilesController < Admin::BaseController
+class Admin::AdminsController < Admin::BaseController
   before_filter :load_admin
 
   def edit
@@ -12,7 +12,7 @@ class Admin::ProfilesController < Admin::BaseController
     #functional from devise
     #for new session, without login
     sign_in :admin, @admin, bypass: true
-    respond_with(@admin, location: edit_admin_profile_path(@admin, subdomain: Settings.app_subdomain))
+    respond_with(@admin, location: edit_admins_path(@admin, subdomain: Settings.app_subdomain))
   end
 
   private

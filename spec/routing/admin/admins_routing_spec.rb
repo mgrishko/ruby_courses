@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::ProfilesController do
+describe Admin::AdminsController do
   describe "routing" do
     context "under #{Settings.app_subdomain} subdomain" do
       #it "routes to #new" do
@@ -14,12 +14,12 @@ describe Admin::ProfilesController do
       #end
 
       it "routes to #edit" do
-        get("http://#{Settings.app_subdomain}.example.com/admin/profiles/1/edit").should route_to("admin/profiles#edit", id: "1",
+        get("http://#{Settings.app_subdomain}.example.com/admins/1/edit").should route_to("admin/admins#edit", id: "1",
                                                                                           subdomain: "#{Settings.app_subdomain}")
       end
 
       it "routes to #update" do
-        put("http://#{Settings.app_subdomain}.example.com/admin/profiles/1").should route_to("admin/profiles#update", id: "1",
+        put("http://#{Settings.app_subdomain}.example.com/admins/1").should route_to("admin/admins#update", id: "1",
                                                                                      subdomain: "#{Settings.app_subdomain}")
       end
     end
@@ -34,11 +34,11 @@ describe Admin::ProfilesController do
       #end
 
       it "routes to #edit" do
-        get("http://subdomain.example.com/admin/profiles/edit/1").should_not be_routable
+        get("http://subdomain.example.com/admins/edit/1").should_not be_routable
       end
 
       it "routes to #update" do
-        put("http://subdomain.example.com/admin/profiles").should_not be_routable
+        put("http://subdomain.example.com/admins").should_not be_routable
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "admin/profiles/edit.html.haml" do
+describe "admin/admins/edit.html.haml" do
 
   before(:each) do
     @admin = assign(:admin, stub_model(Admin))
@@ -10,7 +10,7 @@ describe "admin/profiles/edit.html.haml" do
   describe "content" do
     it "renders the edit admin form" do
       render
-      rendered.should have_selector("form", action: edit_admin_profile_path(@admin), method: "put")
+      rendered.should have_selector("form", action: edit_admins_path(@admin), method: "put")
     end
 
     it "render email field" do

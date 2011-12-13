@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::ProfilesController do
+describe Admin::AdminsController do
   login :admin
 
   def valid_attributes

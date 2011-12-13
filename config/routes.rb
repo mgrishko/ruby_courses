@@ -47,8 +47,10 @@ GoodsMaster::Application.routes.draw do
         devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
 
         namespace :admin do
-          resources :profiles, only: [:edit, :update]
+          resources :admins, only: [:edit, :update]
         end
+        get 'admins/:id/edit' => "admin/admins#edit",   as: :edit_admins
+        put 'admins/:id'      => "admin/admins#update", as: :admins
 
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
