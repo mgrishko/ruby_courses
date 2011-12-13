@@ -8,6 +8,7 @@ Spork.prefork do
   # instead of editing this one. Cucumber will automatically load all features/**/*.rb
   # files.
 
+  require 'simplecov'
   require 'cucumber/rails'
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
