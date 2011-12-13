@@ -16,8 +16,8 @@ Feature: Admin edit
       | Account list |
     When he follows "Profile" within topbar
     Then he should be redirected to the admin profile page
-    When he submits admin profile form with current password
-    Then he should see notice message "You updated your profile successfully."
+    When he submits profile form with current password
+    Then he should see notice message "Admin was successfully updated."
     And he follows "Sign out" within topbar
     Then admin should be signed out
     When admin submits valid email and valid password
@@ -25,14 +25,14 @@ Feature: Admin edit
 
   Scenario: Admin edits profile without current password
     And he is on the admin profile page
-    When he submits admin profile form without current password
-    Then he should see that admin current password can't be blank
+    When he submits profile form without current password
+    Then admin should see that current password can't be blank
 
   Scenario: Admin sets new password
     And he is on the admin profile page
-    When he submits admin profile form with new password
+    When he submits profile form with new password
     Then he should be redirected to the admin profile page
-    And he should see notice message "You updated your profile successfully."
+    And he should see notice message "Admin was successfully updated."
     And he follows "Sign out" within topbar
     Then he should be redirected to the admin sign in page
     When admin submits email and new password

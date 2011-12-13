@@ -22,7 +22,7 @@ Feature: Edit profile
     Given an authenticated user with viewer role
     And he is on the user profile page
     When he submits profile form without current password
-    Then he should see that current password can't be blank
+    Then user should see that current password can't be blank
 
   Scenario: User sets new password
     Given an authenticated user with viewer role

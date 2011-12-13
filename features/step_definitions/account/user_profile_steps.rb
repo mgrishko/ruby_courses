@@ -24,8 +24,8 @@ When /^(?:|he )submits profile form with(.*) password$/ do |password|
   click_button "Update"
 end
 
-Then /^(?:|he )should see that current password (.*)$/ do |text|
-  page.find("#user_current_password").find(:xpath, '..').find("span", text: text)
+Then /^(.*) should see that current password (.*)$/ do |user, text|
+  page.find("##{user}_current_password").find(:xpath, '..').find("span", text: text)
 end
 
 When /^(?:[^\s]* )goes to the user sign in page$/ do

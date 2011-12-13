@@ -6,7 +6,11 @@ class Admin::ProfilesController < Admin::BaseController
   end
 
   def update
-    @admin.update_attributes(params[:admin])
+    #functional from devise
+    #for confirmation current_password
+    @admin.update_with_password(params[:admin])
+    #functional from devise
+    #for new session, without login
     sign_in :admin, @admin, bypass: true
     respond_with(@admin, location: edit_admin_profile_path(@admin, subdomain: Settings.app_subdomain))
   end
