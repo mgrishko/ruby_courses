@@ -1,3 +1,5 @@
+require 'simplecov'
+
 require 'spork'
 
 Spork.prefork do
