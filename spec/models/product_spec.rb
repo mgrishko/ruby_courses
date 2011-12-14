@@ -85,21 +85,37 @@ describe Product do
 
   describe "auto complete" do
     before do
-      product = Fabricate(:product, manufacturer: "Pepsi", brand: "Mirinda")
+      product = Fabricate(:product, manufacturer: "Pepsico", brand: "Mirinda")
       product.tags.create(name: "Drink")
       product.tags.create(name: "Soft")
+      @current_account = Product.first.account
     end
 
     it "should complete manufacturer" do
-      Product.complete_manufacturer("pep").should eql(["Pepsi"])
+      @current_account.products.complete_manufacturer("pep").should eql(["Pepsico"])
     end
 
     it "should complete brand" do
-      Product.complete_brand("mir").should eql(["Mirinda"])
+      @current_account.products.complete_brand("mir").should eql(["Mirinda"])
     end
 
     it "should complete tags" do
-      Product.complete_tags_name("dr").should eql(["Drink"])
+      @current_account.products.complete_tags_name("dr").should eql(["Drink"])
+    end
+
+    describe "other account data" do
+      before do
+        product = Fabricate(:product, manufacturer: "Pepper Computers", brand: "Miranda Global")
+        product.tags.create(name: "Software")
+      end
+
+      it "should not include other product field data" do
+        @current_account.products.complete_manufacturer("pep").should_not include("Pepper Computers")
+      end
+
+      it "should not include other product tags" do
+        @current_account.products.complete_tags_name("soft").should_not include("Software")
+      end
     end
   end
 

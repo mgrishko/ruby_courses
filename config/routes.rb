@@ -37,6 +37,8 @@ GoodsMaster::Application.routes.draw do
 
     get '/products/:id/versions/:version' => "products#show", :as => :product_version
     resources :products do
+      get 'autocomplete/:field' => "products#autocomplete", as: :autocomplete, on: :collection
+
       resources :comments, only: [:create, :destroy]
       resources :photos, only: [:create, :destroy]
     end

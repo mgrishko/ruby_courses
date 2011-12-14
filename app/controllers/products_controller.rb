@@ -1,6 +1,7 @@
 class ProductsController < MainController
+  include AutoComplete::Action
   load_and_authorize_resource :through => :current_account
-  before_filter :prepare_comment, except: [:index, :destroy]
+  before_filter :prepare_comment, except: [:index, :destroy, :autocomplete]
   before_filter :prepare_photo, only: [:show, :edit, :update]
   after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :load_version, only: [:show]
