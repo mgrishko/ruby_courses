@@ -39,31 +39,60 @@ describe Mongoid::AutoComplete do
     20.times { |i| article.tags.create(name: "Tag #{i}") }
   end
 
-  it "should return values for field" do
-    Article.complete_author("ste").should include("Steven King")
+  describe "#auto_complete_for" do
+    it "should define singleton complete method" do
+      Article.field :title, type: String
+      Article.auto_complete_for :title
+      Article.singleton_methods.should include(:complete_title)
+    end
+
+    it "should raise error when model does not have field" do
+      lambda { Article.auto_complete_for :bad_field }.
+          should raise_error(RuntimeError, "Incorrect field bad_field for model Article")
+    end
+
+    it "should raise error when model does not have relation" do
+      lambda { Article.auto_complete_for :publishers => :name }.
+          should raise_error(RuntimeError, "Incorrect relation publishers for model Article")
+    end
+
+    it "should raise error when model relation does not have field" do
+      lambda { Article.auto_complete_for :tags => :bad_field }.
+          should raise_error(RuntimeError, "Incorrect field bad_field for model Tag")
+    end
   end
 
-  it "should return values for embedded relation field" do
-    Article.complete_tags_name("m").should include("Must read")
-  end
+  describe "complete methods" do
+    it "should return values for field" do
+      Article.complete_author("ste").should include("Steven King")
+    end
 
-  it "should return values for belongs to relation field" do
-    Article.complete_category_title("bu").should include("Business")
-  end
+    it "should return values for embedded relation field" do
+      Article.complete_tags_name("m").should include("Must read")
+    end
 
-  it "should return empty array for blank query" do
-    Article.complete_tags_name("").should be_empty
-  end
+    it "should return values for belongs to relation field" do
+      Article.complete_category_title("bu").should include("Business")
+    end
 
-  it "should return only unique values" do
-    Article.complete_tags_name("m").select{ |v| v == "Must read" }.size.should == 1
-  end
+    it "should return empty array for blank query" do
+      Article.complete_tags_name("").should be_empty
+    end
 
-  it "should limit values" do
-    Article.complete_tags_name("tag", limit: 10).size.should == 10
-  end
+    it "should return only unique values" do
+      Article.complete_tags_name("m").select{ |v| v == "Must read" }.size.should == 1
+    end
 
-  it "should sort values" do
-    Article.complete_tags_name("m").first.should eql("Motivation")
+    it "should limit values" do
+      Article.complete_tags_name("tag", limit: 5).size.should == 5
+    end
+
+    it "should limit values by default" do
+      Article.complete_tags_name("tag").size.should == 10
+    end
+
+    it "should sort values" do
+      Article.complete_tags_name("m").first.should eql("Motivation")
+    end
   end
 end

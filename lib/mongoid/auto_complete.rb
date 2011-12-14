@@ -1,12 +1,9 @@
-# ToDo tags_list validation should proxy tag validation.
-
 module Mongoid
   module AutoComplete
-    extend ActiveSupport::Concern
 
-    #included do
-    #  cattr_accessor :auto_complete_fields
-    #end
+    # This is an Auto complete module for Mongoid documents.
+
+    extend ActiveSupport::Concern
 
     module ClassMethods
 
@@ -45,7 +42,7 @@ module Mongoid
       def _define_complete_method(field_name, relation_name = nil)
         if relation_name
           relation = self.relations[relation_name]
-          raise "Incorrect relation #{relation_name} for class #{self.name}" if relation.nil?
+          raise "Incorrect relation #{relation_name} for model #{self.name}" if relation.nil?
           _check_field(relation.class_name.constantize, field_name)
         else
           relation = nil
@@ -76,7 +73,7 @@ module Mongoid
 
       def _check_field(klass, field_name)
         unless klass.fields.keys.include?(field_name)
-          raise "Incorrect field #{relation_name} for class #{klass.name}"
+          raise "Incorrect field #{field_name} for model #{klass.name}"
         end
       end
     end
