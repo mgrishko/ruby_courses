@@ -34,25 +34,23 @@ describe Admin::AdminsController do
 
       #it "redirects to the admin" do
         #put :update, id: @admin.id, subdomain: Settings.app_subdomain, :admin => valid_attributes
-        #response.should redirect_to(edit_admin_profile_url(@admin, subdomain: Settings.app_subdomain))
+        #response.should redirect_to(edit_admin_url(@admin, subdomain: Settings.app_subdomain))
       #end
     end
 
-    #describe "with invalid params" do
-      #it "assigns the admin as @admin" do
-        #Admin.any_instance.stub(:save).and_return(false)
-        #Admin.any_instance.stub_chain(:errors, :empty?).and_return(false)
-        #put :update, id: @admin.id, subdomain: Settings.app_subdomain, :admin => {}
-        #assigns(:admin).should eq(@admin)
-      #end
+    describe "with invalid params" do
+      it "assigns the admin as @admin" do
+        Admin.any_instance.stub(:save).and_return(false)
+        put :update, id: @admin.id, subdomain: Settings.app_subdomain, :admin => {}
+        assigns(:admin).should eq(@admin)
+      end
 
-      #it "re-renders the 'edit' template" do
-        #Admin.any_instance.stub(:save).and_return(false)
-        #Admin.any_instance.stub_chain(:errors, :empty?).and_return(false)
-        #put :update, id: @admin.id, subdomain: Settings.app_subdomain, :admin => {}
-        #response.should render_template("edit")
-      #end
-    #end
+      it "re-renders the 'edit' template" do
+        Admin.any_instance.stub(:save).and_return(false)
+        put :update, id: @admin.id, subdomain: Settings.app_subdomain, :admin => {}
+        response.should render_template("edit")
+      end
+    end
   end
 
   #describe "GET index" do
