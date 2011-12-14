@@ -35,7 +35,7 @@
 
 %section#comments
   - if can? :create, Comment
-    = render "comments/form", commentable: @product, type: "product"
+    = render "comments/form", commentable: @product.model
 
   %table
     %tbody#comments_list

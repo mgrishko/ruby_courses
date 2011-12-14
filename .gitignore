@@ -4,11 +4,12 @@
 .rvmrc
 .yardoc/
 doc/
+coverage/
 log/*.log
 log/*.pid
 log/*.db
 tmp/
 public/assets/
-public/uploads/
+public/system/uploads/
 .sass-cache/
 .DS_Store

@@ -24,9 +24,8 @@ When /^(?:|he )submits profile form with(.*) password$/ do |password|
   click_button "Update"
 end
 
-Then /^(?:|he )should see that current password can't be blank$/ do
-  page.find("#user_current_password").find(:xpath, '..').find("span", text: "can't be blank")
-  #page.find(:xpath, '//*[contains(concat( " ", @class, " " ), concat( " ", "optional", " "))]//*[contains(concat( " ", @class, " " ), concat( " ", "help-inline", " " ))]').text.should == "can't be blank"
+Then /^(?:|he )should see that current password (.*)$/ do |text|
+  page.find("#user_current_password").find(:xpath, '..').find("span", text: text)
 end
 
 When /^(?:[^\s]* )goes to the user sign in page$/ do

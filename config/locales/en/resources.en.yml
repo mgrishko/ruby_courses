@@ -86,8 +86,8 @@ en:
       upload_photo: "Upload photo"
     events:
       name: "Photo"
-      create: "Photo added by %{user_name}"
-      destroy: "Photo deleted by %{user_name}"
+      create: "Photo updated by %{user_name}"
+      destroy: "Photo updated by %{user_name}"
   products:
     defaults: &PRODUCT_DEFAULTS
       destroy: "Delete Product"

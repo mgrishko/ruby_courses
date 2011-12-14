@@ -47,7 +47,7 @@ describe CommentsController do
           }.to change(Event, :count).by(1)
 
           event = Event.desc(:created_at).first
-          event.type.should == "create"
+          event.action_name.should == "create"
           event.trackable eq(@product)
         end
       end
@@ -95,6 +95,14 @@ describe CommentsController do
       it "redirects to the product page" do
         delete :destroy, product_id: @product.id, :id => @comment.id, format: :js
         response.should render_template("destroy")
+      end
+      
+      it "doesn't destroy system comment" do
+        @event = Fabricate(:event, trackable: @product, account: @product.account, user: @product.account.owner)
+        @comment.event = @event
+        expect {
+          delete :destroy, product_id: @product.id, :id => @comment.id, format: :js
+        }.to change(@product.comments, :count).by(0)
       end
     end
   end

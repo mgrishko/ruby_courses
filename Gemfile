@@ -90,6 +90,7 @@ group :test, :cucumber do
   gem "shoulda-matchers"
   gem 'timecop'
   gem 'launchy'
+  gem 'simplecov', :require => false
 end
 
 # Gems used only in development and not required

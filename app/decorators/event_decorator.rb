@@ -12,23 +12,30 @@ class EventDecorator < ApplicationDecorator
   
   # Returns event description and user name
   def description
-    if event.trackable_child_type.nil?
-      I18n.t("#{event.trackable_type.pluralize.downcase}.events.#{event.type}", 
-        user_name: event.user.full_name)
-    else
-      I18n.t("#{event.trackable_child_type.pluralize.downcase}.events.#{event.type}", 
-        user_name: event.user.full_name)
-    end
+    I18n.t("#{event.eventable_type.pluralize.downcase}.events.#{event.action_name}", 
+      user_name: event.user.full_name)
   end
   
   # Returns link to the trackable object page or the name of the event
   # if the current user can't read the object
   def trackable_link
-    if h.can?(:read, event.trackable) && event.trackable
-      h.link_to name, event.trackable
+    return name unless event.trackable.present? && h.can?(:read, event.trackable)
+      
+    if event.eventable_type == event.trackable_type
+      # if event is logged for the trackable object, then find it by id
+      eventable_class = "#{event.eventable_type}".constantize
+      eventable_object = eventable_class.where("_id" => event.eventable_id).first
     else
-      name
+      # if event is logged for an embedded object of the trackable,
+      # then find it in the embedded collection in the trackable
+      eventable_object = "#{event.eventable_type}".constantize.send(
+        :find_by_id_and_embedded_in, event.eventable_id, event.trackable)
     end
+    
+    return name if eventable_object.nil?
+      
+    eventable_decorator = "#{event.eventable_type}Decorator".constantize.send(:new, eventable_object)
+    eventable_decorator.show_link text: event.name
   end
   
   # Returns the class name of the trackable object

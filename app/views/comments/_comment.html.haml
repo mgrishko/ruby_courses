@@ -1,6 +1,8 @@
 %tr.comment{ id: comment.id }
   %td
+    %a{ name: comment.id }
     .links
       = comment.destroy_link(remote: true, through: @product)
     %em= comment.info
+    = comment.system_info
     = simple_format comment.body

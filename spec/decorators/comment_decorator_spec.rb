@@ -9,9 +9,19 @@ describe CommentDecorator do
     @decorator = CommentDecorator.decorate(@comment)
   end
 
-  describe "decorates" do
-    it "#info" do
-      @decorator.info.should == "#{@comment.user.full_name}, #{@comment.created_at.strftime('%d %b %Y, %H:%M')}"
-    end
+  it "#info" do
+    @decorator.info.should == "#{@comment.user.full_name}, #{@comment.created_at.strftime('%d %b %Y, %H:%M')}"
+  end
+  
+  it "#show_link" do
+    @decorator.h.stub(:can?).and_return(true)
+    @decorator.show_link(text: "text").should == "<a href=\"/products/#{@product.id}##{@comment.id}\">text</a>"
+  end
+  
+  it "#system_info" do
+    @product.save_with_system_comment(@product.account.owner)
+    event = @product.log_event(@product.account.memberships.first, "update")
+    @comment.event = event
+    @decorator.system_info.should == "<p>Updated by #{@product.account.memberships.first.user.full_name}</p>"
   end
 end
