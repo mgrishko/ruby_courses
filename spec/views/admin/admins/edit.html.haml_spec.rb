@@ -10,7 +10,7 @@ describe "admin/admins/edit.html.haml" do
   describe "content" do
     it "renders the edit admin form" do
       render
-      rendered.should have_selector("form", action: edit_admins_path(@admin), method: "put")
+      rendered.should have_selector("form", action: edit_admin_path(@admin), method: "put")
     end
 
     it "render email field" do

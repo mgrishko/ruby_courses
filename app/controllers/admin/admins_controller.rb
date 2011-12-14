@@ -12,7 +12,7 @@ class Admin::AdminsController < Admin::BaseController
     #functional from devise
     #for new session, without login
     sign_in :admin, @admin, bypass: true
-    respond_with(@admin, location: edit_admins_path(@admin, subdomain: Settings.app_subdomain))
+    respond_with(@admin, location: edit_admin_path(@admin, subdomain: Settings.app_subdomain))
   end
 
   private

@@ -46,11 +46,7 @@ GoodsMaster::Application.routes.draw do
       scope subdomain: Settings.app_subdomain do
         devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
 
-        namespace :admin do
-          resources :admins, only: [:edit, :update]
-        end
-        get 'admins/:id/edit' => "admin/admins#edit",   as: :edit_admins
-        put 'admins/:id'      => "admin/admins#update", as: :admins
+        resources :admins, only: [:edit, :update], :module => "admin"
 
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
