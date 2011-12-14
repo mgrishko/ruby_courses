@@ -49,11 +49,12 @@ SimpleNavigation::Configuration.run do |navigation|
     #           :method - Specifies the http-method for the generated link - default is :get.
     #           :highlights_on - if autohighlighting is turned off and/or you want to explicitly specify
     #                            when the item should be highlighted, you can set a regexp which is matched
-    #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>. 
+    #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :home, I18n.t('navigation.main.home'), home_url
-    primary.item :products, I18n.t('navigation.main.products'), products_url
+    primary.item :home, I18n.t('navigation.main.home'), home_url, if: -> { user_signed_in? }
+    primary.item :products, I18n.t('navigation.main.products'), products_url, if: -> { user_signed_in? }
+    primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url, if: -> { admin_signed_in? }
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
