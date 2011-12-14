@@ -132,13 +132,19 @@ describe ProductsController do
         response.should redirect_to(Product.last)
       end
       
+      it "creates system comment" do
+        post :create, :product => valid_attributes
+        assigns(:product).comments.count.should == 1
+        assigns(:product).comments.first.event.should_not be_nil
+      end
+      
       it "creates added event" do
         expect {
           post :create, :product => valid_attributes
         }.to change(Event, :count).by(1)
         
         event = Event.desc(:created_at).first
-        event.type.should == "create"
+        event.action_name.should == "create"
         event.trackable eq(@product)
       end
     end
@@ -195,7 +201,10 @@ describe ProductsController do
       end
 
       it "increments product version number" do
-        put :update, :id => @product.id, :product => other_valid_attributes
+        Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+          put :update, :id => @product.id, :product => other_valid_attributes
+        end
+        Timecop.return
         assigns(:product).version.should == 2
       end
 
@@ -217,15 +226,18 @@ describe ProductsController do
         }.to change(Event, :count).by(1)
         
         event = Event.desc(:created_at).first
-        event.type.should == "update"
+        event.action_name.should == "update"
         event.trackable eq(@product)
       end
       
       it "creates updated comment" do
-        expect {
-          put :update, :id => @product.id, :product => valid_attributes
-        }.to change(@product.comments, :count).by(1)
-        
+        Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+          expect {
+            put :update, :id => @product.id, :product => valid_attributes
+          }.to change(@product.comments, :count).by(1)
+          @product.comments.first.event.should_not be_nil
+        end
+        Timecop.return
         comment = @product.comments.desc(:created_at).first
         comment.commentable eq(@product)
       end
@@ -288,7 +300,7 @@ describe ProductsController do
       }.to change(Event, :count).by(1)
       
       event = Event.desc(:created_at).first
-      event.type.should == "destroy"
+      event.action_name.should == "destroy"
       event.trackable eq(@product)
     end
 

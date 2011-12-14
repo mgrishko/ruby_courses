@@ -5,12 +5,15 @@ describe Event do
   
   it { should validate_presence_of(:account) }
   it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:trackable) }
+  it { should validate_presence_of(:eventable) }
+  it { should validate_presence_of(:name) }
   
-  it { should validate_presence_of(:type) }
-  it { should allow_value("create").for(:type) }
-  it { should allow_value("update").for(:type) }
-  it { should allow_value("destroy").for(:type) }
-  it { should_not allow_value("whatever").for(:type) }
+  it { should validate_presence_of(:action_name) }
+  it { should allow_value("create").for(:action_name) }
+  it { should allow_value("update").for(:action_name) }
+  it { should allow_value("destroy").for(:action_name) }
+  it { should_not allow_value("whatever").for(:action_name) }
   
   it "should belong to account" do
     account = Fabricate(:account)
@@ -32,7 +35,7 @@ describe Event do
   
   it "should set name to trackable name when created" do
     product = Fabricate(:product)
-    event = product.events.build type: "create", account: product.account, user: product.account.owner
+    event = product.events.build action_name: "create", account: product.account, user: product.account.owner
     event.save!
     event.name.should == product.name
   end

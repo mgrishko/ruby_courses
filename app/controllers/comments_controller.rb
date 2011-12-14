@@ -32,6 +32,6 @@ class CommentsController < MainController
   
   # Logs comment creation
   def log_event
-    @comment.commentable.log_event(current_membership, action_name, @comment.model) if @comment.errors.empty?
+    @comment.commentable.log_event(current_membership, action_name, @comment) if @comment.errors.empty?
   end
 end

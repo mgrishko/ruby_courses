@@ -1,18 +1,19 @@
 class CommentDecorator < ApplicationDecorator
   decorates :comment
-
-#  def destroy_link(opts = {})
-#    if h.can?(:destroy, comment)
-#      opts = (opts || {}).with_indifferent_access
-#      opts.merge!(method: :delete, remote: true)
-#      h.link_to(I18n.t("destroy", scope: scope),
-#                h.send("#{comment.commentable.class.name.underscore}_comment_path",
-#                       comment.commentable.id, comment.id), opts)
-#    end
-#  end
+  
+  def show_link(opts = {})
+    commentable_decorator_class = "#{comment.commentable.class.name}Decorator".constantize
+    decorator = commentable_decorator_class.decorate(comment.commentable)
+    decorator.show_link(opts.merge(anchor: comment.id))
+  end
   
   def info
     "#{comment.user.full_name}, #{comment.created_at.strftime('%d %b %Y, %H:%M')}"
+  end
+
+  # Returns event description if the comment is linked to an event.
+  def system_info
+    h.simple_format(EventDecorator.decorate(event).description) unless comment.event.nil?
   end
 
   private
