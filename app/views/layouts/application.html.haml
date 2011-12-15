@@ -9,8 +9,8 @@
           %h3
             = link_to Settings.project_name, home_url
 
-          = render_navigation context: :main, level: 1
           - if user_signed_in?
+            = render_navigation context: :main, level: 1
             = render "layouts/partials/user_menu"
             = render "layouts/partials/account_menu"
 
