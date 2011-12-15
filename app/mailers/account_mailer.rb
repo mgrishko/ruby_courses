@@ -6,6 +6,6 @@ class AccountMailer < ActionMailer::Base
     @account = AccountDecorator.decorate(account)
     @owner = @account.owner
     @url = home_url(subdomain: @account.subdomain)
-    mail( to: @owner.email, subject: "[#{@account.company_name}] Account for #{@account.company_name} has been activated" )
+    mail( to: @owner.email, subject: I18n.t('account.subject', company_name: @account.company_name.to_s))
   end
 end

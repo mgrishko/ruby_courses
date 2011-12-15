@@ -1,0 +1,8 @@
+en:
+  account:
+    defaults: &ACCOUNT_MAILER_DEFAULTS
+    subject: "[%{company_name}] Account for %{company_name} has been activated"
+  membership:
+    defaults: &MEMBERSHIP_MAILER_DEFAULTS
+    subject: "[%{company_name}] Welcome to %{project_name}"
+

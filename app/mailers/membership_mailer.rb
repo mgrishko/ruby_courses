@@ -9,7 +9,7 @@ class MembershipMailer < ActionMailer::Base
     @account = membership.account
     @url = home_url(subdomain: @account.subdomain)
     @invitation_note = membership.invitation_note
-
-    mail( to: @user.email, subject: "[#{@account.company_name}] Welcome to #{Settings.project_name}" )
+    mail( to: @user.email, subject: I18n.t('membership.subject', company_name: @account.company_name.to_s,
+                                            project_name: Settings.project_name.to_s ))
   end
 end
