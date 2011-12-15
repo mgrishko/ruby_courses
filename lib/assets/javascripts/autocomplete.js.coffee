@@ -1,6 +1,4 @@
-$.namespace("GoodsMaster.autocompletes")
-
-class GoodsMaster.multi_autocomplete
+class MultiAutocomplete
   constructor: (@input) ->
     input = @input
     
@@ -21,10 +19,7 @@ class GoodsMaster.multi_autocomplete
       new_value = new_value.substring(0, new_value.length - 1)
       input.tokenInput("add", {id: new_value, name: new_value}) if new_value
       input_box.val("")
-
-GoodsMaster.autocompletes.init = ->
-  $('input[data-autocomplete="multi"]').each (i, elem) ->
-    new GoodsMaster.multi_autocomplete($(elem))
   
 $(document).ready ->
-  GoodsMaster.autocompletes.init()
+  $('input[data-autocomplete="multi"]').each (i, elem) ->
+    new MultiAutocomplete($(elem))

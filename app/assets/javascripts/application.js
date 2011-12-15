@@ -7,7 +7,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require jquery.tokeninput
 //= require bootstrap-alerts
+//= require autocomplete
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
