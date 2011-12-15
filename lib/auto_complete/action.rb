@@ -5,7 +5,9 @@ module AutoComplete
       @field = params[:field]
       @values = resource.send("complete_#{@field}".to_sym,
                               params[:query], limit: Settings.auto_complete.limit) rescue []
-      @values = @values.collect{ |v| { id: v, name: v } }
+
+      @values.map! { |v| { "id" => v, "name" => v } }
+
       respond_with(@values)
     end
   end
