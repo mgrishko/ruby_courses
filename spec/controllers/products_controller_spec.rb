@@ -310,4 +310,25 @@ describe ProductsController do
       lambda { delete :destroy, :id => product.id }.should raise_error(Mongoid::Errors::DocumentNotFound)
     end
   end
+
+  describe "GET autocomplete" do
+    login_account_as :editor, account: { subdomain: "company" }
+
+    before(:each) do
+      account = Account.where(subdomain: "company").first
+      account.products.create! valid_attributes.merge(brand: "Pepsi")
+    end
+
+    it "returns data for auto complete" do
+      get :autocomplete, field: "brand", query: "pep", format: :json
+      assigns(:values).should == [{ "id" => "Pepsi", "name" => "Pepsi" }]
+    end
+
+    it "does not return data from other account data" do
+      account = Fabricate(:account, subdomain: "other")
+      account.products.create! valid_attributes.merge(brand: "Coca Cola")
+      get :autocomplete, field: "brand", query: "Coca", format: :json
+      assigns(:values).should be_empty
+    end
+  end
 end
