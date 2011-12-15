@@ -6,7 +6,7 @@
     = f.input :manufacturer
     = f.input :brand
     = f.input :description, as: :text
-    = f.input :tags_list
+    = f.input :tags_list, input_html: { "data-autocomplete" => "multi", "data-autocomplete-url" => "/products/autocomplete/tags_name.json" }
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
     = simple_fields_for @comment, wrapper: :inline do |n|

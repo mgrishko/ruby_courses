@@ -5,6 +5,7 @@ class ProductsController < MainController
   before_filter :prepare_photo, only: [:show, :edit, :update]
   after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :load_version, only: [:show]
+  respond_to :json
 
   # GET /products
   # GET /products.xml
