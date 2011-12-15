@@ -15,11 +15,5 @@ class CommentDecorator < ApplicationDecorator
   def system_info
     h.simple_format(EventDecorator.decorate(event).description) unless comment.event.nil?
   end
-
-  private
-
-  def scope
-    "comments.defaults"
-  end
 end
 
