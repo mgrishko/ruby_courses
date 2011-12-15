@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    = render :partial => 'layouts/partials/head'
+  %body.application
+    %header.topbar
+      .topbar-inner
+        .header-container
+          %h3
+            = link_to Settings.project_name, home_url
+
+          - if admin_signed_in?
+            = render_navigation context: :dashboard, level: 1
+            = render "layouts/partials/admin_menu"
+
+    %section.main{ class: controller_name }
+
+      %aside.sidebar
+        - if content_for?(:sidebar)
+          = yield(:sidebar)
+
+      %section.content
+        #flash= render :partial => 'layouts/partials/flash', :object => flash
+
+        - if content_for?(:page_title)
+          %header
+            %h1= yield(:page_title)
+
+        = yield
+
+    %footer
+      = debug(params) if Rails.env.development?

@@ -52,8 +52,8 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :home, I18n.t('navigation.main.home'), home_url
-    primary.item :products, I18n.t('navigation.main.products'), products_url
+    primary.item :profile, t('navigation.user.profile'), edit_admin_url(current_admin)
+    primary.item :sing_out, t('navigation.user.sign_out'), destroy_admin_session_url
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
@@ -72,8 +72,8 @@ SimpleNavigation::Configuration.run do |navigation|
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
-    # primary.dom_id = 'menu-id'
-    primary.dom_class = 'nav'
+    primary.dom_id = 'admin_menu'
+    primary.dom_class = 'dropdown-menu'
 
     # You can turn off auto highlighting for a specific level
     # primary.auto_highlight = false

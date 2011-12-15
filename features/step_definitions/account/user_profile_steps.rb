@@ -1,4 +1,4 @@
-Given /^(?:[^\s]* )is on the edit profile page$/ do
+Given /^(?:[^\s]* )is on the user profile page$/ do
   visit(edit_user_registration_url(subdomain: @account.subdomain))
 end
 
@@ -6,7 +6,7 @@ When /^(?:[^\s]* )goes to the home page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-Then /^(?:[^\s]* )should be redirected to the edit profile page$/ do
+Then /^(?:[^\s]* )should be redirected to the user profile page$/ do
   current_url.should == edit_user_registration_url(subdomain: @account.subdomain)
 end
 
@@ -24,8 +24,8 @@ When /^(?:|he )submits profile form with(.*) password$/ do |password|
   click_button "Update"
 end
 
-Then /^(?:|he )should see that current password (.*)$/ do |text|
-  page.find("#user_current_password").find(:xpath, '..').find("span", text: text)
+Then /^(.*) should see that current password (.*)$/ do |user, text|
+  page.find("##{user}_current_password").find(:xpath, '..').find("span", text: text)
 end
 
 When /^(?:[^\s]* )goes to the user sign in page$/ do
