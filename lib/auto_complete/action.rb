@@ -2,7 +2,9 @@ module AutoComplete
   module Action
     def autocomplete
       resource = self.instance_variable_get("@#{controller_name}")
-      @values = resource.try("complete_#{params[:field]}".to_sym, params[:query])
+      @field = params[:field]
+      @values = resource.send("complete_#{@field}".to_sym,
+                              params[:query], limit: Settings.auto_complete.limit) rescue []
       respond_to do |format|
         format.js
        end
