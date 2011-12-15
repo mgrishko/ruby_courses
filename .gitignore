@@ -1,8 +1,9 @@
 *.swp
 .idea
+.sass-cache
+.yardoc
 .bundle
 .rvmrc
-.yardoc/
 doc/
 coverage/
 log/*.log
@@ -11,5 +12,4 @@ log/*.db
 tmp/
 public/assets/
 public/system/uploads/
-.sass-cache/
 .DS_Store
