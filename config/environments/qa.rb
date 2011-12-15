@@ -63,7 +63,4 @@ GoodsMaster::Application.configure do
 
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'dev.goodsmasterhq.com' }
-
-  #Documentate yard and run yard_server
-  after "deploy", "deploy:yard_regenerate"
 end

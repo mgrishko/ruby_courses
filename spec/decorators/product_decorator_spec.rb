@@ -22,7 +22,7 @@ describe ProductDecorator do
     it "#manufacturer" do
       @decorator.manufacturer.should == "Manufacturer"
     end
-    
+
     it "#brand" do
       @decorator.brand.should == "Brand"
     end
@@ -34,11 +34,11 @@ describe ProductDecorator do
     it "#created_at" do
       @decorator.created_at.should == @product.created_at
     end
-    
+
     it "#updated_at" do
       @decorator.updated_at.should == @product.updated_at
     end
-    
+
     it "#version" do
       @decorator.version.should == 1
     end

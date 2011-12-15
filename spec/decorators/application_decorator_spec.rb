@@ -10,6 +10,16 @@ describe ApplicationDecorator do
     @comment_decorator = CommentDecorator.decorate(@comment)
   end
 
+  describe "#i18n_scope" do
+    it "should point to model defaults" do
+      ProductDecorator.i18n_scope.should == "products.defaults"
+    end
+
+    it "should prepend with namespace" do
+      Admin::AccountDecorator.i18n_scope.should == "admin.accounts.defaults"
+    end
+  end
+
   describe "decorates" do
     describe "#show_link" do
       context "when user can view product" do

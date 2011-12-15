@@ -4,7 +4,8 @@ class ApplicationDecorator < Draper::Base
   #
   # @return [String] I18n translation scope
   def self.i18n_scope
-    "#{self.model_class.name.underscore.pluralize}.defaults"
+    namespace = self.name.index("::") ? "#{self.name.split("::").first.underscore}." : ""
+    "#{namespace}#{self.model_class.name.underscore.pluralize}.defaults"
   end
 
   # Generates a create link if current ability allows to create object:
