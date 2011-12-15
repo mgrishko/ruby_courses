@@ -7,8 +7,11 @@ describe ProductsController do
   def valid_attributes
     @attrs ||= Fabricate.attributes_for(:product, account: nil)
   end
-  
-  def other_valid_attributes 
+
+  # ToDo Remove method bellow
+  # More clear way is to use
+  #   valid_attributes.merge(name: "New name")
+  def other_valid_attributes
     other_valid_attributes = valid_attributes
     other_valid_attributes[:name] = SecureRandom.hex(10)
     return other_valid_attributes
