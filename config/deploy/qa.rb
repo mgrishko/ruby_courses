@@ -15,5 +15,5 @@ role :db,  appserver, :primary => true
 
 
 #Documentate yard and run yard_server
-after "deploy", "deploy:yard_regenerate"
+#after "deploy", "deploy:yard_regenerate"
 
