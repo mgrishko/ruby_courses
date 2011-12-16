@@ -57,7 +57,7 @@ namespace :deploy do
   #Regenerate yard documention and restart yard server
   task :yard_regenerate, :roles => :app do
     run "cd #{release_path} && yard doc"
-    run "./yard.sh stop && ./yard.sh start"
+    run "chmod +x yard.sh && ./yard.sh stop && ./yard.sh start"
   end
 end
 
