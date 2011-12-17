@@ -1,4 +1,9 @@
 en:
+  autocomplete:
+    multi:
+      hint: "Type in a search term"
+      no_results: "No results"
+      searching: "Searching..."
   # Translations for forms
   helpers:
     submit:

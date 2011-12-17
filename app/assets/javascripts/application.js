@@ -8,13 +8,17 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.tokeninput
+//= require jquery-ui-1.8.16.custom.min
 //= require bootstrap-alerts
 //= require autocomplete
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
 //= require ajax-loader
+//= require i18n
+//= require i18n/translations
 //= require_tree .
+
 
 
 

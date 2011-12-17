@@ -41,6 +41,7 @@ gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin
 gem "simple-navigation", "~> 3.5.0"
+gem "i18n-js"
 
 # Backend tools
 gem "responders"
