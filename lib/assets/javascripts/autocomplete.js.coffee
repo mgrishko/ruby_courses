@@ -1,6 +1,8 @@
 class MultiAutocomplete
   constructor: (@input) ->
     value = input.val()
+    label = $("label[for=#{@input.attr('id')}]")
+    
     @input.tokenInput input.attr('data-autocomplete-url') + "?", 
       theme: "goodsmaster"
       queryParam: "query"
@@ -18,6 +20,7 @@ class MultiAutocomplete
     # Set width of the generated input box to 1 so it is not wrapped
     # to the next line after tags
     input_box.width(1).closest("ul.token-input-list-goodsmaster").width(width)
+    label.attr("for", input_box.attr("id"))
     
     # Add new tag on ',' or Enter key up
     input_box.on "keyup", (event) ->

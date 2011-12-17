@@ -38,6 +38,55 @@ Given /^he should be on the product version (\d+) page$/ do |count|
   extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
 end
 
+Given /^the product has tags$/ do
+  @another_product = Fabricate(:product, brand: "brand123", account: @account)
+#  Fabricate(:tag, taggable: @another_product, name: "tag1_name")
+#  Fabricate(:tag, taggable: @another_product, name: "tag2_name")
+
+end
+
+When /^step1$/ do
+  page.driver.browser.execute_script %Q{ $('input#product_brand').trigger("focus") }
+  page.fill_in "Brand", with: "brand"
+  page.driver.browser.execute_script %Q{ $('input#product_brand').trigger("keydown") }
+end
+
+When /^step2$/ do
+  dt = DateTime.now + 5.seconds
+  wait_until(10) do
+    DateTime.now > dt
+  end
+end
+
+When /^step3$/ do
+  page.driver.browser.execute_script %Q{ $('.ui-menu-item a').trigger("mouseenter").trigger("click"); }
+end
+
+When /^he fills in tags field$/ do
+  click_button "Update Product"
+  steps %Q{ Then show me the page }
+  
+  #visit("/products/autocomplete/tags_name.json?query=tag")
+  #steps %Q{ Then show me the page }
+  #puts Time.now
+  #wait_until(10) do
+  #  page.find('#token-input-product_tags_list') #first(:xpath, xpath_route)
+  #end
+  #puts Time.now
+  #fill_in "token-input-product_tags_list", with: "tag"
+  #wait_until(10) do
+  #  page.find_field('token-input-product_tags_list').value == "tag"
+  #end
+  #puts Time.now
+  #find_field('token-input-product_tags_list').value.should == 'tag' 
+
+  #token_input("Tags list", :with => "tag1_name")
+end
+
+Then /^he should see the tags autocomplete$/ do
+
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
