@@ -39,7 +39,12 @@ Given /^he should be on the product version (\d+) page$/ do |count|
 end
 
 Given /^another product with ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  @another_product = Fabricate(:product, field.to_sym => value, :account => @account)
+  if field == "tags"
+    @another_product = Fabricate(:product, :account => @account)
+    value.split(",").each { |tag| Fabricate(:tag, taggable: @another_product, name: tag.strip) }
+  else
+    @another_product = Fabricate(:product, field.to_sym => value, :account => @account)
+  end
 end
 
 Given /^an authenticated user with editor role on edit product page$/ do
@@ -48,13 +53,6 @@ Given /^an authenticated user with editor role on edit product page$/ do
     And he is on the product page
     When he follows "Edit Product" within sidebar
   }
-end
-
-Given /^the product has tags$/ do
-  
-#  Fabricate(:tag, taggable: @another_product, name: "tag1_name")
-#  Fabricate(:tag, taggable: @another_product, name: "tag2_name")
-
 end
 
 When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
@@ -67,6 +65,33 @@ When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomple
   sleep(3)
   page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
   sleep(3)
+end
+
+When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
+  # Enter text into text field
+  page.driver.browser.execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  # Trigger keydown to open the dropdown
+  page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  sleep(3)
+  # Select the option in the dropdown
+  page.driver.browser.execute_script("
+    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
+      if ($(this).text() == '#{option}') {
+        var e = $.Event('mousedown', { target: $(this).children().get(0) });
+        $('.token-input-dropdown-goodsmaster ul').trigger(e);
+      }
+    });
+  ")
+  sleep(3)
+end
+
+Given /^the product has tags "([^"]*)"$/ do |tags|
+  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
+end
+
+When /^he deletes tags$/ do
+  sleep(3)
+  page.driver.browser.execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
 When /^he submits the product form$/ do
@@ -314,6 +339,16 @@ def submit_new_product_form(fields)
   click_button "Create Product"
 end
 
+Then /^he should not see product tags "([^"]*)"$/ do |tags|
+  tags.split(",").each do |tag| 
+    within(:css, "ul.product-tags") { page.should_not have_content(tag) }
+  end
+end
+
 Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  within(:css, "p.product-#{field}") { page.should have_content(value) }
+  if field == "tags"
+    within(:css, "ul.product-#{field}") { page.should have_content(value) }
+  else
+    within(:css, "p.product-#{field}") { page.should have_content(value) }
+  end
 end

@@ -43,11 +43,12 @@ en:
       account:
         new:
           company_name: "Company"
-
       comment:
         body: "Comment"
       comments:
         body: "Comment"
+      product:
+        tags_list: "Tags"
 
     #   password: 'Password'
     #   user:
