@@ -1,4 +1,5 @@
 class Admin::SessionsController < Devise::SessionsController
+  layout 'clean'
 
   protected
 

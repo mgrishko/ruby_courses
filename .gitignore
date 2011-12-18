@@ -1,7 +1,10 @@
 *.swp
 .idea
+.sass-cache
+.yardoc
 .bundle
 .rvmrc
+doc/
 coverage/
 log/*.log
 log/*.pid
@@ -9,5 +12,4 @@ log/*.db
 tmp/
 public/assets/
 public/system/uploads/
-.sass-cache/
 .DS_Store

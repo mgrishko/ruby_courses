@@ -4,7 +4,7 @@ Given /^an unauthenticated admin$/ do
 end
 
 Given /^an authenticated admin$/ do
-  Fabricate(:admin, email: "admin@example.com", password: "password")
+  @admin = Fabricate(:admin, email: "admin@example.com", password: "password")
 
   steps %Q{
     Given admin is on the admin sign in page
@@ -49,3 +49,4 @@ end
 Then /^admin should be signed out$/ do
   current_url.should == new_admin_session_url
 end
+

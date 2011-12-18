@@ -22,6 +22,9 @@ en:
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+    profiles:
+      edit:
+        title: "Admin Profile"
 
     sessions:
       new:
@@ -73,6 +76,9 @@ en:
       menu_title: "Account"
       settings: "Settings"
       users: "All People"
+    accounts:
+      menu_title: "Accounts"
+      list: "Account list"
     main:
       home: "Dashboard"
       products: "Products"

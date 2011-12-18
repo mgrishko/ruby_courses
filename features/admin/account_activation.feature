@@ -6,8 +6,11 @@ Feature: Account activation
   Scenario: Admin activates account
     Given company representative has a new account
     And an authenticated admin
-    When admin goes to the accounts page
-    And he activates the account
+    When the admin tries to access a restricted page
+    Then admin should be redirected back to the restricted page
+    When he follows "Account list" within topbar
+    Then he should be on the account list page
+    When he activates the account
     Then he should see notice message "Account was successfully activated."
     And an account owner should receive an activation email
     When he follows company account link

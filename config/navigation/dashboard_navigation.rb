@@ -52,8 +52,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :home, I18n.t('navigation.main.home'), home_url
-    primary.item :products, I18n.t('navigation.main.products'), products_url
+    primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
@@ -79,5 +78,4 @@ SimpleNavigation::Configuration.run do |navigation|
     # primary.auto_highlight = false
 
   end
-
 end
