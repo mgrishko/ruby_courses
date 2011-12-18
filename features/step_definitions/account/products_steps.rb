@@ -19,6 +19,10 @@ Given /^he is on the product page$/ do
   visit(product_path(@product))
 end
 
+Given /^he is on new product page$/ do
+  visit(new_product_path)
+end
+
 Given /^he is on the edit product page$/ do
   visit(edit_product_path(@product))
 end
@@ -277,4 +281,31 @@ def submit_new_product_form(fields)
     end
   end
   click_button "Create Product"
+end
+
+When /^he submits the new product form$/ do
+  #click_button "Create Product"
+end
+
+Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |field, value|
+  within(".input") { page.should_not have_content("can't be blank") }
+  page.driver.browser.execute_script("$('#product_name').blur()")
+  sleep(2)
+  within(".input") { page.should have_content("can't be blank") }
+  fill_in(field, with: value)
+  page.driver.browser.execute_script("$('#product_name').blur()")
+  sleep(2)
+  within(".input") { page.should_not have_content("can't be blank") }
+end
+
+Then /^he should see validation errors$/ do
+#  "$('#product_name).focus()"
+  page.driver.browser.execute_script "$('#product_name').blur()"
+  #puts page.driver.browser.execute_script("$('body').html()")
+  #page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  sleep(3)
+  within(".input") do
+    page.should have_content("can't be blank")
+  end
+  
 end

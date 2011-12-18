@@ -11,8 +11,6 @@
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
+//= require rails.validations
 //= require ajax-loader
 //= require_tree .
-
-
-
