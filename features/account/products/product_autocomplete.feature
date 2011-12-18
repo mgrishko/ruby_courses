@@ -6,16 +6,19 @@ Feature: Autocompletion for product form fields
   Background: Account exists
     Given an activated account
     And that account has a product
-    And the product has tags
   
-  @javascript @wip
+  @javascript
   Scenario: Editor successfully updates a product
-    Given an authenticated user with editor role
-    And he is on the product page
-    When he follows "Edit Product" within sidebar
-    Then step1
-    Then step2
-    Then step3
-    Then step2
-    And he fills in tags field
-    Then he should see the tags autocomplete
+    Given another product with brand "brand123"
+    Given an authenticated user with editor role on edit product page
+    And he enters "brand" into "Brand" field and selects "brand123" autocomplete option
+    And he submits the product form
+    Then he should see product brand "brand123"
+  
+  @javascript 
+  Scenario: Editor successfully updates a product
+    Given another product with manufacturer "manufacturer123"
+    Given an authenticated user with editor role on edit product page
+    And he enters "manufacturer" into "Manufacturer" field and selects "manufacturer123" autocomplete option
+    And he submits the product form
+    Then he should see product manufacturer "manufacturer123"

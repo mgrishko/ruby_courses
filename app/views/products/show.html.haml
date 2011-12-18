@@ -29,9 +29,9 @@
   %header
     %h2= @product_version.name
 
-  %p= @product_version.manufacturer
-  %p= @product_version.brand
-  %p= @product_version.description
+  %p.product-manufacturer= @product_version.manufacturer
+  %p.product-brand= @product_version.brand
+  %p.product-version= @product_version.description
 
 %section#comments
   - if can? :create, Comment

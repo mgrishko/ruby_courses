@@ -38,53 +38,39 @@ Given /^he should be on the product version (\d+) page$/ do |count|
   extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
 end
 
+Given /^another product with ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
+  @another_product = Fabricate(:product, field.to_sym => value, :account => @account)
+end
+
+Given /^an authenticated user with editor role on edit product page$/ do
+  steps %Q{
+    Given an authenticated user with editor role
+    And he is on the product page
+    When he follows "Edit Product" within sidebar
+  }
+end
+
 Given /^the product has tags$/ do
-  @another_product = Fabricate(:product, brand: "brand123", account: @account)
+  
 #  Fabricate(:tag, taggable: @another_product, name: "tag1_name")
 #  Fabricate(:tag, taggable: @another_product, name: "tag2_name")
 
 end
 
-When /^step1$/ do
-  page.driver.browser.execute_script %Q{ $('input#product_brand').trigger("focus") }
-  page.fill_in "Brand", with: "brand"
-  page.driver.browser.execute_script %Q{ $('input#product_brand').trigger("keydown") }
-end
-
-When /^step2$/ do
-  dt = DateTime.now + 5.seconds
-  wait_until(10) do
-    DateTime.now > dt
-  end
-end
-
-When /^step3$/ do
-  page.driver.browser.execute_script %Q{ $('.ui-menu-item a').trigger("mouseenter").trigger("click"); }
-end
-
-When /^he fills in tags field$/ do
-  click_button "Update Product"
-  steps %Q{ Then show me the page }
+When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  field_id = field[:id]
   
-  #visit("/products/autocomplete/tags_name.json?query=tag")
-  #steps %Q{ Then show me the page }
-  #puts Time.now
-  #wait_until(10) do
-  #  page.find('#token-input-product_tags_list') #first(:xpath, xpath_route)
-  #end
-  #puts Time.now
-  #fill_in "token-input-product_tags_list", with: "tag"
-  #wait_until(10) do
-  #  page.find_field('token-input-product_tags_list').value == "tag"
-  #end
-  #puts Time.now
-  #find_field('token-input-product_tags_list').value.should == 'tag' 
-
-  #token_input("Tags list", :with => "tag1_name")
+  page.driver.browser.execute_script "$('input##{field_id}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  page.driver.browser.execute_script "$('input##{field_id}').trigger('keydown')"
+  sleep(3)
+  page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
+  sleep(3)
 end
 
-Then /^he should see the tags autocomplete$/ do
-
+When /^he submits the product form$/ do
+  click_button "Update Product"
 end
 
 When /^he follows product link$/ do
@@ -326,4 +312,8 @@ def submit_new_product_form(fields)
     end
   end
   click_button "Create Product"
+end
+
+Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
+  within(:css, "p.product-#{field}") { page.should have_content(value) }
 end
