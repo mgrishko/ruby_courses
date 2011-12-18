@@ -2,7 +2,7 @@
 #!/bin/sh
 
 # edit PIDFILE if you want it somewhere local
-PIDFILE=/home/demo/yard_pid/yard.pid
+PIDFILE=/var/lib/jenkins/jobs/WebForms/yard_pid/yard.pid
 
 case "$1" in
 start)
