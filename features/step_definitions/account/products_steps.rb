@@ -283,31 +283,29 @@ def submit_new_product_form(fields)
   click_button "Create Product"
 end
 
-When /^he submits the new product form$/ do
-  #click_button "Create Product"
+Then /^he submits the new product form with valid data$/ do
+  steps %Q{
+    And he submits a new product form with following data:
+      | Name         |
+      | Manufacturer |
+      | Brand        |
+      | Description  |
+  }
 end
 
-Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |field, value|
-  field = _find_fillable_field(field)
+Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
+
+  within("form#new_product") { page.should have_content("can't be blank") }
+  fill_in(locator, with: value)
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
   
-  within(".input") { page.should_not have_content("can't be blank") }
-  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
-  sleep(2)
-  within(".input") { page.should have_content("can't be blank") }
-  fill_in(field, with: value)
-  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
-  sleep(2)
-  within(".input") { page.should_not have_content("can't be blank") }
+  within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should see validation errors$/ do
-#  "$('#product_name).focus()"
-  page.driver.browser.execute_script "$('#product_name').blur()"
-  #puts page.driver.browser.execute_script("$('body').html()")
-  #page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
-  sleep(3)
-  within(".input") do
-    page.should have_content("can't be blank")
-  end
-  
-end
