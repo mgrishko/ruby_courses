@@ -288,12 +288,14 @@ When /^he submits the new product form$/ do
 end
 
 Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |field, value|
+  field = _find_fillable_field(field)
+  
   within(".input") { page.should_not have_content("can't be blank") }
-  page.driver.browser.execute_script("$('#product_name').blur()")
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
   sleep(2)
   within(".input") { page.should have_content("can't be blank") }
   fill_in(field, with: value)
-  page.driver.browser.execute_script("$('#product_name').blur()")
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
   sleep(2)
   within(".input") { page.should_not have_content("can't be blank") }
 end
