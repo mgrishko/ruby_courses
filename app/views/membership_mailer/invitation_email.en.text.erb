@@ -8,16 +8,9 @@ Click this link to get started:
 
 Login:
 <%= @user.email %>
-<% if @user.password.present? %>
-Password:
-<%= @user.password %>
-<% end %>
+<%= @membership.show_password(format: :text) %>
 
-<% if @invitation_note.present? %>
-<%= @invited_by.first_name %> also says:
-
-<%= @invitation_note %>
-<% end %>
+<%= @membership.invitation(format: :text) %>
 
 Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>
 

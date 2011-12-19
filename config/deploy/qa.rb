@@ -12,8 +12,3 @@ set :appserver, "dev.getmasterdata.com"
 role :app, appserver
 role :web, appserver
 role :db,  appserver, :primary => true
-
-
-#Documentate yard and run yard_server
-#after "deploy", "deploy:yard_regenerate"
-

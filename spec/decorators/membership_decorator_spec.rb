@@ -21,10 +21,19 @@ describe MembershipDecorator do
     it "#email" do
       @decorator.email.should == @membership.user.email
     end
-    
+
     it "#role_select_options" do
       MembershipDecorator.role_select_options.should ==
           [["Admin", "admin"], ["Editor", "editor"], ["Contributor", "contributor"], ["Viewer", "viewer"]]
+    end
+
+    it "#show_password" do
+      @decorator.user.password.should == @membership.user.password
+    end
+
+    it "#invitation" do
+      @decorator.invitation_note.should == @membership.invitation_note
+      @decorator.invited_by.first_name.should == @membership.invited_by.first_name
     end
 
     describe "#setup_nested" do
