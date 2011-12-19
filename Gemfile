@@ -66,6 +66,7 @@ gem "yard", "~> 0.7.4"
 # External services
 gem "airbrake"
 gem "newrelic_rpm"
+gem "uservoice", path: "vendor/plugins/uservoice"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

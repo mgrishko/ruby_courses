@@ -5,5 +5,13 @@
 %title= "#{Settings.project_name}#{": #{yield(:head_title)}" if content_for?(:head_title)}"
 = stylesheet_link_tag "application"
 = javascript_include_tag "application"
+= user_voice_widget #if Rails.env.production?
+-#%script{type="text/javascript"}
+  -#var uvOptions = {};
+  -#(function() {
+  -#var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+  -#uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js';
+  -#var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  -#})();
 = csrf_meta_tags
 = favicon_link_tag
