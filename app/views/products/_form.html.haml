@@ -1,11 +1,11 @@
-= simple_form_for @product, :wrapper => :inline, :validate => true, :html => { "data-validate" => true } do |f|
+= simple_form_for @product, :wrapper => :inline, :validate => true do |f|
   = f.error_notification
 
   .inputs
-    = f.input :name, :input_html => { "data-validate" => true }
-    = f.input :manufacturer, :input_html => { "data-validate" => true }
-    = f.input :brand, :input_html => { "data-validate" => true }
-    = f.input :description, as: :text, :input_html => { "data-validate" => true }
+    = f.input :name
+    = f.input :manufacturer
+    = f.input :brand
+    = f.input :description, as: :text
     = f.input :tags_list
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
@@ -15,7 +15,3 @@
   .actions
     = f.button :submit, class: "primary"
     = button_tag t("cancel"), type: :reset, class: "btn"
-
--#= form_for @product, :validate => true do |f|
-  = f.text_field :name
-  = f.submit 
