@@ -1,10 +1,32 @@
-= simple_form_for(@product, wrapper: :inline) do |f|
+= simple_form_for(@product.setup_nested, wrapper: :inline) do |f|
   = f.error_notification
 
   .inputs
-    = f.input :name
-    = f.input :manufacturer
+    = f.input :functional_name
+    = f.input :variant
     = f.input :brand
+    = f.input :sub_brand
+    = f.input :manufacturer
+    = f.input :country_of_origin
+
+    = f.simple_fields_for :measurements, wrapper: :inline do |n|
+      = n.input :name, as: :hidden
+      = n.input :value,
+        label: ProductDecorator.measure_value_label(n.object),
+        required: false
+      - if n.object.unit.nil?
+        = n.input :unit, collection: ProductDecorator.unit_options(n.object.name),
+          label: I18n.t("helpers.label.measurememt.unit", measure: I18n.t("measures.#{n.object.name}")),
+          required: false
+      - else
+        = n.input :unit, as: :hidden
+
+    = f.input :gtin
+    = f.simple_fields_for :product_codes, wrapper: :inline do |n|
+      = n.input :name, as: :hidden
+      = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
+
+    = f.input :short_description
     = f.input :description, as: :text
     = f.input :tags_list
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false

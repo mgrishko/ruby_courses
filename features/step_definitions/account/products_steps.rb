@@ -47,7 +47,24 @@ When /^he submits a new product form with following data:$/ do |table|
 end
 
 When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
-  fields = ["Name", "Manufacturer", "Brand", "Description"]
+  fields = [
+      "Name",
+      "Functional name",
+      "Variant",
+      "Brand",
+      "Sub brand",
+      "Manufacturer",
+      "Country of origin",
+      "Description",
+      "Depth",
+      "Gross weight",
+      "Height",
+      "Width",
+      "Net content",
+      "Net weight",
+      "Gtin",
+      "Additional id"
+  ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize
     fields << custom_field unless fields.find_index(custom_field)

@@ -12,7 +12,7 @@ class EventDecorator < ApplicationDecorator
   
   # Returns event description and user name
   def description
-    I18n.t("#{event.eventable_type.pluralize.downcase}.events.#{event.action_name}", 
+    I18n.t("events.#{event.eventable_type.pluralize.downcase}.#{event.action_name}",
       user_name: event.user.full_name)
   end
   

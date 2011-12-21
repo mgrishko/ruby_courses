@@ -1,10 +1,15 @@
 Fabricator(:product) do
   account!
-  name         { Faker::Product.product_name }
+  functional_name { Faker::Product.product_name[0..34] }
+  variant         { Faker::Product.product_name[0..34] }
   manufacturer { Faker::Company.name[0..34] }
+  country_of_origin "US"
   brand        { Faker::Product.brand }
+  sub_brand    { Faker::Product.brand }
+  short_description  { Faker::Product.product_name }
   description  { Faker::Lorem.paragraphs }
   visibility   "public"
+  gtin "01234567890123"
 end
 
 Fabricator(:product_with_comments, from: :product) do
