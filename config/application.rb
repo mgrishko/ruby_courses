@@ -55,7 +55,7 @@ module GoodsMaster
     config.assets.version = '1.0'
     
     # Forcing application to not access the DB or load models when precompiling assets
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
 
     # Setting test framework and fixture replacement to Fabrication
     config.generators do |g|
