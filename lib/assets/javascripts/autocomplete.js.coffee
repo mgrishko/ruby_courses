@@ -1,5 +1,6 @@
 class MultiAutocomplete
   constructor: (@input) ->
+    input = @input
     value = input.val()
     label = $("label[for=#{@input.attr('id')}]")
     
@@ -7,7 +8,7 @@ class MultiAutocomplete
       theme: "goodsmaster"
       queryParam: "query"
       preventDuplicates: true
-      minChars: 2
+      minChars: 1
       hintText: I18n.t('autocomplete.multi.hint')
       noResultsText: I18n.t('autocomplete.multi.no_results')
       searchingText: I18n.t('autocomplete.multi.searching')
@@ -27,7 +28,7 @@ class MultiAutocomplete
       return unless event.keyCode in [188, 13]
       new_value = input_box.val()
       new_value = new_value.substring(0, new_value.length - 1) if event.keyCode == 188
-      @input.tokenInput("add", { id: new_value, name: new_value }) if new_value
+      input.tokenInput("add", { id: new_value, name: new_value }) if new_value
       input_box.val("")
     
     # Form not submitted when Enter is pressed
@@ -37,7 +38,7 @@ class MultiAutocomplete
 class SingleAutocomplete
   constructor: (@input) ->
     @input.autocomplete
-      minLength: 2
+      minLength: 1
     
       # Loads options and builds array of items 
       source: (request, response) ->

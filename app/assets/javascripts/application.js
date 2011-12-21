@@ -8,7 +8,10 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.tokeninput
-//= require jquery-ui-1.8.16.custom.min
+//= require jquery.ui.widget.min
+//= require jquery.ui.autocomplete.min
+//= require jquery.ui.core.min
+//= require jquery.ui.position.min
 //= require bootstrap-alerts
 //= require autocomplete
 //= require bootstrap-dropdown
