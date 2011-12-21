@@ -60,7 +60,7 @@ describe Mongoid::Taggable do
     context "when taggable is invalid" do
       it "should not update embedded tags" do
         @taggable.tags_list = "tag2 tag3"
-        @taggable.name = nil
+        @taggable.functional_name = nil
         @taggable.should_not be_valid
         @taggable.reload
         @taggable.tags.map(&:name).should eql(["tag1", "tag2"])

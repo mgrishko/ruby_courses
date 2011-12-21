@@ -92,6 +92,14 @@ describe Product do
     product_code.product.should eql(product)
   end
 
+  describe "#name" do
+    it "should concat brand, sub brand, functional name and variant" do
+      p = Fabricate(:product)
+      expected = "#{p.brand} #{p.sub_brand} #{p.functional_name} #{p.variant}"
+      p.name.should == expected
+    end
+  end
+
   it "should set created_at" do
     Timecop.freeze
     product = Fabricate(:product)
@@ -105,81 +113,120 @@ describe Product do
     product.updated_at.should == Time.now
     Timecop.return
   end
-  
-  it "should create updated comment when updated without comment" do
-    user = product.account.owner
-    product.short_description = Faker::Product.product_name
-    
-    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+
+  describe "versions" do
+    it "should create new version" do
+      old_name = product.functional_name
+      product.functional_name = Faker::Product.product_name[0..35]
+      product.save!
+      product.functional_name.should_not == old_name
+      product.versions.first.functional_name.should == old_name
+    end
+  end
+
+  describe "auto complete" do
+    before do
+      product = Fabricate(:product, manufacturer: "Pepsico", brand: "Mirinda")
+      product.tags.create(name: "Drink")
+      product.tags.create(name: "Soft")
+      @current_account = Product.first.account
+    end
+
+    it "should complete manufacturer" do
+      @current_account.products.complete_manufacturer("pep").should eql(["Pepsico"])
+    end
+
+    it "should complete brand" do
+      @current_account.products.complete_brand("mir").should eql(["Mirinda"])
+    end
+
+    it "should complete tags" do
+      @current_account.products.complete_tags_name("dr").should eql(["Drink"])
+    end
+
+    describe "other account data" do
+      before do
+        product = Fabricate(:product, manufacturer: "Pepper Computers", brand: "Miranda Global")
+        product.tags.create(name: "Software")
+      end
+
+      it "should not include other product field data" do
+        @current_account.products.complete_manufacturer("pep").should_not include("Pepper Computers")
+      end
+
+      it "should not include other product tags" do
+        @current_account.products.complete_tags_name("soft").should_not include("Software")
+      end
+    end
+  end
+
+  describe "#save_with_system_comment" do
+    let(:user) { product.account.owner }
+
+
+    it "should create updated comment when updated without comment" do
+      product.functional_name = Faker::Product.product_name
+
+      Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+        expect {
+          product.save_with_system_comment(user)
+          product.save
+        }.to change(product.comments, :count).by(1)
+        product.comments.last.system.should be_true
+      end
+      Timecop.return
+    end
+
+    it "should create updated comment when updated with comment" do
+      product.functional_name = Faker::Product.product_name
+      product.comments.build body: Faker::Lorem.sentence
+
+      Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+        expect {
+          product.save_with_system_comment(user)
+        }.to change(product.comments, :count).by(1)
+        product.comments.last.system.should be_true
+      end
+      Timecop.return
+    end
+
+    it "should not create updated comment and new version when updated right after previous update/create" do
+      product.functional_name = Faker::Product.product_name
+
       expect {
         product.save_with_system_comment(user)
-        product.save
+      }.to change(product.comments, :count).by(0)
+      product.version.should == 1
+    end
+
+    it "should create updated comment and new version when updated in 60 minutes after previous update/create" do
+      product.functional_name = Faker::Product.product_name
+
+      Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+        expect {
+
+          product.save_with_system_comment(user)
+        }.to change(product.comments, :count).by(1)
+        product.version.should == 2
+      end
+    end
+
+    it "should create created comment when created without comment" do
+      product = Fabricate.build(:product)
+      expect {
+        product.save_with_system_comment(user)
       }.to change(product.comments, :count).by(1)
       product.comments.last.system.should be_true
     end
-    Timecop.return
-  end
-  
-  it "should create updated comment when updated with comment" do
-    user = product.account.owner
-    product.short_description = Faker::Product.product_name
-    product.comments.build body: Faker::Lorem.sentence
-    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+
+    it "should create only one comment when created with comment" do
+      product = Fabricate.build(:product)
+      product.comments.build body: Faker::Lorem.sentence
       expect {
         product.save_with_system_comment(user)
       }.to change(product.comments, :count).by(1)
       product.comments.last.system.should be_true
     end
-    Timecop.return
-  end
-  
-  it "should not create updated comment and new version when updated right after previous update/create" do
-    user = product.account.owner
-    
-    expect {
-      product.short_description = Faker::Product.product_name
-      product.save_with_system_comment(user)
-    }.to change(product.comments, :count).by(0)
-    product.version.should == 1
-  end
-  
-  it "should create updated comment and new version when updated in 60 minutes after previous update/create" do
-    user = product.account.owner
-    
-    Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
-      expect {
-        product.short_description = Faker::Product.product_name
-        product.save_with_system_comment(user)
-      }.to change(product.comments, :count).by(1)
-      product.version.should == 2
-    end
-  end
-  
-  it "should create created comment when created without comment" do
-    user = product.account.owner
-    product = Fabricate.build(:product)
-    expect {
-      product.save_with_system_comment(user)
-    }.to change(product.comments, :count).by(1)
-    product.comments.last.system.should be_true
-  end
-  
-  it "should create only one comment when created with comment" do
-    user = product.account.owner
-    product = Fabricate.build(:product)
-    product.comments.build body: Faker::Lorem.sentence
-    expect {
-      product.save_with_system_comment(user)
-    }.to change(product.comments, :count).by(1)
-    product.comments.last.system.should be_true
-  end
-  
-  it "should create versions" do
-    old_description = product.short_description
-    product.short_description = Faker::Product.product_name
-    product.save!
-    product.short_description.should_not == old_description
-    product.versions.first.short_description.should == old_description
   end
 
   describe "#public?" do

@@ -14,36 +14,6 @@ describe ProductDecorator do
     @decorator = ProductDecorator.decorate(@product)
   end
 
-  describe "allows" do
-    it "#name" do
-      @decorator.name.should == "Product name"
-    end
-
-    it "#manufacturer" do
-      @decorator.manufacturer.should == "Manufacturer"
-    end
-
-    it "#brand" do
-      @decorator.brand.should == "Brand"
-    end
-
-    it "#description" do
-      @decorator.description.should == "Product description"
-    end
-
-    it "#created_at" do
-      @decorator.created_at.should == @product.created_at
-    end
-
-    it "#updated_at" do
-      @decorator.updated_at.should == @product.updated_at
-    end
-
-    it "#version" do
-      @decorator.version.should == 1
-    end
-  end
-
   describe "#version_link" do
     context "when user can view product" do
       it "renders link" do
@@ -186,7 +156,7 @@ describe ProductDecorator do
 
   describe "#unit_options" do
     it "returns options for select" do
-      ProductDecorator.unit_options("net_content").should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]]
+      ProductDecorator.unit_options("net_content").sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
     end
   end
 

@@ -4,7 +4,7 @@ describe ApplicationDecorator do
   before { ApplicationController.new.set_current_view_context }
 
   before(:each) do
-    @product = Fabricate(:product, name: "Product name", description: "Product description")
+    @product = Fabricate(:product, funcitional_name: "Product name", description: "Product description")
     @product_decorator = ProductDecorator.decorate(@product)
     @comment = Fabricate(:comment, commentable: @product, body: "smth written")
     @comment_decorator = CommentDecorator.decorate(@comment)
@@ -25,14 +25,15 @@ describe ApplicationDecorator do
       context "when user can view product" do
         it "renders link" do
           @product_decorator.h.stub(:can?).and_return(true)
-          @product_decorator.show_link(name: :name).should =="<a href=\"/products/#{@product.id}\">Product name</a>"
+          @product_decorator.show_link(name: :funcitional_name).
+              should == "<a href=\"/products/#{@product.id}\">Product name</a>"
         end
       end
 
       context "when user cannot view product" do
         it "renders product name" do
           @product_decorator.h.stub(:can?).and_return(false)
-          @product_decorator.show_link(name: :name).should == "Product name"
+          @product_decorator.show_link(name: :funcitional_name).should == "Product name"
         end
       end
     end

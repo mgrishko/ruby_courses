@@ -53,7 +53,7 @@ describe "products/new.html.haml" do
 
     it "renders name field" do
       render
-      rendered.should have_field("product_name", name: "product[name]")
+      rendered.should have_field("product_functional_name", name: "product[functional_name]")
     end
 
     it "renders description field" do

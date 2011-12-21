@@ -40,6 +40,6 @@ class EventDecorator < ApplicationDecorator
   
   # Returns the class name of the trackable object
   def trackable_name
-    I18n.t("#{event.trackable_type.pluralize.downcase}.events.name")
+    I18n.t("events.#{event.trackable_type.pluralize.downcase}.name")
   end
 end

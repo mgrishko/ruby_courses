@@ -1,11 +1,11 @@
 class Product
   include Mongoid::Document
-
   include Mongoid::Paranoia
   include Mongoid::Timestamps
   include Mongoid::Versioning
   include Mongoid::Taggable
   include Mongoid::Trackable
+  include Mongoid::AutoComplete
   
   VISIBILITIES = %w(private public)
 
@@ -34,6 +34,8 @@ class Product
   accepts_nested_attributes_for :product_codes, reject_if: lambda { self.value.blank? }
   attr_accessible :product_codes_attributes
 
+  auto_complete_for :brand, :manufacturer, :tags => :name
+
   validates :functional_name, presence: true, length: 1..35
   validates :variant, presence: true, length: 1..35
   validates :manufacturer, presence: true, length: 1..35
@@ -50,6 +52,11 @@ class Product
   attr_accessible :functional_name, :variant, :gtin,
                   :short_description, :description, :version, :updated_at,
                   :brand, :sub_brand, :manufacturer, :country_of_origin, :visibility, :tags_list
+
+  # @return [String] concatinated brand, sub brand, functional name and variant
+  def name
+    "#{brand} #{sub_brand} #{functional_name} #{variant}"
+  end
 
   # @return [Boolean] true if visibility "public" and false otherwise.
   def public?

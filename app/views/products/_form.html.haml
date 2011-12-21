@@ -1,12 +1,12 @@
-= simple_form_for(@product.setup_nested, wrapper: :inline) do |f|
+= simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
   = f.error_notification
 
   .inputs
     = f.input :functional_name
     = f.input :variant
-    = f.input :brand
+    = f.input :brand, input_html: { :autocomplete => "off", "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/brand.json" }
     = f.input :sub_brand
-    = f.input :manufacturer
+    = f.input :manufacturer, input_html: {  "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/manufacturer.json" }
     = f.input :country_of_origin
 
     = f.simple_fields_for :measurements, wrapper: :inline do |n|
@@ -28,7 +28,7 @@
 
     = f.input :short_description
     = f.input :description, as: :text
-    = f.input :tags_list
+    = f.input :tags_list, input_html: { :autocomplete => "off", "data-autocomplete" => "multi", "data-autocomplete-url" => "/products/autocomplete/tags_name.json" }
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
     = simple_fields_for @comment, wrapper: :inline do |n|

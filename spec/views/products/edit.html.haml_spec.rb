@@ -47,7 +47,7 @@ describe "products/edit.html.haml" do
 
     it "renders name field" do
       render
-      rendered.should have_field("product_name", name: "product[name]")
+      rendered.should have_field("product_functional_name", name: "product[functional_name]")
     end
 
     it "renders manufacturer field" do
