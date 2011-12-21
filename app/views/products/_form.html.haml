@@ -1,4 +1,4 @@
-= simple_form_for(@product, wrapper: :inline) do |f|
+= simple_form_for @product, :wrapper => :inline, :validate => true do |f|
   = f.error_notification
 
   .inputs

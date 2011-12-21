@@ -19,6 +19,10 @@ Given /^he is on the product page$/ do
   visit(product_path(@product))
 end
 
+Given /^he is on new product page$/ do
+  visit(new_product_path)
+end
+
 Given /^he is on the edit product page$/ do
   visit(edit_product_path(@product))
 end
@@ -278,3 +282,30 @@ def submit_new_product_form(fields)
   end
   click_button "Create Product"
 end
+
+Then /^he submits the new product form with valid data$/ do
+  steps %Q{
+    And he submits a new product form with following data:
+      | Name         |
+      | Manufacturer |
+      | Brand        |
+      | Description  |
+  }
+end
+
+Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
+
+  within("form#new_product") { page.should have_content("can't be blank") }
+  fill_in(locator, with: value)
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
+  
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+end
+
