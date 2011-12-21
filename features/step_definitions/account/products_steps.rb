@@ -19,10 +19,6 @@ Given /^he is on the product page$/ do
   visit(product_path(@product))
 end
 
-Given /^he is on new product page$/ do
-  visit(new_product_path)
-end
-
 Given /^he is on the edit product page$/ do
   visit(edit_product_path(@product))
 end
@@ -193,11 +189,7 @@ When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
     And he follows "New Product" within sidebar
-    And he submits a new product form with following data:
-      | Name         |
-      | Manufacturer |
-      | Brand        |
-      | Description  |
+    And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
   }
@@ -357,16 +349,6 @@ def submit_new_product_form(fields)
     end
   end
   click_button "Create Product"
-end
-
-Then /^he submits the new product form with valid data$/ do
-  steps %Q{
-    And he submits a new product form with following data:
-      | Name         |
-      | Manufacturer |
-      | Brand        |
-      | Description  |
-  }
 end
 
 Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
