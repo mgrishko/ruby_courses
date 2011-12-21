@@ -3,10 +3,10 @@
 
   .inputs
     = f.input :name
-    = f.input :manufacturer
-    = f.input :brand
+    = f.input :manufacturer, input_html: {  "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/manufacturer.json" }
+    = f.input :brand, input_html: { :autocomplete => "off", "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/brand.json" }
     = f.input :description, as: :text
-    = f.input :tags_list
+    = f.input :tags_list, input_html: { :autocomplete => "off", "data-autocomplete" => "multi", "data-autocomplete-url" => "/products/autocomplete/tags_name.json" }
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
     = simple_fields_for @comment, wrapper: :inline do |n|
