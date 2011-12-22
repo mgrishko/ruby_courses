@@ -38,6 +38,66 @@ Given /^he should be on the product version (\d+) page$/ do |count|
   extract_port(current_url).should == product_version_url(@product, version: count, subdomain: @account.subdomain)
 end
 
+Given /^another product with ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
+  if field == "tags"
+    @another_product = Fabricate(:product, :account => @account)
+    value.split(",").each { |tag| Fabricate(:tag, taggable: @another_product, name: tag.strip) }
+  else
+    @another_product = Fabricate(:product, field.to_sym => value, :account => @account)
+  end
+end
+
+Given /^an authenticated user with editor role on edit product page$/ do
+  steps %Q{
+    Given an authenticated user with editor role
+    And he is on the product page
+    When he follows "Edit Product" within sidebar
+  }
+end
+
+When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  field_id = field[:id]
+  
+  page.driver.browser.execute_script "$('input##{field_id}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  page.driver.browser.execute_script "$('input##{field_id}').trigger('keydown')"
+  sleep(3)
+  page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
+  sleep(3)
+end
+
+When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
+  # Enter text into text field
+  page.driver.browser.execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  # Trigger keydown to open the dropdown
+  page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  sleep(3)
+  # Select the option in the dropdown
+  page.driver.browser.execute_script("
+    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
+      if ($(this).text() == '#{option}') {
+        var e = $.Event('mousedown', { target: $(this).children().get(0) });
+        $('.token-input-dropdown-goodsmaster ul').trigger(e);
+      }
+    });
+  ")
+  sleep(3)
+end
+
+Given /^the product has tags "([^"]*)"$/ do |tags|
+  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
+end
+
+When /^he deletes tags$/ do
+  sleep(3)
+  page.driver.browser.execute_script "$('.token-input-token-goodsmaster span').click()"
+end
+
+When /^he submits the product form$/ do
+  click_button "Update Product"
+end
+
 When /^he follows product link$/ do
   click_link(@product.name)
 end
@@ -113,11 +173,7 @@ When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
     And he follows "New Product" within sidebar
-    And he submits a new product form with following data:
-      | Name         |
-      | Manufacturer |
-      | Brand        |
-      | Description  |
+    And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
   }
@@ -278,3 +334,34 @@ def submit_new_product_form(fields)
   end
   click_button "Create Product"
 end
+
+Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
+
+  within("form#new_product") { page.should have_content("can't be blank") }
+  fill_in(locator, with: value)
+  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+  sleep(2)
+  
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+end
+
+Then /^he should not see product tags "([^"]*)"$/ do |tags|
+  tags.split(",").each do |tag| 
+    within(:css, "ul.product-tags") { page.should_not have_content(tag) }
+  end
+end
+
+Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
+  if field == "tags"
+    within(:css, "ul.product-#{field}") { page.should have_content(value) }
+  else
+    within(:css, "p.product-#{field}") { page.should have_content(value) }
+  end
+end
+
