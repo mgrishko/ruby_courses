@@ -1,8 +1,8 @@
 uservoice_options:
-  key: getmasterdata
-  host: getmasterdata.uservoice.com
-  forum: 128873
+  key: goodsmaster
+  host: goodsmaster.uservoice.com
+  forum: 143701
 uservoice_api:
-  api_key: 92205a47af50540dbd25f2fd8ff8c65f
+  api_key: b5c617c4a074cd3c3e016c13650f0099
 widget:
-  path: widget.uservoice.com/wKfR7pDTG1JzedMmJMU7w.js
+  path: widget.uservoice.com/g7Tv9aEYEg68khcRp9SzwA.js
