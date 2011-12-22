@@ -14,6 +14,3 @@ GoodsMaster.photos.init = ->
 
 $(document).ready ->
   GoodsMaster.photos.init()
-
-
-

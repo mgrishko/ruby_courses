@@ -137,3 +137,27 @@ SimpleForm.setup do |config|
   # config.button_class = 'button'
   config.button_class = 'btn'
 end
+
+module ClientSideValidations
+  module SimpleForm
+    module FormBuilder
+
+      def self.included(base)
+        base.class_eval do
+          def self.client_side_form_js_hash(options, form_helper)
+            {
+              :type => self.to_s,
+              :error_class => "ec",
+              :error_tag => "et",
+              :wrapper_error_class => "ec",
+              :wrapper_tag => "et"
+            }
+          end
+        end
+      end
+
+    end
+  end
+end
+
+SimpleForm::FormBuilder.send(:include, ClientSideValidations::SimpleForm::FormBuilder)

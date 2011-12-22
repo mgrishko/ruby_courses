@@ -34,5 +34,10 @@ describe ProductsController do
     it "routes to #delete" do
       delete("http://subdomain.example.com/products/1").should route_to("products#destroy", id: "1")
     end
+
+    it "routes to #autocomplete" do
+      get("http://subdomain.example.com/products/autocomplete/tags_name?query=a").
+          should route_to("products#autocomplete", field: "tags_name")
+    end
   end
 end

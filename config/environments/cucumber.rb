@@ -37,6 +37,9 @@ GoodsMaster::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  # I18n-js support
+  config.assets.initialize_on_precompile = true
+
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'example.com' }
 
