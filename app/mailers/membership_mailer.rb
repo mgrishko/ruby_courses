@@ -3,7 +3,7 @@ class MembershipMailer < ActionMailer::Base
 
   def invitation_email(membership)
     set_current_view_context
-    membership = MembershipDecorator.decorate(membership)
+    @membership = MembershipDecorator.decorate(membership)
     @invited_by = membership.invited_by
     @user = membership.user
     @account = membership.account

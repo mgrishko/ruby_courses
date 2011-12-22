@@ -30,4 +30,32 @@ class MembershipDecorator < ApplicationDecorator
     end
     self
   end
+
+  def show_password(options = {})
+    if membership.user.password.present?
+      if :format == :html
+        "Password:
+        %br
+        #{membership.user.password}"
+      else
+        "Password:
+        #{membership.user.password}"
+      end
+    end
+  end
+
+  def invitation(options = {})
+    if membership.invitation_note.present?
+      if :format == :html
+        "%p
+          #{membership.invited_by.first_name}
+          also says:
+        %pre= #{membership.invitation_note}"
+      else
+        "#{membership.invited_by.first_name} also says:
+
+        #{membership.invitation_note}"
+      end
+    end
+  end
 end
