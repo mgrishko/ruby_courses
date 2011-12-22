@@ -8,11 +8,23 @@ Click this link to get started:
 
 Login:
 <%= @user.email %>
-<%= @membership.password_label(format: :text) %>
+<% if @user.password.present? %>
+Password:
+<%= @user.password %>
+<% end %>
 
-<%= @membership.invitation_label(format: :text) %>
+<% if @invitation_note.present? %>
+<%= @invited_by.first_name %> also says:
 
-Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>
+<%= @invitation_note %>
+<% end %>
+<%#Login:%>
+<%#<%= @user.email %>
+<%#<%= @membership.password_label(format: :text) %>
+
+<%#<%= @membership.invitation_label(format: :text) %>
+
+<%#Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>%>
 
 
 All the best,
