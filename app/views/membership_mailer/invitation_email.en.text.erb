@@ -8,9 +8,9 @@ Click this link to get started:
 
 Login:
 <%= @user.email %>
-<%= @membership.show_password(format: :text) %>
+<%= @membership.password_label(format: :text) %>
 
-<%= @membership.invitation(format: :text) %>
+<%= @membership.invitation_label(format: :text) %>
 
 Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>
 

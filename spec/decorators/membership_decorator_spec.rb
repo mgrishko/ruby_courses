@@ -27,13 +27,45 @@ describe MembershipDecorator do
           [["Admin", "admin"], ["Editor", "editor"], ["Contributor", "contributor"], ["Viewer", "viewer"]]
     end
 
-    it "#show_password" do
-      @decorator.user.password.should == @membership.user.password
+    describe "#invitation_label" do
+      it "#invitation_label" do
+        @decorator.invitation_note.should == @membership.invitation_note
+        @decorator.invited_by.first_name.should == @membership.invited_by.first_name
+      end
+
+      it "render html type" do
+        @decorator.invitation_label(format: :html).should ==
+          "%p
+          #{@membership.invited_by.first_name}
+          also says:
+        %pre= #{@membership.invitation_note}"
+      end
+
+      it "render text type" do
+        @decorator.invitation_label(format: :text).should ==
+          "#{@membership.invited_by.first_name} also says:
+
+        #{@membership.invitation_note}"
+      end
     end
 
-    it "#invitation" do
-      @decorator.invitation_note.should == @membership.invitation_note
-      @decorator.invited_by.first_name.should == @membership.invited_by.first_name
+    describe "#password_label" do
+      it "#password_label" do
+        @decorator.user.password.should == @membership.user.password
+      end
+
+      it "render text type" do
+        @decorator.password_label(format: :text).should ==
+        "Password:
+      #{@membership.user.password}"
+      end
+
+      it "render html type" do
+        @decorator.password_label(format: :html).should ==
+        "Password:
+      %br
+      #{@membership.user.password}"
+      end
     end
 
     describe "#setup_nested" do

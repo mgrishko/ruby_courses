@@ -10,5 +10,9 @@ describe AccountMailer do
     it "delivers to the account owner email" do
       email.should deliver_to(owner.email)
     end
+
+    it "inserts subject message" do
+      email.should have_subject("[#{account.company_name}] Account for #{account.company_name} has been activated")
+    end
   end
 end

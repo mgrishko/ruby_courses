@@ -31,30 +31,45 @@ class MembershipDecorator < ApplicationDecorator
     self
   end
 
-  def show_password(options = {})
+  # Sets view content for password label
+  #
+  # @param [Hash] optional. if options[:format] == :html it sets password content only for html,
+  # other, sets for text format
+  def password_label(options = {})
     if membership.user.password.present?
-      if :format == :html
-        "Password:
-        %br
-        #{membership.user.password}"
-      else
-        "Password:
-        #{membership.user.password}"
-      end
+      password = membership.user.password
+      str = "Password:
+      #{password}".split("\n")
+      str = str.insert(1, "      %br") if options[:format] == :html
+      str.join("\n")
+      #if options[:format] == :html
+        #"Password:
+        #%br
+        ##{password}"
+      #else
+        #"Password:
+        ##{password}"
+      #end
     end
   end
 
-  def invitation(options = {})
+  # Sets view content for invitation note
+  #
+  # @param [Hash] optional. if options[:format] == :html it sets invitation note only for html,
+  # other, sets for text format
+  def invitation_label(options = {})
     if membership.invitation_note.present?
-      if :format == :html
+      first_name = membership.invited_by.first_name
+      invitation_note = membership.invitation_note
+      if options[:format] == :html
         "%p
-          #{membership.invited_by.first_name}
+          #{first_name}
           also says:
-        %pre= #{membership.invitation_note}"
+        %pre= #{invitation_note}"
       else
-        "#{membership.invited_by.first_name} also says:
+        "#{first_name} also says:
 
-        #{membership.invitation_note}"
+        #{invitation_note}"
       end
     end
   end

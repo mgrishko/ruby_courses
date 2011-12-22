@@ -23,9 +23,9 @@
       Login:
       %br
       = @user.email
-      = @membership.show_password(format: :html)
+      = @membership.password_label(format: :html)
 
-      = @membership.invitation(format: :html)
+      = @membership.invitation_label(format: :html)
 
     %p
       %strong
