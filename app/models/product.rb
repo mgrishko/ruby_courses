@@ -9,29 +9,57 @@ class Product
   
   VISIBILITIES = %w(private public)
 
-  field :name, type: String
-  field :manufacturer, type: String
-  field :brand, type: String
-  field :description, type: String
-  field :visibility, type: String, default: "public"
-  field :updated_at, versioned: true
+  field :functional_name  , type: String
+  field :variant          , type: String
+  field :manufacturer     , type: String
+  field :country_of_origin, type: String
+  field :brand            , type: String
+  field :sub_brand        , type: String
+  field :gtin             , type: String
+  field :short_description, type: String
+  field :description      , type: String
+  field :visibility       , type: String, default: "public"
+  field :updated_at       , versioned: true
   
   belongs_to :account
 
   embeds_many :comments, as: :commentable, versioned: false
   embeds_many :photos, versioned: false
+  embeds_many :measurements
+  embeds_many :product_codes
+
+  accepts_nested_attributes_for :measurements
+  attr_accessible :measurements_attributes
+
+  accepts_nested_attributes_for :product_codes
+  attr_accessible :product_codes_attributes
 
   auto_complete_for :brand, :manufacturer, :tags => :name
 
-  validates :name, presence: true, length: 1..70
+  validates :functional_name, presence: true, length: 1..35
+  validates :variant, presence: true, length: 1..35
   validates :manufacturer, presence: true, length: 1..35
+  validates :country_of_origin, presence: true, inclusion: { in: Carmen.country_codes }
   validates :brand, presence: true, length: 1..70
+  validates :sub_brand, presence: true, length: 1..70
+  validates :short_description, presence: true, length: 1..178
   validates :description, presence: true, length: 5..1000
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
+  validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
+
+  before_validation :cleanup_measurements
+  before_validation :cleanup_product_codes
 
   # :version, :updated_at attributes required for Mongoid versioning support
-  attr_accessible :name, :description, :version, :updated_at, :brand, :manufacturer, :visibility, :tags_list
+  attr_accessible :functional_name, :variant, :gtin,
+                  :short_description, :description, :version, :updated_at,
+                  :brand, :sub_brand, :manufacturer, :country_of_origin, :visibility, :tags_list
+
+  # @return [String] concatinated brand, sub brand, functional name and variant
+  def name
+    "#{brand} #{sub_brand} #{functional_name} #{variant}"
+  end
 
   # @return [Boolean] true if visibility "public" and false otherwise.
   def public?
@@ -69,5 +97,30 @@ class Product
     comment.user = user
     comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
     save
+  end
+
+  private
+
+  # Cleanups all measurements with blank values unless any dimensional measurement presents.
+  def cleanup_measurements
+    dimension_measures = %w(depth height width)
+    dimension_present = self.measurements.any? { |m| dimension_measures.include?(m.name) && m.value.present? }
+
+    measurements = []
+    self.measurements.each do |m|
+      measurements << m unless m.value.blank? && !(dimension_present && dimension_measures.include?(m.name))
+    end
+
+    self.measurements = measurements
+  end
+
+  # Cleanups all product codes with blank values.
+  def cleanup_product_codes
+    codes = []
+    self.product_codes.each do |m|
+      codes << m unless m.value.blank?
+    end
+
+    self.product_codes = codes
   end
 end

@@ -30,7 +30,7 @@ end
 
 Given /^the product has (\d+) versions$/ do |count|
   (2..count.to_i).each do
-    @product.update_attributes name: SecureRandom.hex(10)
+    @product.update_attributes functional_name: SecureRandom.hex(10)
   end
 end
 
@@ -107,7 +107,17 @@ When /^he submits a new product form with following data:$/ do |table|
 end
 
 When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
-  fields = ["Name", "Manufacturer", "Brand", "Description"]
+  fields = [
+      "Functional name",
+      "Variant",
+      "Brand",
+      "Sub brand",
+      "Manufacturer",
+      "Country of origin",
+      "Short description",
+      "Description",
+      "Gtin"
+  ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize
     fields << custom_field unless fields.find_index(custom_field)
@@ -118,7 +128,7 @@ end
 When /^he submits form with updated product$/ do
   # Wait 61 minute here to create a comment later then existing one
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
-    fill_in :name, with: "New product name"
+    fill_in :functional_name, with: "New product name"
     click_button "Update Product"
   end
   Timecop.return
@@ -127,6 +137,29 @@ end
 When /^he enters a comment to the product$/ do
   @comment = Fabricate.build(:comment, body: "Some super comment")
   fill_in "Comment", with: @comment.body
+end
+
+When /^he enters the following measurements:$/ do |table|
+  fields = table.raw.flatten
+
+  fields.each do |field|
+    attr = /^.*unit$/.match(field) ? :select : :input
+    value = attr == :select ? "ml" : "100"
+    case attr
+      when :select
+        select value, from: field
+      else
+        fill_in field, with: value
+    end
+  end
+end
+
+When /^he enters the following product codes:$/ do |table|
+  fields = table.raw.flatten
+
+  fields.each do |field|
+    fill_in field, with: "0001"
+  end
 end
 
 When /^he submits a (.*)comment to the product$/ do |adj|
@@ -317,24 +350,6 @@ Then /^he should see that comment body (.*)$/ do |text|
   page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
-def submit_new_product_form(fields)
-  attrs = Fabricate.attributes_for(:product, account: nil)
-
-  fields.each do |field|
-    attr = field.downcase.gsub(/\s/, '_').to_sym
-
-    case attr
-      when :comment
-        step "he enters a comment to the product"
-      when :tags
-         step "he edits the product tags"
-      else
-        fill_in field, with:  attrs[attr]
-    end
-  end
-  click_button "Create Product"
-end
-
 Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   within("form#new_product") { page.should_not have_content("can't be blank") }
@@ -365,3 +380,25 @@ Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
   end
 end
 
+# Functions
+
+def submit_new_product_form(fields)
+  attrs = Fabricate.attributes_for(:product, account: nil)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+
+    case attr
+      when :country_of_origin
+        select Carmen.country_name(attrs[attr]), from: field
+
+      when :comment
+        step "he enters a comment to the product"
+      when :tags
+         step "he edits the product tags"
+      else
+        fill_in field, with:  attrs[attr]
+    end
+  end
+  click_button "Create Product"
+end

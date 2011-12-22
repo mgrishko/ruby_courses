@@ -11,10 +11,15 @@ Feature: New product
     And he is on the products page
     When he follows "New Product" within sidebar
     And he submits a new product form with following data:
-      | Name         |
-      | Manufacturer |
-      | Brand        |
-      | Description  |
+      | Functional name   |
+      | Variant           |
+      | Brand             |
+      | Sub brand         |
+      | Manufacturer      |
+      | Country of origin |
+      | Short description |
+      | Description       |
+      | Gtin              |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
     And he should see "Version 1" text within sidebar
@@ -28,4 +33,27 @@ Feature: New product
     When he goes to the new product page
     Then he should see alert message "Not allowed to create a new product."
 
+  Scenario: Editor successfully adds a new product with measurements
+    Given an authenticated user with editor role
+    And he is on the new product page
+    When he enters the following measurements:
+      | Depth (mm)        |
+      | Height (mm)       |
+      | Width (mm)        |
+      | Gross weight (g)  |
+      | Net weight (g)    |
+      | Net content       |
+      | Net content unit  |
+    And he submits a new product form
+    Then he should be on the product page
+    And he should see notice message "Product was successfully created."
+
+  Scenario: Editor successfully adds a new product with internal id
+    Given an authenticated user with editor role
+    And he is on the new product page
+    When he enters the following product codes:
+      | Internal ID       |
+    And he submits a new product form
+    Then he should be on the product page
+    And he should see notice message "Product was successfully created."
 

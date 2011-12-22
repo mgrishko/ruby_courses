@@ -1,0 +1,1 @@
+Dir[Rails.root.join("lib/validators/*.rb")].each { |f| require f }
