@@ -23,5 +23,4 @@ end
 
 Then /^(?:[^\s]*) should be redirected to the account settings page$/ do
   current_url.should == edit_account_url(subdomain: @account.subdomain)
-  #visit(edit_account_url(subdomain: @account.subdomain     ))
 end

@@ -13,7 +13,7 @@ class User
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable, :recoverable, :lockable
-  devise :database_authenticatable, :registerable, :trackable, :validatable, :rememberable
+  devise :database_authenticatable, :registerable, :trackable, :validatable, :rememberable, :recoverable
 
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
