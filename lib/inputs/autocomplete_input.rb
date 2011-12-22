@@ -5,14 +5,13 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
     add_pattern!
     add_size!
     
-    autocomplete_url = @options.delete(:url) ||
-      "/#{@builder.object_name.pluralize}/autocomplete/#{@attribute_name}.json"
-    
+    autocomplete_by = @options.delete(:autocomplete_by) || @attribute_name
     multiple = @options.delete(:multiple) || false
     
     opts = { 
       "data-autocomplete" => multiple ? :multi : :single,
-      "data-autocomplete-url" => autocomplete_url
+      "data-autocomplete-url" => 
+        "/#{@builder.object_name.pluralize}/autocomplete/#{autocomplete_by}.json"
     }
     
     @builder.text_field(attribute_name, input_html_options.merge(opts))
