@@ -335,7 +335,11 @@ def submit_new_product_form(fields)
   click_button "Create Product"
 end
 
-Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/ do |locator, value|
+Then /^he should not see validation errors in new product form$/ do
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+end
+
+Then /^he should see validation error for "([^"]*)" if he leaves it empty$/ do |locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   within("form#new_product") { page.should_not have_content("can't be blank") }
   page.driver.browser.execute_script("$('##{field[:id]}').blur()")
@@ -343,7 +347,7 @@ Then /^he should see validation error for "([^"]*)" untill he enters "([^"]*)"$/
   sleep(2)
 
   within("form#new_product") { page.should have_content("can't be blank") }
-  fill_in(locator, with: value)
+  fill_in(locator, with: "something")
   page.driver.browser.execute_script("$('##{field[:id]}').blur()")
 
   sleep(2)
