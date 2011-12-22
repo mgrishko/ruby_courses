@@ -12,7 +12,7 @@ describe "products/new.html.haml" do
     ]
     # MM Millimetre, GR Gram, ML Millilitre
 
-    product_codes = [stub_model(ProductCode, name: "internal_id", value: "")]
+    product_codes = [stub_model(ProductCode, name: ProductCode::IDENTIFICATION_LIST.first, value: "")]
 
     assign(:product, ProductDecorator.decorate(stub_model(Product,
       :functional_name => "",

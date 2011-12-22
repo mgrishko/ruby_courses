@@ -22,7 +22,7 @@ class ProductDecorator < ApplicationDecorator
   # @return [String] measurement value label.
   def self.measure_value_label(measurement)
     measure = I18n.t("measures.#{measurement.name}")
-    unit = measurement.unit.nil? ? "" : " (#{I18n.t("units.short.#{measurement.unit}")})"
+    unit = measurement.name == "net_content" ? "" : " (#{I18n.t("units.short.#{measurement.unit}")})"
     "#{measure}#{unit}"
   end
 
@@ -101,10 +101,17 @@ class ProductDecorator < ApplicationDecorator
   #
   # @param [Product] instance
   def build_measurements(product)
-    Measurement::MEASURES.each do |name|
-      unit = name == "net_content" ? nil : Measurement::UNITS_BY_MEASURES[name.to_sym].first
+    measures = Measurement::MEASURES
+    measures.each do |name|
+      if product.measurements.where(name: name).first.nil?
+        unit = name == "net_content" ? nil : Measurement::UNITS_BY_MEASURES[name.to_sym].first
 
-      product.measurements.find_or_initialize_by(name: name, unit: unit)
+        product.measurements.new(name: name, unit: unit)
+      end
+    end
+
+    product.measurements.sort! do |a, b|
+      measures.find_index(a.name) <=> measures.find_index(b.name)
     end
   end
 
@@ -112,8 +119,15 @@ class ProductDecorator < ApplicationDecorator
   #
   # @param [Product] instance
   def build_product_codes(product)
-    code = ProductCode::IDENTIFICATION_LIST.first
+    codes = ProductCode::IDENTIFICATION_LIST
+    code = codes.first
 
     product.product_codes.find_or_initialize_by(name: code)
+
+    if product.product_codes.length > 1
+      product.product_codes.sort! do |a, b|
+        codes.find_index(a.name) <=> codes.find_index(b.name)
+      end
+    end
   end
 end

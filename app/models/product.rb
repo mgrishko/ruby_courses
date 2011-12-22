@@ -28,10 +28,10 @@ class Product
   embeds_many :measurements
   embeds_many :product_codes
 
-  accepts_nested_attributes_for :measurements, reject_if: lambda { self.value.blank? }
+  accepts_nested_attributes_for :measurements
   attr_accessible :measurements_attributes
 
-  accepts_nested_attributes_for :product_codes, reject_if: lambda { self.value.blank? }
+  accepts_nested_attributes_for :product_codes
   attr_accessible :product_codes_attributes
 
   auto_complete_for :brand, :manufacturer, :tags => :name
@@ -47,6 +47,9 @@ class Product
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
   validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
+
+  before_validation :cleanup_measurements
+  before_validation :cleanup_product_codes
 
   # :version, :updated_at attributes required for Mongoid versioning support
   attr_accessible :functional_name, :variant, :gtin,
@@ -94,5 +97,30 @@ class Product
     comment.user = user
     comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
     save
+  end
+
+  private
+
+  # Cleanups all measurements with blank values unless any dimensional measurement presents.
+  def cleanup_measurements
+    dimension_measures = %w(depth height width)
+    dimension_present = self.measurements.any? { |m| dimension_measures.include?(m.name) && m.value.present? }
+
+    measurements = []
+    self.measurements.each do |m|
+      measurements << m unless m.value.blank? && !(dimension_present && dimension_measures.include?(m.name))
+    end
+
+    self.measurements = measurements
+  end
+
+  # Cleanups all product codes with blank values.
+  def cleanup_product_codes
+    codes = []
+    self.product_codes.each do |m|
+      codes << m unless m.value.blank?
+    end
+
+    self.product_codes = codes
   end
 end

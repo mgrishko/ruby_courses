@@ -51,6 +51,50 @@ describe Product do
   it { should_not allow_value("global").for(:visibility) }
   it { should allow_mass_assignment_of(:visibility) }
 
+  describe "measurements" do
+    context "dimensions" do
+      before(:each) do
+        @attrs = []
+        %w(depth height width).each do |name|
+          @attrs << { "name" => name, "unit" => "MM", "value" => nil }
+        end
+      end
+
+      it "should be valid when all dimensions are blank" do
+        product.measurements_attributes = @attrs
+        product.should be_valid
+      end
+
+      it "should be valid when all dimensions are present" do
+        @attrs = []
+        %w(depth height width).each do |name|
+          @attrs << { "name" => name, "unit" => "MM", "value" => 100 }
+        end
+        product.measurements_attributes = @attrs
+
+        product.should be_valid
+      end
+
+      it "should not be valid when not all dimensions are present" do
+        @attrs.first["value"] = "100"
+        product.measurements_attributes = @attrs
+
+        product.should_not be_valid
+      end
+    end
+  end
+
+  describe "product codes" do
+    it "should be valid when all codes are blank" do
+      @attrs = []
+      ProductCode::IDENTIFICATION_LIST.each do |name|
+        @attrs << { "name" => name, "value" => nil }
+      end
+      product.product_codes_attributes = @attrs
+      product.should be_valid
+    end
+  end
+
   it "should belong to account" do
     account = Fabricate(:account)
     product = account.products.build

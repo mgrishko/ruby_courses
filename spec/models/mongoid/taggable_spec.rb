@@ -4,7 +4,7 @@ describe Mongoid::Taggable do
   let(:tag) { Fabricate(:tag) }
 
   before(:each) do
-    @taggable = Fabricate(:product)
+    @taggable = Fabricate.build(:product)
   end
 
   it "should embed many tags" do
@@ -32,11 +32,19 @@ describe Mongoid::Taggable do
 
     it "should have errors if any tag is invalid" do
       @taggable.tags_list = "very_long_tag_name_and_this_tag_should_be_invalid, tag2"
+      @taggable.valid?
       @taggable.should have(1).error_on(:tags_list)
     end
 
     it "should strip tags" do
       @taggable.tags_list = " , tag 1, , tag 2, "
+      @taggable.valid?
+      @taggable.should have(0).error_on(:tags_list)
+    end
+
+    it "should allow blank tags" do
+      @taggable.tags_list = ""
+      @taggable.valid?
       @taggable.should have(0).error_on(:tags_list)
     end
   end

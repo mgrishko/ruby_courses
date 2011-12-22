@@ -147,7 +147,7 @@ describe ProductDecorator do
       end
 
       it "doesn't build identification if it already exists" do
-        product_codes = @product.product_codes.build name: "@code_name", value: "A0001"
+        product_codes = @product.product_codes.build name: @code_name, value: "A0001"
         @decorator.setup_nested
         @decorator.product_codes.should include(product_codes)
       end
