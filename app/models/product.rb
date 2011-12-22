@@ -1,11 +1,11 @@
 class Product
   include Mongoid::Document
-
   include Mongoid::Paranoia
   include Mongoid::Timestamps
   include Mongoid::Versioning
   include Mongoid::Taggable
   include Mongoid::Trackable
+  include Mongoid::AutoComplete
   
   VISIBILITIES = %w(private public)
 
@@ -20,6 +20,8 @@ class Product
 
   embeds_many :comments, as: :commentable, versioned: false
   embeds_many :photos, versioned: false
+
+  auto_complete_for :brand, :manufacturer, :tags => :name
 
   validates :name, presence: true, length: 1..70
   validates :manufacturer, presence: true, length: 1..35

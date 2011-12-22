@@ -2,6 +2,10 @@ defaults: &defaults
   project_name: "GoodsMaster"
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
+
+  auto_complete:
+    limit: 10
+
   links:
     project_home: "http://GoodsMasterHQ.com"
     feedback: "http://feedback.goodsmasterhq.com"

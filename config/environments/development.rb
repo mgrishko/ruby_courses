@@ -24,6 +24,9 @@ GoodsMaster::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+  
+  # I18n-js support
+  config.assets.initialize_on_precompile = true
 
   # Expands the lines which load the assets
   config.assets.debug = true
