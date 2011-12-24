@@ -3,21 +3,44 @@ require 'spec_helper'
 describe Product do
   let(:product) { Fabricate(:product) }
 
-  it { should validate_presence_of(:name) }
-  it { should ensure_length_of(:name).is_at_least(1).is_at_most(70) }
-  it { should allow_mass_assignment_of(:name) }
+  it { should validate_presence_of(:functional_name) }
+  it { should ensure_length_of(:functional_name).is_at_least(1).is_at_most(35) }
+  it { should allow_mass_assignment_of(:functional_name) }  
+  
+  it { should validate_presence_of(:variant) }
+  it { should ensure_length_of(:variant).is_at_least(1).is_at_most(35) }
+  it { should allow_mass_assignment_of(:variant) }    
   
   it { should validate_presence_of(:manufacturer) }
   it { should ensure_length_of(:manufacturer).is_at_least(1).is_at_most(35) }
   it { should allow_mass_assignment_of(:manufacturer) }
 
+  it { should validate_presence_of(:country_of_origin) }
+  it { should allow_value("US").for(:country_of_origin) }
+  it { should_not allow_value("ZZZ").for(:country_of_origin) }
+  it { should allow_mass_assignment_of(:country_of_origin) }
+  
   it { should validate_presence_of(:brand) }
   it { should ensure_length_of(:brand).is_at_least(1).is_at_most(70) }
   it { should allow_mass_assignment_of(:brand) }
+  
+  it { should validate_presence_of(:sub_brand) }
+  it { should ensure_length_of(:sub_brand).is_at_least(1).is_at_most(70) }
+  it { should allow_mass_assignment_of(:sub_brand) }  
+  
+  it { should validate_presence_of(:short_description) }
+  it { should ensure_length_of(:short_description).is_at_least(1).is_at_most(178) }
+  it { should allow_mass_assignment_of(:short_description) }  
 
   it { should validate_presence_of(:description) }
   it { should ensure_length_of(:description).is_at_least(5).is_at_most(1000) }
   it { should allow_mass_assignment_of(:description) }
+  
+  it { should validate_presence_of(:gtin) }
+  it { should ensure_length_of(:gtin).is_equal_to(14) }
+  it { should allow_mass_assignment_of(:gtin) }
+  it { should allow_value("00000123456789").for(:gtin) }
+  it { should_not allow_value("0abcdefghijklm").for(:gtin) }
 
   it { should validate_presence_of(:account) }
   it { should_not allow_mass_assignment_of(:account) }
@@ -27,6 +50,50 @@ describe Product do
   it { should allow_value("public").for(:visibility) }
   it { should_not allow_value("global").for(:visibility) }
   it { should allow_mass_assignment_of(:visibility) }
+
+  describe "measurements" do
+    context "dimensions" do
+      before(:each) do
+        @attrs = []
+        %w(depth height width).each do |name|
+          @attrs << { "name" => name, "unit" => "MM", "value" => nil }
+        end
+      end
+
+      it "should be valid when all dimensions are blank" do
+        product.measurements_attributes = @attrs
+        product.should be_valid
+      end
+
+      it "should be valid when all dimensions are present" do
+        @attrs = []
+        %w(depth height width).each do |name|
+          @attrs << { "name" => name, "unit" => "MM", "value" => 100 }
+        end
+        product.measurements_attributes = @attrs
+
+        product.should be_valid
+      end
+
+      it "should not be valid when not all dimensions are present" do
+        @attrs.first["value"] = "100"
+        product.measurements_attributes = @attrs
+
+        product.should_not be_valid
+      end
+    end
+  end
+
+  describe "product codes" do
+    it "should be valid when all codes are blank" do
+      @attrs = []
+      ProductCode::IDENTIFICATION_LIST.each do |name|
+        @attrs << { "name" => name, "value" => nil }
+      end
+      product.product_codes_attributes = @attrs
+      product.should be_valid
+    end
+  end
 
   it "should belong to account" do
     account = Fabricate(:account)
@@ -58,6 +125,24 @@ describe Product do
     photo = product.photos.build
     photo.product.should eql(product)
   end
+  
+  it "should embeds many measurements" do
+    measurement = product.measurements.build
+    measurement.product.should eql(product)
+  end
+
+  it "should embeds many product_codes" do
+    product_code = product.product_codes.build
+    product_code.product.should eql(product)
+  end
+
+  describe "#name" do
+    it "should concat brand, sub brand, functional name and variant" do
+      p = Fabricate(:product)
+      expected = "#{p.brand} #{p.sub_brand} #{p.functional_name} #{p.variant}"
+      p.name.should == expected
+    end
+  end
 
   it "should set created_at" do
     Timecop.freeze
@@ -75,11 +160,11 @@ describe Product do
 
   describe "versions" do
     it "should create new version" do
-      old_name = product.name
-      product.name = Faker::Product.product_name
+      old_name = product.functional_name
+      product.functional_name = Faker::Product.product_name[0..35]
       product.save!
-      product.name.should_not == old_name
-      product.versions.first.name.should == old_name
+      product.functional_name.should_not == old_name
+      product.versions.first.functional_name.should == old_name
     end
   end
 
@@ -120,10 +205,11 @@ describe Product do
   end
 
   describe "#save_with_system_comment" do
+    let(:user) { product.account.owner }
+
 
     it "should create updated comment when updated without comment" do
-      user = product.account.owner
-      product.name = Faker::Product.product_name
+      product.functional_name = Faker::Product.product_name
 
       Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
         expect {
@@ -136,9 +222,9 @@ describe Product do
     end
 
     it "should create updated comment when updated with comment" do
-      user = product.account.owner
-      product.name = Faker::Product.product_name
-      comment = product.comments.build body: Faker::Lorem.sentence
+      product.functional_name = Faker::Product.product_name
+      product.comments.build body: Faker::Lorem.sentence
+
       Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
         expect {
           product.save_with_system_comment(user)
@@ -149,21 +235,20 @@ describe Product do
     end
 
     it "should not create updated comment and new version when updated right after previous update/create" do
-      user = product.account.owner
+      product.functional_name = Faker::Product.product_name
 
       expect {
-        product.name = Faker::Product.product_name
         product.save_with_system_comment(user)
       }.to change(product.comments, :count).by(0)
       product.version.should == 1
     end
 
     it "should create updated comment and new version when updated in 60 minutes after previous update/create" do
-      user = product.account.owner
+      product.functional_name = Faker::Product.product_name
 
       Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
         expect {
-          product.name = Faker::Product.product_name
+
           product.save_with_system_comment(user)
         }.to change(product.comments, :count).by(1)
         product.version.should == 2
@@ -171,7 +256,6 @@ describe Product do
     end
 
     it "should create created comment when created without comment" do
-      user = product.account.owner
       product = Fabricate.build(:product)
       expect {
         product.save_with_system_comment(user)
@@ -180,9 +264,8 @@ describe Product do
     end
 
     it "should create only one comment when created with comment" do
-      user = product.account.owner
       product = Fabricate.build(:product)
-      comment = product.comments.build body: Faker::Lorem.sentence
+      product.comments.build body: Faker::Lorem.sentence
       expect {
         product.save_with_system_comment(user)
       }.to change(product.comments, :count).by(1)

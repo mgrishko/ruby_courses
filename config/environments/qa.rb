@@ -62,6 +62,9 @@ GoodsMaster::Application.configure do
 
   # To serve app.dev.getmasterdata.com
   config.action_dispatch.tld_length = 2
+  
+  # I18n-js support
+  config.assets.initialize_on_precompile = true
 
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'dev.goodsmasterhq.com' }

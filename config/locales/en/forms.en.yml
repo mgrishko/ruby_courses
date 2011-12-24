@@ -12,6 +12,13 @@ en:
         destroy: "Delete"
         update: "Update"
     label:
+      account:
+        company_name: "Company"
+        tize_zone: "Time zone"
+      comment:
+        body: "Comment"
+      measurememt:
+        unit: "%{measure} unit"
       user:
         first_name: 'First Name'
         last_name: 'Last Name'
@@ -19,11 +26,6 @@ en:
         password: 'Password'
         role: 'Administrator'
         tize_zone: "Time zone"
-      account:
-        company_name: "Company"
-        tize_zone: "Time zone"
-      comment:
-        body: "Comment"
 
   simple_form:
     "yes": 'Yes'

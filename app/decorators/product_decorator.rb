@@ -8,6 +8,24 @@ class ProductDecorator < ApplicationDecorator
     Product::VISIBILITIES.collect { |v| [I18n.t("visibility.#{v}", scope: i18n_scope), v] }
   end
 
+  # Prepares options for unit select tag.
+  #
+  # @param [String] name of measure
+  # @return [Array] options for visibility select tag.
+  def self.unit_options(name)
+    Measurement::UNITS_BY_MEASURES[name.to_sym].collect { |v| [I18n.t("units.short.#{v}"), v] }
+  end
+
+  # Returns label for product measurement value.
+  #
+  # @param [Measurement] measurement instance
+  # @return [String] measurement value label.
+  def self.measure_value_label(measurement)
+    measure = I18n.t("measures.#{measurement.name}")
+    unit = measurement.name == "net_content" ? "" : " (#{I18n.t("units.short.#{measurement.unit}")})"
+    "#{measure}#{unit}"
+  end
+
   # Returns html code for a link to a specific product version.
   # If product version is current version it returns only link name.
   #
@@ -62,5 +80,54 @@ class ProductDecorator < ApplicationDecorator
 
     labels = product.tags.map { |t| h.content_tag :span, h.sanitize(t.name), class: "label" }
     (opts[:wrapper] ? labels.map { |l| h.content_tag opts[:wrapper].to_sym, l }.join : labels.join).html_safe
+  end
+
+  # Setups product nested objects for new and edit forms.
+  #
+  # @return [Product] instance
+  def setup_nested
+    self.product.tap do |a|
+      # Building measurements
+      build_measurements(a)
+
+      # Building product codes
+      build_product_codes(a)
+    end
+  end
+
+  private
+
+  # Builds product measurements.
+  #
+  # @param [Product] instance
+  def build_measurements(product)
+    measures = Measurement::MEASURES
+    measures.each do |name|
+      if product.measurements.where(name: name).first.nil?
+        unit = name == "net_content" ? nil : Measurement::UNITS_BY_MEASURES[name.to_sym].first
+
+        product.measurements.new(name: name, unit: unit)
+      end
+    end
+
+    product.measurements.sort! do |a, b|
+      measures.find_index(a.name) <=> measures.find_index(b.name)
+    end
+  end
+
+  # Builds product codes.
+  #
+  # @param [Product] instance
+  def build_product_codes(product)
+    codes = ProductCode::IDENTIFICATION_LIST
+    code = codes.first
+
+    product.product_codes.find_or_initialize_by(name: code)
+
+    if product.product_codes.length > 1
+      product.product_codes.sort! do |a, b|
+        codes.find_index(a.name) <=> codes.find_index(b.name)
+      end
+    end
   end
 end

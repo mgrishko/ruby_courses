@@ -1,15 +1,39 @@
-= simple_form_for @product, :wrapper => :inline, :validate => true do |f|
+= simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
   = f.error_notification
 
   .inputs
-    = f.input :name
-    = f.input :manufacturer, input_html: {  "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/manufacturer.json" }
-    = f.input :brand, input_html: { :autocomplete => "off", "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/brand.json" }
+    = f.input :functional_name
+    = f.input :variant
+    = f.input :brand, as: :autocomplete
+    = f.input :sub_brand
+    = f.input :manufacturer, as: :autocomplete
+    = f.input :country_of_origin
+
+    = f.simple_fields_for :measurements, wrapper: :inline, :validate => false do |n|
+      = n.input :name, as: :hidden
+      = n.input :value,
+        label: ProductDecorator.measure_value_label(n.object),
+        required: false
+
+      -# ToDo we should move it in MeasurementDecorator
+      - if n.object.name == "net_content"
+        = n.input :unit, collection: ProductDecorator.unit_options(n.object.name),
+          label: I18n.t("helpers.label.measurememt.unit", measure: I18n.t("measures.#{n.object.name}")),
+          required: false
+      - else
+        = n.input :unit, as: :hidden
+
+    = f.input :gtin
+    = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
+      = n.input :name, as: :hidden
+      = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
+
+    = f.input :short_description
     = f.input :description, as: :text
-    = f.input :tags_list, input_html: { :autocomplete => "off", "data-autocomplete" => "multi", "data-autocomplete-url" => "/products/autocomplete/tags_name.json" }
+    = f.input :tags_list, as: :autocomplete, multiple: true, autocomplete_by: :tags_name
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
-    = simple_fields_for @comment, wrapper: :inline do |n|
+    = simple_fields_for @comment, wrapper: :inline, :validate => false do |n|
       = n.input :body, as: :text, required: false
 
   .actions

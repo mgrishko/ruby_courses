@@ -161,3 +161,4 @@ module ClientSideValidations
 end
 
 SimpleForm::FormBuilder.send(:include, ClientSideValidations::SimpleForm::FormBuilder)
+require 'inputs/autocomplete_input.rb'
