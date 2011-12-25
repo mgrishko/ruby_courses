@@ -4,9 +4,9 @@ class MainController < ApplicationController
   before_filter :validate_account_membership!
 
   private
-  
+
   # Redirects to sign in page if user is not a member of the current accound
-  # and stores requested page url in the session so user could be redirected 
+  # and stores requested page url in the session so user could be redirected
   # back after successful login.
   #
   def validate_account_membership!
@@ -24,4 +24,5 @@ class MainController < ApplicationController
       head :bad_request unless current_account?
     end
   end
+
 end

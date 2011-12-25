@@ -1,8 +1,13 @@
 - title t('.title')
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+
+- content_for(:sidebar) do
+  = link_to t("back"), :back
+
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name),
+                  wrapper: :inline, html: { method: :post }) do |f|
   = f.error_notification
   .inputs
-    = f.input :email, :required => true
+    = f.input :email, required: true
   .actions
     = f.button :submit, t('.send')
   = link_to t('.sign_in'), new_session_path(resource_name)

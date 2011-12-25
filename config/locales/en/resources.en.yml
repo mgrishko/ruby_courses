@@ -117,7 +117,7 @@ en:
 
     passwords:
       edit:
-        confirm: "Confirm new password"
+        confirm: "Confirm password"
         change: "Change my password"
         title: "Change your password"
         password: "New password"
