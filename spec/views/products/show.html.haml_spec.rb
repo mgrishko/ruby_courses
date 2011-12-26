@@ -31,6 +31,7 @@ describe "products/show.html.haml" do
       Fabricate.attributes_for(:comment, commentable: @product, created_at: Time.now)
     )]))
     CommentDecorator.any_instance.stub(:destroy_link)
+    CommentDecorator.any_instance.stub(:details).and_return("<span>5 minutes ago, John Cash</span>")
 
     assign(:photo, stub_model(Photo).as_new_record)
     PhotoDecorator.any_instance.stub(:destroy_link)

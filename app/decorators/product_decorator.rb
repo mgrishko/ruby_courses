@@ -95,6 +95,14 @@ class ProductDecorator < ApplicationDecorator
     end
   end
 
+  #  Returns link to trackable product or product name.
+  #
+  # @param [Hash] opts optional options for link_to helper.
+  # @return [String] product show link or product name label
+  def trackable_link(opts = {})
+    show_link(opts)
+  end
+
   private
 
   # Builds product measurements.

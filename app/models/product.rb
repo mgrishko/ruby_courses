@@ -95,7 +95,9 @@ class Product
     comment.system = true
     comment.created_at = DateTime.now
     comment.user = user
-    comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
+    if comment.body.blank?
+      comment.body = self.new_record? ? "Product created." : "Product updated."
+    end
     save
   end
 

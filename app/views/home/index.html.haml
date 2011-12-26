@@ -1,9 +1,10 @@
-%h1 Home
+= title t('.title'), page_title: false
 
 %table
   - @events.each do |e|
+
+
     %tr
-      %td= e.trackable_name
+      %td.action= e.action_label
       %td= e.trackable_link
-      %td= e.description
-      %td= e.date
+      %td.desc= e.description

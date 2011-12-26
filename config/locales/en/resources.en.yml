@@ -43,10 +43,33 @@ en:
 
   comments:
     defaults: &COMMENT_DEFAULTS
-      added: "Comment Added"
       destroy: "Delete"
-      added: "Comment Added"
-      destroyed: "Comment Deleted"
+      events:
+        product:
+          comment:
+            create: "product commented"
+          product:
+            create: "product created"
+            update: "product updated"
+
+  events:
+    defaults:
+      labels:
+        product:
+          create: "New"
+          update: "Update"
+          destroy: "Deleted"
+        photo:
+          create: "Image"
+          update: "Image"
+          destroy: "Image"
+        comment:
+          create: "Comment"
+          update: "Comment"
+          destroy: "Comment"
+  home:
+    index:
+      title: "Friendly Product Data Management"
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS

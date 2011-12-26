@@ -5,7 +5,7 @@ describe ProductDecorator do
 
   before(:each) do
     @product = Fabricate(:product,
-                         name: "Product name",
+                         functional_name: "Product name",
                          manufacturer: "Manufacturer",
                          brand: "Brand",
                          description: "Product description",
@@ -17,7 +17,7 @@ describe ProductDecorator do
   describe "#version_link" do
     context "when user can view product" do
       it "renders link" do
-        @product.name = SecureRandom.hex(10)
+        @product.functional_name = SecureRandom.hex(10)
         @product.save!
         @decorator.h.stub(:can?).and_return(true)
         @decorator.version_link(@product, @product).should == "Version 2"
@@ -172,6 +172,22 @@ describe ProductDecorator do
       it "returns measure name with unit" do
         measurement = Fabricate.build(:measurement, name: "height", unit: "MM")
         ProductDecorator.measure_value_label(measurement).should == "Height (mm)"
+      end
+    end
+  end
+
+  describe "#trackable_link" do
+    context "when user can view product" do
+      it "should equal to #show_link" do
+        @decorator.h.stub(:can?).and_return(true)
+        @decorator.trackable_link.should == @decorator.show_link
+      end
+    end
+
+    context "when user cannot view product" do
+      it "should equal to #show_link" do
+        @decorator.h.stub(:can?).and_return(false)
+        @decorator.trackable_link.should == @decorator.show_link
       end
     end
   end
