@@ -3,15 +3,16 @@ require 'spec_helper'
 describe "products/show.html.haml" do
   before(:each) do    
     product = stub_model(Product,
-      :name => "Name",
+      :short_description => "Short Description",
       :description => "Description",
       :manufacturer => "Manufacturer",
-      :brand => "Brand"
+      :country_of_origin => "US",
+      :brand => "Brand",
+      :sub_brand => "Sub Brand"
     )
     @product = assign(:product, ProductDecorator.decorate(product))
 
     @product.stub(:edit_link)
-    @product.stub(:destroy_link)
 
     ProductDecorator.any_instance.stub(:version_link).and_return("Version 1")
     ProductDecorator.any_instance.stub(:version_date).and_return("<span>Feb 04, 2001</span>".html_safe)
@@ -31,6 +32,7 @@ describe "products/show.html.haml" do
       Fabricate.attributes_for(:comment, commentable: @product, created_at: Time.now)
     )]))
     CommentDecorator.any_instance.stub(:destroy_link)
+    CommentDecorator.any_instance.stub(:details).and_return("<span>5 minutes ago, John Cash</span>")
 
     assign(:photo, stub_model(Photo).as_new_record)
     PhotoDecorator.any_instance.stub(:destroy_link)
@@ -44,24 +46,29 @@ describe "products/show.html.haml" do
       rendered.should_not have_selector(".content header h1")
     end
 
-    it "renders a product title" do
+    it "renders a product brand" do
       render
-      rendered.should have_selector("article header h2", text: @product.name)
+      rendered.should have_selector("article header .attr_val", text: @product.brand)
+    end
+
+    it "renders a product sub brand" do
+      render
+      rendered.should have_selector("article header .attr_val", text: @product.sub_brand)
     end
 
     it "renders a product manufacturer" do
       render
-      rendered.should have_selector("article p", text: @product.manufacturer)
+      rendered.should have_selector("article .attr_val", text: @product.manufacturer)
     end
 
-    it "renders a product brand" do
+    it "renders a product short description" do
       render
-      rendered.should have_selector("article p", text: @product.brand)
+      rendered.should have_selector("article .attr_text", text: @product.short_description)
     end
 
     it "renders a product description" do
       render
-      rendered.should have_selector("article p", text: @product.description)
+      rendered.should have_selector("article .attr_text", text: @product.description)
     end
 
     describe "comments" do
@@ -73,50 +80,47 @@ describe "products/show.html.haml" do
     end
   end
 
+  describe "sidemenu" do
+    it "renders an edit link" do
+      @product.should_receive(:edit_link)
+      render
+    end
+  end
+
   describe "sidebar" do
     it "renders a product image" do
       render
       view.content_for(:sidebar).should have_selector("img")
     end
 
-    it "renders a back link" do
-      render
-      view.content_for(:sidebar).should have_selector("a", text: "Back")
-    end
+    #it "renders a back link" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("a", text: "Back")
+    #end
+    #
+    #it "renders product versions header" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("h3", text: "Versions")
+    #end
+    #
+    #it "renders product version links with decorator" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("li", text: "Version 1")
+    #end
+    #
+    #it "renders product version dates with decorator" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("span", text: "Feb 04, 2001")
+    #end
 
-    it "renders product versions header" do
-      render
-      view.content_for(:sidebar).should have_selector("h3", text: "Versions")
-    end
+    #it "renders a product visibility label" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("span.important", text: "Private")
+    #end
 
-    it "renders product version links with decorator" do
-      render
-      view.content_for(:sidebar).should have_selector("li", text: "Version 1")
-    end
-
-    it "renders product version dates with decorator" do
-      render
-      view.content_for(:sidebar).should have_selector("span", text: "Feb 04, 2001")
-    end
-
-    it "renders an edit link" do
-      @product.should_receive(:edit_link).with(class: "btn large")
-      render
-    end
-    
-    it "renders a destroy link" do
-      @product.should_receive(:destroy_link).with(confirm: true, class: "btn small danger")
-      render
-    end
-
-    it "renders a product visibility label" do
-      render
-      view.content_for(:sidebar).should have_selector("span.important", text: "Private")
-    end
-
-    it "renders a product tags labels" do
-      render
-      view.content_for(:sidebar).should have_selector("span.label", text: "Tag 1")
-    end
+    #it "renders a product tags labels" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("span.label", text: "Tag 1")
+    #end
   end
 end

@@ -30,6 +30,8 @@ describe "products/edit.html.haml" do
       :visibility => "private"
     )))
 
+    @product.stub(:destroy_link)
+
     ProductDecorator.stub(:visibility_options).and_return([["Private", "private"], ["Public", "public"]])
 
     assign(:comment, stub_model(Comment))
@@ -76,11 +78,18 @@ describe "products/edit.html.haml" do
     end
   end
 
-  describe "sidebar" do
-    it "renders a back link" do
+  describe "sidemenu" do
+    it "renders a destroy link" do
+      @product.should_receive(:destroy_link).with(confirm: true)
       render
-      view.content_for(:sidebar).should have_selector("a", text: "Back")
     end
+  end
+
+  describe "sidebar" do
+    #it "renders a back link" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("a", text: "Back")
+    #end
   end
 end
 

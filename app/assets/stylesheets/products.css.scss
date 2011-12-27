@@ -3,12 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .products {
-  tbody tr td:first-child {
-    width: 80px;
-    padding: 5;
-  }
-
-  h2 {
-    font-weight: normal;
+  article {
+    margin-bottom: 30px;
   }
 }

@@ -11,6 +11,8 @@ en:
         create: "Send an invitation"
         destroy: "Delete"
         update: "Update"
+      comment:
+        create: "Submit"
     label:
       account:
         company_name: "Company"

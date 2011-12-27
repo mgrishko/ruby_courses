@@ -5,7 +5,7 @@ describe HomeController do
   it { should be_kind_of(MainController) }
 
   def valid_attributes
-    @attrs ||= Fabricate.attributes_for(:event, account: nil)
+    @attrs ||= Fabricate.attributes_for(:event)
   end
 
   context "when user is authenticated" do

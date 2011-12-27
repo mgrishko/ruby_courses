@@ -1,7 +1,7 @@
 = title t(".title")
 
-- content_for(:sidebar) do
-  = MembershipDecorator.invitation_link(class: "btn large primary")
+- content_for(:sidemenu) do
+  = MembershipDecorator.invitation_link
 
 %article
   %table.grid

@@ -1,0 +1,13 @@
+.home {
+  td {
+    &.action {
+      /*@extend .span2;*/
+    }
+    &.desc {
+      text-align: right;
+      span {
+        color: grey;
+      }
+    }
+  }
+}

@@ -53,7 +53,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #
 
     primary.item :home, I18n.t('navigation.main.home'), home_url
-    primary.item :products, I18n.t('navigation.main.products'), products_url
+    primary.item :products, I18n.t('navigation.main.products'), products_url, highlights_on: /products/
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options

@@ -37,10 +37,10 @@ describe "accounts/edit.html.haml" do
   end
 
   describe "sidebar" do
-    it "renders a back link" do
-      render
-      view.content_for(:sidebar).should have_selector("a", text: "Back")
-    end
+    #it "renders a back link" do
+    #  render
+    #  view.content_for(:sidebar).should have_selector("a", text: "Back")
+    #end
   end
 end
 

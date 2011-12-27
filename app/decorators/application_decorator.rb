@@ -13,7 +13,6 @@ class ApplicationDecorator < Draper::Base
   #   ProductDecorator.create_link, class: "button"
   #   # => <a href="/products/new" class="button">New Product</a>
   #
-  # [ClassDecorator] object to create a new link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to new object page.
   def self.create_link(opts = {})
@@ -36,32 +35,35 @@ class ApplicationDecorator < Draper::Base
   #     nothing return if ability does not allow to view object
   #   # => nil
   #
-  # @param [Instance] object to create a show link
   # @param [Hash] opts optional options for link_to helper.
+  # @option [Symbol] fallback when true then show link name when user can not view object.
+  # @option [Symbol] anchor adds anchor to generated link, accepts string.
+  # @option [Symbol] content specifies content of link, accepts string.
+  # @option [Symbol] name specifies method to be call on object to generate link name.
+  #   Ignored if content specified.
+  #
   # @return [String, nil] link to show an object.
   def show_link(opts = {})
     opts = (opts || {}).with_indifferent_access
     #Default options
     opts.merge!(fallback: opts[:fallback].nil? ? true : opts[:fallback])
     
-    text = opts.delete(:text)
+    content = opts.delete(:content)
     anchor = opts.delete(:anchor)
     
-    if text.nil?
+    if content.blank?
       # Returning default name if name option does not present or object does not respond to name_method
       name_method = opts.delete(:name)
-      name = (model.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
-    else
-      name = text
+      content = (model.try(name_method.to_sym) unless name_method.nil?) || I18n.t("show")
     end
 
     fallback = opts.delete(:fallback)
 
     if h.can?(:read, model)
       path = h.send("#{model.class.name.downcase}_path", model.id, anchor: anchor)
-      h.link_to(name, path, opts)
+      h.link_to(content, path, opts)
     elsif fallback
-      name
+      content
     end
   end
 
@@ -70,7 +72,6 @@ class ApplicationDecorator < Draper::Base
   #   edit_link @product, class: "button"
   #   # => <a href="/products/1/edit">Edit Product</a>
   #
-  # @param [Instance] object to create an edit link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to edit an object.
   def edit_link(opts = {})
@@ -88,7 +89,6 @@ class ApplicationDecorator < Draper::Base
   #   destroy_link @comment, class: "button", confirm: false, through: [@account, @product]
   #   # => <a href="account/1/products/1/comments/1" rel="nofollow" data-method="delete">Delete Product</a>
   #
-  # @param [Instance] object to create a destroy link
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to destroy an object.
   def destroy_link(opts = {})

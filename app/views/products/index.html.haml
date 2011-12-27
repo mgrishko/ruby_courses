@@ -1,20 +1,26 @@
 = title t('.title'), page_title: false
 
-- content_for(:sidebar) do
-  = ProductDecorator.create_link class: "btn large primary"
+- content_for(:sidemenu) do
+  = ProductDecorator.create_link
 
-%article
-  %table
-    %tbody
-      - @products.each do |product|
-        %tr
-          %td
-            - if product.photos.last.nil?
-              = image_tag("product_small.png")
-            - else
-              = image_tag product.photos.last.image.small.url
-          %td
-            %h2= product.show_link(name: :name)
-            = product.visibility_label(public: false)
-            = product.tag_labels
+- ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
+  %article
+    %header
+      .row
+        .attr_val= functional
+
+    - products.each_slice(2) do |items|
+      .row
+        - items.each do |product|
+          = render product
+
+          -#%td
+          -#  - if product.photos.last.nil?
+          -#    = image_tag("product_small.png")
+          -#  - else
+          -#    = image_tag product.photos.last.image.small.url
+          -#%td
+          -#  %h2= product.show_link(name: :name)
+          -#  = product.visibility_label(public: false)
+          -#  = product.tag_labels
 
