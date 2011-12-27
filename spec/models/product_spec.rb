@@ -221,18 +221,18 @@ describe Product do
       Timecop.return
     end
 
-    it "should create updated comment when updated with comment" do
-      product.functional_name = Faker::Product.product_name
-      product.comments.build body: Faker::Lorem.sentence
-
-      Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
-        expect {
-          product.save_with_system_comment(user)
-        }.to change(product.comments, :count).by(1)
-        product.comments.last.system.should be_true
-      end
-      Timecop.return
-    end
+    #it "should create updated comment when updated with comment" do
+    #  product.functional_name = Faker::Product.product_name
+    #  product.comments.build body: Faker::Lorem.sentence
+    #
+    #  Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
+    #    expect {
+    #      product.save_with_system_comment(user)
+    #    }.to change(product.comments, :count).by(1)
+    #    product.comments.last.system.should be_true
+    #  end
+    #  Timecop.return
+    #end
 
     it "should not create updated comment and new version when updated right after previous update/create" do
       product.functional_name = Faker::Product.product_name
@@ -263,14 +263,14 @@ describe Product do
       product.comments.last.system.should be_true
     end
 
-    it "should create only one comment when created with comment" do
-      product = Fabricate.build(:product)
-      product.comments.build body: Faker::Lorem.sentence
-      expect {
-        product.save_with_system_comment(user)
-      }.to change(product.comments, :count).by(1)
-      product.comments.last.system.should be_true
-    end
+    #it "should create only one comment when created with comment" do
+    #  product = Fabricate.build(:product)
+    #  product.comments.build body: Faker::Lorem.sentence
+    #  expect {
+    #    product.save_with_system_comment(user)
+    #  }.to change(product.comments, :count).by(1)
+    #  product.comments.last.system.should be_true
+    #end
   end
 
   describe "#public?" do
