@@ -53,6 +53,7 @@ GoodsMaster::Application.routes.draw do
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
             get :activate, on: :member
+            get :login_as_owner, on: :member
           end
 
           get '/' => 'dashboard#index', as: :dashboard

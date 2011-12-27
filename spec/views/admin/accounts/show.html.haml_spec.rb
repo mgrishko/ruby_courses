@@ -4,6 +4,7 @@ describe "admin/accounts/show.html.haml" do
   before(:each) do
     decorator = Admin::AccountDecorator.decorate(Fabricate.build(:account))
     decorator.stub(:activation_link)
+    decorator.stub(:login_as_owner_link)
     @account = assign(:account, decorator)
   end
 
@@ -30,5 +31,10 @@ describe "admin/accounts/show.html.haml" do
   it "renders a back link" do
     render
     rendered.should have_selector("a", text: "Back")
+  end
+  
+  it "renders login as owner link" do
+    @account.should_receive(:login_as_owner_link)
+    render
   end
 end

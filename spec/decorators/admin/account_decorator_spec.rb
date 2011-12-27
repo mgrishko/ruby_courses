@@ -30,5 +30,9 @@ describe Admin::AccountDecorator do
     it "#activation_link" do
       @decorator.activation_link.should == "<a href=\"/dashboard/accounts/#{@account.id}/activate\">Activate</a>"
     end
+    
+    it "#login_as_owner_link" do
+      @decorator.login_as_owner_link.should == "<a href=\"/dashboard/accounts/#{@account.id}/login_as_owner\">Login as account owner</a>"
+    end
   end
 end

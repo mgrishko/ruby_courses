@@ -47,6 +47,18 @@ describe Admin::AccountsController do
       response.should render_template(:show)
     end
   end
+  
+  describe "GET login_as_owner" do
+    it "assigns the account as @account" do
+      get :login_as_owner, id: @account.id, subdomain: Settings.app_subdomain
+      assigns(:account).should eq(@account)
+    end
+
+    it "redirects to account home" do
+      get :login_as_owner, id: @account.id, subdomain: Settings.app_subdomain
+      response.should redirect_to(home_url(subdomain: @account.subdomain))
+    end
+  end
 
   #describe "GET new" do
   #  it "assigns a new account as @account_decorator" do

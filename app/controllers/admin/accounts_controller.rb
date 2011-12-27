@@ -33,4 +33,12 @@ class Admin::AccountsController < Admin::BaseController
       format.html { render :show }
     end
   end
+  
+  # GET /admin/accounts/1/login_as_owner
+  # GET /admin/accounts/1/login_as_owner.json
+  def login_as_owner
+    @account = Account.find(params[:id])
+    sign_in(:user, @account.owner)
+    redirect_to home_url(subdomain: @account.subdomain)
+  end
 end
