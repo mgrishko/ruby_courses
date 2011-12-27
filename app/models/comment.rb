@@ -26,14 +26,4 @@ class Comment
   set_callback(:destroy, :before) do |c|
     c.event.nil?
   end
-  
-  # Finds a comment by id in a commentable object.
-  # Used to find a comment from a linked event.
-  # 
-  # @param [id] comment id.
-  # @param [commentable] owner of the comment.
-  # @return [Comment] comment if found or nil otherwise.
-  def self.find_by_id_and_embedded_in(id, commentable)
-    commentable.comments.where("_id" => id).first
-  end
 end

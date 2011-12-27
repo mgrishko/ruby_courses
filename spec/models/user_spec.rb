@@ -62,6 +62,13 @@ describe User do
       user.full_name.should == "John Bon Jovi"
     end
   end
+
+  describe "#short_name" do
+    it "should combine first and first letter of last name" do
+      user = Fabricate(:user, first_name: "John", last_name: "Cash")
+      user.short_name.should == "John C."
+    end
+  end
   
   it "should have many events" do
     event = user.events.build

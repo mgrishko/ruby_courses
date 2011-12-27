@@ -51,7 +51,7 @@ Given /^an authenticated user with editor role on edit product page$/ do
   steps %Q{
     Given an authenticated user with editor role
     And he is on the product page
-    When he follows "Edit Product" within sidebar
+    When he follows "Edit Product" within sidemenu
   }
 end
 
@@ -99,7 +99,8 @@ When /^he submits the product form$/ do
 end
 
 When /^he follows product link$/ do
-  click_link(@product.name)
+  title = ProductDecorator.decorate(@product).title
+  click_link(title)
 end
 
 When /^he submits a new product form with following data:$/ do |table|
@@ -136,7 +137,7 @@ end
 
 When /^he enters a comment to the product$/ do
   @comment = Fabricate.build(:comment, body: "Some super comment")
-  fill_in "Comment", with: @comment.body
+  fill_in "comment_body", with: @comment.body
 end
 
 When /^he enters the following measurements:$/ do |table|
@@ -164,7 +165,7 @@ end
 
 When /^he submits a (.*)comment to the product$/ do |adj|
   step "he enters a comment to the product" unless adj.present?
-  click_button "Create Comment"
+  click_button "Submit"
 end
 
 When /^he edits the product tags$/ do
@@ -188,7 +189,7 @@ When /^he goes to the new product page$/ do
   visit(new_product_url(subdomain: @account.subdomain))
 end
 
-When /^he goes to the update product page$/ do
+When /^he goes to the edit product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
@@ -205,7 +206,7 @@ end
 When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
-    And he follows "New Product" within sidebar
+    And he follows "New Product" within sidemenu
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
@@ -215,7 +216,8 @@ end
 When /^he deletes the product$/ do
   steps %Q{
     When he is on the product page
-    And he follows "Delete Product" within sidebar
+    And he follows "Edit Product" within sidemenu
+    And he follows "Delete Product" within sidemenu
   }
 end
 
@@ -223,7 +225,7 @@ When /^he updates the product$/ do
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
     steps %Q{
       When he is on the product page
-      And he follows "Edit Product" within sidebar
+      And he follows "Edit Product" within sidemenu
       And he submits form with updated product
       Then he should be on the product page
       And he should see notice message "Product was successfully updated."
@@ -283,23 +285,25 @@ end
 Then /^he should(.*) see that product in the products list$/ do |should_not|
   product = @product || Product.first
 
+  title = ProductDecorator.decorate(product).title
+
   within(".content") do
     if should_not.strip == "not"
-      page.should_not have_content(product.name)
+      page.should_not have_content(title)
     else
-      page.should have_content(product.name)
+      page.should have_content(title)
     end
   end
 end
 
-Then /^he should(.*) see that comment on the top of comments$/ do |should_not|
+Then /^he should(.*) see that comment on the bottom of comments$/ do |should_not|
   comment = @comment || @product.comments.last
 
   within("#comments_list") do
     if should_not.strip == "not"
       page.should_not have_content(comment.body)
     else
-      page.first(".comment").find("p", text: comment.body)
+      page.find(".comment p", text: comment.body)
     end
   end
 end
@@ -354,19 +358,23 @@ Then /^he should not see validation errors in new product form$/ do
   within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should see validation error for "([^"]*)" if he leaves it empty$/ do |locator|
-  field = find(:xpath, XPath::HTML.fillable_field(locator))
-  within("form#new_product") { page.should_not have_content("can't be blank") }
-  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
+  should_have_validation_error = !(should.strip == "not")
 
-  sleep(2)
+  if should_have_validation_error
+    field = find(:xpath, XPath::HTML.fillable_field(locator))
+    within("form#new_product") { page.should_not have_content("can't be blank") }
+    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
 
-  within("form#new_product") { page.should have_content("can't be blank") }
-  fill_in(locator, with: "something")
-  page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+    sleep(2)
 
-  sleep(2)
-  
+    within("form#new_product") { page.should have_content("can't be blank") }
+    fill_in(locator, with: "something")
+    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+
+    sleep(2)
+  end
+
   within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 

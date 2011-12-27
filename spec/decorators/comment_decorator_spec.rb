@@ -4,24 +4,34 @@ describe CommentDecorator do
   before { ApplicationController.new.set_current_view_context }
 
   before(:each) do
+    Timecop.freeze(2011, 12, 26, 5, 7, 37)
     @product = Fabricate(:product)
-    @comment = Fabricate(:comment, commentable: @product, body: "smth written")
-    @decorator = CommentDecorator.decorate(@comment)
+    @user = Fabricate(:user, first_name: "John", last_name: "Cash")
   end
 
-  it "#info" do
-    @decorator.info.should == "#{@comment.user.full_name}, #{@comment.created_at.strftime('%d %b %Y, %H:%M')}"
+  after(:each) do
+    Timecop.return
   end
-  
-  it "#show_link" do
-    @decorator.h.stub(:can?).and_return(true)
-    @decorator.show_link(text: "text").should == "<a href=\"/products/#{@product.id}##{@comment.id}\">text</a>"
-  end
-  
-  it "#system_info" do
-    @product.save_with_system_comment(@product.account.owner)
-    event = @product.log_event(@product.account.memberships.first, "update")
-    @comment.event = event
-    @decorator.system_info.should == "<p>Updated by #{@product.account.memberships.first.user.full_name}</p>"
+
+  describe "#details" do
+    before(:each) do
+      comment = Fabricate(:comment, commentable: @product, user: @user)
+      @decorator = CommentDecorator.decorate(comment)
+    end
+
+    it "should return commented by info and ago in minutes" do
+      Timecop.freeze(2011, 12, 26, 5, 12, 44)
+      @decorator.details.should == "<span>5 minutes ago, John Cash</span>"
+    end
+
+    it "should return commented by info and ago in days" do
+      Timecop.freeze(2011, 12, 28, 5, 12, 44)
+      @decorator.details.should == "<span>2 days ago, Dec 26, John Cash</span>"
+    end
+
+    it "should return commented by info and ago in years" do
+      Timecop.freeze(2012, 12, 28, 5, 12, 44)
+      @decorator.details.should == "<span>about 1 year ago, Dec, 2011, John Cash</span>"
+    end
   end
 end

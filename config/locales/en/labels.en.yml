@@ -1,29 +1,16 @@
 en:
   back: "Back"
   cancel: "Cancel"
+  reset: "Reset"
   confirm: "Are you sure?"
   show: "Show"
+  time_ago: "%{time} ago"
   update: "Update"
 
   errors:
     messages:
       already_invited: "is already invited"
       invalid_measure_unit: "%{unit} is not valid unit"
-
-  events:
-    defaults:
-      time_ago: "%{time} ago"
-    comments:
-      create: "Commented by %{user_name}"
-    photos:
-      name: "Photo"
-      create: "Photo updated by %{user_name}"
-      destroy: "Photo updated by %{user_name}"
-    products:
-      name: "Product"
-      create: "Created by %{user_name}"
-      update: "Updated by %{user_name}"
-      destroy: "Deleted by %{user_name}"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"

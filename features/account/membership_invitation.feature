@@ -9,7 +9,7 @@ Feature: Membership invitation
   Scenario: Admin invites a new user to an account
     Given an authenticated user with admin role
     And admin is on the account memberships page
-    When he follows "Invite a new member" within sidebar
+    When he follows "Invite a new member" within sidemenu
     And he submits the account invitation form with:
       | First name |
       | Last name  |

@@ -43,10 +43,29 @@ en:
 
   comments:
     defaults: &COMMENT_DEFAULTS
-      added: "Comment Added"
       destroy: "Delete"
-      added: "Comment Added"
-      destroyed: "Comment Deleted"
+      product:
+        create: "Product created."
+        update: "Product updated."
+
+  events:
+    defaults:
+      labels:
+        product:
+          create: "New"
+          update: "Update"
+          destroy: "Deleted"
+        photo:
+          create: "Image"
+          update: "Image"
+          destroy: "Image"
+        comment:
+          create: "Comment"
+          update: "Comment"
+          destroy: "Comment"
+  home:
+    index:
+      title: "Friendly Product Data Management"
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
@@ -91,14 +110,26 @@ en:
 
   products:
     defaults: &PRODUCT_DEFAULTS
+      brand: "Brand"
+      country_of_origin: "Country of origin"
+      depth: "Depth"
       destroy: "Delete Product"
       edit: "Edit Product"
+      functional_name: "Functional"
+      gross_weight: "Gross Weight"
+      height: "Height"
+      manufacturer: "Manufacturer"
+      net_content: "Content"
+      net_weight: "Net Weight"
       new: "New Product"
+      sub_brand: "Sub Brand"
+      variant: "Variant"
       version: "Version %{number}"
       versions: "Versions"
       visibility:
         private: "Private"
         public: "Public"
+      width: "Width"
     edit:
       <<: *PRODUCT_DEFAULTS
       title: "Edit product"
@@ -110,6 +141,7 @@ en:
       title: "New product"
     show:
       <<: *PRODUCT_DEFAULTS
+      comments: "Comments"
       tags: "Tags and Privacy"
 
   users:

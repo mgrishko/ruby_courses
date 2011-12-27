@@ -37,16 +37,16 @@ class Product
   auto_complete_for :brand, :manufacturer, :tags => :name
 
   validates :functional_name, presence: true, length: 1..35
-  validates :variant, presence: true, length: 1..35
+  validates :variant, length: 0..35
   validates :manufacturer, presence: true, length: 1..35
   validates :country_of_origin, presence: true, inclusion: { in: Carmen.country_codes }
   validates :brand, presence: true, length: 1..70
-  validates :sub_brand, presence: true, length: 1..70
-  validates :short_description, presence: true, length: 1..178
-  validates :description, presence: true, length: 5..1000
+  validates :sub_brand, length: 0..70
+  validates :short_description, length: 0..178
+  validates :description, length: 0..1000
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
-  validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
+  #validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
 
   before_validation :cleanup_measurements
   before_validation :cleanup_product_codes
@@ -76,7 +76,8 @@ class Product
     end
     comment
   end
-  
+
+  # ToDo We should remove this method from project
   # Saves product and creates system comment if needed. If the product
   # was created or updated less then 60 minutes ago no comment is created.
   #
@@ -91,11 +92,14 @@ class Product
     end
     
     # setup system comment
-    comment = comments.last || comments.build
+    comment = comments.last.present? && (Time.now - comments.last.created_at < 2.seconds) ?
+        comments.last : comments.build
     comment.system = true
     comment.created_at = DateTime.now
     comment.user = user
-    comment.body = "&nbsp;" if comment.body.nil? || comment.body.empty?
+    if comment.body.blank?
+      comment.body = I18n.t("comments.defaults.product.#{new_record? ? "create" : "update"}")
+    end
     save
   end
 

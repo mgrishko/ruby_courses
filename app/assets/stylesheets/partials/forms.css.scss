@@ -20,3 +20,16 @@ form {
 }
 
 
+#comments form {
+  textarea {
+    @extend .span8;
+    height: $baseline * 3.5;
+  }
+  .actions {
+    input {
+      @include float-right;
+    }
+  }
+}
+
+

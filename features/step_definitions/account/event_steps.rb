@@ -3,7 +3,7 @@ When /^he follows Dashboard link$/ do
 end
 
 Then /^he should see "([^"]*)" event$/ do |txt|
-  page.find("td", text: txt)
+  page.should have_selector("span", text: txt)
 end
 
 Then /^he deletes the comment$/ do
@@ -20,7 +20,7 @@ Then /^he should see "([^"]*)" comment on the product page$/ do |txt|
 end
 
 Then /^he cannot delete this comment$/ do
-  within("div.links") do
+  within("div.comment") do
     page.should_not have_link('Delete')
   end
 end
