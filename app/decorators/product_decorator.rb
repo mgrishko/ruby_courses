@@ -129,7 +129,7 @@ class ProductDecorator < ApplicationDecorator
 
   # @return [String] country of origin name
   def country_of_origin
-    Carmen::country_name(product.country_of_origin)
+    Carmen::country_name(product.country_of_origin) unless product.country_of_origin.blank?
   end
 
   # @return [String] title of the product for products index
