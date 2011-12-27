@@ -1,11 +1,10 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
-  include ApplicationHelper
+  #include ApplicationHelper
   self.responder = ApplicationResponder
   respond_to :html
   protect_from_forgery
-  before_filter :set_mailer_url_options
 
   # Checking that CanCan authorization is performed if it's required
   check_authorization if: :require_authorization?
@@ -74,10 +73,5 @@ class ApplicationController < ActionController::Base
   # @return [Boolean]
   def require_authorization?
     !(request.subdomain == Settings.app_subdomain || devise_controller?)
-  end
-
-  # Add subdomain to mailer
-  def set_mailer_url_options
-    ActionMailer::Base.default_url_options[:host] = with_subdomain(request.subdomain)
   end
 end

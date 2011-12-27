@@ -12,13 +12,4 @@ module ApplicationHelper
       content_for(:head_title, page_title.to_s)
     end
   end
-
-  # Sets current root for :host with subdomain
-  #
-  # @param [String] subdomain
-  def with_subdomain(subdomain)
-    subdomain = (subdomain || "")
-    subdomain += "." unless subdomain.empty?
-    [subdomain, request.domain].join
-  end
 end

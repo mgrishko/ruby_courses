@@ -9,7 +9,11 @@ When /^(?:he|user) submits (.*) email$/ do |email|
 end
 
 Then /^(?:[^\s]*) should be redirected to the change password page$/ do
-  current_url.should == edit_user_password_url(port: Capybara.server_port, reset_password_token: token, subdomain: @account.subdomain)
+  extract_port(current_url).should == edit_user_password_url(subdomain: Settings.app_subdomain, reset_password_token: token)
+end
+
+Then /^user should be redirected back to the home page$/ do
+  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
 end
 
 When /^(?:he|user) submits new password and confirm it$/ do
@@ -19,6 +23,7 @@ When /^(?:he|user) submits new password and confirm it$/ do
 end
 
 When /^he submits email and new password$/ do
+  visit(new_user_session_url(subdomain: @account.subdomain))
   fill_in "Email", with: @user.email
   fill_in "Password", with: 'foobar'
   click_button "Sign in"
@@ -26,18 +31,14 @@ end
 
 Then /^he should receive an email with reset password instructions$/ do
   email_address = @user.email
-  unread_emails_for(email_address).size.should == 1
-  open_email(email_address)
+  unread_emails_for(email_address).size.should == 2
+  open_last_email
 end
 
-Then /^(.*) should see that current email (.*)$/ do |user, text|
-  page.find("##{user}_email").find(:xpath, '..').find("span", text: text)
+When /^he goes to the password edit page with invalid token$/ do
+  visit(edit_user_password_url(port: Capybara.server_port, subdomain: Settings.app_subdomain, reset_password_token: "invalid_token"))
 end
 
-When /^(?:he|user) fill in hidden_field "([^"]*)" with reset_password_token$/ do |field|
-  page.execute_script("$('##{field}').val('#{@user.reload.reset_password_token}');")
-end
-
-When /^he visit the reset password page$/ do
-  visit(edit_user_password_url(port: Capybara.server_port, subdomain: @account.subdomain))
+Then /^he should see "([^"]*)" message$/ do |message|
+  page.find(:xpath, '//*[contains(concat( " ", @class, " " ), concat( " ", "help-inline", " " ))]').text.should == message
 end
