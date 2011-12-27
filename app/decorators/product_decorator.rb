@@ -1,6 +1,21 @@
 class ProductDecorator < ApplicationDecorator
   decorates :product
 
+  # Groups products by provided field
+  #
+  # @param [Array] array of products
+  # @param [Hash] group options
+  # @option [Symbol] by - field name by which products should be grouped
+  # @return [Hash] grouped products where key is a field name and values is corresponding products
+  def self.group(array, opts = { by: :functional_name })
+    field = opts.delete(:by)
+    groupings = array.map(&field)
+    groupings.inject({}) do |acc, value|
+      acc[value] = array.select { |p| p.send(field) == value }
+      acc
+    end
+  end
+
   # Prepares options for visibility select tag.
   #
   # @return [Array] options for visibility select tag.
@@ -101,6 +116,31 @@ class ProductDecorator < ApplicationDecorator
   # @return [String] product show link or product name label
   def trackable_link(opts = {})
     show_link(opts)
+  end
+
+  # Returns measurement value with unit
+  #
+  # @param [Symbol] name of measurement
+  # @return [String] measurement value with unit or nil
+  def measurement(name)
+    measurement = product.measurements.where(name: name.to_s).first
+    "#{measurement.value} #{I18n.t("units.short.#{measurement.unit}")}" unless measurement.nil?
+  end
+
+  # @return [String] country of origin name
+  def country_of_origin
+    Carmen::country_name(product.country_of_origin)
+  end
+
+  # @return [String] title of the product for products index
+  def title
+    [[product.brand, product.sub_brand, product.variant].compact.join(" "),
+     self.measurement(:net_content)].compact.join(", ")
+  end
+
+  # @return [String] product manufacturer and country of origin
+  def item_label
+    [product.manufacturer, self.country_of_origin].compact.join(", ")
   end
 
   private

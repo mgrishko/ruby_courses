@@ -1,2 +1,2 @@
-$("#comments tr#<%= @comment.id %>").fadeOut().queue ->
+$("#comments .comment#<%= @comment.id %>").fadeOut().queue ->
   $(this).remove()

@@ -24,7 +24,7 @@ describe Product do
   it { should ensure_length_of(:brand).is_at_least(1).is_at_most(70) }
   it { should allow_mass_assignment_of(:brand) }
   
-  it { should validate_presence_of(:sub_brand) }
+  it { should_not validate_presence_of(:sub_brand) }
   it { should ensure_length_of(:sub_brand).is_at_least(1).is_at_most(70) }
   it { should allow_mass_assignment_of(:sub_brand) }  
   

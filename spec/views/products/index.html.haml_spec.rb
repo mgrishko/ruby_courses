@@ -46,9 +46,9 @@ describe "products/index.html.haml" do
     end
   end
 
-  describe "sidebar" do
+  describe "sidemenu" do
     it "renders a new link" do
-      ProductDecorator.should_receive(:create_link).with(class: "btn large primary")
+      ProductDecorator.should_receive(:create_link)
       render
     end
   end

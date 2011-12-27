@@ -8,6 +8,9 @@ describe ProductDecorator do
                          functional_name: "Product name",
                          manufacturer: "Manufacturer",
                          brand: "Brand",
+                         sub_brand: "Sub Brand",
+                         variant: "Variant",
+                         country_of_origin: "US",
                          description: "Product description",
                          visibility: "private"
     )
@@ -15,24 +18,21 @@ describe ProductDecorator do
   end
 
   describe "#version_link" do
-    context "when user can view product" do
-      it "renders link" do
-        @product.functional_name = SecureRandom.hex(10)
-        @product.save!
-        @decorator.h.stub(:can?).and_return(true)
-        @decorator.version_link(@product, @product).should == "Version 2"
-        version = ProductDecorator.decorate(@product.versions.first)
-        version.version_link(@product, @product).should ==
-            "<a href=\"/products/#{@product.id}/versions/1\">Version 1</a>"
-      end
+    before(:each) do
+      @product.functional_name = SecureRandom.hex(10)
+      @product.save!
+      @version = ProductDecorator.decorate(@product.versions.first)
     end
 
-    context "when user cannot view product" do
-      it "renders product name" do
-        # ToDo FIX ME!!! Where is this test?
-        #@decorator.h.stub(:can?).and_return(false)
-        #@decorator.version_link(@product.versions.first, @product).should == "Version 1"
-      end
+    it "renders link to other versions" do
+      @decorator.h.stub(:can?).and_return(true)
+      @version.version_link(@product, @product).should ==
+          "<a href=\"/products/#{@product.id}/versions/1\">Version 1</a>"
+    end
+
+    it "should not render link to current version" do
+      @decorator.h.stub(:can?).and_return(true)
+      @decorator.version_link(@product, @product).should == "Version 2"
     end
   end
 
@@ -189,6 +189,70 @@ describe ProductDecorator do
         @decorator.h.stub(:can?).and_return(false)
         @decorator.trackable_link.should == @decorator.show_link
       end
+    end
+  end
+
+  describe "#measurement" do
+    context "when measurement presents" do
+      it "should receive measurement value with unit" do
+        @product.measurements.new Fabricate.attributes_for(:net_content_measurement, value: 300, unit: "ML")
+        decorator = ProductDecorator.decorate(@product)
+        decorator.measurement(:net_content).should == "300 ml"
+      end
+    end
+
+    context "when measurement does not present" do
+      it "should be blank" do
+        @decorator.measurement(:net_content).should be_blank
+      end
+    end
+  end
+
+  describe "#country_of_origin" do
+    it "should return country name" do
+      @decorator.country_of_origin.should == "United States"
+    end
+  end
+
+  describe "#title" do
+    context "when net content presents" do
+      it "should concat brand, sub brand, variant and net content" do
+        @product.measurements.new Fabricate.attributes_for(:net_content_measurement, value: 300, unit: "ML")
+        decorator = ProductDecorator.decorate(@product)
+        decorator.title.should == "Brand Sub Brand Variant, 300 ml"
+      end
+    end
+
+    context "when net content and sub brand do not present" do
+      it "should concat brand and variant" do
+        @product.sub_brand = nil
+        decorator = ProductDecorator.decorate(@product)
+        decorator.title.should == "Brand Variant"
+      end
+    end
+  end
+
+  describe "#item_label" do
+    it "should concat manufacturer and country of origin" do
+      @decorator.item_label.should == "Manufacturer, United States"
+    end
+  end
+
+  describe "#group" do
+    before(:each) do
+      @product1 = Fabricate(:product, functional_name: "functional 1", brand: "Brand")
+      @product2 = Fabricate(:product, functional_name: "functional 2", brand: "Brand")
+      @products = ProductDecorator.decorate([@product1, @product2])
+    end
+
+    it "should group products by functional name" do
+      expected = { "functional 1" => [@product1], "functional 2" => [@product2] }
+      ProductDecorator.group(@products, by: :functional_name).should == expected
+    end
+
+    it "should group products by brand" do
+      expected = { "Brand" => [@product1, @product2] }
+      ProductDecorator.group(@products, by: :brand).should == expected
     end
   end
 end

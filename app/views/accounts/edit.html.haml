@@ -1,7 +1,7 @@
 - title t('.title')
 
-- content_for(:sidebar) do
-  = link_to t("back"), :back
+-#- content_for(:sidebar) do
+-#  = link_to t("back"), :back
 
 = simple_form_for(@account, url: account_url, wrapper: :inline, html: { method: :put }) do |f|
   = f.error_notification

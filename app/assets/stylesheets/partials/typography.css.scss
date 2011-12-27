@@ -1,12 +1,8 @@
-span {
-  &.label {
-    margin-right: 3px;
-  }
-  &.deleted {
-    text-decoration: line-through;
-  }
-}
-
 .soft {
   color: grey;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
 }

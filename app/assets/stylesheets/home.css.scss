@@ -1,7 +1,7 @@
 .home {
   td {
     &.action {
-      @extend .span2;
+      /*@extend .span2;*/
     }
     &.desc {
       text-align: right;
@@ -10,5 +10,4 @@
       }
     }
   }
-
 }

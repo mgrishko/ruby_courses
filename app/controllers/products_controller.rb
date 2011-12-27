@@ -11,7 +11,7 @@ class ProductsController < MainController
   # GET /products.xml
   def index
     #@products = Product.all loaded by CanCan
-    @products = ProductDecorator.decorate(@products)
+    @products = ProductDecorator.decorate(@products.asc(:functional_name))
     respond_with(@products)
   end
 
@@ -19,7 +19,7 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
+    @comments = CommentDecorator.decorate(@product.comments.asc(:created_at))
     @product = ProductDecorator.decorate(@product)
 
     respond_with(@product)

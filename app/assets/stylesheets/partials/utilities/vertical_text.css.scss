@@ -1,0 +1,18 @@
+@mixin vertical-text-right {
+  @include vertical-text(90deg);
+}
+
+@mixin vertical-text-left {
+  @include vertical-text(-90deg);
+}
+
+@mixin vertical-text($degree: -90deg) {
+  writing-mode: tb-rl;
+  -webkit-transform: rotate($degree);
+  -moz-transform: rotate($degree);
+  -o-transform: rotate($degree);
+  white-space: nowrap;
+  display: block;
+  width: 20px;
+  height: 20px;
+}
