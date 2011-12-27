@@ -37,13 +37,13 @@ class Product
   auto_complete_for :brand, :manufacturer, :tags => :name
 
   validates :functional_name, presence: true, length: 1..35
-  validates :variant, presence: true, length: 1..35
+  validates :variant, length: 0..35
   validates :manufacturer, presence: true, length: 1..35
   validates :country_of_origin, presence: true, inclusion: { in: Carmen.country_codes }
   validates :brand, presence: true, length: 1..70
   validates :sub_brand, length: 0..70
-  validates :short_description, presence: true, length: 1..178
-  validates :description, presence: true, length: 5..1000
+  validates :short_description, length: 0..178
+  validates :description, length: 0..1000
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
   #validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
@@ -92,7 +92,8 @@ class Product
     end
     
     # setup system comment
-    comment = comments.last.present? && comments.last.new_record? ? comments.last : comments.build
+    comment = comments.last.present? && (Time.now - comments.last.created_at < 2.seconds) ?
+        comments.last : comments.build
     comment.system = true
     comment.created_at = DateTime.now
     comment.user = user

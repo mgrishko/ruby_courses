@@ -10,12 +10,18 @@ When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   end
 end
 
-Then /^he should(.*) see "([^"]*)" link within sidebar$/ do |should, link|
-  within(".sidebar") do
-    if should.strip == "not"
-      page.should_not have_link(link)
-    else
-      page.should have_link(link)
+Then /^he should(.*) see "([^"]*)" link within (.*)$/ do |should, link, context|
+  selector = page.has_selector?(context) ? context : ".#{context}"
+
+  should_have = !(should.strip == "not")
+
+  if should_have || (!should_have && page.has_selector?(selector))
+    within(selector) do
+      if should_have
+        page.should have_link(link)
+      else
+        page.should_not have_link(link)
+      end
     end
   end
 end

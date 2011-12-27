@@ -7,8 +7,8 @@ describe Product do
   it { should ensure_length_of(:functional_name).is_at_least(1).is_at_most(35) }
   it { should allow_mass_assignment_of(:functional_name) }  
   
-  it { should validate_presence_of(:variant) }
-  it { should ensure_length_of(:variant).is_at_least(1).is_at_most(35) }
+  it { should_not validate_presence_of(:variant) }
+  it { should ensure_length_of(:variant).is_at_most(35) }
   it { should allow_mass_assignment_of(:variant) }    
   
   it { should validate_presence_of(:manufacturer) }
@@ -25,22 +25,22 @@ describe Product do
   it { should allow_mass_assignment_of(:brand) }
   
   it { should_not validate_presence_of(:sub_brand) }
-  it { should ensure_length_of(:sub_brand).is_at_least(1).is_at_most(70) }
+  it { should ensure_length_of(:sub_brand).is_at_most(70) }
   it { should allow_mass_assignment_of(:sub_brand) }  
   
-  it { should validate_presence_of(:short_description) }
-  it { should ensure_length_of(:short_description).is_at_least(1).is_at_most(178) }
+  it { should_not validate_presence_of(:short_description) }
+  it { should ensure_length_of(:short_description).is_at_most(178) }
   it { should allow_mass_assignment_of(:short_description) }  
 
-  it { should validate_presence_of(:description) }
-  it { should ensure_length_of(:description).is_at_least(5).is_at_most(1000) }
+  it { should_not validate_presence_of(:description) }
+  it { should ensure_length_of(:description).is_at_most(1000) }
   it { should allow_mass_assignment_of(:description) }
   
-  it { should validate_presence_of(:gtin) }
-  it { should ensure_length_of(:gtin).is_equal_to(14) }
+  it { should_not validate_presence_of(:gtin) }
+  #it { should ensure_length_of(:gtin).is_equal_to(14) }
   it { should allow_mass_assignment_of(:gtin) }
   it { should allow_value("00000123456789").for(:gtin) }
-  it { should_not allow_value("0abcdefghijklm").for(:gtin) }
+  #it { should_not allow_value("0abcdefghijklm").for(:gtin) }
 
   it { should validate_presence_of(:account) }
   it { should_not allow_mass_assignment_of(:account) }
