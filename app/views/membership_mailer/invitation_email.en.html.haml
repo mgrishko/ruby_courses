@@ -33,6 +33,13 @@
         = @invited_by.first_name
         also says:
       %pre= @invitation_note
+    -#%p
+      -#Login:
+      -#%br
+      -#= @user.email
+      -#= @membership.password_label(format: :html)
+
+      -#= @membership.invitation_label(format: :html)
 
     %p
       %strong
@@ -43,6 +50,7 @@
     %p
       All the best,
       %br
-      The GoodsMaster Team
+      = "The #{Settings.project_name} Team"
       %br
       = Settings.links.project_home
+

@@ -54,11 +54,6 @@ namespace :deploy do
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 
-  #Regenerate yard documention and restart yard server
-  task :yard_regenerate, :roles => :app do
-    run "cd #{current_path} && yard doc && yard server"
-    run "chmod 755 #{current_path}/yard.sh && #{current_path}/./yard.sh stop && #{current_path}/./yard.sh start"
-  end
 end
 
 after "deploy", "deploy:copy_database_configuration"
