@@ -3,6 +3,9 @@
   %head
     = render :partial => 'layouts/partials/head'
   %body.clean
+    #flash= render :partial => 'layouts/partials/flash', :object => flash
+
+
     %header.topbar
       .topbar-inner
         .header-container
@@ -10,7 +13,6 @@
             = link_to Settings.project_name, home_url
 
     %section.main
-      #flash= render :partial => 'layouts/partials/flash', :object => flash
 
       - if content_for?(:page_title)
         %header
