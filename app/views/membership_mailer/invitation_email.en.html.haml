@@ -23,16 +23,9 @@
       Login:
       %br
       = @user.email
-      - if @user.password.present?
-        Password:
-        %br
-        = @user.password
+      = @membership.password_label(format: :html)
 
-    - if @invitation_note.present?
-      %p
-        = @invited_by.first_name
-        also says:
-      %pre= @invitation_note
+      = @membership.invitation_label(format: :html)
 
     %p
       %strong
@@ -43,6 +36,7 @@
     %p
       All the best,
       %br
-      The GoodsMaster Team
+      = "The #{Settings.project_name} Team"
       %br
       = Settings.links.project_home
+
