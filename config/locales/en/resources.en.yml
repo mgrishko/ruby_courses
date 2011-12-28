@@ -147,6 +147,16 @@ en:
   users:
     invitations:
 
+    passwords:
+      edit:
+        confirm: "Confirm password"
+        change: "Change my password"
+        title: "Change your password"
+        password: "New password"
+      new:
+        send: "Send me reset password instructions"
+        sign_in: "Sign In"
+        title: "Forgot your password?"
     registrations:
       edit:
         title: "Edit your profile"
@@ -155,6 +165,7 @@ en:
         title: "Sign up"
     sessions:
       new:
+        recoverable: "Forgot your password?"
         sign_in: "Sign in"
         title: "Sign in"
 

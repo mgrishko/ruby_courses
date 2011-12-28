@@ -12,7 +12,7 @@ Feature: User authentication
     Then he should be redirected to the user sign in page
     When user submits valid email and password
     Then he should be redirected back to the products page
-    
+
   Scenario Outline: User enters wrong email or password
     Given an unauthenticated user
     And he is on the user sign in page
