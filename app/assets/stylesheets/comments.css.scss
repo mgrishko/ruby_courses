@@ -5,6 +5,15 @@
 #comments {
   margin-top: 2em;
 
+  .comment {
+    position: relative;
+  }
+  a.delete_img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+  }
   p {
     margin-bottom: 4px;
     &.info {
