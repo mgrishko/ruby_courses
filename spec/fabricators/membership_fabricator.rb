@@ -3,6 +3,7 @@ Fabricator(:membership) do
   user!
   role "editor"
   invited_by { |m| m.account.owner }
+  invitation_note  { Faker::Lorem.sentence }
 end
 
 Fabricator(:admin_membership, from: :membership) do

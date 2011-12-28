@@ -1,7 +1,7 @@
 Hi, <%= @owner.first_name %>
 
-Welcome to GoodsMaster and thanks for signing up! We've just created a new account for your company,
-<%= @account.company_name %>.
+<%= "Welcome to #{Settings.project_name} and thanks for signing up!
+We've just created a new account for your company, #{@account.company_name}." %>
 
 Sign in to your account:
 <%= @url %>
@@ -13,5 +13,6 @@ If you have any questions or feedback, please don't hesitate to contact us at
 <%= Settings.links.feedback %>
 
 All the best,
-The GoodsMaster Team
+The <%= Settings.project_name %> Team
 <%= Settings.links.project_home %>
+

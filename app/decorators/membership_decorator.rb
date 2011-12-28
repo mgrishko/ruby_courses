@@ -30,4 +30,35 @@ class MembershipDecorator < ApplicationDecorator
     end
     self
   end
+
+  # Sets view content for password label
+  #
+  # @option [Hash] optional. if options[:format] == :html it sets password content only for html,
+  # other, sets for text format
+  def password_label(options = {})
+    if membership.user.password.present?
+      password = membership.user.password
+      if options[:format] == :html
+        "Password:\n<br>\n#{password}".html_safe
+      else
+        "Password:\n#{password}".html_safe
+      end
+    end
+  end
+
+  # Sets view content for invitation note
+  #
+  # @option [Hash] optional. if options[:format] == :html it sets invitation note only for html,
+  # other, sets for text format
+  def invitation_label(options = {})
+    if membership.invitation_note.present?
+      first_name = membership.invited_by.first_name
+      invitation_note = membership.invitation_note
+      if options[:format] == :html
+        "<p>\n#{first_name}\nalso says:\n</p><pre>#{invitation_note}</pre>".html_safe
+      else
+        "#{first_name} also says:\n#{invitation_note}".html_safe
+      end
+    end
+  end
 end
