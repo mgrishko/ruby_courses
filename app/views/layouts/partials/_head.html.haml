@@ -5,7 +5,7 @@
 %title= "#{Settings.project_name}#{": #{yield(:head_title)}" if content_for?(:head_title)}"
 = stylesheet_link_tag "application"
 = javascript_include_tag "application"
-= user_voice_widget if Rails.env.production? || Rails.env.qa?
+= user_voice_widget if Rails.env.production? || Rails.env.qa? || Rails.env.staging?
 = csrf_meta_tags
 = favicon_link_tag
 %script I18n.defaultLocale = "#{I18n.default_locale}"; I18n.locale = "#{I18n.locale}";

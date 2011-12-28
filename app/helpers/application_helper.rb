@@ -15,17 +15,10 @@ module ApplicationHelper
 
   def user_voice_widget
     if current_user
-      current_account ||= Account.where(subdomain: request.subdomain, state: "active").first
-      name = current_user.first_name
-      family = current_user.last_name[0]
-      company = current_account.company_name[0]
-      initials = "#{name} #{family}. from #{company}"
-      raw uservoice_config_javascript(:sso => { :guid         =>  current_user.id,
+      raw uservoice_config_javascript(:sso => { :guid         => current_user.id,
                                                 :email        => current_user.email,
-                                                :display_name => initials
+                                                :display_name => current_user.short_name
                                               })
-    #else
-      #raw uservoice_config_javascript
     end
   end
 end
