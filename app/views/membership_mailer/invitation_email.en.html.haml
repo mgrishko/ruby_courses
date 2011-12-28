@@ -23,23 +23,9 @@
       Login:
       %br
       = @user.email
-      - if @user.password.present?
-        Password:
-        %br
-        = @user.password
+      = @membership.password_label(format: :html)
 
-    - if @invitation_note.present?
-      %p
-        = @invited_by.first_name
-        also says:
-      %pre= @invitation_note
-    -#%p
-      -#Login:
-      -#%br
-      -#= @user.email
-      -#= @membership.password_label(format: :html)
-
-      -#= @membership.invitation_label(format: :html)
+      = @membership.invitation_label(format: :html)
 
     %p
       %strong
