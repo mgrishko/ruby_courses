@@ -3,6 +3,8 @@
   %head
     = render :partial => 'layouts/partials/head'
   %body.application
+    #flash= render :partial => 'layouts/partials/flash', :object => flash
+
     %header.topbar
       .topbar-inner
         .header-container
@@ -24,7 +26,6 @@
           = yield(:sidebar)
 
       %section.content
-        #flash= render :partial => 'layouts/partials/flash', :object => flash
 
         - if content_for?(:page_title)
           %header
