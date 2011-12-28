@@ -60,6 +60,12 @@ section.main {
   position: relative;
 }
 
+#flash {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+}
+
 .sidebar {
   ul {
     @include no-bullets;

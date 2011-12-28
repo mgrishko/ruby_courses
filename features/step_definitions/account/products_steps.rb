@@ -250,7 +250,7 @@ When /^he deletes the product photo$/ do
 end
 
 When /^he deletes that comment$/ do
-  within("tr.comment") do
+  within("#comments_list") do
     click_link "Delete"
   end
 end

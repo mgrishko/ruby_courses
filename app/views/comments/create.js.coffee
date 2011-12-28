@@ -4,6 +4,8 @@
 <% else %>
   $("<%= escape_javascript(render(partial: @comment)) %>").appendTo("#comments_list").hide().fadeIn()
 
+  GoodsMaster.comments.init()
+
   $("#new_comment")[0].reset()
 
 <% end %>
