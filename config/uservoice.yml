@@ -1,0 +1,8 @@
+uservoice_options:
+  key: goodsmaster
+  host: goodsmaster.uservoice.com
+  forum: 143701
+uservoice_api:
+  api_key: b5c617c4a074cd3c3e016c13650f0099
+widget:
+  path: widget.uservoice.com/g7Tv9aEYEg68khcRp9SzwA.js

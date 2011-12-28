@@ -6,6 +6,15 @@ GIT
       actionpack (~> 3.0)
       activemodel (~> 3.0)
 
+PATH
+  remote: vendor/plugins/uservoice
+  specs:
+    uservoice (0.3.1)
+      actionpack (>= 2.1)
+      activesupport (>= 2.1)
+      ezcrypto (>= 0.7.2)
+      rails (>= 2.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -107,6 +116,7 @@ GEM
     erubis (2.7.0)
     execjs (1.2.9)
       multi_json (~> 1.0)
+    ezcrypto (0.7.2)
     fabrication (1.2.0)
     ffaker (1.10.1)
     ffi (1.0.11)
@@ -311,4 +321,5 @@ DEPENDENCIES
   timecop
   turn
   uglifier (>= 1.0.3)
+  uservoice!
   yard (~> 0.7.4)
