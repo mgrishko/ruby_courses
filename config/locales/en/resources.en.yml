@@ -15,6 +15,7 @@ en:
     accounts:
       defaults: &ADMIN_ACCOUNT_DEFAULTS
         activate: "Activate"
+        login_as_owner: "Login as account owner"
         company: "Company"
         country: "Country"
         state: "State"
