@@ -46,7 +46,8 @@ class Product
   validates :description, length: 0..1000
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
-  #validates :gtin, presence: true, length: { is: 14 }, format: /\d{14}/
+  validates :gtin, gtin_format: true
+  validates_with ProductWeightValidator
 
   before_validation :cleanup_measurements
   before_validation :cleanup_product_codes
@@ -112,7 +113,9 @@ class Product
 
     measurements = []
     self.measurements.each do |m|
-      measurements << m unless m.value.blank? && !(dimension_present && dimension_measures.include?(m.name))
+      measurements << m unless m.value.blank? &&
+          !(dimension_present && dimension_measures.include?(m.name)) &&
+          !(measurement(:net_weight).try(:value).try(:present?) && m.name == "gross_weight")
     end
 
     self.measurements = measurements
@@ -126,5 +129,9 @@ class Product
     end
 
     self.product_codes = codes
+  end
+
+  def measurement(name)
+    self.measurements.where(name: name.to_s).first
   end
 end

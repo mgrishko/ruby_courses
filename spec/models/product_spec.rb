@@ -37,10 +37,15 @@ describe Product do
   it { should allow_mass_assignment_of(:description) }
   
   it { should_not validate_presence_of(:gtin) }
-  #it { should ensure_length_of(:gtin).is_equal_to(14) }
   it { should allow_mass_assignment_of(:gtin) }
-  it { should allow_value("00000123456789").for(:gtin) }
-  #it { should_not allow_value("0abcdefghijklm").for(:gtin) }
+  it { should allow_value("12345670").for(:gtin) }
+  it { should_not allow_value("12345671").for(:gtin) }
+  it { should allow_value("123456789012").for(:gtin) }
+  it { should_not allow_value("123456789013").for(:gtin) }
+  it { should allow_value("1234567890128").for(:gtin) }
+  it { should_not allow_value("1234567890129").for(:gtin) }
+  it { should allow_value("12345678901231").for(:gtin) }
+  it { should_not allow_value("12345678901232").for(:gtin) }
 
   it { should validate_presence_of(:account) }
   it { should_not allow_mass_assignment_of(:account) }
@@ -79,6 +84,39 @@ describe Product do
         @attrs.first["value"] = "100"
         product.measurements_attributes = @attrs
 
+        product.should_not be_valid
+      end
+    end
+
+    context "weights" do
+      before(:each) do
+        @attrs = []
+        %w(gross_weight net_weight).each do |name|
+          @attrs << { "name" => name, "unit" => "GR", "value" => nil }
+        end
+      end
+
+      it "should be valid when all weights are blank" do
+        product.measurements_attributes = @attrs
+        product.should be_valid
+      end
+
+      it "should be valid when gross weight presents and net weight is blank" do
+        @attrs.first["value"] = "100"
+        product.measurements_attributes = @attrs
+        product.should be_valid
+      end
+
+      it "should not be valid when net weight presents and gross weight is blank" do
+        @attrs.last["value"] = "100"
+        product.measurements_attributes = @attrs
+        product.should_not be_valid
+      end
+
+      it "should not be valid when net weight is greater then gross weight" do
+        @attrs.first["value"] = "100"
+        @attrs.last["value"] = "110"
+        product.measurements_attributes = @attrs
         product.should_not be_valid
       end
     end

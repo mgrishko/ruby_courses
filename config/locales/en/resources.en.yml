@@ -11,6 +11,20 @@
 #         action_name
 
 en:
+  accounts:
+    defaults: &ACCOUNT_DEFAULTS
+      activate: "Activate"
+      login_as_owner: "Login as account owner"
+      company: "Company"
+      country: "Country"
+      state: "State"
+      states:
+        active: "Active"
+        pending: "Awaiting activation"
+      subdomain: "Subdomain"
+    edit:
+      title: "Account settings"
+
   admin:
     accounts:
       defaults: &ADMIN_ACCOUNT_DEFAULTS
@@ -37,10 +51,6 @@ en:
       new:
         sign_in: "Sign in"
         title: "Sign in"
-
-  accounts:
-    edit:
-      title: "Account settings"
 
   comments:
     defaults: &COMMENT_DEFAULTS

@@ -10,7 +10,9 @@ en:
   errors:
     messages:
       already_invited: "is already invited"
-      invalid_measure_unit: "%{unit} is not valid unit"
+      invalid_gtin_format: "is not a valid gtin format"
+      invalid_measure_unit: "%{unit} is not a valid unit"
+      invalid_net_weight: "can't be greater then gross weight"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"

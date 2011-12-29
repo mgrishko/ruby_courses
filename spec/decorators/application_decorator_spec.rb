@@ -16,7 +16,9 @@ describe ApplicationDecorator do
     end
 
     it "should prepend with namespace" do
-      Admin::AccountDecorator.i18n_scope.should == "admin.accounts.defaults"
+      class Example; end
+      class Admin::ExampleDecorator < ApplicationDecorator; decorates :example end
+      Admin::ExampleDecorator.i18n_scope.should == "admin.examples.defaults"
     end
   end
 

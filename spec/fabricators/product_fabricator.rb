@@ -9,7 +9,7 @@ Fabricator(:product) do
   short_description  { Faker::Product.product_name }
   description  { Faker::Lorem.paragraphs }
   visibility   "public"
-  gtin "01234567890123"
+  gtin "12345670"
 end
 
 Fabricator(:product_with_comments, from: :product) do
