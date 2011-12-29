@@ -33,7 +33,7 @@ body {
       .sidebar {
         margin-left: $sidebar_margin_left;
       }
-      &.index, &.new, &.edit {
+      &.index, &.new, &.edit, &.create, &.update {
         > .sidebar {
           width: $sidebar_narrow_width;
         }
