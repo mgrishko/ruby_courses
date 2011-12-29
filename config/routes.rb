@@ -63,7 +63,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
-    get '/' => 'home#index', as: :home
+    get '/'  => 'home#index', as: :home
     root :to => 'home#index', as: :root
   end
 

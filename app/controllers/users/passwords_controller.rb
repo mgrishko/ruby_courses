@@ -1,4 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
+  layout 'clean'
 
   protected
 
@@ -6,6 +7,6 @@ class Users::PasswordsController < Devise::PasswordsController
   # after recover password.
   #
   def after_sign_in_path_for(resource)
-    root_url(subdomain: resource.accounts.first.subdomain)
+    home_url(subdomain: resource.accounts.first.subdomain)
   end
 end
