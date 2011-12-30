@@ -3,14 +3,14 @@ class Admin::AccountsController < Admin::BaseController
   # GET /admin/accounts
   # GET /admin/accounts.json
   def index
-    @accounts = Admin::AccountDecorator.all
+    @accounts = AccountDecorator.all
     respond_with(@accounts)
   end
 
   # GET /admin/accounts/1
   # GET /admin/accounts/1.json
   def show
-    @account = Admin::AccountDecorator.find(params[:id])
+    @account = AccountDecorator.find(params[:id])
     respond_with(@account)
   end
 
@@ -27,7 +27,7 @@ class Admin::AccountsController < Admin::BaseController
       flash.now[:alert] = t('flash.accounts.activate.alert')
     end
 
-    @account = Admin::AccountDecorator.decorate(account)
+    @account = AccountDecorator.decorate(account)
 
     respond_with(@account) do |format|
       format.html { render :show }

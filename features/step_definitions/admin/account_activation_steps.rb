@@ -1,10 +1,6 @@
-Given /^company representative has a new(.*) account$/ do |activated|
+Given /^company representative has a new account$/ do
   @owner = Fabricate(:user, email: "user@example.com", password: "password")
   @account = Fabricate(:account, owner: @owner)
-  
-  if activated.strip == "activated"
-    @account.activate!
-  end
   
   visit new_user_session_url(subdomain: @account.subdomain)
   fill_in "Email", with: @owner.email
