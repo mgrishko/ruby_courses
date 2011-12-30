@@ -5,12 +5,7 @@ end
 
 Given /^an authenticated admin$/ do
   @admin = Fabricate(:admin, email: "admin@example.com", password: "password")
-
-  steps %Q{
-    Given admin is on the admin sign in page
-    When admin submits valid email and password
-  }
-
+  steps "When admin signes in"
   current_url.should == admin_dashboard_url
 end
 
@@ -28,6 +23,11 @@ When /^admin submits (.*) email and(.*) password$/ do |email, password|
   fill_in "Email", with: email == "valid" ? "admin@example.com" : "invalid@example.com"
   fill_in "Password", with: password.blank? || password == "valid" ? "password" : "invalid"
   click_button "Sign in"
+end
+
+When /^admin signs in$/ do
+  steps "Given admin is on the admin sign in page"
+  steps "When admin submits valid email and password"
 end
 
 When /^admin signs out$/ do
@@ -49,4 +49,3 @@ end
 Then /^admin should be signed out$/ do
   current_url.should == new_admin_session_url
 end
-
