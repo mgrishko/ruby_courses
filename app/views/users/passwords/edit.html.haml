@@ -2,9 +2,10 @@
 
 = simple_form_for(resource, as: resource_name, url: password_url(resource_name, subdomain: Settings.app_subdomain),
                   wrapper: :inline,  html: { method: :put }) do |f|
-  = f.error_notification
   = f.input :reset_password_token, as: :hidden
-  = f.full_error :reset_password_token
+  .clearfix
+    %p= f.full_error :reset_password_token, class: "alert-message block-message error"
+
   .inputs
     = f.input :password, label: t('.password'), required: true, hint: false
     = f.input :password_confirmation, label: t('.confirm'), required: true

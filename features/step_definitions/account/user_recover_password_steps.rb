@@ -9,7 +9,8 @@ When /^(?:he|user) submits (.*) email$/ do |email|
 end
 
 Then /^(?:[^\s]*) should be redirected to the change password page$/ do
-  extract_port(current_url).should == edit_user_password_url(subdomain: Settings.app_subdomain, reset_password_token: token)
+  extract_port(current_url).should ==
+      edit_user_password_url(subdomain: Settings.app_subdomain, reset_password_token: token)
 end
 
 Then /^user should be redirected back to the home page$/ do
@@ -41,24 +42,19 @@ Then /^he shouldn't receive an email with reset password instructions$/ do
 end
 
 When /^he goes to the password edit page with invalid token$/ do
-  visit(edit_user_password_url(port: Capybara.server_port, subdomain: Settings.app_subdomain, reset_password_token: "invalid_token"))
-end
-
-Then /^he should see "([^"]*)" message$/ do |message|
-  page.find(:xpath, '//*[contains(concat( " ", @class, " " ), concat( " ", "help-inline", " " ))]'
-           ).text.should == message
+  visit(edit_user_password_url(port: Capybara.server_port, subdomain: Settings.app_subdomain,
+                               reset_password_token: "invalid_token"))
 end
 
 Then /^he should see success sign up notice message$/ do
   message = "Your password was changed successfully. You are now signed in."
-  page.find(".alert-message.notice > p", text: message)
+  step "he should see notice message \"#{message}\""
 end
 
-#Then /^he should see password recovery notice message$/ do
-  #message = "If your e-mail exists on our database,
-             #you will receive a password recovery link on your e-mail"
-  #page.find(".alert-message.notice > p", text: message)
-#end
+Then /^he should see password recovery notice message$/ do
+  message = "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+  step "he should see notice message \"#{message}\""
+end
 
 Then /^he should see message "([^"]*)"$/ do |message|
   page.find("span.help-inline", text: message)

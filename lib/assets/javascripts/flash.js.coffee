@@ -1,7 +1,7 @@
 $.namespace("GoodsMaster.flash")
 
 GoodsMaster.flash.init = ->
-  $flash = $(".alert-message")
+  $flash = $(".flash")
 
   # Auto-closing alert
   fd = if $flash.hasClass("alert")

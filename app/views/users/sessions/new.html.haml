@@ -6,6 +6,6 @@
     = f.input :password, required: false
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
   .actions
-    = link_to t('.recoverable'), new_password_url(resource_name, subdomain: Settings.app_subdomain)
     = f.button :submit, t(".sign_in"), class: 'success large'
+    = link_to t('.recoverable'), new_password_url(resource_name, subdomain: Settings.app_subdomain)
 

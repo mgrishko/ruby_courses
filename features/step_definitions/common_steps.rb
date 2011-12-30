@@ -39,3 +39,7 @@ end
 Then /^(?:[^\s]* )should see (.*) message "([^"]*)"$/ do |flash_class, message|
   page.find(".alert-message.#{flash_class} > p", text: message)
 end
+
+Then /^he should see field error "([^"]*)"$/ do |message|
+  page.find("form span.help-inline", text: message)
+end

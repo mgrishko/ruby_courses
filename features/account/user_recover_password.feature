@@ -10,8 +10,7 @@ Feature: User recover password
     And he is on the user sign in page
     When he follows "Forgot your password?" within actions
     And he submits valid email
-    Then he should see notice message "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
-    #Then he should see password recovery notice message
+    Then he should see password recovery notice message
     Then save and open all html emails
     And he should receive an email with reset password instructions
     When they click the first link in the email
@@ -30,7 +29,7 @@ Feature: User recover password
     And he submits valid email
     And he goes to the password edit page with invalid token
     And he submits new password and valid confirm it
-    When he should see "Reset password token is invalid" message
+    Then he should see field error "Reset password token is invalid"
 
   Scenario: User submit invalid email
     And he is on the user sign in page
