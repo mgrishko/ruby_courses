@@ -67,5 +67,5 @@ GoodsMaster::Application.configure do
   config.assets.initialize_on_precompile = true
 
   # Setting default_url_options (required for devise).
-  config.action_mailer.default_url_options = { :host => 'dev.goodsmasterhq.com' }
+  config.action_mailer.default_url_options = { :host => 'dev.getmasterdata.com' }
 end

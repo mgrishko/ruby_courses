@@ -53,7 +53,7 @@ SimpleNavigation::Configuration.run do |navigation|
     #
 
     primary.item :profile, t('navigation.user.profile'), edit_user_registration_url
-    primary.item :sing_out, t('navigation.user.sign_out'), destroy_user_session_url, { method: :delete }
+    primary.item :sing_out, t('navigation.user.sign_out'), destroy_user_session_url, { method: Devise.sign_out_via }
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
