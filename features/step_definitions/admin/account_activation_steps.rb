@@ -1,7 +1,7 @@
 Given /^company representative has a new account$/ do
   @owner = Fabricate(:user, email: "user@example.com", password: "password")
   @account = Fabricate(:account, owner: @owner)
-
+  
   visit new_user_session_url(subdomain: @account.subdomain)
   fill_in "Email", with: @owner.email
   fill_in "Password", with: @owner.password

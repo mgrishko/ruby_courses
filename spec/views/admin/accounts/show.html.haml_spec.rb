@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "admin/accounts/show.html.haml" do
   before(:each) do
-    decorator = Admin::AccountDecorator.decorate(Fabricate.build(:account))
+    decorator = AccountDecorator.decorate(Fabricate.build(:account))
     decorator.stub(:activation_link)
     decorator.stub(:login_as_owner_link)
     @account = assign(:account, decorator)

@@ -16,6 +16,6 @@ class AccountDecorator < ApplicationDecorator
 
   # @return [String] a link that logs the admin as the account owner
   def login_as_owner_link
-    h.link_to I18n.t("login_as_owner", scope: i18n_scope), [:login_as_owner, :admin, account]
+    h.link_to I18n.t("login_as_owner", scope: i18n_scope), [:login_as_owner, :admin, account] if account.active?
   end
 end

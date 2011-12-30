@@ -43,8 +43,19 @@ describe AccountDecorator do
       end
     end
 
-    it "#login_as_owner_link" do
-      @decorator.login_as_owner_link.should == "<a href=\"/dashboard/accounts/#{@account.id}/login_as_owner\">Login as account owner</a>"
+    describe "#login_as_owner_link" do
+      context "when account is not activated" do
+        it "should be blank" do
+          @decorator.login_as_owner_link.should be_blank
+        end
+      end
+      
+      context "when account is already activated" do
+        it "should return link" do
+          @account.activate
+          @decorator.login_as_owner_link.should == "<a href=\"/dashboard/accounts/#{@account.id}/login_as_owner\">Login as account owner</a>"
+        end
+      end
     end
   end
 end
