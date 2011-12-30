@@ -35,3 +35,7 @@ Then /^he should(.*) see "([^"]*)" within sidebar$/ do |should, content|
     end
   end
 end
+
+Then /^(?:[^\s]* )should see (.*) message "([^"]*)"$/ do |flash_class, message|
+  page.find(".alert-message.#{flash_class} > p", text: message)
+end
