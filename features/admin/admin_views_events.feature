@@ -8,7 +8,7 @@ Feature: Admin views account events
     And an unauthenticated admin
     And an authenticated user with editor role
     When he adds a new product
-    And admin signs in
+    And admin signes in
     And admin goes to the events page
     Then he should see "New" event
     

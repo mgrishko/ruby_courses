@@ -25,7 +25,7 @@ When /^admin submits (.*) email and(.*) password$/ do |email, password|
   click_button "Sign in"
 end
 
-When /^admin signs in$/ do
+When /^admin signes in$/ do
   steps "Given admin is on the admin sign in page"
   steps "When admin submits valid email and password"
 end
