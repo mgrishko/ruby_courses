@@ -43,6 +43,9 @@ en:
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+    events:
+      index:
+        title: "Events"
     profiles:
       edit:
         title: "Admin Profile"
@@ -107,6 +110,9 @@ en:
     accounts:
       menu_title: "Accounts"
       list: "Account list"
+    events:
+      menu_title: "Events"
+      list: "Events"
     main:
       home: "Dashboard"
       products: "Products"

@@ -3,7 +3,6 @@ Feature: Admin views account events
   An admin
   Should be able to view account events
 
-  @wip
   Scenario: Admin views account events
     Given an activated account
     And an unauthenticated admin
@@ -12,3 +11,4 @@ Feature: Admin views account events
     And admin signs in
     And admin goes to the events page
     Then he should see "New" event
+    
