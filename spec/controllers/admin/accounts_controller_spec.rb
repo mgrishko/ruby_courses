@@ -5,7 +5,7 @@ describe Admin::AccountsController do
 
   before(:each) do
     @account = Fabricate(:account)
-    @account_decorator = Admin::AccountDecorator.decorate(@account)
+    @account_decorator = AccountDecorator.decorate(@account)
   end
 
   describe "GET index" do

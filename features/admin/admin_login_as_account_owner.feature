@@ -3,8 +3,8 @@ Feature: Logs in as the account owner
   An admin
   Should be able to login to an account as its owner
 
-  Scenario: Admin activates account
-    Given company representative has a new account
+  Scenario: Admin logs into an activated account as its owner
+    Given an activated account
     And an authenticated admin
     When he opens the account page
     And logs in as the account owner
