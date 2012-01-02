@@ -1,6 +1,7 @@
 class Membership
   include Mongoid::Document
   include Mongoid::Paranoia
+  include Mongoid::Trackable
 
   ROLES = %w(admin editor contributor viewer)
 
@@ -45,7 +46,12 @@ class Membership
     account.owner == self.user
     #!(self.new_record?) ? (account.owner == self.user) : nil
   end
-
+  
+  
+  def name
+    user.email
+  end
+  
   protected
 
   # It finds or creates user with given email.

@@ -77,6 +77,10 @@ en:
           create: "Comment"
           update: "Comment"
           destroy: "Comment"
+        account:
+          create: "Account"
+        membership:
+          create: "Invitation"
   home:
     index:
       title: "Friendly Product Data Management"

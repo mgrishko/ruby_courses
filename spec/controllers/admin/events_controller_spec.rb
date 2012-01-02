@@ -20,7 +20,7 @@ describe Admin::EventsController do
         account = Fabricate(:account, subdomain: "company")
         event = account.events.create! valid_attributes
         get :index, subdomain: Settings.app_subdomain
-        assigns(:events).should eq([event])
+        assigns(:events).first.should be_kind_of(EventDecorator)
       end
     end
   end

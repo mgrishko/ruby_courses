@@ -10,5 +10,19 @@ Feature: Admin views account events
     When he adds a new product
     And admin signes in
     And admin goes to the events page
-    Then he should see "New" event
-    
+    Then he should see new product event
+  
+  Scenario: Admin sees account registration event
+    Given company representative has a new account
+    And an authenticated admin
+    When admin goes to the events page
+    Then he should see "Account" event
+
+  Scenario: Admin sees user invited event
+    Given an unauthenticated admin
+    And an activated account
+    And an authenticated user with admin role
+    And he sends an account invitation      
+    When admin signes in
+    And admin goes to the events page
+    Then he should see "Invitation" event

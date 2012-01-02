@@ -1,5 +1,6 @@
 class Account
   include Mongoid::Document
+  include Mongoid::Trackable
 
   SUBDOMAIN_BLACKLIST = %w(admin api app beta blog community dashboard demo feedback fuck help login mail
                            secured signin signup status support test www)
@@ -35,6 +36,11 @@ class Account
     event :activate do
       transition :pending => :active
     end
+  end
+  
+  # @return [String] subdomain
+  def name
+    subdomain
   end
 
   private
