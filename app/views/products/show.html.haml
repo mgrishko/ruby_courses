@@ -33,7 +33,7 @@
     .row
       = render "attribute", value: @product_version.brand, name: t(".brand")
       = render "attribute", value: @product_version.sub_brand, name: t(".sub_brand")
-      = render "attribute", value: @product_version.measurement(:net_content), name: t(".net_content")
+      = render "attribute", value: @product_version.content(:value), name: t(".net_content")
 
   .row
     = render "attribute", value: @product_version.functional_name, name: t(".functional_name")
@@ -43,16 +43,16 @@
     = render "attribute", value: @product_version.manufacturer, name: t(".manufacturer")
     = render "attribute", value: @product_version.country_of_origin, name: t(".country_of_origin")
 
-  - if @product_version.measurement(:height).present?
+  - if @product_version.dimension(:height).present?
     .row
-      = render "attribute", value: @product_version.measurement(:height), name: t(".height")
-      = render "attribute", value: @product_version.measurement(:width), name: t(".width")
-      = render "attribute", value: @product_version.measurement(:depth), name: t(".depth")
+      = render "attribute", value: @product_version.dimension(:height), name: t(".height")
+      = render "attribute", value: @product_version.dimension(:width), name: t(".width")
+      = render "attribute", value: @product_version.dimension(:depth), name: t(".depth")
 
-  - if @product_version.measurement(:net_weight).present? || @product_version.measurement(:gross_weight).present?
+  - if @product_version.weight(:gross).present?
     .row
-      = render "attribute", value: @product_version.measurement(:net_weight), name: t(".net_weight")
-      = render "attribute", value: @product_version.measurement(:gross_weight), name: t(".gross_weight")
+      = render "attribute", value: @product_version.weight(:net), name: t(".net_weight")
+      = render "attribute", value: @product_version.weight(:gross), name: t(".gross_weight")
 
   .row
     .attr_text

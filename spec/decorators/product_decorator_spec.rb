@@ -121,18 +121,37 @@ describe ProductDecorator do
       decorator.should eql(@product)
     end
 
-    context "measurements" do
-      Measurement::MEASURES.each do |name|
-        it "builds #{name} measurement" do
-          @decorator.setup_nested
-          @decorator.measurements.map(&:name).should include(name)
-        end
+    context "packages" do
+      it "builds package" do
+        @decorator.packages.should be_empty
+        @decorator.setup_nested
+        @decorator.packages.length.should == 1
       end
 
-      it "doesn't build #{name} if it already exists" do
-        measurement = @product.measurements.build name: "depth", value: 2, unit: "MM"
+      it "doesn't build package if it already exists" do
+        package = @product.packages.build
         @decorator.setup_nested
-        @decorator.measurements.should include(measurement)
+        @decorator.packages.should include(package)
+        @decorator.packages.length.should == 1
+      end
+
+      describe "measurements" do
+        before(:each) do
+          @decorator.setup_nested
+          @package = @decorator.packages.first
+        end
+
+        it "builds dimension" do
+          @package.dimensions.length.should == 1
+        end
+
+        it "builds weight" do
+          @package.weights.length.should == 1
+        end
+
+        it "builds content" do
+          @package.contents.length.should == 1
+        end
       end
     end
 
@@ -147,32 +166,35 @@ describe ProductDecorator do
       end
 
       it "doesn't build identification if it already exists" do
-        product_codes = @product.product_codes.build name: @code_name, value: "A0001"
+        product_code = @product.product_codes.build name: @code_name, value: "A0001"
         @decorator.setup_nested
-        @decorator.product_codes.should include(product_codes)
+        @decorator.product_codes.should include(product_code)
+        @decorator.product_codes.length.should == 1
       end
     end
   end
 
   describe "#unit_options" do
-    it "returns options for select" do
-      ProductDecorator.unit_options("net_content").sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
+    it "returns options for dimension" do
+      measurement = Fabricate.build(:dimension)
+      ProductDecorator.unit_options(measurement).should == [["mm", "MM"]]
+    end
+
+    it "returns options for net content" do
+      measurement = Fabricate.build(:content)
+      ProductDecorator.unit_options(measurement).sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
     end
   end
 
   describe "#measure_value_label" do
-    context "when unit is undefined" do
-      it "returns measure name" do
-        measurement = Fabricate.build(:measurement, name: "net_content", unit: nil)
-        ProductDecorator.measure_value_label(measurement).should == "Net content"
-      end
+    it "returns measurement name with unit" do
+      measurement = Fabricate.build(:dimension, unit: "MM")
+      ProductDecorator.measure_value_label(measurement, :height).should == "Height (mm)"
     end
 
-    context "when unit is defined" do
-      it "returns measure name with unit" do
-        measurement = Fabricate.build(:measurement, name: "height", unit: "MM")
-        ProductDecorator.measure_value_label(measurement).should == "Height (mm)"
-      end
+    it "returns measurement name without unit" do
+      measurement = Fabricate.build(:content, unit: nil)
+      ProductDecorator.measure_value_label(measurement, :value).should == "Net content"
     end
   end
 
@@ -192,22 +214,6 @@ describe ProductDecorator do
     end
   end
 
-  describe "#measurement" do
-    context "when measurement presents" do
-      it "should receive measurement value with unit" do
-        @product.measurements.new Fabricate.attributes_for(:net_content_measurement, value: 300, unit: "ML")
-        decorator = ProductDecorator.decorate(@product)
-        decorator.measurement(:net_content).should == "300 ml"
-      end
-    end
-
-    context "when measurement does not present" do
-      it "should be blank" do
-        @decorator.measurement(:net_content).should be_blank
-      end
-    end
-  end
-
   describe "#country_of_origin" do
     it "should return country name" do
       @decorator.country_of_origin.should == "United States"
@@ -217,7 +223,8 @@ describe ProductDecorator do
   describe "#title" do
     context "when net content presents" do
       it "should concat brand, sub brand, variant and net content" do
-        @product.measurements.new Fabricate.attributes_for(:net_content_measurement, value: 300, unit: "ML")
+        @package = @product.packages.build
+        @package.contents.new Fabricate.attributes_for(:content, value: 300, unit: "ML")
         decorator = ProductDecorator.decorate(@product)
         decorator.title.should == "Brand Sub Brand Variant, 300 ml"
       end
@@ -253,6 +260,60 @@ describe ProductDecorator do
     it "should group products by brand" do
       expected = { "Brand" => [@product1, @product2] }
       ProductDecorator.group(@products, by: :brand).should == expected
+    end
+  end
+
+  context "measurements" do
+    before(:each) do
+      @package = @product.packages.build
+    end
+
+    describe "#dimension" do
+      context "when exists" do
+        it "should return value with unit" do
+          @package.dimensions.new Fabricate.attributes_for(:dimension, height: 300, unit: "MM")
+          decorator = ProductDecorator.decorate(@product)
+          decorator.dimension(:height).should == "300 mm"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.dimension(:height).should be_blank
+        end
+      end
+    end
+
+    describe "#weight" do
+      context "when exists" do
+        it "should return value with unit" do
+          @package.weights.new Fabricate.attributes_for(:weight, gross: 300, unit: "GR")
+          decorator = ProductDecorator.decorate(@product)
+          decorator.weight(:gross).should == "300 g"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.weight(:gross).should be_blank
+        end
+      end
+    end
+
+    describe "#content" do
+      context "when exists" do
+        it "should return value with unit" do
+          @package.contents.new Fabricate.attributes_for(:content, value: 300, unit: "ML")
+          decorator = ProductDecorator.decorate(@product)
+          decorator.content(:value).should == "300 ml"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.content(:value).should be_blank
+        end
+      end
     end
   end
 end
