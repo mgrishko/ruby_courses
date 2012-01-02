@@ -144,9 +144,10 @@ When /^he enters the following measurements:$/ do |table|
   fields = table.raw.flatten
 
   fields.each do |field|
-    attr = /^.*unit$/.match(field) ? :select : :input
-    value = attr == :select ? "ml" : "100"
-    case attr
+    selector = /^.*unit$/.match(field) ? :select : :input
+    value = selector == :select ? "ml" : "100"
+    value = /^Net weight.*$/.match(field) ? "95" : value
+    case selector
       when :select
         select value, from: field
       else
