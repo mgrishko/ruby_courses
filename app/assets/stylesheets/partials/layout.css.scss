@@ -42,7 +42,7 @@ body {
           margin-left: $sidebar_margin_left + $sidebar_narrow_width + 20px;
         }
       }
-      &.show, &.products.edit {
+      &.show, &.products.edit, &.products.update {
         > .sidebar {
           width: $sidebar_normal_width;
         }

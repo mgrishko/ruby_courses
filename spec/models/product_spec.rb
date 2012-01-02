@@ -56,71 +56,10 @@ describe Product do
   it { should_not allow_value("global").for(:visibility) }
   it { should allow_mass_assignment_of(:visibility) }
 
-  describe "measurements" do
-    context "dimensions" do
-      before(:each) do
-        @attrs = []
-        %w(depth height width).each do |name|
-          @attrs << { "name" => name, "unit" => "MM", "value" => nil }
-        end
-      end
-
-      it "should be valid when all dimensions are blank" do
-        product.measurements_attributes = @attrs
-        product.should be_valid
-      end
-
-      it "should be valid when all dimensions are present" do
-        @attrs = []
-        %w(depth height width).each do |name|
-          @attrs << { "name" => name, "unit" => "MM", "value" => 100 }
-        end
-        product.measurements_attributes = @attrs
-
-        product.should be_valid
-      end
-
-      it "should not be valid when not all dimensions are present" do
-        @attrs.first["value"] = "100"
-        product.measurements_attributes = @attrs
-
-        product.should_not be_valid
-      end
-    end
-
-    context "weights" do
-      before(:each) do
-        @attrs = []
-        %w(gross_weight net_weight).each do |name|
-          @attrs << { "name" => name, "unit" => "GR", "value" => nil }
-        end
-      end
-
-      it "should be valid when all weights are blank" do
-        product.measurements_attributes = @attrs
-        product.should be_valid
-      end
-
-      it "should be valid when gross weight presents and net weight is blank" do
-        @attrs.first["value"] = "100"
-        product.measurements_attributes = @attrs
-        product.should be_valid
-      end
-
-      it "should not be valid when net weight presents and gross weight is blank" do
-        @attrs.last["value"] = "100"
-        product.measurements_attributes = @attrs
-        product.should_not be_valid
-      end
-
-      it "should not be valid when net weight is greater then gross weight" do
-        @attrs.first["value"] = "100"
-        @attrs.last["value"] = "110"
-        product.measurements_attributes = @attrs
-        product.should_not be_valid
-      end
-    end
-  end
+  it { should respond_to :version }
+  it { should respond_to :versions }
+  it { should respond_to :created_at }
+  it { should respond_to :updated_at }
 
   describe "product codes" do
     it "should be valid when all codes are blank" do
@@ -138,15 +77,15 @@ describe Product do
     product = account.products.build
     product.account.should eql(account)
   end
-  
-  it { should respond_to :version }
-  it { should respond_to :versions } 
-  it { should respond_to :created_at }
-  it { should respond_to :updated_at }
 
   it "should embeds many comments as commentable" do
     comment = product.comments.build
     comment.commentable.should eql(product)
+  end
+
+  it "should embeds many packages" do
+    package = product.packages.build
+    package.product.should eql(product)
   end
 
   it "should have many events as trackable" do
