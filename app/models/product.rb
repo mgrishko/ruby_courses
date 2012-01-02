@@ -29,6 +29,10 @@ class Product
   embeds_many :product_codes
 
   embeds_many :measurements # ToDo Remove after migration to packages
+  def measurement(name)
+    self.measurements.where(name: name.to_s).first
+  end
+
 
   accepts_nested_attributes_for :packages
   attr_accessible :packages_attributes
@@ -111,9 +115,5 @@ class Product
     self.product_codes.each do |m|
       m.destroy if m.value.blank?
     end
-  end
-
-  def measurement(name)
-    self.measurements.where(name: name.to_s).first
   end
 end
