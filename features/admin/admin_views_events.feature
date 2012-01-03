@@ -17,7 +17,7 @@ Feature: Admin views account events
     And an authenticated admin
     When admin goes to the events page
     Then he should see "Account" event
-
+  
   Scenario: Admin sees user invited event
     Given an unauthenticated admin
     And an activated account

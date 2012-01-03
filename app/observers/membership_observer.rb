@@ -1,5 +1,7 @@
 class MembershipObserver < Mongoid::Observer
   def after_create(membership)
-    event = membership.account.log_event(membership.account.memberships.first, "create", membership)
+    if Membership.current && !membership.invited_by.nil?
+      membership.account.log_event(Membership.current, "create", membership)
+    end
   end
 end

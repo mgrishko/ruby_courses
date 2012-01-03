@@ -47,6 +47,13 @@ class Membership
     #!(self.new_record?) ? (account.owner == self.user) : nil
   end
   
+  def self.current
+    Thread.current[:membership]
+  end
+  
+  def self.current=(membership)
+    Thread.current[:membership] = membership
+  end
   
   def name
     user.email

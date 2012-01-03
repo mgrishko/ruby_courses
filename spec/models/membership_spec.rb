@@ -39,6 +39,13 @@ describe Membership do
     membership = Fabricate(:membership, invited_by: invited_user)
     membership.invited_by.should eql(invited_user)
   end
+  
+  it "should have current membership" do
+    user = Fabricate(:user)
+    membership = Fabricate(:membership, user: user)
+    Membership.current = membership
+    Membership.current.should == membership
+  end
 
   describe "callbacks" do
     context "before validation on create" do
