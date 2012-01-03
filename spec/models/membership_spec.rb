@@ -178,19 +178,4 @@ describe Membership do
       membership.should_not be_owner
     end
   end
-  
-  describe "events" do
-    it "should create new account event on create" do
-      user = Fabricate(:user, email: "invited@email.com", first_name: "Invited")
-      membership = Fabricate.build(:membership, user: user)
-      
-      expect {
-        membership.save!
-      }.to change(Event.unscoped, :count).by(1)
-      
-      event = Event.unscoped.desc(:created_at).first
-      event.action_name.should == "create"
-      event.trackable eq(membership)
-    end
-  end
 end

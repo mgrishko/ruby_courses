@@ -140,17 +140,4 @@ describe Account do
       account.should be_active
     end
   end
-  
-  describe "events" do
-    it "should create new account event on create" do
-      account = Fabricate.build(:account, subdomain: "another")
-      expect {
-        account.save!
-      }.to change(Event.unscoped, :count).by(1)
-      
-      event = Event.unscoped.desc(:created_at).first
-      event.action_name.should == "create"
-      event.trackable eq(account)
-    end
-  end
 end
