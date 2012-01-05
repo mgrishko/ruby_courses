@@ -9,21 +9,21 @@
     = f.input :manufacturer, as: :autocomplete
     = f.input :country_of_origin
 
-    = f.simple_fields_for :packages, wrapper: :inline, :validate => false do |p|
+    = f.simple_fields_for :packages, wrapper: :inline do |p|
       = p.simple_fields_for :dimensions, wrapper: :inline do |d|
-        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false
-        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false
-        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false
+        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
+        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
+        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
         = d.input :unit, as: :hidden
 
       = p.simple_fields_for :weights, wrapper: :inline do |w|
-        = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false
-        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false
+        = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false, input_html: { "data-validate-with" => "weights" }
+        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false, input_html: { "data-validate-with" => "weights" }
         = w.input :unit, as: :hidden
 
       = p.simple_fields_for :contents, wrapper: :inline do |c|
         = c.input :value, label: ProductDecorator.measure_value_label(c.object, :value), required: false
-        = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false
+        = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false, include_blank: false
         = c.input :unit, as: :hidden
 
     = f.input :gtin

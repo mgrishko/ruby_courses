@@ -6,7 +6,7 @@ Feature: User input is validated on client side
   Background: Account exists
     Given an activated account
 
-  @javascript
+  @javascript @wip
   Scenario: Editor successfully adds a new product
     Given an authenticated user with editor role
     And he is on the new product page
