@@ -30,5 +30,21 @@ class ProductValidator
       
       input.on "keyup", (event) -> rebindValidators(event)
       input.on "blur", (event) -> rebindValidators(event)
+    
+    callValidators = (event) ->
+      group = $(event.srcElement).attr("data-validate-with")
+      groupInputs = $("input[data-validate-with*='" + group + "']")
+      
+      groupInputs.each (i, elem) ->
+        input = $(elem)
+        
+        input.removeData('changed')
+        input.isValid(validators)
+      
+    $("input[data-validate-with]").each (i, elem) ->
+      input = $(elem)
+      input.on "keyup", (event) -> callValidators(event)
+      input.on "blur", (event) -> callValidators(event)
+      
 
 $(document).ready -> new ProductValidator()

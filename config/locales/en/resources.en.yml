@@ -98,7 +98,16 @@ en:
       title: "Send invitation"
     edit:
       title: "Edit Membership"
-
+  mongoid:
+    errors:
+      models:
+        weight:
+          attributes:
+            net:
+              less_than: must be less then Gross weight
+              invalid: must be a whole number
+            gross:
+              invalid: must be a whole number
   navigation:
     account:
       menu_title: "Account"
