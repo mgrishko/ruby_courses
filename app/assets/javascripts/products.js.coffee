@@ -3,53 +3,65 @@ class ProductValidator
     groupedValidators = {}
     validators = window[$("form[data-validate]").attr('id')].validators;
     
-    rebindGroupValidators = (elem) ->
-      group = $(elem).attr("data-validate-presence-group")
-      groupInputs = $("input[data-validate-presence-group*='" + group + "']")
-      enableValidation = true
-      groupInputs.each (i, elem) -> enableValidation = false if $(elem).val()
+    #rebindGroupValidators = (elem) ->
+    #  group = $(elem).attr("data-validate-presence-group")
+    #  groupInputs = $("input[data-validate-presence-group*='" + group + "']")
+    #  allEmpty = true
+    #  groupInputs.each (i, elem) -> allEmpty = false if $(elem).val()
       
-      rebindInputValidator = (input) ->
-        inputName = input.removeData('changed').attr("name")
-        if enableValidation
-          input.removeData('valid')
-          delete validators[inputName] if validators.hasOwnProperty(inputName)
-          clientSideValidations.formBuilders['SimpleForm::FormBuilder'].remove(input)
-        else
-          validators[inputName] = groupedValidators[group][inputName]
+    #  rebindInputValidator = (input) ->
+    #    inputName = input.removeData('changed').attr("name")
+    #    if allEmpty
+    #      input.removeData('valid')
+    #      delete validators[inputName] if validators.hasOwnProperty(inputName)
+    #      clientSideValidations.formBuilders['SimpleForm::FormBuilder'].remove(input)
+    #    else
+    #      validators[inputName] = groupedValidators[group][inputName]
       
-      groupInputs.each () -> rebindInputValidator($(this))
+    #  groupInputs.each () -> rebindInputValidator($(this))
     
-    $("input[data-validate-presence-group]").each () ->
-      input = $(this)
+    #$("input[data-validate-presence-group]").each () ->
+    #  input = $(this)
+    #  inputName = input.attr("name")
+    #  group = input.attr("data-validate-presence-group")
+    #  groupedValidators[group] = {} unless groupedValidators[group]
+    #  groupedValidators[group][inputName] = validators[inputName]
+    #  delete validators[inputName]
+      
+    #$("input[data-validate-presence-group]").on("keyup blur", () -> rebindGroupValidators(this))
+    
+    makeLinkedInputName = (elem) ->
+      input = $(elem)
       inputName = input.attr("name")
-      group = input.attr("data-validate-presence-group")
-      groupedValidators[group] = {} unless groupedValidators[group]
-      groupedValidators[group][inputName] = validators[inputName]
-      delete validators[inputName]
-      
-    $("input[data-validate-presence-group]").on("keyup blur", () -> rebindGroupValidators(this))
+      resultNames = [inputName]
+      prefix = inputName.substring(0, inputName.lastIndexOf('['))
+      resultNames.push("#{prefix}[#{name}]") for name in input.attr("data-validate-with").split(" ")
+      resultNames
+     
+    $("input[data-validate-with]").on "keyup blur", () ->
+      for name in makeLinkedInputName(this)
+        $("input[name*='" + name + "']").each () -> 
+          $(this).removeData('changed').isValid(validators)
     
-    callGroupValidators = (elem) ->
-      group = $(elem).attr("data-validate-with")
-      $("input[data-validate-with*='" + group + "']").each () ->
-        $(this).removeData('changed').isValid(validators)
-      
-    $("input[data-validate-with]").on("keyup blur", () -> callGroupValidators(this))
-    
-    $("input[data-validate-require]").on "keyup", () ->
-        input = $(this)
-        elementName = input.attr("name");
-        requiredInputName = elementName.substring(0, elementName.lastIndexOf('[')) + "[" + input.attr("data-validate-require") + "]";
+    $("input[data-validate-require]").on "keyup blur", () ->
+        names = makeLinkedInputName(this)
         
-        if input.val()
-          validators[requiredInputName] = {} unless validators[requiredInputName]
-          validators[requiredInputName].presence = message: I18n.t('mongoid.errors.messages.blank')
-        else
-          deletePresenceValidator(requiredInputName)
+        allEmpty = true
+        for name in names
+          allEmpty = false if $("input[name*='" + name + "']").val()          
+        
+        for name in names
+          linkedInput = $("input[name*='" + name + "']")
           
-        $("input[name*='" + requiredInputName + "']").removeData('changed').isValid(validators)
-			  
+          if allEmpty
+            linkedInput.removeData('valid')
+            deletePresenceValidator(name)
+          else
+            validators[name] = {} unless validators[name]
+            validators[name].presence = message: I18n.t('mongoid.errors.messages.blank')
+          
+          linkedInput.removeData('changed').isValid(validators)
+          
     deletePresenceValidator = (inputName) -> 
       delete validators[inputName].presence if validators[inputName]?.presence?
     

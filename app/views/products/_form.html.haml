@@ -11,14 +11,14 @@
 
     = f.simple_fields_for :packages, wrapper: :inline do |p|
       = p.simple_fields_for :dimensions, wrapper: :inline do |d|
-        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
-        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
-        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
+        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-validate-with" => "width height", "data-validate-require" => "width height" }
+        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false, input_html: { "data-validate-with" => "width depth", "data-validate-require" => "width depth" }
+        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-validate-with" => "height depth", "data-validate-require" => "height depth" }
         = d.input :unit, as: :hidden
 
       = p.simple_fields_for :weights, wrapper: :inline do |w|
-        = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false, input_html: { "data-validate-with" => "weights" }
-        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false, input_html: { "data-validate-with" => "weights", "data-validate-require" => "gross" }
+        = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false, input_html: { "data-validate-with" => "net" }
+        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false, input_html: { "data-validate-with" => "gross", "data-validate-require" => "gross" }
         = w.input :unit, as: :hidden
 
       = p.simple_fields_for :contents, wrapper: :inline do |c|
