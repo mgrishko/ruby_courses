@@ -16,9 +16,9 @@
         = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-validate-presence-group" => "dimensions" }
         = d.input :unit, as: :hidden
 
-      = p.simple_fields_for :weights, wrapper: :inline, validate: true do |w|
+      = p.simple_fields_for :weights, wrapper: :inline do |w|
         = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false, input_html: { "data-validate-with" => "weights" }
-        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false, input_html: { "data-validate-with" => "weights" }
+        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false, input_html: { "data-validate-with" => "weights", "data-validate-require" => "gross" }
         = w.input :unit, as: :hidden
 
       = p.simple_fields_for :contents, wrapper: :inline do |c|
