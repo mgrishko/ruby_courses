@@ -1,46 +1,44 @@
 class ProductValidator
   constructor: () ->
-    groupedInputValidators = {}
+    groupedValidators = {}
     validators = window[$("form[data-validate]").attr('id')].validators;
     
-    rebindGroupValidators = (group) ->
+    rebindGroupValidators = (elem) ->
+      group = $(elem).attr("data-validate-presence-group")
       groupInputs = $("input[data-validate-presence-group*='" + group + "']")
       enableValidation = true
       groupInputs.each (i, elem) -> enableValidation = false if $(elem).val()
       
-      groupInputs.each (i, elem) ->
-        input = $(elem)
+      rebindInputValidator = (input) ->
         inputName = input.removeData('changed').attr("name")
         if enableValidation
           input.removeData('valid')
           delete validators[inputName] if validators.hasOwnProperty(inputName)
           clientSideValidations.formBuilders['SimpleForm::FormBuilder'].remove(input)
         else
-          validators[inputName] = groupedInputValidators[group][inputName]
+          validators[inputName] = groupedValidators[group][inputName]
+      
+      groupInputs.each () -> rebindInputValidator($(this))
     
-    $("input[data-validate-presence-group]").each (i, elem) ->
-      input = $(elem)
+    $("input[data-validate-presence-group]").each () ->
+      input = $(this)
       inputName = input.attr("name")
       group = input.attr("data-validate-presence-group")
-      groupedInputValidators[group] = {} unless groupedInputValidators[group]
-      groupedInputValidators[group][inputName] = validators[inputName]
+      groupedValidators[group] = {} unless groupedValidators[group]
+      groupedValidators[group][inputName] = validators[inputName]
       delete validators[inputName]
       
-      input.on "keyup", () -> rebindGroupValidators($(this).attr("data-validate-presence-group"))
-      input.on "blur", () -> rebindGroupValidators($(this).attr("data-validate-presence-group"))
+    $("input[data-validate-presence-group]").on("keyup blur", () -> rebindGroupValidators(this))
     
-    callGroupValidators = (group) ->
-      $("input[data-validate-with*='" + group + "']").each (i, elem) ->
-        $(elem).removeData('changed').isValid(validators)
+    callGroupValidators = (elem) ->
+      group = $(elem).attr("data-validate-with")
+      $("input[data-validate-with*='" + group + "']").each () ->
+        $(this).removeData('changed').isValid(validators)
       
-    $("input[data-validate-with]").each (i, elem) ->
-      input = $(elem)
-      input.on "keyup", () -> callGroupValidators($(this).attr("data-validate-with"))
-      input.on "blur", () -> callGroupValidators($(this).attr("data-validate-with"))
+    $("input[data-validate-with]").on("keyup blur", () -> callGroupValidators(this))
     
-    $("input[data-validate-require]").each (i, elem) ->
-      $(elem).on "keyup", (event) ->
-        input = $(event.srcElement)
+    $("input[data-validate-require]").on "keyup", () ->
+        input = $(this)
         elementName = input.attr("name");
         requiredInputName = elementName.substring(0, elementName.lastIndexOf('[')) + "[" + input.attr("data-validate-require") + "]";
         
@@ -55,6 +53,6 @@ class ProductValidator
     deletePresenceValidator = (inputName) -> 
       delete validators[inputName].presence if validators[inputName]?.presence?
     
-    $("input.optional").each (i, elem) -> deletePresenceValidator($(elem).attr("name"))
+    $("input.optional").each () -> deletePresenceValidator($(this).attr("name"))
 
 $(document).ready -> new ProductValidator()
