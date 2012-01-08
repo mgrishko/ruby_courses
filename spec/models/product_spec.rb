@@ -38,6 +38,7 @@ describe Product do
   
   it { should_not validate_presence_of(:gtin) }
   it { should allow_mass_assignment_of(:gtin) }
+  it { should allow_value("6291041500213").for(:gtin) }
   it { should allow_value("12345670").for(:gtin) }
   it { should_not allow_value("12345671").for(:gtin) }
   it { should allow_value("123456789012").for(:gtin) }

@@ -117,7 +117,7 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
       "Country of origin",
       "Short description",
       "Description",
-      "Gtin"
+      "GTIN"
   ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize

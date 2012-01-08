@@ -17,7 +17,9 @@
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
+//= require string
 //= require rails.validations
+//= require rails.validations.custom
 //= require ajax-loader
 //= require i18n
 //= require i18n/translations

@@ -60,10 +60,11 @@ en:
       comments:
         body: "Comment"
       product:
-        tags_list: "Tags"
+        gtin: "GTIN"
         packages:
           contents:
             unit: "Net content unit"
+        tags_list: "Tags"
 
     #   password: 'Password'
     #   user:

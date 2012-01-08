@@ -19,7 +19,7 @@ Feature: New product
       | Country of origin |
       | Short description |
       | Description       |
-      | Gtin              |
+      | GTIN              |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
 #    And he should see "Version 1" text within sidebar
