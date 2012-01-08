@@ -361,22 +361,57 @@ end
 
 Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
   should_have_validation_error = !(should.strip == "not")
+  input_locators = locator.split(",").collect{ |l| l.strip }
 
-  if should_have_validation_error
-    field = find(:xpath, XPath::HTML.fillable_field(locator))
-    within("form#new_product") { page.should_not have_content("can't be blank") }
-    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+  input_locators.each do |il|
+    field = find(:xpath, XPath::HTML.fillable_field(il))
+    
+    if should_have_validation_error
+      within("form#new_product") { page.should_not have_content("can't be blank") }
+      page.driver.browser.execute_script("$('##{field[:id]}').blur()")
 
-    sleep(2)
+      sleep(2)
 
-    within("form#new_product") { page.should have_content("can't be blank") }
-    fill_in(locator, with: "something")
+      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content("can't be blank") }
+      fill_in(il, with: "something")
+    else
+      fill_in(il, with: "")
+    end
+    
     page.driver.browser.execute_script("$('##{field[:id]}').blur()")
 
     sleep(2)
   end
 
   within("form#new_product") { page.should_not have_content("can't be blank") }
+end
+
+Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it with "([^"]*)"$/ do |should, msg, inputs, value|
+  should_have_validation_error = !(should.strip == "not")
+  input_locators = inputs.split(",").collect{ |l| l.strip }
+  input_locators.each { |il| fill_in(il, with: value) }
+  sleep(1)
+  
+  input_locators.each do |il|
+    if should_have_validation_error
+      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content(msg) }
+    else
+      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should_not have_content(msg) }
+    end
+  end
+end
+
+Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
+  input_locators = inputs.split(",").collect{ |l| l.strip }
+  fill_in(input, with: value)
+  
+  sleep(1)
+  
+  input_locators.each do |il|
+    within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content(msg) }
+  end
+  
+  input_locators.each { |il| fill_in(il, with: value) }
 end
 
 Then /^he should not see product tags "([^"]*)"$/ do |tags|

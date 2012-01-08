@@ -18,6 +18,28 @@ Feature: User input is validated on client side
     And he should see validation error for "Manufacturer" if he leaves it empty
     And he should not see validation error for "Short description" if he leaves it empty
     And he should not see validation error for "Description" if he leaves it empty
+    
+    # Dimensions
+    And he should not see validation error for "Width (mm), Height (mm), Depth (mm)" if he leaves it empty
+    And he should see validation error "can't be blank" for "Depth (mm), Height (mm)" if he fills in "Width (mm)" with "2"
+    And he should not see validation error for "Width (mm), Height (mm), Depth (mm)" if he leaves it empty
+    And he should see validation error "can't be blank" for "Width (mm), Height (mm)" if he fills in "Depth (mm)" with "2"
+    And he should not see validation error for "Width (mm), Height (mm), Depth (mm)" if he leaves it empty
+    And he should see validation error "can't be blank" for "Width (mm), Depth (mm)" if he fills in "Height (mm)" with "2"
+    And he should not see validation error for "Width (mm), Height (mm), Depth (mm)" if he leaves it empty
+    And he should not see validation error "can't be blank" for "Width (mm), Height (mm), Depth (mm)" if he fills it with "3"
+    
+    # Weights
+    And he should not see validation error for "Gross weight (g), Net weight (g)" if he leaves it empty
+    And he should not see validation error "can't be blank" for "Gross weight (g)" if he fills it with "3"
+    And he should not see validation error "can't be blank" for "Net weight (g)" if he fills it with "2"
+    And he should see validation error "can't be blank" for "Gross weight (g)" if he fills it with ""
+    And he should not see validation error "can't be blank" for "Net weight (g)" if he fills it with ""
+    And he should see validation error "must be less then Gross weight" for "Net weight (g)" if he fills it with "3"
+    And he should see validation error "can't be blank" for "Gross weight (g)" if he fills in "Net weight (g)" with "2"
+    And he should not see validation error "can't be blank" for "Gross weight (g)" if he fills it with "4"
+    And he should not see validation error "must be less then Gross weight" for "Net weight (g)" if he fills it with "3"
+    
     And he submits a new product form
     And he should see notice message "Product was successfully created."
-  
+    
