@@ -13,6 +13,9 @@ en:
       invalid_gtin_format: "is not a valid GTIN format"
       invalid_measure_unit: "%{unit} is not a valid unit"
       invalid_net_weight: "can't be greater then gross weight"
+      wrong_size: "is the wrong size (should be %{file_size})"
+      size_too_small: "is too small (should be at least %{file_size})"
+      size_too_big: "is too big (should be at most %{file_size})"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"

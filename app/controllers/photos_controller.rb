@@ -10,7 +10,10 @@ class PhotosController < MainController
   def create
     #@photo = Photo.new(params[:photo]) # loaded by cancan
     @photo.save
+    
     @photo = PhotoDecorator.decorate(@photo)
+    @vals = @photo.errors.collect { |key, value| value }
+    puts @vals.to_sentence
     respond_with(@photo) do |format|
       format.html { redirect_to @product }
     end
