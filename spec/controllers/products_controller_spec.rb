@@ -132,7 +132,7 @@ describe ProductsController do
         assigns(:product).comments.first.event.should_not be_nil
       end
       
-      it "creates added event" do
+      it "creates created event" do
         expect {
           post :create, :product => valid_attributes
         }.to change(Event, :count).by(1)

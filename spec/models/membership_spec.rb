@@ -28,13 +28,13 @@ describe Membership do
   it { should allow_mass_assignment_of(:invitation_note) }
   it { should ensure_length_of(:invitation_note).is_at_most(1000) }
 
-  it "should belongs to user" do
+  it "should belong to user" do
     user = Fabricate(:user)
     membership = Fabricate(:membership, user: user)
     membership.user.should eql(user)
   end
 
-  it "should belongs to invited_by" do
+  it "should belong to invited_by" do
     invited_user = Fabricate(:user)
     membership = Fabricate(:membership, invited_by: invited_user)
     membership.invited_by.should eql(invited_user)

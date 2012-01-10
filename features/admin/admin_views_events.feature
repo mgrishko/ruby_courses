@@ -13,7 +13,7 @@ Feature: Admin views account events
     Then he should see new product event
   
   Scenario: Admin sees account registration event
-    Given company representative has a new account
+    Given company representative signs up for a new account
     And an authenticated admin
     When admin goes to the events page
     Then he should see "Account" event
