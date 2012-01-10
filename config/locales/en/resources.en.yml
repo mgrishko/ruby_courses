@@ -98,19 +98,6 @@ en:
       title: "Send invitation"
     edit:
       title: "Edit Membership"
-  mongoid:
-    errors:
-      messages:
-        blank: "can't be blank"
-      models:
-        weight:
-          attributes:
-            net:
-              less_than: can't be greater then gross weight
-        product:
-          attributes: 
-            gtin:
-              gtin_format: "is not a valid GTIN format"
   navigation:
     account:
       menu_title: "Account"

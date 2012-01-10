@@ -55,26 +55,15 @@ Given /^an authenticated user with editor role on edit product page$/ do
   }
 end
 
-When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
-  field = find(:xpath, XPath::HTML.fillable_field(locator))
-  field_id = field[:id]
-  
-  page.driver.browser.execute_script "$('input##{field_id}').trigger('focus')"
-  page.fill_in(locator, with: text)
-  page.driver.browser.execute_script "$('input##{field_id}').trigger('keydown')"
-  sleep(3)
-  page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
-  sleep(3)
-end
-
 When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
   # Enter text into text field
-  page.driver.browser.execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  
   # Trigger keydown to open the dropdown
-  page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
-  sleep(3)
+  execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  
   # Select the option in the dropdown
-  page.driver.browser.execute_script("
+  execute_script("
     $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
       if ($(this).text() == '#{option}') {
         var e = $.Event('mousedown', { target: $(this).children().get(0) });
@@ -82,7 +71,6 @@ When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocompl
       }
     });
   ")
-  sleep(3)
 end
 
 Given /^the product has tags "([^"]*)"$/ do |tags|
@@ -90,8 +78,7 @@ Given /^the product has tags "([^"]*)"$/ do |tags|
 end
 
 When /^he deletes tags$/ do
-  sleep(3)
-  page.driver.browser.execute_script "$('.token-input-token-goodsmaster span').click()"
+  execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
 When /^he submits the product form$/ do
@@ -323,7 +310,8 @@ Then /^he should not see new comment form$/ do
 end
 
 Then /^he should see missing photo within sidebar$/ do
-  # Actually we should check here that missing photo is present but it is not designed for now.
+  # Actually we should check here that missing photo is present
+  # but it is not designed for now.
   @product.reload.photos.should be_empty
 end
 
@@ -359,61 +347,6 @@ Then /^he should not see validation errors in new product form$/ do
   within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
-  should_have_validation_error = !(should.strip == "not")
-  input_locators = locator.split(",").collect{ |l| l.strip }
-
-  input_locators.each do |il|
-    field = find(:xpath, XPath::HTML.fillable_field(il))
-    
-    if should_have_validation_error
-      within("form#new_product") { page.should_not have_content("can't be blank") }
-      page.driver.browser.execute_script("$('##{field[:id]}').blur()")
-
-      sleep(2)
-
-      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content("can't be blank") }
-      fill_in(il, with: "something")
-    else
-      fill_in(il, with: "")
-    end
-    
-    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
-
-    sleep(2)
-  end
-
-  within("form#new_product") { page.should_not have_content("can't be blank") }
-end
-
-Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it with "([^"]*)"$/ do |should, msg, inputs, value|
-  should_have_validation_error = !(should.strip == "not")
-  input_locators = inputs.split(",").collect{ |l| l.strip }
-  input_locators.each { |il| fill_in(il, with: value) }
-  sleep(1)
-  
-  input_locators.each do |il|
-    if should_have_validation_error
-      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content(msg) }
-    else
-      within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should_not have_content(msg) }
-    end
-  end
-end
-
-Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
-  input_locators = inputs.split(",").collect{ |l| l.strip }
-  fill_in(input, with: value)
-  
-  sleep(1)
-  
-  input_locators.each do |il|
-    within(find(:xpath, XPath::HTML.fillable_field(il)).find(:xpath,".//..")) { page.should have_content(msg) }
-  end
-  
-  input_locators.each { |il| fill_in(il, with: value) }
-end
-
 Then /^he should not see product tags "([^"]*)"$/ do |tags|
   tags.split(",").each do |tag| 
     within(:css, "ul.product-tags") { page.should_not have_content(tag) }
@@ -439,7 +372,6 @@ def submit_new_product_form(fields)
     case attr
       when :country_of_origin
         select Carmen.country_name(attrs[attr]), from: field
-
       when :comment
         step "he enters a comment to the product"
       when :tags
