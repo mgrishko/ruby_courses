@@ -69,7 +69,7 @@ describe User do
       user.short_name.should == "John C."
     end
   end
-  
+
   it "should have many events" do
     event = user.events.build
     event.user.should eql(user)
