@@ -65,6 +65,7 @@ gem 'capistrano-ext'
 
 # Documentation Yard
 gem "yard", "~> 0.7.4"
+gem "yard-cucumber"
 
 # External services
 gem "airbrake"
