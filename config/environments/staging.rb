@@ -60,4 +60,8 @@ GoodsMaster::Application.configure do
 
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'beta.goodsmasterhq.com' }
+
+  # Specifying goodsmasterhq.com as a top level domain to allow beta.goodsmasterhq.com domain.
+  # Everything before beta.goodsmasterhq.com domain will be a subdomain.
+  config.action_dispatch.tld_length = 2
 end
