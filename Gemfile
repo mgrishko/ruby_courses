@@ -77,7 +77,7 @@ gem "uservoice", path: "vendor/plugins/uservoice"
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-  gem 'rspec-rails'
+  gem 'rspec-rails', "2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
   gem "spork", '0.9.0.rc9'
