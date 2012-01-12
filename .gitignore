@@ -5,6 +5,7 @@
 .bundle
 .rvmrc
 doc/
+config/mongoid.yml
 coverage/
 log/*.log
 log/*.pid
