@@ -12,9 +12,9 @@ Feature: User main forms input must be validate on client side
     And he should see validation error in "user_new" for "Last name" if he leaves it empty
     #And he should see validation error in "user_new" for "Email" if he leaves it empty
     And he should see validation error in "user_new" for "Password" if he leaves it empty
-    And he should see validation error in "user_new" for "user_time_zone" if he don't choice something
+    #And he should see validation error in "user_new" for "user_time_zone" if he don't choice something
     And he should see validation error in "user_new" for "Company name" if he leaves it empty
-    And he should see validation error in "user_new" for "Country" if he don't choice something
+    #And he should see validation error in "user_new" for "Country" if he don't choice something
     And he should see validation error in "user_new" for "Subdomain" if he leaves it empty
 
   #Scenario: Authenticated user successfully edits profile
