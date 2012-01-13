@@ -12,6 +12,10 @@ describe MembershipMailer do
       email.should deliver_to(user.email)
     end
 
+    it "should be delivered from GoodsMaster" do
+      email.should be_delivered_from("#{Settings.project_name} <#{Settings.send_mail_from}>")
+    end
+
     describe "invitation note" do
       context "when note present" do
         before(:each) { membership.invitation_note = "This is an invitation note." }

@@ -1,5 +1,5 @@
-class AccountMailer < ActionMailer::Base
-  default from: Settings.send_mail_from
+class AccountMailer < BaseMailer
+  default from: "#{Settings.project_name} <#{Settings.send_mail_from}>"
 
   def activation_email(account)
     set_current_view_context
