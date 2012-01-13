@@ -12,7 +12,7 @@ describe AccountMailer do
     end
 
     it "inserts subject message" do
-      email.should have_subject("[#{account.company_name}] Account for #{account.company_name} has been activated")
+      email.should have_subject("[#{account.subdomain}] Account for #{account.company_name} has been activated")
     end
   end
 end
