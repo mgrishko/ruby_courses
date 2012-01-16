@@ -30,7 +30,7 @@ end
 
 Given /^the product has (\d+) versions$/ do |count|
   (2..count.to_i).each do
-    @product.update_attributes name: SecureRandom.hex(10)
+    @product.update_attributes functional_name: SecureRandom.hex(10)
   end
 end
 
@@ -51,7 +51,7 @@ Given /^an authenticated user with editor role on edit product page$/ do
   steps %Q{
     Given an authenticated user with editor role
     And he is on the product page
-    When he follows "Edit Product" within sidebar
+    When he follows "Edit Product" within sidemenu
   }
 end
 
@@ -109,7 +109,7 @@ Given /^the product has tags "([^"]*)"$/ do |tags|
 end
 
 When /^he deletes tags$/ do
-  sleep(1)
+  sleep(2)
   execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
@@ -118,7 +118,8 @@ When /^he submits the product form$/ do
 end
 
 When /^he follows product link$/ do
-  click_link(@product.name)
+  title = ProductDecorator.decorate(@product).title
+  click_link(title)
 end
 
 When /^he submits a new product form with following data:$/ do |table|
@@ -126,7 +127,17 @@ When /^he submits a new product form with following data:$/ do |table|
 end
 
 When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
-  fields = ["Name", "Manufacturer", "Brand", "Description"]
+  fields = [
+      "Functional name",
+      "Variant",
+      "Brand",
+      "Sub brand",
+      "Manufacturer",
+      "Country of origin",
+      "Short description",
+      "Description",
+      "Gtin"
+  ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize
     fields << custom_field unless fields.find_index(custom_field)
@@ -137,7 +148,7 @@ end
 When /^he submits form with updated product$/ do
   # Wait 61 minute here to create a comment later then existing one
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
-    fill_in :name, with: "New product name"
+    fill_in :functional_name, with: "New product name"
     click_button "Update Product"
   end
   Timecop.return
@@ -145,12 +156,36 @@ end
 
 When /^he enters a comment to the product$/ do
   @comment = Fabricate.build(:comment, body: "Some super comment")
-  fill_in "Comment", with: @comment.body
+  fill_in "comment_body", with: @comment.body
+end
+
+When /^he enters the following measurements:$/ do |table|
+  fields = table.raw.flatten
+
+  fields.each do |field|
+    selector = /^.*unit$/.match(field) ? :select : :input
+    value = selector == :select ? "ml" : "100"
+    value = /^Net weight.*$/.match(field) ? "95" : value
+    case selector
+      when :select
+        select value, from: field
+      else
+        fill_in field, with: value
+    end
+  end
+end
+
+When /^he enters the following product codes:$/ do |table|
+  fields = table.raw.flatten
+
+  fields.each do |field|
+    fill_in field, with: "0001"
+  end
 end
 
 When /^he submits a (.*)comment to the product$/ do |adj|
   step "he enters a comment to the product" unless adj.present?
-  click_button "Create Comment"
+  click_button "Submit"
 end
 
 When /^he edits the product tags$/ do
@@ -174,7 +209,7 @@ When /^he goes to the new product page$/ do
   visit(new_product_url(subdomain: @account.subdomain))
 end
 
-When /^he goes to the update product page$/ do
+When /^he goes to the edit product page$/ do
   visit(edit_product_url(@product, subdomain: @account.subdomain))
 end
 
@@ -191,12 +226,8 @@ end
 When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
-    And he follows "New Product" within sidebar
-    And he submits a new product form with following data:
-      | Name         |
-      | Manufacturer |
-      | Brand        |
-      | Description  |
+    And he follows "New Product" within sidemenu
+    And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
   }
@@ -205,7 +236,8 @@ end
 When /^he deletes the product$/ do
   steps %Q{
     When he is on the product page
-    And he follows "Delete Product" within sidebar
+    And he follows "Edit Product" within sidemenu
+    And he follows "Delete Product" within sidemenu
   }
 end
 
@@ -213,7 +245,7 @@ When /^he updates the product$/ do
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
     steps %Q{
       When he is on the product page
-      And he follows "Edit Product" within sidebar
+      And he follows "Edit Product" within sidemenu
       And he submits form with updated product
       Then he should be on the product page
       And he should see notice message "Product was successfully updated."
@@ -238,7 +270,7 @@ When /^he deletes the product photo$/ do
 end
 
 When /^he deletes that comment$/ do
-  within("tr.comment") do
+  within("#comments_list") do
     click_link "Delete"
   end
 end
@@ -273,23 +305,25 @@ end
 Then /^he should(.*) see that product in the products list$/ do |should_not|
   product = @product || Product.first
 
+  title = ProductDecorator.decorate(product).title
+
   within(".content") do
     if should_not.strip == "not"
-      page.should_not have_content(product.name)
+      page.should_not have_content(title)
     else
-      page.should have_content(product.name)
+      page.should have_content(title)
     end
   end
 end
 
-Then /^he should(.*) see that comment on the top of comments$/ do |should_not|
+Then /^he should(.*) see that comment on the bottom of comments$/ do |should_not|
   comment = @comment || @product.comments.last
 
   within("#comments_list") do
     if should_not.strip == "not"
       page.should_not have_content(comment.body)
     else
-      page.first(".comment").find("p", text: comment.body)
+      page.find(".comment p", text: comment.body)
     end
   end
 end
@@ -340,22 +374,24 @@ Then /^he should see that comment body (.*)$/ do |text|
   page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
-def submit_new_product_form(fields)
-  attrs = Fabricate.attributes_for(:product, account: nil)
+Then /^he should not see validation errors in new product form$/ do
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+end
 
-  fields.each do |field|
-    attr = field.downcase.gsub(/\s/, '_').to_sym
+Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
+  should_have_validation_error = !(should.strip == "not")
 
-    case attr
-      when :comment
-        step "he enters a comment to the product"
-      when :tags
-         step "he edits the product tags"
-      else
-        fill_in field, with:  attrs[attr]
-    end
+  if should_have_validation_error
+    field = find(:xpath, XPath::HTML.fillable_field(locator))
+    within("form#new_product") { page.should_not have_content("can't be blank") }
+    execute_script("$('##{field[:id]}').blur()")
+
+    within("form#new_product") { page.should have_content("can't be blank") }
+    fill_in(locator, with: "something")
+    execute_script("$('##{field[:id]}').blur()")
   end
-  click_button "Create Product"
+
+  within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 
 Then /^he should not see product tags "([^"]*)"$/ do |tags|
@@ -365,9 +401,28 @@ Then /^he should not see product tags "([^"]*)"$/ do |tags|
 end
 
 Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  if field == "tags"
-    within(:css, "ul.product-#{field}") { page.should have_content(value) }
-  else
-    within(:css, "p.product-#{field}") { page.should have_content(value) }
+  within(:css, "section.content") { page.should have_content(value) }
+end
+
+# Functions
+
+def submit_new_product_form(fields)
+  attrs = Fabricate.attributes_for(:product, account: nil)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+
+    case attr
+      when :country_of_origin
+        select Carmen.country_name(attrs[attr]), from: field
+
+      when :comment
+        step "he enters a comment to the product"
+      when :tags
+         step "he edits the product tags"
+      else
+        fill_in field, with:  attrs[attr]
+    end
   end
+  click_button "Create Product"
 end

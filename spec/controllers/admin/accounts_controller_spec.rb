@@ -5,7 +5,7 @@ describe Admin::AccountsController do
 
   before(:each) do
     @account = Fabricate(:account)
-    @account_decorator = Admin::AccountDecorator.decorate(@account)
+    @account_decorator = AccountDecorator.decorate(@account)
   end
 
   describe "GET index" do
@@ -45,6 +45,18 @@ describe Admin::AccountsController do
     it "renders show template" do
       get :activate, id: @account.id, subdomain: Settings.app_subdomain
       response.should render_template(:show)
+    end
+  end
+  
+  describe "GET login_as_owner" do
+    it "assigns the account as @account" do
+      get :login_as_owner, id: @account.id, subdomain: Settings.app_subdomain
+      assigns(:account).should eq(@account)
+    end
+
+    it "redirects to account home" do
+      get :login_as_owner, id: @account.id, subdomain: Settings.app_subdomain
+      response.should redirect_to(home_url(subdomain: @account.subdomain))
     end
   end
 

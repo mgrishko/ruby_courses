@@ -9,6 +9,7 @@ gem "rake", "~> 0.9.2.2"
 
 # ORM and relative
 gem "mongoid", "~> 2.3.2"
+gem "mongoid_rails_migrations"
 gem "bson_ext"
 gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
@@ -41,6 +42,7 @@ gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin
 gem "simple-navigation", "~> 3.5.0"
+gem "client_side_validations"
 gem "i18n-js"
 
 # Backend tools
@@ -61,16 +63,21 @@ gem 'mini_magick'
 gem 'capistrano'
 gem 'capistrano-ext'
 
+# Documentation Yard
+gem "yard", "~> 0.7.4"
+gem "yard-cucumber"
+
 # External services
 gem "airbrake"
 gem "newrelic_rpm"
+gem "uservoice", path: "vendor/plugins/uservoice"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-  gem 'rspec-rails'
+  gem 'rspec-rails', "2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
   gem "spork", '0.9.0.rc9'

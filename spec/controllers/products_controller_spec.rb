@@ -8,15 +8,6 @@ describe ProductsController do
     @attrs ||= Fabricate.attributes_for(:product, account: nil)
   end
 
-  # ToDo Remove method bellow
-  # More clear way is to use
-  #   valid_attributes.merge(name: "New name")
-  def other_valid_attributes
-    other_valid_attributes = valid_attributes
-    other_valid_attributes[:name] = SecureRandom.hex(10)
-    return other_valid_attributes
-  end
-  
   describe "GET index" do
     login_account_as :viewer, account: { subdomain: "company" }
 
@@ -48,7 +39,7 @@ describe ProductsController do
     it "loads the specified version" do
       account = Account.where(subdomain: "company").first
       product = account.products.create! valid_attributes
-      (2..3).each { product.update_attributes(other_valid_attributes) }
+      (2..3).each { product.update_attributes(valid_attributes.merge(brand: Faker::Product.brand)) }
       
       get :show, id: product.id, version: 1
       assigns(:product_version).version.should == 1
@@ -205,7 +196,7 @@ describe ProductsController do
 
       it "increments product version number" do
         Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
-          put :update, :id => @product.id, :product => other_valid_attributes
+          put :update, :id => @product.id, :product => valid_attributes.merge(brand: Faker::Product.brand)
         end
         Timecop.return
         assigns(:product).version.should == 2

@@ -5,7 +5,7 @@
     - photo = PhotoDecorator.decorate(photo)
     %a{ name: photo.id }
     = image_tag(photo.image.medium.url)
-    = photo.destroy_link(remote: true, through: @product) unless disable_uploads
+    = photo.destroy_link(remote: true, confirm: true, through: @product) unless disable_uploads
   - else
     = image_tag("product_missing.jpg")
 

@@ -38,11 +38,17 @@ Feature: Autocompletion for product form fields
     Then he should see "tag1, tag2" autocomplete options
     When he selects "tag2" multi autocomplete option
     And he submits the product form
-    Then he should see product tags "tag2"
+    # Workaround while tags are not shown on the products page 
+    When he is on the edit product page
+    Then he should see "tag2" within "token-input-token-goodsmaster"
+    #Then he should see product tags "tag2"
 
   @javascript
   Scenario: Editor deletes product tag
     Given the product has tags "tag1, tag2"
     When he deletes tags
     And he submits the product form
-    Then he should not see product tags "tag1, tag2"
+    # Workaround while tags are not shown on the products page
+    When he is on the edit product page
+    Then he should not see tags
+    #Then he should not see product tags "tag1, tag2"

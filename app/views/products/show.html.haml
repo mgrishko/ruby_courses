@@ -1,42 +1,74 @@
 = title @product_version.name, page_title: false
 
+- content_for(:sidemenu) do
+  = @product.edit_link
+
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last, disable_uploads: true
 
-  %br
-  %br
-
-  = @product.edit_link(class: "btn large")
-  %br
-  %br
-
-  = @product.destroy_link(confirm: true, class: "btn small danger")
-
-  %br
-  %br
-
-  %h3= t('.tags')
-  %ul.product-tags
-    = @product.visibility_label(wrapper: :li)
-    = @product.tag_labels(wrapper: :li)
-
-  = render "versions"
-  %br
-  %br
-  = link_to t("back"), products_path
+  -#%br
+  -#%br
+  -#
+  -#= @product.edit_link(class: "btn large")
+  -#%br
+  -#%br
+  -#
+  -#= @product.destroy_link(confirm: true, class: "btn small danger")
+  -#
+  -#%br
+  -#%br
+  -#
+  -#%h3= t('.tags')
+  -#%ul.product-tags
+  -#  = @product.visibility_label(wrapper: :li)
+  -#  = @product.tag_labels(wrapper: :li)
+  -#
+  -#= render "versions"
+  -#%br
+  -#%br
+  -#= link_to t("back"), products_path
 
 %article
   %header
-    %h2= @product_version.name
+    .row
+      = render "attribute", value: @product_version.brand, name: t(".brand")
+      = render "attribute", value: @product_version.sub_brand, name: t(".sub_brand")
+      = render "attribute", value: @product_version.content(:value), name: t(".net_content")
 
-  %p.product-manufacturer= @product_version.manufacturer
-  %p.product-brand= @product_version.brand
-  %p.product-version= @product_version.description
+  .row
+    = render "attribute", value: @product_version.functional_name, name: t(".functional_name")
+    = render "attribute", value: @product_version.variant, name: t(".variant")
+
+  .row
+    = render "attribute", value: @product_version.manufacturer, name: t(".manufacturer")
+    = render "attribute", value: @product_version.country_of_origin, name: t(".country_of_origin")
+
+  - if @product_version.dimension(:height).present?
+    .row
+      = render "attribute", value: @product_version.dimension(:height), name: t(".height")
+      = render "attribute", value: @product_version.dimension(:width), name: t(".width")
+      = render "attribute", value: @product_version.dimension(:depth), name: t(".depth")
+
+  - if @product_version.weight(:gross).present?
+    .row
+      = render "attribute", value: @product_version.weight(:net), name: t(".net_weight")
+      = render "attribute", value: @product_version.weight(:gross), name: t(".gross_weight")
+
+  .row
+    .attr_text
+      %p= @product_version.short_description
+      = simple_format @product_version.description
 
 %section#comments
-  - if can? :create, Comment
-    = render "comments/form", commentable: @product.model
+  %header
+    .row
+      .attr_val= t(".comments")
 
-  %table
-    %tbody#comments_list
-      = render partial: "comments/comment", collection: @comments
+
+  #comments_list
+    = render partial: "comments/comment", collection: @comments
+
+  .row
+    .attr_text
+      - if can? :create, Comment
+        = render "comments/form", commentable: @product.model

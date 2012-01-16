@@ -23,6 +23,8 @@ GoodsMaster::Application.configure do
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
+  config.assets.initialize_on_precompile = true
+
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
@@ -60,7 +62,10 @@ GoodsMaster::Application.configure do
 
   # To serve app.dev.getmasterdata.com
   config.action_dispatch.tld_length = 2
+  
+  # I18n-js support
+  config.assets.initialize_on_precompile = true
 
   # Setting default_url_options (required for devise).
-  config.action_mailer.default_url_options = { :host => 'dev.goodsmasterhq.com' }
+  config.action_mailer.default_url_options = { :host => 'dev.getmasterdata.com' }
 end

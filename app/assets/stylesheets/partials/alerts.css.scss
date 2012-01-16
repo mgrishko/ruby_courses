@@ -1,5 +1,5 @@
 .alert-message {
-  &.alert { @extend .warning; }
+  &.alert { @extend .error; }
   &.notice  { @extend .success;  }
 }
 

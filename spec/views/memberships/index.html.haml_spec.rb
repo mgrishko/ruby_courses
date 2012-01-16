@@ -63,9 +63,9 @@ describe "memberships/index.html.haml" do
     end
   end
 
-  describe "sidebar" do
+  describe "sidemenu" do
     it "renders invitation link" do
-      MembershipDecorator.should_receive(:invitation_link).with(class: "btn large primary")
+      MembershipDecorator.should_receive(:invitation_link)
       render
     end
   end

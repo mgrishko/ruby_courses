@@ -11,7 +11,21 @@ en:
         create: "Send an invitation"
         destroy: "Delete"
         update: "Update"
+      comment:
+        create: "Submit"
     label:
+      account:
+        company_name: "Company"
+        tize_zone: "Time zone"
+      comment:
+        body: "Comment"
+      content:
+        value: "Net content"
+        unit: "Net content unit"
+      dimension:
+        depth: "Depth"
+        height: "Height"
+        width: "Width"
       user:
         first_name: 'First Name'
         last_name: 'Last Name'
@@ -19,11 +33,9 @@ en:
         password: 'Password'
         role: 'Administrator'
         tize_zone: "Time zone"
-      account:
-        company_name: "Company"
-        tize_zone: "Time zone"
-      comment:
-        body: "Comment"
+      weight:
+        gross: "Gross weight"
+        net: "Net weight"
 
   simple_form:
     "yes": 'Yes'
@@ -49,6 +61,9 @@ en:
         body: "Comment"
       product:
         tags_list: "Tags"
+        packages:
+          contents:
+            unit: "Net content unit"
 
     #   password: 'Password'
     #   user:

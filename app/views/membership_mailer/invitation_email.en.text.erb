@@ -8,20 +8,14 @@ Click this link to get started:
 
 Login:
 <%= @user.email %>
-<% if @user.password.present? %>
-Password:
-<%= @user.password %>
-<% end %>
+<%= @membership.password_label(format: :text) %>
 
-<% if @invitation_note.present? %>
-<%= @invited_by.first_name %> also says:
+<%= @membership.invitation_label(format: :text) %>
 
-<%= @invitation_note %>
-<% end %>
-
-Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>
+Have questions? Contact <%= @invited_by.full_name %> - company account administrator - at <%= @invited_by.email %>%>
 
 
 All the best,
-The GoodsMaster Team
+The <%= Settings.project_name %> Team
 <%= Settings.links.project_home %>
+

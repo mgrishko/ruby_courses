@@ -13,3 +13,23 @@ body.application form {
   }
 }
 
+form {
+  .hidden {
+    margin-bottom: 0;
+  }
+}
+
+
+#comments form {
+  textarea {
+    @extend .span8;
+    height: $baseline * 3.5;
+  }
+  .actions {
+    input {
+      @include float-right;
+    }
+  }
+}
+
+

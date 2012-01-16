@@ -3,227 +3,187 @@ require 'spec_helper'
 describe EventDecorator do
   before { ApplicationController.new.set_current_view_context }
 
-  context "for product added" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @user = Fabricate(:user)
-    
-      @event = stub_model(Event, 
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "create",
-        name: "A product",
-        trackable: @product,
-        eventable: @product,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
+  before(:each) do
+    @product = Fabricate(:product)
+    @user = Fabricate(:user)
+  end
+
+  describe "#action_label" do
+    context "when product" do
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @product)
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label success\">New</span>"
+      end
+
+      specify "updated" do
+        event = Fabricate(:event, action_name: "update", trackable: @product, eventable: @product)
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label warning\">Update</span>"
+      end
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @product)
+        @product.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label important\">Deleted</span>"
+      end
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
+    context "when comment" do
+      before(:each) do
+        @comment = Fabricate(:comment)
       end
-      
-      it "#trackable_link" do
-        product_decorator = ProductDecorator.decorate(@product)
-        product_decorator.h.stub(:can?).and_return(true)
-        @decorator.trackable_link.should == "<a href=\"/products/#{@product.id}\">#{@event.name}</a>"
+
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @comment)
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label\">Comment</span>"
       end
-      
-      it "#description" do
-        @decorator.description.should == "Created by #{@user.full_name}"
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @comment)
+        @comment.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label\">Comment</span>"
       end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
+    end
+
+    context "when product photo" do
+      before(:each) do
+        @photo = Fabricate(:photo)
+      end
+
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @photo)
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label notice\">Image</span>"
+      end
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @photo)
+        @photo.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.action_label.should == "<span class=\"label notice\">Image</span>"
       end
     end
   end
-  
-  context "for product updated" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @user = Fabricate(:user)
-    
-      @event = stub_model(Event, 
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "update",
-        name: "A product",
-        eventable: @product,
-        trackable: @product,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
+
+  describe "#trackable_link" do
+    before(:each) do
+      product_decorator = ProductDecorator.decorate(@product)
+      ProductDecorator.stub(:decorate).and_return(product_decorator)
+      product_decorator.h.stub(:can?).and_return(true)
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
+    context "when product" do
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @product)
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "<a href=\"/products/#{@product.id}\">#{event.name}</a>"
       end
-      
-      it "#trackable_link" do
-        product_decorator = ProductDecorator.decorate(@product)
-        product_decorator.h.stub(:can?).and_return(true)
-        @decorator.trackable_link.should == "<a href=\"/products/#{@product.id}\">#{@event.name}</a>"
+
+      specify "updated" do
+        event = Fabricate(:event, action_name: "update", trackable: @product, eventable: @product)
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "<a href=\"/products/#{@product.id}\">#{event.name}</a>"
       end
-      
-      it "#description" do
-        @decorator.description.should == "Updated by #{@user.full_name}"
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @product)
+        @product.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "<span class=\"deleted\">#{event.name}</span>"
       end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
+
+      specify "added for lately deleted" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @product)
+        @product.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "#{event.name}"
+      end
+    end
+
+    context "when comment" do
+      before(:each) do
+        @comment = Fabricate(:comment)
+      end
+
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @comment)
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "<a href=\"/products/#{@product.id}##{@comment.id}\">#{event.name}</a>"
+      end
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @comment)
+        @comment.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should ==
+            "<a href=\"/products/#{@product.id}\"><span class=\"deleted\">#{event.name}</span></a>"
+      end
+    end
+
+    context "when product photo" do
+      before(:each) do
+        @photo = Fabricate(:photo)
+      end
+
+      specify "added" do
+        event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @photo)
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should == "<a href=\"/products/#{@product.id}##{@photo.id}\">#{event.name}</a>"
+      end
+
+      specify "deleted" do
+        event = Fabricate(:event, action_name: "destroy", trackable: @product, eventable: @photo)
+        @photo.destroy
+        event.reload
+        decorator = EventDecorator.decorate(event)
+        decorator.trackable_link.should ==
+            "<a href=\"/products/#{@product.id}\"><span class=\"deleted\">#{event.name}</span></a>"
       end
     end
   end
-  
-  context "for product destroyed" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @product.destroy
-      @user = Fabricate(:user)
-    
-      @event = stub_model(Event,
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "destroy",
-        name: "A product",
-        eventable: @product,
-        trackable: @product,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
+
+
+  describe "#description" do
+    before(:each) do
+      Timecop.freeze(2011, 12, 26, 5, 7, 37)
+      product = Fabricate(:product)
+      user = Fabricate(:user, first_name: "John", last_name: "Cash")
+      event = Fabricate(:event, action_name: "destroy", trackable: product, eventable: product, user: user)
+      @decorator = EventDecorator.decorate(event)
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
-      end
-      
-      it "#trackable_link" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.trackable_link.should == @event.name
-      end
-      
-      it "#description" do
-        @decorator.description.should == "Deleted by #{@user.full_name}"
-      end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
-      end
-    end
-  end
-  
-  context "for comment added" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @user = Fabricate(:user)
-      @comment = @product.comments.create body: "Some content"
-      
-      @event = stub_model(Event, 
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "create",
-        name: "A product",
-        trackable: @product,
-        eventable: @comment,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
+    after(:each) do
+      Timecop.return
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
+    context "when event was less then 1 day ago" do
+      it "should include time to event" do
+        Timecop.freeze(2011, 12, 26, 5, 12, 44)
+        @decorator.description.should == "<span>5 minutes ago,</span> John C."
       end
-      
-      it "#trackable_link" do
-        @decorator.h.stub(:can?).and_return(true)
-        @decorator.trackable_link.should == "<a href=\"/products/#{@product.id}##{@comment.id}\">A product</a>"
-      end
-      
-      it "#description" do
-        @decorator.description.should == "Commented by #{@user.full_name}"
-      end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
-      end
-    end
-  end
-  
-  context "for photo destroyed" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @user = Fabricate(:user)
-      @photo = Fabricate(:photo, product: @product)
-      @product.photos << @photo
-      
-      @event = stub_model(Event, 
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "create",
-        name: "A product",
-        trackable: @product,
-        eventable: @photo,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
-      @photo.destroy
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
+    context "when event was more then 1 day ago and less then a year ago" do
+      it "should include event day and month" do
+        Timecop.freeze(2011, 12, 28, 5, 12, 44)
+        @decorator.description.should == "<span>2 days ago, Dec 26,</span> John C."
       end
-      
-      it "#trackable_link" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.trackable_link.should == @event.name
-      end
-      
-      it "#description" do
-        @decorator.description.should == "Photo updated by #{@user.full_name}"
-      end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
-      end
-    end
-  end
-  
-  context "for comment destroyed" do
-    before(:each) do    
-      @product = Fabricate(:product)
-      @user = Fabricate(:user)
-      @comment = @product.comments.create body: "Some content"
-      
-      @event = stub_model(Event, 
-        created_at: DateTime.parse("2011-01-01"),
-        action_name: "create",
-        name: "A product",
-        trackable: @product,
-        eventable: @comment,
-        user: @user
-      )
-      @decorator = EventDecorator.decorate(@event)
-      @comment.destroy
     end
 
-    describe "decorates" do
-      it "#trackable_name" do
-        @decorator.trackable_name.should == "Product"
-      end
-      
-      it "#trackable_link" do
-        @decorator.h.stub(:can?).and_return(false)
-        @decorator.trackable_link.should == @event.name
-      end
-      
-      it "#description" do
-        @decorator.description.should == "Commented by #{@user.full_name}"
-      end
-      
-      it "#date" do
-        @decorator.date.should == "Jan 01, 2011"
+    context "when event was more then 1 year ago" do
+      it "should include event month and year" do
+        Timecop.freeze(2012, 12, 28, 5, 12, 44)
+        @decorator.description.should == "<span>about 1 year ago, Dec, 2011,</span> John C."
       end
     end
   end

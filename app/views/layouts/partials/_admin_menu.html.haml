@@ -1,0 +1,5 @@
+%ul.nav{class: "secondary-nav"}
+  %li.dropdown{"data-dropdown" => "dropdown"}
+    %a{class: "dropdown-toggle"}
+      = current_admin.email
+    = render_navigation context: :admin

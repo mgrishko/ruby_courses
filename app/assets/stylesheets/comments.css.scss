@@ -3,9 +3,34 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #comments {
-  margin-top: 4em;
+  margin-top: 2em;
 
-  .links {
-    float: right;
+  .comment {
+    position: relative;
+  }
+  a.delete_img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+  }
+  p {
+    margin-bottom: 4px;
+    &.info {
+      color: darkgrey;
+    }
+  }
+
+
+  form {
+    .input {
+      margin-left: 0;
+    }
+    .actions {
+      background-color: inherit;
+      margin: 5px 0 0 0;
+      padding: 0;
+      border: 0;
+    }
   }
 }

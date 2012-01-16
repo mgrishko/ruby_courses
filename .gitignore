@@ -1,7 +1,11 @@
 *.swp
 .idea
+.sass-cache
+.yardoc
 .bundle
 .rvmrc
+doc/
+config/mongoid.yml
 coverage/
 log/*.log
 log/*.pid
@@ -9,5 +13,4 @@ log/*.db
 tmp/
 public/assets/
 public/system/uploads/
-.sass-cache/
 .DS_Store

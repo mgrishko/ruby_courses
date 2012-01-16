@@ -1,10 +1,10 @@
 = simple_form_for @comment,
         url: send("#{commentable.class.name.underscore}_comments_path", commentable.id),
-        remote: true, wrapper: :inline do |f|
+        remote: true do |f|
   = f.error_notification
 
   .inputs
-    = f.input :body, as: :text
+    = f.input :body, as: :text, label: false
 
   .actions
-    = f.button :submit
+    = f.button :submit, class: "primary small"

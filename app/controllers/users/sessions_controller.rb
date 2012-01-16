@@ -17,4 +17,10 @@ class Users::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || root_path
   end
+
+  # Redirects the current user to login page after logout.
+  #
+  def after_sign_out_path_for(resource)
+    new_session_path(resource)
+  end
 end

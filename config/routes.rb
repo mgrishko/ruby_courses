@@ -5,10 +5,12 @@ GoodsMaster::Application.routes.draw do
                controllers: { registrations: 'users/registrations',
                               sessions: 'users/sessions',
                               invitations: 'users/invitations'},
-               skip: [:registrations, :sessions, :invitations] do
+               skip: [:registrations, :sessions, :invitations, :passwords] do
 
       # Routes signup and acknowledgement routes only under app subdomain
       constraints(subdomain: Settings.app_subdomain) do
+        devise_for :users, controllers: { passwords: "users/passwords" },
+          skip: [:registrations, :sessions, :invitations]
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
@@ -48,9 +50,12 @@ GoodsMaster::Application.routes.draw do
       scope subdomain: Settings.app_subdomain do
         devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
 
+        resources :admins, only: [:edit, :update], :module => "admin", :path => "dashboard/admins"
+
         namespace :admin, path: "/dashboard" do
           resources :accounts, only: [:index, :show] do
             get :activate, on: :member
+            get :login_as_owner, on: :member
           end
 
           get '/' => 'dashboard#index', as: :dashboard
@@ -59,7 +64,7 @@ GoodsMaster::Application.routes.draw do
       end
     end
 
-    get '/' => 'home#index', as: :home
+    get '/'  => 'home#index', as: :home
     root :to => 'home#index', as: :root
   end
 

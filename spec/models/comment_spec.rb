@@ -6,9 +6,11 @@ describe Comment do
   it { should validate_presence_of(:body) }
   it { should ensure_length_of(:body).is_at_most(1000) }
   it { should allow_mass_assignment_of(:body) }
+
   it { should validate_presence_of(:user) }
   it { should allow_mass_assignment_of(:user) }
   it { should_not allow_mass_assignment_of(:user_id) }
+
   it { should_not allow_mass_assignment_of(:system) }
 
   it "should be embedded in commentable" do
@@ -24,7 +26,7 @@ describe Comment do
   end
   
   it "should belong to event" do
-    event = Fabricate(:event, account: comment.commentable.account)
+    event = Fabricate(:event)
     comment.event = event
     comment.event.should eql(event)
   end

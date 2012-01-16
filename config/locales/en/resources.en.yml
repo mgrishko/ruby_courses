@@ -1,14 +1,35 @@
+# This file is only for controller and action specific translations.
+#
+# Format of the file is:
+#
+#   en:
+#     controller_name:
+#       action_name:
+#
+#     namespace:
+#       controller_name:
+#         action_name
+
 en:
-  back: "Back"
-  cancel: "Cancel"
-  confirm: "Are you sure?"
-  show: "Show"
-  update: "Update"
+  accounts:
+    defaults: &ACCOUNT_DEFAULTS
+      activate: "Activate"
+      login_as_owner: "Login as account owner"
+      company: "Company"
+      country: "Country"
+      state: "State"
+      states:
+        active: "Active"
+        pending: "Awaiting activation"
+      subdomain: "Subdomain"
+    edit:
+      title: "Account settings"
 
   admin:
     accounts:
       defaults: &ADMIN_ACCOUNT_DEFAULTS
         activate: "Activate"
+        login_as_owner: "Login as account owner"
         company: "Company"
         country: "Country"
         state: "State"
@@ -22,31 +43,41 @@ en:
       show:
         title: "%{company} Account"
         <<: *ADMIN_ACCOUNT_DEFAULTS
+    profiles:
+      edit:
+        title: "Admin Profile"
 
     sessions:
       new:
         sign_in: "Sign in"
         title: "Sign in"
 
-  accounts:
-    edit:
-      title: "Account settings"
-
   comments:
     defaults: &COMMENT_DEFAULTS
-      added: "Comment Added"
       destroy: "Delete"
-      added: "Comment Added"
-      destroyed: "Comment Deleted"
-    events:
-      create: "Commented by %{user_name}"
+      product:
+        create: "Product created."
+        update: "Product updated."
 
-  errors:
-    messages:
-      already_invited: "is already invited"
   events:
     defaults:
-      time_ago: "%{time} ago"
+      labels:
+        product:
+          create: "New"
+          update: "Update"
+          destroy: "Deleted"
+        photo:
+          create: "Image"
+          update: "Image"
+          destroy: "Image"
+        comment:
+          create: "Comment"
+          update: "Comment"
+          destroy: "Comment"
+  home:
+    index:
+      title: "Friendly Product Data Management"
+
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
       destroy: "Delete"
@@ -73,6 +104,9 @@ en:
       menu_title: "Account"
       settings: "Settings"
       users: "All People"
+    accounts:
+      menu_title: "Accounts"
+      list: "Account list"
     main:
       home: "Dashboard"
       products: "Products"
@@ -84,25 +118,29 @@ en:
     defaults: &PHOTO_DEFAULTS
       destroy: "Delete photo"
       upload_photo: "Upload photo"
-    events:
-      name: "Photo"
-      create: "Photo updated by %{user_name}"
-      destroy: "Photo updated by %{user_name}"
+
   products:
     defaults: &PRODUCT_DEFAULTS
+      brand: "Brand"
+      country_of_origin: "Country of origin"
+      depth: "Depth"
       destroy: "Delete Product"
       edit: "Edit Product"
+      functional_name: "Functional"
+      gross_weight: "Gross Weight"
+      height: "Height"
+      manufacturer: "Manufacturer"
+      net_content: "Content"
+      net_weight: "Net Weight"
       new: "New Product"
+      sub_brand: "Sub Brand"
+      variant: "Variant"
       version: "Version %{number}"
       versions: "Versions"
       visibility:
         private: "Private"
         public: "Public"
-    events:
-      name: "Product"
-      create: "Created by %{user_name}"
-      update: "Updated by %{user_name}"
-      destroy: "Deleted by %{user_name}"
+      width: "Width"
     edit:
       <<: *PRODUCT_DEFAULTS
       title: "Edit product"
@@ -114,11 +152,22 @@ en:
       title: "New product"
     show:
       <<: *PRODUCT_DEFAULTS
+      comments: "Comments"
       tags: "Tags and Privacy"
 
   users:
     invitations:
 
+    passwords:
+      edit:
+        confirm: "Confirm password"
+        change: "Change my password"
+        title: "Change your password"
+        password: "New password"
+      new:
+        send: "Send me reset password instructions"
+        sign_in: "Sign In"
+        title: "Forgot your password?"
     registrations:
       edit:
         title: "Edit your profile"
@@ -127,5 +176,8 @@ en:
         title: "Sign up"
     sessions:
       new:
+        recoverable: "Forgot your password?"
         sign_in: "Sign in"
         title: "Sign in"
+
+

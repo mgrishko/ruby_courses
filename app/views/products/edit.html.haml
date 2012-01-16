@@ -1,12 +1,12 @@
 = title t(".title")
 
+- content_for(:sidemenu) do
+  = @product.destroy_link(confirm: true)
+
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last
 
-  %br
-  %br
-
-  = link_to t("back"), :back
+  -#= link_to t("back"), :back
 
 = render 'form'
 

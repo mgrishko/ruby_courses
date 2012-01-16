@@ -1,15 +1,42 @@
-= simple_form_for(@product, wrapper: :inline) do |f|
+= simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
   = f.error_notification
 
   .inputs
-    = f.input :name
-    = f.input :manufacturer, input_html: {  "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/manufacturer.json" }
-    = f.input :brand, input_html: { :autocomplete => "off", "data-autocomplete" => "single", "data-autocomplete-url" => "/products/autocomplete/brand.json" }
+    = f.input :functional_name
+    = f.input :variant
+    = f.input :brand, as: :autocomplete
+    = f.input :sub_brand
+    = f.input :manufacturer, as: :autocomplete
+    = f.input :country_of_origin
+
+    = f.simple_fields_for :packages, wrapper: :inline, :validate => false do |p|
+      = p.simple_fields_for :dimensions, wrapper: :inline do |d|
+        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false
+        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false
+        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false
+        = d.input :unit, as: :hidden
+
+      = p.simple_fields_for :weights, wrapper: :inline do |w|
+        = w.input :gross, label: ProductDecorator.measure_value_label(w.object, :gross), required: false
+        = w.input :net, label: ProductDecorator.measure_value_label(w.object, :net), required: false
+        = w.input :unit, as: :hidden
+
+      = p.simple_fields_for :contents, wrapper: :inline do |c|
+        = c.input :value, label: ProductDecorator.measure_value_label(c.object, :value), required: false
+        = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false
+        = c.input :unit, as: :hidden
+
+    = f.input :gtin
+    = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
+      = n.input :name, as: :hidden
+      = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
+
+    = f.input :short_description
     = f.input :description, as: :text
-    = f.input :tags_list, input_html: { :autocomplete => "off", "data-autocomplete" => "multi", "data-autocomplete-url" => "/products/autocomplete/tags_name.json" }
+    = f.input :tags_list, as: :autocomplete, multiple: true, autocomplete_by: :tags_name
     = f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
-    = simple_fields_for @comment, wrapper: :inline do |n|
+    = simple_fields_for @comment, wrapper: :inline, :validate => false do |n|
       = n.input :body, as: :text, required: false
 
   .actions

@@ -1,45 +1,50 @@
 class EventDecorator < ApplicationDecorator
   decorates :event
   
-  # Returns the date when the event occured
-  def date
-    if event.created_at + 1.day > DateTime.now
-      I18n.t("events.defaults.time_ago", time: h.time_ago_in_words(event.created_at))
-    else
-      event.created_at.strftime("%b %d, %Y")
+  # @return [String] event action label
+  def action_label
+    text = I18n.t("labels.#{event.eventable_type.downcase}.#{event.action_name}", scope: i18n_scope)
+
+    css_class = case [event.eventable_type.downcase.to_sym, event.action_name.to_sym]
+      when [:product, :update]
+        "warning"
+      when [:product, :create]
+        "success"
+      when [:product, :destroy]
+        "important"
+      when [:photo, :create], [:photo, :destroy]
+        "notice"
     end
+
+    h.content_tag :span, text, class: ["label", css_class].compact.join(" ")
   end
-  
-  # Returns event description and user name
+
+  # @return [String] user short name and event time
   def description
-    I18n.t("#{event.eventable_type.pluralize.downcase}.events.#{event.action_name}", 
-      user_name: event.user.full_name)
-  end
-  
-  # Returns link to the trackable object page or the name of the event
-  # if the current user can't read the object
-  def trackable_link
-    return name unless event.trackable.present? && h.can?(:read, event.trackable)
-      
-    if event.eventable_type == event.trackable_type
-      # if event is logged for the trackable object, then find it by id
-      eventable_class = "#{event.eventable_type}".constantize
-      eventable_object = eventable_class.where("_id" => event.eventable_id).first
-    else
-      # if event is logged for an embedded object of the trackable,
-      # then find it in the embedded collection in the trackable
-      eventable_object = "#{event.eventable_type}".constantize.send(
-        :find_by_id_and_embedded_in, event.eventable_id, event.trackable)
+    time_ago = I18n.t("time_ago", time: h.time_ago_in_words(event.created_at))
+    if event.created_at + 1.year < Time.now
+      time_ago = "#{time_ago}, #{event.created_at.strftime("%b, %Y")}"
+    elsif event.created_at + 1.day < Time.now
+      time_ago = "#{time_ago}, #{event.created_at.strftime("%b %d")}"
     end
-    
-    return name if eventable_object.nil?
-      
-    eventable_decorator = "#{event.eventable_type}Decorator".constantize.send(:new, eventable_object)
-    eventable_decorator.show_link text: event.name
+
+    "#{h.content_tag :span, "#{time_ago},"} #{event.user.short_name}".html_safe
   end
   
-  # Returns the class name of the trackable object
-  def trackable_name
-    I18n.t("#{event.trackable_type.pluralize.downcase}.events.name")
+  # @return [String] link to the trackable object page or the name of the event
+  #   if the current user can't read the object
+  def trackable_link
+    content = event.action_name == "destroy" ? h.content_tag(:span, event.name, class: "deleted") : event.name
+
+    if event.trackable.nil?
+      content
+    else
+      klass = "#{event.trackable_type.classify}Decorator".constantize
+      opts = { content: content }
+      unless event.eventable_type == event.trackable_type || event.action_name == "destroy"
+        opts.merge!(anchor: event.eventable_id)
+      end
+      klass.decorate(event.trackable).trackable_link(opts)
+    end
   end
 end

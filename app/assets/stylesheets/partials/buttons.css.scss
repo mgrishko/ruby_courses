@@ -1,0 +1,11 @@
+.delete_img {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  z-index: 1;
+  @include inline-block;
+  @include replace-text("remove_ico_btn.png", 0, 0);
+  &:hover {
+    @include replace-text("remove_ico_btn.png", 0, -14px);
+  }
+}

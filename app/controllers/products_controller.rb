@@ -1,17 +1,17 @@
 class ProductsController < MainController
   include AutoComplete::Action
+  respond_to :json, only: :autocomplete
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy, :autocomplete]
   before_filter :prepare_photo, only: [:show, :edit, :update]
   after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :load_version, only: [:show]
-  respond_to :json
 
   # GET /products
   # GET /products.xml
   def index
     #@products = Product.all loaded by CanCan
-    @products = ProductDecorator.decorate(@products)
+    @products = ProductDecorator.decorate(@products.asc(:functional_name))
     respond_with(@products)
   end
 
@@ -19,7 +19,7 @@ class ProductsController < MainController
   # GET /products/1.xml
   def show
     #@product = Product.find(params[:id]) loaded by CanCan
-    @comments = CommentDecorator.decorate(@product.comments.desc(:created_at))
+    @comments = CommentDecorator.decorate(@product.comments.asc(:created_at))
     @product = ProductDecorator.decorate(@product)
 
     respond_with(@product)

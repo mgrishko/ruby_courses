@@ -23,6 +23,10 @@ describe MembershipMailer do
         it "inserts invitation note" do
           email.should have_body_text("This is an invitation note.")
         end
+
+        it "inserts subject message" do
+          email.should have_subject("[#{membership.account.company_name}] Welcome to #{Settings.project_name}")
+        end
       end
 
       context "when note does not present" do

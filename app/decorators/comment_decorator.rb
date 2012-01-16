@@ -1,25 +1,17 @@
 class CommentDecorator < ApplicationDecorator
   decorates :comment
-  
-  def show_link(opts = {})
-    commentable_decorator_class = "#{comment.commentable.class.name}Decorator".constantize
-    decorator = commentable_decorator_class.decorate(comment.commentable)
-    decorator.show_link(opts.merge(anchor: comment.id))
-  end
-  
-  def info
-    "#{comment.user.full_name}, #{comment.created_at.strftime('%d %b %Y, %H:%M')}"
+
+  # @return [String] comment details info: when and who created comment and action type.
+  def details
+    time_ago = I18n.t("time_ago", time: h.time_ago_in_words(comment.created_at))
+    if comment.created_at + 1.year < Time.now
+      time_ago = "#{time_ago}, #{comment.created_at.strftime("%b, %Y")}"
+    elsif comment.created_at + 1.day < Time.now
+      time_ago = "#{time_ago}, #{comment.created_at.strftime("%b %d")}"
+    end
+
+    h.content_tag :span, "#{time_ago}, #{comment.user.full_name}"
   end
 
-  # Returns event description if the comment is linked to an event.
-  def system_info
-    h.simple_format(EventDecorator.decorate(event).description) unless comment.event.nil?
-  end
-
-  private
-
-  def scope
-    "comments.defaults"
-  end
 end
 

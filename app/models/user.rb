@@ -12,8 +12,8 @@ class User
   attr_accessible :accounts_attributes
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable, :recoverable, :lockable
-  devise :database_authenticatable, :registerable, :trackable, :validatable, :rememberable
+  # :token_authenticatable, :confirmable, :lockable and :timeoutable, :lockable
+  devise :database_authenticatable, :registerable, :trackable, :validatable, :rememberable, :recoverable
 
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
@@ -26,6 +26,11 @@ class User
   # @return [String] user full name
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  # @return [String] user short name
+  def short_name
+    "#{self.first_name} #{self.last_name[0]}."
   end
 
   def generate_password!

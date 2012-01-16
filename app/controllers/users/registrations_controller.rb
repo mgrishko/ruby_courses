@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
-  prepend_before_filter :authenticate_user!, :only => [ :acknowledgement ]
+  prepend_before_filter :authenticate_user!, :except => [ :new, :create, :cancel ]
 
   layout :layout_name
 

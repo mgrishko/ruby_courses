@@ -1,0 +1,24 @@
+en:
+  back: "Back"
+  cancel: "Cancel"
+  reset: "Reset"
+  confirm: "Are you sure?"
+  show: "Show"
+  time_ago: "%{time} ago"
+  update: "Update"
+
+  errors:
+    messages:
+      already_invited: "is already invited"
+      invalid_gtin_format: "is not a valid gtin format"
+      invalid_measure_unit: "%{unit} is not a valid unit"
+      invalid_net_weight: "can't be greater then gross weight"
+
+  product_codes:
+    FOR_INTERNAL_USE_1: "Internal ID"
+
+  units:
+    short:
+      MM: "mm"
+      ML: "ml"
+      GR: "g"
