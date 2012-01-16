@@ -29,3 +29,18 @@ Then /^he should(.*) see "([^"]*)" within sidebar$/ do |should, content|
     end
   end
 end
+
+# Functions
+
+def execute_script(js)
+  page.driver.browser.execute_script(js)
+  sleep(1)
+end
+
+def find_field(locator)
+  find(:xpath, XPath::HTML.fillable_field(locator))
+end
+
+def find_field_parent(locator)
+  find_field(locator).find(:xpath,".//..")
+end
