@@ -11,8 +11,8 @@ module Mongoid
     # 
     # @param [action_name] Name of the controller action: create, update, destroy
     # @param [eventable] The embedded object if an event should be logged for
-    # an embedded object, then , nil otherwise
-    # @return [Boolean] true if event has the specified type and false otherwise
+    # an embedded object, nil otherwise
+    # @return [Event] created event object
     def log_event(action_name, eventable = nil)
       return unless Membership.current
       
