@@ -55,8 +55,13 @@ class Membership
     Thread.current[:membership] = membership
   end
   
+  # @return [String] membership user name
   def name
-    user.email
+    if self.invited_by.nil?
+      user.full_name
+    else
+      I18n.t("memberships.defaults.invited", user_name: user.full_name)
+    end
   end
   
   protected

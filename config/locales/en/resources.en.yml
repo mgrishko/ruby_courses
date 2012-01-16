@@ -90,6 +90,7 @@ en:
       destroy: "Delete"
       edit: "Edit"
       invite: "Invite a new member"
+      invited: "%{user_name} invited"
       roles:
         admin: "Admin"
         contributor: "Contributor"

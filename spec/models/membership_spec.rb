@@ -178,4 +178,15 @@ describe Membership do
       membership.should_not be_owner
     end
   end
+  
+  describe "callbacks" do
+    it "returns user name if not invited" do
+      membership.invited_by = nil
+      membership.name.should == membership.user.full_name
+    end
+    
+    it "returns user name if invited" do
+      membership.name.should == membership.user.full_name + " invited"
+    end
+  end
 end
