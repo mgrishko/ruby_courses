@@ -7,7 +7,7 @@ Feature: Autocompletion for product form fields
     Given an activated account
     And that account has a product
   
-  @javascript
+  @javascript @wip
   Scenario: Editor edits product brand using autocomplete
     Given another product with brand "brand123"
     Given an authenticated user with editor role on edit product page

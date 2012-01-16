@@ -62,9 +62,12 @@ When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomple
   page.driver.browser.execute_script "$('input##{field_id}').trigger('focus')"
   page.fill_in(locator, with: text)
   page.driver.browser.execute_script "$('input##{field_id}').trigger('keydown')"
-  sleep(3)
+  sleep(1)
+  within("#new_photo") do
+    
+  end
   page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
-  sleep(3)
+  sleep(1)
 end
 
 When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
