@@ -359,7 +359,8 @@ Then /^he should not see validation errors in "([^"]*)" form$/ do |form|
   within("form##{form}") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should(.*) see validation error in "([^"]*)" for "([^"]*)" if he leaves it empty$/ do |should, form, locator|
+Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$/ do
+                                                                    |should, form, locator|
   should_have_validation_error = !(should.strip == "not")
 
   if should_have_validation_error
@@ -376,7 +377,11 @@ Then /^he should(.*) see validation error in "([^"]*)" for "([^"]*)" if he leave
     sleep(2)
   end
 
-  within("form##{form}") { page.should_not have_content("can't be blank") }
+  within("form##{form}") do
+    page.should_not have_content(
+      locator == "Email" ? ( "can't be blank" || "is invalid") : "can't be blank"
+    )
+  end
 end
 
 Then /^he should not see product tags "([^"]*)"$/ do |tags|

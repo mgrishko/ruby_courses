@@ -1,5 +1,5 @@
 When /^(?:[^\s]*) tries to access to the account edit page$/ do
-  visit(edit_account_url(subdomain: @account.subdomain))
+  visit(edit_account_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
 When /^(?:[^\s]*) changes and submit Company name, Country, Subdomain, Timezone$/ do
@@ -12,5 +12,5 @@ When /^(?:[^\s]*) changes and submit Company name, Country, Subdomain, Timezone$
 end
 
 Then /^(?:[^\s]*) should be redirected to the account settings page$/ do
-  current_url.should == edit_account_url(subdomain: @account.subdomain)
+  extract_port(current_url).should == edit_account_url(subdomain: @account.subdomain)
 end

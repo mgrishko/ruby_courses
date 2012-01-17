@@ -1,11 +1,10 @@
-@allow-rescue
 Feature: Account edit
   In order to edit account settings
   An account owner
   Should be able to edit company account
 
   Background: Activated account exists
-    Given active account
+    Given an activated account
 
   Scenario Outline: User access to the account settings is denied
     Given an authenticated user with role <role>

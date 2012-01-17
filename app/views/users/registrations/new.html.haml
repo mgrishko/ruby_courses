@@ -6,12 +6,12 @@
   .inputs
     = f.input :first_name, autofocus: true
     = f.input :last_name
-    = f.input :email, input_html: { validate: true }
+    = f.input :email
     = f.input :password, required: true, input_html: { validate: { presence: true } }
     = f.input :time_zone
     = f.simple_fields_for :accounts, wrapper: :inline do |n|
       = n.input :company_name
-      = n.input :country
+      = n.input :country, include_blank: false, priority: "US"
       = n.input :subdomain
   .actions
     = f.button :submit, t('.create_account'), class: 'success large'

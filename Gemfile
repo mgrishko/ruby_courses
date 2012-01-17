@@ -8,10 +8,9 @@ gem 'rails', '3.1.3'
 gem "rake", "~> 0.9.2.2"
 
 # ORM and relative
-gem "mongoid", "~> 2.3.2"
+gem "mongoid"
 gem "mongoid_rails_migrations"
 gem "bson_ext"
-gem "mongoid_i18n", "~> 0.5.1"
 gem "mongoid_session_store", "~> 2.0.1"
 gem "state_machine"
 
