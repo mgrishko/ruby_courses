@@ -13,9 +13,11 @@ en:
       invalid_gtin_format: "is not a valid gtin format"
       invalid_measure_unit: "%{unit} is not a valid unit"
       invalid_net_weight: "can't be greater then gross weight"
+      presence: "can't be blank"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
+  
 
   units:
     short:
