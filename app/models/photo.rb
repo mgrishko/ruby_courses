@@ -6,5 +6,6 @@ class Photo
   mount_uploader :image, ImageUploader
 
   # Really no point if we don't have an image so we always require one
-  validates :image, presence: true, file_size: { maximum: 1.megabyte.to_i }
+  validates_presence_of :image
+  #validates :image, presence: true, file_size: { maximum: 1.megabyte.to_i }
 end
