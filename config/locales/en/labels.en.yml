@@ -10,6 +10,7 @@ en:
   errors:
     messages:
       blank: "can't be blank"
+      presence: "can't be blank"
       already_invited: "is already invited"
       invalid_gtin_format: "is not a valid GTIN format"
       invalid_measure_unit: "%{unit} is not a valid unit"
