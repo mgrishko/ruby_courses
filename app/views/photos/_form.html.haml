@@ -2,6 +2,8 @@
   = form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
 
     .upload
+      .error
+        %span.help-inline= @photo.errors.collect { |key, value| value }.to_sentence
       .file
         = f.file_field :image
       .link
