@@ -13,7 +13,7 @@ class PhotosController < MainController
     
     @photo = PhotoDecorator.decorate(@photo)
     @vals = @photo.errors.collect { |key, value| value }
-    puts @vals.to_sentence
+    #puts @vals.to_sentence
     respond_with(@photo) do |format|
       format.html { redirect_to @product }
     end

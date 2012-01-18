@@ -1,9 +1,9 @@
 class AutocompleteInput < SimpleForm::Inputs::StringInput
   def input
     input_html_options[:type] ||= :string
-    add_maxlength!
-    add_pattern!
-    add_size!
+    #add_maxlength!
+    #add_pattern!
+    #add_size!
     
     autocomplete_by = @options.delete(:autocomplete_by) || @attribute_name
     multiple = @options.delete(:multiple) || false
