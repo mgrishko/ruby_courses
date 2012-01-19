@@ -10,6 +10,16 @@ When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   end
 end
 
+Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
+  within(".#{scope}") do
+    page.should have_content(content)
+  end
+end
+
+Then /^he should not see tags$/ do
+  page.should_not have_selector(".token-input-token-goodsmaster")
+end
+
 Then /^he should(.*) see "([^"]*)" link within (.*)$/ do |should, link, context|
   selector = page.has_selector?(context) ? context : ".#{context}"
 
@@ -42,4 +52,19 @@ end
 
 Then /^he should see field error "([^"]*)"$/ do |message|
   page.find("form span.help-inline", text: message)
+end
+
+# Functions
+
+def execute_script(js)
+  page.driver.browser.execute_script(js)
+  sleep(1)
+end
+
+def find_field(locator)
+  find(:xpath, XPath::HTML.fillable_field(locator))
+end
+
+def find_field_parent(locator)
+  find_field(locator).find(:xpath,".//..")
 end
