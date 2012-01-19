@@ -11,9 +11,9 @@
 
     = f.simple_fields_for :packages, wrapper: :inline do |p|
       = p.simple_fields_for :dimensions, wrapper: :inline do |d|
-        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-validate-with" => "width height", "data-validate-require" => "width height" }, wrapper_html: {class: "depth"}
-        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false, input_html: { "data-validate-with" => "width depth", "data-validate-require" => "width depth" }
-        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-validate-with" => "height depth", "data-validate-require" => "height depth" }
+        = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-require-in-group" => "dimensions" }, wrapper_html: {class: "depth"}
+        = d.input :height, label: ProductDecorator.measure_value_label(d.object, :height), required: false, input_html: { "data-require-in-group" => "dimensions" }
+        = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-require-in-group" => "dimensions" }
         = d.input :unit, as: :hidden
 
       = p.simple_fields_for :weights, wrapper: :inline do |w|

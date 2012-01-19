@@ -16,12 +16,16 @@ clientSideValidations.validators.local['gtin_format'] = (element, options) ->
 $(document).ready ->
   validators = window[$("form[data-validate]").attr('id')].validators;
 
+  # comment needed
   deletePresenceValidator = (inputName) -> 
     if validators[inputName]?.presence?
       delete validators[inputName].presence
-
+      
   $("input.optional").each () -> deletePresenceValidator($(this).attr("name"))
 
+  $('input[data-require-in-group]').each () ->
+    alert $(this).attr("name")
+  
   makeLinkedInputNameList = (elem) ->
     input = $(elem)
     inputName = input.attr("name")
@@ -31,11 +35,13 @@ $(document).ready ->
       resultNames.push("#{prefix}[#{name}]")
     resultNames
 
+  # comment needed
   $("input[data-validate-with]").on "keyup blur", () ->
     for name in makeLinkedInputNameList(this)
       $("input[name*='" + name + "']").each () -> 
         $(this).removeData('changed').isValid(validators)
 
+  #comment needed
   $("input[data-validate-require]").on "keyup blur", () ->
       names = makeLinkedInputNameList(this)
 
