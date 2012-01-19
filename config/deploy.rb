@@ -50,7 +50,7 @@ namespace :deploy do
 
   # Avoid keeping the mongoid.yml configuration in git.
   task :copy_database_configuration, :roles => :app do
-    db_config = "/var/www/projects/#{application}/config/mongoid.yml"
+    db_config = "/var/www/projects/#{application}/#{rails_env}/config/mongoid.yml"
     run "cp #{db_config} #{release_path}/config/mongoid.yml"
   end
 
