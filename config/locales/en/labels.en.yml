@@ -17,14 +17,6 @@ en:
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
 
-  measures:
-    depth: "Depth"
-    height: "Height"
-    width: "Width"
-    gross_weight: "Gross weight"
-    net_weight: "Net weight"
-    net_content: "Net content"
-
   units:
     short:
       MM: "mm"

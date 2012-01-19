@@ -25,11 +25,17 @@ class Product
 
   embeds_many :comments, as: :commentable, versioned: false
   embeds_many :photos, versioned: false
-  embeds_many :measurements
+  embeds_many :packages
   embeds_many :product_codes
 
-  accepts_nested_attributes_for :measurements
-  attr_accessible :measurements_attributes
+  embeds_many :measurements # ToDo Remove after migration to packages
+  def measurement(name)
+    self.measurements.where(name: name.to_s).first
+  end
+
+
+  accepts_nested_attributes_for :packages
+  attr_accessible :packages_attributes
 
   accepts_nested_attributes_for :product_codes
   attr_accessible :product_codes_attributes
@@ -47,9 +53,7 @@ class Product
   validates :account, presence: true
   validates :visibility, presence: true, inclusion: { in: VISIBILITIES }
   validates :gtin, gtin_format: true
-  validates_with ProductWeightValidator
 
-  before_validation :cleanup_measurements
   before_validation :cleanup_product_codes
 
   # :version, :updated_at attributes required for Mongoid versioning support
@@ -78,7 +82,7 @@ class Product
     comment
   end
 
-  # ToDo We should remove this method from project
+  # ToDo We should remove this method from project by setting current user to model Thread safely
   # Saves product and creates system comment if needed. If the product
   # was created or updated less then 60 minutes ago no comment is created.
   #
@@ -106,32 +110,10 @@ class Product
 
   private
 
-  # Cleanups all measurements with blank values unless any dimensional measurement presents.
-  def cleanup_measurements
-    dimension_measures = %w(depth height width)
-    dimension_present = self.measurements.any? { |m| dimension_measures.include?(m.name) && m.value.present? }
-
-    measurements = []
-    self.measurements.each do |m|
-      measurements << m unless m.value.blank? &&
-          !(dimension_present && dimension_measures.include?(m.name)) &&
-          !(measurement(:net_weight).try(:value).try(:present?) && m.name == "gross_weight")
-    end
-
-    self.measurements = measurements
-  end
-
   # Cleanups all product codes with blank values.
   def cleanup_product_codes
-    codes = []
     self.product_codes.each do |m|
-      codes << m unless m.value.blank?
+      m.destroy if m.value.blank?
     end
-
-    self.product_codes = codes
-  end
-
-  def measurement(name)
-    self.measurements.where(name: name.to_s).first
   end
 end

@@ -23,7 +23,6 @@ class Measurement
             numericality: { greater_than: 0 }, length: 1..16, format: /^\d{1,15}(\.\d{1,14})?$/
 
   validates :unit, presence: true, length: 1..3, inclusion: { in: UNITS }
-  validates_with MeasurementUnitValidator
 
   attr_accessible :name, :value, :unit
 end

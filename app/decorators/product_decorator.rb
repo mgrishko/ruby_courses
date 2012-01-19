@@ -25,20 +25,20 @@ class ProductDecorator < ApplicationDecorator
 
   # Prepares options for unit select tag.
   #
-  # @param [String] name of measure
+  # @param [Dimension|Weight|Content] measurement object.
   # @return [Array] options for visibility select tag.
-  def self.unit_options(name)
-    Measurement::UNITS_BY_MEASURES[name.to_sym].collect { |v| [I18n.t("units.short.#{v}"), v] }
+  def self.unit_options(measurement)
+    measurement.class::UNITS.collect { |v| [I18n.t("units.short.#{v}"), v] }
   end
 
   # Returns label for product measurement value.
   #
-  # @param [Measurement] measurement instance
+  # @param [Dimension|Weight|Content] measurement object.
+  # @param [Symbol] attribute name
   # @return [String] measurement value label.
-  def self.measure_value_label(measurement)
-    measure = I18n.t("measures.#{measurement.name}")
-    unit = measurement.name == "net_content" ? "" : " (#{I18n.t("units.short.#{measurement.unit}")})"
-    "#{measure}#{unit}"
+  def self.measure_value_label(measurement, attribute)
+    label = I18n.t("helpers.label.#{measurement.class.name.underscore}.#{attribute}")
+    measurement.unit.blank? ? label : "#{label} (#{I18n.t("units.short.#{measurement.unit}")})"
   end
 
   # Returns html code for a link to a specific product version.
@@ -102,8 +102,11 @@ class ProductDecorator < ApplicationDecorator
   # @return [Product] instance
   def setup_nested
     self.product.tap do |a|
-      # Building measurements
-      build_measurements(a)
+      # Building package
+      package = a.packages.empty? ? a.packages.build : a.packages.first
+      package.dimensions.find_or_initialize_by(unit: "MM")
+      package.weights.find_or_initialize_by(unit: "GR")
+      package.contents.find_or_initialize_by(unit: "ML")
 
       # Building product codes
       build_product_codes(a)
@@ -118,13 +121,34 @@ class ProductDecorator < ApplicationDecorator
     show_link(opts)
   end
 
-  # Returns measurement value with unit
+  # Returns dimension value with unit
   #
-  # @param [Symbol] name of measurement
-  # @return [String] measurement value with unit or nil
-  def measurement(name)
-    measurement = product.measurements.where(name: name.to_s).first
-    "#{measurement.value} #{I18n.t("units.short.#{measurement.unit}")}" unless measurement.nil?
+  # @param [Symbol] method name: :height, :width, :depth
+  # @return [String] value with unit or nil
+  def dimension(method)
+    dimension = product.packages.first.try(:dimensions).try(:first)
+    value = dimension.try(method)
+    "#{value} #{I18n.t("units.short.#{dimension.unit}")}" unless value.blank?
+  end
+
+  # Returns weight value with unit
+  #
+  # @param [Symbol] method name: :gross, :net
+  # @return [String] value with unit or nil
+  def weight(method)
+    weight = product.packages.first.try(:weights).try(:first)
+    value = weight.try(method)
+    "#{value} #{I18n.t("units.short.#{weight.unit}")}" unless value.blank?
+  end
+
+  # Returns content value with unit
+  #
+  # @param [Symbol] method name: :value
+  # @return [String] value with unit or nil
+  def content(method)
+    content = product.packages.first.try(:contents).try(:first)
+    value = content.try(method)
+    "#{value} #{I18n.t("units.short.#{content.unit}")}" unless value.blank?
   end
 
   # @return [String] country of origin name
@@ -135,7 +159,7 @@ class ProductDecorator < ApplicationDecorator
   # @return [String] title of the product for products index
   def title
     [[product.brand, product.sub_brand, product.variant].compact.join(" "),
-     self.measurement(:net_content)].compact.join(", ")
+     self.content(:value)].compact.join(", ")
   end
 
   # @return [String] product manufacturer and country of origin
@@ -144,24 +168,6 @@ class ProductDecorator < ApplicationDecorator
   end
 
   private
-
-  # Builds product measurements.
-  #
-  # @param [Product] instance
-  def build_measurements(product)
-    measures = Measurement::MEASURES
-    measures.each do |name|
-      if product.measurements.where(name: name).first.nil?
-        unit = name == "net_content" ? nil : Measurement::UNITS_BY_MEASURES[name.to_sym].first
-
-        product.measurements.new(name: name, unit: unit)
-      end
-    end
-
-    product.measurements.sort! do |a, b|
-      measures.find_index(a.name) <=> measures.find_index(b.name)
-    end
-  end
 
   # Builds product codes.
   #
