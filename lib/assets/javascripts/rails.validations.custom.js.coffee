@@ -13,18 +13,37 @@ clientSideValidations.validators.local['gtin_format'] = (element, options) ->
   if sum % 10 > 0
     return I18n.t("errors.messages.invalid_gtin_format")
 
+# Setup fields required in group
+setupRequiredInGroupFields = () ->
+  groups = {}
+  
+  $('input[data-require-in-group*=true]').each () ->
+    input = $(this)
+    inputName = input.attr("name")
+    prefix = inputName.substring(0, inputName.lastIndexOf('['))
+    shortName = inputName.substring(inputName.lastIndexOf('[') + 1, inputName.lastIndexOf(']'))
+    groups[prefix] = [] unless groups[prefix]
+    groups[prefix].push(shortName) unless shortName in groups[prefix]
+  
+  $('input[data-require-in-group*=true]').each () ->
+    input = $(this)
+    inputName = input.attr("name")
+    prefix = inputName.substring(0, inputName.lastIndexOf('['))
+    names = groups[prefix].join(" ")
+    input.attr("data-validate-with", names).attr("data-validate-require", names)
+
 $(document).ready ->
   validators = window[$("form[data-validate]").attr('id')].validators;
 
-  # comment needed
+  # Remove presence validators
   deletePresenceValidator = (inputName) -> 
     if validators[inputName]?.presence?
       delete validators[inputName].presence
       
-  $("input.optional").each () -> deletePresenceValidator($(this).attr("name"))
-
-  $('input[data-require-in-group]').each () ->
-    alert $(this).attr("name")
+  $("input.optional").each () ->
+    deletePresenceValidator($(this).attr("name"))
+  
+  setupRequiredInGroupFields()
   
   makeLinkedInputNameList = (elem) ->
     input = $(elem)
@@ -35,13 +54,13 @@ $(document).ready ->
       resultNames.push("#{prefix}[#{name}]")
     resultNames
 
-  # comment needed
+  # Setup fields that are validated if another field is filled in
   $("input[data-validate-with]").on "keyup blur", () ->
     for name in makeLinkedInputNameList(this)
       $("input[name*='" + name + "']").each () -> 
         $(this).removeData('changed').isValid(validators)
 
-  #comment needed
+  # Setup fields that are required if another field is not empty
   $("input[data-validate-require]").on "keyup blur", () ->
       names = makeLinkedInputNameList(this)
 
