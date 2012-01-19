@@ -25,7 +25,7 @@ describe MembershipMailer do
         end
 
         it "inserts subject message" do
-          email.should have_subject("[#{membership.account.company_name}] Welcome to #{Settings.project_name}")
+          email.should have_subject("[#{membership.account.subdomain}] Welcome to #{Settings.project_name}")
         end
       end
 
