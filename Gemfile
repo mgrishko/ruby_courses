@@ -31,7 +31,8 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'uglifier', '>= 1.0.3'
 
 # Security related gems
-gem "devise", "~> 1.4.9"
+#gem "devise", "~> 2.0.0.rc", git: "git://github.com/plataformatec/devise.git"
+gem "devise", "~> 1.5.0"
 gem "cancan", "~> 1.6.7"
 
 # Frontend tools
