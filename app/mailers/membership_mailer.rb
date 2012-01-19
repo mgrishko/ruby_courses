@@ -1,5 +1,5 @@
 class MembershipMailer < ActionMailer::Base
-  default from: Settings.send_mail_from
+  default from: "#{Settings.project_name} <#{Settings.send_mail_from}>"
 
   def invitation_email(membership)
     set_current_view_context

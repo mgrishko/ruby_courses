@@ -11,6 +11,10 @@ describe AccountMailer do
       email.should deliver_to(owner.email)
     end
 
+    it "should be delivered from GoodsMaster" do
+      email.should be_delivered_from("#{Settings.project_name} <#{Settings.send_mail_from}>")
+    end
+
     it "inserts subject message" do
       email.should have_subject("[#{account.subdomain}] Account for #{account.company_name} has been activated")
     end
