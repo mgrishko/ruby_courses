@@ -1,5 +1,5 @@
 class MembershipMailer < ActionMailer::Base
-  default from: Settings.send_mail_from
+  default from: "#{Settings.project_name} <#{Settings.send_mail_from}>"
 
   def invitation_email(membership)
     set_current_view_context
@@ -9,7 +9,8 @@ class MembershipMailer < ActionMailer::Base
     @account = membership.account
     @url = home_url(subdomain: @account.subdomain)
     @invitation_note = membership.invitation_note
-    mail( to: @user.email, subject: I18n.t('mail.membership.subject', company_name: @account.company_name.to_s,
-                                            project_name: Settings.project_name.to_s ))
+    mail( to: @user.email, subject: I18n.t('mail.membership.subject',
+                                           subdomain: @account.subdomain,
+                                           project_name: Settings.project_name.to_s ))
   end
 end

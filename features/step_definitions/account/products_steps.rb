@@ -55,26 +55,45 @@ Given /^an authenticated user with editor role on edit product page$/ do
   }
 end
 
-When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
+When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  field_id = field[:id]
+  execute_script "$('input##{field_id}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  execute_script "$('input##{field_id}').trigger('keydown')"
+end
+
+Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
+  opts = options.split(",").collect{ |o| o.strip }
+
+  opts.each do |option|
+    if should.strip == "not"
+      page.should_not have_content(option)
+    else
+      page.should have_content(option)
+    end
+  end
+end
+
+When /^he selects the first autocomplete option in "([^"]*)" field$/ do |locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
 
-  page.driver.browser.execute_script "$('input##{field_id}').trigger('focus')"
-  page.fill_in(locator, with: text)
-  page.driver.browser.execute_script "$('input##{field_id}').trigger('keydown')"
-  sleep(3)
-  page.driver.browser.execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
-  sleep(3)
+  execute_script "$('input##{field_id}').trigger('keydown')"
+  execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
 end
 
-When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
+When /^he enters "([^"]*)" into Tags field$/ do |text|
   # Enter text into text field
-  page.driver.browser.execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  execute_script "$('#token-input-product_tags_list').val('#{text}')"
   # Trigger keydown to open the dropdown
-  page.driver.browser.execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
-  sleep(3)
+  execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  sleep(2)
+end
+
+When /^he selects "([^"]*)" multi autocomplete option$/ do |option|
   # Select the option in the dropdown
-  page.driver.browser.execute_script("
+  execute_script("
     $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
       if ($(this).text() == '#{option}') {
         var e = $.Event('mousedown', { target: $(this).children().get(0) });
@@ -82,7 +101,6 @@ When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocompl
       }
     });
   ")
-  sleep(3)
 end
 
 Given /^the product has tags "([^"]*)"$/ do |tags|
@@ -90,8 +108,8 @@ Given /^the product has tags "([^"]*)"$/ do |tags|
 end
 
 When /^he deletes tags$/ do
-  sleep(3)
-  page.driver.browser.execute_script "$('.token-input-token-goodsmaster span').click()"
+  sleep(2)
+  execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
 When /^he submits the product form$/ do
@@ -366,13 +384,13 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$
   if should_have_validation_error
     field = find(:xpath, XPath::HTML.fillable_field(locator))
     within("form##{form}") { page.should_not have_content("can't be blank") }
-    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+    execute_script("$('##{field[:id]}').blur()")
 
     sleep(2)
 
     within("form##{form}") { page.should have_content("can't be blank") }
     fill_in(locator, with: locator == "Email" ? "foo@bar.com" : "something")
-    page.driver.browser.execute_script("$('##{field[:id]}').blur()")
+    execute_script("$('##{field[:id]}').blur()")
 
     sleep(2)
   end
@@ -391,11 +409,7 @@ Then /^he should not see product tags "([^"]*)"$/ do |tags|
 end
 
 Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  if field == "tags"
-    within(:css, "ul.product-#{field}") { page.should have_content(value) }
-  else
-    within(:css, "p.product-#{field}") { page.should have_content(value) }
-  end
+  within(:css, "section.content") { page.should have_content(value) }
 end
 
 # Functions
