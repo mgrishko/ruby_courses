@@ -75,11 +75,6 @@ en:
           update: "Comment"
           destroy: "Comment"
 
-  #temporary kludge(client_side_validation after update json-1.6.5)
-  errors:
-    messages:
-      presence: "can't be blank"
-
   home:
     index:
       title: "Friendly Product Data Management"
