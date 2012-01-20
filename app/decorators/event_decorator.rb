@@ -1,6 +1,11 @@
 class EventDecorator < ApplicationDecorator
   decorates :event
   
+  # @return [String] event account subdomain
+  def account_subdomain
+    event.account.subdomain
+  end
+  
   # @return [String] event action label
   def action_label
     text = I18n.t("labels.#{event.eventable_type.downcase}.#{event.action_name}", scope: i18n_scope)
@@ -46,5 +51,10 @@ class EventDecorator < ApplicationDecorator
       end
       klass.decorate(event.trackable).trackable_link(opts)
     end
+  end
+  
+  # @return [String] the name of the event
+  def trackable_name
+    event.name
   end
 end

@@ -8,6 +8,23 @@ Given /^company representative has a new account$/ do
   click_button "Sign in"
 end
 
+Given /^company representative signs up for a new account$/ do
+  steps %Q{
+    Given company representative is on the new account sign up page
+    When he fills out the sign up form with following personal data:
+      | First name |
+      | Last name  |
+      | Email      |
+      | Password   |
+      | Time zone  |
+    And he fills out the sign up form with following account data:
+      | Company   |
+      | Country   |
+      | Subdomain |
+    And he submits the sign up form
+  }
+end
+
 When /^admin goes to the accounts page$/ do
   visit(admin_accounts_url)
 end
