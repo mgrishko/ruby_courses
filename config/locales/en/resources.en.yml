@@ -191,6 +191,12 @@ en:
       new:
         create_account: "Create account"
         title: "Sign up"
+      signup_message:
+        title: "Beta version"
+        p1: "Goods Master is currently in closed beta. Fill in the form and we will send you invitation once we are ready."
+        p2: "We have a limited number of beta accounts. Please be so kind to add a few words about your company to help us prioritize your invitation."
+        p3: "Thank you!"
+
     sessions:
       new:
         recoverable: "Forgot your password?"

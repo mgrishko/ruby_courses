@@ -1,20 +1,24 @@
 = title t('.title')
 
-= simple_form_for(setup_account(resource), as: resource_name,
-        url: registration_path(resource_name), wrapper: :inline) do |f|
-  = f.error_notification
-  .inputs
-    = f.input :first_name, autofocus: true
-    = f.input :last_name
-    = f.input :email
-    = f.input :password, required: true
-    = f.input :time_zone
-    = f.simple_fields_for :accounts, wrapper: :inline do |n|
-      = n.input :company_name
-      = n.input :country
-      = n.input :subdomain
-      = n.input :website
-      = n.input :about_company, as: :text
-  .actions
-    = f.button :submit, t('.create_account'), class: 'success large'
+.row
+  = render "signup_message"
+
+  .span12.columns
+    = simple_form_for(setup_account(resource), as: resource_name,
+            url: registration_path(resource_name), wrapper: :inline) do |f|
+      = f.error_notification
+      .inputs
+        = f.input :first_name, autofocus: true
+        = f.input :last_name
+        = f.input :email
+        = f.input :password, required: true
+        = f.input :time_zone
+        = f.simple_fields_for :accounts, wrapper: :inline do |n|
+          = n.input :company_name
+          = n.input :country
+          = n.input :subdomain
+          = n.input :website
+          = n.input :about_company, as: :text
+      .actions
+        = f.button :submit, t('.create_account'), class: 'primary'
 
