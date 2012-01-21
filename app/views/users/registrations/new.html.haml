@@ -11,7 +11,7 @@
     = f.input :time_zone
     = f.simple_fields_for :accounts, wrapper: :inline do |n|
       = n.input :company_name
-      = n.input :country, include_blank: false, priority: "US"
+      = n.input :country, include_blank: false
       = n.input :subdomain
   .actions
     = f.button :submit, t('.create_account'), class: 'success large'
