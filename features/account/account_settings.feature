@@ -25,3 +25,12 @@ Feature: Account edit
     Then he should be redirected to the account settings page
     When he changes and submit Company name, Country, Subdomain, Timezone
     Then he should see notice message "Account was successfully updated."
+
+  @javascript
+  Scenario: Authenticated user successfully edits accounts settings
+    Given an authenticated user with role owner
+    When he tries to access to the account edit page
+    Then he should not see validation errors in "edit_account" form
+    And he should see error in "edit_account" for "Company name" if text field empty
+    And he should see error in "edit_account" for "Subdomain" if text field empty
+    And he should see error in "edit_account" for "Time zone" if select field empty

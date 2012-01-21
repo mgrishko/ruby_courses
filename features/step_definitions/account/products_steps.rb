@@ -377,31 +377,6 @@ Then /^he should not see validation errors in "([^"]*)" form$/ do |form|
   within("form##{form}") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$/ do
-                                                                    |should, form, locator|
-  should_have_validation_error = !(should.strip == "not")
-
-  if should_have_validation_error
-    field = find(:xpath, XPath::HTML.fillable_field(locator))
-    within("form##{form}") { page.should_not have_content("can't be blank") }
-    execute_script("$('##{field[:id]}').blur()")
-
-    sleep(2)
-
-    within("form##{form}") { page.should have_content("can't be blank") }
-    fill_in(locator, with: locator == "Email" ? "foo@bar.com" : "something")
-    execute_script("$('##{field[:id]}').blur()")
-
-    sleep(2)
-  end
-
-  within("form##{form}") do
-    page.should_not have_content(
-      locator == "Email" ? ( "can't be blank" || "is invalid") : "can't be blank"
-    )
-  end
-end
-
 Then /^he should not see product tags "([^"]*)"$/ do |tags|
   tags.split(",").each do |tag|
     within(:css, "ul.product-tags") { page.should_not have_content(tag) }

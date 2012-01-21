@@ -54,11 +54,85 @@ Then /^he should see field error "([^"]*)"$/ do |message|
   page.find("form span.help-inline", text: message)
 end
 
+Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$/ do
+                                                                    |should, form, locator|
+  should_have_validation_error = !(should.strip == "not")
+  input_names = locator.split(",").collect{ |l| l.strip }
+
+  input_names.each do |name|
+    field = find_field(name)
+
+    if should_have_validation_error
+      within(find_field_parent(name)) do
+        page.should_not have_content("can't be blank")
+      end
+      execute_script("$('##{field[:id]}').blur()")
+
+      within(find_field_parent(name)) do
+        page.should have_content("can't be blank")
+      end
+      fill_in(name, with: locator == "Email" ? "foo@bar.com" : "something")
+    else
+      fill_in(name, with: "")
+    end
+
+    execute_script("$('##{field[:id]}').blur()")
+  end
+
+  within("form##{form}") do
+    page.should_not have_content(
+      locator == "Email" ? ( "can't be blank" || "is invalid") : "can't be blank"
+    )
+  end
+end
+
+Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ do
+                                                                 |should, form, locator, type|
+  should_have_validation_error = !(should.strip == "not")
+  text_field = !(type.strip == "select")
+  input_names = locator.split(",").collect{ |l| l.strip }
+
+  input_names.each do |name|
+    field = find_field(name)
+
+    if should_have_validation_error
+      execute_script("$('##{field[:id]}').val('')")
+      execute_script("$('##{field[:id]}').keyup()")
+
+      wait
+
+      within(find_field_parent(name)) do
+        page.should have_content("can't be blank")
+      end
+
+      if text_field
+        fill_in(locator, with: locator == "Email" ? "foo@bar.com" : "something")
+        execute_script("$('##{field[:id]}').keyup()")
+      else
+        execute_script("$('##{field[:id]}').val('Moscow')")
+        execute_script("$('##{field[:id]}').keyup()")
+      end
+
+      wait
+    end
+
+    within("form##{form}") do
+      page.should_not have_content(
+        (locator == "Email" && text_field) ? ( "can't be blank" || "is invalid") : "can't be blank"
+      )
+    end
+  end
+end
+
 # Functions
+
+def wait
+  sleep(0.1)
+end
 
 def execute_script(js)
   page.driver.browser.execute_script(js)
-  sleep(1)
+  wait
 end
 
 def find_field(locator)
