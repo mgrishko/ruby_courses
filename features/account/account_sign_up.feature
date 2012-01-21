@@ -15,6 +15,8 @@ Feature: Account sign up
       | Company   |
       | Country   |
       | Subdomain |
+      | Website   |
+      | A few words about your company |
     And he submits the sign up form
     # Delayed account activation steps:
     Then he should be redirected to the signup acknowledgement page

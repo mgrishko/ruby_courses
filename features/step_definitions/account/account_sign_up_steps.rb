@@ -44,6 +44,8 @@ def fill_out_signup_form(data_type, form_fields)
         select Carmen.country_name(attributes[attr]), from: field
       when :company
         fill_in field, with: attributes[:company_name]
+      when :a_few_words_about_your_company
+        fill_in field, with: attributes[:about_company]
       else
         fill_in field, with: attributes[attr]
     end

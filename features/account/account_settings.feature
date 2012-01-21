@@ -1,4 +1,3 @@
-@allow-rescue
 Feature: Account edit
   In order to edit account settings
   An account owner
@@ -18,6 +17,7 @@ Feature: Account edit
       | editor |
       | admin  |
 
+  # ToDo: Refactor this scenario to show which fields can be changed (as new product form)
   Scenario: Account owner successfully edits account setings
     Given an authenticated user with role owner
     When he goes to the home page

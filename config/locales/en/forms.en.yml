@@ -15,6 +15,7 @@ en:
         create: "Submit"
     label:
       account:
+        about_company: "A few words about your company"
         company_name: "Company"
         tize_zone: "Time zone"
       comment:
@@ -41,7 +42,7 @@ en:
     "yes": 'Yes'
     "no": 'No'
     required:
-      mark: '*'
+      mark: ''
       text: 'required'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
@@ -53,8 +54,9 @@ en:
       time_zone: "Time zone"
 
       account:
-        new:
-          company_name: "Company"
+        about_company: "A few words about your company"
+        company_name: "Company"
+
       comment:
         body: "Comment"
       comments:
@@ -64,6 +66,11 @@ en:
         packages:
           contents:
             unit: "Net content unit"
+      user:
+        accounts:
+          about_company: "A few words about your company"
+          company_name: "Company"
+
 
     #   password: 'Password'
     #   user:

@@ -1,6 +1,14 @@
 = title t('.title', company: @account.company_name)
 
 %p
+  %strong= "#{t('.owner')}:"
+  = "#{@account.owner.full_name} (#{@account.owner.email})"
+
+%p
+  %strong= "#{t('.signin_ip')}:"
+  = "#{@account.owner.current_sign_in_ip || @account.owner.last_sign_in_ip}"
+
+%p
   %strong= "#{t('.subdomain')}:"
   = @account.subdomain
 %p
@@ -10,6 +18,22 @@
 %p
   %strong= "#{t('.country')}:"
   = @account.country
+
+%p
+  %strong= "#{t('.time_zone')}:"
+  = @account.time_zone
+
+%p
+  %strong= "#{t('.website')}:"
+  = @account.website
+
+%p
+  %strong= "#{t('.about_company')}:"
+  = @account.about_company
+
+%p
+  %strong= "#{t('.created_at')}:"
+  = @account.created_at
 
 %p
   %strong= "#{t('.state')}:"

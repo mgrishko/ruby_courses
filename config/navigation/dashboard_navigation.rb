@@ -52,9 +52,9 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.  You may also use a proc, or the symbol <tt>:subpath</tt>.
     #
 
-    primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url
     primary.item :events, t('navigation.events.list'), admin_events_url
-    
+    primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url
+
     # Example configuration:
     #primary.item :key_1, 'name', url, options
     #
