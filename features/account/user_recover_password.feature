@@ -6,6 +6,7 @@ Feature: User recover password
   Background: Activated account exists
     Given an activated account
 
+  @wip
   Scenario: User recover password successfully
     And he is on the user sign in page
     When he follows "Forgot your password?" within actions
@@ -23,6 +24,7 @@ Feature: User recover password
     Then he should see notice message "Signed in successfully."
     And user should be redirected back to the home page
 
+  @wip
   Scenario: User tries to recover password with invalid token
     And he is on the user sign in page
     When he follows "Forgot your password?" within actions
@@ -31,6 +33,7 @@ Feature: User recover password
     And he submits new password and valid confirm it
     Then he should see field error "Reset password token is invalid"
 
+  @wip
   Scenario: User submit invalid email
     And he is on the user sign in page
     When he follows "Forgot your password?" within actions
