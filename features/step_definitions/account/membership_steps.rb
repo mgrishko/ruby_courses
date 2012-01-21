@@ -116,6 +116,19 @@ Then /^user should receive an invitation email (.*) password$/ do |with_text|
   end
 end
 
+Then /^he sends an account invitation$/ do
+  steps %Q{
+    Given admin is on the account memberships page
+    When he follows "Invite a new member" within sidemenu
+    And he submits the account invitation form with:
+      | First name |
+      | Last name  |
+      | Email |
+      | Role  |
+      | Invitation note |
+  }
+end
+
 Then /^he should see that email (.*)$/ do |message|
   page.find("#membership_user_attributes_email").find(:xpath, ".//..").find("span", text: message)
 end

@@ -6,10 +6,15 @@ Then /^he should see "([^"]*)" event$/ do |txt|
   page.should have_selector("span", text: txt)
 end
 
+Then /^he should see new product event$/ do
+  product = @account.products.first
+  page.should have_selector("span", text: "New")
+  page.should have_selector("td", text: product.functional_name)
+end
+
 Then /^he deletes the comment$/ do
-  steps %Q{
-    When he is on the product page
-  }
+  steps "When he is on the product page"
+
   within("div.links") do
     click_link("Delete")
   end

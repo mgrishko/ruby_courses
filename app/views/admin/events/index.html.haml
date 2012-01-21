@@ -1,0 +1,9 @@
+= title t('.title'), page_title: false
+
+%table
+  - @events.each do |e|
+    %tr
+      %td.subdomain= e.account_subdomain
+      %td.action= e.action_label
+      %td= e.trackable_name
+      %td.desc= e.description

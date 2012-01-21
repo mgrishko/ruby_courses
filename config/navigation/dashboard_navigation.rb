@@ -53,7 +53,8 @@ SimpleNavigation::Configuration.run do |navigation|
     #
 
     primary.item :accounts, t('navigation.accounts.list'), admin_accounts_url
-
+    primary.item :events, t('navigation.events.list'), admin_events_url
+    
     # Example configuration:
     #primary.item :key_1, 'name', url, options
     #

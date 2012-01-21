@@ -9,6 +9,11 @@ describe MainController do
     end
   end
 
+  # Clears stored current membership in the current thread
+  before(:each) do
+    Membership.current = nil
+  end
+
   describe "subdomain" do
     context "#{Settings.app_subdomain}" do
       with_subdomain Settings.app_subdomain
@@ -78,5 +83,22 @@ describe MainController do
       end
     end
   end
-
+  
+  describe "current membership" do
+    context "when user is signed in" do
+      login_account_as :viewer
+      
+      it "should set Membership.current" do
+        get :index
+        Membership.current.should_not be_nil
+      end
+    end
+    
+    context "when user is not signed in" do
+      it "should not set Membership.current" do
+        get :index
+        Membership.current.should be_nil
+      end
+    end
+  end
 end
