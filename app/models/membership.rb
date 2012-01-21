@@ -1,6 +1,7 @@
 class Membership
   include Mongoid::Document
   include Mongoid::Paranoia
+  include Mongoid::Trackable
 
   ROLES = %w(admin editor contributor viewer)
 
@@ -45,7 +46,24 @@ class Membership
     account.owner == self.user
     #!(self.new_record?) ? (account.owner == self.user) : nil
   end
-
+  
+  def self.current
+    Thread.current[:membership]
+  end
+  
+  def self.current=(membership)
+    Thread.current[:membership] = membership
+  end
+  
+  # @return [String] membership user name
+  def name
+    if self.invited_by.nil?
+      user.full_name
+    else
+      I18n.t("memberships.defaults.invited", user_name: user.full_name)
+    end
+  end
+  
   protected
 
   # It finds or creates user with given email.

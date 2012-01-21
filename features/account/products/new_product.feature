@@ -33,6 +33,7 @@ Feature: New product
     When he goes to the new product page
     Then he should see alert message "Not allowed to create a new product."
 
+  @wip
   Scenario: Editor successfully adds a new product with measurements
     Given an authenticated user with editor role
     And he is on the new product page
@@ -45,6 +46,7 @@ Feature: New product
       | Net content       |
       | Net content unit  |
     And he submits a new product form
+    Then show me the page
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
 

@@ -6,6 +6,16 @@ When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   within(".#{scope}") { click_on(link) }
 end
 
+Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
+  within(".#{scope}") do
+    page.should have_content(content)
+  end
+end
+
+Then /^he should not see tags$/ do
+  page.should_not have_selector(".token-input-token-goodsmaster")
+end
+
 Then /^he should(.*) see "([^"]*)" link within (.*)$/ do |should, link, context|
   selector = page.has_selector?(context) ? context : ".#{context}"
 

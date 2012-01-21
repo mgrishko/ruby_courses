@@ -73,11 +73,61 @@ When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocompl
   ")
 end
 
+When /^he selects "([^"]*)" multi autocomplete option$/ do |option|
+  # Select the option in the dropdown
+  execute_script("
+    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
+      if ($(this).text() == '#{option}') {
+        var e = $.Event('mousedown', { target: $(this).children().get(0) });
+        $('.token-input-dropdown-goodsmaster ul').trigger(e);
+      }
+    });
+  ")
+end
+
+When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  field_id = field[:id]
+  
+  execute_script "$('input##{field_id}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  execute_script "$('input##{field_id}').trigger('keydown')"
+end
+
+Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
+  opts = options.split(",").collect{ |o| o.strip }
+  
+  opts.each do |option|
+    if should.strip == "not"
+      page.should_not have_content(option)
+    else
+      page.should have_content(option)
+    end
+  end
+end
+
+When /^he selects the first autocomplete option in "([^"]*)" field$/ do |locator|
+  field = find(:xpath, XPath::HTML.fillable_field(locator))
+  field_id = field[:id]
+  
+  execute_script "$('input##{field_id}').trigger('keydown')"
+  execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
+end
+
+When /^he enters "([^"]*)" into Tags field$/ do |text|
+  # Enter text into text field
+  execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  # Trigger keydown to open the dropdown
+  execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  sleep(2)
+end
+
 Given /^the product has tags "([^"]*)"$/ do |tags|
   tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
 When /^he deletes tags$/ do
+  wait
   execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
@@ -354,11 +404,7 @@ Then /^he should not see product tags "([^"]*)"$/ do |tags|
 end
 
 Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  if field == "tags"
-    within(:css, "ul.product-#{field}") { page.should have_content(value) }
-  else
-    within(:css, "p.product-#{field}") { page.should have_content(value) }
-  end
+  within(:css, "section.content") { page.should have_content(value) }
 end
 
 # Functions

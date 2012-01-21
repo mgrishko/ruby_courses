@@ -3,6 +3,7 @@ class Event
   include Mongoid::Timestamps::Created
   
   ACTION_NAMES = %w(create update destroy)
+  ADMIN_ONLY_TRACKABLE_CLASSES = %w(Account Membership)
   
   field :action_name, type: String
   field :name, type: String
@@ -20,6 +21,8 @@ class Event
   validates :action_name, presence: true, inclusion: { in: ACTION_NAMES }
 
   before_validation :prepare_event
+  
+  default_scope where(:eventable_type.nin => ADMIN_ONLY_TRACKABLE_CLASSES)
 
   # Checks if event has a specific action name.
   #

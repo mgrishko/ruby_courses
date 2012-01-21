@@ -28,16 +28,23 @@ describe Membership do
   it { should allow_mass_assignment_of(:invitation_note) }
   it { should ensure_length_of(:invitation_note).is_at_most(1000) }
 
-  it "should belongs to user" do
+  it "should belong to user" do
     user = Fabricate(:user)
     membership = Fabricate(:membership, user: user)
     membership.user.should eql(user)
   end
 
-  it "should belongs to invited_by" do
+  it "should belong to invited_by" do
     invited_user = Fabricate(:user)
     membership = Fabricate(:membership, invited_by: invited_user)
     membership.invited_by.should eql(invited_user)
+  end
+  
+  it "should have current membership" do
+    user = Fabricate(:user)
+    membership = Fabricate(:membership, user: user)
+    Membership.current = membership
+    Membership.current.should == membership
   end
 
   describe "callbacks" do
@@ -169,6 +176,17 @@ describe Membership do
     it "returns false if not owner" do
       membership.account.owner = Fabricate(:user)
       membership.should_not be_owner
+    end
+  end
+  
+  describe "callbacks" do
+    it "returns user name if not invited" do
+      membership.invited_by = nil
+      membership.name.should == membership.user.full_name
+    end
+    
+    it "returns user name if invited" do
+      membership.name.should == membership.user.full_name + " invited"
     end
   end
 end
