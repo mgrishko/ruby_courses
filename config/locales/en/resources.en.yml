@@ -28,15 +28,21 @@ en:
   admin:
     accounts:
       defaults: &ADMIN_ACCOUNT_DEFAULTS
+        about_company: "About company"
         activate: "Activate"
-        login_as_owner: "Login as account owner"
         company: "Company"
         country: "Country"
+        created_at: "Created at"
+        login_as_owner: "Login as account owner"
+        owner: "Owner"
+        signin_ip: "Sign in IP-address"
         state: "State"
         states:
           active: "Active"
           pending: "Awaiting activation"
         subdomain: "Subdomain"
+        time_zone: "Time zone"
+        website: "Website"
       index:
         title: "Listing accounts"
         <<: *ADMIN_ACCOUNT_DEFAULTS
@@ -114,7 +120,7 @@ en:
       users: "All People"
     accounts:
       menu_title: "Accounts"
-      list: "Account list"
+      list: "Accounts"
     events:
       menu_title: "Events"
       list: "Events"

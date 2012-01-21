@@ -1,5 +1,6 @@
 class Account
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::Trackable
 
   SUBDOMAIN_BLACKLIST = %w(admin api app beta blog community dashboard demo feedback fuck help login mail

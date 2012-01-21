@@ -60,6 +60,9 @@ describe Account do
   it { should ensure_length_of(:about_company).is_at_most(250) }
   it { should allow_mass_assignment_of(:about_company) }
 
+  it { should respond_to(:created_at) }
+  it { should respond_to(:updated_at) }
+
   context "uniqueness validation" do
     before(:each) { Fabricate(:account, subdomain: "taken") }
 
