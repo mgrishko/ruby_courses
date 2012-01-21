@@ -84,6 +84,10 @@ describe Account do
     event = account.events.build
     event.account.should eql(account)
   end
+  
+  it "should have name" do
+    account.name.should == account.subdomain
+  end
 
   describe "default values" do
     before(:each) do

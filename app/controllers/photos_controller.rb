@@ -38,6 +38,6 @@ class PhotosController < MainController
   
   # Logs photo creation
   def log_event
-    @product.log_event(current_membership, action_name, @photo) if @photo.errors.empty?
+    @product.log_event(action_name, @photo) if @photo.errors.empty?
   end
 end

@@ -56,6 +56,8 @@ GoodsMaster::Application.routes.draw do
             get :activate, on: :member
             get :login_as_owner, on: :member
           end
+          
+          resources :events, only: :index
 
           get '/' => 'dashboard#index', as: :dashboard
           root :to => 'dashboard#index', as: :root
