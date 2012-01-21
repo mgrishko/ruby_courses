@@ -11,6 +11,8 @@
     = f.input :country
     = f.input :subdomain
     = f.input :time_zone
+    = f.input :website
+    = f.input :about_company, as: :text
 
   .actions
     = f.button :submit, t("update"), class: "primary"

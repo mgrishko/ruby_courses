@@ -7,7 +7,9 @@ class Account
 
   field :subdomain, type: String
   field :company_name, type: String
+  field :about_company, type: String
   field :country, type: String
+  field :website, type: String
   field :time_zone, type: String
   field :locale, type: String, default: "en"
 
@@ -29,8 +31,10 @@ class Account
   validates :company_name, presence: true, length: { maximum: 50 }
   validates :country, presence: true, inclusion: { in: Carmen.country_codes }
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys }
+  validates :website, length: 0..50
+  validates :about_company, length: 0..250
 
-  attr_accessible :subdomain, :company_name, :country, :time_zone, :locale
+  attr_accessible :subdomain, :company_name, :country, :time_zone, :locale, :website, :about_company
 
   state_machine :state, initial: :pending do
     event :activate do

@@ -13,6 +13,8 @@
       = n.input :company_name
       = n.input :country
       = n.input :subdomain
+      = n.input :website
+      = n.input :about_company, as: :text
   .actions
     = f.button :submit, t('.create_account'), class: 'success large'
 

@@ -52,6 +52,14 @@ describe Account do
   it { should validate_presence_of(:owner) }
   it { should_not allow_mass_assignment_of(:owner) }
 
+  it { should_not validate_presence_of(:website) }
+  it { should ensure_length_of(:website).is_at_most(50) }
+  it { should allow_mass_assignment_of(:website) }
+
+  it { should_not validate_presence_of(:about_company) }
+  it { should ensure_length_of(:about_company).is_at_most(250) }
+  it { should allow_mass_assignment_of(:about_company) }
+
   context "uniqueness validation" do
     before(:each) { Fabricate(:account, subdomain: "taken") }
 
