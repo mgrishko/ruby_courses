@@ -13,6 +13,7 @@ module ApplicationHelper
     end
   end
 
+  # Sets SSO parameters for current user (id, email, short_name)
   def user_voice_widget
     if current_user
       raw uservoice_config_javascript(:sso => { :guid         => current_user.id,

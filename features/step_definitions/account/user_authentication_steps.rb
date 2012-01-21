@@ -23,7 +23,7 @@ Given /^an authenticated user with role (.*)$/ do |role|
 
   @membership = Fabricate("#{role}_membership".to_sym, account: @account)
 
-  visit(new_user_session_url(subdomain: @account.subdomain))
+  visit(new_user_session_url(port: Capybara.server_port, subdomain: @account.subdomain))
   fill_in "Email", with: @membership.user.email
   fill_in "Password", with: @membership.user.password
   click_button "Sign in"

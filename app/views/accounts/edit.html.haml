@@ -3,12 +3,12 @@
 -#- content_for(:sidebar) do
 -#  = link_to t("back"), :back
 
-= simple_form_for(@account, url: account_url, wrapper: :inline, html: { method: :put }) do |f|
+= simple_form_for(@account, url: account_url, validate: true, wrapper: :inline, html: { id: "edit_account", method: :put }) do |f|
   = f.error_notification
 
   .inputs
     = f.input :company_name, autofocus: true
-    = f.input :country
+    = f.input :country, include_blank: false
     = f.input :subdomain
     = f.input :time_zone
     = f.input :website
