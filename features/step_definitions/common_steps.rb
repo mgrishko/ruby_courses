@@ -81,7 +81,7 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   input_names = inputs.split(",").collect{ |l| l.strip }
   input_names.each { |name| fill_in(name, with: value) }
   
-  sleep(1)
+  wait
   
   input_names.each do |name|
     within(find_field_parent(name)) do
@@ -97,7 +97,7 @@ end
 Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
   fill_in(input, with: value)
   
-  sleep(1)
+  wait
   
   input_names = inputs.split(",").collect{ |l| l.strip }
   
@@ -112,9 +112,13 @@ end
 
 # Functions
 
+def wait
+  sleep(0.1)
+end
+
 def execute_script(js)
   page.driver.browser.execute_script(js)
-  sleep(1)
+  wait
 end
 
 def find_field(locator)
