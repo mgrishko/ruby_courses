@@ -4,7 +4,6 @@ class User
   field :first_name, type: String
   field :last_name, type: String
   field :time_zone, type: String
-  field :country, type: String
   field :locale, type: String, default: "en"
 
   has_many :accounts, foreign_key: :owner_id, autosave: true
