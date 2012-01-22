@@ -8,10 +8,8 @@ GoodsMaster::Application.routes.draw do
 
       # Routes signup and acknowledgement routes only under app subdomain
       constraints(subdomain: Settings.app_subdomain) do
-      scope subdomain: Settings.app_subdomain do
         devise_for :users, controllers: { passwords: "users/passwords" },
           skip: [:registrations, :sessions, :invitations]
-      end
         get "/signup"  => "users/registrations#new",       as: :new_user_registration
         post "/signup" => "users/registrations#create",    as: :user_registration
         get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
