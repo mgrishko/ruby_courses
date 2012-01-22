@@ -5,6 +5,8 @@ Fabricator(:account) do
   country         { "US" }
   locale        "en"
   time_zone     "Moscow"
+  website       "http://www.website.ru"
+  about_company { Faker::Lorem.sentence }
 end
 
 Fabricator(:active_account, from: :account) do

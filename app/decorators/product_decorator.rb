@@ -41,7 +41,7 @@ class ProductDecorator < ApplicationDecorator
   def self.measure_value_label(measurement, attribute, opts = {})
     opts = opts.with_indifferent_access
     label = I18n.t("helpers.label.#{measurement.class.name.underscore}.#{attribute}")
-    opts[:show_unit] || !opts.has_key?(:show_unit) ? "#{label} (#{I18n.t("units.short.#{measurement.unit}")})": label
+    opts[:show_unit] || !opts.has_key?(:show_unit) ? "#{label}, #{I18n.t("units.short.#{measurement.unit}")}": label
   end
 
   # Returns html code for a link to a specific product version.
@@ -161,13 +161,13 @@ class ProductDecorator < ApplicationDecorator
 
   # @return [String] title of the product for products index
   def title
-    [[product.brand, product.sub_brand, product.variant].compact.map(&:strip).join(" "),
-    self.content(:value)].compact.map(&:strip).join(", ")
+    [[product.brand, product.sub_brand, product.variant].reject(&:blank?).map(&:strip).join(" "),
+    self.content(:value)].reject(&:blank?).map(&:strip).join(", ")
   end
 
   # @return [String] product manufacturer and country of origin
   def item_label
-    [product.manufacturer, self.country_of_origin].compact.join(", ")
+    [product.manufacturer, self.country_of_origin].reject(&:blank?).map(&:strip).join(", ")
   end
 
   private

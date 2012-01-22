@@ -30,45 +30,45 @@
 
 %article
   %header
-    .row
+    .row.tr
       = render "attribute", value: @product_version.brand, name: t(".brand")
       = render "attribute", value: @product_version.sub_brand, name: t(".sub_brand")
       = render "attribute", value: @product_version.content(:value), name: t(".net_content")
 
-  .row
+  .row.tr
     = render "attribute", value: @product_version.functional_name, name: t(".functional_name")
     = render "attribute", value: @product_version.variant, name: t(".variant")
 
-  .row
+  .row.tr
     = render "attribute", value: @product_version.manufacturer, name: t(".manufacturer")
     = render "attribute", value: @product_version.country_of_origin, name: t(".country_of_origin")
 
   - if @product_version.dimension(:height).present?
-    .row
+    .row.tr
       = render "attribute", value: @product_version.dimension(:height), name: t(".height")
       = render "attribute", value: @product_version.dimension(:width), name: t(".width")
       = render "attribute", value: @product_version.dimension(:depth), name: t(".depth")
 
   - if @product_version.weight(:gross).present?
-    .row
+    .row.tr
       = render "attribute", value: @product_version.weight(:net), name: t(".net_weight")
       = render "attribute", value: @product_version.weight(:gross), name: t(".gross_weight")
 
-  .row
+  .row.tr
     .attr_text
       %p= @product_version.short_description
       = simple_format @product_version.description
 
 %section#comments
   %header
-    .row
+    .row.tr
       .attr_val= t(".comments")
 
 
   #comments_list
     = render partial: "comments/comment", collection: @comments
 
-  .row
+  .row.tr
     .attr_text
       - if can? :create, Comment
         = render "comments/form", commentable: @product.model

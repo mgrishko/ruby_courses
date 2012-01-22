@@ -58,7 +58,6 @@ end
 When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
-  
   execute_script "$('input##{field_id}').trigger('focus')"
   page.fill_in(locator, with: text)
   execute_script "$('input##{field_id}').trigger('keydown')"
@@ -66,7 +65,7 @@ end
 
 Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
   opts = options.split(",").collect{ |o| o.strip }
-  
+
   opts.each do |option|
     if should.strip == "not"
       page.should_not have_content(option)
@@ -79,7 +78,7 @@ end
 When /^he selects the first autocomplete option in "([^"]*)" field$/ do |locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
-  
+
   execute_script "$('input##{field_id}').trigger('keydown')"
   execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
 end
@@ -374,28 +373,12 @@ Then /^he should see that comment body (.*)$/ do |text|
   page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
-Then /^he should not see validation errors in new product form$/ do
-  within("form#new_product") { page.should_not have_content("can't be blank") }
-end
-
-Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
-  should_have_validation_error = !(should.strip == "not")
-
-  if should_have_validation_error
-    field = find(:xpath, XPath::HTML.fillable_field(locator))
-    within("form#new_product") { page.should_not have_content("can't be blank") }
-    execute_script("$('##{field[:id]}').blur()")
-
-    within("form#new_product") { page.should have_content("can't be blank") }
-    fill_in(locator, with: "something")
-    execute_script("$('##{field[:id]}').blur()")
-  end
-
-  within("form#new_product") { page.should_not have_content("can't be blank") }
+Then /^he should not see validation errors in "([^"]*)" form$/ do |form|
+  within("form##{form}") { page.should_not have_content("can't be blank") }
 end
 
 Then /^he should not see product tags "([^"]*)"$/ do |tags|
-  tags.split(",").each do |tag| 
+  tags.split(",").each do |tag|
     within(:css, "ul.product-tags") { page.should_not have_content(tag) }
   end
 end

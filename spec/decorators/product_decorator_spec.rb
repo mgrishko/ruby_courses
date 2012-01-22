@@ -189,7 +189,7 @@ describe ProductDecorator do
   describe "#measure_value_label" do
     it "returns measurement name with unit by default" do
       measurement = Fabricate.build(:dimension, unit: "MM")
-      ProductDecorator.measure_value_label(measurement, :height).should == "Height (mm)"
+      ProductDecorator.measure_value_label(measurement, :height).should == "Height, mm"
     end
 
     it "returns measurement name without unit" do

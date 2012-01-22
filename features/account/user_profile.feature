@@ -34,3 +34,13 @@ Feature: Edit profile
     Then he should be redirected to the user sign in page
     When user submits email and new password
     Then user should see notice message "Signed in successfully."
+
+  @javascript
+  Scenario: Authenticated user successfully edits profile
+    Given an authenticated user with viewer role
+    And he is on the user profile page
+    Then he should not see validation errors in "user_edit" form
+    And he should see error in "user_edit" for "First name" if text field empty
+    And he should see error in "user_edit" for "Last name" if text field empty
+    And he should see error in "user_edit" for "Email" if text field empty
+    And he should see error in "user_edit" for "Time zone" if select field empty

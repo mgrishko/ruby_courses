@@ -2,10 +2,6 @@ Given /^account with memberships$/ do
   @account = Fabricate(:account_with_memberships)
 end
 
-Given /^active account$/ do
-  @account = Fabricate(:active_account)
-end
-
 Given /^account with another admin$/ do
   @account = Fabricate(:account_with_another_admin)
 end
