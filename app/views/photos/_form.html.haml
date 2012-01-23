@@ -1,6 +1,5 @@
 - if can? :create, Photo
   = form_for([@product, @photo], html: {:multipart => true}, remote: true) do |f|
-
     .upload
       .error
         %span.help-inline= @photo.errors.collect { |key, value| value }.select { |v| v != I18n.t('errors.messages.blank') }.to_sentence

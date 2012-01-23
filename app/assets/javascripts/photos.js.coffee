@@ -5,7 +5,7 @@
 $.namespace("GoodsMaster.photos")
 
 GoodsMaster.photos.init = ->
-  $form = $("#new_photo")
+  $form = $(".new_photo, .edit_photo")
   
   $form.live 'ajax:error', ()->
     $form.find("a").show()
@@ -15,7 +15,7 @@ GoodsMaster.photos.init = ->
     valid = true
     errorMessages = []
     
-    if !/(\.bmp|\.gif|\.jpg|\.jpeg)$/i.test(this.value)
+    if !/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i.test(this.value)
       valid = false
       errorMessages.push("invalid image file type")
     
@@ -23,7 +23,7 @@ GoodsMaster.photos.init = ->
       file = this.files[0]
       if file.size > (1024 * 1024)
         valid = false
-        msg = I18n.t("errors.messages.size_too_big", {file_size: "1MB"})
+        msg = I18n.t("errors.messages.size_too_big", { file_size: "1MB" })
         errorMessages.push(msg)
     
     if valid

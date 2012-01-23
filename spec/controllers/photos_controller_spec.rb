@@ -26,14 +26,6 @@ describe PhotosController do
         post :create, product_id: @product.id, :photo => valid_attributes, format: :js
         response.should render_template("create")
       end
-      
-      it "logs create event" do
-        Photo.any_instance.stub_chain(:errors, "empty?".to_sym).and_return(true)
-        Photo.any_instance.stub(:save).and_return(true)
-        
-        Product.any_instance.should_receive(:log_event)
-        post :create, product_id: @product.id, :photo => valid_attributes, format: :js
-      end
     end
 
     describe "with invalid params" do
@@ -86,7 +78,7 @@ describe PhotosController do
         delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
       }.to change(Event, :count).by(1)
       
-      event = Event.desc(:created_at).first
+      event = Event.last
       event.action_name.should == "destroy"
       event.trackable eq(@photo)
     end
