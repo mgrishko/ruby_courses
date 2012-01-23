@@ -15,7 +15,6 @@ describe Photo do
   describe "uploader" do
     before(:each) do
       MiniMagick::Image.stub!(:open).and_return(100)
-
       @product = Fabricate(:product)
     end
 
@@ -34,6 +33,25 @@ describe Photo do
         photo.save!
         photo.image.current_path.should ==
             (Rails.public_path + "/system/uploads/test/test/photo/#{photo.id}/image.jpg")
+      end
+    end
+    
+    context "when file is not an image" do
+      it "should not save photo file" do
+        @product = Fabricate(:product)
+        photo = @product.photos.build
+        photo.image = MiniMagick::Image.new(File.join(Rails.root, '/spec/fabricators/image.txt'))
+        photo.save.should be_false
+      end
+    end
+    
+    context "when file is too big" do
+      it "should not save photo file" do
+        @product = Fabricate(:product)
+        photo = @product.photos.build
+        photo.image = MiniMagick::Image.new(File.join(Rails.root, '/spec/fabricators/image.jpg'))
+        photo.image.stub(:size).and_return(2 * 1024 * 1024)
+        photo.save.should be_false
       end
     end
   end

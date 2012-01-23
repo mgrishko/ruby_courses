@@ -9,6 +9,7 @@ class PhotosController < MainController
   def create
     #@photo = Photo.new(params[:photo]) # loaded by cancan
     @photo.save
+
     @photo = PhotoDecorator.decorate(@photo)
     respond_with(@photo) do |format|
       format.html { redirect_to @product }
