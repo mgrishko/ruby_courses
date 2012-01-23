@@ -23,7 +23,7 @@
 
       = p.simple_fields_for :contents, wrapper: :inline do |c|
         = c.input :value, label: ProductDecorator.measure_value_label(c.object, :value, show_unit: false), required: false
-        = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false
+        = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false, include_blank: false
 
     = f.input :gtin
     = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
