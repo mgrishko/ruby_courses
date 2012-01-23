@@ -17,4 +17,3 @@ Given /^another active account$/ do
 
   set_current_subdomain(@account.subdomain)
 end
-

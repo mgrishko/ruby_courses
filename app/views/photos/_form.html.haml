@@ -3,7 +3,7 @@
 
     .upload
       .error
-        %span.help-inline= @photo.errors.collect { |key, value| value }.to_sentence
+        %span.help-inline= @photo.errors.collect { |key, value| value }.select { |v| v != I18n.t('errors.messages.blank') }.to_sentence
       .file
         = f.file_field :image
       .link

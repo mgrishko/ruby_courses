@@ -1,10 +1,12 @@
 Fabricator(:account) do
   owner!          { Fabricate(:user) }
-  subdomain       { Faker::Internet.domain_word[0..20] }
+  subdomain       { "#{Faker::Internet.domain_word[0..20]}#{SecureRandom.hex(5)}" }
   company_name    { Faker::Company.name }
   country         { "US" }
   locale        "en"
   time_zone     "Moscow"
+  website       "http://www.website.ru"
+  about_company { Faker::Lorem.sentence }
 end
 
 Fabricator(:active_account, from: :account) do

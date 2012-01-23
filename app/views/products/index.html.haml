@@ -6,11 +6,11 @@
 - ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
   %article
     %header
-      .row
+      .row.tr
         .attr_val= functional
 
     - products.each_slice(2) do |items|
-      .row
+      .row.tr
         - items.each do |product|
           = render product
 

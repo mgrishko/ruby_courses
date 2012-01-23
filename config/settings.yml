@@ -1,5 +1,6 @@
 defaults: &defaults
   project_name: "GoodsMaster"
+  copyright: "Goods Master Inc."
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
 
@@ -11,6 +12,7 @@ defaults: &defaults
     feedback: "http://feedback.goodsmasterhq.com"
   events:
     recent_max_count: 50
+    recent_max_count_for_admin: 50
     collapse_timeframe: 60
 
   tags:

@@ -35,10 +35,13 @@ class ProductDecorator < ApplicationDecorator
   #
   # @param [Dimension|Weight|Content] measurement object.
   # @param [Symbol] attribute name
+  # @param [Hash] opts label options
+  # @option [Symbol] :show_unit show or not measurement unit, true by default
   # @return [String] measurement value label.
-  def self.measure_value_label(measurement, attribute)
+  def self.measure_value_label(measurement, attribute, opts = {})
+    opts = opts.with_indifferent_access
     label = I18n.t("helpers.label.#{measurement.class.name.underscore}.#{attribute}")
-    measurement.unit.blank? ? label : "#{label} (#{I18n.t("units.short.#{measurement.unit}")})"
+    opts[:show_unit] || !opts.has_key?(:show_unit) ? "#{label}, #{I18n.t("units.short.#{measurement.unit}")}": label
   end
 
   # Returns html code for a link to a specific product version.
@@ -104,9 +107,9 @@ class ProductDecorator < ApplicationDecorator
     self.product.tap do |a|
       # Building package
       package = a.packages.empty? ? a.packages.build : a.packages.first
-      package.dimensions.find_or_initialize_by(unit: "MM")
-      package.weights.find_or_initialize_by(unit: "GR")
-      package.contents.find_or_initialize_by(unit: "ML")
+      package.dimensions.find_or_initialize_by(unit: "MM") if package.dimensions.empty?
+      package.weights.find_or_initialize_by(unit: "GR") if package.weights.empty?
+      package.contents.build if package.contents.empty?
 
       # Building product codes
       build_product_codes(a)
@@ -158,13 +161,13 @@ class ProductDecorator < ApplicationDecorator
 
   # @return [String] title of the product for products index
   def title
-    [[product.brand, product.sub_brand, product.variant].compact.join(" "),
-     self.content(:value)].compact.join(", ")
+    [[product.brand, product.sub_brand, product.variant].reject(&:blank?).map(&:strip).join(" "),
+    self.content(:value)].reject(&:blank?).map(&:strip).join(", ")
   end
 
   # @return [String] product manufacturer and country of origin
   def item_label
-    [product.manufacturer, self.country_of_origin].compact.join(", ")
+    [product.manufacturer, self.country_of_origin].reject(&:blank?).map(&:strip).join(", ")
   end
 
   private

@@ -87,7 +87,7 @@ section.main {
   }
 }
 
-.row {
+.tr {
   @extend .span14;
   margin: 0 0 15px 0;
 }
@@ -110,14 +110,14 @@ section.main {
   line-height: 1;
 }
 
-header .row .attr_val {
+header .tr .attr_val {
   font-weight: bold;
   font-size: 2.3em;
   line-height: 1;
 }
 
 .index {
-  header .row {
+  header .row.tr {
     margin: 0 0 10px 0;
     border-bottom: 1px solid $splitter_color;
     .attr_val {

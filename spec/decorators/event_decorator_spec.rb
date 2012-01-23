@@ -7,7 +7,25 @@ describe EventDecorator do
     @product = Fabricate(:product)
     @user = Fabricate(:user)
   end
-
+  
+  describe "decorates" do
+    it "#account_subdomain" do
+      event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @product)
+      decorator = EventDecorator.decorate(event)
+      decorator.account_subdomain.should == event.account.subdomain
+    end
+    
+    it "trackable_name" do
+      product_decorator = ProductDecorator.decorate(@product)
+      ProductDecorator.stub(:decorate).and_return(product_decorator)
+      product_decorator.h.stub(:can?).and_return(true)
+      
+      event = Fabricate(:event, action_name: "create", trackable: @product, eventable: @product)
+      decorator = EventDecorator.decorate(event)
+      decorator.trackable_name.should == event.name
+    end
+  end
+  
   describe "#action_label" do
     context "when product" do
       specify "added" do

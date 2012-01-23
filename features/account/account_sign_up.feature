@@ -15,6 +15,8 @@ Feature: Account sign up
       | Company   |
       | Country   |
       | Subdomain |
+      | Website   |
+      | A few words about your company |
     And he submits the sign up form
     # Delayed account activation steps:
     Then he should be redirected to the signup acknowledgement page
@@ -25,3 +27,17 @@ Feature: Account sign up
     When he submits sign up form with taken subdomain
     Then he should be redirected back to the sign up page
     And he should see that subdomain is already taken
+
+  @javascript
+  Scenario: Non registered user sign up a new company account
+    Given company representative is on the new account sign up page
+    Then he should not see validation errors in "user_new" form
+    And he should see error in "user_new" for "First name" if text field empty
+    And he should see error in "user_new" for "Last name" if text field empty
+    And he should see error in "user_new" for "Email" if text field empty
+    And he should see error in "user_new" for "Password" if text field empty
+    And he should see error in "user_new" for "Time zone" if select field empty
+    And he should see error in "user_new" for "Company" if text field empty
+    And he should see error in "user_new" for "Subdomain" if text field empty
+    And he should not see error in "user_new" for "Website" if text field empty
+    And he should not see error in "user_new" for "A few words about your company" if text field empty

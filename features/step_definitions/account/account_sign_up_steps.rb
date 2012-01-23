@@ -1,5 +1,5 @@
 Given /^company representative is on the new account sign up page$/ do
-  visit(new_user_registration_url(subdomain: Settings.app_subdomain))
+  visit(new_user_registration_url(port: Capybara.server_port, subdomain: Settings.app_subdomain))
 end
 
 When /^(?:[^\s]* )fills? out the sign up form with following (.*) data:$/ do |data_type, table|
@@ -19,7 +19,7 @@ When /^he submits sign up form with taken subdomain$/ do
 end
 
 Then /^he should be redirected back to the sign up page$/ do
-  current_url.should == new_user_registration_url(subdomain: Settings.app_subdomain)
+  extract_port(current_url).should == new_user_registration_url(subdomain: Settings.app_subdomain)
 end
 
 Then /^he should see that subdomain (.*)$/ do |message|
@@ -44,6 +44,8 @@ def fill_out_signup_form(data_type, form_fields)
         select Carmen.country_name(attributes[attr]), from: field
       when :company
         fill_in field, with: attributes[:company_name]
+      when :a_few_words_about_your_company
+        fill_in field, with: attributes[:about_company]
       else
         fill_in field, with: attributes[attr]
     end

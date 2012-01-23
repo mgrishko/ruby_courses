@@ -2,10 +2,6 @@ Given /^account with memberships$/ do
   @account = Fabricate(:account_with_memberships)
 end
 
-Given /^active account$/ do
-  @account = Fabricate(:active_account)
-end
-
 Given /^account with another admin$/ do
   @account = Fabricate(:account_with_another_admin)
 end
@@ -118,6 +114,19 @@ Then /^user should receive an invitation email (.*) password$/ do |with_text|
   else
     open_email(email_address)
   end
+end
+
+Then /^he sends an account invitation$/ do
+  steps %Q{
+    Given admin is on the account memberships page
+    When he follows "Invite a new member" within sidemenu
+    And he submits the account invitation form with:
+      | First name |
+      | Last name  |
+      | Email |
+      | Role  |
+      | Invitation note |
+  }
 end
 
 Then /^he should see that email (.*)$/ do |message|

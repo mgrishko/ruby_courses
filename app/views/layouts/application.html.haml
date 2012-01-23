@@ -28,7 +28,7 @@
       %section.content
 
         - if content_for?(:page_title)
-          %header
+          %header.page-header
             %h1= yield(:page_title)
 
         = yield

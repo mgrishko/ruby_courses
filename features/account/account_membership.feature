@@ -2,7 +2,7 @@ Feature: Account membership management
   In order to control which users have access to an account
   An account admin
   Should be able to manage the account membership
-  
+
   Scenario: Admin user navigate to account memberships
     Given account with memberships
     And an authenticated user with admin role
@@ -12,8 +12,8 @@ Feature: Account membership management
 
   Scenario: Non-admin can't view the account users
     Given account with memberships
-  	And an authenticated user with editor role
-	  Then he should not see account users menu link
+    And an authenticated user with editor role
+    Then he should not see account users menu link
     When he tries to visit account memberships page
     Then he should see alert message "not authorized"
 
@@ -25,7 +25,7 @@ Feature: Account membership management
     Then he should see notice message "was successfully deleted"
 
   Scenario: Admin user can't delete the account owner from an account
-    Given active account
+    Given an activated account
     And an authenticated user with admin role
     And he is on the account memberships page
     Then he should not be able to delete the account owner

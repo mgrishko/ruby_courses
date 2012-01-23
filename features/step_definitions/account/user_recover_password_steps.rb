@@ -42,7 +42,7 @@ Then /^he shouldn't receive an email with reset password instructions$/ do
 end
 
 When /^he goes to the password edit page with invalid token$/ do
-  visit(edit_user_password_url(port: Capybara.server_port, subdomain: Settings.app_subdomain,
+  visit(edit_user_password_url(subdomain: Settings.app_subdomain,
                                reset_password_token: "invalid_token"))
 end
 

@@ -1,9 +1,18 @@
 class MainController < ApplicationController
+  # Should be the first filter, otherwise Membership.current
+  # will have non-nil value after signout
+  before_filter :set_current_membership
+  
   before_filter :validate_subdomain
   before_filter :authenticate_user!, if: :current_account?
   before_filter :validate_account_membership!
 
   private
+  
+  # Stores current membership so it can be fetched from all classes in the app
+  def set_current_membership
+    Membership.current = current_membership
+  end
 
   # Redirects to sign in page if user is not a member of the current accound
   # and stores requested page url in the session so user could be redirected

@@ -23,7 +23,7 @@
         #flash= render :partial => 'layouts/partials/flash', :object => flash
 
         - if content_for?(:page_title)
-          %header
+          %header.page-header
             %h1= yield(:page_title)
 
         = yield

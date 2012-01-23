@@ -187,14 +187,14 @@ describe ProductDecorator do
   end
 
   describe "#measure_value_label" do
-    it "returns measurement name with unit" do
+    it "returns measurement name with unit by default" do
       measurement = Fabricate.build(:dimension, unit: "MM")
-      ProductDecorator.measure_value_label(measurement, :height).should == "Height (mm)"
+      ProductDecorator.measure_value_label(measurement, :height).should == "Height, mm"
     end
 
     it "returns measurement name without unit" do
-      measurement = Fabricate.build(:content, unit: nil)
-      ProductDecorator.measure_value_label(measurement, :value).should == "Net content"
+      measurement = Fabricate.build(:content, unit: "ML")
+      ProductDecorator.measure_value_label(measurement, :value, show_unit: false).should == "Net content"
     end
   end
 
@@ -222,9 +222,19 @@ describe ProductDecorator do
 
   describe "#title" do
     context "when net content presents" do
-      it "should concat brand, sub brand, variant and net content" do
+      before(:each) do
         @package = @product.packages.build
         @package.contents.new Fabricate.attributes_for(:content, value: 300, unit: "ML")
+      end
+
+      it "should concat brand, sub brand, variant and net content" do
+        decorator = ProductDecorator.decorate(@product)
+        decorator.title.should == "Brand Sub Brand Variant, 300 ml"
+      end
+
+      it "should strip parts" do
+        @product.sub_brand = "  Sub Brand  "
+        @product.variant = "  Variant  "
         decorator = ProductDecorator.decorate(@product)
         decorator.title.should == "Brand Sub Brand Variant, 300 ml"
       end

@@ -7,7 +7,7 @@
     = f.input :brand, as: :autocomplete
     = f.input :sub_brand
     = f.input :manufacturer, as: :autocomplete
-    = f.input :country_of_origin
+    = f.input :country_of_origin, include_blank: false
 
     = f.simple_fields_for :packages, wrapper: :inline, :validate => false do |p|
       = p.simple_fields_for :dimensions, wrapper: :inline do |d|
@@ -22,9 +22,10 @@
         = w.input :unit, as: :hidden
 
       = p.simple_fields_for :contents, wrapper: :inline do |c|
-        = c.input :value, label: ProductDecorator.measure_value_label(c.object, :value), required: false
+        = c.input :value,
+                  label: ProductDecorator.measure_value_label(c.object, :value, show_unit: false),
+                  required: false
         = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false
-        = c.input :unit, as: :hidden
 
     = f.input :gtin
     = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
