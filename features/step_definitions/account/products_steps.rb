@@ -220,6 +220,8 @@ When /^he attaches the product photo$/ do
   within("#new_photo") do
     attach_file('photo_image', File.join(Rails.root, '/spec/fabricators/image.jpg'))
   end
+  execute_script "$(\"input[type='file']\").trigger('change')"
+  sleep 2
 end
 
 When /^he adds a new product$/ do

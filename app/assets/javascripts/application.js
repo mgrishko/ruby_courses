@@ -18,6 +18,7 @@
 //= require namespace
 //= require flash
 //= require rails.validations
+//= require rails.validations.file
 //= require ajax-loader
 //= require i18n
 //= require i18n/translations

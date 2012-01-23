@@ -6,14 +6,15 @@ Feature: Product photos
   Background: Account exists
     Given an activated account
 
-  @javascript
+  @javascript @wip
   Scenario: Editor successfully adds new product photo
     Given that account has a product
     And an authenticated user with editor role
     And he is on the edit product page
     When he clicks "Upload photo" within sidebar
     And he attaches the product photo
-#    Then he should see notice message "Photo was successfully uploaded"
+    Then show me the page
+    Then he should see notice message "Photo was successfully uploaded"
 #    And he should be on the edit product page
 #    And he should see that photo within sidebar
 

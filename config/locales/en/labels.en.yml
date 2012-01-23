@@ -12,6 +12,7 @@ en:
       blank: "can't be blank"
       presence: "can't be blank"
       already_invited: "is already invited"
+      invalid_image_file_type: "invalid file type (should be .jpg, .jpeg, .png, .bmp, or .gif)"
       invalid_gtin_format: "is not a valid gtin format"
       invalid_measure_unit: "%{unit} is not a valid unit"
       invalid_net_weight: "can't be greater then gross weight"
@@ -21,7 +22,6 @@ en:
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
-  
 
   units:
     short:
