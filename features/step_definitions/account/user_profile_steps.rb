@@ -1,5 +1,5 @@
 Given /^(?:[^\s]* )is on the user profile page$/ do
-  visit(edit_user_registration_url(subdomain: @account.subdomain))
+  visit(edit_user_registration_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
 When /^(?:[^\s]* )goes to the home page$/ do

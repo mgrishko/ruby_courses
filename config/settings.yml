@@ -1,5 +1,6 @@
 defaults: &defaults
   project_name: "GoodsMaster"
+  copyright: "Goods Master Inc."
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
 

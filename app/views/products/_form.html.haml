@@ -7,7 +7,7 @@
     = f.input :brand, as: :autocomplete
     = f.input :sub_brand
     = f.input :manufacturer, as: :autocomplete
-    = f.input :country_of_origin
+    = f.input :country_of_origin, include_blank: false
 
     = f.simple_fields_for :packages, wrapper: :inline do |p|
       = p.simple_fields_for :dimensions, wrapper: :inline do |d|
