@@ -80,7 +80,7 @@ end
 Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
   fill_in(input, with: value)
   
-  #wait
+  wait
   
   input_names = inputs.split(";").collect{ |l| l.strip }
   
