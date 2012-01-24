@@ -4,7 +4,7 @@ class GoodsMaster.validators.FileValidations
   constructor: (@fileInput) ->
   
   validateImageFileType: () ->
-    if !/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i.test(@fileInput.value)
+    if !/(\.gif|\.jpg|\.jpeg|\.png)$/i.test(@fileInput.value)
       I18n.t('errors.messages.invalid_image_file_type')
   
   validateMaxFileSize: (max_size_in_bytes, max_size_as_text) ->
