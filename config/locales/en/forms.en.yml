@@ -62,15 +62,15 @@ en:
       comments:
         body: "Comment"
       product:
-        tags_list: "Tags"
+        gtin: "GTIN"
         packages:
           contents:
             unit: "Net content unit"
+        tags_list: "Tags"
       user:
         accounts:
           about_company: "A few words about your company"
           company_name: "Company"
-
 
     #   password: 'Password'
     #   user:
