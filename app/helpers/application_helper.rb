@@ -15,7 +15,7 @@ module ApplicationHelper
 
   # Sets SSO parameters for current user (id, email, short_name)
   def user_voice_widget
-    if current_user.accounts.any? { |account| account.active? }
+    if !current_user.nil? && current_user.accounts.any? { |account| account.active? }
       raw uservoice_config_javascript(:sso => { :guid         => current_user.id,
                                                 :email        => current_user.email,
                                                 :display_name => current_user.short_name
