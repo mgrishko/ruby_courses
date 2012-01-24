@@ -12,9 +12,15 @@ en:
       blank: "can't be blank"
       presence: "can't be blank"
       already_invited: "is already invited"
+      invalid_image_file_type: "invalid file type (should be .jpg, .jpeg, .png, or .gif)"
       invalid_gtin_format: "is not a valid GTIN format"
       invalid_measure_unit: "%{unit} is not a valid unit"
       invalid_net_weight: "can't be greater then gross weight"
+      wrong_size: "is the wrong size (should be %{file_size})"
+      size_too_small: "is too small (should be at least %{file_size})"
+      size_too_big: "is too big (should be at most %{file_size})"
+      carrierwave_processing_error: failed to be processed
+      carrierwave_integrity_error: is not an allowed file type
   mongoid:
     errors:
       models:
@@ -25,7 +31,6 @@ en:
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
-  
 
   units:
     short:

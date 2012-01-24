@@ -19,6 +19,7 @@
 //= require flash
 //= require string
 //= require rails.validations
+//= require rails.validations.file
 //= require rails.validations.custom
 //= require ajax-loader
 //= require i18n
