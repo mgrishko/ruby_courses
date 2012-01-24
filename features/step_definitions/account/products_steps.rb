@@ -55,6 +55,36 @@ Given /^an authenticated user with editor role on edit product page$/ do
   }
 end
 
+When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
+  # Enter text into text field
+  execute_script "$('#token-input-product_tags_list').val('#{text}')"
+  
+  # Trigger keydown to open the dropdown
+  execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
+  
+  # Select the option in the dropdown
+  execute_script("
+    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
+      if ($(this).text() == '#{option}') {
+        var e = $.Event('mousedown', { target: $(this).children().get(0) });
+        $('.token-input-dropdown-goodsmaster ul').trigger(e);
+      }
+    });
+  ")
+end
+
+When /^he selects "([^"]*)" multi autocomplete option$/ do |option|
+  # Select the option in the dropdown
+  execute_script("
+    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
+      if ($(this).text() == '#{option}') {
+        var e = $.Event('mousedown', { target: $(this).children().get(0) });
+        $('.token-input-dropdown-goodsmaster ul').trigger(e);
+      }
+    });
+  ")
+end
+
 When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
@@ -91,24 +121,12 @@ When /^he enters "([^"]*)" into Tags field$/ do |text|
   sleep(2)
 end
 
-When /^he selects "([^"]*)" multi autocomplete option$/ do |option|
-  # Select the option in the dropdown
-  execute_script("
-    $('.token-input-dropdown-goodsmaster ul li').each(function(index) {
-      if ($(this).text() == '#{option}') {
-        var e = $.Event('mousedown', { target: $(this).children().get(0) });
-        $('.token-input-dropdown-goodsmaster ul').trigger(e);
-      }
-    });
-  ")
-end
-
 Given /^the product has tags "([^"]*)"$/ do |tags|
   tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
 When /^he deletes tags$/ do
-  sleep(2)
+  wait
   execute_script "$('.token-input-token-goodsmaster span').click()"
 end
 
@@ -135,7 +153,7 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
       "Country of origin",
       "Short description",
       "Description",
-      "Gtin"
+      "GTIN"
   ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize
@@ -341,7 +359,8 @@ Then /^he should not see new comment form$/ do
 end
 
 Then /^he should see missing photo within sidebar$/ do
-  # Actually we should check here that missing photo is present but it is not designed for now.
+  # Actually we should check here that missing photo is present
+  # but it is not designed for now.
   @product.reload.photos.should be_empty
 end
 
@@ -373,6 +392,10 @@ Then /^he should see that comment body (.*)$/ do |text|
   page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
+Then /^he should not see validation errors in new product form$/ do
+  within("form#new_product") { page.should_not have_content("can't be blank") }
+end
+
 Then /^he should not see validation errors in "([^"]*)" form$/ do |form|
   within("form##{form}") { page.should_not have_content("can't be blank") }
 end
@@ -398,7 +421,6 @@ def submit_new_product_form(fields)
     case attr
       when :country_of_origin
         select Carmen.country_name(attrs[attr]), from: field
-
       when :comment
         step "he enters a comment to the product"
       when :tags
