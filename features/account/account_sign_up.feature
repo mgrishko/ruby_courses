@@ -19,7 +19,7 @@ Feature: Account sign up
       | A few words about your company |
     And he submits the sign up form
     # Delayed account activation steps:
-    Then he should be redirected to the signup acknowledgement page
+    Then he should be redirected to the account home page
     And he should see notice message "Thank you! We will send you an invitation once we are ready."
 
   Scenario: Signup with taken subdomain
@@ -29,7 +29,7 @@ Feature: Account sign up
     And he should see that subdomain is already taken
 
   @javascript
-  Scenario: Non registered user sign up a new company account
+  Scenario: Sign up account form is validated client side
     Given company representative is on the new account sign up page
     Then he should not see validation errors in "user_new" form
     And he should see error in "user_new" for "First name" if text field empty

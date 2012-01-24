@@ -188,7 +188,7 @@ en:
       edit:
         title: "Edit your profile"
       new:
-        create_account: "Create account"
+        create_account: "Request account"
         title: "Sign up"
       signup_message:
         title: "Beta version"

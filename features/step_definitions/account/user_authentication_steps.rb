@@ -64,32 +64,8 @@ When /^user returns next time$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-Then /^he should be redirected to the user sign in page$/ do
-  extract_port(current_url).should == new_user_session_url(subdomain: @account.subdomain)
-end
-
-Then /^user should be redirected back to the restricted page$/ do
-  current_url.should == home_url(subdomain: @account.subdomain)
-end
-
-Then /^user should be signed out$/ do
-  current_url.should == new_user_session_url(subdomain: @account.subdomain)
-end
-
 When /^he navigates to products page$/ do
   visit(products_url(subdomain: @account.subdomain))
-end
-
-Then /^he should be redirected back to the products page$/ do
-  current_url.should == products_url(subdomain: @account.subdomain)
-end
-
-Then /^he should be prompted to login to another account$/ do
-  current_url.should == new_user_session_url(subdomain: @another_account.subdomain)
-end
-
-Then /^he should be prompted to login to account$/ do
-  current_url.should == new_user_session_url(subdomain: @account.subdomain)
 end
 
 When /^he logs in as another account user$/ do
@@ -105,4 +81,28 @@ end
 
 When /^he navigates to account home page$/ do
   visit(root_url(subdomain: @account.subdomain))
+end
+
+Then /^he should be redirected back to the products page$/ do
+  current_url.should == products_url(subdomain: @account.subdomain)
+end
+
+Then /^he should be prompted to login to another account$/ do
+  current_url.should == new_user_session_url(subdomain: @another_account.subdomain)
+end
+
+Then /^he should be prompted to login to account$/ do
+  current_url.should == new_user_session_url(subdomain: @account.subdomain)
+end
+
+Then /^he should be redirected to the user sign in page$/ do
+  extract_port(current_url).should == new_user_session_url(subdomain: @account.subdomain)
+end
+
+Then /^user should be redirected back to the restricted page$/ do
+  current_url.should == home_url(subdomain: @account.subdomain)
+end
+
+Then /^user should be signed out$/ do
+  current_url.should == new_user_session_url(subdomain: @account.subdomain)
 end

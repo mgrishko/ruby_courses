@@ -7,7 +7,7 @@ When /^(?:[^\s]* )fills? out the sign up form with following (.*) data:$/ do |da
 end
 
 When /^(?:[^\s]* )submits the sign up form$/ do
-  click_button "Create account"
+  click_button "Request account"
 end
 
 When /^he submits sign up form with taken subdomain$/ do
@@ -15,7 +15,7 @@ When /^he submits sign up form with taken subdomain$/ do
   fill_out_signup_form("personal", ["First name", "Last name", "Email", "Password", "Time zone"])
   fill_out_signup_form("account", ["Company", "Country"])
   fill_in "Subdomain", with: "taken"
-  click_button "Create account"
+  click_button "Request account"
 end
 
 Then /^he should be redirected back to the sign up page$/ do
@@ -26,8 +26,8 @@ Then /^he should see that subdomain (.*)$/ do |message|
   page.find("#user_accounts_attributes_0_subdomain").find(:xpath, ".//..").find("span", text: message)
 end
 
-Then /^(?:[^\s]* )should be redirected to the signup acknowledgement page$/ do
-  current_url.should == signup_acknowledgement_url(subdomain: Settings.app_subdomain)
+Then /^(?:[^\s]* )should be redirected to the account home page$/ do
+  current_url.should == home_url(subdomain: @subdomain)
 end
 
 def fill_out_signup_form(data_type, form_fields)
@@ -49,6 +49,8 @@ def fill_out_signup_form(data_type, form_fields)
       else
         fill_in field, with: attributes[attr]
     end
+
+    @subdomain = attributes[attr] if attr == :subdomain
   end
 end
 
