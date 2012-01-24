@@ -6,6 +6,15 @@ When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   within(".#{scope}") { click_on(link) }
 end
 
+When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
+  field = find_field(locator)
+
+  execute_script "$('input##{field[:id]}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  execute_script "$('input##{field[:id]}').trigger('keydown')"
+  execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
+end
+
 Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
   within(".#{scope}") do
     page.should have_content(content)
@@ -42,17 +51,16 @@ Then /^he should(.*) see "([^"]*)" within sidebar$/ do |should, content|
   end
 end
 
-When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
-  field = find_field(locator)
-  
-  execute_script "$('input##{field[:id]}').trigger('focus')"
-  page.fill_in(locator, with: text)
-  execute_script "$('input##{field[:id]}').trigger('keydown')"
-  execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
-end
-
 Then /^(?:[^\s]* )should see (.*) message "([^"]*)"$/ do |flash_class, message|
   page.find(".alert-message.#{flash_class} > p", text: message)
+end
+
+Then /^(?:[^\s]* )should(.*) see text "([^"]*)"$/ do |should, content|
+  if should.strip == "not"
+    page.should_not have_content(content)
+  else
+    page.should have_content(content)
+  end
 end
 
 Then /^he should see field error "([^"]*)"$/ do |message|

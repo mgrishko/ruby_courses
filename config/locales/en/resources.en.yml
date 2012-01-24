@@ -172,8 +172,6 @@ en:
       tags: "Tags and Privacy"
 
   users:
-    invitations:
-
     passwords:
       edit:
         confirm: "Confirm password"
@@ -185,6 +183,9 @@ en:
         sign_in: "Sign In"
         title: "Forgot your password?"
     registrations:
+      acknowledgement:
+        title: "Sign up"
+        notification: "Thank you! We will send you an invitation once we are ready."
       edit:
         title: "Edit your profile"
       new:

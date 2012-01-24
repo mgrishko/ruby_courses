@@ -18,6 +18,10 @@ When /^he submits sign up form with taken subdomain$/ do
   click_button "Request account"
 end
 
+When /^he goes to the acknowledgement page manually$/ do
+  visit(signup_acknowledgement_url(subdomain: Settings.app_subdomain))
+end
+
 Then /^he should be redirected back to the sign up page$/ do
   extract_port(current_url).should == new_user_registration_url(subdomain: Settings.app_subdomain)
 end
@@ -26,8 +30,8 @@ Then /^he should see that subdomain (.*)$/ do |message|
   page.find("#user_accounts_attributes_0_subdomain").find(:xpath, ".//..").find("span", text: message)
 end
 
-Then /^(?:[^\s]* )should be redirected to the account home page$/ do
-  current_url.should == home_url(subdomain: @subdomain)
+Then /^(?:[^\s]* )should be redirected to the signup acknowledgement page$/ do
+  current_url.should == signup_acknowledgement_url(subdomain: Settings.app_subdomain)
 end
 
 def fill_out_signup_form(data_type, form_fields)
@@ -49,8 +53,6 @@ def fill_out_signup_form(data_type, form_fields)
       else
         fill_in field, with: attributes[attr]
     end
-
-    @subdomain = attributes[attr] if attr == :subdomain
   end
 end
 

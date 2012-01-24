@@ -6,6 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_name
 
   def acknowledgement
+    head :bad_request unless request.env["HTTP_REFERER"] == user_registration_url(subdomain: Settings.app_subdomain)
   end
   
   protected

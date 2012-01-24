@@ -19,8 +19,12 @@ Feature: Account sign up
       | A few words about your company |
     And he submits the sign up form
     # Delayed account activation steps:
-    Then he should be redirected to the account home page
-    And he should see notice message "Thank you! We will send you an invitation once we are ready."
+    Then he should be redirected to the signup acknowledgement page
+    And he should see notice message "Invitation request was sent successfully."
+    And he should see text "Thank you! We will send you an invitation once we are ready."
+
+    When he goes to the acknowledgement page manually
+    Then he should not see text "Thank you! We will send you an invitation once we are ready."
 
   Scenario: Signup with taken subdomain
     Given company representative is on the new account sign up page

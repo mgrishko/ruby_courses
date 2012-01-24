@@ -29,10 +29,24 @@ describe Users::RegistrationsController do
   describe "GET acknowledgement" do
     login :user
 
-    before(:each) do
-      get :acknowledgement, subdomain: Settings.app_subdomain
+    context "when redirected from signup form" do
+      before(:each) do
+        @request.env['HTTP_REFERER'] = 'http://app.test.host/signup'
+        get :acknowledgement, subdomain: Settings.app_subdomain
+      end
+
+      it { should render_template(:acknowledgement) }
     end
 
-    it { should render_template(:acknowledgement) }
+    context "when referer is not signup form" do
+      before(:each) do
+        @request.env['HTTP_REFERER'] = 'http://app.test.host/some-other-page'
+      end
+
+      it "responds with bad request status code" do
+        get :acknowledgement, subdomain: Settings.app_subdomain
+        response.status.should == 400 # bad request
+      end
+    end
   end
 end
