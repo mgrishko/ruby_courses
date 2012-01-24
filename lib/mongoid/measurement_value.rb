@@ -1,7 +1,7 @@
 module Mongoid
   module MeasurementValue
 
-    # This mudule defines measure values fields and validations for Mongoid documents.
+    # This module defines measure values fields and validations for Mongoid documents.
 
     extend ActiveSupport::Concern
 
@@ -16,7 +16,7 @@ module Mongoid
       def measurement_value_field(*args)
         args.each do |arg|
           field arg, type: BigDecimal
-          validates arg, numericality: { greater_than: 0, allow_blank: true },
+          validates arg, numericality: { greater_than: 0 }, allow_blank: true,
                     length: 0..16, format: /^\d{0,15}(\.\d{1,14})?$/
 
           define_method("#{arg}") do

@@ -11,7 +11,7 @@ class Weight
   embedded_in :package
 
   validates :gross, presence: true
-  validates :net, numericality: { less_than: :gross, allow_blank: true }, unless: lambda { |a| a.gross.blank? }
+  validates :net, numericality: { greater_than: 0, less_than: :gross }, allow_blank: true, unless: lambda { |a| a.gross.blank? }
   validates :unit, presence: true, length: 1..3, inclusion: { in: UNITS }
 
   attr_accessible :gross, :net, :unit

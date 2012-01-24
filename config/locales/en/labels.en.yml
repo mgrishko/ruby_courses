@@ -9,11 +9,19 @@ en:
 
   errors:
     messages:
+      blank: "can't be blank"
+      presence: "can't be blank"
       already_invited: "is already invited"
-      invalid_gtin_format: "is not a valid gtin format"
+      invalid_gtin_format: "is not a valid GTIN format"
       invalid_measure_unit: "%{unit} is not a valid unit"
       invalid_net_weight: "can't be greater then gross weight"
-      presence: "can't be blank"
+  mongoid:
+    errors:
+      models:
+        weight:
+          attributes:
+            net:
+              less_than: can't be greater then gross weight
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
