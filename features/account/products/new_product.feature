@@ -17,7 +17,7 @@ Feature: New product
       | Sub brand         |
       | Manufacturer      |
       | Country of origin |
-      | Short description |
+      #| Short description |
       | Description       |
       | GTIN              |
     Then he should be on the product page

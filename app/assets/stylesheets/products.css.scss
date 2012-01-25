@@ -7,3 +7,10 @@
     margin-bottom: 30px;
   }
 }
+form.new_product, form.edit_product {
+	fieldset legend { font-weight: 200; color:#FF8800; padding-left: 360px; margin-bottom: 17px; font-size: 30px; line-height: 36px; }
+	.large-hint { font-weight:200; margin-bottom: 20px; line-height: 18px; color: grey; font-size: 13px; }
+	label.required, label.optional { float: none; }
+	.input { margin-left: 0; input.xlarge { width: 250px; } }
+	.inputs { border-top: 1px solid #DDD; padding-top: 17px; }
+}

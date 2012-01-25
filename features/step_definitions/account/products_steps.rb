@@ -151,7 +151,7 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
       "Sub brand",
       "Manufacturer",
       "Country of origin",
-      "Short description",
+      #"Short description",
       "Description",
       "GTIN"
   ]
