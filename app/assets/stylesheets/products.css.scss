@@ -7,10 +7,22 @@
     margin-bottom: 30px;
   }
 }
-form.new_product, form.edit_product {
-	fieldset legend { font-weight: 200; color:#FF8800; padding-left: 360px; margin-bottom: 17px; font-size: 30px; line-height: 36px; }
-	.large-hint { font-weight:200; margin-bottom: 20px; line-height: 18px; color: grey; font-size: 13px; }
-	label.required, label.optional { float: none; }
-	.input { margin-left: 0; input.xlarge { width: 250px; } }
-	.inputs { border-top: 1px solid #DDD; padding-top: 17px; }
+body.application {
+	form.new_product, form.edit_product {
+		fieldset legend { font-weight: 200; color:#FF8800; padding: 0 0 0 360px; margin: 0 0 -10px 0; font-size: 30px; line-height: 36px; }
+		.large-hint { font-weight:200; margin-bottom: 20px; line-height: 18px; color: grey; font-size: 13px; }
+		label.required, label.optional { float: none; font-weight: 200; margin-bottom: 1px; }
+		.error label { color: #B94A48; }
+		.input { margin-left: 0;
+			input { width: 250px; font-size: 20px; height: 28px; }
+			textarea { width: 250px; }
+			select { height: 38px; font-size: 20px; line-height: 36px; }
+		}
+		.inputs { border-top: 1px solid #DDD; padding-top: 17px; }
+		.clearfix { margin-bottom: 10px; }
+		.row { margin-top: -18px; }
+		textarea { width: 250px; }
+		select { height: 38px; font-size: 20px; line-height: 36px; }
+		.actions { padding: 0; background: transparent; border-top: none;}
+	}
 }
