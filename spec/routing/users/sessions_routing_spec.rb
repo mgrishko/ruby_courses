@@ -16,17 +16,21 @@ describe Users::SessionsController do
       end
     end
 
-    context "under #{Settings.app_subdomain} subdomain" do
+    context "under application subdomain" do
+      before(:each) do
+        @app = Settings.app_subdomain
+      end
+
       it "routes to #new" do
-        get("http://#{Settings.app_subdomain}.example.com/signin").should_not be_routable
+        get("http://#{@app}.example.com/signin").should_not be_routable
       end
 
       it "routes to #create" do
-        post("http://#{Settings.app_subdomain}.example.com/signin").should_not be_routable
+        post("http://#{@app}.example.com/signin").should_not be_routable
       end
 
       it "routes to #destroy" do
-        delete("http://#{Settings.app_subdomain}.example.com/signout").should_not be_routable
+        delete("http://#{@app}.example.com/signout").should_not be_routable
       end
     end
   end

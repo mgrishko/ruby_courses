@@ -38,7 +38,7 @@ describe Users::RegistrationsController do
       it { should render_template(:acknowledgement) }
     end
 
-    context "when referer is not signup form" do
+    context "when referer is not a signup form" do
       before(:each) do
         @request.env['HTTP_REFERER'] = 'http://app.test.host/some-other-page'
       end

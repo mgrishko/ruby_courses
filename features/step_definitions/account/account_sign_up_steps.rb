@@ -1,4 +1,4 @@
-Given /^company representative is on the new account sign up page$/ do
+Given /^company representative is on the sign up page$/ do
   visit(new_user_registration_url(port: Capybara.server_port, subdomain: Settings.app_subdomain))
 end
 

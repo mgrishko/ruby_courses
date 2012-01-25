@@ -25,7 +25,7 @@ class MainController < ApplicationController
     end
   end
 
-  # Fix me!!! If user signed in he should be redirected to his account list
+  # ToDo: If user signed in he should be redirected to his account list
   def validate_subdomain
     if request.subdomain == Settings.app_subdomain
       redirect_to(user_signed_in? ? signup_acknowledgement_path : new_user_registration_path)

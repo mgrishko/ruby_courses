@@ -2,26 +2,29 @@ require "spec_helper"
 
 describe Users::RegistrationsController do
   describe "routing" do
-    context "under #{Settings.app_subdomain} subdomain" do
+    context "under application subdomain" do
+      before(:each) do
+        @app = Settings.app_subdomain
+      end
+
       it "routes to #new" do
-        get("http://#{Settings.app_subdomain}.example.com/signup").should route_to("users/registrations#new")
+        get("http://#{@app}.example.com/signup").should route_to("users/registrations#new")
       end
 
       it "routes to #create" do
-        post("http://#{Settings.app_subdomain}.example.com/signup").should route_to("users/registrations#create")
+        post("http://#{@app}.example.com/signup").should route_to("users/registrations#create")
       end
 
       it "routes to #acknowledgement" do
-        get("http://#{Settings.app_subdomain}.example.com/signup/thankyou").
-            should route_to("users/registrations#acknowledgement")
+        get("http://#{@app}.example.com/signup/thankyou").should route_to("users/registrations#acknowledgement")
       end
 
       it "routes to #edit" do
-        get("http://#{Settings.app_subdomain}.example.com/profile/edit").should_not be_routable
+        get("http://#{@app}.example.com/profile/edit").should_not be_routable
       end
 
       it "routes to #update" do
-        put("http://#{Settings.app_subdomain}.example.com/profile").should_not be_routable
+        put("http://#{@app}.example.com/profile").should_not be_routable
       end
     end
 

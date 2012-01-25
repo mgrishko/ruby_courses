@@ -1,4 +1,5 @@
 When /^he follows "([^"]*)" within (.*)$/ do |link, scope|
+  scope = scope.gsub(/\s/, '_')
   within(".#{scope}") { click_on(link) }
 end
 
