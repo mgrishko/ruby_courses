@@ -1,7 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_user!, :except => [ :new, :create, :cancel ]
-  after_filter :log_event, :only => :create
 
   layout :layout_name
 
@@ -18,14 +17,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     edit_user_registration_path
   end
   
-  # Logs created event of an account
-  def log_event
-    if resource.errors.empty?
-      Membership.current = resource.accounts.first.memberships.first
-      resource.accounts.first.log_event("create")
-    end
-  end
-
   private
 
   def layout_name
