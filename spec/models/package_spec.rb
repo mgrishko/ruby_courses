@@ -4,6 +4,11 @@ describe Package do
 
   let(:package) { Fabricate(:package) }
 
+  it { should validate_presence_of(:type_code) }
+  it { should allow_value("AE").for(:type_code) }
+  it { should_not allow_value("000").for(:type_code) }
+  it { should allow_mass_assignment_of(:type_code) }
+
   it "should be embedded in product" do
     product = Fabricate(:product)
     package = product.packages.build

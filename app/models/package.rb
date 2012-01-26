@@ -2,7 +2,11 @@
 
 class Package
   include Mongoid::Document
-
+  
+  TYPE_CODES = %w(AE AM AT BG)
+  
+  field :type_code, type: String
+  
   embedded_in :product
   embeds_many :dimensions
   embeds_many :weights
@@ -20,7 +24,9 @@ class Package
   before_validation :cleanup_dimensions
   before_validation :cleanup_weights
   before_validation :cleanup_contents
-
+  
+  validates :type_code, presence: true, inclusion: { in: TYPE_CODES }, length: { maximum: 3 }
+  
   private
 
   # Cleanups all dimensions with blank values.
