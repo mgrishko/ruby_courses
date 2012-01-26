@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Signup::AccountsController do
+describe Users::AccountsController do
   with_subdomain Settings.app_subdomain
 
   def valid_attributes

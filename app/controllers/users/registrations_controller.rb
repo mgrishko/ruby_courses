@@ -1,12 +1,12 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
-  prepend_before_filter :authenticate_user!, :except => [ :new, :create, :cancel ]
+  #prepend_before_filter :authenticate_user!, :except => [ :new, :create, :cancel ]
+  prepend_before_filter :redirect_authenticated_user, only: [:new, :create]
   after_filter :log_event, :only => :create
 
   layout :layout_name
 
   def acknowledgement
-    head :bad_request unless request.env["HTTP_REFERER"] == user_registration_url(subdomain: Settings.app_subdomain)
+    head :bad_request unless /signup/.match(request.env["HTTP_REFERER"])
   end
   
   protected
@@ -31,5 +31,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def layout_name
     %w(new create acknowledgement cancel).include?(action_name) ? "clean" : "application"
+  end
+
+  # Redirects authenticated user on new and create actions to new account form
+  def redirect_authenticated_user
+    if user_signed_in?
+      if params[:force_signout]
+        sign_out current_user
+        redirect_to new_user_registration_url(subdomain: Settings.app_subdomain)
+      else
+        redirect_to new_users_account_url(subdomain: Settings.app_subdomain)
+      end
+    end
   end
 end

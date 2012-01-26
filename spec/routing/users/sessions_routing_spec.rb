@@ -22,15 +22,15 @@ describe Users::SessionsController do
       end
 
       it "routes to #new" do
-        get("http://#{@app}.example.com/signin").should_not be_routable
+        get("http://#{@app}.example.com/signin").should route_to("users/sessions#new")
       end
 
       it "routes to #create" do
-        post("http://#{@app}.example.com/signin").should_not be_routable
+        post("http://#{@app}.example.com/signin").should route_to("users/sessions#create")
       end
 
       it "routes to #destroy" do
-        delete("http://#{@app}.example.com/signout").should_not be_routable
+        delete("http://#{@app}.example.com/signout").should route_to("users/sessions#destroy")
       end
     end
   end

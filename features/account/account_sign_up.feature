@@ -3,7 +3,6 @@ Feature: Account sign up
   A company representative
   Should be able to sign up company account
 
-  @w
   Scenario: Not registered user signs up a new company account
     Given company representative is on the sign up page
     When he fills out the sign up form with following personal data:
@@ -48,12 +47,11 @@ Feature: Account sign up
     And he should not see error in "user_new" for "Website" if text field empty
     And he should not see error in "user_new" for "A few words about your company" if text field empty
 
-  @w
   Scenario: Signed in user creates a new company account with existing email
     Given an authenticated user
     When he goes to the sign up page
     Then he should be redirected to the new account page
-    And he should see signed in as email and full name
+    And he should see signed in as email and user name within user info
     When he fills out the sign up form with following account data:
       | Company   |
       | Country   |
@@ -66,16 +64,14 @@ Feature: Account sign up
     And he should see notice message "Invitation request was sent successfully."
     And he should see text "Thank you! We will send you an invitation once we are ready."
 
-  @w
   Scenario: Unsigned user can sign in from sign up form
     Given an unauthenticated user
     When he goes to the sign up page
     And he follows "Sign in here" within login box
-    Then he should be on the user sign in page
+    Then he should be on the global sign in page
     When user submits valid email and valid password
     Then he should be redirected to the new account page
 
-  @w
   Scenario: Signed in user can sign out from create new account form
     Given an authenticated user
     And he is on the new account page

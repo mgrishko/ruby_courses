@@ -1,5 +1,7 @@
-class Signup::AccountsController < ApplicationController
+class Users::AccountsController < ApplicationController
   before_filter :authenticate_user!
+
+  layout "clean"
 
   # GET /signup/accounts
   # GET /signup/accounts.json

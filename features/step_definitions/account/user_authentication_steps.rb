@@ -106,3 +106,7 @@ end
 Then /^user should be signed out$/ do
   current_url.should == new_user_session_url(subdomain: @account.subdomain)
 end
+
+Then /^he should be on the global sign in page$/ do
+  extract_port(current_url).should == new_user_session_url(subdomain: Settings.app_subdomain)
+end

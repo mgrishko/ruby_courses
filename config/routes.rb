@@ -7,6 +7,13 @@ GoodsMaster::Application.routes.draw do
                               invitations: 'users/invitations'},
                skip: [:registrations, :sessions, :invitations, :passwords] do
 
+      # Sign in/out works global wide.
+      get '/signin'   => "users/sessions#new",        as: :new_user_session
+      post '/signin'  => 'users/sessions#create',     as: :user_session
+      get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
+      delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
+
+
       # Routes signup and acknowledgement routes only under app subdomain
       constraints(subdomain: Settings.app_subdomain) do
         devise_for :users, controllers: { passwords: "users/passwords" },
@@ -20,11 +27,6 @@ GoodsMaster::Application.routes.draw do
       constraints(lambda { |req| !(req.subdomain == Settings.app_subdomain) }) do
         get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
         put "/profile"  => "users/registrations#update"
-
-        get '/signin'   => "users/sessions#new",        as: :new_user_session
-        post '/signin'  => 'users/sessions#create',     as: :user_session
-        get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
-        delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
 
         get 'memberships/invitation/accept' => "users/invitations#edit",   as: :accept_user_invitation
         put 'memberships/invitation'        => "users/invitations#update", as: :user_invitation
@@ -49,8 +51,12 @@ GoodsMaster::Application.routes.draw do
 
     # Within app subdomain
     constraints(subdomain: Settings.app_subdomain) do
-      namespace :signup do
-        resources :accounts, only: [:index, :new, :create]
+      namespace :users, path: "/signup" do
+        resource :account, only: [:new, :create]
+      end
+
+      namespace :users, path: "/signin" do
+        resources :accounts, only: :index
       end
 
       scope subdomain: Settings.app_subdomain do

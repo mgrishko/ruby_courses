@@ -10,7 +10,7 @@ end
 
 Given /^company representative signs up for a new account$/ do
   steps %Q{
-    Given company representative is on the new account sign up page
+    Given company representative is on the sign up page
     When he fills out the sign up form with following personal data:
       | First name |
       | Last name  |
