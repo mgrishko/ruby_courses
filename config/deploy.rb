@@ -25,7 +25,7 @@ set :application, "goodsmaster"
 
 # Use Git source control
 set :scm, :git
-set :repository, "git@git.assembla.com:webforms2.2.git"
+set :repository, "git@github.com:ZombieHarvester/GoodsMaster.git"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
 set :use_sudo, false
