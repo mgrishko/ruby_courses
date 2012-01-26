@@ -22,7 +22,14 @@ class ProductDecorator < ApplicationDecorator
   def self.visibility_options
     Product::VISIBILITIES.collect { |v| [I18n.t("visibility.#{v}", scope: i18n_scope), v] }
   end
-
+  
+  # Prepares options for packaging type code
+  #
+  # @return [Array] options for packaging type code.
+  def self.packaging_type_options
+    Package::PACKAGING_TYPES.collect { |v| [I18n.t("packaging_types.#{v}.name", scope: i18n_scope), v] }
+  end
+  
   # Prepares options for unit select tag.
   #
   # @param [Dimension|Weight|Content] measurement object.

@@ -16,7 +16,7 @@ body.application {
 		.input { margin-left: 0;
 			input { width: 250px; font-size: 20px; height: 28px; }
 			textarea { width: 250px; }
-			select { height: 38px; font-size: 20px; line-height: 36px; }
+			select { height: 38px; width: 260px; font-size: 20px; line-height: 36px; }
 		}
 		.inputs { border-top: 1px solid #DDD; padding-top: 17px; }
 		.clearfix { margin-bottom: 10px; }
@@ -26,7 +26,7 @@ body.application {
 		.actions { padding: 0; background: transparent; border-top: none; }
 		.net_content {
 			input { width: 150px; }
-			select { width: 100px; }
+			select { width: 96px; }
 		}
 	}
 }

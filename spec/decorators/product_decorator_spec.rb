@@ -185,7 +185,13 @@ describe ProductDecorator do
       ProductDecorator.unit_options(measurement).sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
     end
   end
-
+  
+  describe "#packaging_type_options" do
+    it "returns packaging type options" do
+      ProductDecorator.packaging_type_options.should_not be_empty
+    end
+  end
+  
   describe "#measure_value_label" do
     it "returns measurement name with unit by default" do
       measurement = Fabricate.build(:dimension, unit: "MM")

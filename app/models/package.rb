@@ -3,9 +3,11 @@
 class Package
   include Mongoid::Document
   
-  TYPE_CODES = %w(AE AM AT BG)
+  PACKAGING_TYPES = %w(AE AM AT BG BIB BPK BA BK BLP BO BX BRK BJ CG CN CRD CT CS CR CU CY DN EN FIC GBT JR JG MTP NT NE PK PX PB PLP PO RK RL SW SLE STW PU TB TU VP WRP)
   
-  field :type_code, type: String
+  field :packaging_type, type: String
+  
+  attr_accessible :packaging_type
   
   embedded_in :product
   embeds_many :dimensions
@@ -25,7 +27,7 @@ class Package
   before_validation :cleanup_weights
   before_validation :cleanup_contents
   
-  validates :type_code, presence: true, inclusion: { in: TYPE_CODES }, length: { maximum: 3 }
+  validates :packaging_type, presence: true, inclusion: { in: PACKAGING_TYPES }, length: { maximum: 3 }
   
   private
 

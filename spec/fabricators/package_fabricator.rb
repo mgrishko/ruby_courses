@@ -1,4 +1,4 @@
 Fabricator(:package) do
   product!
-  type_code "AE"
+  packaging_type "AE"
 end

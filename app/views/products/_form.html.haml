@@ -10,7 +10,7 @@
         = f.input :sub_brand
         = f.input :functional_name
         = f.input :variant
-
+  
   = f.simple_fields_for :packages, wrapper: :inline do |p|
     %fieldset
       %legend= I18n.t("products.defaults.net_content_fieldset")
@@ -18,24 +18,14 @@
         .span5
           .large-hint= I18n.t("products.defaults.net_content_description")
         .span7.offset1
+          = p.input :packaging_type, collection: ProductDecorator.packaging_type_options, include_blank: false
           = p.fields_for :contents do |c|
             .clearfix.string.optional.net_content
               = c.label :value, ProductDecorator.measure_value_label(c.object, :value, show_unit: false), class: "string optional"
               .input
                 = c.text_field :value, :class => "string optional", "data-validate" => true
                 = c.select :unit, ProductDecorator.unit_options(c.object)
-  %fieldset
-    %legend= I18n.t("products.defaults.item_identification_fieldset")
-    .row.inputs
-      .span5
-        .large-hint= I18n.t("products.defaults.item_identification_description")
-      .span7.offset1
-        = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
-          = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
-          = n.input :name, as: :hidden
-        = f.input :gtin
-
-  = f.simple_fields_for :packages, wrapper: :inline do |p|
+  
     %fieldset
       %legend= I18n.t("products.defaults.weight_fieldset")
       .row.inputs
@@ -58,7 +48,18 @@
             = d.input :width,  label: ProductDecorator.measure_value_label(d.object, :width), required: false, input_html: { "data-require-in-group" => "true" }
             = d.input :depth,  label: ProductDecorator.measure_value_label(d.object, :depth), required: false, input_html: { "data-require-in-group" => "true" }, wrapper_html: {class: "depth"}
             = d.input :unit, as: :hidden
-
+  
+  %fieldset
+    %legend= I18n.t("products.defaults.item_identification_fieldset")
+    .row.inputs
+      .span5
+        .large-hint= I18n.t("products.defaults.item_identification_description")
+      .span7.offset1
+        = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
+          = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
+          = n.input :name, as: :hidden
+        = f.input :gtin
+        
   %fieldset
     %legend= I18n.t("products.defaults.provenance_fieldset")
     .row.inputs

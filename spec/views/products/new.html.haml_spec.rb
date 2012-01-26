@@ -61,15 +61,15 @@ describe "products/new.html.haml" do
       rendered.should have_field("product_description", name: "product[description]")
     end
 
-    it "renders tags_list field" do
-      render
-      rendered.should have_field("product_tags_list", name: "product[tags_list]")
-    end
+    #it "renders tags_list field" do
+    #  render
+    #  rendered.should have_field("product_tags_list", name: "product[tags_list]")
+    #end
 
-    it "renders visibility field" do
-      render
-      rendered.should have_field("product_visibility", name: "product[visibility]")
-    end
+    #it "renders visibility field" do
+    #  render
+    #  rendered.should have_field("product_visibility", name: "product[visibility]")
+    #end
   end
 
   describe "sidebar" do
