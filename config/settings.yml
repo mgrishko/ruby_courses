@@ -10,6 +10,8 @@ defaults: &defaults
   links:
     project_home: "http://GoodsMasterHQ.com"
     feedback: "http://feedback.goodsmasterhq.com"
+    terms: "http://goodsmasterhq.com/terms"
+    privacy: "http://goodsmasterhq.com/privacy"
   events:
     recent_max_count: 50
     recent_max_count_for_admin: 50

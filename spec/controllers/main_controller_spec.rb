@@ -15,7 +15,7 @@ describe MainController do
   end
 
   describe "subdomain" do
-    context "#{Settings.app_subdomain}" do
+    context "application subdomain" do
       with_subdomain Settings.app_subdomain
 
       before(:each) do
@@ -32,10 +32,9 @@ describe MainController do
       context "when user is signed in" do
         login_account_as :viewer
 
-        # ToDo Fix me! It should redirect to user accounts list
-        it "redirects to sign up acknowledgement page" do
+        it "redirects to new account page" do
           get :index
-          response.should redirect_to(signup_acknowledgement_url(subdomain: Settings.app_subdomain))
+          response.should redirect_to(new_users_account_url(subdomain: Settings.app_subdomain))
         end
       end
     end

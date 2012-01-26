@@ -1,0 +1,12 @@
+%h1 Listing signup_accounts
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @accounts.each do |account|
+    %tr
+      %td= link_to 'Show', account
+

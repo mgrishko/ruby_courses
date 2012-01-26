@@ -172,8 +172,15 @@ en:
       tags: "Tags and Privacy"
 
   users:
-    invitations:
-
+    accounts:
+      new:
+        create_account: "Request account"
+        credentials_notice: "After your account is created, you can sign in with the same"
+        email_and_password: "email and password"
+        hello: "Hi, %{name},"
+        sign_out: "Sign out"
+        signed_in_with_email: "You are signed in with email %{email}."
+        title: "Sign up"
     passwords:
       edit:
         confirm: "Confirm password"
@@ -185,16 +192,26 @@ en:
         sign_in: "Sign In"
         title: "Forgot your password?"
     registrations:
+      acknowledgement:
+        title: "Sign up"
+        notification: "Thank you! We will send you an invitation once we are ready."
       edit:
         title: "Edit your profile"
       new:
-        create_account: "Create account"
+        already_have_account: "Already have a Goods Master account?"
+        create_account: "Request account"
         title: "Sign up"
+        sign_in_here: "Sign in here"
+        skip_this_form: "%{sign_in} to skip this form and use the username you already have."
       signup_message:
         title: "Beta version"
         p1: "Goods Master is currently in closed beta. Fill in the form and we will send you invitation once we are ready."
         p2: "We have a limited number of beta accounts. Please be so kind to add a few words about your company to help us prioritize your invitation."
         p3: "Thank you!"
+      terms_and_privacy:
+        accept: "By signing up you agree to out %{terms} and %{privacy}."
+        privacy: "privacy policy"
+        terms: "terms of service"
 
     sessions:
       new:
