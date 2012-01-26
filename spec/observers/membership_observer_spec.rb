@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe MembershipObserver do
   it "should create new event on membership creation" do
-    Membership.current = false
-    membership = mock_model(Membership)
-    membership.stub(:invited_by).and_return(true)
-    membership.stub(:user).and_return(true)
-    
+    Membership.current = Fabricate(:membership)
+    membership = Fabricate(:membership)
     observer = MembershipObserver.instance
-    membership.should_receive(:log_event).with("create")
-    observer.after_create(membership)
+    
+    expect {
+      observer.after_create(membership)
+    }.to change(Event.unscoped, :count).by(1)
   end
 end
