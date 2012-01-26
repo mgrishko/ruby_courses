@@ -1,13 +1,25 @@
 require 'spec_helper'
 
 describe PhotoObserver do
+  before(:each) do
+    @photo = Fabricate(:photo)
+    Membership.current = Fabricate(:membership)
+    @observer = PhotoObserver.instance
+  end
+  
   it "should create new event on photo creation" do
-    photo = mock_model(Photo)
-    photo.stub_chain(:product, :log_event).and_return(true)
-    photo.stub(:log_event).and_return(true)
+    expect {
+      @observer.after_create(@photo)
+    }.to change(Event.unscoped, :count).by(1)
     
-    observer = PhotoObserver.instance
-    photo.product.should_receive(:log_event).with("create", photo)
-    observer.after_create(photo)
+    Event.last.action_name.should == "create"
+  end
+  
+  it "should create destroy event on photo deletion" do
+    expect {
+      @observer.after_destroy(@photo)
+    }.to change(Event.unscoped, :count).by(1)
+    
+    Event.last.action_name.should == "destroy"
   end
 end
