@@ -18,10 +18,12 @@
         .span5
           .large-hint= I18n.t("products.defaults.net_content_description")
         .span7.offset1
-          = p.simple_fields_for :contents, wrapper: :inline do |c|
-            = c.input :value, label: ProductDecorator.measure_value_label(c.object, :value, show_unit: false), required: false
-            = c.input :unit, collection: ProductDecorator.unit_options(c.object), required: false, include_blank: false
-            
+          = p.fields_for :contents do |c|
+            .clearfix.string.optional.net_content
+              = c.label :value, ProductDecorator.measure_value_label(c.object, :value, show_unit: false), class: "string optional"
+              .input
+                = c.text_field :value, :class => "string optional", "data-validate" => true
+                = c.select :unit, ProductDecorator.unit_options(c.object)
   %fieldset
     %legend= I18n.t("products.defaults.item_identification_fieldset")
     .row.inputs
