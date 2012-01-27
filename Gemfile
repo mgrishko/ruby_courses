@@ -50,6 +50,7 @@ gem "draper"
 gem "settingslogic", "~> 2.0.6"
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
 
 # To use ActiveModel has_secure_password

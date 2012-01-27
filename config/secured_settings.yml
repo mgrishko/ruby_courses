@@ -1,0 +1,43 @@
+defaults: &defaults
+  airbrake:
+    api_key: 'abcd'
+
+  newrelic:
+    license_key: 'abcd'
+
+  rackspace:
+    api_key: 'abcd'
+    fog_host: "http://c285322.r22.cf1.rackcdn.com"
+    username: 'abcd'
+
+  uservoice:
+    api_key: 'abcd'
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+cucumber:
+  <<: *defaults
+
+qa:
+  <<: *defaults
+
+  rackspace:
+    fog_host: "http://c285315.r15.cf1.rackcdn.com"
+
+staging:
+  <<: *defaults
+
+  rackspace:
+    fog_host: "http://c285316.r16.cf1.rackcdn.com"
+
+
+production:
+  <<: *defaults
+
+  rackspace:
+    fog_host: "http://c285317.r17.cf1.rackcdn.com"
