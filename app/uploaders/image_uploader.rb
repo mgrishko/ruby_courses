@@ -7,9 +7,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
   include CarrierWave::MiniMagick
 
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  # Choose what kind of storage to use for this uploader or
+  # comment out if you want to leave defaults from config:
+  #storage :file
+  #storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -17,7 +18,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     env = Rails.env.test? || Rails.env.cucumber? ? "test/#{Rails.env}/" : ""
     # If uploads are stored in the "/public/system" directory,
     # they will be automatically kept by capistrano across releases.
-    "system/uploads/#{env}/#{model.class.to_s.underscore}/#{model.id}"
+    "system/uploads/#{env}#{model.class.to_s.underscore}/#{model.id}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

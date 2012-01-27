@@ -6,6 +6,7 @@
 .rvmrc
 doc/
 config/mongoid.yml
+config/secured_settings.yml
 coverage/
 log/*.log
 log/*.pid

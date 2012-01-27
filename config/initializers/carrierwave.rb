@@ -11,19 +11,29 @@ CarrierWave.configure do |config|
 
   config.root = Rails.root.join('public')
 
-  if Rails.env.production? || Rails.env.staging?
+  if %w(production staging qa).include?(Rails.env)
     # config.storage = :s3
     # config.s3_access_key_id = 'YOUR_S3_ACCESS_KEY'
     # config.s3_secret_access_key = 'YOUR_S3_SECRET_ACCESS_KEY'
     # config.s3_bucket = 'BUCKET_NAME'
     # config.s3_cnamed = true
 
-    config.storage = :file
-  elsif Rails.env.development?
-    config.storage = :file
+    config.fog_credentials = {
+      :provider           => 'Rackspace',
+      :rackspace_username => Settings.rackspace.username,
+      :rackspace_api_key  => Settings.rackspace.api_key
+    }
+    config.fog_directory = Rails.env
+    config.storage = :fog
+    config.fog_host = Settings.rackspace.fog_host
+
+  #elsif Rails.env.development?
+  #  config.storage = :file
+
   elsif Rails.env.test? || Rails.env.cucumber?
     config.storage = :file
     config.enable_processing = false
+
   else
     config.storage = :file
   end
