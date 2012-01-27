@@ -50,8 +50,8 @@ class BaseItem < ActiveRecord::Base
   validates :user_id, :presence => true
   validates :item_id, :presence => true
   validates :gtin, :presence => true,
-                   :numericality => {:only_integer => true},
-                   :gtin_format => {:if => :first_step? }
+                   :numericality => {:only_integer => true}#,
+                   #:gtin_format => {:if => :first_step? }
   validate :check_gtin # TODO
   validates :brand, :length => 1..70
   validates :subbrand, :length =>  { :maximum => 70 }, :allow_nil => true
