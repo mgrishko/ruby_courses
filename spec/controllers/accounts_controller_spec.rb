@@ -7,14 +7,6 @@ describe AccountsController do
     @attrs ||= Fabricate.attributes_for(:account)
   end
 
-  #describe "GET index" do
-    #it "assigns all accounts as @accounts" do
-      #account = Account.create! valid_attributes
-      #get :index
-      #assigns(:accounts).should eq([account])
-    #end
-  #end
-
   describe "GET edit" do
     login_account_as :owner
 
@@ -73,5 +65,4 @@ describe AccountsController do
       end
     end
   end
-
 end

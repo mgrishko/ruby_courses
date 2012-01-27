@@ -2,20 +2,24 @@ require "spec_helper"
 
 describe Admin::SessionsController do
   describe "routing" do
-    context "under #{Settings.app_subdomain} subdomain" do
+    context "under application subdomain" do
+      before(:each) do
+        @app = Settings.app_subdomain
+      end
+
       it "routes to #new" do
-        get("http://#{Settings.app_subdomain}.example.com/dashboard/sign_in").
-            should route_to("admin/sessions#new", subdomain: Settings.app_subdomain)
+        get("http://#{@app}.example.com/dashboard/sign_in").
+            should route_to("admin/sessions#new", subdomain: @app)
       end
 
       it "routes to #create" do
-        post("http://#{Settings.app_subdomain}.example.com/dashboard/sign_in").
-            should route_to("admin/sessions#create", subdomain: Settings.app_subdomain)
+        post("http://#{@app}.example.com/dashboard/sign_in").
+            should route_to("admin/sessions#create", subdomain: @app)
       end
 
       it "routes to #destroy" do
-        delete("http://#{Settings.app_subdomain}.example.com/dashboard/sign_out").
-            should route_to("admin/sessions#destroy", subdomain: Settings.app_subdomain)
+        delete("http://#{@app}.example.com/dashboard/sign_out").
+            should route_to("admin/sessions#destroy", subdomain: @app)
       end
     end
 

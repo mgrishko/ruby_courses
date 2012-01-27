@@ -10,6 +10,8 @@ defaults: &defaults
   links:
     project_home: "http://GoodsMasterHQ.com"
     feedback: "http://feedback.goodsmasterhq.com"
+    terms: "http://goodsmasterhq.com/terms"
+    privacy: "http://goodsmasterhq.com/privacy"
   events:
     recent_max_count: 50
     recent_max_count_for_admin: 50
@@ -18,6 +20,18 @@ defaults: &defaults
   tags:
     maximum_length: 20
     separator: ","
+
+
+  # Those settings are from secured_settings.yml
+  # They are here to allow precompile assets before secured_settings.yml is copied.
+  airbrake:
+    api_key: 'abc'
+  rackspace:
+    api_key: 'abc'
+    fog_host: "http://c285322.r22.cf1.rackcdn.com"
+    username: 'abc'
+  uservoice:
+    api_key: 'abc'
 
 development:
   <<: *defaults

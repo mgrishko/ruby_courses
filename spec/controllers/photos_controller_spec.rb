@@ -44,12 +44,6 @@ describe PhotosController do
         post :create, product_id: @product.id, :photo => {}, format: :js
         response.should render_template("create")
       end
-      
-      it "doesn't create create event" do
-        expect {
-          post :create, product_id: @product.id, :photo => valid_attributes, format: :js
-        }.to change(Event, :count).by(0)
-      end
     end
   end
 
@@ -73,16 +67,6 @@ describe PhotosController do
       response.should render_template("destroy")
     end
     
-    it "creates destroyed event" do
-      expect {
-        delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
-      }.to change(Event, :count).by(1)
-      
-      event = Event.last
-      event.action_name.should == "destroy"
-      event.trackable eq(@photo)
-    end
-
     it "assigns a new photo as @photo" do
       delete :destroy, product_id: @product.id, :id => @photo.id, format: :js
       assigns(:photo).should be_a_new(Photo)
