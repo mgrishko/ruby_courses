@@ -173,8 +173,8 @@ en:
       weight_fieldset: "Weight"
       weight_description: "Gross Weight is the weight of the trade item including packaging. Net Weight is the weight of the trade item not including any packaging."
       width: "Width"
-      packaging_type: "ll"
-      packaging_types:
+      type: "Packaging type"
+      types:
         AE:
           name: Aerosol
           description: 'A gas-tight, pressure-resistant container with a valve and propellant.  When the valve is opened, propellant forces the product from the container in a fine or coarse spray pattern or stream.  (e.g., a spray can dispensing paint, furniture polish, etc, under pressure).  It does not include atomizers, because atomizers do not rely on a pressurised container to propel product from the container. '
@@ -323,6 +323,8 @@ en:
       <<: *PRODUCT_DEFAULTS
       comments: "Comments"
       tags: "Tags and Privacy"
+    form:
+      <<: *PRODUCT_DEFAULTS
 
   users:
     invitations:

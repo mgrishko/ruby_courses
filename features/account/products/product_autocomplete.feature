@@ -19,16 +19,16 @@ Feature: Autocompletion for product form fields
     And he submits the product form
     Then he should see product brand "brand456"
   
-  #@javascript
-  #Scenario: Editor edits product manufacturer using autocomplete
-  #  Given another product with manufacturer "manufacturer123"
-  #  And another product with manufacturer "manufacturer456"
-  #  Then he should not see "manufacturer123, manufacturer456" autocomplete options
-  #  When he enters "manufacturer" into "Manufacturer" field
-  #  Then he should see "manufacturer123, manufacturer456" autocomplete options
-  #  When he selects the first autocomplete option in "Manufacturer" field
-  #  And he submits the product form
-  #  Then he should see product manufacturer "manufacturer456"
+  @javascript
+  Scenario: Editor edits product manufacturer using autocomplete
+    Given another product with manufacturer "manufacturer123"
+    And another product with manufacturer "manufacturer456"
+    Then he should not see "manufacturer123, manufacturer456" autocomplete options
+    When he enters "manufacturer" into "Manufacturer" field
+    Then he should see "manufacturer123, manufacturer456" autocomplete options
+    When he selects the first autocomplete option in "Manufacturer" field
+    And he submits the product form
+    Then he should see product manufacturer "manufacturer456"
   
   #@javascript
   #Scenario: Editor edits product tags using multi autocomplete

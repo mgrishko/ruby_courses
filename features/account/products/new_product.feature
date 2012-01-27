@@ -43,7 +43,6 @@ Feature: New product
       | Gross weight, g  |
       | Net weight, g    |
       | Net content      |
-    #  | Net content unit |
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."

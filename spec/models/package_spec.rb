@@ -4,9 +4,9 @@ describe Package do
 
   let(:package) { Fabricate(:package) }
 
-  it { should validate_presence_of(:packaging_type) }
-  it { should allow_value("AE").for(:packaging_type) }
-  it { should_not allow_value("000").for(:packaging_type) }
+  it { should validate_presence_of(:type) }
+  it { should allow_value("AE").for(:type) }
+  it { should_not allow_value("000").for(:type) }
 
   it "should be embedded in product" do
     product = Fabricate(:product)

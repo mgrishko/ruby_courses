@@ -43,6 +43,9 @@
     = render "attribute", value: @product_version.manufacturer, name: t(".manufacturer")
     = render "attribute", value: @product_version.country_of_origin, name: t(".country_of_origin")
 
+  .row.tr
+    = render "attribute", value: @product_version.packaging_type, name: t(".packaging_type")
+    
   - if @product_version.dimension(:height).present?
     .row.tr
       = render "attribute", value: @product_version.dimension(:height), name: t(".height")
@@ -63,7 +66,6 @@
   %header
     .row.tr
       .attr_val= t(".comments")
-
 
   #comments_list
     = render partial: "comments/comment", collection: @comments

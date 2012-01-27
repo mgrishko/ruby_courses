@@ -186,9 +186,9 @@ describe ProductDecorator do
     end
   end
   
-  describe "#packaging_type_options" do
+  describe "#type_options" do
     it "returns packaging type options" do
-      ProductDecorator.packaging_type_options.should_not be_empty
+      ProductDecorator.type_options.should_not be_empty
     end
   end
   
@@ -296,6 +296,22 @@ describe ProductDecorator do
       context "when does not exist" do
         it "should be blank" do
           @decorator.dimension(:height).should be_blank
+        end
+      end
+    end
+    
+    describe "#packaging_type" do
+      context "when exists" do
+        it "should return value" do
+          @package.type = "AE"
+          decorator = ProductDecorator.decorate(@product)
+          decorator.packaging_type.should == "Aerosol"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.packaging_type.should be_blank
         end
       end
     end
