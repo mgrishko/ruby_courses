@@ -26,8 +26,6 @@ defaults: &defaults
   # They are here to allow precompile assets before secured_settings.yml is copied.
   airbrake:
     api_key: 'abc'
-  newrelic:
-    license_key: 'abc'
   rackspace:
     api_key: 'abc'
     fog_host: "http://c285322.r22.cf1.rackcdn.com"
