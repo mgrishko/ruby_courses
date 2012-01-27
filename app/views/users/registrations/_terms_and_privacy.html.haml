@@ -1,0 +1,4 @@
+.input
+  = t(".accept",
+      terms: link_to(t(".terms"), url_for(Settings.links.terms), target: "_blank"),
+      privacy: link_to(t(".privacy"), url_for(Settings.links.privacy), target: "_blank") ).html_safe

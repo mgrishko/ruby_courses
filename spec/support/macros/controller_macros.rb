@@ -1,6 +1,9 @@
 module ControllerMacros
   include Devise::TestHelpers
 
+  # Setups devise controller for resource
+  #
+  # @param [Symbol, String] resource name
   def setup_devise_controller_for(resource)
     before(:each) do
       setup_controller_for_warden

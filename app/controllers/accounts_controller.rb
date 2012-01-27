@@ -2,15 +2,6 @@ class AccountsController < MainController
   before_filter :load_account
   authorize_resource
 
-  #def index
-    #@accounts = Account.all
-
-    #respond_to do |format|
-      #format.html # index.html.erb
-      #format.json { render json: @accounts }
-    #end
-  #end
-
   def edit
     respond_with(@account)
   end

@@ -31,7 +31,7 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'uglifier', '>= 1.0.3'
 
 # Security related gems
-gem "devise", "~> 2.0.0.rc", git: "git://github.com/plataformatec/devise.git"
+gem "devise", "~> 2.0.0"
 gem "cancan", "~> 1.6.7"
 
 # Frontend tools
@@ -50,6 +50,7 @@ gem "draper"
 gem "settingslogic", "~> 2.0.6"
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
 
 # To use ActiveModel has_secure_password

@@ -1,13 +1,19 @@
 When /^he follows "([^"]*)" within (.*)$/ do |link, scope|
-  within(".#{scope}") do
-    click_on(link)
-  end
+  scope = scope.gsub(/\s/, '_')
+  within(".#{scope}") { click_on(link) }
 end
 
 When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
-  within(".#{scope}") do
-    click_on(link)
-  end
+  within(".#{scope}") { click_on(link) }
+end
+
+When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
+  field = find_field(locator)
+
+  execute_script "$('input##{field[:id]}').trigger('focus')"
+  page.fill_in(locator, with: text)
+  execute_script "$('input##{field[:id]}').trigger('keydown')"
+  execute_script "$('.ui-menu-item a').trigger('mouseenter').trigger('click')"
 end
 
 Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
@@ -50,14 +56,55 @@ Then /^(?:[^\s]* )should see (.*) message "([^"]*)"$/ do |flash_class, message|
   page.find(".alert-message.#{flash_class} > p", text: message)
 end
 
+Then /^(?:[^\s]* )should(.*) see text "([^"]*)"$/ do |should, content|
+  if should.strip == "not"
+    page.should_not have_content(content)
+  else
+    page.should have_content(content)
+  end
+end
+
 Then /^he should see field error "([^"]*)"$/ do |message|
   page.find("form span.help-inline", text: message)
 end
 
-Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$/ do
-                                                                    |should, form, locator|
+Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it with "([^"]*)"$/ do |should, msg, inputs, value|
   should_have_validation_error = !(should.strip == "not")
-  input_names = locator.split(",").collect{ |l| l.strip }
+  input_names = inputs.split(";").collect{ |l| l.strip }
+  input_names.each { |name| fill_in(name, with: value) }
+  
+  wait
+  
+  input_names.each do |name|
+    within(find_field_parent(name)) do
+      if should_have_validation_error
+        page.should have_content(msg)
+      else
+        page.should_not have_content(msg)
+      end
+    end
+  end
+end
+
+Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
+  fill_in(input, with: value)
+  
+  wait
+  
+  input_names = inputs.split(";").collect{ |l| l.strip }
+  
+  input_names.each do |name|
+    within(find_field_parent(name)) do
+      page.should have_content(msg)
+    end
+  end
+  
+  input_names.each { |name| fill_in(name, with: value) }
+end
+
+Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ do |should, locator|
+  should_have_validation_error = !(should.strip == "not")
+  input_names = locator.split(";").collect{ |l| l.strip }
 
   input_names.each do |name|
     field = find_field(name)
@@ -71,19 +118,15 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if he leaves it empty$
       within(find_field_parent(name)) do
         page.should have_content("can't be blank")
       end
-      fill_in(name, with: locator == "Email" ? "foo@bar.com" : "something")
+      fill_in(name, with: "something")
     else
       fill_in(name, with: "")
     end
-
+    
     execute_script("$('##{field[:id]}').blur()")
   end
 
-  within("form##{form}") do
-    page.should_not have_content(
-      locator == "Email" ? ( "can't be blank" || "is invalid") : "can't be blank"
-    )
-  end
+  within("form#new_product") { page.should_not have_content("can't be blank") }
 end
 
 Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ do
@@ -123,6 +166,7 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ d
     end
   end
 end
+
 
 # Functions
 

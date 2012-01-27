@@ -25,7 +25,7 @@ set :application, "goodsmaster"
 
 # Use Git source control
 set :scm, :git
-set :repository, "git@git.assembla.com:webforms2.2.git"
+set :repository, "git@github.com:ZombieHarvester/GoodsMaster.git"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
 set :use_sudo, false
@@ -48,14 +48,15 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 
-  # Avoid keeping the mongoid.yml configuration in git.
-  task :copy_database_configuration, :roles => :app do
-    db_config = "/var/www/projects/#{application}/#{rails_env}/config/mongoid.yml"
-    run "cp #{db_config} #{release_path}/config/mongoid.yml"
+  # Avoid keeping secured configuration in git.
+  task :copy_secured_configuration, :roles => :app do
+    %w(mongoid.yml secured_settings.yml).each do |file|
+      db_config = "/var/www/projects/#{application}/#{rails_env}/config/#{file}"
+      run "cp #{db_config} #{release_path}/config/#{file}"
+    end
   end
-
 end
 
-after "deploy", "deploy:copy_database_configuration"
+after "deploy", "deploy:copy_secured_configuration"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases

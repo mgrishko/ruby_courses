@@ -5,6 +5,7 @@ class User
   field :last_name, type: String
   field :time_zone, type: String
   field :locale, type: String, default: "en"
+
   # Devise fields
   ## Database authenticatable
   field :email,              :type => String, :null => false

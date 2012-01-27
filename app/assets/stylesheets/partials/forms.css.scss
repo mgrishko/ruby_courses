@@ -37,18 +37,19 @@ form {
   }
 }
 
-.registrations form {
-  input {
-    &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel] {
+.registrations, .accounts {
+   form {
+    input {
+      &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel] {
+        @extend .xlarge;
+      }
+    }
+    select {
       @extend .xlarge;
     }
-  }
-  select {
-    @extend .xlarge;
-  }
-  textarea {
-    @extend .xxlarge;
-    height: $baseline * 3.5;
+    textarea {
+      @extend .xxlarge;
+      height: $baseline * 3.5;
+    }
   }
 }
-

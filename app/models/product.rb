@@ -29,10 +29,10 @@ class Product
   embeds_many :product_codes
 
   embeds_many :measurements # ToDo Remove after migration to packages
+  
   def measurement(name)
     self.measurements.where(name: name.to_s).first
   end
-
 
   accepts_nested_attributes_for :packages
   attr_accessible :packages_attributes
