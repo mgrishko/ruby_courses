@@ -1,13 +1,14 @@
 - disable_uploads ||= false
 
 #photo
-  - url = photo.image.medium.url rescue "product_missing.jpg"
-  - if photo
+  -# We should render photo only if it is persisted.
+  -# Other options is when photo is just initialized (new record)
+  - if photo && photo.persisted?
     - photo = PhotoDecorator.decorate(photo)
     %a{ name: photo.id }
-    = image_tag(url)
+    = image_tag(photo.image.medium.url)
     = photo.destroy_link(remote: true, confirm: true, through: @product) unless disable_uploads
   - else
-    = image_tag(url)
+    = image_tag("product_missing.jpg")
 
     = render "photos/form" unless disable_uploads
