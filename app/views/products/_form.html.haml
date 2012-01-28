@@ -30,7 +30,7 @@
                 = c.text_field :value, :class => "string optional", 
                   "data-validate" => true
                 = c.select :unit, ProductDecorator.unit_options(c.object)
-  
+
     %fieldset
       %legend= t(".weight_fieldset")
       .row.inputs
