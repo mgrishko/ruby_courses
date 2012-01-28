@@ -492,8 +492,10 @@ en:
         skip_this_form: "%{sign_in} to skip this form and use the username you already have."
       signup_message:
         title: "Beta version"
-        p1: "GoodsMaster is currently in closed beta. Fill in the form and we will send you invitation once we are ready."
-        p2: "We have a limited number of beta accounts. Please be so kind to add a few words about your company to help us prioritize your invitation."
+        p1: "GoodsMaster is currently in closed beta. Fill in the form and we will send you an invitation
+          once we are ready."
+        p2: "We have a limited number of beta accounts. Please be so kind to add a few words
+          about your company to help us prioritize your invitation."
         p3: "Thank you!"
       terms_and_privacy:
         accept: "By signing up you agree to out %{terms} and %{privacy}."
