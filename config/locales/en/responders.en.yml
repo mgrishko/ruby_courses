@@ -26,6 +26,10 @@ en:
       create:
         notice: "Photo was successfully uploaded."
 
+    sessions:
+      create:
+        notice: ""
+
   unauthorized:
     create:
       product: "Not allowed to create a new product."
