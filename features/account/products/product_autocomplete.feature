@@ -30,18 +30,18 @@ Feature: Autocompletion for product form fields
     And he submits the product form
     Then he should see product manufacturer "manufacturer456"
   
-  @javascript
-  Scenario: Editor edits product tags using multi autocomplete
-    Given another product with tags "tag1, tag2"
-    Then he should not see "tag1, tag2" autocomplete options
-    When he enters "tag" into Tags field
-    Then he should see "tag1, tag2" autocomplete options
-    When he selects "tag2" multi autocomplete option
-    And he submits the product form
-    # Workaround while tags are not shown on the products page 
-    When he is on the edit product page
-    Then he should see "tag2" within "token-input-token-goodsmaster"
-    #Then he should see product tags "tag2"
+  #@javascript
+  #Scenario: Editor edits product tags using multi autocomplete
+  #  Given another product with tags "tag1, tag2"
+  #  Then he should not see "tag1, tag2" autocomplete options
+  #  When he enters "tag" into Tags field
+  #  Then he should see "tag1, tag2" autocomplete options
+  #  When he selects "tag2" multi autocomplete option
+  #  And he submits the product form
+  #  # Workaround while tags are not shown on the products page 
+  #  When he is on the edit product page
+  #  Then he should see "tag2" within "token-input-token-goodsmaster"
+  #  #Then he should see product tags "tag2"
 
   @javascript
   Scenario: Editor deletes product tag

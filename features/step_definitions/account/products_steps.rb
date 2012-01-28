@@ -131,7 +131,7 @@ When /^he deletes tags$/ do
 end
 
 When /^he submits the product form$/ do
-  click_button "Update Product"
+  click_button "Save Product"
 end
 
 When /^he follows product link$/ do
@@ -151,7 +151,7 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
       "Sub brand",
       "Manufacturer",
       "Country of origin",
-      "Short description",
+      #"Short description",
       "Description",
       "GTIN"
   ]
@@ -166,7 +166,7 @@ When /^he submits form with updated product$/ do
   # Wait 61 minute here to create a comment later then existing one
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
     fill_in :functional_name, with: "New product name"
-    click_button "Update Product"
+    click_button "Save Product"
   end
   Timecop.return
 end
@@ -429,5 +429,5 @@ def submit_new_product_form(fields)
         fill_in field, with:  attrs[attr]
     end
   end
-  click_button "Create Product"
+  click_button "Save Product"
 end

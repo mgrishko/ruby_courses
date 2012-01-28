@@ -17,7 +17,7 @@ Feature: Product client side validation
     And he should see validation error for "Brand" if he leaves it empty
     And he should not see validation error for "Sub brand" if he leaves it empty
     And he should see validation error for "Manufacturer" if he leaves it empty
-    And he should not see validation error for "Short description" if he leaves it empty
+    #And he should not see validation error for "Short description" if he leaves it empty
     And he should not see validation error for "Description" if he leaves it empty
     
     # Dimensions

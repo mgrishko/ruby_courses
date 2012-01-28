@@ -7,12 +7,15 @@ en:
   # Translations for forms
   helpers:
     submit:
+      comment:
+        create: "Submit"
       membership:
         create: "Send an invitation"
         destroy: "Delete"
         update: "Update"
-      comment:
-        create: "Submit"
+      product:
+        create: "Save %{model}"
+        update: "Save %{model}"
     label:
       account:
         about_company: "A few words about your company"
@@ -51,12 +54,9 @@ en:
       default_message: "Some errors were found, please take a look:"
     # Labels and hints examples
     labels:
-      time_zone: "Time zone"
-
       account:
         about_company: "A few words about your company"
         company_name: "Company"
-
       comment:
         body: "Comment"
       comments:
@@ -64,9 +64,9 @@ en:
       product:
         gtin: "GTIN"
         packages:
-          contents:
-            unit: "Net content unit"
+          type: Packaging type
         tags_list: "Tags"
+      time_zone: "Time zone"
       user:
         accounts:
           about_company: "A few words about your company"
