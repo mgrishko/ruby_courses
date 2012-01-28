@@ -20,7 +20,7 @@ Feature: User recover password
     And user should be redirected back to the restricted page
     When he follows "Sign out" within topbar
     And he submits email and new password
-    Then he should see notice message "Signed in successfully."
+    Then user should be signed in
     And user should be redirected back to the home page
 
   Scenario: User tries to recover password with invalid token

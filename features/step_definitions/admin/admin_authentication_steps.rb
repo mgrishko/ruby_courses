@@ -46,6 +46,13 @@ Then /^admin should be redirected back to the restricted page$/ do
   current_url.should == admin_dashboard_url
 end
 
-Then /^admin should be signed out$/ do
-  current_url.should == new_admin_session_url
+Then /^admin should be signed (.*)$/ do |signed|
+  content = @admin.email
+  within(".topbar") do
+    if signed == "in"
+      page.should have_content(content)
+    else
+      page.should_not have_content(content)
+    end
+  end
 end
