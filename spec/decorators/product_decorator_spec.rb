@@ -185,7 +185,13 @@ describe ProductDecorator do
       ProductDecorator.unit_options(measurement).sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
     end
   end
-
+  
+  describe "#type_options" do
+    it "returns packaging type options" do
+      ProductDecorator.type_options.should_not be_empty
+    end
+  end
+  
   describe "#measure_value_label" do
     it "returns measurement name with unit by default" do
       measurement = Fabricate.build(:dimension, unit: "MM")
@@ -290,6 +296,22 @@ describe ProductDecorator do
       context "when does not exist" do
         it "should be blank" do
           @decorator.dimension(:height).should be_blank
+        end
+      end
+    end
+    
+    describe "#packaging_type" do
+      context "when exists" do
+        it "should return value" do
+          @package.type = "AE"
+          decorator = ProductDecorator.decorate(@product)
+          decorator.packaging_type.should == "Aerosol"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.packaging_type.should be_blank
         end
       end
     end

@@ -22,7 +22,14 @@ class ProductDecorator < ApplicationDecorator
   def self.visibility_options
     Product::VISIBILITIES.collect { |v| [I18n.t("visibility.#{v}", scope: i18n_scope), v] }
   end
-
+  
+  # Prepares options for packaging type code
+  #
+  # @return [Array] options for packaging type code.
+  def self.type_options
+    Package::TYPES.collect { |v| [I18n.t("types.#{v}.name", scope: i18n_scope), v] }
+  end
+  
   # Prepares options for unit select tag.
   #
   # @param [Dimension|Weight|Content] measurement object.
@@ -132,6 +139,12 @@ class ProductDecorator < ApplicationDecorator
     dimension = product.packages.first.try(:dimensions).try(:first)
     value = dimension.try(method)
     "#{value} #{I18n.t("units.short.#{dimension.unit}")}" unless value.blank?
+  end
+  
+  # @return [String] product packaging type name
+  def packaging_type
+    type = product.packages.first.try(:type)
+    I18n.t("types.#{type}.name", scope: i18n_scope) unless type.nil?
   end
 
   # Returns weight value with unit
