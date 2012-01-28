@@ -1,37 +1,37 @@
 GoodsMaster::Application.routes.draw do
   constraints(subdomain: /.+/) do
-    devise_for :users,
-               path: "/",
+    devise_for :users, path: "/",
                controllers: { registrations: 'users/registrations',
                               sessions: 'users/sessions',
                               invitations: 'users/invitations'},
-               skip: [:registrations, :sessions, :invitations, :passwords] do
+               skip: [:registrations, :sessions, :invitations, :passwords]
 
-      # Sign in/out works global wide.
-      get '/signin'   => "users/sessions#new",        as: :new_user_session
-      post '/signin'  => 'users/sessions#create',     as: :user_session
-      get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
-      delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
+      devise_scope :user do
+        # Sign in/out works global wide.
+        get '/signin'   => "users/sessions#new",        as: :new_user_session
+        post '/signin'  => 'users/sessions#create',     as: :user_session
+        get '/signout'  => 'users/sessions#destroy',    as: :destroy_user_session if Devise.sign_out_via == :get
+        delete '/signout'  => 'users/sessions#destroy', as: :destroy_user_session
 
 
-      # Routes signup and acknowledgement routes only under app subdomain
-      constraints(subdomain: Settings.app_subdomain) do
-        devise_for :users, controllers: { passwords: "users/passwords" },
-          skip: [:registrations, :sessions, :invitations]
-        get "/signup"  => "users/registrations#new",       as: :new_user_registration
-        post "/signup" => "users/registrations#create",    as: :user_registration
-        get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
+        # Routes signup and acknowledgement routes only under app subdomain
+        constraints(subdomain: Settings.app_subdomain) do
+          devise_for :users, controllers: { passwords: "users/passwords" },
+            skip: [:registrations, :sessions, :invitations]
+          get "/signup"  => "users/registrations#new",       as: :new_user_registration
+          post "/signup" => "users/registrations#create",    as: :user_registration
+          get "/signup/thankyou" => "users/registrations#acknowledgement", as: :signup_acknowledgement
+        end
+
+        # Todo: refactor to Subdomain class when will be more than one application subdomain
+        constraints(lambda { |req| !(req.subdomain == Settings.app_subdomain) }) do
+          get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
+          put "/profile"  => "users/registrations#update"
+
+          get 'memberships/invitation/accept' => "users/invitations#edit",   as: :accept_user_invitation
+          put 'memberships/invitation'        => "users/invitations#update", as: :user_invitation
+        end
       end
-
-      # Todo: refactor to Subdomain class when will be more than one application subdomain
-      constraints(lambda { |req| !(req.subdomain == Settings.app_subdomain) }) do
-        get "/profile/edit" => "users/registrations#edit", as: :edit_user_registration
-        put "/profile"  => "users/registrations#update"
-
-        get 'memberships/invitation/accept' => "users/invitations#edit",   as: :accept_user_invitation
-        put 'memberships/invitation'        => "users/invitations#update", as: :user_invitation
-      end
-    end
 
     # Within accounts subdomains
     constraints(lambda { |req| !(req.subdomain == Settings.app_subdomain) }) do
@@ -60,16 +60,16 @@ GoodsMaster::Application.routes.draw do
       end
 
       scope subdomain: Settings.app_subdomain do
-        devise_for :admins, path: '/dashboard', controllers: { sessions: 'admin/sessions' }
+        devise_for :admins, path: 'dashboard', controllers: { sessions: 'admin/sessions' }, format: false
 
         resources :admins, only: [:edit, :update], :module => "admin", :path => "dashboard/admins"
 
-        namespace :admin, path: "/dashboard" do
+        namespace :admin, path: "dashboard" do
           resources :accounts, only: [:index, :show] do
             get :activate, on: :member
             get :login_as_owner, on: :member
           end
-          
+
           resources :events, only: :index
 
           get '/' => 'dashboard#index', as: :dashboard
