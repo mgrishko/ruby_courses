@@ -18,7 +18,7 @@ defaults: &defaults
     collapse_timeframe: 60
 
   tags:
-    maximum_length: 20                      dep
+    maximum_length: 20
     separator: ","
 
 development:
