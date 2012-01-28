@@ -1,18 +1,13 @@
 - disable_uploads ||= false
 
 #photo
-  - t = Time.now
-  - Rails.logger.debug "Started photo rendering"
+  - url = photo.image.medium.url rescue "product_missing.jpg"
   - if photo
-    - Rails.logger.debug "After if #{(Time.now - t) * 1000} ms"
     - photo = PhotoDecorator.decorate(photo)
-    - Rails.logger.debug "After decorate #{(Time.now - t) * 1000} ms"
     %a{ name: photo.id }
-    = image_tag(photo.image.medium.url)
-    - Rails.logger.debug "After image_tag #{(Time.now - t) * 1000} ms"
+    = image_tag(url)
     = photo.destroy_link(remote: true, confirm: true, through: @product) unless disable_uploads
-    - Rails.logger.debug "After destroy link #{(Time.now - t) * 1000} ms"
   - else
-    = image_tag("product_missing.jpg")
+    = image_tag(url)
 
     = render "photos/form" unless disable_uploads
