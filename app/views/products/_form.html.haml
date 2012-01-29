@@ -2,7 +2,7 @@
   = f.error_notification
   %fieldset
     %legend= t(".item_name_fieldset")
-    .row.inputs
+    .inputs
       .span5
         .large-hint= t(".item_name_description")
       .span7.offset1
@@ -14,7 +14,7 @@
   = f.simple_fields_for :packages, wrapper: :inline do |p|
     %fieldset
       %legend= t(".net_content_fieldset")
-      .row.inputs
+      .inputs.row
         .span5
           .large-hint= t(".net_content_description")
         .span7.offset1
@@ -33,7 +33,7 @@
   
     %fieldset
       %legend= t(".weight_fieldset")
-      .row.inputs
+      .inputs
         .span5
           .large-hint= t(".weight_description")
         .span7.offset1
@@ -50,7 +50,7 @@
 
     %fieldset
       %legend= t(".dimensions_fieldset")
-      .row.inputs
+      .inputs
         .span5
           .large-hint= t(".dimensions_description")
         .span7.offset1
@@ -72,7 +72,7 @@
   
   %fieldset
     %legend= t(".item_identification_fieldset")
-    .row.inputs
+    .inputs
       .span5
         .large-hint= t(".item_identification_description")
       .span7.offset1
@@ -85,7 +85,7 @@
         
   %fieldset
     %legend= t(".provenance_fieldset")
-    .row.inputs
+    .inputs
       .span5
         .large-hint= t(".provenance_description")
       .span7.offset1
@@ -94,7 +94,7 @@
 
   %fieldset
     %legend= t(".description_fieldset")
-    .row.inputs
+    .inputs
       .span5
         .large-hint= t(".description_description") 
       .span7.offset1
@@ -108,7 +108,7 @@
 
   %fieldset
     %legend= t(".comment_fieldset")
-    .row.inputs
+    .inputs
       .span5
         .large-hint= t(".comment_description")
       .span7.offset1

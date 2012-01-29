@@ -1,28 +1,76 @@
-body.application form {
+body.application form, body.clean form {
   input {
     &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
     &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
-    &[type=number], &[type=range], &[type=search], &[type=color] {
+    &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
       @extend .span8;
+			width: 250px; 
+			font-size: 20px; 
+			height: 28px;
     }
   }
 
   textarea {
     @extend .span12;
+		width: 250px;
     height: $baseline / 13px * 6.5em;
   }
-}
 
+	select {
+		height: 38px;
+		width: 260px;
+		font-size: 20px;
+		line-height: 36px;
+	}
+}
 form {
   .hidden {
     margin-bottom: 0;
   }
 
   label {
+		float: none; 
+		font-weight: 200; 
+		margin-bottom: 1px;
     &.optional {
       color: grey;
     }
   }
+	.clearfix {
+		margin-bottom: 10px;
+	}
+	.input {
+		margin-left: 0;
+				
+		.help-block {
+			font-size: 11px;
+		}
+	}
+	.large-hint { 
+		font-weight: 200; 
+		line-height: 18px; 
+		color: grey; 
+		font-size: 13px;
+	}
+	.actions { 
+		padding: 0; 
+		background: transparent; 
+		border-top: none;
+	}
+}
+
+fieldset legend { 
+	font-weight: 200; 
+	color: #FF8800; 
+	padding: 0 0 0 360px; 
+	margin: 0 0 -10px 0; 
+	font-size: 30px; 
+	line-height: 36px;
+}
+.inputs {
+	border-top: 1px solid #DDD; 
+	padding-top: 17px;
+	margin-top: -18px;
 }
 
 #comments form {
@@ -35,6 +83,20 @@ form {
       @include float-right;
     }
   }
+}
+
+form.new_product, form.edit_product {
+	.inputs {
+		@extend .row;
+	}
+	.net_content {
+		input { 
+			width: 150px;
+		}
+		select {
+			width: 96px;
+		}
+	}
 }
 
 .registrations, .accounts {
