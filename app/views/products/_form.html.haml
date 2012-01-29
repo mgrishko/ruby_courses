@@ -13,14 +13,20 @@
   
   = f.simple_fields_for :packages, wrapper: :inline do |p|
     %fieldset
+      %legend= t(".type")
+      .row.inputs
+        .span5
+          .large-hint= t(".type_description")
+        .span7.offset1
+          = p.input :type, 
+            collection: ProductDecorator.type_options, 
+            include_blank: false
+    %fieldset
       %legend= t(".net_content_fieldset")
       .row.inputs
         .span5
           .large-hint= t(".net_content_description")
         .span7.offset1
-          = p.input :type, 
-            collection: ProductDecorator.type_options, 
-            include_blank: false
           = p.fields_for :contents do |c|
             .clearfix.string.optional.net_content
               = c.label :value, 
@@ -30,7 +36,7 @@
                 = c.text_field :value, :class => "string optional", 
                   "data-validate" => true
                 = c.select :unit, ProductDecorator.unit_options(c.object)
-  
+
     %fieldset
       %legend= t(".weight_fieldset")
       .row.inputs

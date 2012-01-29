@@ -156,6 +156,7 @@ en:
         item number. GTIN (Global Trade Item Number) is used for the unique 
         identification of trade items worldwide. GTINs may be 8, 12, 13 or
         14-digits in length and are encoded in barcodes."
+      item_image: "Item Image"
       item_name_fieldset: "Item Name"
       item_name_description: "Brand is a mandatory field. Sub brand is the
         second level of brand, optional. E.g. Yummy-Cola Classic. In this 
@@ -191,7 +192,8 @@ en:
         including packaging. Net Weight is the weight of the trade item 
         not including any packaging."
       width: "Width"
-      type: "Packaging type"
+      type: "Packaging"
+      type_description: "Type of the packaging used for the trade item"
       types:
         AE:
           name: Aerosol

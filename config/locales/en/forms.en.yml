@@ -64,7 +64,7 @@ en:
       product:
         gtin: "GTIN"
         packages:
-          type: Packaging type
+          type: Packaging
         tags_list: "Tags"
       time_zone: "Time zone"
       user:
