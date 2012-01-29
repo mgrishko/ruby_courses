@@ -16,7 +16,7 @@ Feature: Edit profile
     And he follows "Sign out" within topbar
     Then he should be redirected to the user sign in page
     When user submits email and password
-    Then user should see notice message "Signed in successfully."
+    Then user should be signed in
 
   Scenario: User edits profile without current password
     Given an authenticated user with viewer role
@@ -33,7 +33,7 @@ Feature: Edit profile
     And he follows "Sign out" within topbar
     Then he should be redirected to the user sign in page
     When user submits email and new password
-    Then user should see notice message "Signed in successfully."
+    Then user should be signed in
 
   @javascript
   Scenario: Authenticated user successfully edits profile

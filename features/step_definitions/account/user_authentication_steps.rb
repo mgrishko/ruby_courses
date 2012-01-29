@@ -103,8 +103,15 @@ Then /^user should be redirected back to the restricted page$/ do
   current_url.should == home_url(subdomain: @account.subdomain)
 end
 
-Then /^user should be signed out$/ do
-  current_url.should == new_user_session_url(subdomain: @account.subdomain)
+Then /^user should be signed (.*)$/ do |signed|
+  content = @user.first_name
+  within(".topbar") do
+    if signed == "in"
+      page.should have_content(content)
+    else
+      page.should_not have_content(content)
+    end
+  end
 end
 
 Then /^he should be on the global sign in page$/ do

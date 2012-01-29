@@ -1,4 +1,5 @@
 - flash.each do |key, value|
-  .flash.alert-message.block-message.fade.in{ class: "#{key}", :"data-alert" => "#{key}" }
-    %a.close{ href: "#" }×
-    %p= value
+  - unless value.blank?
+    .flash.alert-message.block-message.fade.in{ class: "#{key}", :"data-alert" => "#{key}" }
+      %a.close{ href: "#" }×
+      %p= value
