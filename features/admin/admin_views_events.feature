@@ -13,10 +13,10 @@ Feature: Admin views account events
     Then he should see new product event
   
   Scenario: Admin sees account registration event
-    Given company representative signs up for a new account
+    Given company representative signs up for a new account with "subd" subdomain
     And an authenticated admin
     When admin goes to the events page
-    Then he should see "Account" event
+    Then he should see "Account" event for "subd" subdomain
   
   Scenario: Admin sees user invited event
     Given an unauthenticated admin

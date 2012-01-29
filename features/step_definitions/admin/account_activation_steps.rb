@@ -8,21 +8,46 @@ Given /^company representative has a new account$/ do
   click_button "Sign in"
 end
 
-Given /^company representative signs up for a new account$/ do
-  steps %Q{
-    Given company representative is on the sign up page
-    When he fills out the sign up form with following personal data:
-      | First name |
-      | Last name  |
-      | Email      |
-      | Password   |
-      | Time zone  |
-    And he fills out the sign up form with following account data:
-      | Company   |
-      | Country   |
-      | Subdomain |
-    And he submits the sign up form
-  }
+Given /^company representative signs up for a new account with "([^"]*)" subdomain$/ do |subdomain|
+  steps "Given company representative is on the sign up page"
+  
+  user_fields = ["First name", "Last name", "Email", "Password"]
+  fill_out_signup_user_fields(user_fields)
+  
+  account_fields = ["Time zone", "Company", "Country"]
+  fill_out_signup_account_fields(account_fields)
+  
+  fill_in "Subdomain", with: subdomain
+  
+  click_button "Request account"
+end
+
+def fill_out_signup_user_fields(fields)
+  attrs = Fabricate.attributes_for(:user)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+    fill_in field, with: attrs[attr]
+  end
+end
+
+def fill_out_signup_account_fields(fields)
+  attrs = Fabricate.attributes_for(:account)
+
+  fields.each do |field|
+    attr = field.downcase.gsub(/\s/, '_').to_sym
+
+    case attr
+      when :time_zone
+        select attrs[attr], from: field
+      when :country
+        select Carmen.country_name(attrs[attr]), from: field
+      when :company
+        fill_in field, with: attrs[:company_name]
+      else
+        fill_in field, with: attrs[attr]
+    end
+  end
 end
 
 When /^admin goes to the accounts page$/ do
