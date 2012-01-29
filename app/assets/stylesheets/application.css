@@ -10,4 +10,5 @@
  *= require jquery.ui.core
  *= require jquery.ui.theme
  *= require jquery.ui.autocomplete
+ *=require forms
 */
