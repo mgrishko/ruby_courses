@@ -31,7 +31,7 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'uglifier', '>= 1.0.3'
 
 # Security related gems
-gem "devise", "~> 1.4.9"
+gem "devise", "~> 2.0.0"
 gem "cancan", "~> 1.6.7"
 
 # Frontend tools
@@ -80,7 +80,7 @@ group :development, :test, :cucumber do
   gem 'rspec-rails', "2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
-  gem "spork", '0.9.0.rc9'
+  gem "spork", '1.0.0.rc0'
   gem "email_spec", "~> 1.2.1"
 end
 

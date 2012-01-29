@@ -24,17 +24,22 @@ qa:
   <<: *defaults
 
   rackspace:
+    api_key: '84c16f1d53a901aab8c91bc49a9ba491'
     fog_host: "http://c285315.r15.cf1.rackcdn.com"
+    username: 'mrost'
 
 staging:
   <<: *defaults
 
   rackspace:
+    api_key: '84c16f1d53a901aab8c91bc49a9ba491'
     fog_host: "http://c285316.r16.cf1.rackcdn.com"
-
+    username: 'mrost'
 
 production:
   <<: *defaults
 
   rackspace:
+    api_key: '84c16f1d53a901aab8c91bc49a9ba491'
     fog_host: "http://c285317.r17.cf1.rackcdn.com"
+    username: 'mrost'

@@ -1,3 +1,5 @@
+$link_color: #0069D6;
+
 .soft {
   color: grey;
 }
@@ -9,4 +11,9 @@
 
 .copyright {
   @extend .soft;
+}
+
+.alert-message a {
+  font-weight: inherit;
+  color: $link_color;
 }

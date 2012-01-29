@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 95f711366184cf38ebf9a571387ba5006114a40a
+  revision: 10bd50dcf89fd5001e70369ec281c5887d335548
   specs:
     simple_form (2.0.0.dev)
       actionpack (~> 3.0)
@@ -105,10 +105,11 @@ GEM
       cucumber (>= 1.1.3)
       nokogiri (>= 1.5.0)
     database_cleaner (0.7.1)
-    devise (1.4.9)
+    devise (2.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
-      warden (~> 1.0.3)
+      railties (~> 3.1)
+      warden (~> 1.1)
     diff-lcs (1.1.3)
     draper (0.10.0)
       activesupport (>= 2.3.10)
@@ -134,7 +135,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.1)
-    gherkin (2.7.4)
+    gherkin (2.7.6)
       json (>= 1.4.6)
     haml (3.1.4)
     haml-rails (0.3.4)
@@ -143,7 +144,7 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     headless (0.2.2)
-    highline (1.6.9)
+    highline (1.6.11)
     hike (1.2.1)
     hpricot (0.8.6)
     i18n (0.6.0)
@@ -165,7 +166,7 @@ GEM
       subexec (~> 0.2.1)
     mongo (1.5.2)
       bson (= 1.5.2)
-    mongoid (2.4.1)
+    mongoid (2.4.2)
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
@@ -217,7 +218,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     remotipart (1.0.1)
-    responders (0.6.4)
+    responders (0.7.0)
+      railties (~> 3.1)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -241,7 +243,7 @@ GEM
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    selenium-webdriver (2.17.0)
+    selenium-webdriver (2.18.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
@@ -255,7 +257,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    spork (0.9.0.rc9)
+    spork (1.0.0rc0)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -277,7 +279,7 @@ GEM
     uglifier (1.2.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    warden (1.0.6)
+    warden (1.1.0)
       rack (>= 1.0)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -306,7 +308,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   cucumber-rails
   database_cleaner
-  devise (~> 1.4.9)
+  devise (~> 2.0.0)
   draper
   email_spec (~> 1.2.1)
   execjs
@@ -337,7 +339,7 @@ DEPENDENCIES
   simple-navigation (~> 3.5.0)
   simple_form!
   simplecov
-  spork (= 0.9.0.rc9)
+  spork (= 1.0.0.rc0)
   state_machine
   therubyracer
   therubyrhino

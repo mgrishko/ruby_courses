@@ -1,7 +1,9 @@
 - disable_uploads ||= false
 
 #photo
-  - if photo && photo.valid? && photo.image.url
+  -# We should render photo only if it is persisted.
+  -# Other options is when photo is just initialized (new record)
+  - if photo && photo.persisted?
     - photo = PhotoDecorator.decorate(photo)
     %a{ name: photo.id }
     = image_tag(photo.image.medium.url)

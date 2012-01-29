@@ -1,6 +1,6 @@
 defaults: &defaults
   project_name: "GoodsMaster"
-  copyright: "Goods Master Inc."
+  copyright: "GoodsMaster Inc."
   app_subdomain: "app"
   send_mail_from: "system@GoodsMasterHQ.com"
 
@@ -20,18 +20,6 @@ defaults: &defaults
   tags:
     maximum_length: 20
     separator: ","
-
-
-  # Those settings are from secured_settings.yml
-  # They are here to allow precompile assets before secured_settings.yml is copied.
-  airbrake:
-    api_key: 'abc'
-  rackspace:
-    api_key: 'abc'
-    fog_host: "http://c285322.r22.cf1.rackcdn.com"
-    username: 'abc'
-  uservoice:
-    api_key: 'abc'
 
 development:
   <<: *defaults

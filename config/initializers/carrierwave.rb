@@ -1,3 +1,5 @@
+Settings.reload!
+
 CarrierWave.configure do |config|
   # In production, use S3
   # In development, use filesystem and processing

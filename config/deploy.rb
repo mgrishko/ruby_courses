@@ -57,6 +57,7 @@ namespace :deploy do
   end
 end
 
-after "deploy", "deploy:copy_secured_configuration"
+before "deploy:assets:precompile", "deploy:copy_secured_configuration"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
+
