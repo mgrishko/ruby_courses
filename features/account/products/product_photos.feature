@@ -11,7 +11,7 @@ Feature: Product photos
     Given that account has a product
     And an authenticated user with editor role
     And he is on the edit product page
-    When he clicks "Upload photo" within sidebar
+    When he clicks "Upload photo" within photo form
     And he attaches the product photo
 #    Then he should see notice message "Photo was successfully uploaded"
 #    And he should be on the edit product page
@@ -22,7 +22,7 @@ Feature: Product photos
     Given that account has a product with photo
     And an authenticated user with editor role
     And he is on the edit product page
-    When he clicks "Delete photo" within sidebar
+    When he clicks "Delete photo" within photo form
     Then he should see notice message "Photo was successfully deleted"
     And he should be on the edit product page
     And he should see missing photo within sidebar

@@ -17,8 +17,8 @@ SimpleForm.setup do |config|
     b.use :tag => 'div', :class => 'input' do |ba|
       ba.use :input
       ba.use :error, :tag => :span, :class => :'help-inline'
-      ba.use :hint,  :tag => :span, :class => :'help-block'
     end
+    b.use :hint,  :tag => :span, :class => :'help-block'
   end
 
   config.wrappers :stacked, :class => "clearfix", :error_class => :error do |b|

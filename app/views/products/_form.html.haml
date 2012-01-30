@@ -1,119 +1,71 @@
 = simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
   = f.error_notification
-  %fieldset
-    %legend= t(".item_name_fieldset")
-    .inputs
-      .span5
-        .large-hint= t(".item_name_description")
-      .span7.offset1
-        = f.input :brand, as: :autocomplete
-        = f.input :sub_brand
-        = f.input :functional_name
-        = f.input :variant
+  
+  = two_col_fieldset t(".item_name_legend"), t(".item_name_hint") do
+    = f.input :brand, as: :autocomplete
+    = f.input :sub_brand
+    = f.input :functional_name
+    = f.input :variant
   
   = f.simple_fields_for :packages, wrapper: :inline do |p|
-    %fieldset
-      %legend= t(".net_content_fieldset")
-      .inputs.row
-        .span5
-          .large-hint= t(".net_content_description")
-        .span7.offset1
-          = p.input :type, 
-            collection: ProductDecorator.type_options, 
-            include_blank: false
-          = p.fields_for :contents do |c|
-            .clearfix.string.optional.net_content
-              = c.label :value, 
-                ProductDecorator.measure_value_label(c.object, :value, show_unit: false), 
-                class: "string optional"
-              .input
-                = c.text_field :value, :class => "string optional", 
-                  "data-validate" => true
-                = c.select :unit, ProductDecorator.unit_options(c.object)
-  
-    %fieldset
-      %legend= t(".weight_fieldset")
-      .inputs
-        .span5
-          .large-hint= t(".weight_description")
-        .span7.offset1
-          = p.simple_fields_for :weights, wrapper: :inline do |w|
-            = w.input :gross, 
-              label: ProductDecorator.measure_value_label(w.object, :gross), 
-              required: false, input_html: { "data-validate-with" => "net" }
-            = w.input :net, 
-              label: ProductDecorator.measure_value_label(w.object, :net), 
-              required: false, 
-              input_html: { "data-validate-with" => "gross", 
-              "data-validate-require" => "gross" }
-            = w.input :unit, as: :hidden
+    = two_col_fieldset t(".type"), t(".type_hint") do
+      = p.input :type, collection: ProductDecorator.type_options, include_blank: false
+    = two_col_fieldset t(".net_content_legend"), t(".net_content_hint") do
+      = p.fields_for :contents do |c|
+        .clearfix.string.optional.net_content
+          = c.label :value, 
+            ProductDecorator.measure_value_label(c.object, :value, show_unit: false), 
+            class: "string optional"
+          .input
+            = c.text_field :value, :class => "string optional", "data-validate" => true
+            = c.select :unit, ProductDecorator.unit_options(c.object)
 
-    %fieldset
-      %legend= t(".dimensions_fieldset")
-      .inputs
-        .span5
-          .large-hint= t(".dimensions_description")
-        .span7.offset1
-          = p.simple_fields_for :dimensions, wrapper: :inline do |d|
-            = d.input :height, 
-              label: ProductDecorator.measure_value_label(d.object, :height), 
-              required: false, 
-              input_html: { "data-require-in-group" => "true" }
-            = d.input :width, 
-              label: ProductDecorator.measure_value_label(d.object, :width), 
-              required: false, 
-              input_html: { "data-require-in-group" => "true" }
-            = d.input :depth, 
-              label: ProductDecorator.measure_value_label(d.object, :depth), 
-              required: false, 
-              input_html: { "data-require-in-group" => "true" }, 
-              wrapper_html: {class: "depth"}
-            = d.input :unit, as: :hidden
-  
-  %fieldset
-    %legend= t(".item_identification_fieldset")
-    .inputs
-      .span5
-        .large-hint= t(".item_identification_description")
-      .span7.offset1
-        = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
-          = n.input :value, 
-            label: I18n.t("product_codes.#{n.object.name}"),
-            required: false
-          = n.input :name, as: :hidden
-        = f.input :gtin
+    = two_col_fieldset t(".weight_legend"), t(".weight_hint") do
+      = p.simple_fields_for :weights, wrapper: :inline do |w|
+        = w.input :gross, 
+          label: ProductDecorator.measure_value_label(w.object, :gross), 
+          required: false, input_html: { "data-validate-with" => "net" }
+        = w.input :net, 
+          label: ProductDecorator.measure_value_label(w.object, :net), 
+          required: false, 
+          input_html: { "data-validate-with" => "gross", 
+          "data-validate-require" => "gross" }
+        = w.input :unit, as: :hidden
+
+    = two_col_fieldset t(".dimensions_legend"), t(".dimensions_hint") do
+      = p.simple_fields_for :dimensions, wrapper: :inline do |d|
+        = d.input :height, 
+          label: ProductDecorator.measure_value_label(d.object, :height), 
+          required: false, input_html: { "data-require-in-group" => "true" }
+        = d.input :width, 
+          label: ProductDecorator.measure_value_label(d.object, :width), 
+          required: false,input_html: { "data-require-in-group" => "true" }
+        = d.input :depth, 
+          label: ProductDecorator.measure_value_label(d.object, :depth), 
+          required: false,input_html: { "data-require-in-group" => "true" }
+        = d.input :unit, as: :hidden
+
+  = two_col_fieldset t(".item_identification_legend"), t(".item_identification_hint") do
+    = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
+      = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
+      = n.input :name, as: :hidden
+    = f.input :gtin
         
-  %fieldset
-    %legend= t(".provenance_fieldset")
-    .inputs
-      .span5
-        .large-hint= t(".provenance_description")
-      .span7.offset1
-        = f.input :manufacturer, as: :autocomplete
-        = f.input :country_of_origin, include_blank: false
+  = two_col_fieldset t(".provenance_legend"), t(".provenance_hint") do
+    = f.input :manufacturer, as: :autocomplete
+    = f.input :country_of_origin, include_blank: false
 
-  %fieldset
-    %legend= t(".description_fieldset")
-    .inputs
-      .span5
-        .large-hint= t(".description_description") 
-      .span7.offset1
-        = f.input :description, as: :text
+  = two_col_fieldset t(".description_legend"), t(".description_hint") do
+    = f.input :description, as: :text
     
     -#= f.input :short_description
-    -#= f.input :tags_list, as: :autocomplete, multiple: true,
-      autocomplete_by: :tags_name
+    -#= f.input :tags_list, as: :autocomplete, multiple: true, autocomplete_by: :tags_name
     -#= f.input :visibility, collection: ProductDecorator.visibility_options, 
       include_blank: false
 
-  %fieldset
-    %legend= t(".comment_fieldset")
-    .inputs
-      .span5
-        .large-hint= t(".comment_description")
-      .span7.offset1
-        = simple_fields_for @comment, wrapper: :inline, :validate => false do |n|
-          = n.input :body, as: :text, required: false
+  = two_col_fieldset t(".comment_legend"), t(".comment_hint") do
+    = simple_fields_for @comment, wrapper: :inline, :validate => false do |n|
+      = n.input :body, as: :text, required: false
 
   .actions
     = f.button :submit, class: "primary"
