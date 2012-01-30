@@ -20,7 +20,7 @@
         = f.input :time_zone
         = f.simple_fields_for :accounts, wrapper: :inline do |n|
           = n.input :company_name
-          = n.input :country, include_blank: false
+          = n.input :country, collection: Carmen.countries
           = n.input :subdomain
           = n.input :website
           = n.input :about_company, as: :text
