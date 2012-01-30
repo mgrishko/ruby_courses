@@ -5,7 +5,27 @@ Feature: Events feature
 
   Background: Account exists
     Given an activated account
-  
+
+  Scenario: Editor sees welcome box when new account
+    Given an authenticated user with editor role
+    And he is on the account home page
+    Then he should see events welcome message:
+      """
+      This Dashboard screen will show you the latest activity in your account.
+      But before we can show you activity, you'll need to create the first product.
+      """
+    When he follows "New Product" within welcome box
+    And he adds a new product
+    And he goes to the account home page
+    Then he should see "New" event
+    And he should not see events welcome box
+
+  Scenario: Viewer does not see link for new product
+    Given an authenticated user with viewer role
+    And he is on the account home page
+    Then he should see events welcome message
+    And he should not see "New Product" link within welcome box
+
   Scenario: Editor sees a new event when he adds a new product
     Given an authenticated user with editor role
     When he adds a new product

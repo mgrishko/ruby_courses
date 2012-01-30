@@ -40,7 +40,8 @@ class Product
   accepts_nested_attributes_for :product_codes
   attr_accessible :product_codes_attributes
 
-  auto_complete_for :brand, :manufacturer, :tags => :name
+  auto_complete_for :brand, :sub_brand, :variant, :functional_name, 
+    :manufacturer, :tags => :name
 
   validates :functional_name, presence: true, length: 1..35
   validates :variant, length: 0..35

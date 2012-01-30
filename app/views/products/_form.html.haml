@@ -1,6 +1,6 @@
 = simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
   = f.error_notification
-  
+
   = two_col_fieldset t(".item_name_legend"), t(".item_name_hint") do
     = f.input :brand, as: :autocomplete
     = f.input :sub_brand

@@ -29,3 +29,24 @@ Then /^he cannot delete this comment$/ do
     page.should_not have_link('Delete')
   end
 end
+
+Then /^he should see events welcome message:$/ do |string|
+  find_welcome_message(string)
+end
+
+Then /^he should see events welcome message$/ do
+  string = "This Dashboard screen will show you the latest activity in your account.
+            But before we can show you activity, you'll need to create the first product."
+  find_welcome_message(string)
+end
+
+Then /^he should not see events welcome box$/ do
+  page.should_not have_selector(".welcome_box")
+end
+
+def find_welcome_message(string)
+  string = string.split(/\s/).reject(&:blank?).join(" ")
+  within(".welcome_box") do
+    page.should have_content(string)
+  end
+end

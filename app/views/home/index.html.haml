@@ -1,10 +1,13 @@
 = title t('.title'), page_title: false
 
-%table
-  - @events.each do |e|
+- if @events.empty?
+  = render "welcome_box"
 
+- else
+  %table
+    - @events.each do |e|
 
-    %tr
-      %td.action= e.action_label
-      %td= e.trackable_link
-      %td.desc= e.description
+      %tr
+        %td.action= e.action_label
+        %td= e.trackable_link
+        %td.desc= e.description

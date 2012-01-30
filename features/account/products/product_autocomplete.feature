@@ -7,28 +7,24 @@ Feature: Autocompletion for product form fields
     Given an activated account
     And that account has a product
     And an authenticated user with editor role on edit product page
-  
+    
   @javascript
-  Scenario: Editor edits product brand using autocomplete
-    Given another product with brand "brand123"
-    And another product with brand "brand456"
-    Then he should not see "brand123, brand456" autocomplete options
-    When he enters "brand" into "Brand" field 
-    Then he should see "brand123, brand456" autocomplete options
-    When he selects the first autocomplete option in "Brand" field
+  Scenario Outline: User access to the account settings is denied
+    Given another product with <field> "<field>123"
+    And another product with <field> "<field>456"
+    Then he should not see "<field>123, <field>456" autocomplete options
+    When he enters "<field>" into "<label>" field
+    Then he should see "<field>123, <field>456" autocomplete options
+    When he selects the first autocomplete option in "<label>" field
     And he submits the product form
-    Then he should see product brand "brand456"
-  
-  @javascript
-  Scenario: Editor edits product manufacturer using autocomplete
-    Given another product with manufacturer "manufacturer123"
-    And another product with manufacturer "manufacturer456"
-    Then he should not see "manufacturer123, manufacturer456" autocomplete options
-    When he enters "manufacturer" into "Manufacturer" field
-    Then he should see "manufacturer123, manufacturer456" autocomplete options
-    When he selects the first autocomplete option in "Manufacturer" field
-    And he submits the product form
-    Then he should see product manufacturer "manufacturer456"
+    Then he should see product <field> "<field>456"
+    Examples:
+      | field           | label           |
+      | variant         | Variant         |
+      | manufacturer    | Manufacturer    |
+      | brand           | Brand           |
+      | sub_brand       | Sub brand       |
+      | functional_name | Functional name |
   
   #@javascript
   #Scenario: Editor edits product tags using multi autocomplete

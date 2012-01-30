@@ -2,10 +2,6 @@ Given /^(?:[^\s]* )is on the user profile page$/ do
   visit(edit_user_registration_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
-When /^(?:[^\s]* )goes to the home page$/ do
-  visit(home_url(subdomain: @account.subdomain))
-end
-
 Then /^(?:[^\s]* )should be redirected to the user profile page$/ do
   current_url.should == edit_user_registration_url(subdomain: @account.subdomain)
 end

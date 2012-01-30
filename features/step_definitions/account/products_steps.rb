@@ -410,6 +410,24 @@ Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
   within(:css, "section.content") { page.should have_content(value) }
 end
 
+Then /^he should(.*) see products welcome message:$/ do |should, string|
+  if should.strip == "not"
+    assert_no_welcome_message(string)
+  else
+    find_welcome_message(string)
+  end
+end
+
+Then /^he should see products welcome message$/ do
+  string = "This Products screen will show you the list of your products.
+            But before we can show your products, you'll need to create the first product."
+  find_welcome_message(string)
+end
+
+Then /^he should not see products welcome box$/ do
+  page.should_not have_selector(".welcome_box")
+end
+
 # Functions
 
 def submit_new_product_form(fields)
@@ -430,4 +448,19 @@ def submit_new_product_form(fields)
     end
   end
   click_button "Save Product"
+end
+
+def find_welcome_message(string, should_present = true)
+  string = string.split(/\s/).reject(&:blank?).join(" ")
+  within(".welcome_box") do
+    if should_present
+      page.should have_content(string)
+    else
+      page.should_not have_content(string)
+    end
+  end
+end
+
+def assert_no_welcome_message(string)
+  find_welcome_message(string, false)
 end
