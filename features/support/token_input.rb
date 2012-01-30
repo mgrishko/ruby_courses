@@ -17,7 +17,6 @@ module TokenInputHelpers
     ti_field.set(options[:with]) # 'type' in the value
     wait_for_ajax
     
-    steps %Q{ Then show me the page }
     puts find_field("#{field[:id]}").value
     #puts find(:css, ".token-input-dropdown-goodsmaster").native #methods.sort.join(",")
     within(:css, ".token-input-dropdown-goodsmaster") { find("li:contains('#{options[:with]}')").click } # find the matching element, and click on it

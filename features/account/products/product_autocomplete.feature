@@ -9,7 +9,7 @@ Feature: Autocompletion for product form fields
     And an authenticated user with editor role on edit product page
     
   @javascript
-  Scenario Outline: User access to the account settings is denied
+  Scenario Outline: Editor edits product using autocomplete
     Given another product with <field> "<field>123"
     And another product with <field> "<field>456"
     Then he should not see "<field>123, <field>456" autocomplete options
