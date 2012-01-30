@@ -18,8 +18,7 @@
         .span5
           .large-hint= t(".type_description")
         .span7.offset1
-          = p.input :type, 
-            collection: ProductDecorator.type_options, 
+          = p.input :type, collection: ProductDecorator.type_options, 
             include_blank: false
     %fieldset
       %legend= t(".net_content_fieldset")
@@ -96,7 +95,7 @@
         .large-hint= t(".provenance_description")
       .span7.offset1
         = f.input :manufacturer, as: :autocomplete
-        = f.input :country_of_origin, include_blank: false
+        = f.input :country_of_origin, collection: Carmen.countries
 
   %fieldset
     %legend= t(".description_fieldset")
