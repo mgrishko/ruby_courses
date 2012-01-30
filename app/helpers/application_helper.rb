@@ -23,4 +23,19 @@ module ApplicationHelper
                                               })
     end
   end
+  
+  # Renders fieldset with a legend and two columns with content. The first column
+  # contains a long hint, the second one contains inputs.
+  # @param [String] fieldset legend
+  # @param [String] long hint text
+  # @param [block] block of inputs
+  def two_col_fieldset(legend, hint, &block)
+    hint_html = content_tag(:div, hint, { class: "large-hint" })
+    hint_wrapper_html = content_tag(:div, hint_html, { class: "span5" })
+    inputs_html = content_tag(:div, capture(&block), { class: "span7 offset1" })
+    
+    field_set_tag legend do
+      content_tag :div, hint_wrapper_html.concat(inputs_html), { class: "inputs" }
+    end
+  end
 end

@@ -3,8 +3,7 @@
 - content_for(:sidemenu) do
   = @product.destroy_link(confirm: true)
 
-%fieldset
-  %legend= t(".item_image")
+= field_set_tag t(".item_image") do
   .row.inputs
     .span7.offset6= render "photos/photo", photo: @product.photos.last
 

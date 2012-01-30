@@ -1,28 +1,85 @@
-body.application form {
+$input_width: 250px;
+$fieldset_legend_color: #FF8800;
+$hint_font_weight: 200;
+
+body.application form, body.clean form {
   input {
     &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
     &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
-    &[type=number], &[type=range], &[type=search], &[type=color] {
+    &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
       @extend .span8;
+			width: $input_width; 
+			font-size: $baseline + 2; 
+			height: $baseline * 2 - 8;
     }
   }
 
   textarea {
-    @extend .span12;
+    @extend .span7;
     height: $baseline / 13px * 6.5em;
   }
-}
 
+	select {
+		height: $baseline * 2 + 2;
+		width: $input_width + 10;
+		font-size: $baseline + 2;
+		line-height: $baseline * 2;
+	}
+}
 form {
+	margin-bottom: $baseline * 2;
+	
   .hidden {
     margin-bottom: 0;
   }
-
+	.boolean .input {
+		float: left;
+		margin-right: 3px;
+	}
   label {
+		float: none; 
+		font-weight: $hint_font_weight; 
+		margin-bottom: 1px;
     &.optional {
       color: grey;
     }
   }
+	.clearfix {
+		margin-bottom: 10px;
+		.help-block {
+			font-size: $baseline * 0.62;
+		}
+	}
+	.input {
+		margin-left: 0;
+	}
+	.large-hint { 
+		font-weight: $hint_font_weight; 
+		line-height: $baseline; 
+		color: grey; 
+		font-size: $baseline * 0.72;
+	}
+	.actions { 
+		padding: ($baseline - 1) $baseline $baseline $baseline;
+		border-top: none;
+	}
+}
+
+fieldset {
+	padding: 0;
+  margin: $baseline 0 0 0;
+
+	legend { 
+		font-weight: $hint_font_weight; 
+		color: $fieldset_legend_color; 
+		padding: 0 0 0 $baseline * 20; 
+		margin: 0 0 0 0; 
+		font-size: $baseline * 1.67; 
+		line-height: $baseline * 2;
+	}
+}
+.inputs {
+	padding-top: $baseline;
 }
 
 #comments form {
@@ -35,6 +92,25 @@ form {
       @include float-right;
     }
   }
+}
+
+form.new_product, form.edit_product {
+	.inputs {
+		@extend .row;
+		border-top: 1px solid #DDD; 
+	}
+	.net_content {
+		input[type=text] { 
+			width: $input_width - 100;
+		}
+		select {
+			width: 96px;
+		}
+	}
+	.actions {
+		background: whiteSmoke;
+		padding-left: $baseline * 20;
+	}
 }
 
 .registrations, .accounts {
@@ -52,16 +128,4 @@ form {
       height: $baseline * 3.5;
     }
   }
-}
-
-fieldset legend { 
-	font-weight: 200; 
-	color: #FF8800; 
-	padding: 0 0 0 360px; 
-	margin: 0 0 -10px 0; 
-	font-size: 30px; 
-	line-height: 36px;
-}
-.inputs {
-	padding-top: 17px;
 }
