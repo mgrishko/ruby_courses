@@ -3,9 +3,9 @@
 
   = two_col_fieldset t(".item_name_legend"), t(".item_name_hint") do
     = f.input :brand, as: :autocomplete
-    = f.input :sub_brand
-    = f.input :functional_name
-    = f.input :variant
+    = f.input :sub_brand, as: :autocomplete
+    = f.input :functional_name, as: :autocomplete
+    = f.input :variant, as: :autocomplete
   
   = f.simple_fields_for :packages, wrapper: :inline do |p|
     = two_col_fieldset t(".type"), t(".type_hint") do
