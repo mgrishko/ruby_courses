@@ -7,20 +7,14 @@
     margin-bottom: 30px;
   }
 }
-fieldset legend { 
-	font-weight: 200; 
-	color: #FF8800; 
-	padding: 0 0 0 360px; 
-	margin: 0 0 -10px 0; 
-	font-size: 30px; 
-	line-height: 36px;
-}
-.inputs {
-	border-top: 1px solid #DDD; 
-	padding-top: 17px;
-}
+
 body.application {
 	form.new_product, form.edit_product {
+		margin-bottom: 36px;
+		
+		.inputs {
+			border-top: 1px solid #DDD; 
+		}
 		.large-hint { 
 			font-weight: 200; 
 			line-height: 18px; 
@@ -40,7 +34,7 @@ body.application {
 				height: 28px;
 			}
 			textarea {
-				width: 390px;
+				width: 370px;
 			}
 			select {
 				height: 38px;
@@ -56,8 +50,9 @@ body.application {
 			margin-top: -18px;
 		}
 		.actions { 
-			padding: 0; 
-			background: transparent; 
+			padding-left: 360px; 
+			/*
+			background: transparent; */
 			border-top: none;
 		}
 		.net_content {
