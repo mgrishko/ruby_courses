@@ -1,30 +1,33 @@
+$input_width: 250px;
+$fieldset_legend_color: #FF8800;
+$hint_font_weight: 200;
+
 body.application form, body.clean form {
   input {
     &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
     &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
     &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
       @extend .span8;
-			width: 250px; 
-			font-size: 20px; 
-			height: 28px;
+			width: $input_width; 
+			font-size: $baseline + 2; 
+			height: $baseline * 2 - 8;
     }
   }
 
   textarea {
-    @extend .span12;
-		width: 370px;
+    @extend .span7;
     height: $baseline / 13px * 6.5em;
   }
 
 	select {
-		height: 38px;
-		width: 260px;
-		font-size: 20px;
-		line-height: 36px;
+		height: $baseline * 2 + 2;
+		width: $input_width + 10;
+		font-size: $baseline + 2;
+		line-height: $baseline * 2;
 	}
 }
 form {
-	margin-bottom: 36px;
+	margin-bottom: $baseline * 2;
 	
   .hidden {
     margin-bottom: 0;
@@ -35,7 +38,7 @@ form {
 	}
   label {
 		float: none; 
-		font-weight: 200; 
+		font-weight: $hint_font_weight; 
 		margin-bottom: 1px;
     &.optional {
       color: grey;
@@ -44,36 +47,39 @@ form {
 	.clearfix {
 		margin-bottom: 10px;
 		.help-block {
-			margin-top: 2px;
-			font-size: 11px;
+			font-size: $baseline * 0.62;
 		}
 	}
 	.input {
 		margin-left: 0;
 	}
 	.large-hint { 
-		font-weight: 200; 
-		line-height: 18px; 
+		font-weight: $hint_font_weight; 
+		line-height: $baseline; 
 		color: grey; 
-		font-size: 13px;
+		font-size: $baseline * 0.72;
 	}
 	.actions { 
-		padding: 17px 20px 18px 20px;
+		padding: ($baseline - 1) $baseline $baseline $baseline;
 		border-top: none;
 	}
 }
 
-fieldset legend { 
-	font-weight: 200; 
-	color: #FF8800; 
-	padding: 0 0 0 360px; 
-	margin: 0 0 -10px 0; 
-	font-size: 30px; 
-	line-height: 36px;
+fieldset {
+	padding: 0;
+  margin: $baseline 0 0 0;
+
+	legend { 
+		font-weight: $hint_font_weight; 
+		color: $fieldset_legend_color; 
+		padding: 0 0 0 $baseline * 20; 
+		margin: 0 0 0 0; 
+		font-size: $baseline * 1.67; 
+		line-height: $baseline * 2;
+	}
 }
 .inputs {
-	padding-top: 17px;
-	margin-top: -18px;
+	padding-top: $baseline;
 }
 
 #comments form {
@@ -95,7 +101,7 @@ form.new_product, form.edit_product {
 	}
 	.net_content {
 		input[type=text] { 
-			width: 150px;
+			width: $input_width - 100;
 		}
 		select {
 			width: 96px;
@@ -103,7 +109,7 @@ form.new_product, form.edit_product {
 	}
 	.actions {
 		background: whiteSmoke;
-		padding: 17px 20px 18px 360px;
+		padding-left: $baseline * 20;
 	}
 }
 
@@ -122,16 +128,4 @@ form.new_product, form.edit_product {
       height: $baseline * 3.5;
     }
   }
-}
-
-fieldset legend { 
-	font-weight: 200; 
-	color: #FF8800; 
-	padding: 0 0 0 360px; 
-	margin: 0 0 -10px 0; 
-	font-size: 30px; 
-	line-height: 36px;
-}
-.inputs {
-	padding-top: 17px;
 }

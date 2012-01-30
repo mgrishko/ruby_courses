@@ -151,7 +151,7 @@ en:
       edit: "Edit Product"
       functional_name: "Functional"
       gross_weight: "Gross weight"
-      item_identification_label: "Item Identification"
+      item_identification_legend: "Item Identification"
       item_identification_hint: "Item ID is a vendor's internal trade
         item number. GTIN (Global Trade Item Number) is used for the unique 
         identification of trade items worldwide. GTINs may be 8, 12, 13 or
