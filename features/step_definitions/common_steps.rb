@@ -1,6 +1,8 @@
 When /^he follows "([^"]*)" within (.*)$/ do |link, scope|
   scope = scope.gsub(/\s/, '_')
-  within(".#{scope}") { click_on(link) }
+  within(".#{scope}") do
+    click_on(link)
+  end
 end
 
 When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
@@ -27,8 +29,9 @@ Then /^he should not see tags$/ do
   page.should_not have_selector(".token-input-token-goodsmaster")
 end
 
-Then /^he should(.*) see "([^"]*)" link within (.*)$/ do |should, link, context|
-  selector = page.has_selector?(context) ? context : ".#{context}"
+Then /^he should(.*) see "([^"]*)" link within (.*)$/ do |should, link, scope|
+  scope = scope.gsub(/\s/, '_')
+  selector = page.has_selector?(scope) ? scope : ".#{scope}"
 
   should_have = !(should.strip == "not")
 

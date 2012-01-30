@@ -90,6 +90,11 @@ en:
   home:
     index:
       title: "Friendly Product Data Management"
+    welcome_box:
+      title: "Welcome to your account"
+      message: "This Dashboard screen will show you the latest activity in your account.
+        But before we can show you activity, you'll need to create the first product."
+      new_product: "New Product"
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
@@ -459,6 +464,11 @@ en:
       tags: "Tags and Privacy"
     form:
       <<: *PRODUCT_DEFAULTS
+    welcome_box:
+      title: "Welcome to your account"
+      message: "This Products screen will show you the list of your products.
+        But before we can show your products, you'll need to create the first product."
+      new_product: "Please, click the New Product button on the left to get started."
 
   users:
     accounts:

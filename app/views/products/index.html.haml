@@ -3,24 +3,19 @@
 - content_for(:sidemenu) do
   = ProductDecorator.create_link
 
-- ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
-  %article
-    %header
-      .row.tr
-        .attr_val= functional
+- if @products.empty?
+  = render "welcome_box"
 
-    - products.each_slice(2) do |items|
-      .row.tr
-        - items.each do |product|
-          = render product
+- else
+  - ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
+    %article
+      %header
+        .row.tr
+          .attr_val= functional
 
-          -#%td
-          -#  - if product.photos.last.nil?
-          -#    = image_tag("product_small.png")
-          -#  - else
-          -#    = image_tag product.photos.last.image.small.url
-          -#%td
-          -#  %h2= product.show_link(name: :name)
-          -#  = product.visibility_label(public: false)
-          -#  = product.tag_labels
+      - products.each_slice(2) do |items|
+        .row.tr
+          - items.each do |product|
+            = render product
+
 

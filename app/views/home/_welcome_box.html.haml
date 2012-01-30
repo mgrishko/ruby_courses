@@ -1,0 +1,14 @@
+.row
+  .span3.columns
+    = image_tag("product_missing.jpg")
+
+  .span8.columns.welcome_box
+    .alert-message.block-message
+
+      %h3= t(".title")
+      %p
+        %span.large= t(".message")
+        - if can? :create, Product
+          %br
+          %br
+          = link_to t(".new_product"), new_product_path , class: "btn primary"

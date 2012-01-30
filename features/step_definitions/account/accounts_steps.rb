@@ -17,3 +17,7 @@ Given /^another active account$/ do
 
   set_current_subdomain(@account.subdomain)
 end
+
+When /^(?:[^\s]* )goes to the(?: account)? home page$/ do
+  visit(home_url(subdomain: @account.subdomain))
+end
