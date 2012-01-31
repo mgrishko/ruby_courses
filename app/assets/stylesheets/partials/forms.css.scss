@@ -1,27 +1,94 @@
-body.application form {
-  input {
-    &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
-    &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
-    &[type=number], &[type=range], &[type=search], &[type=color] {
-      @extend .span8;
-    }
-  }
+$input_font_size: $baseline * 1.1;
+$input_height: $baseline * 1.5;
+$input_width: 250px;
+$select_height: $baseline * 2 + 2px;
+$fieldset_legend_color: #FF8800;
+$hint_font_weight: 200;
 
-  textarea {
-    @extend .span12;
-    height: $baseline / 13px * 6.5em;
+$second_column_padding: ($gridColumnWidth + $gridGutterWidth) * 6 + $gridGutterWidth;
+
+fieldset {
+  margin-left: 20px;
+  legend {
+    @extend .span14;
+  	font-weight: $hint_font_weight;
+  	color: $fieldset_legend_color;
+  	padding: 0;
+  	margin: 0;
+  	font-size: $baseline * 1.67;
+  	line-height: $baseline * 2;
+  	border-bottom: 1px solid #ddd;
   }
 }
 
 form {
-  .hidden {
-    margin-bottom: 0;
+
+  fieldset {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  input {
+    &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
+    &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
+    &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
+      width: $input_width;
+      font-size: $input_font_size;
+	  height: $input_height;
+    }
+  }
+
+  select {
+    width: $input_width + 10;
+    font-size: $input_font_size;
+    height: $select_height;
+  }
+
+  textarea {
+    @extend .span8;
+    height: $baseline / 13px * 6.5em;
   }
 
   label {
     &.optional {
       color: grey;
     }
+  }
+
+  .help-block {
+    margin-left: 150px;
+  }
+
+  // Forms with labels over input
+  &.form-stacked {
+    label {
+      font-weight: normal;
+    }
+
+    div.clearfix.error {
+      padding-left: 10px;
+      margin-left: -10px;
+      margin-top: -10px;
+      margin-bottom: -1px;
+    }
+  }
+
+  &.two-col {
+    @extend .span14;
+
+	.actions {
+	  padding-left: $second_column_padding;
+	}
+  }
+
+}
+
+form, fieldset {
+  .large-hint {
+    font-weight: $hint_font_weight;
+    line-height: $baseline;
+    color: grey;
+    font-size: $baseline * 0.72;
   }
 }
 
@@ -38,30 +105,10 @@ form {
 }
 
 .registrations, .accounts {
-   form {
-    input {
-      &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel] {
-        @extend .xlarge;
-      }
-    }
-    select {
-      @extend .xlarge;
-    }
+  form {
     textarea {
       @extend .xxlarge;
       height: $baseline * 3.5;
     }
   }
-}
-
-fieldset legend { 
-	font-weight: 200; 
-	color: #FF8800; 
-	padding: 0 0 0 360px; 
-	margin: 0 0 -10px 0; 
-	font-size: 30px; 
-	line-height: 36px;
-}
-.inputs {
-	padding-top: 17px;
 }

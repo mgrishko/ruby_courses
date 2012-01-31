@@ -81,9 +81,9 @@ en:
 
     hints:
       account:
-        subdomain: "Subdomains may include letters and numbers only (no space)."
+        subdomain: "Subdomains may include letters and numbers only (no spaces)"
 
       user:
         edit:
-          current_password: "we need your current password to confirm your changes"
-          password: "leave it blank if you don't want to change it"
+          current_password: "We need your current password to confirm your changes"
+          password: "Leave it blank if you don't want to change it"

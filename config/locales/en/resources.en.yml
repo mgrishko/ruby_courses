@@ -143,27 +143,28 @@ en:
   products:
     defaults: &PRODUCT_DEFAULTS
       brand: "Brand"
-      comment_fieldset: "Comment"
-      comment_description: "Free-text comment."
+      comment_legend: "Comment"
+      comment_hint: "Free-text comment."
       country_of_origin: "Country of Origin"
-      dimensions_fieldset: "Dimensions"
-      dimensions_description: "Product is measured according to the space it 
+      dimensions_legend: "Dimensions"
+      dimensions_hint: "Product is measured according to the space it 
         occupies on the shelf."
       depth: "Depth"
-      description_fieldset: "Description"
-      description_description: "Free-text marketing description."
+      description_legend: "Description"
+      description_hint: "Free-text marketing description."
       destroy: "Delete Product"
       edit: "Edit Product"
       functional_name: "Functional"
       gross_weight: "Gross weight"
-      item_identification_fieldset: "Item Identification"
-      item_identification_description: "Item ID is a vendor's internal trade
+      item_identification_legend: "Item Identification"
+      item_identification_hint: "Item ID is a vendor's internal trade
         item number. GTIN (Global Trade Item Number) is used for the unique 
         identification of trade items worldwide. GTINs may be 8, 12, 13 or
         14-digits in length and are encoded in barcodes."
       item_image: "Item Image"
-      item_name_fieldset: "Item Name"
-      item_name_description: "Brand is a mandatory field. Sub brand is the
+      item_image_hint: "JPG, GIF or PNG image file up to 1 megabyte."
+      item_name_legend: "Item Name"
+      item_name_hint: "Brand is a mandatory field. Sub brand is the
         second level of brand, optional. E.g. Yummy-Cola Classic. In this 
         example Yummy-Cola is the brand and Classic is the sub brand.
         Functional name describes the use of the product or service by a 
@@ -174,15 +175,15 @@ en:
       height: "Height"
       manufacturer: "Manufacturer"
       net_content: "Content"
-      net_content_fieldset: "Net Content"
-      net_content_description: "Net Content is the total amount of the trade 
+      net_content_legend: "Net Content"
+      net_content_hint: "Net Content is the total amount of the trade 
         item contained in a package, usually as claimed on the label. For 
         example, if a consumer trade item is a 6 pack of 4 oz. applesauce the
         net content of this consumer trade item is 24 oz."
       net_weight: "Net weight"
       new: "New Product"
-      provenance_fieldset: "Provenance"
-      provenance_description: "Manufacturer of the trade item. Trade Item 
+      provenance_legend: "Provenance"
+      provenance_hint: "Manufacturer of the trade item. Trade Item 
         Country of origin is the country of manufacture, production, or growth
         where an article or product comes from."
       sub_brand: "Sub brand"
@@ -192,13 +193,13 @@ en:
       visibility:
         private: "Private"
         public: "Public"
-      weight_fieldset: "Weight"
-      weight_description: "Gross Weight is the weight of the trade item 
+      weight_legend: "Weight"
+      weight_hint: "Gross Weight is the weight of the trade item 
         including packaging. Net Weight is the weight of the trade item 
         not including any packaging."
       width: "Width"
       type: "Packaging"
-      type_description: "Type of the packaging used for the trade item"
+      type_hint: "Type of the packaging used for the trade item"
       types:
         AE:
           name: Aerosol

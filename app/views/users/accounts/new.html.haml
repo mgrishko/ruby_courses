@@ -17,7 +17,7 @@
       = f.error_notification
       .inputs
         = f.input :company_name
-        = f.input :country, include_blank: false
+        = f.input :country, collection: Carmen.countries
         = f.input :subdomain
         = f.input :website
         = f.input :about_company, as: :text

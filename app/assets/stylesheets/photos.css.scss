@@ -3,7 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #new_photo, .edit_photo {
-  .link {
+ 	margin-bottom: 0;
+
+	.link {
     margin-top: -2em;
   }
   .file {

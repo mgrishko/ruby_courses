@@ -8,7 +8,7 @@ Feature: Autocompletion for product form fields
     And that account has a product
     
   @javascript
-  Scenario Outline: User fills product form fields with autocompleted values
+  Scenario Outline: Editor edits product using autocomplete
     Given another product with <field> "<field>123"
     And another product with <field> "<field>456"
     And an authenticated user with editor role on edit product page
