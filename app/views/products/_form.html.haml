@@ -1,4 +1,9 @@
-= simple_form_for @product.setup_nested, wrapper: :inline, :validate => true do |f|
+- unless @product.new_record?
+  = two_col_fieldset t(".item_image"), t(".item_image_hint") do
+    = render "photos/photo", photo: @product.photos.last
+
+= simple_form_for @product.setup_nested, wrapper: :stacked, html: {class: "form-stacked two-col"},
+        :validate => true do |f|
   = f.error_notification
 
   = two_col_fieldset t(".item_name_legend"), t(".item_name_hint") do
@@ -7,7 +12,7 @@
     = f.input :functional_name, as: :autocomplete
     = f.input :variant, as: :autocomplete
   
-  = f.simple_fields_for :packages, wrapper: :inline do |p|
+  = f.simple_fields_for :packages, wrapper: :stacked do |p|
     = two_col_fieldset t(".type"), t(".type_hint") do
       = p.input :type, collection: ProductDecorator.type_options, include_blank: false
     = two_col_fieldset t(".net_content_legend"), t(".net_content_hint") do
@@ -21,7 +26,7 @@
             = c.select :unit, ProductDecorator.unit_options(c.object)
 
     = two_col_fieldset t(".weight_legend"), t(".weight_hint") do
-      = p.simple_fields_for :weights, wrapper: :inline do |w|
+      = p.simple_fields_for :weights, wrapper: :stacked do |w|
         = w.input :gross, 
           label: ProductDecorator.measure_value_label(w.object, :gross), 
           required: false, input_html: { "data-validate-with" => "net" }
@@ -33,7 +38,7 @@
         = w.input :unit, as: :hidden
 
     = two_col_fieldset t(".dimensions_legend"), t(".dimensions_hint") do
-      = p.simple_fields_for :dimensions, wrapper: :inline do |d|
+      = p.simple_fields_for :dimensions, wrapper: :stacked do |d|
         = d.input :height, 
           label: ProductDecorator.measure_value_label(d.object, :height), 
           required: false, input_html: { "data-require-in-group" => "true" }
@@ -46,7 +51,7 @@
         = d.input :unit, as: :hidden
 
   = two_col_fieldset t(".item_identification_legend"), t(".item_identification_hint") do
-    = f.simple_fields_for :product_codes, wrapper: :inline, :validate => false do |n|
+    = f.simple_fields_for :product_codes, wrapper: :stacked, :validate => false do |n|
       = n.input :value, label: I18n.t("product_codes.#{n.object.name}"), required: false
       = n.input :name, as: :hidden
     = f.input :gtin
@@ -64,7 +69,7 @@
       include_blank: false
 
   = two_col_fieldset t(".comment_legend"), t(".comment_hint") do
-    = simple_fields_for @comment, wrapper: :inline, :validate => false do |n|
+    = simple_fields_for @comment, wrapper: :stacked, :validate => false do |n|
       = n.input :body, as: :text, required: false
 
   .actions

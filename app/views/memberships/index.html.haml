@@ -6,11 +6,11 @@
 %article
   %table.grid
     %tr
-    %th= t('.name')
-    %th= t('.role')
-    %th= t('.email')
-    %th &nbsp;
-    %th &nbsp;
+      %th= t('.name')
+      %th= t('.role')
+      %th= t('.email')
+      %th &nbsp;
+      %th &nbsp;
     - @memberships.each do |m|
       %tr
         %td= m.display_name

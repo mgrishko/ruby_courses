@@ -1,10 +1,6 @@
-= title t(".title"), body: false
+= title t(".title"), page_title: false
 
 - content_for(:sidemenu) do
   = @product.destroy_link(confirm: true)
-
-= field_set_tag t(".item_image") do
-  .row.inputs
-    .span7.offset6= render "photos/photo", photo: @product.photos.last
 
 = render 'form'

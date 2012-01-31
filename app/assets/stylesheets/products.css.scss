@@ -10,4 +10,17 @@
   .welcome_box {
     padding-top: 20px;
   }
+
+  form {
+    margin-bottom: 4em;
+
+	.net_content {
+      input[type=text] {
+        width: 150px;
+      }
+      select {
+        width: 96px;
+      }
+	}
+  }
 }

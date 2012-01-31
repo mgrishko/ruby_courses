@@ -1,85 +1,95 @@
+$input_font_size: $baseline * 1.1;
+$input_height: $baseline * 1.5;
 $input_width: 250px;
+$select_height: $baseline * 2 + 2px;
 $fieldset_legend_color: #FF8800;
 $hint_font_weight: 200;
 
-body.application form, body.clean form {
+$second_column_padding: ($gridColumnWidth + $gridGutterWidth) * 6 + $gridGutterWidth;
+
+fieldset {
+  margin-left: 20px;
+  legend {
+    @extend .span14;
+  	font-weight: $hint_font_weight;
+  	color: $fieldset_legend_color;
+  	padding: 0;
+  	margin: 0;
+  	font-size: $baseline * 1.67;
+  	line-height: $baseline * 2;
+  	border-bottom: 1px solid #ddd;
+  }
+}
+
+form {
+
+  fieldset {
+    margin-left: 0;
+    width: 100%;
+  }
+
   input {
     &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel],
     &[type=date], &[type=datetime], &[type=datetime-local], &[type=month], &[type=week], &[type=time],
     &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
-      @extend .span8;
-			width: $input_width; 
-			font-size: $baseline + 2; 
-			height: $baseline * 2 - 8;
+      width: $input_width;
+      font-size: $input_font_size;
+	  height: $input_height;
     }
   }
 
+  select {
+    width: $input_width + 10;
+    font-size: $input_font_size;
+    height: $select_height;
+  }
+
   textarea {
-    @extend .span7;
+    @extend .span8;
     height: $baseline / 13px * 6.5em;
   }
 
-	select {
-		height: $baseline * 2 + 2;
-		width: $input_width + 10;
-		font-size: $baseline + 2;
-		line-height: $baseline * 2;
-	}
-}
-form {
-	margin-bottom: $baseline * 2;
-	
-  .hidden {
-    margin-bottom: 0;
-  }
-	.boolean .input {
-		float: left;
-		margin-right: 3px;
-	}
   label {
-		float: none; 
-		font-weight: $hint_font_weight; 
-		margin-bottom: 1px;
     &.optional {
       color: grey;
     }
   }
-	.clearfix {
-		margin-bottom: 10px;
-		.help-block {
-			font-size: $baseline * 0.62;
-		}
+
+  .help-block {
+    margin-left: 150px;
+  }
+
+  // Forms with labels over input
+  &.form-stacked {
+    label {
+      font-weight: normal;
+    }
+
+    div.clearfix.error {
+      padding-left: 10px;
+      margin-left: -10px;
+      margin-top: -10px;
+      margin-bottom: -1px;
+    }
+  }
+
+  &.two-col {
+    @extend .span14;
+
+	.actions {
+	  padding-left: $second_column_padding;
 	}
-	.input {
-		margin-left: 0;
-	}
-	.large-hint { 
-		font-weight: $hint_font_weight; 
-		line-height: $baseline; 
-		color: grey; 
-		font-size: $baseline * 0.72;
-	}
-	.actions { 
-		padding: ($baseline - 1) $baseline $baseline $baseline;
-		border-top: none;
-	}
+  }
+
 }
 
-fieldset {
-	padding: 0;
-  margin: $baseline 0 0 0;
-
-	legend { 
-		font-weight: $hint_font_weight; 
-		color: $fieldset_legend_color; 
-		padding: 0 0 0 $baseline * 20; 
-		margin: 0 0 0 0; 
-		font-size: $baseline * 1.67; 
-		line-height: $baseline * 2;
-	}
-}
-.inputs {
-	padding-top: $baseline;
+form, fieldset {
+  .large-hint {
+    font-weight: $hint_font_weight;
+    line-height: $baseline;
+    color: grey;
+    font-size: $baseline * 0.72;
+  }
 }
 
 #comments form {
@@ -94,35 +104,8 @@ fieldset {
   }
 }
 
-form.new_product, form.edit_product {
-	.inputs {
-		@extend .row;
-		border-top: 1px solid #DDD; 
-	}
-	.net_content {
-		input[type=text] { 
-			width: $input_width - 100;
-		}
-		select {
-			width: 96px;
-		}
-	}
-	.actions {
-		background: whiteSmoke;
-		padding-left: $baseline * 20;
-	}
-}
-
 .registrations, .accounts {
-   form {
-    input {
-      &[type=text], &[type=password], &[type=email], &[type=url], &[type=tel] {
-        @extend .xlarge;
-      }
-    }
-    select {
-      @extend .xlarge;
-    }
+  form {
     textarea {
       @extend .xxlarge;
       height: $baseline * 3.5;
