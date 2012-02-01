@@ -2,8 +2,7 @@
   = two_col_fieldset t(".item_image"), t(".item_image_hint") do
     = render "photos/photo", photo: @product.photos.last
 
-= simple_form_for @product.setup_nested, wrapper: :stacked, html: {class: "form-stacked two-col"},
-        :validate => true do |f|
+= simple_form_for @product.setup_nested, wrapper: :stacked, :validate => true do |f|
   = f.error_notification
 
   = two_col_fieldset t(".item_name_legend"), t(".item_name_hint") do

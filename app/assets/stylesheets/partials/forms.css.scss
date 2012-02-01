@@ -73,7 +73,7 @@ form {
     }
   }
 
-  &.two-col {
+  &.with-left-hint-col {
     @extend .span14;
 
 	.actions {
@@ -92,6 +92,15 @@ form, fieldset {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Only forms costomizations for different controllers should be placed bellow.
+//
+// Only those customizaitons should be placed here which can not be placed
+// in corresponding controller stylesheet file:
+// which uses @extend and mixins which are not accessible form controller stylesheet.
+// TODO: Move this customizations to corresponding stylesheet.
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 #comments form {
   textarea {
     @extend .span8;
@@ -102,6 +111,11 @@ form, fieldset {
       @include float-right;
     }
   }
+}
+
+.products form {
+  @extend .form-stacked;
+  @extend .with-left-hint-col;
 }
 
 .registrations, .accounts {
