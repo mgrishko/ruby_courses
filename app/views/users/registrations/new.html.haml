@@ -9,8 +9,8 @@
       %br
       = t(".skip_this_form", sign_in: link_to(t(".sign_in_here"), new_users_account_url)).html_safe
 
-    = simple_form_for(setup_account(resource), as: resource_name,
-            url: registration_path(resource_name), validate: true, wrapper: :inline) do |f|
+    = simple_form_for(setup_account(resource), as: resource_name, url: registration_path(resource_name),
+                      validate: true, wrapper: :inline, html: { id: "user_new" }) do |f|
       = f.error_notification
       .inputs
         = f.input :first_name

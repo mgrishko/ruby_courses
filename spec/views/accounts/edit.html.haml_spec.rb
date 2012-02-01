@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "accounts/edit.html.haml" do
+describe "accounts/edit" do
 
   before(:each) do
     @account = assign(:account, stub_model(Account, subdomain: "",

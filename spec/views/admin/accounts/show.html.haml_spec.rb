@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "admin/accounts/show.haml" do
+describe "admin/accounts/show" do
   before(:each) do
     decorator = AccountDecorator.decorate(Fabricate.build(:account))
     decorator.stub(:activation_link)
@@ -62,7 +62,7 @@ describe "admin/accounts/show.haml" do
     render
     rendered.should have_selector("a", text: "Back")
   end
-  
+
   it "renders login as owner link" do
     @account.should_receive(:login_as_owner_link)
     render

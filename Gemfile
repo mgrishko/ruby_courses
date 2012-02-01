@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -8,17 +8,17 @@ gem 'rails', '3.1.3'
 gem "rake", "~> 0.9.2.2"
 
 # ORM and relative
-gem "mongoid"
+gem "mongoid", "~> 2.4"
 gem "mongoid_rails_migrations"
-gem "bson_ext"
 gem "mongoid_session_store", "~> 2.0.1"
+gem "bson_ext", "~> 1.5"
 gem "state_machine"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'bootstrap-sass', '1.4.0'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'bootstrap-sass', '~> 1.4.4'
   #gem 'compass', "~> 0.11.5"
 
   gem 'execjs'
@@ -27,7 +27,7 @@ group :assets do
 end
 
 # This assets gems should be global wide accessible to respond to js, for ex. with create.js.coffee:
-gem 'coffee-rails', '~> 3.1.1'
+gem 'coffee-rails', '~> 3.2.1'
 gem 'uglifier', '>= 1.0.3'
 
 # Security related gems
@@ -41,14 +41,14 @@ gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "carmen" # country_select and state_select plugin
 gem "simple-navigation", "~> 3.5.0"
-gem "client_side_validations"
+gem "client_side_validations", "~> 3.1.4"
 gem "i18n-js"
 
 # Backend tools
 gem "responders"
 gem "draper"
 gem "settingslogic", "~> 2.0.6"
-gem 'carrierwave'
+gem 'carrierwave', git: "git://github.com/jnicklas/carrierwave.git"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'

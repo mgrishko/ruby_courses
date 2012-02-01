@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "memberships/new.html.haml" do
+describe "memberships/new" do
   before(:each) do
     assign(:membership, MembershipDecorator.decorate(stub_model(Membership,
       :role => "editor"

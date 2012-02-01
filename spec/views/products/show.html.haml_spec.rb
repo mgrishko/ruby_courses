@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe "products/show.html.haml" do
-  before(:each) do    
+describe "products/show" do
+  before(:each) do
     product = stub_model(Product,
       :short_description => "Short Description",
       :description => "Description",
@@ -16,7 +16,7 @@ describe "products/show.html.haml" do
 
     ProductDecorator.any_instance.stub(:version_link).and_return("Version 1")
     ProductDecorator.any_instance.stub(:version_date).and_return("<span>Feb 04, 2001</span>".html_safe)
-    
+
     @product_version = assign(:product_version, ProductDecorator.decorate(product))
 
     @product.stub(:visibility_label).with(wrapper: :li).
