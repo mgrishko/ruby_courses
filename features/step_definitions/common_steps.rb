@@ -88,7 +88,8 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   end
 end
 
-Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
+Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do 
+    |msg, inputs, input, value|
   fill_in(input, with: value)
   
   input_names = inputs.split(";").collect{ |l| l.strip }
