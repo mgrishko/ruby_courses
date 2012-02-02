@@ -55,6 +55,16 @@ Given /^an authenticated user with editor role on edit product page$/ do
   }
 end
 
+Given /^that account has the following products:$/ do |table|
+  table.hashes.each do |atts|
+    Fabricate(:product, atts.merge(account: @account))
+  end
+end
+
+Given /^the product has tags "([^"]*)"$/ do |tags|
+  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
+end
+
 When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
   # Enter text into text field
   execute_script "$('#token-input-product_tags_list').val('#{text}')"
@@ -93,18 +103,6 @@ When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
   execute_script "$('input##{field_id}').trigger('keydown')"
 end
 
-Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
-  opts = options.split(",").collect{ |o| o.strip }
-
-  opts.each do |option|
-    if should.strip == "not"
-      page.should_not have_content(option)
-    else
-      page.should have_content(option)
-    end
-  end
-end
-
 When /^he selects the first autocomplete option in "([^"]*)" field$/ do |locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
@@ -119,10 +117,6 @@ When /^he enters "([^"]*)" into Tags field$/ do |text|
   # Trigger keydown to open the dropdown
   execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
   sleep(2)
-end
-
-Given /^the product has tags "([^"]*)"$/ do |tags|
-  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
 When /^he deletes tags$/ do
@@ -427,6 +421,29 @@ end
 Then /^he should not see products welcome box$/ do
   page.should_not have_selector(".welcome_box")
 end
+
+Then /^he should(.*) see "([^"]*)" product$/ do |should, variant|
+  within(".products") do
+    if should.strip == "not"
+      page.should_not have_content(variant)
+    else
+      page.should have_content(variant)
+    end
+  end
+end
+
+Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
+  opts = options.split(",").collect{ |o| o.strip }
+
+  opts.each do |option|
+    if should.strip == "not"
+      page.should_not have_content(option)
+    else
+      page.should have_content(option)
+    end
+  end
+end
+
 
 # Functions
 
