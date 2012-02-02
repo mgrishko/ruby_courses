@@ -29,6 +29,8 @@ describe "products/index.html.haml" do
     Product.any_instance.stub(:tag_labels).
         and_return("<span class='label'>Tag 1</span>".html_safe)
 
+    ProductDecorator.stub(:submenu_header_link)
+    ProductDecorator.stub(:filter_options).and_return([])
   end
 
   describe "sidemenu" do
@@ -36,5 +38,37 @@ describe "products/index.html.haml" do
       ProductDecorator.should_receive(:create_link)
       render
     end
+
+    it "renders a brand filter" do
+      ProductDecorator.should_receive(:submenu_header_link).with(:brand)
+      render
+    end
+
+    it "renders a manufacturer filter" do
+      ProductDecorator.should_receive(:submenu_header_link).with(:manufacturer)
+      render
+    end
+
+    #it "renders a tag filter" do
+    #  ProductDecorator.should_receive(:submenu_header_link).with(:tag)
+    #  render
+    #end
+  end
+
+  describe "submenu" do
+    it "renders a brand filter options" do
+      ProductDecorator.should_receive(:filter_options).with(:brand)
+      render
+    end
+
+    it "renders a manufacturer filter options" do
+      ProductDecorator.should_receive(:filter_options).with(:manufacturer)
+      render
+    end
+
+    #it "renders a tag filter options" do
+    #  ProductDecorator.should_receive(:filter_options).with(:tag)
+    #  render
+    #end
   end
 end

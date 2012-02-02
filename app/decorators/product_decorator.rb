@@ -51,6 +51,22 @@ class ProductDecorator < ApplicationDecorator
     opts[:show_unit] || !opts.has_key?(:show_unit) ? "#{label}, #{I18n.t("units.short.#{measurement.unit}")}": label
   end
 
+  # Prepares link for products side menu with submenu.
+  #
+  # @param [Symbol] scope is a scope with should be applied
+  # @return [String] link
+  def self.submenu_header_link(item)
+    h.link_to I18n.t("submenu.#{item}", scope: i18n_scope), "#", "data-submenu" => item.to_s
+  end
+
+  # Returns options for given scope.
+  #
+  # @param [Symbol] scope is a filter name
+  # @return [Array] filter options names
+  def self.filter_options(scope)
+    Product.send(:"distinct_#{scope.to_s.pluralize}")
+  end
+
   # Returns html code for a link to a specific product version.
   # If product version is current version it returns only link name.
   #

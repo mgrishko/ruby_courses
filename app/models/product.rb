@@ -63,6 +63,10 @@ class Product
                   :short_description, :description, :version, :updated_at,
                   :brand, :sub_brand, :manufacturer, :country_of_origin, :visibility, :tags_list
 
+  def self.distinct_tags(*args)
+    self.distinct_tags_names(*args)
+  end
+
   # @return [String] concatinated brand, sub brand, functional name and variant
   def name
     "#{brand} #{sub_brand} #{functional_name} #{variant}"

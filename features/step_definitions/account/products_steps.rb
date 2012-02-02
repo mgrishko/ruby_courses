@@ -3,7 +3,7 @@ Given /^he is on the account home page$/ do
 end
 
 Given /^he is on the products page$/ do
-  visit(products_url(subdomain: @account.subdomain))
+  visit(products_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
 Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|

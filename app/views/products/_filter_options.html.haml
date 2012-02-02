@@ -1,0 +1,5 @@
+.content{ id: "#{filter}"}
+  %h2= t(".title.#{filter}")
+  %ul
+    - for option in ProductDecorator.filter_options(filter)
+      %li= link_to option, products_path("by_#{filter}" => option)

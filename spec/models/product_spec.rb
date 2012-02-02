@@ -153,16 +153,21 @@ describe Product do
       @current_account.products.distinct_brands.should eql(["Mirinda", "Pepsi"])
     end
 
-    it "should complete manufacturer" do
+    it "should return manufacturers" do
       @current_account.products.distinct_manufacturers(search: "pep").should eql(["Pepsico"])
     end
 
-    it "should complete brand" do
+    it "should return brands" do
       @current_account.products.distinct_brands(search: "mir").should eql(["Mirinda"])
     end
 
-    it "should complete tags" do
+    it "should return tags" do
       @current_account.products.distinct_tags_names(search: "dr").should eql(["Drink"])
+    end
+
+    it "should have alias method for tags" do
+      expected = @current_account.products.distinct_tags_names(search: "dr")
+      @current_account.products.distinct_tags(search: "dr").should eql(expected)
     end
 
     describe "other account data" do

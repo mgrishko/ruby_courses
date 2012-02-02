@@ -17,6 +17,7 @@
 //= require bootstrap-dropdown
 //= require namespace
 //= require flash
+//= require sidemenu
 //= require string
 //= require rails.validations
 //= require rails.validations.file

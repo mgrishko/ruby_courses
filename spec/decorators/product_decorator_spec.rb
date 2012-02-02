@@ -92,6 +92,22 @@ describe ProductDecorator do
     end
   end
 
+  describe "#submenu_header_link" do
+    it "renders menu link" do
+      ProductDecorator.submenu_header_link(:brand).should == "<a href=\"#\" data-submenu=\"brand\">Brands</a>"
+    end
+  end
+  
+  describe "#filter_options" do
+    it "returns options for brand" do
+      ProductDecorator.filter_options(:brand).should == (["Brand"])
+    end
+    
+    it "returns options for manufacturer" do
+      ProductDecorator.filter_options(:manufacturer).should == (["Manufacturer"])
+    end
+  end
+
   describe "#tag_labels" do
     before(:each) do
       @product.stub(:tags).and_return([

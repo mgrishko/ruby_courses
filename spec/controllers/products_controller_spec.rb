@@ -48,15 +48,15 @@ describe ProductsController do
         assigns(:products).should eq([@product1])
       end
 
-      it "should filter products by tag" do
-        get :index, by_tag: "tag 2"
-        assigns(:products).should eq([@product1, @product2])
-      end
-
-      it "should apply all filters" do
-        get :index, by_tag: "tag 1", by_brand: "brand 1"
-        assigns(:products).should eq([@product1, @product3])
-      end
+      #it "should filter products by tag" do
+      #  get :index, by_tag: "tag 2"
+      #  assigns(:products).should eq([@product1, @product2])
+      #end
+      #
+      #it "should apply all filters" do
+      #  get :index, by_tag: "tag 1", by_brand: "brand 1"
+      #  assigns(:products).should eq([@product1, @product3])
+      #end
     end
   end
 
