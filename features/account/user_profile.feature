@@ -35,7 +35,7 @@ Feature: Edit profile
     When user submits email and new password
     Then user should be signed in
 
-  @javascript @wip
+  @javascript
   Scenario: Authenticated user successfully edits profile
     Given an authenticated user with viewer role
     And he is on the user profile page
