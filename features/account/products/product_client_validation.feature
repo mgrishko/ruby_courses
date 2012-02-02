@@ -11,7 +11,7 @@ Feature: Product client side validation
     Given an authenticated user with editor role
     And he is on the new product page
 
-    Then he should not see validation errors in new product form
+    Then he should not see validation errors on the page
     And he should see validation error for "Functional name" if he leaves it empty
     And he should not see validation error for "Variant" if he leaves it empty
     And he should see validation error for "Brand" if he leaves it empty
