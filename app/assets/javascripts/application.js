@@ -21,7 +21,6 @@
 //= require rails.validations
 //= require rails.validations.file
 //= require rails.validations.custom
-//= require rails.validations.custom_form_builders
 //= require ajax-loader
 //= require i18n
 //= require i18n/translations
