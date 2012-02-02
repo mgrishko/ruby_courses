@@ -1,5 +1,5 @@
 /*!
- * Rails 3 Client Side Validations - v3.1.3
+ * Rails 3 Client Side Validations - v3.1.4
  * https://github.com/bcardarlela/client_side_validations
  *
  * Copyright (c) 2011 Brian Cardarella
@@ -8,7 +8,7 @@
  */
 
 (function($) {
-	$.fn.validate = function() {
+  $.fn.validate = function() {
     return this.filter('form[data-validate]').each(function() {
       var form = $(this);
       var settings = window[form.attr('id')];
@@ -26,7 +26,6 @@
         // Set up the events for each validatable form element
         .find('[data-validate]:input:not(:radio)')
           .live('focusout',                function()          { $(this).isValid(settings.validators); })
-					.live('keyup',                   function(e)         { if (e.keyCode == 9) return; $(this).data('changed', true); $(this).isValid(settings.validators); })
           .live('change',                  function()          { $(this).data('changed', true); })
           // Callbacks
           .live('element:validate:after',  function(eventData) { clientSideValidations.callbacks.element.after( $(this), eventData); })
@@ -34,7 +33,7 @@
           .live('element:validate:fail',   function(eventData, message) {
             var element = $(this);
             clientSideValidations.callbacks.element.fail(element, message, function() {
-							addError(element, message);
+              addError(element, message);
             }, eventData) })
           .live('element:validate:pass',   function(eventData) {
             var element = $(this);
@@ -55,7 +54,7 @@
                 element.data('changed', true).isValid(settings.validators);
               })
               .live('keyup', function() {
-								element.data('changed', true).isValid(settings.validators);
+                element.data('changed', true).isValid(settings.validators);
               })
           }
         });
@@ -97,18 +96,16 @@
 
   var validateElement = function(element, validators) {
     element.trigger('element:validate:before');
-		
+
     if (element.data('changed') !== false) {
-			var valid = true;
+      var valid = true;
       element.data('changed', false);
-			
-			if (typeof(validators) === "undefined") { return; }
 
       // Because 'length' is defined on the list of validators we cannot call jQuery.each on
       // the clientSideValidations.validators.all() object
       for (kind in clientSideValidations.validators.all()) {
         if (validators[kind] && (message = clientSideValidations.validators.all()[kind](element, validators[kind]))) {
-					element.trigger('element:validate:fail', message).data('valid', false);
+          element.trigger('element:validate:fail', message).data('valid', false);
           valid = false;
           break;
         }
@@ -132,7 +129,7 @@ var clientSideValidations = {
     all: function() { return jQuery.extend({}, clientSideValidations.validators.local, clientSideValidations.validators.remote) },
     local: {
       presence: function(element, options) {
-				if (/^\s*$/.test(element.val() || "")) {
+        if (/^\s*$/.test(element.val() || "")) {
           return options.message;
         }
       },
@@ -176,17 +173,7 @@ var clientSideValidations = {
           equal_to: '==', less_than: '<', less_than_or_equal_to: '<=' }
 
         for (var check in CHECKS) {
-					var comparedValue = options[check];
-					
-					if (typeof options[check] == "string" && !$.isNumeric(options[check])){
-						var elementName = $(element).attr("name");
-						var comparedElementName = elementName.substring(0, elementName.lastIndexOf('[')) + "[" + options[check] + "]";
-						var i = $("input[name*='" + comparedElementName + "']");
-						var v = i.val();
-						if (typeof(v) != "undefined") { comparedValue = parseInt(v); }
-					}
-					
-					if (options[check] != undefined && element.val() != "" && !(new Function("return " + element.val() + CHECKS[check] + comparedValue)())) {
+          if (options[check] != undefined && !(new Function("return " + element.val() + CHECKS[check] + options[check])())) {
             return options.messages[check];
           }
         }
@@ -331,7 +318,7 @@ var clientSideValidations = {
   formBuilders: {
     'ActionView::Helpers::FormBuilder': {
       add: function(element, settings, message) {
-				if (element.data('valid') !== false && jQuery('label.message[for="' + element.attr('id') + '"]')[0] == undefined) {
+        if (element.data('valid') !== false && jQuery('label.message[for="' + element.attr('id') + '"]')[0] == undefined) {
           var inputErrorField = jQuery(settings.input_tag),
               labelErrorField = jQuery(settings.label_tag),
               label = jQuery('label[for="' + element.attr('id') + '"]:not(.message)');
@@ -347,7 +334,6 @@ var clientSideValidations = {
         jQuery('label.message[for="' + element.attr('id') + '"]').text(message);
       },
       remove: function(element, settings) {
-
         var errorFieldClass = jQuery(settings.input_tag).attr('class'),
             inputErrorField = element.closest('.' + errorFieldClass),
             label = jQuery('label[for="' + element.attr('id') + '"]:not(.message)'),
@@ -363,23 +349,22 @@ var clientSideValidations = {
     },
     'SimpleForm::FormBuilder': {
       add: function(element, settings, message) {
-				if (element.data('valid') !== false) {
-          var wrapper = element.closest("div.clearfix");
-          wrapper.addClass("error");
-          var input_wrapper = element.closest("div.input");
-					var errorElement = $('<span' + ' class="help-inline">' + message + '</span>');
-          input_wrapper.append(errorElement);
+        if (element.data('valid') !== false) {
+          var wrapper = element.closest(settings.wrapper_tag);
+          wrapper.addClass(settings.wrapper_error_class);
+          var errorElement = $('<' + settings.error_tag + ' class="' + settings.error_class + '">' + message + '</' + settings.error_tag + '>');
+          wrapper.append(errorElement);
         } else {
           element.parent().find(settings.error_tag + '.' + settings.error_class).text(message);
         }
       },
       remove: function(element, settings) {
-				var wrapper = element.closest("div.clearfix");
-        wrapper.removeClass("error");
-        var input_wrapper = element.closest("div.input");
-        var errorElement = input_wrapper.find('span.help-inline');
+        var wrapper = element.closest(settings.wrapper_tag + '.' + settings.wrapper_error_class);
+        wrapper.removeClass(settings.wrapper_error_class);
+        var errorElement = wrapper.find(settings.error_tag + '.' + settings.error_class);
         errorElement.remove();
       }
+
     },
     'Formtastic::FormBuilder': {
       add: function(element, settings, message) {
@@ -412,7 +397,7 @@ var clientSideValidations = {
     element: {
       after:  function(element, eventData)                    { },
       before: function(element, eventData)                    { },
-      fail:   function(element, message, addError, eventData) { addError(); },
+      fail:   function(element, message, addError, eventData) { addError() },
       pass:   function(element, removeError, eventData)       { removeError() }
     },
     form: {
