@@ -25,6 +25,11 @@ en:
   mongoid:
     errors:
       models:
+        account:
+          attributes:
+            subdomain:
+              exclusion: "not available"
+              taken: "not available"
         weight:
           attributes:
             net:

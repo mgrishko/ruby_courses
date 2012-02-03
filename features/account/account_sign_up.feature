@@ -31,7 +31,7 @@ Feature: Account sign up
     Given company representative is on the sign up page
     When he submits sign up form with taken subdomain
     Then he should be redirected back to the sign up page
-    And he should see that subdomain is already taken
+    And he should see that subdomain not available
 
   @javascript
   Scenario: Sign up account form is validated client side
