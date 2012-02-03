@@ -484,7 +484,7 @@ en:
       title: "Welcome to your account"
       message: "This Products screen will show you the list of your products.
         But before we can show your products, you'll need to create the first product."
-      new_product: "Please, click the \"New\" button on the left to get started."
+      new_product: "Please, click \"New\" button on the left to get started."
 
   users:
     accounts:
