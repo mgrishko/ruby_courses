@@ -77,8 +77,6 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   input_names = inputs.split(";").collect{ |l| l.strip }
   input_names.each { |name| fill_in(name, with: value) }
   
-  wait
-  
   input_names.each do |name|
     within(find_field_parent(name)) do
       if should_have_validation_error
@@ -90,10 +88,9 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   end
 end
 
-Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do |msg, inputs, input, value|
+Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do 
+    |msg, inputs, input, value|
   fill_in(input, with: value)
-  
-  wait
   
   input_names = inputs.split(";").collect{ |l| l.strip }
   
@@ -144,9 +141,7 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ d
 
     if should_have_validation_error
       execute_script("$('##{field[:id]}').val('')")
-      execute_script("$('##{field[:id]}').keyup()")
-
-      wait
+      execute_script("$('##{field[:id]}').trigger('keyup')")
 
       within(find_field_parent(name)) do
         page.should have_content("can't be blank")
@@ -154,13 +149,11 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ d
 
       if text_field
         fill_in(locator, with: locator == "Email" ? "foo@bar.com" : "something")
-        execute_script("$('##{field[:id]}').keyup()")
+        execute_script("$('##{field[:id]}').trigger('keyup')")
       else
         execute_script("$('##{field[:id]}').val('Moscow')")
-        execute_script("$('##{field[:id]}').keyup()")
+        execute_script("$('##{field[:id]}').trigger('keyup')")
       end
-
-      wait
     end
 
     within("form##{form}") do
