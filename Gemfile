@@ -46,6 +46,7 @@ gem "i18n-js"
 
 # Backend tools
 gem "responders"
+gem "has_scope", "~> 0.5.1"  # allows to map model scopes to controller actions params
 gem "draper"
 gem "settingslogic", "~> 2.0.6"
 gem 'carrierwave'

@@ -3,7 +3,7 @@ Given /^he is on the account home page$/ do
 end
 
 Given /^he is on the products page$/ do
-  visit(products_url(subdomain: @account.subdomain))
+  visit(products_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
 Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|
@@ -51,8 +51,18 @@ Given /^an authenticated user with editor role on edit product page$/ do
   steps %Q{
     Given an authenticated user with editor role
     And he is on the product page
-    When he follows "Edit Product" within sidemenu
+    When he follows "Edit product" within sidemenu
   }
+end
+
+Given /^that account has the following products:$/ do |table|
+  table.hashes.each do |atts|
+    Fabricate(:product, atts.merge(account: @account))
+  end
+end
+
+Given /^the product has tags "([^"]*)"$/ do |tags|
+  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
 When /^he enters "([^"]*)" into Tags field and selects "([^"]*)" multi autocomplete option$/ do |text, option|
@@ -93,18 +103,6 @@ When /^he enters "([^"]*)" into "([^"]*)" field$/ do |text, locator|
   execute_script "$('input##{field_id}').trigger('keydown')"
 end
 
-Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
-  opts = options.split(",").collect{ |o| o.strip }
-
-  opts.each do |option|
-    if should.strip == "not"
-      page.should_not have_content(option)
-    else
-      page.should have_content(option)
-    end
-  end
-end
-
 When /^he selects the first autocomplete option in "([^"]*)" field$/ do |locator|
   field = find(:xpath, XPath::HTML.fillable_field(locator))
   field_id = field[:id]
@@ -119,10 +117,6 @@ When /^he enters "([^"]*)" into Tags field$/ do |text|
   # Trigger keydown to open the dropdown
   execute_script "$('#token-input-product_tags_list').trigger($.Event('keydown', { keyCode: 71 }))"
   sleep(2)
-end
-
-Given /^the product has tags "([^"]*)"$/ do |tags|
-  tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
 When /^he deletes tags$/ do
@@ -243,7 +237,7 @@ end
 When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
-    And he follows "New Product" within sidemenu
+    And he follows "New" within sidemenu
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
@@ -253,8 +247,8 @@ end
 When /^he deletes the product$/ do
   steps %Q{
     When he is on the product page
-    And he follows "Edit Product" within sidemenu
-    And he follows "Delete Product" within sidemenu
+    And he follows "Edit product" within sidemenu
+    And he follows "Delete product" within sidemenu
   }
 end
 
@@ -262,7 +256,7 @@ When /^he updates the product$/ do
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
     steps %Q{
       When he is on the product page
-      And he follows "Edit Product" within sidemenu
+      And he follows "Edit product" within sidemenu
       And he submits form with updated product
       Then he should be on the product page
       And he should see notice message "Product was successfully updated."
@@ -427,6 +421,29 @@ end
 Then /^he should not see products welcome box$/ do
   page.should_not have_selector(".welcome_box")
 end
+
+Then /^he should(.*) see "([^"]*)" product$/ do |should, variant|
+  within(".products") do
+    if should.strip == "not"
+      page.should_not have_content(variant)
+    else
+      page.should have_content(variant)
+    end
+  end
+end
+
+Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
+  opts = options.split(",").collect{ |o| o.strip }
+
+  opts.each do |option|
+    if should.strip == "not"
+      page.should_not have_content(option)
+    else
+      page.should have_content(option)
+    end
+  end
+end
+
 
 # Functions
 

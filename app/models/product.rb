@@ -5,8 +5,8 @@ class Product
   include Mongoid::Versioning
   include Mongoid::Taggable
   include Mongoid::Trackable
-  include Mongoid::AutoComplete
-  
+  include Mongoid::Search
+
   VISIBILITIES = %w(private public)
 
   field :functional_name  , type: String
@@ -40,8 +40,14 @@ class Product
   accepts_nested_attributes_for :product_codes
   attr_accessible :product_codes_attributes
 
-  auto_complete_for :brand, :sub_brand, :variant, :functional_name, 
-    :manufacturer, :tags => :name
+  auto_complete_for :brand, :sub_brand, :variant, :functional_name, :manufacturer, :tags => :name
+
+  filter_by :brand, :manufacturer, :functional_name, :tags => :name
+
+  class << self
+    alias_method :distinct_tags, :distinct_tags_names
+    alias_method :distinct_functionals, :distinct_functional_names
+  end
 
   validates :functional_name, presence: true, length: 1..35
   validates :variant, length: 0..35

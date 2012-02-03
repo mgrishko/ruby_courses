@@ -6,7 +6,8 @@ $attr_value_color: #404040;
 $attr_label_color: grey;
 $splitter_color: #ddd;
 $sidemenu_color: grey;
-$sidemenu_bg_color: lightgrey;
+$sidemenu_bg_color: $grayLighter;
+$acitve_sidemenu_bg_color: #222;
 
 
 .search-wrapper {
@@ -72,18 +73,61 @@ section.main {
   }
 }
 
+// Vertical menu styles
 .sidemenu {
   @include vertical-text-left;
   position: fixed;
   left: 0;
   top: 0;
   margin-top: $content_margin_top;
-  a {
+  nav {
     @include float-right;
-    color: $sidemenu_color;
-    background-color: $sidemenu_bg_color;
     padding: 10px;
+    padding-right: 0;
     font-size: 1.3em;
+    z-index: 1000;
+
+    a {
+      padding: 10px 20px;
+      color: $sidemenu_color;
+      cursor: pointer;
+      text-decoration: none;
+      background-color: $sidemenu_bg_color;
+      &:hover, &.hover {
+        background-color: $acitve_sidemenu_bg_color;
+        opacity: 0.95;
+      }
+    }
+  }
+}
+
+.submenu {
+  position: absolute;
+  z-index: 100;
+  background-color: $acitve_sidemenu_bg_color;
+  left: 39px;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  height: auto;
+  opacity: 0.95;
+  display: none;
+  .content {
+    display: none;
+    padding: 200px 50px 30px 30px;
+    ul {
+      @include no-bullets; }
+    h2 {
+      color: $gray;
+    }
+    a {
+      color: $grayLight;
+      font-size: 1.3em;
+      text-decoration: none;
+      &:hover {
+        color: $grayLighter;
+      }
+    }
   }
 }
 

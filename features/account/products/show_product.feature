@@ -12,12 +12,12 @@ Feature: Show product
     And he is on the products page
     When he follows product link
     Then he should be on the product page
-    And he should not see "Edit Product" link within sidemenu
+    And he should not see "Edit product" link within sidemenu
 
   Scenario: Editor can see a link to edit product
     Given an authenticated user with editor role
     And he is on the product page
-    Then he should see "Edit Product" link within sidemenu
+    Then he should see "Edit product" link within sidemenu
 
 #  Scenario: Contributor can see product versions
 #    Given the product has 2 versions

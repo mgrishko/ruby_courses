@@ -143,6 +143,7 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    has_scope (0.5.1)
     headless (0.2.2)
     highline (1.6.11)
     hike (1.2.1)
@@ -317,6 +318,7 @@ DEPENDENCIES
   fog
   haml
   haml-rails
+  has_scope (~> 0.5.1)
   headless
   hpricot
   i18n-js

@@ -24,6 +24,48 @@ describe ProductsController do
       get :index
       assigns(:products).should be_empty
     end
+
+    describe "filters" do
+      before(:each) do
+        @account = Account.where(subdomain: "company").first
+
+        @product1 = Fabricate(:product, account: @account, functional_name: "functional 1",
+                              brand: "Brand 1", manufacturer: "Manufacturer 1")
+        @product2 = Fabricate(:product, account: @account, functional_name: "functional 2",
+                              brand: "Brand 2", manufacturer: "Manufacturer 2")
+        @product3 = Fabricate(:product, account: @account, functional_name: "functional 3",
+                              brand: "Brand 1", manufacturer: "Manufacturer 3")
+
+        2.times { |i| @product1.tags.create(name: "Tag #{i + 1}") }
+        3.times { |i| @product2.tags.create(name: "Tag #{i + 1}") }
+        1.times { |i| @product3.tags.create(name: "Tag #{i + 1}") }
+      end
+
+      it "should filter products by brand" do
+        get :index, by_brand: "brand 2"
+        assigns(:products).should eq([@product2])
+      end
+
+      it "should filter products by manufacturer" do
+        get :index, by_manufacturer: "manufacturer 1"
+        assigns(:products).should eq([@product1])
+      end
+
+      it "should filter products by functional name" do
+        get :index, by_functional: "functional 3"
+        assigns(:products).should eq([@product3])
+      end
+
+      #it "should filter products by tag" do
+      #  get :index, by_tag: "tag 2"
+      #  assigns(:products).should eq([@product1, @product2])
+      #end
+      #
+      #it "should apply all filters" do
+      #  get :index, by_tag: "tag 1", by_brand: "brand 1"
+      #  assigns(:products).should eq([@product1, @product3])
+      #end
+    end
   end
 
   describe "GET show" do

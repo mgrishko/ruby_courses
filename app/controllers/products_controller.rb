@@ -7,11 +7,16 @@ class ProductsController < MainController
   after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :load_version, only: [:show]
 
+  has_scope :by_brand, only: :index
+  has_scope :by_manufacturer, only: :index
+  has_scope :by_tags_name, as: :by_tag, only: :index
+  has_scope :by_functional_name, as: :by_functional, only: :index
+
   # GET /products
   # GET /products.xml
   def index
     #@products = Product.all loaded by CanCan
-    @products = ProductDecorator.decorate(@products.asc(:functional_name))
+    @products = ProductDecorator.decorate(apply_scopes(@products).asc(:functional_name))
     respond_with(@products)
   end
 

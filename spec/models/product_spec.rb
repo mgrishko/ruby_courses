@@ -114,6 +114,115 @@ describe Product do
     product_code.product.should eql(product)
   end
 
+  describe "search filters" do
+    before do
+      @product1 = Fabricate(:product,
+                            functional_name: "Functional 1",
+                            variant: "Variant 1",
+                            brand: "Brand 1",
+                            sub_brand: "Sub Brand 1",
+                            manufacturer: "Manufacturer 1")
+      @product2 = Fabricate(:product,
+                            functional_name: "Functional 2",
+                            variant: "Variant 2",
+                            brand: "Brand 2",
+                            sub_brand: "Sub Brand 2",
+                            manufacturer: "Manufacturer 2")
+
+      2.times { |i| @product1.tags.create(name: "Tag #{i + 1}") }
+      3.times { |i| @product2.tags.create(name: "Tag #{i + 1}") }
+    end
+
+    describe "#by_brand" do
+      specify { Product.by_brand("brand 1").should include(@product1) }
+      specify { Product.by_brand("brand 1").should_not include(@product2) }
+    end
+
+    describe "#by_manufacturer" do
+      specify { Product.by_manufacturer("Manufacturer 1").should include(@product1) }
+      specify { Product.by_manufacturer("Manufacturer 1").should_not include(@product2) }
+    end
+
+    describe "#by_tags_name" do
+      specify { Product.by_tags_name("tag 1").should include(@product1) }
+      specify { Product.by_tags_name("tag 2").should include(@product2) }
+      specify { Product.by_tags_name("tag 3").should_not include(@product1) }
+    end
+
+    describe "#by_functional_name" do
+      specify { Product.by_functional_name("functional 1").should include(@product1) }
+      specify { Product.by_functional_name("functional 1").should_not include(@product2) }
+    end
+  end
+
+  describe "distinct values methods" do
+    before do
+      product = Fabricate(:product,
+                          manufacturer: "Pepsico",
+                          brand: "Pepsi",
+                          sub_brand: "Mirinda",
+                          variant: "Light",
+                          functional_name: "Soft drink")
+      product.tags.create(name: "Drink")
+      product.tags.create(name: "Soft")
+      @current_account = Product.first.account
+    end
+
+    it "should return all values if is called without search query" do
+      Fabricate(:product, manufacturer: "Pepsico", brand: "Tarhun", account: @current_account)
+      @current_account.products.distinct_brands.should eql(["Pepsi", "Tarhun"])
+    end
+
+    it "should return manufacturers" do
+      @current_account.products.distinct_manufacturers(search: "pep").should eql(["Pepsico"])
+    end
+
+    it "should return brands" do
+      @current_account.products.distinct_brands(search: "pe").should eql(["Pepsi"])
+    end
+
+    it "should return sub brands" do
+      @current_account.products.distinct_sub_brands(search: "mir").should eql(["Mirinda"])
+    end
+
+    it "should return functional names" do
+      @current_account.products.distinct_functional_names(search: "soft d").should eql(["Soft drink"])
+    end
+
+    it "should return variants" do
+      @current_account.products.distinct_variants(search: "li").should eql(["Light"])
+    end
+
+    it "should return tags" do
+      @current_account.products.distinct_tags_names(search: "dr").should eql(["Drink"])
+    end
+
+    it "should have alias method for tags" do
+      expected = @current_account.products.distinct_tags_names(search: "dr")
+      @current_account.products.distinct_tags(search: "dr").should eql(expected)
+    end
+
+    it "should have alias method for functionals" do
+      expected = @current_account.products.distinct_functionals(search: "soft d")
+      @current_account.products.distinct_functional_names(search: "soft d").should eql(expected)
+    end
+
+    describe "other account data" do
+      before do
+        product = Fabricate(:product, manufacturer: "Pepper Computers", brand: "Miranda Global")
+        product.tags.create(name: "Software")
+      end
+
+      it "should not include other product field data" do
+        @current_account.products.distinct_manufacturers(search: "pep").should_not include("Pepper Computers")
+      end
+
+      it "should not include other product tags" do
+        @current_account.products.distinct_tags_names(search: "soft").should_not include("Software")
+      end
+    end
+  end
+
   describe "#name" do
     it "should concat brand, sub brand, functional name and variant" do
       p = Fabricate(:product)
@@ -143,42 +252,6 @@ describe Product do
       product.save!
       product.functional_name.should_not == old_name
       product.versions.first.functional_name.should == old_name
-    end
-  end
-
-  describe "auto complete" do
-    before do
-      product = Fabricate(:product, manufacturer: "Pepsico", brand: "Mirinda")
-      product.tags.create(name: "Drink")
-      product.tags.create(name: "Soft")
-      @current_account = Product.first.account
-    end
-
-    it "should complete manufacturer" do
-      @current_account.products.complete_manufacturer("pep").should eql(["Pepsico"])
-    end
-
-    it "should complete brand" do
-      @current_account.products.complete_brand("mir").should eql(["Mirinda"])
-    end
-
-    it "should complete tags" do
-      @current_account.products.complete_tags_name("dr").should eql(["Drink"])
-    end
-
-    describe "other account data" do
-      before do
-        product = Fabricate(:product, manufacturer: "Pepper Computers", brand: "Miranda Global")
-        product.tags.create(name: "Software")
-      end
-
-      it "should not include other product field data" do
-        @current_account.products.complete_manufacturer("pep").should_not include("Pepper Computers")
-      end
-
-      it "should not include other product tags" do
-        @current_account.products.complete_tags_name("soft").should_not include("Software")
-      end
     end
   end
 

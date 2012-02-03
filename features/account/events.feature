@@ -14,7 +14,7 @@ Feature: Events feature
       This Dashboard screen will show you the latest activity in your account.
       But before we can show you activity, you'll need to create the first product.
       """
-    When he follows "New Product" within welcome box
+    When he follows "New product" within welcome box
     And he adds a new product
     And he goes to the account home page
     Then he should see "New" event
@@ -24,7 +24,7 @@ Feature: Events feature
     Given an authenticated user with viewer role
     And he is on the account home page
     Then he should see events welcome message
-    And he should not see "New Product" link within welcome box
+    And he should not see "New product" link within welcome box
 
   Scenario: Editor sees a new event when he adds a new product
     Given an authenticated user with editor role
