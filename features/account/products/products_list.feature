@@ -16,7 +16,7 @@ Feature: Products list
       """
     And he should see products welcome message:
       """
-      Please, click the "New" button on the left to get started.
+      Please, click "New" button on the left to get started.
       """
     When he follows "New" within sidemenu
     And he adds a new product
@@ -29,7 +29,7 @@ Feature: Products list
     Then he should see products welcome message
     And he should not see products welcome message:
       """
-      Please, click the "New" button on the left to get started.
+      Please, click "New" button on the left to get started.
       """
 
   Scenario: User successfully goes to the company products list

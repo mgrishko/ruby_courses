@@ -102,6 +102,9 @@ form, fieldset {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 #comments form {
+  padding: 0;
+  @extend .span8;
+
   textarea {
     @extend .span8;
     height: $baseline * 3.5;
