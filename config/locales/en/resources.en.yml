@@ -94,7 +94,7 @@ en:
       title: "Welcome to your account"
       message: "This Dashboard screen will show you the latest activity in your account.
         But before we can show you activity, you'll need to create the first product."
-      new_product: "New Product"
+      new_product: "New product"
 
   memberships:
     defaults: &MEMBERSHIP_DEFAULTS
@@ -142,6 +142,7 @@ en:
 
   products:
     defaults: &PRODUCT_DEFAULTS
+      all_products: "All products"
       brand: "Brand"
       comment_legend: "Comment"
       comment_hint: "Free-text comment."
@@ -152,8 +153,8 @@ en:
       depth: "Depth"
       description_legend: "Description"
       description_hint: "Free-text marketing description."
-      destroy: "Delete Product"
-      edit: "Edit Product"
+      destroy: "Delete product"
+      edit: "Edit product"
       functional_name: "Functional"
       gross_weight: "Gross weight"
       item_identification_legend: "Item Identification"
@@ -181,7 +182,7 @@ en:
         example, if a consumer trade item is a 6 pack of 4 oz. applesauce the
         net content of this consumer trade item is 24 oz."
       net_weight: "Net weight"
-      new: "New Product"
+      new: "New"
       provenance_legend: "Provenance"
       provenance_hint: "Manufacturer of the trade item. Trade Item 
         Country of origin is the country of manufacture, production, or growth
@@ -189,6 +190,7 @@ en:
       sub_brand: "Sub brand"
       submenu:
         brand: "Brands"
+        functional: "Functionals"
         manufacturer: "Manufacturers"
         tag: "Tags"
       type: "Packaging"
@@ -474,6 +476,7 @@ en:
     filter_options:
       title:
         brand: "Brands"
+        functional: "Functionals"
         manufacturer: "Manufacturers"
         tag: "Tags"
 
@@ -481,7 +484,7 @@ en:
       title: "Welcome to your account"
       message: "This Products screen will show you the list of your products.
         But before we can show your products, you'll need to create the first product."
-      new_product: "Please, click the New Product button on the left to get started."
+      new_product: "Please, click the \"New\" button on the left to get started."
 
   users:
     accounts:

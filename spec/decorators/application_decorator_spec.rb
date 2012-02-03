@@ -44,7 +44,7 @@ describe ApplicationDecorator do
       context "when user can edit product" do
         it "renders link" do
           @product_decorator.h.stub(:can?).and_return(true)
-          @product_decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit Product</a>"
+          @product_decorator.edit_link.should == "<a href=\"/products/#{@product.id}/edit\">Edit product</a>"
         end
       end
 
@@ -62,7 +62,7 @@ describe ApplicationDecorator do
           @product_decorator.h.stub(:can?).and_return(true)
           @product_decorator.destroy_link(confirm: true).should ==
               "<a href=\"/products/#{@product.id
-              }\" data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\">Delete Product</a>"
+              }\" data-confirm=\"Are you sure?\" data-method=\"delete\" rel=\"nofollow\">Delete product</a>"
         end
       end
 
@@ -87,7 +87,7 @@ describe ApplicationDecorator do
       context "when user can create product link" do
         it "renders product link" do
           @product_decorator.h.stub(:can?).and_return(true)
-          ProductDecorator.create_link.should == "<a href=\"/products/new\">New Product</a>"
+          ProductDecorator.create_link.should == "<a href=\"/products/new\">New</a>"
         end
       end
 

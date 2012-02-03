@@ -9,7 +9,7 @@ Feature: New product
   Scenario: Editor successfully adds a new product
     Given an authenticated user with editor role
     And he is on the products page
-    When he follows "New Product" within sidemenu
+    When he follows "New" within sidemenu
     And he submits a new product form with following data:
       | Functional name   |
       | Variant           |
@@ -29,7 +29,7 @@ Feature: New product
   Scenario: Viewer should not be able to add a new product
     Given an authenticated user with viewer role
     And he is on the products page
-    Then he should not see "New Product" link within sidemenu
+    Then he should not see "New" link within sidemenu
     When he goes to the new product page
     Then he should see alert message "Not allowed to create a new product."
 

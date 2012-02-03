@@ -3,16 +3,19 @@
 - content_for(:sidemenu) do
   - unless @products.empty?
     -#= ProductDecorator.submenu_header_link(:tag)
+    = ProductDecorator.submenu_header_link(:functional)
     = ProductDecorator.submenu_header_link(:manufacturer)
     = ProductDecorator.submenu_header_link(:brand)
+  = link_to t(".all_products"), products_path
   = ProductDecorator.create_link
 
 - content_for(:submenu) do
   = render "filter_options", filter: :brand
   = render "filter_options", filter: :manufacturer
+  = render "filter_options", filter: :functional
   -#= render "filter_options", filter: :tag
 
--# ToDO Fixme when their this now products by search condition we should not show welcome_box
+-# ToDO Fixme When there are no products for search condition we should not show welcome_box
 -# It's ok for now as far products always exist for any single filter
 -# unless we apply them simultaniously.
 - if @products.empty?

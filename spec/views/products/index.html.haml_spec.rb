@@ -49,6 +49,11 @@ describe "products/index.html.haml" do
       render
     end
 
+    it "renders a functional filter" do
+      ProductDecorator.should_receive(:submenu_header_link).with(:functional)
+      render
+    end
+
     #it "renders a tag filter" do
     #  ProductDecorator.should_receive(:submenu_header_link).with(:tag)
     #  render
@@ -63,6 +68,11 @@ describe "products/index.html.haml" do
 
     it "renders a manufacturer filter options" do
       ProductDecorator.should_receive(:filter_options).with(:manufacturer)
+      render
+    end
+
+    it "renders a functional filter options" do
+      ProductDecorator.should_receive(:filter_options).with(:functional)
       render
     end
 

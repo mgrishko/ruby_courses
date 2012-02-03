@@ -11,7 +11,7 @@ class ApplicationDecorator < Draper::Base
   # Generates a create link if current ability allows to create object:
   #
   #   ProductDecorator.create_link, class: "button"
-  #   # => <a href="/products/new" class="button">New Product</a>
+  #   # => <a href="/products/new" class="button">New product</a>
   #
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to new object page.
@@ -70,7 +70,7 @@ class ApplicationDecorator < Draper::Base
   # Generates an edit link if current ability allows to edit object:
   #
   #   edit_link @product, class: "button"
-  #   # => <a href="/products/1/edit">Edit Product</a>
+  #   # => <a href="/products/1/edit">Edit product</a>
   #
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to edit an object.
@@ -81,13 +81,13 @@ class ApplicationDecorator < Draper::Base
   # Generates a destroy link if current ability allows to destroy object:
   #
   #   destroy_link @product, class: "button"
-  #   # => <a href="/products/1" rel="nofollow" data-method="delete" data-confirm="Are you sure?">Delete Product</a>
+  #   # => <a href="/products/1" rel="nofollow" data-method="delete" data-confirm="Are you sure?">Delete product</a>
   #
   #   destroy_link @comment, class: "button", confirm: false
-  #   # => <a href="/products/1" rel="nofollow" data-method="delete">Delete Product</a>
+  #   # => <a href="/products/1" rel="nofollow" data-method="delete">Delete product</a>
   #
   #   destroy_link @comment, class: "button", confirm: false, through: [@account, @product]
-  #   # => <a href="account/1/products/1/comments/1" rel="nofollow" data-method="delete">Delete Product</a>
+  #   # => <a href="account/1/products/1/comments/1" rel="nofollow" data-method="delete">Delete product</a>
   #
   # @param [Hash] opts optional options for link_to helper
   # @return [String, nil] link to destroy an object.

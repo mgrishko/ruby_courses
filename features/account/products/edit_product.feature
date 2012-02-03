@@ -10,7 +10,7 @@ Feature: Edit product
   Scenario: Editor successfully updates a product
     Given an authenticated user with editor role
     And he is on the product page
-    When he follows "Edit Product" within sidemenu
+    When he follows "Edit product" within sidemenu
     And he submits form with updated product
     Then he should be on the product page
     And he should see notice message "Product was successfully updated."
@@ -19,7 +19,7 @@ Feature: Edit product
   Scenario: Viewer should not be able to update a product
     Given an authenticated user with viewer role
     And he is on the product page
-    Then he should not see "Edit Product" link within sidemenu
+    Then he should not see "Edit product" link within sidemenu
     When he goes to the edit product page
     Then he should see alert message "Not allowed to update a product."
 

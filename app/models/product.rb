@@ -42,7 +42,12 @@ class Product
 
   auto_complete_for :brand, :sub_brand, :variant, :functional_name, :manufacturer, :tags => :name
 
-  filter_by :brand, :manufacturer, :tags => :name
+  filter_by :brand, :manufacturer, :functional_name, :tags => :name
+
+  class << self
+    alias_method :distinct_tags, :distinct_tags_names
+    alias_method :distinct_functionals, :distinct_functional_names
+  end
 
   validates :functional_name, presence: true, length: 1..35
   validates :variant, length: 0..35
@@ -62,10 +67,6 @@ class Product
   attr_accessible :functional_name, :variant, :gtin,
                   :short_description, :description, :version, :updated_at,
                   :brand, :sub_brand, :manufacturer, :country_of_origin, :visibility, :tags_list
-
-  def self.distinct_tags(*args)
-    self.distinct_tags_names(*args)
-  end
 
   # @return [String] concatinated brand, sub brand, functional name and variant
   def name

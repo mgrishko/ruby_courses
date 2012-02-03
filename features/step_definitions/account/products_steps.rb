@@ -51,7 +51,7 @@ Given /^an authenticated user with editor role on edit product page$/ do
   steps %Q{
     Given an authenticated user with editor role
     And he is on the product page
-    When he follows "Edit Product" within sidemenu
+    When he follows "Edit product" within sidemenu
   }
 end
 
@@ -237,7 +237,7 @@ end
 When /^he adds a new product$/ do
   steps %Q{
     When he is on the products page
-    And he follows "New Product" within sidemenu
+    And he follows "New" within sidemenu
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
@@ -247,8 +247,8 @@ end
 When /^he deletes the product$/ do
   steps %Q{
     When he is on the product page
-    And he follows "Edit Product" within sidemenu
-    And he follows "Delete Product" within sidemenu
+    And he follows "Edit product" within sidemenu
+    And he follows "Delete product" within sidemenu
   }
 end
 
@@ -256,7 +256,7 @@ When /^he updates the product$/ do
   Timecop.travel(Time.now + (Settings.events.collapse_timeframe + 1).minutes) do
     steps %Q{
       When he is on the product page
-      And he follows "Edit Product" within sidemenu
+      And he follows "Edit product" within sidemenu
       And he submits form with updated product
       Then he should be on the product page
       And he should see notice message "Product was successfully updated."

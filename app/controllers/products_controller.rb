@@ -10,6 +10,7 @@ class ProductsController < MainController
   has_scope :by_brand, only: :index
   has_scope :by_manufacturer, only: :index
   has_scope :by_tags_name, as: :by_tag, only: :index
+  has_scope :by_functional_name, as: :by_functional, only: :index
 
   # GET /products
   # GET /products.xml
