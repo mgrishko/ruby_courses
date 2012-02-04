@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   respond_to :html
   protect_from_forgery
 
+  helper_method :current_account
+
   # Checking that CanCan authorization is performed if it's required
   check_authorization if: :require_authorization?
 

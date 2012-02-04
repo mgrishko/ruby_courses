@@ -64,7 +64,7 @@ class ProductDecorator < ApplicationDecorator
   # @param [Symbol] scope is a filter name
   # @return [Array] filter options names
   def self.filter_options(scope)
-    Product.send(:"distinct_#{scope.to_s.pluralize}")
+    h.current_account.products.send(:"distinct_#{scope.to_s.pluralize}")
   end
 
   # Returns html code for a link to a specific product version.

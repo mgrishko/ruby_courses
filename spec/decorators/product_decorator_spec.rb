@@ -99,6 +99,15 @@ describe ProductDecorator do
   end
   
   describe "#filter_options" do
+    before(:each) do
+      @decorator.h.stub(:current_account).and_return(@product.account)
+      Fabricate(:product, brand: "Other account brand")
+    end
+
+    it "should not include other account options" do
+      ProductDecorator.filter_options(:brand).should_not include("Other account brand")
+    end
+
     it "returns options for brand" do
       ProductDecorator.filter_options(:brand).should == (["Brand"])
     end

@@ -12,7 +12,7 @@ Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|
 end
 
 Given /^that other account has a product$/ do
-  @product = Fabricate(:product, account: @other_account)
+  @product = Fabricate(:product, account: @another_account)
 end
 
 Given /^he is on the product page$/ do
@@ -55,9 +55,10 @@ Given /^an authenticated user with editor role on edit product page$/ do
   }
 end
 
-Given /^that account has the following products:$/ do |table|
+Given /^that (.*) has the following products:$/ do |resource, table|
+  account = instance_variable_get(:"@#{resource.gsub(" ", "_")}")
   table.hashes.each do |atts|
-    Fabricate(:product, atts.merge(account: @account))
+    Fabricate(:product, atts.merge(account: account))
   end
 end
 
@@ -436,6 +437,16 @@ Then /^he should(.*) see "([^"]*)" autocomplete options$/ do |should, options|
   opts = options.split(",").collect{ |o| o.strip }
 
   opts.each do |option|
+    if should.strip == "not"
+      page.should_not have_content(option)
+    else
+      page.should have_content(option)
+    end
+  end
+end
+
+Then /^he should(.*) see "([^"]*)" filter option$/ do |should, option|
+  within(".submenu") do
     if should.strip == "not"
       page.should_not have_content(option)
     else

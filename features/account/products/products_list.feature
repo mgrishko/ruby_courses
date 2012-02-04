@@ -39,7 +39,7 @@ Feature: Products list
     Then he should be on the products page
 
   Scenario: User cannot view other company account products
-    Given some other account
+    Given another active account
     And that other account has a product
     Given an authenticated user with viewer role
     When he goes to the products page

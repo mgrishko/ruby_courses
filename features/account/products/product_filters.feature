@@ -23,9 +23,26 @@ Feature: Product filters
     When he follows "All products" within sidemenu
     Then he should see "strawberry" product
     Then he should see "light" product
-    Examples:
-      | filter        | option       | visible    | invisible  |
-      | Brands        | Danone       | strawberry | light      |
-      | Manufacturers | Coca-Cola Co | light      | strawberry |
-      | Functionals   | Milk         | strawberry | light      |
+  Examples:
+    | filter        | option       | visible    | invisible  |
+    | Brands        | Danone       | strawberry | light      |
+    | Manufacturers | Coca-Cola Co | light      | strawberry |
+    | Functionals   | Milk         | strawberry | light      |
+
+  @javascript
+  Scenario Outline: User can not view other account filter options
+    Given another active account
+    And that another account has the following products:
+      | brand | manufacturer | functional_name |
+      | Pepsi | PepsiCo      | Beer            |
+    Given an authenticated user with viewer role
+    And he is on the products page
+    When he follows "<filter>" within sidemenu
+    Then he should see "<account>" filter option
+    And he should not see "<other account>" filter option
+  Examples:
+    | filter        | account      | other account |
+    | Brands        | Coca-Cola    | Pepsi         |
+    | Manufacturers | Coca-Cola Co | PepsiCo       |
+    | Functionals   | Soft drink   | Beer          |
 

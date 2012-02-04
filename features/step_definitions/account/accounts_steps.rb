@@ -6,12 +6,6 @@ Given /^an activated account$/ do
   set_current_subdomain(@account.subdomain)
 end
 
-Given /^some other account$/ do
-  @other_account = Fabricate(:account, subdomain: "othercompany")
-
-  set_current_subdomain(@account.subdomain)
-end
-
 Given /^another active account$/ do
   @another_account = Fabricate(:active_account, subdomain: "othercompany")
 
