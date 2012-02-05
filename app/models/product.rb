@@ -70,7 +70,16 @@ class Product
 
   # @return [String] concatinated brand, sub brand, functional name and variant
   def name
-    "#{brand} #{sub_brand} #{functional_name} #{variant}"
+    base_name = [brand, sub_brand, functional_name, variant].reject(&:blank?).map(&:strip).join(" ")
+
+    # Adding content if present
+    # ToDo We should add content of base package. Refactor when packages will be implemented.
+    content = packages.first.try(:contents).try(:first)
+    if content && content.value.present?
+      [base_name, "#{content.value} #{I18n.t("units.short.#{content.unit}")}"].join(", ")
+    else
+      base_name
+    end
   end
 
   # @return [Boolean] true if visibility "public" and false otherwise.

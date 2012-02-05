@@ -5,6 +5,8 @@ class Event
   ACTION_NAMES = %w(create update destroy)
   ADMIN_ONLY_TRACKABLE_CLASSES = %w(Account Membership)
   
+  default_scope where(:eventable_type.nin => ADMIN_ONLY_TRACKABLE_CLASSES)
+
   field :action_name, type: String
   field :name, type: String
   
@@ -22,8 +24,6 @@ class Event
 
   before_validation :prepare_event
   
-  default_scope where(:eventable_type.nin => ADMIN_ONLY_TRACKABLE_CLASSES)
-
   # Checks if event has a specific action name.
   #
   # @param [String] action name.

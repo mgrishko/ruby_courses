@@ -224,10 +224,21 @@ describe Product do
   end
 
   describe "#name" do
+    before(:each) do
+      @product = Fabricate(:product, brand: "Danon",
+                           sub_brand: "Activia",
+                           functional_name: "Yogurt",
+                           variant: "Cherry")
+    end
+
     it "should concat brand, sub brand, functional name and variant" do
-      p = Fabricate(:product)
-      expected = "#{p.brand} #{p.sub_brand} #{p.functional_name} #{p.variant}"
-      p.name.should == expected
+      @product.name.should == "Danon Activia Yogurt Cherry"
+    end
+
+    it "should include content info" do
+      package = @product.packages.build
+      package.contents.build(value: 300, unit: "ML")
+      @product.name.should == "Danon Activia Yogurt Cherry, 300 ml"
     end
   end
 
