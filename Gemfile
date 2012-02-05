@@ -48,7 +48,7 @@ gem "i18n-js"
 gem "responders"
 gem "draper"
 gem "settingslogic", "~> 2.0.6"
-gem 'carrierwave', git: "git://github.com/jnicklas/carrierwave.git"
+gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
@@ -77,7 +77,7 @@ gem "uservoice", path: "vendor/plugins/uservoice"
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-  gem 'rspec-rails', "2.7.0"
+  gem 'rspec-rails', "~> 2.8.1"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
   gem "spork", '1.0.0.rc0'
