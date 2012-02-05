@@ -8,15 +8,6 @@ When /^(?:he|user) submits (.*) email$/ do |email|
   click_button "Send me reset password instructions"
 end
 
-Then /^(?:[^\s]*) should be redirected to the change password page$/ do
-  extract_port(current_url).should ==
-      edit_user_password_url(subdomain: Settings.app_subdomain, reset_password_token: token)
-end
-
-Then /^user should be redirected back to the home page$/ do
-  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
-end
-
 When /^(?:he|user) submits new password and (.*) confirm it$/ do |confirm|
   fill_in "user_password", with: 'foobar'
   fill_in "user_password_confirmation", with: confirm == "valid" ? "foobar" : "invalid_confirm"
@@ -28,17 +19,6 @@ When /^he submits email and new password$/ do
   fill_in "Email", with: @user.email
   fill_in "Password", with: 'foobar'
   click_button "Sign in"
-end
-
-Then /^he should receive an email with reset password instructions$/ do
-  email_address = @user.email
-  unread_emails_for(email_address).size.should == 1
-  open_last_email
-end
-
-Then /^he shouldn't receive an email with reset password instructions$/ do
-  email_address = @user.email
-  unread_emails_for(email_address).size.should == 0
 end
 
 When /^he goes to the password edit page with invalid token$/ do
@@ -58,4 +38,23 @@ end
 
 Then /^he should see message "([^"]*)"$/ do |message|
   page.find("span.help-inline", text: message)
+end
+
+Then /^he should receive an email with reset password instructions$/ do
+  email_address = @user.email
+  open_email(email_address, :with_subject => "Reset password instructions")
+end
+
+Then /^he shouldn't receive an email with reset password instructions$/ do
+  email_address = @user.email
+  unread_emails_for(email_address).size.should == 0
+end
+
+Then /^(?:[^\s]*) should be redirected to the change password page$/ do
+  extract_port(current_url).should ==
+      edit_user_password_url(subdomain: Settings.app_subdomain, reset_password_token: token)
+end
+
+Then /^user should be redirected back to the home page$/ do
+  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
 end

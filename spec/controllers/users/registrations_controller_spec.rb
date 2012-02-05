@@ -45,7 +45,7 @@ describe Users::RegistrationsController do
 
       it "should redirect to acknowledgement" do
         post :create, user: valid_attributes, subdomain: Settings.app_subdomain
-        should redirect_to(signup_acknowledgement_url(subdomain: Settings.app_subdomain))
+        response.should redirect_to(signup_acknowledgement_url(subdomain: Settings.app_subdomain))
       end
     end
 

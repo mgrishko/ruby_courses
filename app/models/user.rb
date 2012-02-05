@@ -68,6 +68,13 @@ class User
     "#{self.first_name} #{self.last_name[0]}."
   end
 
+  # @return [Array] user memberships
+  def memberships
+    Account.where(:"memberships.user_id" => self.id).all.map do |account|
+      account.memberships.select{ |membership| membership.user_id == self.id }.first
+    end
+  end
+
   def generate_password!
     array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
     self.password = 8.times.map{ array[Random.rand(array.length - 1)] }.join

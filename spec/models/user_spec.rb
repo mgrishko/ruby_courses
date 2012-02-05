@@ -98,4 +98,23 @@ describe User do
       user.password.should match(/(?=.*[a-z])/)
     end
   end
+
+  describe "#memberships" do
+    before(:each) do
+      account = Fabricate(:account)
+      @owner_membership = account.memberships.first
+      @user = @owner_membership.user
+      @viewer_membership = Fabricate(:viewer_membership, user: @user)
+    end
+
+    it "should return all user memberships" do
+      @user.memberships.should eq([@owner_membership, @viewer_membership])
+    end
+
+    it "should not return other user memberships" do
+      other_membership = Fabricate(:membership)
+      @user.memberships.should_not include(other_membership)
+    end
+
+  end
 end
