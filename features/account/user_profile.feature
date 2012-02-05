@@ -39,8 +39,8 @@ Feature: Edit profile
   Scenario: Authenticated user successfully edits profile
     Given an authenticated user with viewer role
     And he is on the user profile page
-    Then he should not see validation errors in "user_edit" form
-    And he should see error in "user_edit" for "First name" if text field empty
-    And he should see error in "user_edit" for "Last name" if text field empty
-    And he should see error in "user_edit" for "Email" if text field empty
-    And he should see error in "user_edit" for "Time zone" if select field empty
+    Then he should not see validation errors on the page
+    And he should see an error for "First name" text field if it is empty
+    And he should see an error for "Last name" text field if it is empty
+    And he should see an error for "Email" text field if it is empty
+    And he should see an error for "Time zone" select field if it is empty

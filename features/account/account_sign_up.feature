@@ -34,18 +34,28 @@ Feature: Account sign up
     And he should see that subdomain is already taken
 
   @javascript
-  Scenario: Sign up account form is validated client side
+  Scenario: Sign up account form is validated on the client side
     Given company representative is on the sign up page
-    Then he should not see validation errors in "user_new" form
-    And he should see error in "user_new" for "First name" if text field empty
-    And he should see error in "user_new" for "Last name" if text field empty
-    And he should see error in "user_new" for "Email" if text field empty
-    And he should see error in "user_new" for "Password" if text field empty
-    And he should see error in "user_new" for "Time zone" if select field empty
-    And he should see error in "user_new" for "Company" if text field empty
-    And he should see error in "user_new" for "Subdomain" if text field empty
-    And he should not see error in "user_new" for "Website" if text field empty
-    And he should not see error in "user_new" for "A few words about your company" if text field empty
+    Then he should not see validation errors on the page
+    And he should see an error for "First name" text field if it is empty
+    And he should see an error for "Last name" text field if it is empty
+    And he should see an error for "Email" text field if it is empty
+    And he should see an error for "Password" text field if it is empty
+    And he should see an error for "Time zone" select field if it is empty
+    And he should see an error for "Company" text field if it is empty
+    And he should see an error for "Subdomain" text field if it is empty
+    And he should not see an error for "Website" text field if it is empty
+    And he should not see an error for "A few words about your company" text field if it is empty
+    
+    #And he should see error in "new_user" for "First name" if text field empty
+    #And he should see error in "new_user" for "Last name" if text field empty
+    #And he should see error in "new_user" for "Email" if text field empty
+    #And he should see error in "new_user" for "Password" if text field empty
+    #And he should see error in "new_user" for "Time zone" if select field empty
+    #And he should see error in "new_user" for "Company" if text field empty
+    #And he should see error in "new_user" for "Subdomain" if text field empty
+    #And he should not see error in "new_user" for "Website" if text field empty
+    #And he should not see error in "new_user" for "A few words about your company" if text field empty
 
   Scenario: Signed in user creates a new company account with existing email
     Given an authenticated user
