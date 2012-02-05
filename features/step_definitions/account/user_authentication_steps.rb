@@ -43,6 +43,11 @@ Given /^(?:[^\s]* )is on the user sign in page$/ do
   visit(new_user_session_path)
 end
 
+Then /^(?:[^\s]* )is on the global sign in page$/ do
+  set_current_subdomain(Settings.app_subdomain)
+  visit(new_user_session_path)
+end
+
 When /^the user tries to access a restricted page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
