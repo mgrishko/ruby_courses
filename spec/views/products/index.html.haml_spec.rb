@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "products/index.html.haml" do
+describe "products/index" do
   before(:each) do
     @products = assign(:products, ProductDecorator.decorate([
       stub_model(Product,

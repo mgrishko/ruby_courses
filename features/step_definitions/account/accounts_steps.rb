@@ -13,5 +13,5 @@ Given /^another active account$/ do
 end
 
 When /^(?:[^\s]* )goes to the(?: account)? home page$/ do
-  visit(home_url(subdomain: @account.subdomain))
+  visit home_path
 end

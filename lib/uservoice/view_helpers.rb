@@ -1,10 +1,3 @@
-# This module holds all frontend helper methods
-# for uservoice in a Rails app.
-#
-# Author::    Alexander Greim  (mailto:alexxx@iltempo.de)
-# Copyright:: Copyright (c) 2010 il tempo
-# License::   Distributes under the same terms as Ruby
-
 module Uservoice
   module UservoiceViewHelpers
 
@@ -14,7 +7,7 @@ module Uservoice
     # See https://ACCOUNT.uservoice.com/admin2/docs#/widget for options
     # available.
     #
-    def uservoice_config_javascript(options={})
+    def self.uservoice_config_javascript(options={})
       config = uservoice_configuration['uservoice_options'].dup
       config.merge!(options)
 

@@ -1,11 +1,3 @@
-# This module holds all instance methods to be
-# included into ActionController::Base class
-# for enabling uservoice in a Rails app.
-#
-# Author::    Alexander Greim  (mailto:alexxx@iltempo.de)
-# Copyright:: Copyright (c) 2010 il tempo
-# License::   Distributes under the same terms as Ruby
-
 require "erb"
 
 module Uservoice

@@ -7,7 +7,7 @@ Feature: Account edit
     Given an activated account
 
   Scenario Outline: User access to the account settings is denied
-    Given an authenticated user with role <role>
+    Given an authenticated user with <role> role
     When he goes to the home page
     Then he should not see "Settings" link within header
     When he tries to access to the account edit page
@@ -19,9 +19,9 @@ Feature: Account edit
 
   # ToDo: Refactor this scenario to show which fields can be changed (as new product form)
   Scenario: Account owner successfully edits account setings
-    Given an authenticated user with role owner
+    Given an authenticated account owner
     When he goes to the home page
-    Then he should see "Settings" link within header
+    Then he should see "Settings" link within topbar
     When he follows "Settings" within topbar
     Then he should be redirected to the account settings page
     When he changes and submit Company name, Country, Subdomain, Timezone
@@ -29,12 +29,12 @@ Feature: Account edit
 
   @javascript
   Scenario: Authenticated user successfully edits accounts settings
-    Given an authenticated user with role owner
+    Given an authenticated account owner
     When he tries to access to the account edit page
-    Then he should not see validation errors in "edit_account" form
-    And he should see error in "edit_account" for "Company" if text field empty
-    And he should see error in "edit_account" for "Subdomain" if text field empty
-    And he should see error in "edit_account" for "Time zone" if select field empty
-    And he should not see error in "edit_account" for "Website" if text field empty
-    And he should not see error in "edit_account" for "A few words about your company" if text field empty
+    Then he should not see validation errors on the page
+    And he should see an error for "Company" text field if it is empty
+    And he should see an error for "Subdomain" text field if it is empty
+    And he should see an error for "Time zone" select field if it is empty
+    And he should not see an error for "Website" text field if it is empty
+    And he should not see an error for "A few words about your company" text field if it is empty
 

@@ -1,5 +1,5 @@
 When /^(?:[^\s]*) tries to access to the account edit page$/ do
-  visit(edit_account_url(port: Capybara.server_port, subdomain: @account.subdomain))
+  visit edit_account_path
 end
 
 When /^(?:[^\s]*) changes and submit Company name, Country, Subdomain, Timezone$/ do

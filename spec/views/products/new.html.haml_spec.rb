@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "products/new.html.haml" do
+describe "products/new" do
   before(:each) do
     measurements = [
       stub_model(Measurement, name: "depth",        value: "", unit: "MM"),

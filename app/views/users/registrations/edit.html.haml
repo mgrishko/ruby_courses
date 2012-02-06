@@ -3,7 +3,8 @@
 -#- content_for(:sidebar) do
 -#  = link_to t("back"), :back
 
-= simple_form_for(resource, as: resource_name, url: profile_path, validate: true, wrapper: :inline, html: { method: :put }) do |f|
+= simple_form_for(resource, url: profile_path, validate: true,
+  wrapper: :inline, html: { method: :put }) do |f|
   = f.error_notification
   .inputs
     = f.input :first_name, autofocus: true

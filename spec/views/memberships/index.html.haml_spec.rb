@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "memberships/index.html.haml" do
+describe "memberships/index" do
   before(:each) do
     @membership = stub_model(Membership,
       :display_name => "lname",
@@ -31,7 +31,7 @@ describe "memberships/index.html.haml" do
       render
       rendered.should have_selector("table th", text: "Email")
     end
-    
+
     it "renders Role column" do
       render
       rendered.should have_selector("table th", text: "Role")

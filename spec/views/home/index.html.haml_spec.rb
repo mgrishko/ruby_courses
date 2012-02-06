@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "home/index.html.haml" do
+describe "home/index" do
   before(:each) do
     assign(:events, EventDecorator.decorate([
       stub_model(Event),
@@ -17,17 +17,17 @@ describe "home/index.html.haml" do
       render
       rendered.should have_selector("table tr", count: 2)
     end
-    
+
     it "renders event action labels" do
       render
       rendered.should have_selector("td.action", text: "Action label")
     end
-    
+
     it "renders event object links" do
       render
       rendered.should have_selector("td", text: "Link to trackable")
     end
-    
+
     it "renders event description" do
       render
       rendered.should have_selector("td.desc", text: "Event description")

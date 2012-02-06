@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Uservoice
   # Sets content for title in head and for body header.
   #
   # @param [String] page_title page title
@@ -24,7 +25,7 @@ module ApplicationHelper
                                               })
     end
   end
-  
+
   # Renders fieldset with a legend and two columns with content. The first column
   # contains a long hint, the second one contains inputs.
   # @param [String] fieldset legend
@@ -34,7 +35,7 @@ module ApplicationHelper
     hint_html = content_tag(:div, hint, class: "large-hint")
     hint_wrapper_html = content_tag(:div, hint_html, class: "span5 columns")
     inputs_html = content_tag(:div, capture(&block), class: "span8 offset1 columns")
-    
+
     field_set_tag legend do
       content_tag :div, hint_wrapper_html.concat(inputs_html), { class: "row inputs" }
     end

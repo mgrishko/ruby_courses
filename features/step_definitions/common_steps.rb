@@ -127,11 +127,11 @@ Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ 
     execute_script("$('##{field[:id]}').blur()")
   end
 
-  within("form#new_product") { page.should_not have_content("can't be blank") }
+  within("section.main form") { page.should_not have_content("can't be blank") }
 end
 
-Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ do
-                                                                 |should, form, locator, type|
+Then /^he should(.*) see an error for "([^"]*)"(.*) field if it is empty$/ do
+                                                                 |should, locator, type|
   should_have_validation_error = !(should.strip == "not")
   text_field = !(type.strip == "select")
   input_names = locator.split(",").collect{ |l| l.strip }
@@ -156,14 +156,13 @@ Then /^he should(.*) see error in "([^"]*)" for "([^"]*)" if(.*) field empty$/ d
       end
     end
 
-    within("form##{form}") do
+    within("section.main form") do
       page.should_not have_content(
         (locator == "Email" && text_field) ? ( "can't be blank" || "is invalid") : "can't be blank"
       )
     end
   end
 end
-
 
 # Functions
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "admin/accounts/index.html.haml" do
+describe "admin/accounts/index" do
   before(:each) do
     assign(:accounts, [
       stub_model(Account),

@@ -387,12 +387,8 @@ Then /^he should see that comment body (.*)$/ do |text|
   page.find("#comment_body").find(:xpath, '..').find("span", text: text)
 end
 
-Then /^he should not see validation errors in new product form$/ do
-  within("form#new_product") { page.should_not have_content("can't be blank") }
-end
-
-Then /^he should not see validation errors in "([^"]*)" form$/ do |form|
-  within("form##{form}") { page.should_not have_content("can't be blank") }
+Then /^he should not see validation errors on the page$/ do
+  within("section.main form") { page.should_not have_content("can't be blank") }
 end
 
 Then /^he should not see product tags "([^"]*)"$/ do |tags|
@@ -402,7 +398,7 @@ Then /^he should not see product tags "([^"]*)"$/ do |tags|
 end
 
 Then /^he should see product ([A-Za-z_0-9]+) "([^"]*)"$/ do |field, value|
-  within(:css, "section.content") { page.should have_content(value) }
+  within(:css, "section.main") { page.should have_content(value) }
 end
 
 Then /^he should(.*) see products welcome message:$/ do |should, string|

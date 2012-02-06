@@ -3,29 +3,22 @@ Given /^an unauthenticated user$/ do
   reset_session!
 end
 
-Given /^an authenticated user$/ do
+Given /^an authenticated user(?: with (.*) role)?$/ do |role|
   @user = Fabricate(:user, password: "password")
 
-  steps %Q{
-    Given user is on the user sign in page
-    When user submits valid email and password
-  }
+  @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user) if role.present?
+
+  visit(new_user_session_path)
+  fill_in "Email", with: @user.email
+  fill_in "Password", with: "password"
+  click_button "Sign in"
 end
 
-Given /^an authenticated user with (.*) role$/ do |role|
-  step "an authenticated user"
-
-  @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
-end
-
-#special for account_settings.feature
-Given /^an authenticated user with role (.*)$/ do |role|
-
-  @membership = Fabricate("#{role}_membership".to_sym, account: @account)
-
-  visit(new_user_session_url(port: Capybara.server_port, subdomain: @account.subdomain))
-  fill_in "Email", with: @membership.user.email
-  fill_in "Password", with: @membership.user.password
+Given /^an authenticated account owner$/ do
+  # @user initialized as Account owner in "Given an activated account" step
+  visit(new_user_session_path)
+  fill_in "Email", with: @user.email
+  fill_in "Password", with: "password"
   click_button "Sign in"
 end
 
@@ -34,10 +27,6 @@ Given /^an unauthenticated user with (.*) role$/ do |role|
   @membership = Fabricate("#{role}_membership".to_sym, account: @account, user: @user)
 end
 
-Given /^an authenticated account owner$/ do
-  step "an authenticated user"
-  @account.owner = @user
-end
 
 Given /^(?:[^\s]* )is on the user sign in page$/ do
   visit(new_user_session_path)
