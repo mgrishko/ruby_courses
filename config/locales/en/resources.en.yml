@@ -463,6 +463,7 @@ en:
     index:
       <<: *PRODUCT_DEFAULTS
       title: "Listing products"
+      more_products: "More products"
     new:
       <<: *PRODUCT_DEFAULTS
       title: "New product"

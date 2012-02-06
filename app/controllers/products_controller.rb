@@ -1,6 +1,8 @@
 class ProductsController < MainController
   include AutoComplete::Action
+  respond_to :html, :js
   respond_to :json, only: :autocomplete
+
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy, :autocomplete]
   before_filter :prepare_photo, only: [:show, :edit, :update]
@@ -16,7 +18,10 @@ class ProductsController < MainController
   # GET /products.xml
   def index
     #@products = Product.all loaded by CanCan
-    @products = ProductDecorator.decorate(apply_scopes(@products).asc(:functional_name))
+    @products = ProductDecorator.decorate(apply_scopes(@products).
+                                              asc(:functional_name).
+                                              limit(Settings.products.limit).
+                                              offset(params[:offset].to_i))
     respond_with(@products)
   end
 

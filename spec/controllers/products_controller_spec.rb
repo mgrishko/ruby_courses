@@ -25,6 +25,23 @@ describe ProductsController do
       assigns(:products).should be_empty
     end
 
+    describe "pagination" do
+      before(:each) do
+        account = Account.where(subdomain: "company").first
+        25.times { account.products.create! valid_attributes }
+      end
+
+      it "limits results" do
+        get :index
+        assigns(:products).to_a.size.should == 10
+      end
+
+      it "offsets results" do
+        get :index, offset: 20, format: :js
+        assigns(:products).to_a.size.should == 5
+      end
+    end
+
     describe "filters" do
       before(:each) do
         @account = Account.where(subdomain: "company").first
