@@ -65,7 +65,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.9.0)
+    capybara-webkit (0.8.0)
       capybara (>= 1.0.0, < 1.2)
       json
     carmen (0.2.12)
@@ -290,7 +290,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara (~> 1.1.1)
-  capybara-webkit
+  capybara-webkit (~> 0.8.0)
   carmen
   carrierwave
   carrierwave-mongoid

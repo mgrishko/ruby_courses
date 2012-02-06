@@ -90,7 +90,7 @@ group :test, :cucumber do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'capybara', "~> 1.1.1"
-  gem "capybara-webkit"
+  gem "capybara-webkit", "~> 0.8.0"
   gem "headless"
   gem 'database_cleaner'
   gem 'ffaker'

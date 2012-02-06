@@ -3,7 +3,7 @@ Given /^(?:[^\s]* )is on the user profile page$/ do
 end
 
 Then /^(?:[^\s]* )should be redirected to the user profile page$/ do
-  current_url.should == edit_user_registration_url(subdomain: @account.subdomain)
+  extract_port(current_url).should == edit_user_registration_url(subdomain: @account.subdomain)
 end
 
 When /^(?:|he )submits profile form with(.*) password$/ do |password|
