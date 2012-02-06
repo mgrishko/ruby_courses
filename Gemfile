@@ -53,6 +53,9 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
 
+# For UserVoice encrypt sso_key
+gem "ezcrypto"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -70,17 +73,16 @@ gem "yard-cucumber"
 # External services
 gem "airbrake"
 gem "newrelic_rpm"
-gem "uservoice", path: "vendor/plugins/uservoice"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-  gem 'rspec-rails', "~> 2.8.1"
+  gem 'rspec-rails', "2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
-  gem "spork", '1.0.0.rc1'
+  gem "spork", '0.9.0'
   gem "email_spec", "~> 1.2.1"
 end
 

@@ -1,11 +1,3 @@
-# This module represents an encrypted token
-# to authenticate a user against the uservoice
-# service.
-#
-# Author::    Alexander Greim  (mailto:alexxx@iltempo.de)
-# Copyright:: Copyright (c) 2010 il tempo
-# License::   Distributes under the same terms as Ruby
-
 module Uservoice
   class Token
     attr_reader :data
