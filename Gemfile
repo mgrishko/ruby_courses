@@ -53,9 +53,6 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
 
-# For UserVoice encrypt sso_key
-gem "ezcrypto"
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -73,6 +70,9 @@ gem "yard-cucumber"
 # External services
 gem "airbrake"
 gem "newrelic_rpm"
+
+# For UserVoice encrypt sso_key
+gem "ezcrypto"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
