@@ -22,7 +22,7 @@ Feature: Membership invitation
 
     Then user should receive an invitation email with password
     And he follows membership invitation link
-    And he submits valid email and password
+    And he submits the valid email and password
     Then he should be on the company account home page
 
   Scenario: Admin invites an unauthenticated user to an account
@@ -30,7 +30,7 @@ Feature: Membership invitation
     When admin invites that user
     Then user should receive an invitation email without password
     When he follows membership invitation link
-    And he submits valid email and password
+    And he submits the valid email and password
     Then he should be on the company account home page
 
   Scenario: Admin invites an authenticated user to an account

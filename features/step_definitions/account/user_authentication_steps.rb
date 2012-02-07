@@ -14,6 +14,22 @@ Given /^an authenticated user(?: with (.*) role)?$/ do |role|
   click_button "Sign in"
 end
 
+When /^(?:he|user) (.*)check checkbox "([^"]*)"$/ do |action, checkbox|
+  if action.blank?
+    check checkbox
+  else
+    uncheck checkbox
+  end
+end
+
+Then /^(?:[^\s]* )should(.*) see filled password$/ do |should|
+  if should.strip == "not"
+    page.should have_no_selector(:xpath, "//input[@type='password' and @name='user[password]']")
+  else
+    page.should have_selector(:xpath, "//input[@type='password' and @name='user[password]']")
+  end
+end
+
 Given /^an authenticated account owner$/ do
   # @user initialized as Account owner in "Given an activated account" step
   visit(new_user_session_path)
@@ -41,13 +57,13 @@ When /^the user tries to access a restricted page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-When /^(?:he|user) submits (.*) email and(.*) password$/ do |email, password|
+When /^(?:he|user) (.*) the (.*) email and(.*) password$/ do |action, email, password|
   password.strip!
 
   valid_email = @user.nil? ? "user@example.com" : @user.email
   fill_in "Email", with: email == "valid" ? valid_email : "invalid@example.com"
   fill_in "Password", with: password.blank? || password == "valid" ? "password" : "invalid"
-  click_button "Sign in"
+  click_button "Sign in" if action == "submits"
 end
 
 When /^user signs out$/ do

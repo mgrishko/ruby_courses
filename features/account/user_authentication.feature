@@ -10,13 +10,18 @@ Feature: User authentication
     And an unauthenticated user with admin role
     When he navigates to products page
     Then he should be redirected to the user sign in page
-    When user submits valid email and password
+    When user filling the valid email and password
+    And he check checkbox "Show password"
+    Then he should see filled password
+    And he uncheck checkbox "Show password"
+    Then he should not see filled password
+    When he clicks button "Sign in"
     Then he should be redirected back to the products page
 
   Scenario Outline: User enters wrong email or password
     Given an unauthenticated user
     And he is on the user sign in page
-    When user submits <email> email and <password> password
+    When user submits the <email> email and <password> password
     Then he should be redirected to the user sign in page
     And user should see alert message "Invalid email or password"
     Examples:
