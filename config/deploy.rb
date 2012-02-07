@@ -14,7 +14,7 @@ require 'airbrake/capistrano'
 require 'new_relic/recipes'
 
 # Bundler options
-set :bundle_without, [:development, :test, :cucumber, :console]
+set :bundle_without, [:development, :test, :cucumber]
 
 # Multistage
 set :stages, %w(development staging qa)
