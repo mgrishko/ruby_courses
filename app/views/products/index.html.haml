@@ -22,15 +22,6 @@
   = render "welcome_box"
 
 - else
-  - ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
-    %article
-      %header
-        .row.tr
-          .attr_val= functional
-
-      - products.each_slice(2) do |items|
-        .row.tr
-          - items.each do |product|
-            = render product
+  = render "product_groups", skip_first: false
 
 

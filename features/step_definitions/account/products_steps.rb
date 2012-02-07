@@ -2,7 +2,7 @@ Given /^he is on the account home page$/ do
   visit(home_url(subdomain: @account.subdomain))
 end
 
-Given /^he is on the products page$/ do
+Given /^(?:[^\s]* )is on the products page$/ do
   visit(products_url(port: Capybara.server_port, subdomain: @account.subdomain))
 end
 
@@ -13,6 +13,12 @@ end
 
 Given /^that other account has a product$/ do
   @product = Fabricate(:product, account: @another_account)
+end
+
+Given /^that account has (\d+) products$/ do |count|
+  count.to_i.times do |i|
+    Fabricate(:product, functional_name: "Functional #{i + 10}", variant: "Variant #{i + 1}", account: @account)
+  end
 end
 
 Given /^he is on the product page$/ do
@@ -426,6 +432,12 @@ Then /^he should(.*) see "([^"]*)" product$/ do |should, variant|
     else
       page.should have_content(variant)
     end
+  end
+end
+
+Then /^he should see (\d+) products$/ do |count|
+  within(".products") do
+    page.should have_selector(".item", count: count)
   end
 end
 

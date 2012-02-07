@@ -1,9 +1,9 @@
 Feature: Product filters
-  In order to work with large product number
+  In order to find specific products
   A user
   Should be able to filter products
 
-  Background: Account exists
+  Background: Account has products
     Given an activated account
     And that account has the following products:
       | variant    | brand     | manufacturer | functional_name |
