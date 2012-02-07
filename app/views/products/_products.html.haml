@@ -1,12 +1,13 @@
-- ProductDecorator.group(@products, by: :functional_name).each do |functional, products|
+- ProductDecorator.group(@products, by: params[:group_by]).each do |group, products|
   %article
     %header
       .row.tr
-        .attr_val= functional
+        .attr_val= group
 
     - products.each_slice(2) do |items|
       .row.tr
         - items.each do |product|
           = render product
 
-= link_to t(".more_products"), products_path(offset: Settings.products.limit), id: "pager", remote: true
+#pager
+  = ProductDecorator.more_products_link(@products.size, params)

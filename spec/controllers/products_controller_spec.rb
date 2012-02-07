@@ -25,6 +25,18 @@ describe ProductsController do
       assigns(:products).should be_empty
     end
 
+    describe "params" do
+      it "should allow valid params" do
+        get :index, by_brand: "Brand"
+        controller.params.should include(:by_brand)
+      end
+
+      it "should sanitize invalid params" do
+        get :index, by_invalid: "Param"
+        controller.params.should_not include(:by_invalid)
+      end
+    end
+
     describe "pagination" do
       before(:each) do
         account = Account.where(subdomain: "company").first
@@ -42,7 +54,7 @@ describe ProductsController do
       end
     end
 
-    describe "filters" do
+    describe "scopes" do
       before(:each) do
         @account = Account.where(subdomain: "company").first
 

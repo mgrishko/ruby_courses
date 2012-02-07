@@ -295,12 +295,22 @@ describe ProductDecorator do
 
     it "should group products by functional name" do
       expected = { "functional 1" => [@product1], "functional 2" => [@product2] }
-      ProductDecorator.group(@products, by: :functional_name).should == expected
+      ProductDecorator.group(@products, by: "functional_name").should == expected
     end
 
     it "should group products by brand" do
       expected = { "Brand" => [@product1, @product2] }
-      ProductDecorator.group(@products, by: :brand).should == expected
+      ProductDecorator.group(@products, by: "brand").should == expected
+    end
+
+    it "should group products by functional name by default" do
+      expected = { "functional 1" => [@product1], "functional 2" => [@product2] }
+      ProductDecorator.group(@products, by: nil).should == expected
+    end
+
+    it "should group products by functional name if invalid group option provided" do
+      expected = { "functional 1" => [@product1], "functional 2" => [@product2] }
+      ProductDecorator.group(@products, by: "destroy").should == expected
     end
   end
 
@@ -370,6 +380,59 @@ describe ProductDecorator do
         it "should be blank" do
           @decorator.content(:value).should be_blank
         end
+      end
+    end
+  end
+
+  describe "#more_products_link" do
+    before(:each) do
+      @account = Fabricate(:account)
+      25.times { Fabricate(:product, account: @account) }
+    end
+
+    context "when more products exist" do
+      it "should set initial offset param to products limit" do
+        params = {}
+        products = ProductDecorator.decorate(@account.products.limit(10))
+        ProductDecorator.more_products_link(products.size, params).should ==
+            "<a href=\"/products?offset=10\" data-remote=\"true\">More products</a>"
+      end
+
+      it "should should increase offset param by products limit" do
+        params = { offset: "10" }
+        products = ProductDecorator.decorate(@account.products.limit(10).offset(10))
+        ProductDecorator.more_products_link(products.size, params).should ==
+            "<a href=\"/products?offset=20\" data-remote=\"true\">More products</a>"
+      end
+
+      it "should include group by param" do
+        params = { group_by: "brand", offset: "10" }
+        products = ProductDecorator.decorate(@account.products.limit(10))
+        ProductDecorator.more_products_link(products.size, params).should ==
+            "<a href=\"/products?group_by=brand&amp;offset=20\" data-remote=\"true\">More products</a>"
+      end
+
+      it "should include filter param" do
+        params = { by_manufacturer: "Danone", group_by: "brand", offset: "10" }
+        products = ProductDecorator.decorate(@account.products.limit(10))
+        expected = <<link
+<a href="/products?by_manufacturer=Danone&amp;group_by=brand&amp;offset=20" data-remote="true">More products</a>
+link
+        ProductDecorator.more_products_link(products.size, params).should == expected.strip
+      end
+    end
+
+    context "when no more products" do
+      it "should be blank when limit + offset > total size" do
+        params = { offset: "20" }
+        products = ProductDecorator.decorate(@account.products.limit(10).offset(20))
+        ProductDecorator.more_products_link(products.size, params).should == ""
+      end
+
+      it "should be blank when limit + offset = total size" do
+        params = { offset: "15" }
+        products = ProductDecorator.decorate(@account.products.limit(10).offset(15))
+        ProductDecorator.more_products_link(products.size, params).should == ""
       end
     end
   end

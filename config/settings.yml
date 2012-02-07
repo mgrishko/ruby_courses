@@ -20,6 +20,8 @@ defaults: &defaults
 
   products:
     limit: 50
+    group_options: "functional_name manufacturer brand"
+    default_group: "functional_name"
 
   tags:
     maximum_length: 20
@@ -29,18 +31,24 @@ development:
   <<: *defaults
 
   products:
-    limit: 2
+    limit: 10
+    group_options: "functional_name manufacturer brand"
+    default_group: "functional_name"
 
 test:
   <<: *defaults
   products:
     limit: 10
+    group_options: "functional_name manufacturer brand"
+    default_group: "functional_name"
 
 cucumber:
   <<: *defaults
 
   products:
     limit: 6
+    group_options: "functional_name manufacturer brand"
+    default_group: "functional_name"
 
 qa:
   <<: *defaults

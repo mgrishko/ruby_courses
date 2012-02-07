@@ -1,17 +1,25 @@
 class ProductDecorator < ApplicationDecorator
   decorates :product
 
-  # Groups products by provided field
+  # Groups products by provided field.
+  # It groups by functional_name by default.
   #
   # @param [Array] array of products
   # @param [Hash] group options
   # @option [Symbol] by - field name by which products should be grouped
   # @return [Hash] grouped products where key is a field name and values is corresponding products
-  def self.group(array, opts = { by: :functional_name })
-    field = opts.delete(:by)
-    groupings = array.map(&field)
+  def self.group(array, opts)
+    group_by = opts.delete(:by)
+
+    # Getting allowed group options
+    group_options = Settings.products.group_options.split(/\s/)
+    # Sanitizing group option
+    group_by = group_by.present? && group_options.include?(group_by) ?
+        group_by : Settings.products.default_group
+
+    groupings = array.map(&group_by.to_sym)
     groupings.inject({}) do |acc, value|
-      acc[value] = array.select { |p| p.send(field) == value }
+      acc[value] = array.select { |p| p.send(group_by) == value }
       acc
     end
   end
@@ -65,6 +73,21 @@ class ProductDecorator < ApplicationDecorator
   # @return [Array] filter options names
   def self.filter_options(scope)
     h.current_account.products.send(:"distinct_#{scope.to_s.pluralize}")
+  end
+
+  # Returns link to paginate products.
+  #
+  # @param [Integer] total is a total products count
+  # @param [Hash] params is a request params
+  # @return [String] link
+  def self.more_products_link(total, params)
+    offset = params[:offset].to_i + Settings.products.limit
+    if offset < total
+      opts = params.merge(offset: offset)
+      h.link_to I18n.t("more_products", scope: i18n_scope), h.products_path(opts), remote: true
+    else
+      ""
+    end
   end
 
   # Returns html code for a link to a specific product version.
