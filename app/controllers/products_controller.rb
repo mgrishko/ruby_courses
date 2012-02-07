@@ -101,7 +101,7 @@ class ProductsController < MainController
   #
   # @return [String] group by option
   def group_by
-    params[:group_by] || Settings.products.default_group
+    @group_by = params[:group_by] || Settings.products.default_group
   end
 
   # Prepares comment for show, new and edit actions.

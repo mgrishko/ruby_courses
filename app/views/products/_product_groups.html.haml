@@ -1,0 +1,13 @@
+- i = 0
+- ProductDecorator.group(@products, by: params[:group_by]).each do |group, products|
+  - i += 1
+  - unless skip_first && i == 1
+    %article{ "data-group" => group }
+      %header
+        .row.tr
+          .attr_val= group
+
+      = render "product_group", products: products
+
+#pager
+  = ProductDecorator.more_products_link(@products.size, params)

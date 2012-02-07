@@ -1,0 +1,4 @@
+- products.each_slice(2) do |items|
+  .row.tr
+    - items.each do |product|
+      = render product

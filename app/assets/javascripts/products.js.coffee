@@ -23,7 +23,6 @@ GoodsMaster.products.initPager = ->
     if GoodsMaster.products.isPagerShown()
       GoodsMaster.products.autoScrolledCount += 1
       GoodsMaster.products.nextPage()
-      alert(GoodsMaster.products.autoScrolledCount)
 
 
 # Requests new page
