@@ -5,6 +5,10 @@ When /^he follows "([^"]*)" within (.*)$/ do |link, scope|
   end
 end
 
+When /^he cancels the form$/ do
+  within("form .actions") { click_on("Cancel") }
+end
+
 When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   scope = scope.gsub(/\s/, '_')
   within(".#{scope}") { click_on(link) }
@@ -23,6 +27,10 @@ Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
   within(".#{scope}") do
     page.should have_content(content)
   end
+end
+
+Then /^he should be on the company account home page$/ do
+  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
 end
 
 Then /^he should not see tags$/ do

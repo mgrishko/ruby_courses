@@ -22,4 +22,10 @@ Feature: Edit product
     Then he should not see "Edit product" link within sidemenu
     When he goes to the edit product page
     Then he should see alert message "Not allowed to update a product."
-
+  
+  Scenario: Editor cancels editing a product
+    Given an authenticated user with editor role
+    And he is on the product page
+    When he follows "Edit product" within sidemenu
+    And he cancels the form
+    Then he should be on the product page

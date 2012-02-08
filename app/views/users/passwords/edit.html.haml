@@ -1,7 +1,7 @@
 - title t('.title')
 
-= simple_form_for(resource, as: resource_name, url: password_url(resource_name, subdomain: Settings.app_subdomain),
-                  wrapper: :inline,  html: { method: :put }) do |f|
+= simple_form_for(resource, as: resource_name, html: { method: :put },
+    url: password_url(resource_name, subdomain: Settings.app_subdomain)) do |f|
   = f.input :reset_password_token, as: :hidden
   .clearfix
     %p= f.full_error :reset_password_token, class: "alert-message block-message error"

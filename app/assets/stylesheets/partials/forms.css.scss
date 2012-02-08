@@ -80,14 +80,20 @@ form {
     }
   }
 
+	.actions {
+    
+    input {
+	    margin-right: $baseline / 2;
+    }
+ 	}
+
   &.with-left-hint-col {
     @extend .span14;
 
-	.actions {
-	  padding-left: $second_column_padding;
-	}
+  	.actions {
+	    padding-left: $second_column_padding;
+  	}
   }
-
 }
 
 form, fieldset {

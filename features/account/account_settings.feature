@@ -37,4 +37,10 @@ Feature: Account edit
     And he should see an error for "Time zone" select field if it is empty
     And he should not see an error for "Website" text field if it is empty
     And he should not see an error for "A few words about your company" text field if it is empty
-
+    
+  Scenario: Account owner cancels editing account settings
+    Given an authenticated account owner
+    When he goes to the home page
+    And he follows "Settings" within topbar
+    And he cancels the form
+    Then he should be on the company account home page

@@ -2,10 +2,11 @@
 
 - content_for(:sidebar) do
   = link_to t("back"), :back
-= simple_form_for(resource, as: resource_name, url: password_url(resource_name, subdomain: Settings.app_subdomain),
-                  wrapper: :inline, html: { method: :post }) do |f|
+= simple_form_for(resource, html: { method: :post },
+    url: password_url(resource_name, subdomain: Settings.app_subdomain)) do |f|
   = f.error_notification
   .inputs
     = f.input :email, required: true
   .actions
     = f.button :submit, t('.send'), class: 'primary'
+    = link_to t("cancel"), new_user_session_path
