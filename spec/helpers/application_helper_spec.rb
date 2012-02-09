@@ -22,4 +22,21 @@ describe ApplicationHelper do
       helper.content_for(:page_title).should be_blank
     end
   end
+
+  describe "#user_voice_widget" do
+    before(:each) do
+      @account = Fabricate(:active_account)
+      @user = @account.owner
+    end
+
+    it "should return uservoice widget" do
+      helper.stub!(:current_user).and_return(@user)
+      helper.user_voice_widget.should_not be_blank
+    end
+
+    it "should not return uservoice widget" do
+      helper.stub!(:current_user).and_return(nil)
+      helper.user_voice_widget.should be_blank
+    end
+  end
 end

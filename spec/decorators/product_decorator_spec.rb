@@ -207,7 +207,8 @@ describe ProductDecorator do
 
     it "returns options for net content" do
       measurement = Fabricate.build(:content)
-      ProductDecorator.unit_options(measurement).sort.should == [["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
+      ProductDecorator.unit_options(measurement).sort.should ==
+          [["count", "1N"], ["ml", "ML"], ["mm", "MM"], ["g", "GR"]].sort
     end
   end
   

@@ -2,7 +2,7 @@ class Content
   include Mongoid::Document
   include Mongoid::MeasurementValue
 
-  UNITS = %w(GR ML MM)
+  UNITS = %w(1N GR ML MM)
 
   measurement_value_field :value
   field :unit, type: String
