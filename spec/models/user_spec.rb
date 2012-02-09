@@ -13,10 +13,13 @@ describe User do
 
   it { should validate_presence_of(:email) }
   it { should ensure_length_of(:email).is_at_most(50) }
+  it { should_not allow_value("a@a.comm").for(:email) }
+  it { should_not allow_value("a@a.ru").for(:email) }
+  it { should_not allow_value("a@a.ru").for(:email) }
   it { should_not allow_value("a@a.r").for(:email) }
-  it { should allow_value("a@a.ru").for(:email) }
-  it { should allow_value("a.b@a.ru").for(:email) }
-  it { should allow_value("A.b@a.ru").for(:email) }
+  it { should allow_value("aaa@aa.ru").for(:email) }
+  it { should allow_value("a.b@aa.ru").for(:email) }
+  it { should allow_value("A.b@aa.ru").for(:email) }
   it { should allow_mass_assignment_of(:email) }
 
   it { should validate_presence_of(:time_zone) }
