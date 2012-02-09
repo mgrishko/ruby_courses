@@ -106,7 +106,7 @@ section.main {
 }
 
 .submenu {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background-color: $acitve_sidemenu_bg_color;
   left: $submenu_left_position;
