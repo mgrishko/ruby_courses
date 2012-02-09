@@ -39,6 +39,10 @@ Feature: Edit profile
   Scenario: Authenticated user successfully edits profile
     Given an authenticated user with viewer role
     And he is on the user profile page
+    When he check checkbox "Show password"
+    Then he should see filled password
+    And he uncheck checkbox "Show password"
+    Then he should not see filled password
     Then he should not see validation errors on the page
     And he should see an error for "First name" text field if it is empty
     And he should see an error for "Last name" text field if it is empty

@@ -21,7 +21,7 @@ en:
       size_too_big: "is too big (should be at most %{file_size})"
       carrierwave_processing_error: failed to be processed
       carrierwave_integrity_error: is not an allowed file type
-  
+
   mongoid:
     errors:
       models:
@@ -33,7 +33,7 @@ en:
         weight:
           attributes:
             net:
-              less_than: can't be greater then gross weight
+              less_than: "can't be greater then gross weight"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
@@ -43,3 +43,5 @@ en:
       MM: "mm"
       ML: "ml"
       GR: "g"
+  password:
+    show: "Show password"

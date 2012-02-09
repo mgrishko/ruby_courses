@@ -79,7 +79,7 @@ Feature: Account sign up
     When he goes to the sign up page
     And he follows "Sign in here" within login box
     Then he should be on the global sign in page
-    When user submits the valid email and password
+    When user submits valid email and password
     Then he should be redirected to the new account page
 
   Scenario: Signed in user can sign out from create new account form

@@ -168,6 +168,14 @@ Then /^he should(.*) see an error for "([^"]*)"(.*) field if it is empty$/ do
   end
 end
 
+When /^(?:he|user) (.*)check checkbox "([^"]*)"$/ do |action, checkbox|
+  if action.blank?
+    check checkbox
+  else
+    uncheck checkbox
+  end
+end
+
 # Functions
 
 def wait

@@ -4,7 +4,12 @@
   .inputs
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    .float_left
+      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    .show_password_signin
+      = label_tag "show_password", t('password.show'), class: "boolean optional"
+      .input
+        = check_box_tag 'show_password'
   .actions
     = f.button :submit, t(".sign_in"), class: 'primary'
     = link_to t('.recoverable'), new_password_url(resource_name, subdomain: Settings.app_subdomain)
