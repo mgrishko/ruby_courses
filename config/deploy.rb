@@ -68,9 +68,8 @@ namespace :demo do
   end
 end
 
-before "deploy", "delayed_job:stop"
 before "deploy:assets:precompile", "deploy:copy_secured_configuration"
-after "deploy", "delayed_job:start"
+after "deploy", "delayed_job:restart"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
 
