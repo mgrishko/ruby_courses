@@ -5,9 +5,9 @@ require 'find'
 namespace :gm do
   namespace :demo do
     desc "Load demo products. All current products will be destroyed!"
-    task :load, [:subdomain] => :environment do |task, args|
+    task :data, [:subdomain] => :environment do |task, args|
       if args[:subdomain].blank?
-        raise "Please, specify account by subdomain: rake gm:demo:load[subdomain]"
+        raise "Please, specify account by subdomain: rake gm:demo:data[subdomain]"
       end
 
       demo_root = File.join(Rails.root, 'lib', 'tasks', 'demo')
@@ -77,18 +77,65 @@ namespace :gm do
 
         package.contents.build value: value, unit: unit unless value.blank?
 
-        product.save!
+        product.product_codes.build name: "FOR_INTERNAL_USE_1", value: d["id"] unless d["id"].blank?
 
-        image_file = images["#{d["id"]}"]
-        unless image_file.blank?
-          photo = product.photos.build
-          photo.image = MiniMagick::Image.new(image_file)
-          photo.save!
-        end
+        product.save!
 
         i += 1
 
         puts "#{i} done" if i % 100 == 0
+ 	    end
+
+      puts "OK"
+    end
+
+    desc "Load demo photos for demo products. All current photos will be destroyed!"
+    task :photos, [:subdomain] => :environment do |task, args|
+      if args[:subdomain].blank?
+        raise "Please, specify account by subdomain: rake gm:demo:photos[subdomain]"
+      end
+
+      demo_root = File.join(Rails.root, 'lib', 'tasks', 'demo')
+
+      print "Loading account by subdomain ... "
+      account = Account.where(subdomain: args[:subdomain]).first
+
+      if account.nil?
+        puts "Failed"
+        raise "Account not found by subdomain #{args[:subdomain]}"
+      elsif !account.active?
+        puts "Failed"
+        raise "Account found but not active! Please activate account."
+      else
+        puts "OK"
+      end
+
+      print "Reading images file names ... "
+        images = {}
+        Find.find(File.join(demo_root, "images")) do |path|
+          id = File.basename(path).scan(/^\d+/).first
+          images[id] = path
+        end
+      puts "OK"
+
+      puts "Loading photos ... "
+
+      account.products.each_with_index do |product, i|
+
+        num = product.product_codes.first.value
+
+        unless num.blank?
+          image_path = images["#{num}"]
+          unless image_path.blank?
+            photo = product.photos.build
+            image = MiniMagick::Image.new(image_path)
+            photo.image = image
+            photo.save!
+            image.destroy!
+          end
+
+          puts "#{i + 1} done" if (i + 1) % 10 == 0
+        end
  	    end
 
       puts "OK"
