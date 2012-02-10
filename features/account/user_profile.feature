@@ -47,6 +47,7 @@ Feature: Edit profile
     
   Scenario: Authenticated user cancels editing profile
     Given an authenticated user with viewer role
-    And he is on the user profile page
-    When he cancels the form
+    When he goes to the home page
+    And he follows "Profile" within topbar
+    And he cancels the form
     Then he should be on the company account home page

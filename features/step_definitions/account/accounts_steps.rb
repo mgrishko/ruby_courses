@@ -15,3 +15,7 @@ end
 When /^(?:[^\s]* )goes to the(?: account)? home page$/ do
   visit home_path
 end
+
+Then /^he should be on the company account home page$/ do
+  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
+end

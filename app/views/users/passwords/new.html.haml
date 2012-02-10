@@ -9,4 +9,4 @@
     = f.input :email, required: true
   .actions
     = f.button :submit, t('.send'), class: 'primary'
-    = link_to t("cancel"), new_user_session_path
+    = link_to t("cancel"), :back

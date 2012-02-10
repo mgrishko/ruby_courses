@@ -29,10 +29,6 @@ Then /^he should see "([^"]*)" within "([^"]*)"$/ do |content, scope|
   end
 end
 
-Then /^he should be on the company account home page$/ do
-  extract_port(current_url).should == home_url(subdomain: @account.subdomain)
-end
-
 Then /^he should not see tags$/ do
   page.should_not have_selector(".token-input-token-goodsmaster")
 end

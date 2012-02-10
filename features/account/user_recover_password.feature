@@ -65,4 +65,4 @@ Feature: User recover password
     Given user is on the user sign in page
     When he follows "Forgot your password?" within actions
     And he cancels the form
-    Then he should be on the global sign in page
+    Then he should be on the account login page
