@@ -125,12 +125,13 @@ namespace :gm do
         num = product.product_codes.first.value
 
         unless num.blank?
+          product.photos.delete_all
+
           image_path = images["#{num}"]
           unless image_path.blank?
-            photo = product.photos.build
             image = MiniMagick::Image.new(image_path)
-            photo.image = image
-            photo.save!
+            photo = product.photos.build(image: image)
+            photo.save
             image.destroy!
           end
 

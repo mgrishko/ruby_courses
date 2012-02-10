@@ -24,7 +24,8 @@ class Product
   belongs_to :account
 
   embeds_many :comments, as: :commentable, versioned: false
-  embeds_many :photos, versioned: false
+  #embeds_many :photos, versioned: false
+  has_many :photos
   embeds_many :packages
   embeds_many :product_codes
 

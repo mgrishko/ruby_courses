@@ -6,6 +6,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
   include CarrierWave::MiniMagick
+  include ::CarrierWave::Backgrounder::DelayStorage
 
   # Choose what kind of storage to use for this uploader or
   # comment out if you want to leave defaults from config:
