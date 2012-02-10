@@ -84,7 +84,7 @@ group :development, :test, :cucumber do
   gem 'rspec-rails', "~> 2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
-  gem "spork", '1.0.0rc1'
+  gem "spork", '0.9.0'
   gem "email_spec", "~> 1.2.1"
 end
 
