@@ -25,6 +25,9 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
 
+  ## Attr Normalization
+  normalize_attribute :first_name, :last_name, :with => [:squish]
+  
   ## Encryptable
   # field :password_salt, :type => String
 

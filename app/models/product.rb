@@ -21,6 +21,10 @@ class Product
   field :visibility       , type: String, default: "public"
   field :updated_at       , versioned: true
   
+  ## Attr Normalization
+  normalize_attribute :functional_name, :variant, :manufacturer, :country_of_origin, 
+    :brand, :sub_brand, :gtin, :short_description, :description, :with => [:squish]
+  
   belongs_to :account
 
   embeds_many :comments, as: :commentable, versioned: false
@@ -40,7 +44,8 @@ class Product
   accepts_nested_attributes_for :product_codes
   attr_accessible :product_codes_attributes
 
-  auto_complete_for :brand, :sub_brand, :variant, :functional_name, :manufacturer, :tags => :name
+  auto_complete_for :brand, :sub_brand, :variant, :functional_name,
+    :manufacturer, :tags => :name
 
   filter_by :brand, :manufacturer, :functional_name, :tags => :name
 

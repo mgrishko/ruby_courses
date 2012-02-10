@@ -3,8 +3,8 @@ class Account
   include Mongoid::Timestamps
   include Mongoid::Trackable
 
-  SUBDOMAIN_BLACKLIST = %w(admin api app beta blog community dashboard demo feedback fuck help login mail
-                           secured signin signup status support test www)
+  SUBDOMAIN_BLACKLIST = %w(admin api app beta blog community dashboard demo feedback fuck
+    help login mail secured signin signup status support test www)
 
   field :subdomain, type: String
   field :company_name, type: String
@@ -14,6 +14,9 @@ class Account
   field :time_zone, type: String
   field :locale, type: String, default: "en"
 
+  ## Attr Normalization
+  normalize_attribute :subdomain, :company_name, :website, :locale, :with => [:squish]
+  
   belongs_to :owner, class_name: "User"
   embeds_many :memberships, validate: false
   has_many :products
@@ -35,7 +38,8 @@ class Account
   validates :website, length: 0..50
   validates :about_company, length: 0..250
 
-  attr_accessible :subdomain, :company_name, :country, :time_zone, :locale, :website, :about_company
+  attr_accessible :subdomain, :company_name, :country, :time_zone, :locale,
+    :website, :about_company
 
   state_machine :state, initial: :pending do
     event :activate do

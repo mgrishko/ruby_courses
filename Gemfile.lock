@@ -42,6 +42,7 @@ GEM
       builder
     ansi (1.4.2)
     arel (3.0.0)
+    attribute_normalizer (1.0.1)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (1.4.4)
       sass-rails (~> 3.1)
@@ -247,7 +248,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    spork (0.9.0)
+    spork (1.0.0rc1)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -285,6 +286,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  attribute_normalizer
   bootstrap-sass (~> 1.4.4)
   bson_ext (~> 1.5)
   cancan (~> 1.6.7)
@@ -332,7 +334,7 @@ DEPENDENCIES
   simple-navigation (~> 3.5.0)
   simple_form!
   simplecov
-  spork (= 0.9.0)
+  spork (= 1.0.0rc1)
   state_machine
   therubyracer
   therubyrhino
