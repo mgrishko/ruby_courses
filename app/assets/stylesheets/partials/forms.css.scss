@@ -68,7 +68,7 @@ form {
   .inline-input {
 		display: inline;
 		float: left;
-		margin-left: 20px;
+		margin-right: 20px;
 		
 		&.one-third input { 
 			width: ($input_width - 2 * 30) / 3;

@@ -26,35 +26,32 @@
 
     = two_col_fieldset t(".weight_legend"), t(".weight_hint") do
       = p.simple_fields_for :weights, wrapper: :stacked do |w|
-        .row
-          .inline-input.half
-            = w.input :gross,
-              label: ProductDecorator.measure_value_label(w.object, :gross), 
-              required: false, input_html: { "data-validate-with" => "net" }
-          .inline-input.half
-            = w.input :net, 
-              label: ProductDecorator.measure_value_label(w.object, :net), 
-              required: false, 
-              input_html: { "data-validate-with" => "gross", 
-              "data-validate-require" => "gross" }
+        = w.input :gross,required: false, 
+          label: ProductDecorator.measure_value_label(w.object, :gross), 
+          input_html: { "data-validate-with" => "net" },
+          wrapper_html: { class: "inline-input half" }
+        = w.input :net, required: false, 
+          label: ProductDecorator.measure_value_label(w.object, :net), 
+          input_html: { "data-validate-with" => "gross", 
+            "data-validate-require" => "gross" },
+          wrapper_html: { class: "inline-input half" }
         = w.input :unit, as: :hidden
 
     = two_col_fieldset t(".dimensions_legend"), t(".dimensions_hint") do
       = p.simple_fields_for :dimensions, wrapper: :stacked do |d|
-        .row
-          .inline-input.one-third
-            = d.input :height, 
-              label: ProductDecorator.measure_value_label(d.object, :height), 
-              required: false, input_html: { "data-require-in-group" => "true" }
-          .inline-input.one-third
-            = d.input :width, 
-              label: ProductDecorator.measure_value_label(d.object, :width), 
-              required: false,input_html: { "data-require-in-group" => "true" }
-          .inline-input.one-third
-            = d.input :depth, 
-              label: ProductDecorator.measure_value_label(d.object, :depth), 
-              required: false,input_html: { "data-require-in-group" => "true" }
-            = d.input :unit, as: :hidden
+        = d.input :height, required: false, 
+          label: ProductDecorator.measure_value_label(d.object, :height), 
+          input_html: { "data-require-in-group" => "true" },
+          wrapper_html: { class: "inline-input one-third" }
+        = d.input :width, required: false, 
+          label: ProductDecorator.measure_value_label(d.object, :width), 
+          input_html: { "data-require-in-group" => "true" },
+          wrapper_html: { class: "inline-input one-third" }
+        = d.input :depth, required: false, 
+          label: ProductDecorator.measure_value_label(d.object, :depth), 
+          input_html: { "data-require-in-group" => "true" },
+          wrapper_html: { class: "inline-input one-third" }
+        = d.input :unit, as: :hidden
 
   = two_col_fieldset t(".item_identification_legend"), t(".item_identification_hint") do
     = f.simple_fields_for :product_codes, wrapper: :stacked, :validate => false do |n|
