@@ -1,11 +1,14 @@
 class ProductsController < MainController
   include AutoComplete::Action
+  respond_to :html, :js
   respond_to :json, only: :autocomplete
+
   load_and_authorize_resource :through => :current_account
   before_filter :prepare_comment, except: [:index, :destroy, :autocomplete]
   before_filter :prepare_photo, only: [:show, :edit, :update]
   after_filter :log_event, only: [:create, :update, :destroy]
   before_filter :load_version, only: [:show]
+  before_filter :sanitize_params, only: :index
 
   has_scope :by_brand, only: :index
   has_scope :by_manufacturer, only: :index
@@ -16,7 +19,11 @@ class ProductsController < MainController
   # GET /products.xml
   def index
     #@products = Product.all loaded by CanCan
-    @products = ProductDecorator.decorate(apply_scopes(@products).asc(:functional_name))
+    @products = ProductDecorator.decorate(apply_scopes(@products).
+                                              asc(group_by).
+                                              limit(Settings.products.limit).
+                                              offset(params[:offset].to_i))
+    puts @products.scoped
     respond_with(@products)
   end
 
@@ -73,6 +80,29 @@ class ProductsController < MainController
   end
 
   private
+
+  # Sanitizes params for index action.
+  def sanitize_params
+    # Sanitizing :group_by param
+    allowed_groups = Settings.products.group_options.split(/\s/)
+    params.delete(:group_by) unless params[:group_by].blank? || allowed_groups.include?(params[:group_by])
+
+    # Sanitizing scopes
+    # Returning allowed scopes array: [:by_brand, :by_manufacturer, :by_tag, :by_functional]
+    allowed_scopes = self.scopes_configuration.values.map{ |v| v[:as] }
+    scopes = params.keys.reject{ |k| %w(controller action group_by offset).include?(k.to_s) }
+    scopes.each do |scope|
+      params.delete(scope) unless allowed_scopes.include?(scope.to_sym)
+    end
+  end
+
+  # Returns group_by option.
+  # Default options is :functional_name.
+  #
+  # @return [String] group by option
+  def group_by
+    @group_by = params[:group_by] || Settings.products.default_group
+  end
 
   # Prepares comment for show, new and edit actions.
   def prepare_comment

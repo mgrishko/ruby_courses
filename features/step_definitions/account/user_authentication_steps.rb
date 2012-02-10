@@ -59,7 +59,7 @@ When /^user returns next time$/ do
 end
 
 When /^he navigates to products page$/ do
-  visit(products_url(subdomain: @account.subdomain, port: Capybara.server_port))
+  visit(products_path)
 end
 
 When /^he logs in as another account user$/ do

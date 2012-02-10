@@ -4,6 +4,7 @@
 .yardoc
 .bundle
 .rvmrc
+.DS_Store
 doc/
 config/mongoid.yml
 config/secured_settings.yml
@@ -14,4 +15,4 @@ log/*.db
 tmp/
 public/assets/
 public/system/uploads/
-.DS_Store
+lib/tasks/demo/

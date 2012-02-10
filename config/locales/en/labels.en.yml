@@ -40,6 +40,7 @@ en:
 
   units:
     short:
+      "1N": "count"
       MM: "mm"
       ML: "ml"
       GR: "g"

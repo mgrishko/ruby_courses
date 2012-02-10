@@ -13,7 +13,7 @@
     = f.input :password
     = f.input :time_zone
     = f.input :current_password, required: true
-    .show_password
+    .clearfix
       = label_tag "show_password", t('password.show'), class: "show_password optional"
       .input
         = check_box_tag 'show_password'

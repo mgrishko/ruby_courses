@@ -4,9 +4,8 @@
   .inputs
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
-    .float_left
-      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-    .show_password_signin
+    = f.input :remember_me, wrapper_html: { class: "remember_me" }, as: :boolean if devise_mapping.rememberable?
+    .show_password
       = label_tag "show_password", t('password.show'), class: "boolean optional"
       .input
         = check_box_tag 'show_password'

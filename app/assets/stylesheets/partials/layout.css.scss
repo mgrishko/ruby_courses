@@ -7,6 +7,9 @@ $attr_label_color: grey;
 $splitter_color: #ddd;
 $sidemenu_color: grey;
 $sidemenu_bg_color: $grayLighter;
+$sidemenu_padding: 5px;
+$sidemenu_font_size: 0.9 * $baseline;
+$submenu_left_position: $sidemenu_font_size + 2 * $sidemenu_padding + 2px;
 $acitve_sidemenu_bg_color: #222;
 
 
@@ -82,13 +85,14 @@ section.main {
   margin-top: $content_margin_top;
   nav {
     @include float-right;
-    padding: 10px;
+    padding: 5px;
     padding-right: 0;
-    font-size: 1.3em;
+    font-size: $sidemenu_font_size;
     z-index: 1000;
 
     a {
-      padding: 10px 20px;
+      margin: 0 4px;
+      padding: $sidemenu_padding 10px;
       color: $sidemenu_color;
       cursor: pointer;
       text-decoration: none;
@@ -102,10 +106,10 @@ section.main {
 }
 
 .submenu {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background-color: $acitve_sidemenu_bg_color;
-  left: 39px;
+  left: $submenu_left_position;
   top: 0;
   bottom: 0;
   width: 400px;

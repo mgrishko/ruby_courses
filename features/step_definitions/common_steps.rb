@@ -10,10 +10,6 @@ When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   within(".#{scope}") { click_on(link) }
 end
 
-When /^he clicks button "([^"]*)"$/ do |button|
-  click_button button
-end
-
 When /^he enters "([^"]*)" into "([^"]*)" field and selects "([^"]*)" autocomplete option$/ do |text, locator, option|
   field = find_field(locator)
 
@@ -168,7 +164,7 @@ Then /^he should(.*) see an error for "([^"]*)"(.*) field if it is empty$/ do
   end
 end
 
-When /^(?:he|user) (.*)check checkbox "([^"]*)"$/ do |action, checkbox|
+When /^(?:he|user) (.*)check "([^"]*)"$/ do |action, checkbox|
   if action.blank?
     check checkbox
   else

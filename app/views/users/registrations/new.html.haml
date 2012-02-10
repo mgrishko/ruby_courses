@@ -17,13 +17,10 @@
         = f.input :last_name
         = f.input :email
         = f.input :password, required: true, input_html: { validate: { presence: true } }
-        .show_password
+        .clearfix
           = label_tag "show_password", t('password.show'), class: "show_password optional"
           .input
             = check_box_tag 'show_password'
-        %br
-        %br
-        %br
         = f.input :time_zone
         = f.simple_fields_for :accounts, wrapper: :inline do |n|
           = n.input :company_name
