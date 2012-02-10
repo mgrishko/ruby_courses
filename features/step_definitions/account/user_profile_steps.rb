@@ -20,7 +20,7 @@ When /^(?:|he )submits profile form with(.*) password$/ do |password|
   click_button "Update"
 end
 
-Then /^(.*) goes to the edit profile page$/ do
+Then /^(?:[^\s]* )goes to the edit profile page$/ do
   within(".topbar") do
     click_on("Profile")
   end

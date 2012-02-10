@@ -45,10 +45,9 @@ Feature: Edit profile
     And he should see an error for "Email" text field if it is empty
     And he should see an error for "Time zone" select field if it is empty
     
-  @wip
   Scenario: Authenticated user cancels editing profile
     Given an authenticated user with viewer role
     When he goes to the home page
-    And goes to the edit profile page
+    And he goes to the edit profile page
     And he cancels the form
     Then he should be on the company account home page
