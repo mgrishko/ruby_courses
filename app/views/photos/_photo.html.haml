@@ -5,7 +5,7 @@
   -# Also we use Delayed Job and photo can be persisted in db but not processed yet.
   -# In that case image_tmp will not be blank.
   -# Other options is when photo is just initialized (new record)
-  - if photo && photo.persisted? && photo.image_tmp.blank?
+  - if photo && photo.persisted? && photo.image.medium.present?
     - photo = PhotoDecorator.decorate(photo)
     %a{ name: photo.id }
     = image_tag(photo.image.medium.url)
