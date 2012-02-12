@@ -261,14 +261,14 @@ describe ProductDecorator do
 
       it "should concat brand, sub brand, variant and net content" do
         decorator = ProductDecorator.decorate(@product)
-        decorator.title.should == "Brand Sub Brand Variant, 300 ml"
+        decorator.title.should == "Brand Sub Brand Variant, 300&nbsp;ml"
       end
 
       it "should strip parts" do
         @product.sub_brand = "  Sub Brand  "
         @product.variant = "  Variant  "
         decorator = ProductDecorator.decorate(@product)
-        decorator.title.should == "Brand Sub Brand Variant, 300 ml"
+        decorator.title.should == "Brand Sub Brand Variant, 300&nbsp;ml"
       end
     end
 
@@ -320,22 +320,6 @@ describe ProductDecorator do
       @package = @product.packages.build
     end
 
-    describe "#dimension" do
-      context "when exists" do
-        it "should return value with unit" do
-          @package.dimensions.new Fabricate.attributes_for(:dimension, height: 300, unit: "MM")
-          decorator = ProductDecorator.decorate(@product)
-          decorator.dimension(:height).should == "300 mm"
-        end
-      end
-
-      context "when does not exist" do
-        it "should be blank" do
-          @decorator.dimension(:height).should be_blank
-        end
-      end
-    end
-    
     describe "#packaging_type" do
       context "when exists" do
         it "should return value" do
@@ -352,6 +336,22 @@ describe ProductDecorator do
       end
     end
 
+    describe "#dimension" do
+      context "when exists" do
+        it "should return value with unit" do
+          @package.dimensions.new Fabricate.attributes_for(:dimension, height: 300, unit: "MM")
+          decorator = ProductDecorator.decorate(@product)
+          decorator.dimension(:height).should == "300 mm"
+        end
+      end
+
+      context "when does not exist" do
+        it "should be blank" do
+          @decorator.dimension(:height).should be_blank
+        end
+      end
+    end
+    
     describe "#weight" do
       context "when exists" do
         it "should return value with unit" do
@@ -373,7 +373,7 @@ describe ProductDecorator do
         it "should return value with unit" do
           @package.contents.new Fabricate.attributes_for(:content, value: 300, unit: "ML")
           decorator = ProductDecorator.decorate(@product)
-          decorator.content(:value).should == "300 ml"
+          decorator.content(:value).should == "300&nbsp;ml"
         end
       end
 

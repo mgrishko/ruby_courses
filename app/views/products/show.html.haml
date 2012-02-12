@@ -6,18 +6,6 @@
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last, disable_uploads: true
 
-  -#%br
-  -#%br
-  -#
-  -#= @product.edit_link(class: "btn large")
-  -#%br
-  -#%br
-  -#
-  -#= @product.destroy_link(confirm: true, class: "btn small danger")
-  -#
-  -#%br
-  -#%br
-  -#
   -#%h3= t('.tags')
   -#%ul.product-tags
   -#  = @product.visibility_label(wrapper: :li)

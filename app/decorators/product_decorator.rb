@@ -203,7 +203,7 @@ class ProductDecorator < ApplicationDecorator
   def content(method)
     content = product.packages.first.try(:contents).try(:first)
     value = content.try(method)
-    "#{value} #{I18n.t("units.short.#{content.unit}")}" unless value.blank?
+    "#{value}&nbsp;#{I18n.t("units.short.#{content.unit}")}".html_safe unless value.blank?
   end
 
   # @return [String] country of origin name
@@ -214,7 +214,7 @@ class ProductDecorator < ApplicationDecorator
   # @return [String] title of the product for products index
   def title
     [[product.brand, product.sub_brand, product.variant].reject(&:blank?).map(&:strip).join(" "),
-    self.content(:value)].reject(&:blank?).map(&:strip).join(", ")
+    self.content(:value)].reject(&:blank?).map(&:strip).join(", ").html_safe
   end
 
   # @return [String] product manufacturer and country of origin
