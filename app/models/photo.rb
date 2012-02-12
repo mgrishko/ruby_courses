@@ -1,8 +1,8 @@
 class Photo
   include Mongoid::Document
-  #embedded_in :product
-  belongs_to :product
   field :image_tmp, type: String
+
+  belongs_to :product, index: true
 
   # CarrierWave
   mount_uploader :image, ImageUploader
