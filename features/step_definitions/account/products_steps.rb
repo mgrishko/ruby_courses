@@ -274,14 +274,14 @@ end
 
 When /^he adds a comment to the product$/ do
   steps %Q{
-    And he is on the product page
+    Given he is on the product page
     When he submits a comment to the product
   }
 end
 
 When /^he deletes the product photo$/ do
   steps %Q{
-    And he is on the edit product page
+    Given he is on the edit product page
     When he clicks "Delete photo" within photo form
     Then he should see notice message "Photo was successfully deleted"
   }

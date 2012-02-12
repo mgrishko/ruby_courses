@@ -68,6 +68,13 @@ namespace :demo do
   end
 end
 
+namespace :mongoid do
+  desc "Create MongoDB indexes"
+  task :index do
+    run "cd #{current_path} && bundle exec rake db:mongoid:create_indexes RAILS_ENV=#{rails_env}", :once => true
+  end
+end
+
 before "deploy:assets:precompile", "deploy:copy_secured_configuration"
 after "deploy", "delayed_job:restart"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly

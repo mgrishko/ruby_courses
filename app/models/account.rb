@@ -22,6 +22,8 @@ class Account
   has_many :products
   has_many :events
 
+  index "memberships.user_id"
+
   before_validation :set_default_attributes, on: :create
   before_validation :downcase_subdomain
 

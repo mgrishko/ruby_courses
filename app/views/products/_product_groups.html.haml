@@ -1,5 +1,5 @@
 - i = 0
-- ProductDecorator.group(@products, by: params[:group_by]).each do |group, products|
+- ProductDecorator.group(@products.to_a, by: params[:group_by]).each do |group, products|
   - i += 1
   - unless skip_first && i == 1
     %article{ "data-group" => group }

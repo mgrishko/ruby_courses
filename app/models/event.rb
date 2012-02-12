@@ -12,8 +12,15 @@ class Event
   
   belongs_to :trackable, polymorphic: true
   belongs_to :eventable, polymorphic: true
-  belongs_to :account
+  belongs_to :account, index: true
   belongs_to :user
+
+  index(
+    [
+      [ :created_at, Mongo::DESCENDING ],
+      [ :eventable_type, Mongo::ASCENDING ]
+    ]
+  )
   
   validates :account, presence: true
   validates :user, presence: true
