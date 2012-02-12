@@ -2,16 +2,6 @@ require 'spec_helper'
 
 describe "products/edit" do
   before(:each) do
-    measurements = [
-      stub_model(Measurement, name: "depth",        value: "", unit: "MM"),
-      stub_model(Measurement, name: "gross_weight", value: "", unit: "GR"),
-      stub_model(Measurement, name: "height",       value: "", unit: "MM"),
-      stub_model(Measurement, name: "width",        value: "", unit: "MM"),
-      stub_model(Measurement, name: "net_content",  value: "", unit: "ML"),
-      stub_model(Measurement, name: "net_weight",   value: "", unit: "GR")
-    ]
-    # MM Millimetre, GR Gram, ML Millilitre
-
     product_codes = [stub_model(ProductCode, name: ProductCode::IDENTIFICATION_LIST.first, value: "")]
 
     @product = assign(:product, ProductDecorator.decorate(stub_model(Product,
@@ -23,7 +13,6 @@ describe "products/edit" do
       :country_of_origin => "",
       :short_description => "",
       :description => "",
-      :measurements => measurements,
       :gtin => "",
       :product_codes => product_codes,
       :tags_list => "",
@@ -83,13 +72,6 @@ describe "products/edit" do
       @product.should_receive(:destroy_link).with(confirm: true)
       render
     end
-  end
-
-  describe "sidebar" do
-    #it "renders a back link" do
-    #  render
-    #  view.content_for(:sidebar).should have_selector("a", text: "Back")
-    #end
   end
 end
 

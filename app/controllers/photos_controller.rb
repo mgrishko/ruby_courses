@@ -8,6 +8,7 @@ class PhotosController < MainController
   # POST /photos.xml
   def create
     #@photo = Photo.new(params[:photo]) # loaded by cancan
+    @photo.process_image_upload = true
     @photo.save
 
     @photo = PhotoDecorator.decorate(@photo)

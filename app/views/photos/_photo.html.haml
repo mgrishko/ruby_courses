@@ -2,12 +2,19 @@
 
 #photo.photo_form
   -# We should render photo only if it is persisted.
+  -# Also we use Delayed Job and photo can be persisted in db but not processed yet.
+  -# In that case image_tmp will not be blank.
   -# Other options is when photo is just initialized (new record)
   - if photo && photo.persisted?
     - photo = PhotoDecorator.decorate(photo)
-    %a{ name: photo.id }
-    = image_tag(photo.image.medium.url)
-    = photo.destroy_link(remote: true, confirm: true, through: @product) unless disable_uploads
+    - if photo.image.present?
+      %a{ name: photo.id }
+        = image_tag(photo.image.medium.url)
+    - else
+      %p
+        Photo processing...
+      = image_tag("ajax-loader.gif")
+    %p= photo.destroy_link(remote: true, confirm: true, through: @product) unless disable_uploads
   - else
     = image_tag("product_missing.jpg")
 

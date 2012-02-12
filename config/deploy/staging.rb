@@ -12,3 +12,5 @@ set :appserver, "beta.goodsmasterhq.com"
 role :app, appserver
 role :web, appserver
 role :db,  appserver, :primary => true
+
+after "deploy", "demo:symlink"

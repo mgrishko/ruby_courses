@@ -15,6 +15,7 @@ describe Content do
   it { should allow_value("GR").for(:unit) }
   it { should allow_value("MM").for(:unit) }
   it { should allow_value("ML").for(:unit) }
+  it { should allow_value("1N").for(:unit) }
   it { should_not allow_value("AA").for(:unit) }
 
   it "should be embedded in package" do
