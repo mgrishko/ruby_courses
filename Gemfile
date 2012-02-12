@@ -53,7 +53,12 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
+
 gem 'attribute_normalizer'
+gem 'delayed_job_mongoid'
+gem 'daemons'
+gem 'carrierwave_backgrounder' # for carrierwave delayed job integration
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -84,7 +89,7 @@ group :development, :test, :cucumber do
   gem 'rspec-rails', "~> 2.7.0"
   gem 'cucumber-rails'
   gem 'fabrication', "~> 1.2.0"
-  gem "spork", '0.9.0'
+  gem "spork", '~> 1.0rc'
   gem "email_spec", "~> 1.2.1"
 end
 

@@ -1,5 +1,7 @@
 Settings.reload!
 
+Mongoid::Document::ClassMethods.send(:include, ::CarrierWave::Backgrounder::ORM::Base)
+
 CarrierWave.configure do |config|
   # In production, use S3
   # In development, use filesystem and processing
