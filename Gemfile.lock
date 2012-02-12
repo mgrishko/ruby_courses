@@ -343,7 +343,7 @@ DEPENDENCIES
   simple-navigation (~> 3.5.0)
   simple_form!
   simplecov
-  spork (= 1.0.0rc1)
+  spork (~> 1.0rc)
   state_machine
   therubyracer
   therubyrhino
