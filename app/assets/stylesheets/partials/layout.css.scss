@@ -113,12 +113,12 @@ section.main {
   top: 0;
   bottom: 0;
   width: 400px;
-  height: auto;
   opacity: 0.95;
   display: none;
   .content {
+    height: 90%;
+    padding: 150px 30px 30px 30px;
     display: none;
-    padding: 200px 50px 30px 30px;
     ul {
       @include no-bullets; }
     h2 {
@@ -131,6 +131,13 @@ section.main {
       &:hover {
         color: $grayLighter;
       }
+    }
+
+    .content_box {
+      height: inherit;
+      display: block;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
   }
 }
