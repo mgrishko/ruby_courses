@@ -59,6 +59,19 @@ body {
   }
 }
 
+.topbar {
+  li.counter a {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 22px;
+      left: 10px;
+      font-size: 90%;
+    }
+  }
+}
+
 section.main {
   margin-top: $content_margin_top;
   position: relative;
@@ -116,7 +129,7 @@ section.main {
   opacity: 0.95;
   display: none;
   .content {
-    height: 90%;
+    height: 85%;
     padding: 150px 30px 30px 30px;
     display: none;
     ul {
