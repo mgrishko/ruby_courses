@@ -103,11 +103,6 @@ describe Product do
     photo = product.photos.build
     photo.product.should eql(product)
   end
-  
-  it "should embeds many measurements" do
-    measurement = product.measurements.build
-    measurement.product.should eql(product)
-  end
 
   it "should embeds many product_codes" do
     product_code = product.product_codes.build

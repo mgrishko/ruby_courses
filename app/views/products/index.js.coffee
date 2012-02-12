@@ -1,11 +1,12 @@
 $last_group = $(".products article").last()
 
-<% group_name = @products.first.send(@group_by.to_sym) %>
+<% products = @products.to_a %>
+<% group_name = products.first.send(@group_by.to_sym) %>
 
 group = "<%= group_name %>"
 
 if group == $last_group.attr("data-group")
-  <% products = @products.select { |p| p.send(@group_by.to_sym) == group_name } %>
+  <% products = products.select { |p| p.send(@group_by.to_sym) == group_name } %>
 
   $last_row = $last_group.find(".row").last()
 
