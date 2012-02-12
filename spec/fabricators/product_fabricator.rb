@@ -12,7 +12,13 @@ Fabricator(:product) do
   gtin "12345670"
 end
 
-Fabricator(:product_with_comments, from: :product) do
+Fabricator(:product_with_package, from: :product) do
+  after_build do |product|
+    product.packages << Fabricate.build(:package, product: product)
+  end
+end
+
+Fabricator(:product_with_comments, from: :product_with_package) do
   after_build do |product|
     current_user = Fabricate(:user)
     comment = Comment.new(Fabricate.attributes_for(:comment, commentable: nil))
