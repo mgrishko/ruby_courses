@@ -71,7 +71,7 @@ end
 namespace :mongoid do
   desc "Create MongoDB indexes"
   task :index do
-    run "cd #{release_path} && bundle exec rake db:mongoid:create_indexes RAILS_ENV=#{rails_env}", :once => true
+    run "cd #{current_path} && bundle exec rake db:mongoid:create_indexes RAILS_ENV=#{rails_env}", :once => true
   end
 end
 

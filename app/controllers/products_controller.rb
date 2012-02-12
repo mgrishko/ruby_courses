@@ -23,7 +23,6 @@ class ProductsController < MainController
                                               asc(group_by).
                                               limit(Settings.products.limit).
                                               offset(params[:offset].to_i))
-    puts @products.scoped
     respond_with(@products)
   end
 
