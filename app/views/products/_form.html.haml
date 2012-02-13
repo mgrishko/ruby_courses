@@ -13,7 +13,7 @@
   
   = f.simple_fields_for :packages, wrapper: :stacked do |p|
     = two_col_fieldset t(".type"), t(".type_hint") do
-      = p.input :type, collection: ProductDecorator.type_options, include_blank: false
+      = p.input :type, collection: ProductDecorator.type_options, include_blank: true
     = two_col_fieldset t(".net_content_legend"), t(".net_content_hint") do
       = p.fields_for :contents do |c|
         .clearfix.string.optional.net_content
@@ -61,7 +61,7 @@
         
   = two_col_fieldset t(".provenance_legend"), t(".provenance_hint") do
     = f.input :manufacturer, as: :autocomplete
-    = f.input :country_of_origin, include_blank: false
+    = f.input :country_of_origin, collection: Carmen.countries
 
   = two_col_fieldset t(".description_legend"), t(".description_hint") do
     = f.input :description, as: :text

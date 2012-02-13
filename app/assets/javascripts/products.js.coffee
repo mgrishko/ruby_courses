@@ -40,6 +40,8 @@ GoodsMaster.products.isPagerShown = ->
   
   return false unless $pager.length # Return false if there is no pager placeholder on the page
 
+  return false unless $pager.length > 0 # Return false if there is no pager placeholder on the page
+
   viewTop = $(window).scrollTop()  # Top position of the visible part of page to the window top
   viewBottom = viewTop + $(window).height() # Bottom position of the visible part of page to the window top
 

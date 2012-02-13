@@ -7,7 +7,8 @@ Given /^(?:[^\s]* )is on the products page$/ do
 end
 
 Given /^that account has a (.*)product(.*)$/ do |prefix, suffix|
-  fabricator = "#{prefix}product#{suffix}".gsub(/\s/, "_").to_sym
+  core = prefix.blank? && suffix.blank? ? "product_with_package" : "product"
+  fabricator = "#{prefix}#{core}#{suffix}".gsub(/\s/, "_").to_sym
   @product = Fabricate(fabricator, account: @account)
 end
 
@@ -154,7 +155,8 @@ When /^he submits a new product form(?: with (?!following)(.*))?$/ do |custom|
       "Country of origin",
       #"Short description",
       "Description",
-      "GTIN"
+      "GTIN",
+      "Packaging"
   ]
   unless custom.blank?
     custom_field = custom.gsub(/^with\s/, "").humanize
@@ -479,6 +481,8 @@ def submit_new_product_form(fields)
         step "he enters a comment to the product"
       when :tags
          step "he edits the product tags"
+      when :packaging
+        select "Box", from: field
       else
         fill_in field, with:  attrs[attr]
     end

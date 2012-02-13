@@ -12,7 +12,7 @@ if group == $last_group.attr("data-group")
 
   if $last_row.find(".item").length == 1
     <% product = products.delete_at(0) %>
-    $last_row.append "<%= escape_javascript(render product) %>"
+    $last_row.append "<%= escape_javascript(render product, column: 2) %>"
 
   $last_group.append "<%= escape_javascript(render "product_group", products: products) %>"
 

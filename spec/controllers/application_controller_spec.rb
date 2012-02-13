@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'active_resource/exceptions'
 
 describe ApplicationController do
   describe "#current_account" do
@@ -81,6 +82,18 @@ describe ApplicationController do
     it "redirects to account home page" do
       get :index, subdomain: @account.subdomain
       response.should redirect_to(home_url(subdomain: @account.subdomain))
+    end
+  end
+
+  describe "rescue BSON::InvalidObjectId" do
+    controller do
+      def index
+        raise BSON::InvalidObjectId.new("illegal ObjectId format: 34235625625")
+      end
+    end
+
+    it "raises ResourceNotFound Error" do
+      lambda { get :index }.should raise_exception(ActiveResource::ResourceNotFound)
     end
   end
 end
