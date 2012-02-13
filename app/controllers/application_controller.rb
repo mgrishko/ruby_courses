@@ -26,14 +26,6 @@ class ApplicationController < ActionController::Base
     redirect_to home_url(subdomain: current_account.subdomain), alert: exception.message
   end
 
-  ## Raises ActiveResource::ResourceNotFound when got BSON::InvalidObjectId.
-  ##
-  ## We should catch BSON::InvalidObjectId and raise ActiveResource::ResourceNotFound manually
-  ## in order to properly render 404 error page. With BSON::InvalidObjectId it renders 500 error.
-  #rescue_from BSON::InvalidObjectId do |exception|
-  #  raise ActiveResource::ResourceNotFound.new(exception.message)
-  #end
-
   protected
 
   # Prepares ability for current membership.
