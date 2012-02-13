@@ -59,6 +59,19 @@ body {
   }
 }
 
+.topbar {
+  li.counter a {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 22px;
+      left: 10px;
+      font-size: 90%;
+    }
+  }
+}
+
 section.main {
   margin-top: $content_margin_top;
   position: relative;
@@ -113,12 +126,12 @@ section.main {
   top: 0;
   bottom: 0;
   width: 400px;
-  height: auto;
   opacity: 0.95;
   display: none;
   .content {
+    height: 85%;
+    padding: 150px 30px 30px 30px;
     display: none;
-    padding: 200px 50px 30px 30px;
     ul {
       @include no-bullets; }
     h2 {
@@ -132,11 +145,18 @@ section.main {
         color: $grayLighter;
       }
     }
+
+    .content_box {
+      height: inherit;
+      display: block;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
   }
 }
 
 .tr {
-  @extend .span14;
+  @extend .span15;
   margin: 0 0 15px 0;
 }
 
@@ -144,6 +164,10 @@ section.main {
   @extend .span7;
   @include float-left;
   margin-bottom: 10px;
+  &.last {
+    @extend .offset1;
+  }
+  /*padding-right: 20px;*/
 }
 
 .attr_field {
