@@ -67,4 +67,9 @@ GoodsMaster::Application.configure do
   # Specifying goodsmasterhq.com as a top level domain to allow dev.getmasterdata.com domain.
   # Everything before dev.getmasterdata.com domain will be a subdomain.
   config.action_dispatch.tld_length = 2
+
+  # Rescues Exceptions
+  config.action_dispatch.rescue_responses.merge!(
+    'BSON::InvalidObjectId'   => :not_found
+  )
 end
