@@ -57,7 +57,7 @@ Feature: Events feature
     And he follows Dashboard link
     Then he should see "Comment" event
     
-  @javascript @wip
+  @javascript
   Scenario: Editor deletes a product photo
     Given that account has a product with photo
     And an authenticated user with editor role

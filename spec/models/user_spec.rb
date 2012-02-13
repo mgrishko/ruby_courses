@@ -33,7 +33,7 @@ describe User do
   it { should allow_mass_assignment_of(:locale) }
   
   it { should normalize_attribute(:first_name).from(" Jo  hn ").to("Jo hn") }
-  it { should normalize_attribute(:first_name).from(" Smi  th ").to("Smi th") }
+  it { should normalize_attribute(:last_name).from(" Smi  th ").to("Smi th") }
 
   context "uniqueness validation" do
     before(:each) { Fabricate(:user, email: "taken@email.com") }

@@ -15,7 +15,7 @@ class Account
   field :locale, type: String, default: "en"
 
   ## Attr Normalization
-  normalize_attribute :subdomain, :company_name, :website, :locale, :with => [:squish]
+  normalize_attribute :subdomain, :company_name, :website, :with => [:squish]
   
   belongs_to :owner, class_name: "User"
   embeds_many :memberships, validate: false

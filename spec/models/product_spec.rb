@@ -65,7 +65,6 @@ describe Product do
   it { should normalize_attribute(:functional_name).from(" functional  name ").to("functional name") }
   it { should normalize_attribute(:variant).from(" var  iant ").to("var iant") }
   it { should normalize_attribute(:manufacturer).from(" manu  facturer ").to("manu facturer") }
-  it { should normalize_attribute(:country_of_origin).from(" country  of  origin ").to("country of origin") }
   it { should normalize_attribute(:brand).from(" bra nd ").to("bra nd") }
   it { should normalize_attribute(:sub_brand).from(" sub  brand ").to("sub brand") }
   it { should normalize_attribute(:gtin).from(" gtin ").to("gtin") }
