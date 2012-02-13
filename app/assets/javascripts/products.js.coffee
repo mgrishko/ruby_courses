@@ -37,8 +37,6 @@ GoodsMaster.products.nextPage = ->
 # Returns true if pager is shown
 GoodsMaster.products.isPagerShown = ->
   $pager = $("#pager")
-  
-  return false unless $pager.length # Return false if there is no pager placeholder on the page
 
   return false unless $pager.length > 0 # Return false if there is no pager placeholder on the page
 

@@ -65,23 +65,6 @@ form {
     margin-left: 150px;
   }
 
-  .inline-input {
-		display: inline;
-		float: left;
-		margin-right: 20px;
-		
-		&.one-third input { 
-			width: ($input_width - 2 * 30) / 3;
-		}
-		&.half input { 
-			width: ($input_width - 30) / 2;
-		}
-		
-		span.help-inline {
-			display: block;
-		}
-  }
-
   // Forms with labels over input
   &.form-stacked {
     label {

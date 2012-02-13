@@ -1,6 +1,8 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$baseline: 18px;
+$input_width: 250px;
 
 .products {
   article {
@@ -14,14 +16,34 @@
   form {
     margin-bottom: 4em;
 
-	.net_content {
+		.net_content {
       input[type=text] {
         width: 150px;
       }
       select {
         width: 96px;
       }
-	}
+		}
+		
+		.weights, .dimensions {
+			div.string {
+				float: left;
+				display: inline;
+				margin-right: 20px;
+				
+				span.help-inline {
+					display: block; font-size: 12px;
+				}
+			}
+		}
+		
+		.weights div.string input { 
+			width: ($input_width - 30) / 2;
+		}
+		
+		.dimensions div.string input { 
+			width: ($input_width - 2 * 30) / 3;
+		}
   }
 
   #pager {
