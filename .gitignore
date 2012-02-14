@@ -15,4 +15,5 @@ log/*.db
 tmp/
 public/assets/
 public/system/uploads/
+public/uploads/
 lib/tasks/demo/

@@ -11,16 +11,16 @@ class Photo
 
   # Really no point if we don't have an image so we always require one
   validates :image, presence: true, file_size: { maximum: 1.megabyte.to_i }
-  validates :account, presence: true
   validates :product, presence: true
 
   attr_accessible :image
 
-  before_validation :set_account
+  before_create :set_account
 
   private
 
+  # Caches account_id in photo to easily get all account photos.
   def set_account
-    self.account = self.product.account unless product.blank?  # this *unless* condition is only to bypass shoulda test
+    self.account_id = self.product.account_id
   end
 end

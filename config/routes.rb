@@ -45,7 +45,7 @@ GoodsMaster::Application.routes.draw do
         get 'autocomplete/:field' => "products#autocomplete", as: :autocomplete, on: :collection
 
         resources :comments, only: [:create, :destroy]
-        resources :photos, only: [:create, :destroy]
+        resources :photos, only: [:show, :create, :destroy]
       end
     end
 

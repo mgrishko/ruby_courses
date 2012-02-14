@@ -5,7 +5,6 @@ describe Photo do
   let(:photo) { Fabricate(:photo) }
 
   it { should validate_presence_of(:image) }
-  it { should validate_presence_of(:account) }
   it { should_not allow_mass_assignment_of(:account) }
   it { should validate_presence_of(:product) }
   it { should_not allow_mass_assignment_of(:product) }
@@ -22,10 +21,10 @@ describe Photo do
     photo.account.should eql(account)
   end
 
-  it "should set account before validation" do
+  it "should set account before create" do
     product = Fabricate(:product)
-    photo = product.photos.new
-    photo.valid?
+    photo = product.photos.create image: MiniMagick::Image.new(File.join(Rails.root, '/spec/fabricators/image.jpg'))
+    photo.save!
     photo.account.should eql(product.account)
   end
 

@@ -7,7 +7,3 @@ else
 
   $("#flash").html "<%= escape_javascript(render 'layouts/partials/flash', flash: flash) %>"
   GoodsMaster.flash.init()
-
-
-
-
