@@ -5,10 +5,7 @@
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
     = f.input :remember_me, wrapper_html: { class: "remember_me" }, as: :boolean if devise_mapping.rememberable?
-    .show_password
-      = label_tag "show_password", t('password.show'), class: "boolean optional"
-      .input
-        = check_box_tag 'show_password'
+    = render partial: "show_password"
   .actions
     = f.button :submit, t(".sign_in"), class: 'primary'
     = link_to t('.recoverable'),

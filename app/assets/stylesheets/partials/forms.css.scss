@@ -80,7 +80,7 @@ form {
   }
 
 	.actions {
-    
+
     input {
 	    margin-right: $baseline / 2;
     }
@@ -110,14 +110,12 @@ form, fieldset {
   margin-bottom: 20px;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
 // Only forms costomizations for different controllers should be placed bellow.
 //
 // Only those customizaitons should be placed here which can not be placed
 // in corresponding controller stylesheet file:
 // which uses @extend and mixins which are not accessible form controller stylesheet.
 // TODO: Move this customizations to corresponding stylesheet.
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 #comments form {
   padding: 0;

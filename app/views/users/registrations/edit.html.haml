@@ -8,11 +8,7 @@
     = f.input :email
     = f.input :password
     = f.input :time_zone
-    = f.input :current_password, required: true
-    .clearfix
-      = label_tag "show_password", t('password.show'), class: "show_password optional"
-      .input
-        = check_box_tag 'show_password'
+    = render partial: 'show_password'
   .actions
     = f.button :submit, t("update"), class: "primary"
     = link_to t("cancel"), :root

@@ -40,13 +40,3 @@ When /^user submits email and(.*) password$/ do |password|
   fill_in "Password", with: password == "new" ? "foobar" : "password"
   click_button "Sign in"
 end
-
-Then /^(?:[^\s]* )should(.*) see filled password$/ do |should|
-  if should.strip == "not"
-    page.should have_selector(:xpath, "//input[@type='password' and @name='user[password]']")
-    page.should have_selector(:xpath, "//input[@type='password' and @name='user[current_password]']")
-  else
-    page.should have_selector(:xpath, "//input[@type='text' and @name='user[password]']")
-    page.should have_selector(:xpath, "//input[@type='text' and @name='user[current_password]']")
-  end
-end
