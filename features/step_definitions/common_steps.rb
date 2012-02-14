@@ -5,6 +5,10 @@ When /^he follows "([^"]*)" within (.*)$/ do |link, scope|
   end
 end
 
+When /^he cancels the form$/ do
+  within("form .actions") { click_on("Cancel") }
+end
+
 When /^he clicks "([^"]*)" within (.*)$/ do |link, scope|
   scope = scope.gsub(/\s/, '_')
   within(".#{scope}") { click_on(link) }

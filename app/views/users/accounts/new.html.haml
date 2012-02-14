@@ -13,7 +13,7 @@
         = t(".credentials_notice")
         %strong= "#{t(".email_and_password")}."
 
-    = simple_form_for(@account, url: users_account_url, validate: true, wrapper: :inline) do |f|
+    = simple_form_for(@account, url: users_account_url, validate: true) do |f|
       = f.error_notification
       .inputs
         = f.input :company_name

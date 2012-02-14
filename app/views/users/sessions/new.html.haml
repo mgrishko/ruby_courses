@@ -1,10 +1,11 @@
 - title t('.title')
 
-= simple_form_for(resource, as: resource_name, url: session_url(resource_name), wrapper: :inline) do |f|
+= simple_form_for(resource, url: session_url(resource_name)) do |f|
   .inputs
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
   .actions
     = f.button :submit, t(".sign_in"), class: 'primary'
-    = link_to t('.recoverable'), new_password_url(resource_name, subdomain: Settings.app_subdomain)
+    = link_to t('.recoverable'),
+      new_password_url(resource_name, subdomain: Settings.app_subdomain)

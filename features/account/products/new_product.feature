@@ -56,4 +56,10 @@ Feature: New product
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
-
+  
+  Scenario: Editor cancels adding a new product
+    Given an authenticated user with editor role
+    And he is on the products page
+    When he follows "New" within sidemenu
+    And he cancels the form
+    Then he should be on the products page

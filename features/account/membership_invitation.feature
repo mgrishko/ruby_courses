@@ -47,3 +47,17 @@ Feature: Membership invitation
     When admin tries to invite that user
     Then he should be on the redisplayed new membership page
     And he should see that email is already invited
+  
+  Scenario: Admin cancels inviting a user
+    Given an authenticated user with admin role
+    And admin is on the account memberships page
+    When he follows "Invite a new member" within sidemenu
+    And he cancels the form
+    Then he should be on the account memberships page
+
+  Scenario: Admin cancels editing a membership
+    Given an authenticated user with admin role
+    And admin is on the account memberships page
+    When he follows "Edit" within grid
+    And he cancels the form
+    Then he should be on the account memberships page

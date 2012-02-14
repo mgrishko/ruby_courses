@@ -1,10 +1,6 @@
 - title t('.title')
 
--#- content_for(:sidebar) do
--#  = link_to t("back"), :back
-
-= simple_form_for(@account, url: account_url, validate: true,
-                  wrapper: :inline, html: { method: :put }) do |f|
+= simple_form_for(@account, url: account_url, validate: true, html: { method: :put }) do |f|
   = f.error_notification
 
   .inputs
@@ -17,4 +13,4 @@
 
   .actions
     = f.button :submit, t("update"), class: "primary"
-    = button_tag t("cancel"), type: :reset, class: "btn"
+    = link_to t("cancel"), :root
