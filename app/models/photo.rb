@@ -7,7 +7,7 @@ class Photo
 
   # CarrierWave
   mount_uploader :image, ImageUploader
-  store_in_background :image
+  #store_in_background :image
 
   # Really no point if we don't have an image so we always require one
   validates :image, presence: true, file_size: { maximum: 1.megabyte.to_i }
