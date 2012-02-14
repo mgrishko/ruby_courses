@@ -6,6 +6,7 @@ describe Tag do
   it { should validate_presence_of(:name) }
   it { should ensure_length_of(:name).is_at_least(1).is_at_most(Settings.tags.maximum_length) }
   it { should allow_mass_assignment_of(:name) }
+  it { should normalize_attribute(:name).from(" ta  g1 ").to("ta g1") }
 
   describe "name uniqueness validation" do
     it "should be unique in taggable scope" do

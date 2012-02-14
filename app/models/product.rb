@@ -21,7 +21,12 @@ class Product
   field :visibility       , type: String, default: "public"
   field :updated_at       , versioned: true
   
+  ## Attr Normalization
+  normalize_attribute :functional_name, :variant, :manufacturer, 
+    :brand, :sub_brand, :gtin, :short_description, :description, :with => [:squish]
+  
   belongs_to :account, index: true
+
   embeds_many :comments, as: :commentable, versioned: false
   has_many :photos
   embeds_many :packages

@@ -53,9 +53,12 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'fog'  # for carrierwave cloudfiles support
 gem 'mini_magick'
+
+gem 'attribute_normalizer'
 gem 'delayed_job_mongoid'
 gem 'daemons'
 gem 'carrierwave_backgrounder' # for carrierwave delayed job integration
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

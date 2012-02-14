@@ -62,6 +62,10 @@ describe Account do
 
   it { should respond_to(:created_at) }
   it { should respond_to(:updated_at) }
+  
+  it { should normalize_attribute(:subdomain).from(" subdomain ").to("subdomain") }
+  it { should normalize_attribute(:company_name).from(" Com  pany ").to("Com pany") }
+  it { should normalize_attribute(:website).from(" www.yandex.ru ").to("www.yandex.ru") }
 
   context "uniqueness validation" do
     before(:each) { Fabricate(:account, subdomain: "taken") }

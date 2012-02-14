@@ -76,6 +76,8 @@ Spork.prefork do
     # Configure EmailSpec::Helpers and EmailSpec::Matchers
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
+    
+    config.include AttributeNormalizer::RSpecMatcher, :type => :model
   end
 
   # Workaround of Draper url_for issue https://github.com/jcasimir/draper/issues/60
