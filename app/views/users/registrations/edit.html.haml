@@ -8,6 +8,7 @@
     = f.input :email
     = f.input :password
     = f.input :time_zone
+    = f.input :current_password, required: true
     = render partial: 'show_password'
   .actions
     = f.button :submit, t("update"), class: "primary"
