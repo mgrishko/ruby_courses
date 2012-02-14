@@ -95,6 +95,11 @@ describe Account do
     product.account.should eql(account)
   end
   
+  it "should have many photos" do
+    photo = account.photos.build
+    photo.account.should eql(account)
+  end
+  
   it "should have many events" do
     event = account.events.build
     event.account.should eql(account)

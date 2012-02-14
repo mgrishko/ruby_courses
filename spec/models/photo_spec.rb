@@ -5,11 +5,27 @@ describe Photo do
   let(:photo) { Fabricate(:photo) }
 
   it { should validate_presence_of(:image) }
+  it { should_not allow_mass_assignment_of(:account) }
+  it { should validate_presence_of(:product) }
+  it { should_not allow_mass_assignment_of(:product) }
 
-  it "should be embedded in product" do
+  it "should belong to product" do
     product = Fabricate(:product)
     photo = product.photos.build
     photo.product.should eql(product)
+  end
+
+  it "should belong to account" do
+    account = Fabricate(:account)
+    photo = account.photos.build
+    photo.account.should eql(account)
+  end
+
+  it "should set account before create" do
+    product = Fabricate(:product)
+    photo = product.photos.create image: MiniMagick::Image.new(File.join(Rails.root, '/spec/fabricators/image.jpg'))
+    photo.save!
+    photo.account.should eql(product.account)
   end
 
   describe "uploader" do

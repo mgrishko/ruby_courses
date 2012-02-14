@@ -4,6 +4,9 @@
 
 $.namespace("GoodsMaster.photos")
 
+$(document).ready ->
+  GoodsMaster.photos.init()
+
 GoodsMaster.photos.init = ->
   $form = $(".new_photo, .edit_photo")
   
@@ -32,5 +35,12 @@ GoodsMaster.photos.init = ->
     else
       $form.find("span.help-inline").html(errorMessages.join(", "))
 
-$(document).ready ->
-  GoodsMaster.photos.init()
+# Loads delayed image
+GoodsMaster.photos.show = (url)->
+  setTimeout (->
+      $.ajax({
+          url: url,
+          dataType: "script",
+          type:'GET'
+      })
+    ), 3000

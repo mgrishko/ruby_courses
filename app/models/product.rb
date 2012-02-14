@@ -26,7 +26,6 @@ class Product
     :brand, :sub_brand, :gtin, :short_description, :description, :with => [:squish]
   
   belongs_to :account, index: true
-
   embeds_many :comments, as: :commentable, versioned: false
   has_many :photos
   embeds_many :packages
