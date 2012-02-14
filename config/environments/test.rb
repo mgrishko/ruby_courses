@@ -34,4 +34,9 @@ GoodsMaster::Application.configure do
 
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'test.host' }
+
+  # Rescues Exceptions
+  config.action_dispatch.rescue_responses.merge!(
+    'BSON::InvalidObjectId'   => :not_found
+  )
 end

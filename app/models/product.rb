@@ -21,18 +21,28 @@ class Product
   field :visibility       , type: String, default: "public"
   field :updated_at       , versioned: true
   
-  belongs_to :account
+  ## Attr Normalization
+  normalize_attribute :functional_name, :variant, :manufacturer, 
+    :brand, :sub_brand, :gtin, :short_description, :description, :with => [:squish]
+  
+  belongs_to :account, index: true
 
   embeds_many :comments, as: :commentable, versioned: false
-  embeds_many :photos, versioned: false
+  has_many :photos
   embeds_many :packages
   embeds_many :product_codes
 
-  embeds_many :measurements # ToDo Remove after migration to packages
-  
-  def measurement(name)
-    self.measurements.where(name: name.to_s).first
-  end
+  index(
+    [
+      [ :functional_name, Mongo::ASCENDING ],
+      [ :variant, Mongo::ASCENDING ],
+      [ :brand, Mongo::ASCENDING ],
+      [ :sub_brand, Mongo::ASCENDING ],
+      [ :manufacturer, Mongo::ASCENDING ]
+    ]
+  )
+
+  index "tags.name"
 
   accepts_nested_attributes_for :packages
   attr_accessible :packages_attributes

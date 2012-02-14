@@ -13,6 +13,9 @@ require 'airbrake/capistrano'
 # NewRelic Recording Deployments
 require 'new_relic/recipes'
 
+# Delayed Job recipes
+require "delayed/recipes"
+
 # Bundler options
 set :bundle_without, [:development, :test, :cucumber]
 
@@ -57,7 +60,25 @@ namespace :deploy do
   end
 end
 
+namespace :demo do
+  desc "Creating symbolic link to demo data"
+  task :symlink, :roles => :app do
+    demo_path = "/var/www/projects/#{application}/#{rails_env}/shared/demo"
+    run "ln -s #{demo_path} #{release_path}/lib/tasks/demo"
+  end
+end
+
+namespace :mongoid do
+  desc "Create MongoDB indexes"
+  task :index do
+    run "cd #{current_path} && bundle exec rake db:mongoid:create_indexes RAILS_ENV=#{rails_env}", :once => true
+  end
+end
+
 before "deploy:assets:precompile", "deploy:copy_secured_configuration"
+after "deploy", "delayed_job:restart"
 after "deploy", "newrelic:notice_deployment" # This goes out even if the deploy fails, sadly
 after "deploy", "deploy:cleanup" # keeps only last 5 releases
+
+
 

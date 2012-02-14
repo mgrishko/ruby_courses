@@ -43,6 +43,10 @@ GoodsMaster::Application.configure do
   # Setting default_url_options (required for devise).
   config.action_mailer.default_url_options = { :host => 'example.com' }
 
+  # Rescues Exceptions
+  config.action_dispatch.rescue_responses.merge!(
+    'BSON::InvalidObjectId'   => :not_found
+  )
 
   # Monkey patching bootstap assets (they does not included by default)
   gems_path = ENV['GEM_PATH'].split(":").first

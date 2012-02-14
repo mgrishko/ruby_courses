@@ -69,10 +69,6 @@ Then /^an account owner should receive an activation email$/ do
   open_email(email_address)
 end
 
-Then /^he should be on the company account home page$/ do
-  current_url.should == home_url(subdomain: @account.subdomain)
-end
-
 Then /^he should be on the account list page$/ do
   current_url.should == admin_accounts_url(subdomain: Settings.app_subdomain)
 end

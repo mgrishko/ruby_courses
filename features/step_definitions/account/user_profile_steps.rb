@@ -20,6 +20,12 @@ When /^(?:|he )submits profile form with(.*) password$/ do |password|
   click_button "Update"
 end
 
+Then /^(?:[^\s]* )goes to the edit profile page$/ do
+  within(".topbar") do
+    click_on("Profile")
+  end
+end
+
 Then /^(.*) should see that current password (.*)$/ do |user, text|
   page.find("##{user}_current_password").find(:xpath, '..').find("span", text: text)
 end

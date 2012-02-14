@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'active_resource/exceptions'
 
 describe ApplicationController do
   describe "#current_account" do

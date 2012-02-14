@@ -20,10 +20,9 @@ class ProductsController < MainController
   def index
     #@products = Product.all loaded by CanCan
     @products = ProductDecorator.decorate(apply_scopes(@products).
-                                              asc(group_by).
-                                              limit(Settings.products.limit).
-                                              offset(params[:offset].to_i))
-    puts @products.scoped
+                                          asc(group_by, :brand, :sub_brand, :variant, "packages.0.contents.0.value").
+                                          limit(Settings.products.limit).
+                                          offset(params[:offset].to_i))
     respond_with(@products)
   end
 

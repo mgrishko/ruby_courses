@@ -20,9 +20,10 @@ Feature: New product
       #| Short description |
       | Description       |
       | GTIN              |
+      | Packaging         |
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
-#    And he should see "Version 1" text within sidebar
+  #    And he should see "Version 1" text within sidebar
     When he goes to the products page
     Then he should see that product in the products list
 
@@ -37,12 +38,12 @@ Feature: New product
     Given an authenticated user with editor role
     And he is on the new product page
     When he enters the following measurements:
-      | Depth, mm        |
-      | Height, mm       |
-      | Width, mm        |
-      | Gross weight, g  |
-      | Net weight, g    |
-      | Net content      |
+      | Depth, mm       |
+      | Height, mm      |
+      | Width, mm       |
+      | Gross weight, g |
+      | Net weight, g   |
+      | Net content     |
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
@@ -51,8 +52,14 @@ Feature: New product
     Given an authenticated user with editor role
     And he is on the new product page
     When he enters the following product codes:
-      | Internal ID       |
+      | Internal ID |
     And he submits a new product form
     Then he should be on the product page
     And he should see notice message "Product was successfully created."
-
+  
+  Scenario: Editor cancels adding a new product
+    Given an authenticated user with editor role
+    And he is on the products page
+    When he follows "New" within sidemenu
+    And he cancels the form
+    Then he should be on the products page

@@ -16,3 +16,7 @@ end
 Then /^(?:[^\s]*) should be redirected to the account settings page$/ do
   extract_port(current_url).should == edit_account_url(subdomain: @account.subdomain)
 end
+
+Then /^(?:[^\s]*) should be on the account login page$/ do
+  extract_port(current_url).should == new_user_session_url(subdomain: @account.subdomain)
+end

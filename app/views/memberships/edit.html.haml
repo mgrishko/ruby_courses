@@ -1,8 +1,10 @@
 = title t(".title")
 
-= simple_form_for @membership, wrapper: :inline do |f|
+= simple_form_for @membership do |f|
   = f.error_notification
   .inputs
-    = f.input :role, collection: MembershipDecorator.role_select_options, include_blank: false
+    = f.input :role, collection: MembershipDecorator.role_select_options,
+      include_blank: false
   .actions
     = f.button :submit, class: 'primary'
+    = link_to t("cancel"), :back

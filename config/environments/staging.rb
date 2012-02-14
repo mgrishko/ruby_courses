@@ -5,7 +5,7 @@ GoodsMaster::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -64,4 +64,9 @@ GoodsMaster::Application.configure do
   # Specifying goodsmasterhq.com as a top level domain to allow beta.goodsmasterhq.com domain.
   # Everything before beta.goodsmasterhq.com domain will be a subdomain.
   config.action_dispatch.tld_length = 2
+
+  # Rescues Exceptions
+  config.action_dispatch.rescue_responses.merge!(
+    'BSON::InvalidObjectId'   => :not_found
+  )
 end

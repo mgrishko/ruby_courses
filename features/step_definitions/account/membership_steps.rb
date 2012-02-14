@@ -133,10 +133,13 @@ Then /^he should see that email (.*)$/ do |message|
   page.find("#membership_user_attributes_email").find(:xpath, ".//..").find("span", text: message)
 end
 
+Then /^he should be on the account memberships page$/ do
+  current_url.should == memberships_url(subdomain: @account.subdomain)
+end
+
 Then /^he should be on the redisplayed new membership page$/ do
   current_url.should == membership_invitation_url(subdomain: @account.subdomain)
 end
-
 
 def submit_invitation_form(attrs, fields)
   attrs = attrs.with_indifferent_access

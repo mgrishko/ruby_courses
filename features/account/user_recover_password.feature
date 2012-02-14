@@ -60,5 +60,9 @@ Feature: User recover password
     Then he should be redirected to the change password page
     When he submits new password and invalid confirm it
     Then he should see message "doesn't match confirmation"
-
-
+  
+  Scenario: User cancells password recovery
+    Given user is on the user sign in page
+    When he follows "Forgot your password?" within actions
+    And he cancels the form
+    Then he should be on the account login page

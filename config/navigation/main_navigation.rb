@@ -53,7 +53,10 @@ SimpleNavigation::Configuration.run do |navigation|
     #
 
     primary.item :home, I18n.t('navigation.main.home'), home_url
-    primary.item :products, I18n.t('navigation.main.products'), products_url, highlights_on: /products/
+
+    products_title = I18n.t('navigation.main.products')
+    products_title += content_tag(:span, current_account.products.count, class: "soft") if user_signed_in?
+    primary.item :products, products_title, products_url, class: "counter", highlights_on: /products/
 
     # Example configuration:
     #primary.item :key_1, 'name', url, options
