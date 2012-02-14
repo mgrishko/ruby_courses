@@ -86,7 +86,7 @@ namespace :gm do
         puts "#{i} done" if i % 100 == 0
  	    end
 
-      puts "OK"
+      puts "All done"
     end
 
     desc "Load demo photos for demo products. All current photos will be destroyed!"
@@ -118,6 +118,12 @@ namespace :gm do
         end
       puts "OK"
 
+      print "Deleting old photos ... "
+      account.photos.each do |photo|
+        photo.delay.destroy
+      end
+      puts "OK"
+
       puts "Loading photos ... "
 
       account.products.each_with_index do |product, i|
@@ -125,8 +131,6 @@ namespace :gm do
         num = product.product_codes.first.value
 
         unless num.blank?
-          product.photos.delete_all
-
           image_path = images["#{num}"]
           unless image_path.blank?
             image = MiniMagick::Image.new(image_path)
@@ -135,11 +139,11 @@ namespace :gm do
             image.destroy!
           end
 
-          puts "#{i + 1} done" if (i + 1) % 10 == 0
+          puts "#{i + 1} done" if (i + 1) % 100 == 0
         end
  	    end
 
-      puts "OK"
+      puts "All done"
     end
   end
 end

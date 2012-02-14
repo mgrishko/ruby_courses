@@ -20,6 +20,7 @@ class Account
   belongs_to :owner, class_name: "User"
   embeds_many :memberships, validate: false
   has_many :products
+  has_many :photos
   has_many :events
 
   index "memberships.user_id"
