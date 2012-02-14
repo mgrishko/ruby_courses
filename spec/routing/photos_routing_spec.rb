@@ -8,11 +8,13 @@ describe PhotosController do
     end
 
     it "routes to #new" do
-      get("http://subdomain.example.com/products/1/photos/new").should_not be_routable
+      get("http://subdomain.example.com/products/1/photos/new").
+          should route_to("photos#show", product_id: "1", id: "new")
     end
 
     it "routes to #show" do
-      get("http://subdomain.example.com/products/1/photos/1").should_not be_routable
+      get("http://subdomain.example.com/products/1/photos/2").
+          should route_to("photos#show", product_id: "1", id: "2")
     end
 
     it "routes to #edit" do

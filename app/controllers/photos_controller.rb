@@ -2,7 +2,7 @@ class PhotosController < MainController
   load_resource :product, through: :current_account
   load_and_authorize_resource through: :product
   
-  respond_to :html, :js
+  respond_to :js
 
   def show
     respond_with(@photo)

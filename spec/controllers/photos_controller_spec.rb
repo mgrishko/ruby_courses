@@ -8,6 +8,34 @@ describe PhotosController do
     @attrs ||= Fabricate.attributes_for(:photo, image: nil, product: nil)
   end
 
+  describe "GET show" do
+    login_account_as :viewer, account: { subdomain: "company" }
+
+    before(:each) do
+      account = Account.first
+      @product = Fabricate(:product, account: account)
+      @photo = Fabricate(:photo, product: @product)
+    end
+
+    it "assigns the requested photo as @photo" do
+      get :show, product_id: @product.id, id: @photo.id, format: :js
+      assigns(:photo).should eq(@photo)
+    end
+
+    it "should not respond to html format" do
+      lambda { get :show, product_id: @product.id, id: @photo.id }.
+          should raise_error(ActionView::MissingTemplate)
+    end
+
+    it "does not show other account product photos" do
+      account = Fabricate(:account, subdomain: "other")
+      product = Fabricate(:product, account: account)
+      photo = Fabricate(:photo, product: product)
+      lambda { get :show, product_id: product.id, id: photo.id, format: :js }.
+          should raise_error(Mongoid::Errors::DocumentNotFound)
+    end
+  end
+
   describe "POST create" do
     login_account_as :editor, account: { subdomain: "company" }
 
