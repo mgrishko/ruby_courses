@@ -22,7 +22,6 @@ fieldset {
 }
 
 form {
-
   fieldset {
     margin-left: 0;
     width: 100%;
@@ -34,7 +33,7 @@ form {
     &[type=number], &[type=range], &[type=string], &[type=search], &[type=color] {
       width: $input_width;
       font-size: $input_font_size;
-	  height: $input_height;
+	    height: $input_height;
     }
   }
 
