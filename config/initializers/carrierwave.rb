@@ -15,7 +15,7 @@ CarrierWave.configure do |config|
 
   config.root = Rails.root.join('public')
 
-  if %w(production staging qa).include?(Rails.env)
+  if %w(production staging).include?(Rails.env)
     # config.storage = :s3
     # config.s3_access_key_id = 'YOUR_S3_ACCESS_KEY'
     # config.s3_secret_access_key = 'YOUR_S3_SECRET_ACCESS_KEY'
