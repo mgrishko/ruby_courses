@@ -80,7 +80,7 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   should_have_validation_error = !(should.strip == "not")
   input_names = inputs.split(";").collect{ |l| l.strip }
   input_names.each { |name| fill_in(name, with: value) }
-  
+
   input_names.each do |name|
     within(find_field_parent(name)) do
       if should_have_validation_error
@@ -92,18 +92,18 @@ Then /^he should(.*) see validation error "([^"]*)" for "([^"]*)" if he fills it
   end
 end
 
-Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do 
+Then /^he should see validation error "([^"]*)" for "([^"]*)" if he fills in "([^"]*)" with "([^"]*)"$/ do
     |msg, inputs, input, value|
   fill_in(input, with: value)
-  
+
   input_names = inputs.split(";").collect{ |l| l.strip }
-  
+
   input_names.each do |name|
     within(find_field_parent(name)) do
       page.should have_content(msg)
     end
   end
-  
+
   input_names.each { |name| fill_in(name, with: value) }
 end
 
@@ -127,7 +127,7 @@ Then /^he should(.*) see validation error for "([^"]*)" if he leaves it empty$/ 
     else
       fill_in(name, with: "")
     end
-    
+
     execute_script("$('##{field[:id]}').blur()")
   end
 
@@ -165,6 +165,14 @@ Then /^he should(.*) see an error for "([^"]*)"(.*) field if it is empty$/ do
         (locator == "Email" && text_field) ? ( "can't be blank" || "is invalid") : "can't be blank"
       )
     end
+  end
+end
+
+When /^(?:he|user) (.*)check "([^"]*)"$/ do |action, checkbox|
+  if action.blank?
+    check checkbox
+  else
+    uncheck checkbox
   end
 end
 

@@ -59,7 +59,7 @@ When /^user returns next time$/ do
 end
 
 When /^he navigates to products page$/ do
-  visit(products_url(subdomain: @account.subdomain))
+  visit(products_path)
 end
 
 When /^he logs in as another account user$/ do
@@ -78,7 +78,7 @@ When /^he navigates to account home page$/ do
 end
 
 Then /^he should be redirected back to the products page$/ do
-  current_url.should == products_url(subdomain: @account.subdomain)
+  extract_port(current_url).should == products_url(subdomain: @account.subdomain)
 end
 
 Then /^he should be prompted to login to another account$/ do

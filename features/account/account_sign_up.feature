@@ -46,16 +46,6 @@ Feature: Account sign up
     And he should see an error for "Subdomain" text field if it is empty
     And he should not see an error for "Website" text field if it is empty
     And he should not see an error for "A few words about your company" text field if it is empty
-    
-    #And he should see error in "new_user" for "First name" if text field empty
-    #And he should see error in "new_user" for "Last name" if text field empty
-    #And he should see error in "new_user" for "Email" if text field empty
-    #And he should see error in "new_user" for "Password" if text field empty
-    #And he should see error in "new_user" for "Time zone" if select field empty
-    #And he should see error in "new_user" for "Company" if text field empty
-    #And he should see error in "new_user" for "Subdomain" if text field empty
-    #And he should not see error in "new_user" for "Website" if text field empty
-    #And he should not see error in "new_user" for "A few words about your company" if text field empty
 
   Scenario: Signed in user creates a new company account with existing email
     Given an authenticated user
@@ -79,7 +69,7 @@ Feature: Account sign up
     When he goes to the sign up page
     And he follows "Sign in here" within login box
     Then he should be on the global sign in page
-    When user submits valid email and valid password
+    When user submits valid email and password
     Then he should be redirected to the new account page
 
   Scenario: Signed in user can sign out from create new account form
