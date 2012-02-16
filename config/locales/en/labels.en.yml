@@ -33,7 +33,7 @@ en:
         weight:
           attributes:
             net:
-              less_than: must be less than gross weight
+              less_than: "must be less than gross weight"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
