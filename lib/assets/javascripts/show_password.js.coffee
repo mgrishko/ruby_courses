@@ -10,7 +10,7 @@ GoodsMaster.show_password.init = ->
         marker = $('<span />').insertBefore(this)
         $(this).detach().attr('type', 'text').addClass('pre-pass').insertAfter(marker)
         marker.remove()
-      # Not sure, but following code don't work in IE
+      # Not sure, but following code don't work in IE 6-7-8
       # need testing
       #$(':input[type=password]').each ->
         #$(this).addClass('pre-pass').get(0).type = 'text'
