@@ -50,6 +50,9 @@ cucumber:
     group_options: "functional_name manufacturer brand"
     default_group: "functional_name"
 
+demo:
+  <<: *defaults
+
 qa:
   <<: *defaults
 

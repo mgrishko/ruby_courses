@@ -24,6 +24,10 @@ cucumber:
   <<: *defaults
   database: gm_cucumber
 
+demo:
+  <<: *defaults
+  database: gm_qa
+
 qa:
   <<: *defaults
   database: gm_qa

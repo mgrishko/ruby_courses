@@ -20,8 +20,8 @@ require "delayed/recipes"
 set :bundle_without, [:development, :test, :cucumber]
 
 # Multistage
-set :stages, %w(development staging qa)
-set :default_stage, "qa"
+set :stages, %w(demo qa staging production)
+set :default_stage, "demo"
 require 'capistrano/ext/multistage'
 
 set :application, "goodsmaster"
@@ -60,7 +60,7 @@ namespace :deploy do
   end
 end
 
-namespace :demo do
+namespace :demodata do
   desc "Creating symbolic link to demo data"
   task :symlink, :roles => :app do
     demo_path = "/var/www/projects/#{application}/#{rails_env}/shared/demo"

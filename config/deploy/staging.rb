@@ -13,4 +13,4 @@ role :app, appserver
 role :web, appserver
 role :db,  appserver, :primary => true
 
-after "deploy", "demo:symlink"
+after "deploy", "demodata:symlink"

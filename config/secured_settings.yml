@@ -20,13 +20,11 @@ test:
 cucumber:
   <<: *defaults
 
-qa:
+demo:
   <<: *defaults
 
-  rackspace:
-    api_key: '84c16f1d53a901aab8c91bc49a9ba491'
-    fog_host: "http://c285315.r15.cf1.rackcdn.com"
-    username: 'mrost'
+qa:
+  <<: *defaults
 
 staging:
   <<: *defaults
