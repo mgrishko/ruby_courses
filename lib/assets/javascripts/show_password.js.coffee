@@ -10,6 +10,8 @@ GoodsMaster.show_password.init = ->
         marker = $('<span />').insertBefore(this)
         $(this).detach().attr('type', 'text').addClass('pre-pass').insertAfter(marker)
         marker.remove()
+      # Not sure, but following code don't work in IE
+      # need testing
       #$(':input[type=password]').each ->
         #$(this).addClass('pre-pass').get(0).type = 'text'
 
@@ -18,6 +20,8 @@ GoodsMaster.show_password.init = ->
         marker = $('<span />').insertBefore(this)
         $(this).detach().attr('type', 'password').removeClass('pre-pass').insertAfter(marker)
         marker.remove()
+      # Not sure, but following code don't work in IE
+      # need testing
       #$('.pre-pass').each ->
         #$(this).removeClass('pre-pass').get(0).type = 'password'
 
