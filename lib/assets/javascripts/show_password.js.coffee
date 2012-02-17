@@ -15,13 +15,13 @@ GoodsMaster.show_password.init = ->
       $user_password.type = "password"
 
     # check existence of element
-    if $('#user_current_password').length > 0
+    if $user_current_password.length > 0
       if $user_current_password.type == 'password'
         $user_current_password.type = 'text'
       else
         $user_current_password.type = "password"
     # check existence of element
-    if $('#user_password_confirmation').length > 0
+    if $user_password_confirmation.length > 0
       if $user_password_confirmation.type == 'password'
         $user_password_confirmation.type = 'text'
       else
