@@ -18,7 +18,7 @@
         = f.input :last_name
         = f.input :email
         = f.input :password, required: true, input_html: { validate: { presence: true } }
-        = render partial: 'show_password'
+        = render partial: 'users/show_password'
         = f.input :time_zone
         = f.simple_fields_for :accounts, wrapper: :inline do |n|
           = n.input :company_name

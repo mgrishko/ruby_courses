@@ -8,6 +8,12 @@ class ApplicationDecorator < Draper::Base
     "#{namespace}#{self.model_class.name.underscore.pluralize}.defaults"
   end
 
+  def self.show_password
+    ".clearfix"
+      label_tag "show_password", t('password.show'), class: "show_password optional"
+      ".input"
+        check_box_tag 'show_password'
+  end
   # Generates a create link if current ability allows to create object:
   #
   #   ProductDecorator.create_link, class: "button"
@@ -47,10 +53,10 @@ class ApplicationDecorator < Draper::Base
     opts = (opts || {}).with_indifferent_access
     #Default options
     opts.merge!(fallback: opts[:fallback].nil? ? true : opts[:fallback])
-    
+
     content = opts.delete(:content)
     anchor = opts.delete(:anchor)
-    
+
     if content.blank?
       # Returning default name if name option does not present or object does not respond to name_method
       name_method = opts.delete(:name)
