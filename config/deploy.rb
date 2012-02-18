@@ -39,7 +39,7 @@ task :copy_database_config, roles => :app do
   run "ln -s #{dpath}/shared/data #{release_path}/public/data"
 end
 # Hack to have capistrano enter the sudo password (for rvmsudo later)
-  sudo "whoami"
+  #sudo "whoami"
 
 
 namespace :deploy do
