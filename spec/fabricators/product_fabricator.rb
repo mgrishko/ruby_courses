@@ -37,7 +37,7 @@ Fabricator(:product_with_photo, from: :product) do
   end
 end
 
-Fabricator(:product_with_tags, from: :product) do
+Fabricator(:product_with_tags, from: :product_with_package) do
   after_create do |product|
     product.tags << Fabricate(:tag, taggable: product)
   end

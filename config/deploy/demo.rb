@@ -18,5 +18,3 @@ set :appserver, "dev.getmasterdata.com"
 role :app, appserver
 role :web, appserver
 role :db,  appserver, :primary => true
-
-after "deploy", "demodata:symlink"

@@ -12,7 +12,8 @@ describe ProductDecorator do
                          variant: "Variant",
                          country_of_origin: "US",
                          description: "Product description",
-                         visibility: "private"
+                         visibility: "private",
+                         tags_list: "Tag 1, Tag 2"
     )
     @decorator = ProductDecorator.decorate(@product)
   end
@@ -282,8 +283,8 @@ describe ProductDecorator do
   end
 
   describe "#item_label" do
-    it "should concat manufacturer and country of origin" do
-      @decorator.item_label.should == "Manufacturer, United States"
+    it "should concat manufacturer, country of origin and tags" do
+      @decorator.item_label.should == "Manufacturer, United States, Tag 1, Tag 2"
     end
   end
 

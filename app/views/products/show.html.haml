@@ -6,10 +6,13 @@
 - content_for(:sidebar) do
   = render "photos/photo", photo: @product.photos.last, disable_uploads: true
 
-  -#%h3= t('.tags')
-  -#%ul.product-tags
-  -#  = @product.visibility_label(wrapper: :li)
-  -#  = @product.tag_labels(wrapper: :li)
+  - if @product.tags.present?
+    %h6= t('.tags')
+    %ul.product-tags
+      = @product.tag_labels(wrapper: :li)
+
+    -#= @product.visibility_label(wrapper: :li)
+
   -#
   -#= render "versions"
   -#%br

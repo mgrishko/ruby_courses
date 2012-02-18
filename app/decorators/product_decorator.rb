@@ -217,9 +217,10 @@ class ProductDecorator < ApplicationDecorator
     self.content(:value)].reject(&:blank?).map(&:strip).join(", ").html_safe
   end
 
-  # @return [String] product manufacturer and country of origin
+  # @return [String] product manufacturer, country of origin and tags
   def item_label
-    [product.manufacturer, self.country_of_origin].reject(&:blank?).map(&:strip).join(", ")
+    [product.manufacturer, self.country_of_origin, self.tags.map(&:name)].flatten.
+        reject(&:blank?).map(&:strip).join(", ")
   end
 
   private

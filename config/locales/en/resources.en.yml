@@ -194,6 +194,8 @@ en:
         functional: "Functionals"
         manufacturer: "Manufacturers"
         tag: "Tags"
+      tags_legend: "Tags"
+      tags_hint: "Tags are for internal use only. Your partners won't see them."
       type: "Packaging"
       type_hint: "Type of the packaging used for the trade item"
       types:
@@ -470,7 +472,7 @@ en:
     show:
       <<: *PRODUCT_DEFAULTS
       comments: "Comments"
-      tags: "Tags and Privacy"
+      tags: "Tags"
     form:
       <<: *PRODUCT_DEFAULTS
 

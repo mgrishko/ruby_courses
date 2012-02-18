@@ -54,10 +54,10 @@ describe "products/index" do
       render
     end
 
-    #it "renders a tag filter" do
-    #  ProductDecorator.should_receive(:submenu_header_link).with(:tag)
-    #  render
-    #end
+    it "renders a tag filter" do
+      ProductDecorator.should_receive(:submenu_header_link).with(:tag)
+      render
+    end
   end
 
   describe "submenu" do
@@ -76,9 +76,9 @@ describe "products/index" do
       render
     end
 
-    #it "renders a tag filter options" do
-    #  ProductDecorator.should_receive(:filter_options).with(:tag)
-    #  render
-    #end
+    it "renders a tag filter options" do
+      ProductDecorator.should_receive(:filter_options).with(:tag)
+      render
+    end
   end
 end

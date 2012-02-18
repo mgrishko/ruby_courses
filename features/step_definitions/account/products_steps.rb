@@ -69,7 +69,7 @@ Given /^that (.*) has the following products:$/ do |resource, table|
   end
 end
 
-Given /^the product has tags "([^"]*)"$/ do |tags|
+Given /^that product has tags "([^"]*)"$/ do |tags|
   tags.split(",").each { |tag| Fabricate(:tag, taggable: @product, name: tag.strip) }
 end
 
@@ -367,6 +367,16 @@ Then /^he should see missing photo within sidebar$/ do
   @product.reload.photos.should be_empty
 end
 
+Then /^he should(.*) see tags header within sidebar$/ do |should|
+  within(".sidebar") do
+    if should.strip.blank?
+      page.should have_content("Tags")
+    else
+      page.should_not have_content("Tags")
+    end
+  end
+end
+
 Then /^he should see that tags within sidebar$/ do
   within(".sidebar") do
     page.find("span.label", text: @tags.first)
@@ -374,7 +384,9 @@ Then /^he should see that tags within sidebar$/ do
 end
 
 Then /^he should see that tags under product link$/ do
-  page.find("span.label", text: @tags.first)
+  within('.attr_label') do
+    page.should have_content(@tags.first)
+  end
 end
 
 Then /^he should(.*) see "([^"]*)" under product link$/ do |should_not, label|

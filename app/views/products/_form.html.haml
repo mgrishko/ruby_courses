@@ -61,12 +61,12 @@
     = f.input :country_of_origin, collection: Carmen.countries
 
   = two_col_fieldset t(".description_legend"), t(".description_hint") do
-    = f.input :description, as: :text
-    
     -#= f.input :short_description
-    -#= f.input :tags_list, as: :autocomplete, multiple: true, autocomplete_by: :tags_name
-    -#= f.input :visibility, collection: ProductDecorator.visibility_options, 
-      include_blank: false
+    = f.input :description, as: :text
+
+  = two_col_fieldset t(".tags_legend"), t(".tags_hint") do
+    = f.input :tags_list, as: :autocomplete, multiple: true, autocomplete_by: :tags_name
+    -#= f.input :visibility, collection: ProductDecorator.visibility_options, include_blank: false
 
   = two_col_fieldset t(".comment_legend"), t(".comment_hint") do
     = simple_fields_for @comment, wrapper: :stacked, :validate => false do |n|
