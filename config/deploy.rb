@@ -41,14 +41,14 @@ task :copy_database_config, roles => :app do
 end
 
 # Hack to have capistrano enter the sudo password (for rvmsudo later)
-sudo "whoami"
+#sudo "whoami"
 
 
 namespace :deploy do
-  task :bundle_install do
-    run "cd #{release_path} && rvmsudo bundle install "
-    sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2012.01/bin/* "
-  end
+  #task :bundle_install do
+    #run "cd #{release_path} && rvmsudo bundle install "
+    #sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2012.01/bin/* "
+  #end
 
   task :start do ; end
   task :stop do ; end
