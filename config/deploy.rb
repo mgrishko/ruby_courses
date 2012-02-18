@@ -46,7 +46,7 @@ end
 namespace :deploy do
   task :bundle_install do
     run "cd #{release_path} && rvmsudo bundle install "
-    sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
+    sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2011.03/bin/* "
   end
 
   task :start do ; end
@@ -97,7 +97,7 @@ after "deploy", "deploy:cleanup"
   ##From old version
   ##task :bundle_install do
     ##run "cd #{release_path} && rvmsudo bundle install "
-    ##sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
+    ##sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2011.03/bin/* "
   ##end
   #task :start do ; end
   #task :stop do ; end
