@@ -6,7 +6,6 @@ set :application, "goodsmaster"
 # Если развертка будет происходить из локального репозитория,
 # тогда нужно закомментировать следующую сроку:
 set :repository,  "git@git.assembla.com:webforms2.git"
-
 set :branch, 'rails3'
 dpath = "/var/www/projects/goodsmaster"
 
@@ -34,11 +33,9 @@ task :copy_database_config, roles => :app do
   run "ln -s #{dpath}/shared/data #{release_path}/public/data"
 end
 
-
-# - for unicorn - #
 namespace :deploy do
   task :bundle_install do
-    run "cd #{release_path} && rvm bundle install "
+    run "cd #{release_path} && bundle install "
     sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
   end
 
