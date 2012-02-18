@@ -27,6 +27,9 @@ defaults: &defaults
     maximum_length: 20
     separator: ","
 
+  uservoice:
+    show_widget: true
+
 development:
   <<: *defaults
 
@@ -56,8 +59,17 @@ demo:
 qa:
   <<: *defaults
 
+  uservoice:
+    show_widget: true
+
 staging:
   <<: *defaults
 
+  uservoice:
+    show_widget: true
+
 production:
   <<: *defaults
+
+  uservoice:
+    show_widget: true

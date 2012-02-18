@@ -1,5 +1,5 @@
 module ApplicationHelper
-  include Uservoice
+  include Uservoice::ViewHelpers
   # Sets content for title in head and for body header.
   #
   # @param [String] page_title page title
@@ -15,9 +15,10 @@ module ApplicationHelper
     end
   end
 
-  # Sets SSO parameters for current user (id, email, short_name)
+  # Renders Uservoice widget with SSO parameters for current user (id, email, short_name)
   def user_voice_widget
-    if !current_user.nil? && current_user.accounts.any? { |account| account.active? }
+    if Settings.uservoice.show_widget && current_user.present? &&
+        current_user.memberships.any? { |membership| membership.account.active? }
       raw uservoice_config_javascript(:sso => { :guid         => current_user.id,
                                                 :email        => current_user.email,
                                                 :display_name => current_user.short_name

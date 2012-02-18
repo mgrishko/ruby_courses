@@ -1,13 +1,13 @@
 require "erb"
 
 module Uservoice
-  module InstanceMethods
+  module Config
 
-    # Making helper method available when module
-    # gets included into ActionController::Base.
-    #
+    ## Making helper method available when module
+    ## gets included into ActionController::Base.
+    ##
     def self.included(mod)
-      mod.send(:helper_method, :uservoice_configuration)
+      mod.extend self
     end
 
     # Set uservoice configuration file path.

@@ -1,5 +1,8 @@
+require "uservoice/config"
+
 module Uservoice
-  module UservoiceViewHelpers
+  module ViewHelpers
+    include Uservoice::Config
 
     # Renders javascript to configure uservoice feedback widget. Options
     # can be used to override default settings like forum id.
@@ -7,7 +10,7 @@ module Uservoice
     # See https://ACCOUNT.uservoice.com/admin2/docs#/widget for options
     # available.
     #
-    def self.uservoice_config_javascript(options={})
+    def uservoice_config_javascript(options={})
       config = uservoice_configuration['uservoice_options'].dup
       config.merge!(options)
 
