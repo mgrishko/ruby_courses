@@ -9,7 +9,6 @@ set :branch, 'rails3'
 dpath = "/var/www/projects/goodsmaster"
 
 set :user, "gmadmin"
-set :password, "gLKJe4mp"
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
