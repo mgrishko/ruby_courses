@@ -44,5 +44,3 @@ en:
       MM: "mm"
       ML: "ml"
       GR: "g"
-  password:
-    show: "Show password"

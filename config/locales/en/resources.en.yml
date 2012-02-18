@@ -536,3 +536,6 @@ en:
         recoverable: "Forgot your password?"
         sign_in: "Sign in"
         title: "Sign in"
+
+    show_password:
+      label: "Show password"

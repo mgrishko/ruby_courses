@@ -4,8 +4,8 @@
   .inputs
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
-    = f.input :remember_me, wrapper_html: { class: "remember_me" }, as: :boolean if devise_mapping.rememberable?
     = render partial: "users/show_password"
+    = f.input :remember_me, wrapper: :boolean, as: :boolean if devise_mapping.rememberable?
   .actions
     = f.button :submit, t(".sign_in"), class: 'primary'
     = link_to t('.recoverable'),

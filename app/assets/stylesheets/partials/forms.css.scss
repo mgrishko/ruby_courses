@@ -35,6 +35,10 @@ form {
       font-size: $input_font_size;
 	    height: $input_height;
     }
+
+    &[type=checkbox], &[type=radio] {
+      vertical-align: baseline;
+    }
   }
 
   select {
@@ -52,12 +56,20 @@ form {
     &.optional {
       color: grey;
     }
+    &.boolean {
+      float: none;
+      text-align: left;
+      margin: 0 0.5em;
+    }
   }
 
   .clearfix {
     &.hidden {
       padding: 0;
       margin: 0;
+    }
+    &.boolean {
+      width: 100%;
     }
   }
 

@@ -21,6 +21,16 @@ SimpleForm.setup do |config|
     b.use :hint,  :tag => :span, :class => :'help-block'
   end
 
+  config.wrappers :boolean, :class => 'clearfix', :error_class => :error do |b|
+    b.use :placeholder
+    b.use :tag => 'div', :class => 'input' do |ba|
+      ba.use :input
+      ba.use :label
+    end
+    b.use :error, :tag => :span, :class => :'help-block'
+    b.use :hint,  :tag => :span, :class => :'help-block'
+  end
+
   config.wrappers :stacked, :class => "clearfix", :error_class => :error do |b|
     b.use :placeholder
     b.use :label
