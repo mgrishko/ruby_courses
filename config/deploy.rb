@@ -20,9 +20,10 @@ set :copy_exclude, [".git"]
 
 set :scm, :git
 
-role :web, "46.4.115.40"                          # Your HTTP server, Apache/etc
-role :app, "46.4.115.40"                          # This may be the same as your `Web` server
-role :db,  "46.4.115.40", :primary => true # This is where Rails migrations will run
+ssh_options[:port] = 12050 # must be set to open ssh port
+role :web, "108.166.108.36"                          # Your HTTP server, Apache/etc
+role :app, "108.166.108.36"                          # This may be the same as your `Web` server
+role :db,  "108.166.108.36", :primary => true # This is where Rails migrations will run
 
 after "deploy:update_code", :copy_database_config
 
