@@ -9,7 +9,6 @@ set :branch, 'rails3'
 dpath = "/var/www/projects/goodsmaster"
 
 set :user, "gmadmin"
-set :password, "eR5s2Dem"
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
@@ -38,7 +37,7 @@ end
 namespace :deploy do
   task :bundle_install do
     run "cd #{release_path} && rvmsudo bundle install "
-    sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
+    run "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
   end
 
   task :start do ; end
