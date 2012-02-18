@@ -35,7 +35,7 @@ end
 
 namespace :deploy do
   task :bundle_install do
-    run "cd #{release_path} && bundle install "
+    run "cd #{release_path} && rvmsudo bundle install "
     sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
   end
 
