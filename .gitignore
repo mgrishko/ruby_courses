@@ -2,7 +2,7 @@
 db/schema.rb
 db/*.sqlite3
 tmp/*
-config/database.yml
+/*config/database.yml*/
 .rvmrc
 *.swp
 *.swo

@@ -1,0 +1,21 @@
+login: &login
+  adapter: postgresl
+  username: postgres      # use login here
+  password: gLKJe4mp # use password here
+  host: localhost
+
+production:
+  database: webforms_prod
+  <<: *login
+
+development:
+  database: webforms_dev
+  <<: *login
+
+test: &test
+  database: webforms_test
+  <<: *login
+
+cucumber:
+  <<: *test
+
