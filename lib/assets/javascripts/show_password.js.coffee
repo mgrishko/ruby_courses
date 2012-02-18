@@ -3,21 +3,28 @@ $.namespace("GoodsMaster.show_password")
 GoodsMaster.show_password.init = ->
 
   $show_password = $('#show_password')
-  $user_password = $('#user_password')
-  $user_current_password = $('#user_current_password')
 
   $show_password.change ->
-    if $user_password.get(0).type == 'password'
-      $user_password.get(0).type = 'text'
+    if $(this).attr('checked')
+      $(':input[type=password]').each ->
+        marker = $('<span />').insertBefore(this)
+        $(this).detach().attr('type', 'text').addClass('pre-pass').insertAfter(marker)
+        marker.remove()
+      # Not sure, but following code don't work in IE 6-7-8
+      # need testing
+      #$(':input[type=password]').each ->
+        #$(this).addClass('pre-pass').get(0).type = 'text'
+
     else
-      $user_password.get(0).type = "password"
+      $('.pre-pass').each ->
+        marker = $('<span />').insertBefore(this)
+        $(this).detach().attr('type', 'password').removeClass('pre-pass').insertAfter(marker)
+        marker.remove()
+      # Not sure, but following code don't work in IE
+      # need testing
+      #$('.pre-pass').each ->
+        #$(this).removeClass('pre-pass').get(0).type = 'password'
 
-  $show_password.change ->
-    if $user_current_password.length
-      if $user_current_password.get(0).type == 'password'
-        $user_current_password.get(0).type = 'text'
-      else
-        $user_current_password.get(0).type = "password"
 
 $(document).ready ->
   GoodsMaster.show_password.init()
