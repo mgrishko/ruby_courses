@@ -127,13 +127,16 @@ $(document).ready ->
   
   setupRequiredInGroupFields()
   
-  makeLinkedInputNameList = (elem) ->
+  makeLinkedInputNameList = (elem, includeElem = true) ->
     input = $(elem)
     inputName = input.attr("name")
-    resultNames = [inputName]
+    resultNames = []
+    resultNames.push(inputName) if includeElem
     prefix = inputName.substring(0, inputName.lastIndexOf('['))
-    for name in input.attr("data-validate-with").split(" ")
-      resultNames.push("#{prefix}[#{name}]")
+    validateWith = input.attr("data-validate-with")
+    if validateWith
+      for name in validateWith.split(" ")
+        resultNames.push("#{prefix}[#{name}]")
     resultNames
 
   # Setup fields that are validated if another field is filled in
@@ -144,7 +147,7 @@ $(document).ready ->
 
   # Setup fields that are required if another field is not empty
   $("input[data-validate-require]").on "keyup blur", () ->
-      names = makeLinkedInputNameList(this)
+      names = makeLinkedInputNameList(this, false)
 
       allEmpty = true
       for name in names
@@ -154,7 +157,7 @@ $(document).ready ->
       for name in names
         linkedInput = $("input[name*='" + name + "']")
 
-        if allEmpty
+        if (allEmpty && names.length > 1) || (!$(this).val() && names.length == 1)
           linkedInput.removeData('valid')
           deletePresenceValidator(name)
         else

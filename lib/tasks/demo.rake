@@ -128,7 +128,8 @@ namespace :gm do
 
       account.products.each_with_index do |product, i|
 
-        num = product.product_codes.first.value
+        code = product.product_codes.first
+        num = code.nil? ? nil : code.value
 
         unless num.blank?
           image_path = images["#{num}"]

@@ -36,10 +36,10 @@ Feature: Product client side validation
     And he should not see validation error "can't be blank" for "Net weight, g" if he fills it with "2"
     And he should see validation error "can't be blank" for "Gross weight, g" if he fills it with ""
     And he should not see validation error "can't be blank" for "Net weight, g" if he fills it with ""
-    And he should see validation error "can't be greater then gross weight" for "Net weight, g" if he fills it with "3"
     And he should see validation error "can't be blank" for "Gross weight, g" if he fills in "Net weight, g" with "2"
     And he should not see validation error "can't be blank" for "Gross weight, g" if he fills it with "4"
-    And he should not see validation error "can't be greater then gross weight" for "Net weight, g" if he fills it with "3"
+    And he should see validation error "must be less than gross weight" for "Net weight, g" if he fills it with "4"
+    And he should not see validation error "must be less thatn gross weight" for "Net weight, g" if he fills it with "3"
     
     # GTIN
     And he should not see validation error for "GTIN" if he leaves it empty
