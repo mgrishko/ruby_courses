@@ -15,7 +15,7 @@ en:
       invalid_image_file_type: "invalid file type (should be .jpg, .jpeg, .png, or .gif)"
       invalid_gtin_format: "is not a valid GTIN format"
       invalid_measure_unit: "%{unit} is not a valid unit"
-      invalid_net_weight: "can't be greater then gross weight"
+      invalid_net_weight: "must be less than gross weight"
       wrong_size: "is the wrong size (should be %{file_size})"
       size_too_small: "is too small (should be at least %{file_size})"
       size_too_big: "is too big (should be at most %{file_size})"
@@ -33,7 +33,7 @@ en:
         weight:
           attributes:
             net:
-              less_than: can't be greater then gross weight
+              less_than: "must be less than gross weight"
 
   product_codes:
     FOR_INTERNAL_USE_1: "Internal ID"
