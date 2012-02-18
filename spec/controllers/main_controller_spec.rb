@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MainController do
-  controller do
+  controller(MainController) do
     skip_authorization_check
 
     def index

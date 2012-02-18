@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Admin::BaseController do
-  controller do
+
+  controller(Admin::BaseController) do
     def index
       head 200
     end
@@ -12,7 +13,7 @@ describe Admin::BaseController do
 
     describe "GET index" do
       it "renders index template" do
-        get :index, subdomain: Settings.app_subdomain
+        get :index#, subdomain: Settings.app_subdomain
         response.should be_success
       end
     end
