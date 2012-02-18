@@ -1,7 +1,7 @@
 # RVM configuration
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
+set :rvm_ruby_string, 'ree-1.8.7-2012.01'             # Or whatever env you want it to run in.
 
 # Bundler
 require "bundler/capistrano"
@@ -38,6 +38,7 @@ task :copy_database_config, roles => :app do
   run "cp #{db_config} #{release_path}/config/database.yml"
   run "ln -s #{dpath}/shared/data #{release_path}/public/data"
 end
+
 # Hack to have capistrano enter the sudo password (for rvmsudo later)
   #sudo "whoami"
 
