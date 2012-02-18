@@ -7,14 +7,10 @@ GoodsMaster.flash.init = ->
   fd = if $flash.hasClass("alert")
     10000
   else
-    5000
+    3000
 
   $flash.delay(fd).fadeOut("slow").queue ->
-    $flash.remove()
-
-  # Bootstrap-alert close functionality
-  $flash.alert('close')
-
+    $flash.alert('close')
 
 $(document).ready ->
   GoodsMaster.flash.init()
