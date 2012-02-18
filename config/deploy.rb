@@ -19,7 +19,6 @@ set :user, "gmadmin"
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
-set :rvm_type, :user  # Copy the exact line. I really mean :user here
 
 set :deploy_to, dpath
 set :deploy_via, :copy
@@ -59,7 +58,7 @@ namespace :deploy do
 
 end
 
-after "deploy:update_code", "deploy:bundle_install"
+#after "deploy:update_code", "deploy:bundle_install"
 after "deploy", "deploy:cleanup"
 #############################################################################################################
 ## RVM configuration
