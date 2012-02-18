@@ -1,0 +1,31 @@
+defaults: &defaults
+  airbrake:
+    api_key: 'YOUR_API_KEY'
+
+  rackspace:
+    api_key: 'YOUR_API_KEY'
+    fog_host: "http://YOUR_CONTAINER.rackcdn.com"
+    username: 'YOUR_USERNAME'
+
+  uservoice:
+    api_key: 'YOUR_API_KEY'
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+cucumber:
+  <<: *defaults
+
+qa:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+
+production:
+  <<: *defaults
