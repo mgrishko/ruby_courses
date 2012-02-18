@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+set :rvm_ruby_string, 'ree'
 
 set :application, "goodsmaster"
 #set :repository, "file://."
