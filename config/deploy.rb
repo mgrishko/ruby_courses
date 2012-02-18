@@ -35,14 +35,6 @@ end
 
 # - for unicorn - #
 namespace :deploy do
-  task :change_owner_demo do
-    sudo "chown -R demo:demo #{dpath}"
-  end
-
-  task :change_owner_apache do
-    sudo "chown -R apache:apache #{dpath}"
-  end
-
   task :bundle_install do
     run "cd #{release_path} && rvmsudo bundle install "
     sudo "chmod 777 .rvm/gems/ree-1.8.7-2012.01/bin/* "
@@ -57,9 +49,8 @@ namespace :deploy do
 
 end
 
-#before "deploy:update_code", "deploy:change_owner_demo"
-#after "deploy:update_code", "deploy:change_owner_apache"
-#after "deploy:update_code", "deploy:bundle_install"
+after "deploy:update_code", "deploy:bundle_install"
+after "deploy", "deploy:cleanup"
 #############################################################################################################
 ## RVM configuration
 #$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
