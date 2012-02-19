@@ -39,7 +39,7 @@ gem 'jquery-rails'
 gem "remotipart", "~> 1.0.1" # for AJAX file uploads
 gem 'haml'
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
-gem "carmen" # country_select and state_select plugin
+gem "carmen"
 gem "simple-navigation", "~> 3.5.0"
 gem "client_side_validations", "~> 3.1.4"
 gem "i18n-js"
@@ -86,9 +86,9 @@ gem "ezcrypto"
 
 # Next gems also in development to run generators and rake tasks
 group :development, :test, :cucumber do
-  gem 'rspec-rails'#, "~> 2.7.0"
+  gem 'rspec-rails'
   gem 'cucumber-rails'
-  gem 'fabrication', "~> 1.2.0"
+  gem 'fabrication'#, "~> 1.2.0"
   gem "spork", '0.9.0'
   gem "email_spec", "~> 1.2.1"
 end
@@ -96,7 +96,7 @@ end
 group :test, :cucumber do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'capybara', "~> 1.1.1"
+  gem 'capybara'
   gem "capybara-webkit", "~> 0.8.0"
   gem "headless"
   gem 'database_cleaner'
