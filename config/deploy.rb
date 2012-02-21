@@ -27,14 +27,11 @@ depend :remote, :gem, "bundler", ">=1.0.21"
 depend :remote, :gem, "rake", ">=0.9.2.2"
 
 namespace :deploy do
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
+  task :start do ; end
+  task :stop do ; end
 
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
 
