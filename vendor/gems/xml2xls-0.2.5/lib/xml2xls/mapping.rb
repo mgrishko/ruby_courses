@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'nokogiri'
 class Mapping
   @xml_docs = {}

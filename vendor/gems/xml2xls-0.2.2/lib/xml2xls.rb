@@ -1,4 +1,3 @@
-require "rubygems"
 %w{
   nokogiri
   xml2xls/mapping
