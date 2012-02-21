@@ -6,9 +6,7 @@ set :application, "goodsmaster"
 
 set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
 set :rvm_type, :user
-
-# Bundler
-
+#
 # Bundler options
 set :rails_env, "production"
 set :bundle_without, [:development, :test, :cucumber]

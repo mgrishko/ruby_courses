@@ -28,6 +28,7 @@ gem 'globalize3'
 gem 'uservoice', :path => 'vendor/gems/uservoice'
 gem 'wice_grid'
 gem 'capistrano'
+gem 'nokogiri'
 
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
