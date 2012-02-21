@@ -27,6 +27,7 @@ gem 'cancan'
 gem 'globalize3'
 gem 'uservoice', :path => 'vendor/gems/uservoice'
 gem 'wice_grid'
+gem 'capistrano'
 
 group :development, :test do
   if RUBY_PLATFORM =~ /win32/
