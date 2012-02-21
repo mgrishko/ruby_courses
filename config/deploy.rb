@@ -6,15 +6,13 @@ set :application, "goodsmaster"
 
 set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
 set :rvm_type, :user
-#
+
 # Bundler options
 set :rails_env, "production"
 set :bundle_without, [:development, :test, :cucumber]
 set :repository,  "git@git.assembla.com:webforms2.git"
 set :branch, 'rails3'
 set :user, "gmadmin"
-
-
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
