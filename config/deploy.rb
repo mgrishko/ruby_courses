@@ -49,7 +49,7 @@ namespace :deploy do
 
 end
 
-after "deploy:update_code", :copy_database_config
+after "deploy", :copy_database_config
 after "deploy", "deploy:cleanup"
 
 #############################################################################################################
