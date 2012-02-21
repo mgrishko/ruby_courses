@@ -5,6 +5,8 @@ set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
 
 # Bundler
 require "bundler/capistrano"
+# Bundler options
+set :bundle_without, [:development, :test, :cucumber]
 
 set :application, "goodsmaster"
 #set :repository, "file://."
@@ -31,24 +33,13 @@ role :web, "108.166.108.36"                          # Your HTTP server, Apache/
 role :app, "108.166.108.36"                          # This may be the same as your `Web` server
 role :db,  "108.166.108.36", :primary => true # This is where Rails migrations will run
 
-after "deploy:update_code", :copy_database_config
-
 task :copy_database_config, roles => :app do
   db_config = "#{shared_path}/database.yml"
   run "cp #{db_config} #{release_path}/config/database.yml"
   run "ln -s #{dpath}/shared/data #{release_path}/public/data"
 end
 
-# Hack to have capistrano enter the sudo password (for rvmsudo later)
-#sudo "whoami"
-
-
 namespace :deploy do
-  #task :bundle_install do
-    #run "cd #{release_path} && rvmsudo bundle install "
-    #sudo "chmod 777 /usr/local/rvm/gems/ree-1.8.7-2012.01/bin/* "
-  #end
-
   task :start do ; end
   task :stop do ; end
 
@@ -58,8 +49,9 @@ namespace :deploy do
 
 end
 
-#after "deploy:update_code", "deploy:bundle_install"
+after "deploy:update_code", :copy_database_config
 after "deploy", "deploy:cleanup"
+
 #############################################################################################################
 ## RVM configuration
 #$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
