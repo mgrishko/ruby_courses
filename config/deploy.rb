@@ -1,25 +1,27 @@
 # RVM configuration
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                              # Load RVM's capistrano plugin.
-set :rvm_ruby_string, 'ree-1.8.7-2012.01@gm_old'             # Or whatever env you want it to run in.
-set :user, "gmadmin"
+require "bundler/capistrano"
+set :application, "goodsmaster"
+
+set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
 set :rvm_type, :user
 
 # Bundler
-require "bundler/capistrano"
 
 # Bundler options
+set :rails_env, "production"
 set :bundle_without, [:development, :test, :cucumber]
-set :application, "goodsmaster"
 set :repository,  "git@git.assembla.com:webforms2.git"
 set :branch, 'rails3'
-dpath = "/var/www/projects/goodsmaster"
+set :user, "gmadmin"
+
 
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
 
-set :deploy_to, dpath
+set :deploy_to, "/var/www/projects/goodsmaster"
 set :deploy_via, :remote_cache
 set :copy_exclude, [".git"]
 
@@ -33,7 +35,7 @@ role :db,  "108.166.108.36", :primary => true # This is where Rails migrations w
 task :copy_database_config, roles => :app do
   db_config = "#{shared_path}/database.yml"
   run "cp #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{dpath}/shared/data #{release_path}/public/data"
+  run "ln -s /var/www/projects/goodsmaster/shared/data #{release_path}/public/data"
 end
 
 namespace :deploy do
@@ -46,4 +48,3 @@ namespace :deploy do
 end
 
 after "deploy:update_code", :copy_database_config
-#after "deploy", "deploy:cleanup"
