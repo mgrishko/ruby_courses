@@ -1,7 +1,8 @@
 # RVM configuration
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, 'ree'             # Or whatever env you want it to run in.
+set :rvm_ruby_string, 'ree-1.8.7-2012.01'             # Or whatever env you want it to run in.
+set :rvm_type, :user
 
 # Bundler
 require "bundler/capistrano"
@@ -17,7 +18,7 @@ default_run_options[:pty] = true
 set :use_sudo, false
 
 set :deploy_to, dpath
-set :deploy_via, :copy
+set :deploy_via, :remote_cache
 set :copy_exclude, [".git"]
 
 set :scm, :git
