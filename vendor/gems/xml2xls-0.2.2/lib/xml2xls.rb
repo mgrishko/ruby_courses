@@ -1,5 +1,5 @@
+require "rubygems"
 %w{
-  rubygems
   nokogiri
   xml2xls/mapping
   xml2xls/make_stylesheet

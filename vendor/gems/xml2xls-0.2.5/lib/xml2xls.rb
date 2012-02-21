@@ -1,5 +1,5 @@
+require "rubygems"
 %w{
-  rubygems
   nokogiri
   bigdecimal
   xml2xls/mapping

@@ -1,5 +1,5 @@
+require 'rubygems'
 %w{
-  rubygems
   nokogiri
   spreadsheet
   xml2xls/mapping
