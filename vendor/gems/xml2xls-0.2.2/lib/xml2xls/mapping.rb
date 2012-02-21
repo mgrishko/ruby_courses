@@ -1,9 +1,10 @@
+require 'rubygems'
 require 'nokogiri'
 class Mapping
   @xml_docs = {}
   @mappings = {}
   @hash = {}
-  
+
   def Mapping.read_xml1 file_name, code_column_index, value_column_index
     @hash = {}
     get_mapping1(file_name, code_column_index, value_column_index).each do |key, value|
@@ -11,7 +12,7 @@ class Mapping
     end
     @hash
   end
-  
+
   def Mapping.read_xml2 file_name, code_column, value_column
     @hash = {}
     get_mapping2(file_name, code_column, value_column).each do |key, value|
@@ -19,7 +20,7 @@ class Mapping
     end
     @hash
   end
-  
+
   def Mapping.read_xml3 file_name, code_column, code_column2, value_column
     @hash = {}
     get_mapping3(file_name, code_column, code_column2, value_column).each do |key, value|
@@ -33,7 +34,7 @@ class Mapping
     doc = Nokogiri::XML File.read(file_name)
     @xml_docs[file_name] = doc
   end
-  
+
   def Mapping.get_mapping1 file_name, code_column_index, value_column_index
     key = code_column_index + ";" + value_column_index + ";" + file_name
     return @mappings[key] if @mappings[key]
@@ -53,7 +54,7 @@ class Mapping
     end
     @mappings[key] = mapping
   end
-  
+
   def Mapping.get_mapping2 file_name, code_column, value_column
     key = code_column + ";" + value_column + ";" + file_name
     return @mappings[key] if @mappings[key]
@@ -76,7 +77,7 @@ class Mapping
     end
     @mappings[key] = mapping
   end
-  
+
   def Mapping.get_mapping3 file_name, code_column, code_column2, value_column
     key = code_column + ";" + value_column + ";" + file_name
     return @mappings[key] if @mappings[key]
@@ -103,5 +104,5 @@ class Mapping
     end
     @mappings[key] = mapping
   end
-  
+
 end

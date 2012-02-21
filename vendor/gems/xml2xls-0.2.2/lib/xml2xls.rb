@@ -1,13 +1,14 @@
 %w{
-  nokogiri 
+  rubygems
+  nokogiri
   xml2xls/mapping
   xml2xls/make_stylesheet
   xml2xls/core_ext/error
   xml2xls/core_ext/nokogiri
   xml2xls/core_ext/string
 }.each{|i| require i}
-  
-module Xml2xls    
+
+module Xml2xls
   FILEMANAGER = {
     "xslt" => "xslt"
   }
@@ -19,7 +20,7 @@ module Xml2xls
       #make a stylesheet from each element.
     else
       xslt = get_xslt(template_name)
-      empty_xml = Nokogiri::XML::Document.new 
+      empty_xml = Nokogiri::XML::Document.new
       processed_xml = xslt.transform(empty_xml).to_s.strip
       #transform empty xml with "#{template_name}.xsl" xslt
       if File.file? File.join(xsl_folder_path, template_name + "_.xsl") or File.file? File.join(xsl_folder_path, template_name + "_h.xsl") or File.file? File.join(xsl_folder_path, template_name + "_gen.xsl")
@@ -31,7 +32,7 @@ module Xml2xls
       return [make_stylesheet(out_xml, filename + ".xls")]
     end
   end
-  
+
   def self.sep_transform xml, template_name, filename
     #transform to separate files.
     reader = get_reader(xml)
@@ -40,10 +41,10 @@ module Xml2xls
       next if (reader.local_name != "Item")
       processed_nodes += process_xml_sep_node(reader, template_name, xml, filename)
     end
-    #processed_nodes -- array of [processed <Item>(xml nodes) + arrays of [xsl-transformed Items by templates formatted(by String#format) with leaves from get_leaf_pi]] 
+    #processed_nodes -- array of [processed <Item>(xml nodes) + arrays of [xsl-transformed Items by templates formatted(by String#format) with leaves from get_leaf_pi]]
     return processed_nodes
   end
-  
+
   def self.suffix_transform processed_xml, xml, template_name
     #transform with suffixes _, _h, _gen
     index = processed_xml.index(marker = "<root/>")
@@ -64,7 +65,7 @@ module Xml2xls
     #out_xml = xml before '<root>' + processed xml node <Item> + xml after '<root>'
     return out_xml + processed_xml[(index + marker.size + 1)..-1]
   end
-  
+
   def self.style_transform processed_xml, xml, template_name
     #transform with style txt's (_style.txt or _tbl_attr.txt)
     reader = get_reader(processed_xml)
@@ -77,7 +78,7 @@ module Xml2xls
     style = File.read(style_file_path) if File.file? style_file_path
     tbl_attributes_file_path = File.join(xsl_folder_path, template_name + "_tbl_attr.txt")
     tbl_attributes = File.read(tbl_attributes_file_path) if File.file? tbl_attributes_file_path
-    
+
     out_xml = @xml_tpl_header.format(style, tbl_attributes)
     #format you may find in ext_core.
     out_xml += columns_text
@@ -92,8 +93,8 @@ module Xml2xls
     out_xml += @xml_work_sheet_tpl_footer
     out_xml += @xml_workbook_tpl_footer
   end
-  
-  def self.process_xml_node reader, template_name 
+
+  def self.process_xml_node reader, template_name
     #process node Item with formatted xsl with dict from hierarchy_dictionary if there is _h template. And with basic, otherwise.
     prefix = reader.prefix
     suffix = get_template_suffix(prefix)
@@ -109,13 +110,13 @@ module Xml2xls
     node_xml = reader.outer_xml
     return "" if node_xml.strip.empty?
     if File.file? file_path
-      xslt = get_item_xslt(file_path, country, suffix) 
+      xslt = get_item_xslt(file_path, country, suffix)
     elsif File.file? h_xsl_file_path
       bi_str = ""
       ba_str = ""
-      hierarchy_dictionary, dict = build_hierarchy(get_reader(node_xml), suffix) 
+      hierarchy_dictionary, dict = build_hierarchy(get_reader(node_xml), suffix)
       hierarchy_dictionary.each do |key, value|
-        bi_str += get_bi_template_part(hierarchy_dictionary, key, suffix) if value == "BI" 
+        bi_str += get_bi_template_part(hierarchy_dictionary, key, suffix) if value == "BI"
         ba_str += get_bi_template_part(hierarchy_dictionary, key, suffix) if value == "BA"
       end
       xsl = get_item_template(h_xsl_file_path).format(country.upcase, suffix.downcase, suffix.upcase, bi_str, ba_str)
@@ -129,7 +130,7 @@ module Xml2xls
     return out.to_s
   end
 
-  
+
 
   def self.process_xml_sep_node reader, template_name, xml, fname
     #process node Item with formatted xsl with leaves from get_leaf_pi. One file for each leaf.
@@ -144,7 +145,7 @@ module Xml2xls
     node_xml = reader.outer_xml
     return nil if node_xml.strip.empty?
     xsl = get_item_template(template_path)
-    
+
     leaves, pi_statuses = get_leaf_pi(get_reader(node_xml), suffix)
     processed_xmls = []
     leaves.each do |key, value|
@@ -191,9 +192,9 @@ module Xml2xls
       mapping = Mapping.read_xml2(file_path, first, second)
       value = ""
       value = mapping[code] if mapping[code]
-      temp.gsub!(@map_substitution_string.format(s, code, first, second), value) 
+      temp.gsub!(@map_substitution_string.format(s, code, first, second), value)
     end
-    
+
     temp.scan(@convert_regex).each do |match|
       s = match[1].strip
       strs = match[6].strip.split(':').delete_if{|i| i.empty?}
@@ -217,43 +218,43 @@ module Xml2xls
     end
     return temp
   end
-  
+
   def self.set_up_vars
     @xml_tpl_header = "
     <?xml version=\"1.0\" encoding=\"utf-8\"?>
     <?mso-application progid=\"Excel.Sheet\"?>
-    <s:Workbook xmlns:s=\"urn:schemas-microsoft-com:office:spreadsheet\" 
-    xmlns:x=\"urn:schemas-microsoft-com:office:excel\" 
-    xmlns:o=\"urn:schemas-microsoft-com:office:office\" 
-    xmlns:sinfos=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/TradeItemMessage\" 
-    xmlns:fnf_fnd_at=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_AT\" 
-    xmlns:fnf_fnd_be=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_BE\" 
-    xmlns:fnf_fnd_ch=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_CH\" 
-    xmlns:fnf_fnd_cz=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_CZ\" 
-    xmlns:fnf_fnd_de=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_DE\" 
-    xmlns:fnf_fnd_dk=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_DK\" 
-    xmlns:fnf_fnd_ee=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_EE\" 
-    xmlns:fnf_fnd_es=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_ES\" 
-    xmlns:fnf_fnd_fi=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_FI\" 
-    xmlns:fnf_fnd_fr=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_FR\" 
-    xmlns:fnf_fnd_gb=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_GB\" 
-    xmlns:fnf_fnd_hu=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_HU\" 
-    xmlns:fnf_fnd_ie=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_IE\" 
-    xmlns:fnf_fnd_it=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_IT\" 
-    xmlns:fnf_fnd_nl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_NL\" 
-    xmlns:fnf_fnd_pl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_PL\" 
-    xmlns:fnf_fnd_pt=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_PT\" 
-    xmlns:fnf_fnd_ro=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RO\" 
-    xmlns:fnf_fnd_ru=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RU\" 
-    xmlns:fnf_fnd_se=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_SE\" 
-    xmlns:fnf_fnd_ua=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_UA\" 
-    xmlns:fnf_rap_at=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_AT\" 
-    xmlns:fnf_rap_de=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_DE\" 
-    xmlns:fnf_rap_dk=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_DK\" 
-    xmlns:fnf_rap_ee=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_EE\" 
-    xmlns:fnf_rap_fi=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_FI\" 
-    xmlns:fnf_rap_pl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_PL\" 
-    xmlns:fnf_rap_ru=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_RU\" 
+    <s:Workbook xmlns:s=\"urn:schemas-microsoft-com:office:spreadsheet\"
+    xmlns:x=\"urn:schemas-microsoft-com:office:excel\"
+    xmlns:o=\"urn:schemas-microsoft-com:office:office\"
+    xmlns:sinfos=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/TradeItemMessage\"
+    xmlns:fnf_fnd_at=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_AT\"
+    xmlns:fnf_fnd_be=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_BE\"
+    xmlns:fnf_fnd_ch=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_CH\"
+    xmlns:fnf_fnd_cz=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_CZ\"
+    xmlns:fnf_fnd_de=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_DE\"
+    xmlns:fnf_fnd_dk=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_DK\"
+    xmlns:fnf_fnd_ee=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_EE\"
+    xmlns:fnf_fnd_es=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_ES\"
+    xmlns:fnf_fnd_fi=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_FI\"
+    xmlns:fnf_fnd_fr=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_FR\"
+    xmlns:fnf_fnd_gb=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_GB\"
+    xmlns:fnf_fnd_hu=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_HU\"
+    xmlns:fnf_fnd_ie=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_IE\"
+    xmlns:fnf_fnd_it=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_IT\"
+    xmlns:fnf_fnd_nl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_NL\"
+    xmlns:fnf_fnd_pl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_PL\"
+    xmlns:fnf_fnd_pt=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_PT\"
+    xmlns:fnf_fnd_ro=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RO\"
+    xmlns:fnf_fnd_ru=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_RU\"
+    xmlns:fnf_fnd_se=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_SE\"
+    xmlns:fnf_fnd_ua=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_FND_UA\"
+    xmlns:fnf_rap_at=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_AT\"
+    xmlns:fnf_rap_de=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_DE\"
+    xmlns:fnf_rap_dk=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_DK\"
+    xmlns:fnf_rap_ee=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_EE\"
+    xmlns:fnf_rap_fi=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_FI\"
+    xmlns:fnf_rap_pl=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_PL\"
+    xmlns:fnf_rap_ru=\"http://schemas.sinfos.de/TradeItemMessages/1.2.0/FNF/TradeItemFNF_RAP_RU\"
     >{0}<s:Worksheet s:Name=\"Items\"><s:Table {1}>"
 
     @xml_table_tpl_footer = "</s:Table>"
@@ -392,7 +393,7 @@ module Xml2xls
       end
     end
     return dict, added_deleted_pi
-  end  
+  end
 
   def self.get_leaf_pi (reader, suffix)
     dict, added_deleted_pi = build_hierarchy(reader, suffix)
