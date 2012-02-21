@@ -2,6 +2,7 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                              # Load RVM's capistrano plugin.
 set :rvm_ruby_string, 'ree-1.8.7-2012.01@gm_old'             # Or whatever env you want it to run in.
+set :user, "gmadmin"
 set :rvm_type, :user
 
 # Bundler
@@ -14,7 +15,6 @@ set :repository,  "git@git.assembla.com:webforms2.git"
 set :branch, 'rails3'
 dpath = "/var/www/projects/goodsmaster"
 
-set :user, "gmadmin"
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :use_sudo, false
