@@ -261,6 +261,7 @@ DEPENDENCIES
   jrails
   libnotify
   nested_set
+  nokogiri
   pg
   pickle
   rails (= 3.0.10)
