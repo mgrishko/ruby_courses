@@ -40,8 +40,8 @@ class PackagingItem < ActiveRecord::Base
   belongs_to :user
   attr_accessor :packaging_name
   validates :gtin, :presence => true,
-                   :numericality => {:only_integer => true}#,
-                   #:gtin_format => true
+                   :numericality => {:only_integer => true},
+                   :gtin_format => true
   validate :check_gtin
   validates :packaging_type,
             :presence => true, :length => { :maximum => 3 }
