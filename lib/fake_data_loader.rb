@@ -1,6 +1,6 @@
 class FakeDataLoader
   def initialize(options = nil)
-    make_users unless User.any?
+    #make_users unless User.any?
     @ptypes = REF_BOOKS["correspondence_code"][:en]
     @uoms = { 'кг'=>'KGM',
           'л' => 'LTR',
