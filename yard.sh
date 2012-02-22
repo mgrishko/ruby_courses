@@ -1,16 +1,18 @@
 # In file yard.sh:
 #!/bin/sh
 
-# edit PIDFILE if you want it somewhere local
-PIDFILE=/var/lib/jenkins/jobs/WebForms/yard_pid/yard.pid
+PROCESS='ruby /home/mikhailaleksandrovi4/.rvm/gems/ruby-1.9.3-p0@gm/bin/yard server'
+#PROCESS='ruby /var/lib/jenkins/.rvm/gems/ruby-1.9.3-p0/bin/yard server'
+PID=`pidof $PROCESS`
 
 case "$1" in
 start)
 yard server &
-echo $! > $PIDFILE
 ;;
 stop)
-kill -KILL `cat $PIDFILE`
+  if [ "$PID" ];then
+    kill -KILL $PID
+  fi
 ;;
 *)
 echo Usage: $0 [start|stop]
