@@ -1,21 +1,31 @@
-# In file yard.sh:
 #!/bin/sh
 
-PROCESS='ruby /var/lib/jenkins/.rvm/gems/ruby-1.9.3-p0/bin/yard server'
+PROCESS='ruby */yard server'
 PID=`pidof $PROCESS`
 
-case "$1" in
-start)
-yard server &
-;;
-stop)
+start() {
+  yard server &
+}
+
+stop() {
   if [ "$PID" ];then
     kill -KILL $PID
     echo 'yard is stopped'
   fi
+}
+
+case "$1" in
+start)
+  start
+;;
+stop)
+  stop
+;;
+restart)
+  stop
+  start
 ;;
 *)
-echo Usage: $0 [start|stop]
+echo Usage: $0 [start|stop|restart]
 ;;
 esac
-
